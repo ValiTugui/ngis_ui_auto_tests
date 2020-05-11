@@ -807,10 +807,11 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifySubmitPatientChoiceButtonStatus(String expectedColor) {
+    public boolean verifySubmitPatientChoiceButtonStatus(String expStatus,String expectedColor) {
         try {
             String actualColor = "";
-
+            //Debugger.println("SubmitPC Status...");
+            String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
             if(!Wait.isElementDisplayed(driver, submitPatientChoiceButton1,15)){
                 if(!Wait.isElementDisplayed(driver, submitPatientChoiceButton,15)) {
                     Debugger.println("SubmitPatientChoiceButton No Present."+driver.getCurrentUrl());
@@ -818,18 +819,37 @@ public class PatientChoicePage {
                     return false;
                 }else{
                     actualColor = submitPatientChoiceButton.getCssValue("background-color");
+                    //Debugger.println("submitPatientChoiceButton ..enabled ?: "+submitPatientChoiceButton.isEnabled());
                     if(submitPatientChoiceButton.isEnabled()){
-                        return true;
+                        if(expStatus.equalsIgnoreCase("Enabled")) {
+                            return true;
+                        }else{
+                            if (actualColor.equalsIgnoreCase(expectedBackground)) {
+                                return true;
+                            }else {
+                                Debugger.println("PCSubmit Choice:EXP:" + expectedColor+",ACT:"+actualColor+"\n"+driver.getCurrentUrl());
+                                SeleniumLib.takeAScreenShot("PCSubmitPCButtonStatus.jpg");
+                                return false;
+                            }
+                        }
                     }
                 }
             }else{
                 actualColor = submitPatientChoiceButton1.getCssValue("background-color");
-            }
-            String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
-            if (!actualColor.equalsIgnoreCase(expectedBackground)) {
-                Debugger.println("SubmitPatientChoiceButton Exp Color:"+expectedBackground+",Actual:"+actualColor+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCSubmitPCButton.jpg");
-                return false;
+                //Debugger.println("submitPatientChoiceButton 1..enabled ?: "+submitPatientChoiceButton1.isEnabled());
+                if(submitPatientChoiceButton1.isEnabled()){
+                    if(expStatus.equalsIgnoreCase("Enabled")) {
+                        return true;
+                    }else{
+                        if (actualColor.equalsIgnoreCase(expectedBackground)) {
+                            return true;
+                        }else {
+                            Debugger.println("PCSubmit Choice:EXP:" + expectedColor+",ACT:"+actualColor+"\n"+driver.getCurrentUrl());
+                            SeleniumLib.takeAScreenShot("PCSubmitPCButtonStatus.jpg");
+                            return false;
+                        }
+                    }
+                }
             }
             return true;
         } catch (Exception exp) {

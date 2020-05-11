@@ -258,7 +258,7 @@ Feature: Patient Choice-11 - validations
     And the user clicks on Continue Button
     When the user is in the section Patient signature
     And the user should see patient choice submit button as disabled
-    ##Include the step for clicking on Continue without providing signature and validate the warning message.
+
     Examples:
       | Patient choice stage | RecordedBy         | ErrorMessage                                                                           |
       | Patient choice       | ClinicianName=John | Please complete the required field Clinician Name (Admin support user ID is optional): |
@@ -285,9 +285,6 @@ Feature: Patient Choice-11 - validations
     When the user clicks the Log out button
     Then the user sees a prompt alert "<UnsavedMessage>" after clicking "logout" button and "<Dismiss>" it
     And the user is navigated to a page with title Add patient choice information
-#    When the user attempts to navigate away by clicking "back"
-#    Then the user sees a prompt alert "<UnsavedMessage>" after clicking "backbutton" button and "<Dismiss>" it
-#    And the user is navigated to a page with title Add patient choice information
 
     Examples:
       | PatientChoice  | Panels | DiscardMessage                                              | Dismiss|UnsavedMessage                    |
