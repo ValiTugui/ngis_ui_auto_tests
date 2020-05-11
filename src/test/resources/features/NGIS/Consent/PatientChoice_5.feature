@@ -45,7 +45,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | Family members | Patient choice stage | RecordedBy                            |
       | Family members | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-34351 @Z-LOGOUT
+  @NTS-3435 @Z-LOGOUT
     #@E2EUI-1877
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package
     Given a new patient referral is created with associated tests in Test Order System online service

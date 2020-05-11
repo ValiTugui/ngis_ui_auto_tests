@@ -68,7 +68,7 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | mi_stage          |
       | Sequencer Samples |
 
-  @NTS-5186 @failed
+  @NTS-5186
     #@E2EUI-2256
   Scenario Outline:NTS-5186:E2EUI-2256: Plate Date Of Dispatch field should be displayed as in 'dd/mm/yyyy' format
     When the user navigates to the mi-portal "<mi_stage>" stage
