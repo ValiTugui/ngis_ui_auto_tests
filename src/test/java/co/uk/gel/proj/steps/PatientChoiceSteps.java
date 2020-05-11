@@ -312,12 +312,8 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should see patient choice submit button as (.*)")
     public void theUserShouldBeAbleToSeeTheHighlightedSubmitPatientChoiceButton(String status) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus("#f0f0f0");
-        if(status.equalsIgnoreCase("enabled")){
-            Assert.assertTrue(testResult);
-        }else {
-            Assert.assertFalse(testResult);
-        }
+        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus(status,"#f0f0f0");
+        Assert.assertTrue(testResult);
     }
     @And("the user should see form to follow button as (.*)")
     public void theUserShouldSeeHighlightedFormToFollowButton(String status) {

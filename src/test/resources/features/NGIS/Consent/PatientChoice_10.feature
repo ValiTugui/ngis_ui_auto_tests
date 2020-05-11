@@ -108,9 +108,6 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-#      | WarningMessage                                                                                                                                                                             |
-#      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060  @scenario_1(b)
@@ -140,9 +137,6 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-
-#      | WarningMessage                                                                                                                                                                             |
-#      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060 @scenario_2
