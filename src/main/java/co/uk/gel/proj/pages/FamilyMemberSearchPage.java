@@ -27,7 +27,7 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h1[contains(text(),'Find a family member')]")
     public WebElement pageTitle;
 
-    @FindBy(css = "p[class*='patient-search__intro']")
+     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 
     @FindBy(css = "h3[class*='field-label']")
@@ -243,65 +243,72 @@ public class FamilyMemberSearchPage {
         return false;
     }
 
-    public void searchFamilyMemberWithGivenParams(String searchParams) {
-        Wait.forElementToBeDisplayed(driver,dateDay);
-        if(searchParams == null || searchParams.isEmpty()){//Search without entering any values
-            seleniumLib.clickOnWebElement(searchButton);
-            return;
-        }
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey) {
-            switch (key) {
-                case "NHSNumber": {
-                    nhsNumber.clear();
-                    nhsNumber.sendKeys(paramNameValue.get(key));
-                    break;
-                }
-                case "DOB": {
-                    String dobValue = paramNameValue.get(key);
-                    if(dobValue != null && !dobValue.isEmpty()) {
-                        String[] dobSplit = dobValue.split("-");
-                        dateDay.clear();
-                        dateMonth.clear();
-                        dateYear.clear();
-                        dateDay.sendKeys(dobSplit[0]);
-                        dateMonth.sendKeys(dobSplit[1]);
-                        dateYear.sendKeys(dobSplit[2]);
+    public boolean searchFamilyMemberWithGivenParams(String searchParams) {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            if (searchParams == null || searchParams.isEmpty()) {//Search without entering any values
+                seleniumLib.clickOnWebElement(searchButton);
+                return true;
+            }
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                switch (key) {
+                    case "NHSNumber": {
+                        nhsNumber.clear();
+                        nhsNumber.sendKeys(paramNameValue.get(key));
+                        break;
                     }
-                    break;
-                }
-                case "FirstName": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        firstName.clear();
-                        firstName.sendKeys(paramNameValue.get(key));
+                    case "DOB": {
+                        String dobValue = paramNameValue.get(key);
+                        if (dobValue != null && !dobValue.isEmpty()) {
+                            String[] dobSplit = dobValue.split("-");
+                            dateDay.clear();
+                            dateMonth.clear();
+                            dateYear.clear();
+                            dateDay.sendKeys(dobSplit[0]);
+                            dateMonth.sendKeys(dobSplit[1]);
+                            dateYear.sendKeys(dobSplit[2]);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "LastName": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        lastName.clear();
-                        lastName.sendKeys(paramNameValue.get(key));
+                    case "FirstName": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            firstName.clear();
+                            firstName.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "Gender": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        selectFamilyMemberGender(genderButton,paramNameValue.get(key));
+                    case "LastName": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            lastName.clear();
+                            lastName.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "Postcode": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        postcode.clear();
-                        postcode.sendKeys(paramNameValue.get(key));
+                    case "Gender": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            selectFamilyMemberGender(genderButton, paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
+                    case "Postcode": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            postcode.clear();
+                            postcode.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
+                    }
 
-            }//switch
-        }//for
-        Actions.clickElement(driver,searchButton);
+                }//switch
+            }//for
+            Actions.clickElement(driver, searchButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in searching family member: "+exp);
+            SeleniumLib.takeAScreenShot("searchFM.jpg");
+            return false;
+        }
     }//method
     public void selectFamilyMemberGender(WebElement element, String optionValue){
         WebElement ddValue = null;
@@ -356,7 +363,7 @@ public class FamilyMemberSearchPage {
         String actualMessage = "";
         try {
             if(Wait.isElementDisplayed(driver,familyMemeberFound,30)) {
-                actualMessage = familyMemeberFound.getText();
+                 actualMessage = familyMemeberFound.getText();
                 if (resultMessage.equalsIgnoreCase(actualMessage)) {
                     return true;
                 }
@@ -388,13 +395,13 @@ public class FamilyMemberSearchPage {
 
     public boolean verifyTheDescriptionOfThePage(String DescriptionOfPage) {
         try {
-            String actualPageDescription = pageDescription.getText();
-            if(!actualPageDescription.contains(DescriptionOfPage)){
-                Debugger.println("Expected message not found of FamilyMember search page.");
-                SeleniumLib.takeAScreenShot("FMDescription.jpg");
-                return false;
-            }
-            return true;
+        String actualPageDescription = pageDescription.getText();
+           if(!actualPageDescription.contains(DescriptionOfPage)){
+               Debugger.println("Expected message not found of FamilyMember search page.");
+               SeleniumLib.takeAScreenShot("FMDescription.jpg");
+               return false;
+           }
+           return true;
         }catch(Exception exp){
             Debugger.println("Exception in verifying message FamilyMember search page.");
             SeleniumLib.takeAScreenShot("FMDescription.jpg");
@@ -403,14 +410,26 @@ public class FamilyMemberSearchPage {
     }
     public boolean verifyTheQuestionOfThePage(String searchQuestion) {
         String actualQuestion = nhsQuestion.getText();
-        if(!actualQuestion.contains(searchQuestion)){
-            Debugger.println("Actual Question:"+actualQuestion+",Expected Question: "+searchQuestion);
+       if(!actualQuestion.contains(searchQuestion)){
+           Debugger.println("Actual Question:"+actualQuestion+",Expected Question: "+searchQuestion);
+           return false;
+       }
+       return true;
+    }
+     public boolean clickOnNewPatientLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver,createNewPatientLink,10)){
+                Debugger.println("createNewPatientLink not displayed");
+                SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,createNewPatientLink);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickOnNewPatientLink:"+exp);
+            SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
             return false;
         }
-        return true;
-    }
-    public void clickOnNewPatientLink() {
-        seleniumLib.clickOnWebElement(createNewPatientLink);
     }
 
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {

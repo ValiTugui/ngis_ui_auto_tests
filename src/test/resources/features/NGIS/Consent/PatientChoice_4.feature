@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-4 Edit Paper Form - Child
 
@@ -9,7 +9,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -68,7 +68,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
 
     Examples:
       | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                                                                                                                                          |
-      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3428
     #@E2EUI-2041 @scenario_2
@@ -214,7 +214,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
 
     ### Parent(s) / guardian have agreed to the test  - Yes - Yes
     ### Child Assent - Yes
-  @NTS-3428 @LOGOUT
+  @NTS-3428 @Z-LOGOUT
     #@E2EUI-2041 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
@@ -255,7 +255,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     And the user should see Continue button as disabled
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
-    And the user fills signature details in Child signature
+    And the user fills PatientSignature details in patient signature
     And the user clicks on Continue Button
     Then the Child assent option is marked as completed
     And the user should see selected details displayed under the section Child assent
@@ -273,12 +273,12 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | Parent/Guardian signature          |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-4603 @LOGOUT
+  @NTS-4603 @Z-LOGOUT
     #@E2EUI-1892
   Scenario Outline: NTS-4603: Moving the warn message to research section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband

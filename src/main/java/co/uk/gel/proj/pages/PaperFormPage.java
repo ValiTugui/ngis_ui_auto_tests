@@ -20,13 +20,15 @@ import java.util.Random;
 public class PaperFormPage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public PaperFormPage(WebDriver driver) {
         this.driver = driver;
+        seleniumLib = new SeleniumLib(driver);
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "h2[class*='stepHeader']")
+    @FindBy(css = "h1[class*='stepHeader']")
     public WebElement paperFormHeader;
 
     @FindBy(xpath = "//div[contains(@class,'paragraph')]/p")
@@ -151,9 +153,15 @@ public class PaperFormPage {
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from Selecting Requesting Organization: "+exp);
-            SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
-            return false;
+            try{
+              By firstElement = By.xpath("//div[contains(@class,'suggestions')]//ul/li[1]");
+              seleniumLib.clickOnElement(firstElement);
+              return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from Selecting Requesting Organization: " + exp);
+                SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
+                return false;
+            }
         }
     }
 

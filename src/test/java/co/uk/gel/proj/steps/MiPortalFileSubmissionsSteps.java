@@ -6,7 +6,10 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.MIPortalTestData;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -20,6 +23,8 @@ import java.util.*;
 
 public class MiPortalFileSubmissionsSteps extends Pages {
 
+    CSVFileReader csvFileReader = new CSVFileReader();
+
     public MiPortalFileSubmissionsSteps(SeleniumDriver driver) {
         super(driver);
     }
@@ -27,7 +32,6 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @Given("a web browser is at the mi-portal home page")
     public void aWebBrowserIsAtTheMiPortalHomePage(List<String> attributeOfUrl) {
-
         String baseURL = attributeOfUrl.get(0);
         String confirmationPage = attributeOfUrl.get(1);
         String userType = attributeOfUrl.get(2);
@@ -36,7 +40,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
         Wait.seconds(1);
         SeleniumLib.refreshPage();
-        Wait.seconds(1);
+        Wait.seconds(2);
         Actions.acceptAlert(driver);
         Debugger.println("Refreshing the browser page before starting...");
     }
@@ -44,9 +48,17 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the user enters a date {string} in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
-        miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
+        boolean testResult =false;
+        testResult=miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
+        Assert.assertTrue(testResult);
     }
 
+    @And("the user enters a date {string} days before today in the file-submission date field")
+    public void theUserEntersADateNDaysBeforeInTheFileSubmissionDateField(String noOfDaysBefore) {
+        boolean testResult =false;
+        testResult=miPortalFileSubmissionPage.fillInPastDateInTheFileSubmissionDate(noOfDaysBefore);
+        Assert.assertTrue(testResult);
+    }
 
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
@@ -104,41 +116,56 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @And("the values are not displayed in the file-submission search column {string} drop-down menu")
     public void theValuesAreNotDisplayedInTheFileSubmissionSearchColumnDropDownMenu(String DropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
-        List<String>expectedDropDownValuesList = new ArrayList<>();
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(DropDownButton);
         Assert.assertNotNull(actualDropDownValues);
+        boolean testResult = false;
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            expectedDropDownValuesList.add(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"));
-            Debugger.println("values from dataTable: " + i + " : " + expectedDropDownValuesList.get(i));
+            if(!actualDropDownValues.contains(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"))){
+                testResult = true;
+            }else {
+                Debugger.println("Unexpected value "+expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader")+" contains in "+DropDownButton);
+                testResult = false;
+                Assert.assertTrue("Unexpected value "+expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader")+" contains in "+DropDownButton,testResult);
+            }
+            Assert.assertTrue(testResult);
         }
-        Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
-        Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
     }
 
 
     @And("the column\\(s) field {string} in the search result table displayed the only filtered {string}")
     public void theColumnSFieldInTheSearchResultTableDisplayedTheOnlyFiltered(String columnField, String columnFieldValue) {
 
-        switch (columnField) {
-            case "Created": {
-                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
-                break;
-            }
-            case "Submitted By Code": {
-                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
-                break;
-            }
-            case "Submitted By": {
-                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
-                break;
-            }
-            case "Status": {
-                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
-                break;
-            }
-            default:
-                throw new IllegalArgumentException("Invalid ColumnHeader");
+        if (columnField.equalsIgnoreCase("Created")) {
+            String badge = miPortalHomePage.badgeFilterSearchCriteria.getText();
+            String expectedFilteredDate = (badge.split("="))[1].trim();
+            columnFieldValue = expectedFilteredDate;
         }
+        List<String> columnValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnField);
+        for (String fieldValue : columnValues) {
+            Assert.assertTrue(fieldValue.contains(columnFieldValue));
+        }
+    }
+
+    @And("the column {string} in the search result table displayed the only filtered date {string} days before today")
+    public void filteredTableContainsOnlyFilteredDateValue(String columnName, String noOfDays) {
+        boolean testResult = false;
+        try {
+            int daysBefore = -1 * Integer.parseInt(noOfDays);
+            String dateToday = TestUtils.todayInDDMMYYYFormat();
+            dateToday = dateToday.replace("/", "-");
+            String pastDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore, 0, 0); //Add future day +1
+            String dateInYYMMDD = TestUtils.dateFormatReverserToYYYYMMDD(pastDate);
+            testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,dateInYYMMDD);
+            Assert.assertTrue(testResult);
+        }catch(Exception exp){
+
+        }
+    }
+    @Then("the user should be able to see the non-empty data cell in the (.*) column of file submission search result table")
+    public void theUserShouldBeAbleToSeeTheNonEmptyDataCellInTheColumn(String columnName) {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,"non-empty");
+        Assert.assertTrue(testResult);
     }
 
     public void theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(String columnHeader, String columnFieldValue) {
@@ -196,13 +223,12 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theUserSeeDatesValueInColumnOfFileSubmissionSearchResultInDescendingOrder(String columnHeader) {
 
         List<String> actualValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnHeader);
-        Debugger.println("Actual " + actualValues);
-        Debugger.println("Size of actual: " + actualValues.size());
-
+        if(actualValues.size() == 0){
+            Assert.assertTrue(false);
+        }
         List<String> expectedValues = new ArrayList<>();
         expectedValues.addAll(actualValues);
         Collections.sort(expectedValues, Collections.reverseOrder());
-        Debugger.println("Expected :" + expectedValues);
         Assert.assertEquals(expectedValues, actualValues);
     }
 
@@ -234,5 +260,104 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+    @And("the user selects (.*) as the search value dropdown")
+    public void theUserSelectSpecifiedSearchValue(String searchValue) {
+        boolean testResult = false;
+        if(searchValue.equalsIgnoreCase("GLHName")) {
+            MIPortalTestData mipData = csvFileReader.getRandomTestData();
+            if (mipData == null) {
+                Debugger.println("No Data exists in the test data file provided.");
+                Assert.assertTrue("No Data exists in the test data file provided.", false);
+            }
+            testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(mipData.getGlh_name());
+        }else{
+            testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(searchValue);
+        }
+        Assert.assertTrue(testResult);
+    }
 
+    @And("the user selects (.*) as the search operator dropdown")
+    public void theUserSelectSpecifiedSearchOperator(String searchOperator) {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.selectDropDownSearchOperator(searchOperator);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user selects (.*) as the search column dropdown")
+    public void theUserSelectSpecifiedSearchColumn(String searchColumn) {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.selectDropDownSearchColumn(searchColumn);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see the below columns populated in search result table based on the selected (.*)")
+    public void theUserSelectSpecifiedSearchValue(String searchValue,DataTable columnHeaders) {
+        boolean testResult = false;
+        MIPortalTestData mipData = csvFileReader.getRandomTestData();
+        if(mipData == null){
+            Debugger.println("No Data exists in the test data file provided.");
+            Assert.assertTrue("No Data exists in the test data file provided.",false);
+        }
+        List<List<String>> columnNames = columnHeaders.asLists();
+        String columnValue = "";
+        for(int i=1; i<columnNames.size(); i++) {
+            if (columnNames.get(i).get(0).equalsIgnoreCase("Submitted By Code")) {
+                columnValue = mipData.getGlh_code();
+            } else if (columnNames.get(i).get(0).equalsIgnoreCase("Submitted By")) {
+                columnValue = mipData.getGlh_name();
+            }
+            testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnNames.get(i).get(0), columnValue);
+            Assert.assertTrue(testResult);
+        }
+    }
+    @Then("the table column (.*) is displayed with data (.*)")
+    public void theTableColumnIsDisplayedWithData(String columnName,String columnValue) {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,columnValue);
+        Assert.assertTrue(testResult);
+
+    }
+    @And("the user should not sees the below values in the file-submission search column drop-down menu")
+    public void theUserShouldNotSeesBelowValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miPortalFileSubmissionPage.selectDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
+            Assert.assertFalse(testResult);
+        }
+    }
+    @And("the user sees the below values in the file-submission search column drop-down menu")
+    public void theUserSeesBelowValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miPortalFileSubmissionPage.selectDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
+    }
+    @And("the user sees the below values in the file-submission search operator drop-down menu")
+    public void theUserSeesBelowValuesInTheFileSubmissionSearchOperatorDropDownMenu(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miPortalFileSubmissionPage.selectDropDownSearchOperator(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
+    }
+    @And("the user sees the below values in the file-submission search value drop-down menu")
+    public void theUserSeesBelowValuesInTheFileSubmissionSearchValueDropDownMenu(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
+    }
+    @And("the columns fields are  displayed in the list of columns headers of the search result table")
+    public void theColumnsFieldsAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
+
+        List<List<String>> expectedListOfColumnHeaders = dataTable.asLists();
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyColumnHeaderInFileSubmissionSearchResultTable(expectedListOfColumnHeaders);
+        Assert.assertTrue(testResult);
+    }
 }

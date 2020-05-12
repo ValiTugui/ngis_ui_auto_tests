@@ -1,19 +1,22 @@
 #@regression
 #@panelsPage_AddPanel
-@PANEL
-@SYSTEM_TEST
-Feature: Panels Page Verification
+@06-PANEL_ASSIGNER
+@SYSTEM_TEST_Deprecated
+  ##This feature files have to be re-implemente based on new/modified tickets for Panel App.
+  ##This changes are from Hanna Release
+Feature: PanelAssigner: Panels Page Add Panel
 
-  @NTS-3380 @LOGOUT
+  @NTS-33801 @Z-LOGOUT
 #    @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976
+
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     ##Panels Page
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panel
+    Then the user is navigated to a page with title Manage panels
     ##@E2EUI-1231
     And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
@@ -38,7 +41,7 @@ Feature: Panels Page Verification
       | Panels | searchPanels                                  | textLine                                                                                                      |
       | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
-  @NTS-3381 @LOGOUT
+  @NTS-3381 @Z-LOGOUT
 #    @E2EUI-1045 @E2EUI-1484 @E2EUI-1158
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a new patient referral is created with associated tests in Test Order System online service

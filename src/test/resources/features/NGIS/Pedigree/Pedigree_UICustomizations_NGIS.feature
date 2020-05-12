@@ -1,16 +1,16 @@
 #@regression
 #@pedigree_uiCustomizationNGIS
-@PEDIGREE
+@07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - UI Customizations - NGIS
 
-  @NTS-3384 @LOGOUT
+  @NTS-3384 @Z-LOGOUT
 #    @E2EUI-1226 @E2EUI-1948 @E2EUI-1070 @E2EUI-1030 @E2EUI-1007 @E2EUI-1080 @E2EUI-1187 @E2EUI-1571 @E2EUI-1444
-  Scenario Outline: NTS-3384: UI Customizations: NGIS Patient -  Clinical Tab
+  Scenario Outline: NTS-3384:(E2EUI-1226,1948,1070,1030,1007,1080,1187,1571,1444): UI Customizations: NGIS Patient -  Clinical Tab
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1970:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Pedigree Stage
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -36,13 +36,13 @@ Feature: Pedigree - UI Customizations - NGIS
       | PedigreeStage | MemberDetails               | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1970 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3388 @LOGOUT
+  @NTS-3388 @Z-LOGOUT
 #    @E2EUI-1073 @E2EUI-1277
-  Scenario Outline: NTS-3388: UI Customizations: NGIS Patient -  Tumours Tab
+  Scenario Outline: NTS-3388:(E2EUI-1073,1277): UI Customizations: NGIS Patient -  Tumours Tab
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1972:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Pedigree Stage
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -62,13 +62,13 @@ Feature: Pedigree - UI Customizations - NGIS
       | PedigreeStage | MemberDetails               | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1972 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3464 @LOGOUT
+  @NTS-3464 @Z-LOGOUT
 #    @E2EUI-946 @E2EUI-1425
-  Scenario Outline: NTS-3464: UI Customizations: NGIS Patient -  Phenotype Tab
+  Scenario Outline: NTS-3464:(E2EUI-946,1425): UI Customizations: NGIS Patient -  Phenotype Tab
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1971:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Pedigree Stage
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -88,19 +88,19 @@ Feature: Pedigree - UI Customizations - NGIS
       | PedigreeStage | MemberDetails               | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1971 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3464 @LOGOUT
+  @NTS-3464 @Z-LOGOUT
 #    @E2EUI-1754 @E2EUI-1246
-  Scenario Outline: NTS-3464 : Clinical Indication is displayed properly on Pedigree tool.
+  Scenario Outline: NTS-3464 :(E2EUI-1754,1246): Clinical Indication is displayed properly on Pedigree tool.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Clinical Information
     When the user navigates to the "<ClinicalStage>" stage
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
      ##Pedigree
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -117,13 +117,13 @@ Feature: Pedigree - UI Customizations - NGIS
       | Clinical questions | NHSNumber=NA:DOB=25-10-2008 | DiseaseStatus=Affected:AgeOfOnset=03,02 | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
 
-  @NTS-3464 @LOGOUT
+  @NTS-3464 @Z-LOGOUT
 #    @E2EUI-1157
-  Scenario Outline: NTS-3464 : Is participating in test
+  Scenario Outline: NTS-3464 :E2EUI-1157: Is participating in test
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Pedigree - checking for Proband
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -152,3 +152,35 @@ Feature: Pedigree - UI Customizations - NGIS
     Examples:
       | TestPackage  | ProbandDetails              | NoOfParticipants | Pedigree | WarningMessage                                                                                |
       | Test package | NHSNumber=NA:DOB=25-10-2005 | 1                | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+
+  @NTS-3386 @Z-LOGOUT
+#    @E2EUI-1194
+  Scenario Outline: NTS-3386 : Order the display of HPO Terms in Pedigree
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Female |
+    ##Patient Details
+    Then the user is navigated to a page with title Add a requesting organisation
+     ##Test Package
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<Two>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
+    ##Family Member
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<Two>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=17-07-1979:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    And the user added additional phenotypes "<Phenotypes>" to the family member
+    Then the "<FamilyMembers>" stage is marked as Completed
+    ##Pedigree
+    When the user navigates to the "<Pedigree>" stage
+    Then the user is navigated to a page with title Build a pedigree
+    When the user clicks on the specified node on the pedigree diagram for "<FamilyMemberDetails>"
+    And the user select the pedigree tab Phenotype
+    Then the user should see the hpo phenotypes "<Phenotypes>" displayed
+
+    Examples:
+      | TestPackage  | Two | FamilyMembers  | Pedigree | Phenotypes                          | FamilyMemberDetails         |
+      | Test package | 2   | Family members | Pedigree | Congestive heart failure,Lymphedema | NHSNumber=NA:DOB=17-07-1979 |

@@ -1,5 +1,6 @@
 package co.uk.gel.proj.steps;
 
+import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
@@ -30,7 +31,7 @@ public class PrintFormSteps extends Pages {
 
     @And("the user is able to download print forms for {string} family members with the below details")
     public void theUserDownloadsPrintFormsForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
-
+        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
             try {
                 boolean testResult = false;
                 int noOfParticipants = Integer.parseInt(noParticipant);
@@ -68,24 +69,28 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("PrintFormSteps: Exception in downloading PrintForms: " + exp);
                 Assert.assertFalse("PrintFormSteps: Exception in downloading PrintForms: " + exp, true);
             }
-
+        }
     }
 
     @And("the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details")
     public void theUserIsAbleToDownloadSampleFormWhichHasTheCorrectUserNameDOBPatientIdReferralIdLaboratoryAddressClinicianInfoTumourInfoDetails() {
-
+        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
+            Debugger.println("Downloading and verifying PrintForm PDF content...");
             boolean testResult = false;
+            try {
             PatientDetailsPage.newPatient.setOrderingEntity(printFormsPage.getLaboratoryAddress());
             PatientDetailsPage.newPatient.setSampleType(printFormsPage.getSampleInfo());
             PatientDetailsPage.newPatient.setTumourType(printFormsPage.getTumourInfo());
-
-            Debugger.println("Downloading and Verifying content the proband ");
+            }catch(Exception exp){
+                Debugger.println("Exception in setting printform details to Patient.."+exp+"\n"+driver.getCurrentUrl());
+            }
+            Debugger.println("Downloading ........");
             if (!printFormsPage.downloadProbandPrintForm()) {
                 Debugger.println("Could not download form for proband");
-                testResult = false;
+                Assert.assertTrue("Could not download print form for proband",false);
             }
-            Debugger.println("Downloaded the sample form...Verifying content....");
 
+            Debugger.println("Verifying content....");
             NewPatient newlyCreatedPatientRecord = patientDetailsPage.getNewlyCreatedPatientData();
             String patientName = newlyCreatedPatientRecord.getPatientFullName();
             String dateOfBirth = newlyCreatedPatientRecord.getPatientDOBInMonthFormat();
@@ -109,21 +114,24 @@ public class PrintFormSteps extends Pages {
             String tumourInfo = newlyCreatedPatientRecord.getTumourType();
             String sampleInfo = newlyCreatedPatientRecord.getSampleType();
 
-            Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
-            Debugger.println("Patient DOB to verify in the downloaded PDF file                  : " + dateOfBirth);
-            Debugger.println("Patient Gender to verify in the downloaded PDF file               : " + gender);
-            Debugger.println("Patient NGIS Is to verify in the downloaded PDF file               : " + patientNGISId);
-            Debugger.println("Patient Referral Id to verify in the downloaded PDF file               : " + patientReferralId);
-
-            Debugger.println("Patient CI     to verify in the downloaded PDF file               : " + clinicalIndication);
-            Debugger.println("Ordering entity to verify in the downloaded PDF file              : " + requestingOrg);
-            Debugger.println("Responsible Clinician Name to verify in the downloaded PDF file            : " + responsibleClinicianName);
-            Debugger.println("Responsible Clinician Email to verify in the downloaded PDF file           : " + responsibleClinicianEmail);
-            Debugger.println("Responsible Clinician contact number to verify in the downloaded PDF file  : " + responsibleClinicianContact);
+//            Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
+//            Debugger.println("Patient DOB to verify in the downloaded PDF file                  : " + dateOfBirth);
+//            Debugger.println("Patient Gender to verify in the downloaded PDF file               : " + gender);
+//            Debugger.println("Patient NGIS Is to verify in the downloaded PDF file               : " + patientNGISId);
+//            Debugger.println("Patient Referral Id to verify in the downloaded PDF file               : " + patientReferralId);
+//            Debugger.println("Patient CI     to verify in the downloaded PDF file               : " + clinicalIndication);
+//            Debugger.println("Ordering entity to verify in the downloaded PDF file              : " + requestingOrg);
+//            Debugger.println("Responsible Clinician Name to verify in the downloaded PDF file            : " + responsibleClinicianName);
+//            Debugger.println("Responsible Clinician Email to verify in the downloaded PDF file           : " + responsibleClinicianEmail);
+//            Debugger.println("Responsible Clinician contact number to verify in the downloaded PDF file  : " + responsibleClinicianContact);
             String[] tumours = tumourInfo.split(" •");
+            if(tumours.length > 0) {
             Debugger.println("Tumour Type to verify in the downloaded PDF file  : " + tumours[0]);
+            }
             String[] samples = sampleInfo.split("sample required");
+            if(samples.length > 0) {
             Debugger.println("Sample info to verify in the downloaded PDF file  : " + samples[0]);
+            }
 
             List<String> expectedValuesToBeVerifiedInPDF = new ArrayList<>();
             expectedValuesToBeVerifiedInPDF.add(patientName);
@@ -139,12 +147,15 @@ public class PrintFormSteps extends Pages {
             expectedValuesToBeVerifiedInPDF.add(responsibleClinicianName);
             expectedValuesToBeVerifiedInPDF.add(responsibleClinicianEmail);
             expectedValuesToBeVerifiedInPDF.add(responsibleClinicianContact);
-
+            if(tumours.length > 0) {
             expectedValuesToBeVerifiedInPDF.add(tumours[0]);
+            }
+            if(samples.length  >0) {
             expectedValuesToBeVerifiedInPDF.add(samples[0]);
+            }
             testResult = printFormsPage.openAndVerifyPDFContent(expectedValuesToBeVerifiedInPDF);
             Assert.assertTrue(testResult);
-
+        }
     }
 
     @Then("the cancel referral dialog box is displayed with the following fields")
@@ -210,11 +221,11 @@ public class PrintFormSteps extends Pages {
             testResult = printFormsPage.downloadForm(fileName, expectedSection);
             Assert.assertTrue(testResult);
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
-        }else if (expectedSection.equalsIgnoreCase("Additional family members")) {
+         }else if (expectedSection.equalsIgnoreCase("Additional family members")) {
             testResult = printFormsPage.downloadForm(fileName, expectedSection);
             Assert.assertTrue(testResult);
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
-        }else if (expectedSection.equalsIgnoreCase("Patient choice")) {
+         }else if (expectedSection.equalsIgnoreCase("Patient choice")) {
             testResult=printFormsPage.downloadForm(fileName, expectedSection);
             if (!expectedText.isEmpty()) {
                 testResult = printFormsPage.validatePDFContent(expectedText, fileName);
@@ -232,15 +243,16 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
+            Debugger.println("Validate Test Type: "+testType);
             testResult = printFormsPage.validatePDFContent(testType, fileName);
             Assert.assertTrue(testResult);
-        }
-        else if (fieldType.contains("laboratory")) {
+        } else if (fieldType.contains("laboratory")) {
             String labDetails = printFormsPage.readSelectedLabDetails();
             if (labDetails == null) {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
+            Debugger.println("Validate Laboratory: "+labDetails);
             testResult = printFormsPage.validatePDFContent(labDetails, fileName);
             Assert.assertTrue(testResult);
         }
@@ -282,8 +294,8 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable guideLines) {
         boolean testResult = false;
         List<String> stages = guideLines.asList();
-        for (int i = 0; i < stages.size(); i++) {
-            testResult = printFormsPage.validateGuidelinesContent(stages.get(i));
+        for (String stage : stages) {
+            testResult = printFormsPage.validateGuidelinesContent(stage);
             if (!testResult) {
                 Assert.assertTrue(testResult);
             }

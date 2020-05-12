@@ -1,16 +1,16 @@
 #@userJourneys
 #@userJourneysCancer
 #@userJourneysCancer_SPINE_ProbandOnly
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST_SPINE
 Feature: Create Cancer Referrals for SPINE Patient - Proband Only
 
-  @NTS-4684 @LOGOUT
-#    @E2EUI-1635 @UseCase21
+  @NTS-4684 @Z-LOGOUT
+  ##@E2EUI-1635 @UseCase21
   Scenario Outline: NTS-4684: Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M39 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    ##Patient Details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -73,24 +73,28 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     And the referral status is set to "Submitted"
     Examples:
       | tumour_type  | presentationType | sampleType   | sampleState         | RecordedBy                            |
-      | Brain tumour | Recurrence       | Omics sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
+      | Brain tumour | Recurrence       | Normal or germline sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4566 @LOGOUT
-#    @E2EUI-1803
+  @NTS-4566 @Z-LOGOUT
+  ##@E2EUI-1803
   Scenario Outline: Use Case #28: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_SUPER_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male |
-    When the user is navigated to a page with title Check your patient's details
+    ##Patient Details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "East London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button
+    ##Test Package
     Then the user is navigated to a page with title Confirm the test package
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
     When the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
+    ##Tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Answer questions about this tumour
@@ -98,6 +102,7 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select or edit a tumour
     And the user clicks the Save and Continue button
+    ##Samples
     And the user navigates to the "<stage2>" stage
     Then the user is navigated to a page with title Manage samples
     And the user clicks the Add sample button
@@ -109,9 +114,11 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Manage samples
     When the user clicks the Save and Continue button
+    ##Notes
     Then the user is navigated to a page with title Add notes to this referral
     When the user fills in the Add Notes field
     And the user clicks the Save and Continue button
+    ##Patient Choice
     And the user navigates to the "<stage3>" stage
     Then the user is navigated to a page with title Patient choice
     And the user edits the patient choice status
@@ -126,10 +133,11 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     When the user clicks on Continue Button
+    ##print Forms
     Then the user is navigated to a page with title Print sample forms
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Examples:
       | tumour_type                             | presentationType | stage2  | stage3         | sampleType          | sampleState  | RecordedBy                            |
-      | Haematological malignancy: solid sample | Unknown          | Samples | Patient choice | Solid tumour sample | Li Hep blood | ClinicianName=John:HospitalNumber=123 |
+      | Haematological malignancy: solid sample | Unknown          | Samples | Patient choice | Normal or germline sample | Fibroblasts | ClinicianName=John:HospitalNumber=123 |

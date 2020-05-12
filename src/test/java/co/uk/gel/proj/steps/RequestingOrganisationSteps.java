@@ -49,13 +49,6 @@ public class RequestingOrganisationSteps extends Pages {
         Assert.assertFalse("Stage : Requesting Organisation - Save And Continue button shouldn't be clickable  ", requestingOrganisationPage.checkTheContinueButtonIsClickable());
     }
 
-    @And("the Save and Continue button should be clickable")
-    public void theSaveAndContinueButtonShouldBeClickable() {
-        Assert.assertTrue("Stage : Requesting Organisation - Save And Continue button should be clickable ", requestingOrganisationPage.checkTheContinueButtonIsClickable());
-        requestingOrganisationPage.clickTheContinueButton();
-        Assert.assertTrue(referralPage.stageIsSelected("Test package"));
-    }
-
     @And("the requesting organisation has search label displayed")
     public void theRequestingOrganisationHasSearchLabelDisplayed() {
         Assert.assertTrue(requestingOrganisationPage.checkOrderingEntityPageLabel());

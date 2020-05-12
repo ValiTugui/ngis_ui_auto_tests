@@ -92,8 +92,11 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "a[class*='patient-card']")
     public WebElement patientCard;
 
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Back')]")
     public WebElement backButton;
+
+    @FindBy(xpath = "//button/span[contains(text(),'Edit patient details')]")
+    public WebElement editPatientDetailsLink;
 
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
@@ -209,10 +212,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
 
-    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Add family member')]")
     public WebElement addFamilyMemberButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Continue')]")
     public WebElement continueButton;
 
     @FindBy(xpath = "//span[contains(text(),'Family member removed from referral')]")
@@ -353,7 +356,21 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
-
+    public boolean editPatientDetails() {
+        try {
+            if(!Wait.isElementDisplayed(driver, editPatientDetailsLink,10)){
+                Debugger.println("Edit Patient Details Link not displayed..");
+                SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,editPatientDetailsLink);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from editPatientDetails:"+exp);
+            SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
+            return false;
+        }
+    }
 
     public boolean fillTheRelationshipToProband(String relationToProband) {
         try {
@@ -393,7 +410,6 @@ public class FamilyMemberDetailsPage {
                 Debugger.println("Family Member cannot be null.");
                 return false;
             }
-
             Debugger.println("Verifying Selected Test To Relationship Title");
             //1. Verify the display of Title for the added Test.
             if(!Wait.isElementDisplayed(driver,selectedTestForRelationship,30)){
@@ -438,7 +454,7 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return false;
             }
-            Debugger.println("Verifying Selected Test");
+             Debugger.println("Verifying Selected Test");
             //3. Select the test as checked by default.
             if (!Wait.isElementDisplayed(driver, selectedTest, 10)) {
                 if (!Wait.isElementDisplayed(driver, unSelectedTest, 10)) {
@@ -464,6 +480,11 @@ public class FamilyMemberDetailsPage {
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
             try {
+                if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,60)){
+                    Debugger.println("diseaseStatusDropdown not loaded...");
+                    SeleniumLib.takeAScreenShot("diseaseStatusDropdown.jpg");
+                    return false;
+                }
                 Click.element(driver, diseaseStatusDropdown);
                 Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
@@ -825,7 +846,11 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
                 return false;
             }
-            Actions.clickElement(driver,selectedTest);
+            try {
+                Actions.clickElement(driver, selectedTest);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(selectedTest);
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in deSelectTheTest:" + exp);
@@ -849,16 +874,18 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public void clickOnBackButton() {
+    public boolean clickOnBackButton() {
         try {
             Actions.clickElement(driver, backButton);
+            return true;
         } catch (Exception exp) {
             try {
-                Actions.scrollToBottom(driver);
-                Actions.clickElement(driver, backButton);
+                seleniumLib.clickOnWebElement(backButton);
+                return true;
             } catch (Exception exp1) {
                 SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
-                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1);
+                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1+"\n"+driver.getCurrentUrl());
+                return false;
             }
         }
     }
@@ -909,12 +936,24 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheDeleteMessage(String deleteMessage) {
         try {
-            Actions.scrollToTop(driver);
-            Wait.forElementToBeDisplayed(driver, successDeletionMessageOfFamilyMember);
-            Assert.assertEquals(deleteMessage, successDeletionMessageOfFamilyMember.getText());
+            if(!Wait.isElementDisplayed(driver,successDeletionMessageOfFamilyMember,10)){
+                Actions.scrollToTop(driver);
+            }
+            String actualMessage = "";
+            try{
+                actualMessage = successDeletionMessageOfFamilyMember.getText();
+            }catch(Exception exp1){
+                actualMessage  =seleniumLib.getText(successDeletionMessageOfFamilyMember);
+            }
+            if(!actualMessage.equalsIgnoreCase(deleteMessage)){
+                Debugger.println("Expected Message:"+deleteMessage+",But Actual:"+actualMessage);
+                SeleniumLib.takeAScreenShot("FMDeleteMessage.jpg");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying the Family Member Removal Message: " + exp);
+            SeleniumLib.takeAScreenShot("FMDeleteMessage.jpg");
             return false;
         }
     }
@@ -932,20 +971,27 @@ public class FamilyMemberDetailsPage {
             //If the test is in selected mode, then making it as unselected and clicking
             if(Wait.isElementDisplayed(driver, selectedTest,30)){
                 Actions.clickElement(driver,selectedTest);
+                Wait.seconds(2);
             }
             Actions.clickElement(driver,unSelectedTest);
             return true;//Already deselected
         }catch(ElementClickInterceptedException exp){
-            //The box might be in selected stage and element may not be able to click. So moving control out and click again
-            Actions.clickElement(driver,selectedFamilyMembersLabel);
-            Wait.seconds(2);
-            Actions.clickElement(driver,unSelectedTest);
-            Wait.seconds(2);
-            return true;
+            //The box might be in selected stage and element may not be able to click.
+            // So moving control out and click again
+           Actions.clickElement(driver,selectedFamilyMembersLabel);
+           Wait.seconds(2);
+           Actions.clickElement(driver,unSelectedTest);
+           Wait.seconds(2);
+           return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clickOnDeselectedTestCheckBox.."+exp);
-            SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(unSelectedTest);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickOnDeselectedTestCheckBox.." + exp1);
+                SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
+                return false;
+            }
         }
 
     }
@@ -1006,7 +1052,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyTheDetailsOfFamilyMemberOnFamilyMemberPage() {
-        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         List<WebElement> expElements = new ArrayList<WebElement>();
         expElements.add(beingTestedField);
         expElements.add(dobField);
@@ -1016,6 +1061,8 @@ public class FamilyMemberDetailsPage {
 
         for (int i = 0; i < expElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                Debugger.println("Expected Element:"+expElements.get(i)+" not present in FM Page.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("FMPageValidation.jpg");
                 return false;
             }
         }

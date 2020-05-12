@@ -1,32 +1,15 @@
 #@regression
 #@noComponent
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Global Patient Flow 4 - Common validations
+Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
 
-  @NTS-4621  @LOGOUT
-#    @E2EUI-1191
-  Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Find your patient
-    And the user clicks the NO button
-    And the user types in invalid details of a patient in the NO fields
-    And the user clicks the Search button
-    And the user clicks the "<hyperlinkText>" link from the No Search Results page
-    When the user is navigated to a page with title Add a new patient to the database
-    Then the user sees the Save PatientDetails button highlighted with color as "<ButtonColor>"
-
-    Examples:
-      | hyperlinkText               | ButtonColor |
-      | create a new patient record | #005eb8     |
-
-  @NTS-4692  @LOGOUT
+  @NTS-4692 @Z-LOGOUT
 #    @E2EUI-1176
   Scenario Outline: NTS-4692: Copy & Design only - Create or update copy on Add a sample/Edit a sample
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-07-1981:Gender=Male |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<Stage>" stage
     Then the user is navigated to a page with title Manage samples
@@ -47,9 +30,27 @@ Feature: Global Patient Flow 4 - Common validations
     Then the user is navigated to a page with title Manage samples
     And the success notification is displayed "Sample updated"
     Then the user clicks the Save and Continue button
+##examples changed below a/c to Gonzalo release
+    Examples:
+      | Stage   | sampleType                | sampleState        | sampleType1            | sampleState1            |
+      | Samples | Normal or germline sample | Fetal blood (EDTA) | Normal or germline sample | Amniotic fluid |
+
+  @NTS-4621 @Z-LOGOUT
+#    @E2EUI-1191
+  Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Find your patient
+    And the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+#    When the user is navigated to a page with title Add a new patient to the database
+#    Then the user sees the Save PatientDetails button highlighted with color as "<ButtonColor>"
+    ## Changed a/c to Gonzalo release
+    When the user is navigated to a page with title Create a record for this patient
+    Then the user sees the Create Record button highlighted with color as "<ButtonColor>"
 
     Examples:
-      | Stage   | sampleType                | sampleState      | sampleType1            | sampleState1            |
-      | Samples | Normal or germline sample | Fetal EDTA blood | Abnormal tissue sample | FFPE sections on slides |
-
-
+      | hyperlinkText               | ButtonColor |
+      | create a new patient record | #005eb8     |

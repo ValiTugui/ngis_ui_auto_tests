@@ -1,16 +1,16 @@
 #@regression
 #@samplesPage
 #@samplesPage2
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -1
 
-  @NTS-32871 @LOGOUT
-#    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-941 @E2EUI-1467 @E2EUI-962 @E2EUI-2782
+  @NTS-3287 @Z-LOGOUT
+#    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-941 @E2EUI-1467 @E2EUI-962
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
@@ -34,12 +34,12 @@ Feature: Samples Page -1
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | notificationText |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Sample added     |
 
-  @NTS-3287 @LOGOUT
+  @NTS-3287 @Z-LOGOUT
 #    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-962
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type - sample's details are displayed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
@@ -63,7 +63,7 @@ Feature: Samples Page -1
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva      | Sample added     |
 
 
-  @NTS-3287 @LOGOUT
+  @NTS-3287 @Z-LOGOUT
 #    @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850 @E2EUI-1229 @E2EUI-1039 @E2EUI-941 @E2EUI-1467
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -99,7 +99,7 @@ Feature: Samples Page -1
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Liquid tumour sample | test                   | Sample added     |
 
 
-  @NTS-3287  @LOGOUT
+  @NTS-3287  @Z-LOGOUT
 #    @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample - sample's details are displayed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

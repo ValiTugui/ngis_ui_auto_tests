@@ -1,16 +1,16 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-12 - Adult with Capacity
 
-  @NTS-3436 @LOGOUT
+  @NTS-3436 @Z-LOGOUT
     #@E2EUI-1173 @E2EUI-1112
   Scenario Outline:the user should be navigate to patient choice page by not entered link
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ##Patient Details Page
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
@@ -36,13 +36,13 @@ Feature: Patient Choice-12 - Adult with Capacity
       | FamilyMembers  | TestPackage  | NoOfParticipants |
       | Family members | Test package | 2                |
 
-  @NTS-4100 @LOGOUT
+  @NTS-4100 @Z-LOGOUT
     #@E2EUI-1540
   Scenario Outline: NTS-4100: Removing the patient choice step in the family member flow
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Test Package - Trio family - No of participants -2
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
@@ -62,13 +62,13 @@ Feature: Patient Choice-12 - Adult with Capacity
       | TestPackage  | NoOfParticipants | FamilyMembers  |
       | Test package | 2                | Family members |
 
-  @NTS-3505 @LOGOUT
+  @NTS-3505 @Z-LOGOUT
     #@E2EUI-1644
   Scenario Outline: NTS-3505:When additional family members are added and their patient choice hasn't been provided, the patient choice stage status should be updated as incomplete
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Test Package

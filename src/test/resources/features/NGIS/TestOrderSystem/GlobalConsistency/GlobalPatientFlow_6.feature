@@ -1,10 +1,10 @@
 #@regression
 #@referral
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Global Patent Flow 6 - Referral Header
+Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 
-  @NTS-4502 @NTS-4728 @LOGOUT
+  @NTS-4728 @Z-LOGOUT
 #   @E2EUI-1250 @E2EUI-1368
   Scenario Outline: Referral: Date of Birth and Age format in the referral header bar
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -19,7 +19,7 @@ Feature: Global Patent Flow 6 - Referral Header
       | Patient details |
 
 # Awaiting review from Manual Testers
-#  @LOGOUT  @ignore @NTS_todo
+#  @Z-LOGOUT  @ignore @NTS_todo
 #  Scenario Outline: NTS-4543 - Displaying the current state for each stage
 #    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
 #      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -38,7 +38,7 @@ Feature: Global Patent Flow 6 - Referral Header
 
 
 # Awaiting review from Manual Testers
-#  @LOGOUT @NTS_todo @ignore
+#  @Z-LOGOUT @NTS_todo @ignore
 #  Scenario Outline: NTS-4545 - Cancer referral - Navigation through the journey
 #    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
 #      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -71,7 +71,7 @@ Feature: Global Patent Flow 6 - Referral Header
 #      | stage           |
 #      | Patient details |
 
-  @NTS-4673 @LOGOUT
+  @NTS-4673 @Z-LOGOUT
 #   @E2EUI-1492
   Scenario Outline: Patient Search - The correct elements are displayed in the header of Test Ordering
     Given a web browser is at the patient search page
@@ -85,7 +85,7 @@ Feature: Global Patent Flow 6 - Referral Header
       | genomicsEnglandLogo      | logoutText | userType        |
       | Genomic Medicine Service | Log out    | GEL_NORMAL_USER |
 
-   @NTS-4673 @LOGOUT
+   @NTS-4673 @Z-LOGOUT
 #    @E2EUI-1492
   Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -101,7 +101,7 @@ Feature: Global Patent Flow 6 - Referral Header
       | genomicsEnglandLogo      | logoutText | userType        |
       | Genomic Medicine Service | Log out    | GEL_SUPER_USER |
 
-   @NTS-4673 @LOGOUT
+   @NTS-4673 @Z-LOGOUT
 #  @E2EUI-1492
   Scenario: The correct elements are displayed in the footer of Test Ordering
     Given a web browser is at the patient search page
@@ -113,7 +113,7 @@ Feature: Global Patent Flow 6 - Referral Header
     And the Privacy Policy text link is displayed in the footer of Test Ordering
     And the copyright text is displayed in the footer of Test Ordering
 
-   @NTS-4673 @LOGOUT
+   @NTS-4673 @Z-LOGOUT
 #  @E2EUI-1492
   Scenario: Referral footer Page -  The correct elements are displayed in the footer of Test Ordering
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -128,7 +128,7 @@ Feature: Global Patent Flow 6 - Referral Header
     And the copyright text is displayed in the footer of Test Ordering
 
 
-  @NTS-4689 @LOGOUT
+  @NTS-4689 @Z-LOGOUT
     #@E2EUI-1152
   Scenario Outline: Patient Search - Show user account information in Test Order Management System
     Given a web browser is at the patient search page
@@ -139,7 +139,7 @@ Feature: Global Patent Flow 6 - Referral Header
       | userType        |
       | GEL_NORMAL_USER |
 
-  @NTS-4689 @LOGOUT
+  @NTS-4689 @Z-LOGOUT
     #@E2EUI-1152
   Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -152,7 +152,7 @@ Feature: Global Patent Flow 6 - Referral Header
       | userType       |
       | GEL_SUPER_USER |
 
-  @NTS-4793 @LOGOUT
+  @NTS-4793 @Z-LOGOUT
     #@E2EUI-1008
   Scenario Outline: NTS-4793:Re-order data in referral banner
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -166,12 +166,11 @@ Feature: Global Patent Flow 6 - Referral Header
       | NGIS                | Patient details |
 
 
-  @NTS-4809 @LOGOUT
+  @NTS-4809 @Z-LOGOUT
     #@E2EUI-1324
   Scenario Outline: NTS-4809: Header bar for a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage1>" stage
     And the "<stage1>" stage is marked as Completed
     And the user retrieve the referral HumanReadable-ID from the referral page url
     When the user navigates back to patient search page
@@ -189,96 +188,3 @@ Feature: Global Patent Flow 6 - Referral Header
     Examples:
       | stage1          | PageTitle                    |
       | Patient details | Check your patient's details |
-
-
-  @NTS-4813 @LOGOUT
-    #@E2EUI-1005
-  Scenario Outline:NTS-4813:Referral Cancer - Show alert when page is mandatory and must be completed to submit
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage1>" stage
-    And the "<stage1>" stage is marked as Completed
-    When the user submits the referral
-    And the user sees a dialog box with a title "<dialogTitle>"
-    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
-      | MandatoryStagesToComplete |
-      | Requesting organisation   |
-      | Test package              |
-      | Responsible clinician     |
-      | Tumours                   |
-      | Patient choice            |
-    And the user clicks on the mandatory stage "<stage2>" in the dialog box
-    And the "<stage2>" stage is selected
-    Then the "<pageTitle>" page is displayed
-    And the user enters the keyword "<ordering_entity_name>" in the search field
-    And the user selects a random entity from the suggestions list
-    Then the details of the new organisation are displayed
-    And  the Save and Continue button should be clickable
-    And the "<stage3>" stage is selected
-    When the user submits the referral
-    And the user sees a dialog box with a title "<dialogTitle>"
-    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
-      | MandatoryStagesToComplete |
-      | Test package              |
-      | Responsible clinician     |
-      | Tumours                   |
-      | Patient choice            |
-    And the user clicks on the mandatory stage "<stage3>" in the dialog box
-    And the "<stage3>" stage is selected
-
-    Examples:
-      | stage1          | dialogTitle                  | stage2                  | pageTitle                     | ordering_entity_name | stage3       |
-      | Patient details | There is missing information | Requesting organisation | Add a requesting organisation | Maidstone            | Test package |
-
-
-  @NTS-4813 @LOGOUT
-    #@E2EUI-1005
-  Scenario Outline:NTS-4813:Referral RD - Show alert when page is mandatory and must be completed to submit
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebellar anomalies | RD | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage1>" stage
-    And the "<stage1>" stage is marked as Completed
-    When the user submits the referral
-    Then the user sees a dialog box with a title "<dialogTitle>"
-    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
-      | MandatoryStagesToComplete |
-      | Requesting organisation   |
-      | Test package              |
-      | Responsible clinician     |
-      | Clinical questions        |
-      | Patient choice            |
-    When the user clicks on the mandatory stage "<stage2>" in the dialog box
-    Then the "<stage2>" stage is selected
-    And the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<ordering_entity_name>" in the search field
-    And the user selects a random entity from the suggestions list
-    Then the details of the new organisation are displayed
-    And  the user clicks the Save and Continue button
-    And the "<stage3>" stage is selected
-    When the user submits the referral
-    And the user sees a dialog box with a title "<dialogTitle>"
-    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
-      | MandatoryStagesToComplete |
-      | Test package              |
-      | Responsible clinician     |
-      | Clinical questions        |
-      | Patient choice            |
-    And the user clicks on the mandatory stage "<stage3>" in the dialog box
-    And the "<stage3>" stage is selected
-
-    Examples:
-      | stage1          | dialogTitle                  | stage2                  | ordering_entity_name | stage3       |
-      | Patient details | There is missing information | Requesting organisation | Maidstone            | Test package |
-
-  @NTS-4562 @LOGOUT
-#    @E2EUI-1088
-  Scenario Outline: NTS-4562-The user is able to logout from Referral Header - Test Ordering system
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    And the user clicks the Log out button
-    Then the user is successfully logged out
-
-    Examples:
-      | stage           |
-      | Patient details |

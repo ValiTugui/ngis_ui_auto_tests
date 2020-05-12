@@ -1,10 +1,17 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.BrowserConfig;
+import co.uk.gel.models.ReferralID;
+import co.uk.gel.models.Referrals;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import com.google.gson.*;
+import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -17,14 +24,14 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -39,6 +46,7 @@ public class SeleniumLib {
     private String strtext;
     public static String ParentWindowID = null;
     static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String referralFileName = "Referrals.json";
 
     public SeleniumLib(WebDriver driver) {
         SeleniumLib.driver = driver;
@@ -466,6 +474,25 @@ public class SeleniumLib {
             return strtext;
         }
     }
+    public String getText(WebElement element) {
+        try {
+
+            elementHighlight(element);
+            strtext = element.getText();
+            return "" + strtext;
+
+        } catch (Exception ex) {
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+            try {
+                elementHighlight(element);
+                strtext = element.getText();
+            } catch (Exception exp1) {
+                return "";
+            }
+            return strtext;
+        }
+    }
 
     /**
      * @param i
@@ -674,15 +701,54 @@ public class SeleniumLib {
 
 
     public static boolean skipIfBrowserStack(String serverType) {
-        //return BrowserConfig.getServerType().toUpperCase().equals(serverType);
-        return true;
+        return BrowserConfig.getServerType().toUpperCase().equals(serverType);
     }
 
-    public static void writeToFile(String dataToWrite) throws IOException {
-        FileWriter myWriter = new FileWriter("Referrals.properties", true);
-        myWriter.write(dataToWrite);
-        myWriter.write("\n");
-        myWriter.close();
+    public static void writeToJsonFile (String dataToWrite) {
+        String nameRead;
+        try {
+            JsonParser parser = new JsonParser();
+            Object obj = parser.parse(new FileReader(referralFileName));
+            JsonObject jsonObject = (JsonObject) obj;
+            JsonArray msg = (JsonArray)jsonObject.get("referrals");
+            Iterator<JsonElement> iterator = msg.iterator();
+            while(iterator.hasNext()) {
+                nameRead = iterator.next().toString();
+            }
+            ReferralID referralID = new ReferralID();
+
+            referralID.setReferralID(dataToWrite);
+            Gson gson = new Gson();
+            String json = gson.toJson(referralID);
+
+            FileWriter file = new FileWriter(referralFileName, false);
+            JsonWriter jw = new JsonWriter(file);
+            iterator = msg.iterator();
+
+            Referrals referrals = new Referrals();
+
+            while(iterator.hasNext()) {
+                referrals.addReferrals(gson.fromJson(iterator.next().toString(), ReferralID.class));
+            }
+            referrals.addReferrals(referralID);
+            gson.toJson(referrals, Referrals.class, jw);
+            file.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getNoOfRows(By element) {
+        try {
+            waitForElementVisible(driver.findElement(element));
+            return driver.findElements(element).size();
+        } catch (NoSuchElementException exp) {
+            return 0;
+        }
+    }
+    public int getNoOfRows(String rowPath){
+        By element = By.xpath(rowPath);
+        return getNoOfRows(element);
     }
     public int getColumnIndex(By TableHeading, String column_name) {
         List<WebElement> Headings =  getHeadingElements(TableHeading);

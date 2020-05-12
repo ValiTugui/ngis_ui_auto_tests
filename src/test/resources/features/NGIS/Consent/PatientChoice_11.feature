@@ -1,15 +1,15 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-11 - validations
 
-  @NTS-3478 @LOGOUT
+  @NTS-3478 @Z-LOGOUT
     #@E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3478: Patient choice option content has changed to Record of Discussion form not currently available
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -38,12 +38,12 @@ Feature: Patient Choice-11 - validations
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3436 @LOGOUT
+  @NTS-3436 @Z-LOGOUT
     #@E2EUI-1704
   Scenario Outline: NTS-3436: No question is populated for the Not applicable case under child assent in patient choice questions.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband
@@ -75,12 +75,12 @@ Feature: Patient Choice-11 - validations
       | PatientChoiceStage | RecordedBy                                                                                                     | WarningMessage                                                      |
       | Patient choice     | RecordingClinicianName=John Doe:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | A laboratory cannot start a test without patient choice information |
 
-  @NTS-4307 @LOGOUT
+  @NTS-4307 @Z-LOGOUT
     #@E2EUI-880
   Scenario Outline: NTS-3436: No question is populated for the Not applicable case under child assent in patient choice questions.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband
@@ -112,12 +112,12 @@ Feature: Patient Choice-11 - validations
       | PatientChoiceStage | RecordedBy                                                                                                     | WarningMessage                                                      |
       | Patient choice     | RecordingClinicianName=John Doe:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | A laboratory cannot start a test without patient choice information |
 
-  @NTS-3378 @LOGOUT
+  @NTS-3378 @Z-LOGOUT
     #@E2EUI-1181 @E2EUI-1752
   Scenario Outline: NTS-3378: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband
@@ -151,13 +151,13 @@ Feature: Patient Choice-11 - validations
       | PatientChoiceStage | RecordedBy                            |
       | Patient choice     | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3444 @LOGOUT
+  @NTS-3444 @Z-LOGOUT
     #@E2EUI-1727
   Scenario Outline: NTS-3444 : Validating Patient choice section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1993:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -188,7 +188,8 @@ Feature: Patient Choice-11 - validations
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     When the user navigates to the "<Notes>" stage
-    Then the user is navigated to a page with title Add notes to this referral
+    #Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -210,12 +211,12 @@ Feature: Patient Choice-11 - validations
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  |
       | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice |
 
-  @NTS-3385 @LOGOUT
+  @NTS-3385 @Z-LOGOUT
     #@E2EUI-1474
   Scenario Outline: NTS-3385: Create referral navigation component - Patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband
@@ -228,12 +229,12 @@ Feature: Patient Choice-11 - validations
       | Patient choice stage |
       | Patient choice       |
 
-  @NTS-3387 @LOGOUT
+  @NTS-3387 @Z-LOGOUT
     #@E2EUI-1464 @E2EUI-1141
   Scenario Outline: NTS-3387: patient signature is a mandatory field in Add patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -257,17 +258,17 @@ Feature: Patient Choice-11 - validations
     And the user clicks on Continue Button
     When the user is in the section Patient signature
     And the user should see patient choice submit button as disabled
-    ##Include the step for clicking on Continue without providing signature and validate the warning message.
+
     Examples:
       | Patient choice stage | RecordedBy         | ErrorMessage                                                                           |
       | Patient choice       | ClinicianName=John | Please complete the required field Clinician Name (Admin support user ID is optional): |
 
-   @NTS-3457 @LOGOUT
+   @NTS-3457 @Z-LOGOUT
      #@E2EUI-1667
   Scenario Outline: NTS-3457: Warn a user that they will lose their changes when navigating away from patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -284,9 +285,6 @@ Feature: Patient Choice-11 - validations
     When the user clicks the Log out button
     Then the user sees a prompt alert "<UnsavedMessage>" after clicking "logout" button and "<Dismiss>" it
     And the user is navigated to a page with title Add patient choice information
-#    When the user attempts to navigate away by clicking "back"
-#    Then the user sees a prompt alert "<UnsavedMessage>" after clicking "backbutton" button and "<Dismiss>" it
-#    And the user is navigated to a page with title Add patient choice information
 
     Examples:
       | PatientChoice  | Panels | DiscardMessage                                              | Dismiss|UnsavedMessage                    |

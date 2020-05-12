@@ -1,6 +1,4 @@
-#@regression
-#@printForms
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 4 - Field name consistency in Print Forms
 
@@ -25,9 +23,9 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
 
     Examples:
       | TextToValidate                                                                                                                                                                                          |
-      | RARE AND INHERITED,v1.17,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid, Fetal blood (EDTA), Chorionic Villus, Fresh Tissue (not tumour),Stored DNA,Sample ID, Age of onset |
+      | RARE AND INHERITED,v1.17,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID |
 
-  @NTS-3414 @LOGOUT
+  @NTS-3414
 #    @E2EUI-2780
   Scenario Outline: NTS-3414: scenario-2:User visits offline order page for form download for Cancer
     Given a web browser is at the Private Test Selection homepage
@@ -47,4 +45,4 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
 
     Examples:
       | TextToValidate                                                                                                                                                                                                                                                                                                                           |
-      | CANCER,v1.17,Complete for tumour samples(being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other |
+      | CANCER,v1.17,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other |

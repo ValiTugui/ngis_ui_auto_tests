@@ -389,8 +389,8 @@ public class TestHooks extends Pages {
     }
 
 
-    @After("@LOGOUT")
-    public void logOutAndTearDown() {
+    @After("@Z-LOGOUT")
+    public void logOutAndTearDown(Scenario scenario) {
         homePage.logOutFromApplication();
     }
 
@@ -422,5 +422,14 @@ public class TestHooks extends Pages {
     public void setRequest(RequestSpecification request) {
         this.request = request;
     }
+
+    public ValidatableResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(ValidatableResponse response) {
+        this.response = response;
+    }
+
 
 }//end class

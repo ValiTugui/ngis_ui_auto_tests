@@ -129,7 +129,7 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "*[data-testid*='notification-error']")
     public WebElement hpoErrorNotification;
 
-    @FindBy(xpath = "//button[contains(text(), '+ Add another')]")
+    @FindBy(xpath = "//button/span[contains(text(), '+ Add another')]")
     public WebElement addAnotherRareDiseaseLink;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
@@ -245,16 +245,27 @@ public class ClinicalQuestionsPage {
 
     public String searchAndSelectSpecificDiagnosis(String diagnosis) {
         try {
-            Wait.forElementToBeDisplayed(driver, diagnosisValue);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
-            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
+            if(!Wait.isElementDisplayed(driver, diagnosisValue,30)){
+                Debugger.println("diagnosisValue not present .\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("DiagnosisValue1.jpg");
                 return null;
             }
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
+                return null;
+            }
+            Wait.seconds(2);
+            boolean testResult = Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            if(!testResult){
+                Debugger.println("Could not select the drop down value.."+driver.getCurrentUrl());
+                return null;
+            }
+            Wait.seconds(2);
             return Actions.getText(diagnosisField);
         } catch (Exception exp) {
-            Debugger.println("Exception from searchAndSelectSpecificDiagnosis:"+exp);
+            Debugger.println("Exception from searchAndSelectSpecificDiagnosis:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("RareDiseaseDiagnosis.jpg");
             return null;
         }
@@ -288,7 +299,6 @@ public class ClinicalQuestionsPage {
     public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue) {
         Wait.forElementToBeDisplayed(driver, diagnosisField);
         return (!diagnosisField.getText().equalsIgnoreCase(diagnosisValue));
-
     }
 
     public String selectDiseaseStatus(String diseaseStatusValue) {
@@ -794,27 +804,55 @@ public class ClinicalQuestionsPage {
     }
 
     public List<String> getValuesFromPhenotypicSexDropDown() {
-        Actions.clickElement(driver, phenotypicSexDropdown);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        List<String> values = Actions.getValuesFromDropdown(dropdownValues);
-        Wait.seconds(1);
-        // this step is necessary to make the dropdown to disappear
-        Actions.selectRandomValueFromDropdown(dropdownValues);
-        Wait.seconds(1);
-        return values;
+        try {
+            Actions.clickElement(driver, phenotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+            Wait.seconds(1);
+            // this step is necessary to make the dropdown to disappear
+            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Wait.seconds(1);
+            return values;
+        }catch(Exception exp){
+            Debugger.println("Exception from getValuesFromPhenotypicSexDropDown: "+exp);
+            SeleniumLib.takeAScreenShot("getValuesFromPhenotypicSexDropDown.jpg");
+            return null;
+        }
     }
 
     public List<String> getValuesFromKaryotypicSexDropDown() {
-        Actions.clickElement(driver, karyotypicSexDropdown);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        List<String> values = Actions.getValuesFromDropdown(dropdownValues);
-        Wait.seconds(1);
-        return values;
+        try {
+            Actions.clickElement(driver, karyotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+            Wait.seconds(1);
+            return values;
+        }catch(Exception exp){
+            Debugger.println("Exception from getValuesFromKaryotypicSexDropDown: "+exp);
+            SeleniumLib.takeAScreenShot("getValuesFromKaryotypicSexDropDown.jpg");
+            return null;
+        }
     }
 
-    public void clickAddAnotherLink() {
-        Wait.forElementToBeDisplayed(driver, addAnotherRareDiseaseLink);
-        Actions.clickElement(driver, addAnotherRareDiseaseLink);
+    public boolean clickAddAnotherLink() {
+        if(!Wait.isElementDisplayed(driver,addAnotherRareDiseaseLink,30)){
+            Debugger.println("Add Another link not present in Tumour page."+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("AddAnotherLink.jpg");
+            return false;
+        }
+        try {
+            Actions.clickElement(driver, addAnotherRareDiseaseLink);
+            return true;
+        }catch (Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(addAnotherRareDiseaseLink);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from clickAddAnotherLink."+exp+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("AddAnotherLink.jpg");
+                return false;
+            }
+        }
     }
 
     public boolean verifyTheFilledDiseaseStatusDetails(String searchParams) {

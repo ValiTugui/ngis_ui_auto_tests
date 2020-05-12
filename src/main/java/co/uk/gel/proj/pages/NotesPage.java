@@ -30,8 +30,12 @@ public class NotesPage {
     @FindBy(name = "notes")
     public WebElement addNoteField;
 
-    @FindBy(xpath="//p[contains(text(),'Max. character count')]")
-    public WebElement infoMessageForCharacters;
+    @FindBy(xpath = "//p[contains(@class,'notes__count')]/span")
+    public List<WebElement> infoMessages;
+
+    @FindBy(xpath = "//p[contains(@class,'notes__count--warning')]/span")
+    public List<WebElement> warningMessages;
+
 
     public NotesPage(WebDriver driver) {
         this.driver = driver;
@@ -50,62 +54,71 @@ public class NotesPage {
         element.sendKeys(value);
     }
 
-    public void fillInAddNotesField() {
-        fillInValue(addNoteField, faker.chuckNorris().fact());
-    }
-
-    public void fillInAddNotesFieldWithOverThreeThousandCharacters() {
-        fillInValue(addNoteField, faker.number().digits(3010) );
-    }
-
-    public WebElement getNotesFieldLocator() {
-        return addNoteField;
-    }
-
-    public boolean verifyInfoMessageOnNotesPage(String infoMessage) {
+    public boolean fillInAddNotesField() {
         try {
-            Wait.forElementToBeDisplayed(driver, addNoteField);
-            if(!Wait.isElementDisplayed(driver,infoMessageForCharacters,10)){
-                Debugger.println("Notes Info Message not displayed.");
-                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+            if (!Wait.isElementDisplayed(driver, addNoteField, 30)) {
+                Debugger.println("AddNoteField not displayed.\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
                 return false;
             }
-            String actualMessage = infoMessageForCharacters.getText();
-            if (!actualMessage.equalsIgnoreCase(infoMessage)) {
-                Debugger.println("Expected Message: " + infoMessage + ", but Actual Message is: " + actualMessage);
-                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
-                return false;
-            }
+            addNoteField.clear();
+            addNoteField.sendKeys(faker.chuckNorris().fact());
             return true;
         } catch (Exception exp) {
-            Debugger.println("Notes Page: Max Characters Information Message :not found " + exp);
-            SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+            try {
+                seleniumLib.sendValue(addNoteField, faker.chuckNorris().fact());
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from fillInAddNotesField." + exp + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
+                return false;
+            }
+        }
+    }
+
+    public void fillInAddNotesFieldWithOverThreeThousandCharacters(int dataSize) {
+        fillInValue(addNoteField, faker.number().digits(dataSize));
+        Wait.seconds(2);
+    }
+
+    public boolean verifyNotesPageWarningMessage(String message) {
+        try {
+            boolean isPresent = false;
+            for (int i = 0; i < warningMessages.size(); i++) {
+                if (warningMessages.get(i).getText().equalsIgnoreCase(message)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Expected Warning Message not displayed in Notes Page." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NotesPageWarning.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyNotesPageWarningMessage ." + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("NotesPageWarning.jpg");
             return false;
         }
     }
 
-    public boolean checkTheErrorMessageForMaxCharacters(String errorMessage, String fontColor) {
+    public boolean verifyInfoMessageOnNotesPage(String infoMessage) {
         try {
-            //Verify the Message Content
-            Wait.forElementToBeDisplayed(driver, addNoteField);
-
-            if(!Wait.isElementDisplayed(driver,infoMessageForCharacters,10)){
-                Debugger.println("Notes Info Message not displayed.");
-                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
-                return false;
+            boolean isPresent = false;
+            for (int i = 0; i < infoMessages.size(); i++) {
+                if (infoMessages.get(i).getText().equalsIgnoreCase(infoMessage)) {
+                    isPresent = true;
+                    break;
+                }
             }
-            //Verify the Message Color
-            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            String actColor = infoMessageForCharacters.getCssValue("color");
-            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                Debugger.println("Expected Notes info message color:"+expectedFontColor+" Not displayed.");
-                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
-                return false;
+            if (!isPresent) {
+                Debugger.println("Expected Info Message not displayed in Notes Page." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
             }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
-            Debugger.println("Exception from validating Error Message " + exp);
-            SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+            Debugger.println("Exception from verifyInfoMessageOnNotesPage ." + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
             return false;
         }
     }

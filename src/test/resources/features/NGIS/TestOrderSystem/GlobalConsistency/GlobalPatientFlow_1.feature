@@ -1,17 +1,17 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_Common
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Feature: Global Patient Flow 1- Stage Validation
+Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
-  @NTS-4320 @LOGOUT
+  @NTS-4320 @Z-LOGOUT
 #    @E2EUI-1065
   Scenario Outline: NTS-4320: Verify continue button
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     ##Family Member Landing Page
     And the user navigates to the "<FamilyMembers>" stage
     And the user is navigated to a page with title Add a family member to this referral
@@ -24,16 +24,13 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
       | FamilyMembers  |
       | Family members |
 
-  @NTS-3497 @LOGOUT
+  @NTS-3497 @Z-LOGOUT
 #    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
-    ##Patient Details Page
-    When the user is navigated to a page with title Check your patient
-    ##Requesting Organisation Page
-    When the user navigates to the "<RequestingOrganisation>" stage
-    Then the user is navigated to a page with title Add a requesting organisation
+
+    When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ROCHDALE INFIRMARY" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -56,7 +53,7 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |
 
-  @NTS-4711 @LOGOUT
+  @NTS-4711 @Z-LOGOUT
 #    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -71,18 +68,34 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
       | NHS number,NHS no. | NHS Number,NHS No |
     And the user clicks the patient result card
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient
+#    When the user is navigated to a page with title Check your patient
+    ## Updated a/c to Gonzalo release
+    Then the user is navigated to a page with title Patient record
     And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
-    When the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
-    And the user clicks the Start Referral button
+#    When the user clicks the Update NGIS record button
+#    Then the patient is successfully updated with a message "Details saved"
+#    And the user clicks the Start Referral button
+    And the user clicks the Start a new Referral button
     ##Referral Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
+
+#    ##Patient Details Page
+#    When the user is navigated to a page with title Patient record
+#    Then the user should see previous labels replaced as current labels
+#      | PreviousLabel      | CurrentLabel      |
+#      | NHS number,NHS no. | NHS Number,NHS No |
+#    When the user clicks the Start a new Referral button
+#    ##Referral Details Page
+#    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user should see previous labels replaced as current labels
+#      | PreviousLabel      | CurrentLabel      |
+#      | NHS number,NHS no. | NHS Number,NHS No |
+#
      ##Requesting Organisation Page
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -123,13 +136,13 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
       | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  |
       | 3,3,4       | NHS  | 9449306621 | 09-05-2011 | Requesting organisation | Family members | NHSNumber=9449310440:DOB=12-07-2003 | 1 patient record found | Print forms |
 
-  @NTS-3498 @LOGOUT
+  @NTS-3498 @Z-LOGOUT
 #    @E2EUI-1701
   Scenario Outline: NTS-3498: Verify Global patient information bar component
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
     ###Patient Details
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see the patient referral banner at the top
     ###Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
@@ -152,7 +165,7 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
     Then the user should be able to see the patient banner at same location
     ###Notes
     When the user navigates to the "<Notes>" stage
-    And the user is navigated to a page with title Add notes to this referral
+    And the user is navigated to a page with title Add clinical notes
     Then the user should be able to see the patient banner at same location
     ###Family Members
     When the user navigates to the "<Family members>" stage
@@ -164,7 +177,7 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
     Then the user should be able to see the patient banner at same location
     ###Panels
     When the user navigates to the "<Panels>" stage
-    And the user is navigated to a page with title Panels
+    And the user is navigated to a page with title Manage panels
     Then the user should be able to see the patient banner at same location
     ###Pedigree
     When the user navigates to the "<Pedigree>" stage
@@ -179,7 +192,7 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
       | Requesting organisation | ordering_entity_name | NoOfParticipants | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
       | Requesting organisation | Maidstone            | 1                | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
 
-  @NTS-3498 @LOGOUT
+  @NTS-3498 @Z-LOGOUT
 #  @E2EUI-1850
   Scenario: NTS-3498: The links from the footer should be the same color
     Given a web browser is at the Private Test Selection homepage

@@ -121,11 +121,11 @@ public class PedigreePage {
 
     String selectedPedigreeTab = "//dl[@class='tabs']//a[contains(text(),'dummyOption')]";
 
-    @FindBy(xpath = "//button[text()='Save']")
+    @FindBy(xpath = "//button/span[text()='Save']")
     WebElement saveButton;
-    @FindBy(xpath = "//button[text()='Save and continue']")
+    @FindBy(xpath = "//button/span[text()='Save and continue']")
     WebElement saveAndContinueButton;
-    @FindBy(xpath = "//button[text()='Try again']")
+    @FindBy(xpath = "//button/span[text()='Try again']")
     WebElement tryAgainButton;
 
     @FindBy(xpath = "//div[@id='clinical-indication-name']")
@@ -176,13 +176,14 @@ public class PedigreePage {
     public void closePopup() {
         try {
             Wait.forElementToBeClickable(driver,closePopup);
-            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
-        } catch (ElementClickInterceptedException exp) {
-            SeleniumLib.scrollToElement(closePopup);
-            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
+            Actions.clickElement(driver, closePopup);
         } catch (Exception exp) {
-            Debugger.println("Could not close the Popup." + exp);
-            SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
+            try{
+                seleniumLib.clickOnWebElement(closePopup);
+            }catch(Exception exp1) {
+                Debugger.println("Could not close the Popup." + exp);
+                SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
+            }
         }
 
     }
@@ -669,14 +670,14 @@ public class PedigreePage {
                 isPresent = Wait.isElementDisplayed(driver, saveAndContinueButton, 60);
             }
             if (!isPresent) {
-                Debugger.println("Expected " + buttonName + " not present in Pedigree Stage.");
+                Debugger.println("Expected " + buttonName + " not present in Pedigree Stage.\n"+driver.getCurrentUrl());
                 Actions.scrollToBottom(driver);
                 SeleniumLib.takeAScreenShot("No" + buttonName + "InPedigree.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying " + buttonName + " in Pedigree Page." + exp);
+            Debugger.println("Exception in verifying " + buttonName + " in Pedigree Page." + exp+"\n"+driver.getCurrentUrl());
             Actions.scrollToBottom(driver);
             SeleniumLib.takeAScreenShot("No" + buttonName + "InPedigree.jpg");
             return false;

@@ -1,13 +1,12 @@
 #@regression
 #@globalBehaviour
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Global Behaviour Page
+Feature: TestDirectory: Global Behaviour Page
 
   Background:
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
-
 
   @NTS-3169 @TD_VERSION_INFO
 #  @E2EUI-1755
@@ -59,7 +58,7 @@ Feature: Global Behaviour Page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
 
-  @NTS-3501 @LOGOUT
+  @NTS-3501 @Z-LOGOUT
 #    @E2EUI-1761
   Scenario Outline:NTS-3501:Validating NGIS Id and Referral Id and web element text
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

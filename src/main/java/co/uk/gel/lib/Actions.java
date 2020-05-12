@@ -38,11 +38,14 @@ public class Actions {
 
     }
 
-    public static void selectByIndexFromDropDown(List<WebElement> dropDownValues, int index) {
+    public static boolean selectByIndexFromDropDown(List<WebElement> dropDownValues, int index) {
         try {
-        dropDownValues.get(index).click();
-        }catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
+            dropDownValues.get(index).click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in Selecting Dropdown value by index..."+exp);
             SeleniumLib.takeAScreenShot("DropDownValues_SelectByIndex.jpg");
+            return false;
         }
     }
 
@@ -50,25 +53,24 @@ public class Actions {
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
         try {
             int index = random.nextInt(dropdownValues.size() - 1);
-            //Debugger.println("size of dropdownValues: " + dropdownValues.size()  + " index " + index);
             dropdownValues.get(index).click();
-        } catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
-            //Debugger.println("Select the first dropDownValues" + exp);
-             dropdownValues.get(0).click(); // Select the first dropDownValues
-            //selectByIndexFromDropDown(dropdownValues, 0);
+        } catch (Exception exp) {
+            if (dropdownValues.size() > 1) {
+                dropdownValues.get(0).click();
+            }
         }
     }
 
     public static List<String> getValuesFromDropdown(List<WebElement> dropdownValues) {
         try {
             ArrayList<String> values = new ArrayList<String>();
-           for(WebElement element : dropdownValues){
-               values.add(Actions.getText(element));
-           }
-           if(!values.isEmpty()){
-               return values;
-           }
-           return null;
+            for (WebElement element : dropdownValues) {
+                values.add(Actions.getText(element));
+            }
+            if (!values.isEmpty()) {
+                return values;
+            }
+            return null;
         } catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
             return null;
         }
@@ -118,13 +120,13 @@ public class Actions {
         element.sendKeys(value);
     }
 
-    public static void fillInValueOneCharacterAtATimeOnTheDynamicInputField(WebElement element, String strValue){
+    public static void fillInValueOneCharacterAtATimeOnTheDynamicInputField(WebElement element, String strValue) {
         //https://jira.extge.co.uk/browse/NTS-3539 - it's absolutely fine to pass partial values to the dropdown whose values are populated at runtime
         //  if we pass exact full value to this web element at one go, like - Intraneural perineurioma - then there is a chance that dynamic dropdown is not displayed in the UI
         //  As we are waiting for dynamic populated list to appear in selenium , this kind of tests becomes intermittenly fail/pass depends on the application behaviour
         // so the approach is to pass partial values into the web element and wait for the auto-suggest dropdown to appear, and choose the specific/random values from the auto suggest dropdown list
         List<String> charList = Arrays.asList(strValue.split(""));
-        for(String character : charList) {
+        for (String character : charList) {
             Actions.fillInValue(element, character);
             Wait.seconds(1);
         }
@@ -141,14 +143,14 @@ public class Actions {
     }
 
     public static void clearField(WebElement element) {
-            element.sendKeys(Keys.BACK_SPACE);
+        element.sendKeys(Keys.BACK_SPACE);
     }
 
     public static void clearField(WebDriver driver, WebElement element) throws AWTException {
-            new org.openqa.selenium.interactions.Actions(driver).moveToElement(element).click().perform();
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_BACK_SPACE);
-            robot.keyRelease(KeyEvent.VK_BACK_SPACE);
+        new org.openqa.selenium.interactions.Actions(driver).moveToElement(element).click().perform();
+        Robot robot = new Robot();
+        robot.keyPress(KeyEvent.VK_BACK_SPACE);
+        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
     }
 
     public static String getMonth(int month) {
@@ -202,7 +204,7 @@ public class Actions {
     public static String getTextOfAlertMessage(WebDriver driver) {
         try {
             return driver.switchTo().alert().getText();
-        }catch(Exception exp){
+        } catch (Exception exp) {
             Debugger.println("Alert expected, but not present.");
             SeleniumLib.takeAScreenShot("NoAlertMessage.jpg");
             return "";
@@ -254,9 +256,9 @@ public class Actions {
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
                 //Debugger.println("Actions: Clicking on Element :" + element);
-            }catch(Exception exp){
+            } catch (Exception exp) {
                 try {
-                    Debugger.println("Actions: Clicking on Element Exception :"+exp);
+                    Debugger.println("Actions: Clicking on Element Exception :" + exp);
                     JavascriptExecutor executor = (JavascriptExecutor) driver;
                     executor.executeScript("arguments[0].click();", element);
                 } catch (Exception exp1) {
@@ -306,16 +308,14 @@ public class Actions {
             }
             int index = actualDropDownValues.indexOf(value);
             dropDownElementValues.get(index).click();
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             Debugger.println("Unable to select value from drop down.");
         }
     }
 
 
-    public static void reClickDropDownFieldIfLabelErrorIsShown(WebDriver driver, List<WebElement> fieldErrors, WebElement element, WebElement elementLabel, int counter)
-    {
+    public static void reClickDropDownFieldIfLabelErrorIsShown(WebDriver driver, List<WebElement> fieldErrors, WebElement element, WebElement elementLabel, int counter) {
         for (int i = 1; i <= counter; i++) {
             if (fieldErrors.size() > 0) {
                 Actions.clickElement(driver, element);
@@ -354,7 +354,7 @@ public class Actions {
             Debugger.println("Clearing Browser cookies...");
             driver.manage().deleteAllCookies();
             Debugger.println("No cookies found... " + driver.manage().getCookies());
-        }catch (Exception exp){
+        } catch (Exception exp) {
             Debugger.println("Exception caught while clearing cookies : " + exp);
         }
     }

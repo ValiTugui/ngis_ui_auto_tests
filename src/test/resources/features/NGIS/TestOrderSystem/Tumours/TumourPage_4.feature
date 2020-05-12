@@ -1,16 +1,17 @@
 #@regression
 #@tumoursPage1
 #@tumoursPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 4
 
- @NTS-3204 @LOGOUT
+  @NTS-3204 @Z-LOGOUT
 #    @E2EUI-890 @E2EUI-1026
-  Scenario Outline: NTS-3204:Edit a tumour page
+  Scenario Outline: NTS-3204:E2EUI-890,1026:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
@@ -19,22 +20,21 @@ Feature: Tumours Page - 4
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
-    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the "<pageTitle>" page is displayed
+    When the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    Then the user is navigated to a page with title Edit a tumour
     And an information "<information>" is displayed that a test cannot start without a tumour
 
-
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
+      | stage   | tumour_type              | presentationType | searchTerm | information                                                                                              |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
-
-  @NTS-3225 @LOGOUT
+  @NTS-3225 @Z-LOGOUT
 #    @E2EUI-2279 @E2EUI-1434
-  Scenario Outline: :NTS-3225: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
+  Scenario Outline: :NTS-3225:E2EUI-2279,1434: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
@@ -58,12 +58,13 @@ Feature: Tumours Page - 4
       | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   | pageTitle     |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary | Edit a tumour |
 
-  @NTS-3176 @LOGOUT
+  @NTS-3176 @Z-LOGOUT
 #    @E2EUI-1412
-  Scenario Outline: NTS-3176: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
+  Scenario Outline: NTS-3176:E2EUI-1412: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
@@ -84,25 +85,27 @@ Feature: Tumours Page - 4
       | If the tumour to be tested is:                  |
       | not shown                                       |
       | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
+      | you must                                        |
+      | add a new tumour                                |
+      | then select it.                                 |
     And on the select or edit a tumour page, the tumour table list shows the column names
       | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
-#      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
       | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
     And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
     And Save and Continue button is displayed
-#
+
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
 
-  @NTS-3431 @LOGOUT
+  @NTS-3431 @Z-LOGOUT
 #    @E2EUI-997
-  Scenario Outline:NTS-3431:The Tumours stage is marked 'Mandatory ToDo' when not completed and marked 'Completed' when all tumour field completed
+  Scenario Outline:NTS-3431:E2EUI-997:The Tumours stage is marked 'Mandatory ToDo' when not completed and marked 'Completed' when all tumour field completed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the "<stage>" stage is marked as Mandatory To Do
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
@@ -119,9 +122,9 @@ Feature: Tumours Page - 4
       | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added     |
 
 
-  @NTS-4503 @LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #    @E2EUI-1130
-  Scenario Outline: Add Tumour Page - Description field - maximum length validation
+  Scenario Outline:NTS-4503:E2EUI-1130: Add Tumour Page - Description field - maximum length validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -134,12 +137,13 @@ Feature: Tumours Page - 4
       | Tumours | 12345678901234567890123456789012345678901234567890 |
 
 
-  @NTS-4757 @LOGOUT
-#    @E2EUI-1339 @E2EUI-2781
-  Scenario Outline: NTS-4757: Add Tumour page error validation
+  @NTS-4757 @Z-LOGOUT
+#    @E2EUI-1339
+  Scenario Outline: NTS-4757:E2EUI-1339: Add Tumour page error validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user clicks the Save and Continue button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
       | labelHeader                       | errorMessageHeader                           | messageColourHeader |
@@ -153,9 +157,9 @@ Feature: Tumours Page - 4
       | Tumours | Add a tumour |
 
 
-  @NTS-4829 @LOGOUT
+  @NTS-4829 @Z-LOGOUT
 #    @E2EUI-1758
-  Scenario Outline:NTS-4829:Update validation in Estimated Date of Diagnosis to account for birth date on Tumour page
+  Scenario Outline:NTS-4829:E2EUI-1758:Update validation in Estimated Date of Diagnosis to account for birth date on Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -168,12 +172,13 @@ Feature: Tumours Page - 4
       | Tumours | Date_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
       | Tumours | Year_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
 
-  @NTS-3487 @LOGOUT
+  @NTS-3487 @Z-LOGOUT
 #    @E2EUI-2144 @E2EUI-2097
-  Scenario Outline: NTS-3487: Change 'Tumour Content' display value
+  Scenario Outline: NTS-3487:E2EUI-2144,2097: Change 'Tumour Content' display value
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M185 | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Answer questions about this tumour

@@ -31,8 +31,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    @FindBy(xpath = "//a[contains(string(),'File Submissions')]")
-    public WebElement genericNavigation;
+    @FindBy(xpath = "//a[contains(string(),'Sample Processing')]")
+    public WebElement sampleProcessingMenuLink;
 
     @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box box-solid box-primary']")
     public WebElement mainSearchContainer;
@@ -64,7 +64,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement sampleProcessing2;
 
     @FindBy(xpath = "//ul[contains(string(),'Sample Processing')]//ul/li/a")
-    public List <WebElement> subMenusOfSimpleProcessing;
+    public List<WebElement> subMenusOfSimpleProcessing;
 
     @FindBy(xpath = "//a[@class='sidebar-toggle']")
     public WebElement sideBarToggle;
@@ -96,7 +96,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "div[class*='modal-content']")
     public WebElement displayOptionsModalContent;
 
-    // //span[text()='Compact grid']/../input
     @FindBy(xpath = "//span[text()='Compact grid']/../input")
     public WebElement compactGridCheckBox;
 
@@ -145,42 +144,61 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[contains(string(),'Hide all')]")
     public WebElement headerHideAll;
 
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'visible')]/div")
+    public List<WebElement> visibleColumnReorderingList;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'hidden')]/div")
+    public List<WebElement> hiddenColumnReorderingList;
+
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]")
     public WebElement displayedResultTable;
 
-    @FindBy(xpath="//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
+    @FindBy(xpath = "//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
     public WebElement errorMessageElement;
-
 
     String badgeFilterSearchCriteriaBy = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]";
 
-
     public boolean navigateToMiPage(String expectedMipage) {
+        By miStage = null;
         try {
-            By miPage;
-            miPage = By.xpath("//a[contains(string(),\"" + expectedMipage + "\")]");
-            Wait.forElementToBeDisplayed(driver, driver.findElement(miPage), 30);
-            if (!Wait.isElementDisplayed(driver, driver.findElement(miPage), 10)) {
+            if(!Wait.isElementDisplayed(driver,sampleProcessingMenuLink,40)){
+                Debugger.println("MIPortal Menu List not loaded.");
+                SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
+                return false;
+            }
+            miStage = By.xpath("//a[contains(string(),'" + expectedMipage + "')]");
+            if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 20)) {
                 Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing.");
                 SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(miPage));
+            try {
+                Actions.clickElement(driver, driver.findElement(miStage));
+            } catch (Exception exp) {
+                Debugger.println("MIPortal Menu accessing via SeleniumLib:");
+                try {
+                    seleniumLib.clickOnElement(miStage);
+                    return true;
+                }catch(Exception exp1){
+                    Debugger.println("Could not access the MIPortal:"+exp1);
+                    SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
+                    return false;
+                }
+            }
+            Wait.seconds(2);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Mandatory Page Link is not displayed even after waiting period...Failing." + exp);
-            SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
+            Debugger.println("Exception from clicking on Mandatory page link. " + exp);
+            SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
             return false;
         }
     }//end
 
     public boolean searchBoxContainerIsDisplayed() {
         try {
-//            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
-//            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
-            if(!Wait.isElementDisplayed(driver,searchBoxHeader,15)){
+            if (!Wait.isElementDisplayed(driver, searchBoxHeader, 15)) {
                 Debugger.println("Search Terms header is not displayed");
-                SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+                SeleniumLib.takeAScreenShot("searchContainerNotFound.jpg");
                 return false;
             }
             if (Wait.isElementDisplayed(driver, mainSearchContainer, 5)) {
@@ -188,55 +206,94 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("Element not found ");
-                SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+                SeleniumLib.takeAScreenShot("searchContainerNotFound.jpg");
                 return false;
             }
         } catch (Exception exp) {
             Debugger.println("Main search container is not displayed");
-            SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+            SeleniumLib.takeAScreenShot("searchContainerNotFound.jpg");
             return false;
         }
     }
 
-    public void clickAddButton() {
+    public boolean clickAddButton() {
         try {
+            if (!Wait.isElementDisplayed(driver, addButton, 20)) {
+                Debugger.println("The add button is not displayed");
+                SeleniumLib.takeAScreenShot("NoAddButton.jpg");
+                return false;
+            }
             Wait.forElementToBeClickable(driver, addButton);
             Click.element(driver, addButton);
+            Wait.seconds(1);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on addButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoaddButton.jpg");
+            try {
+                seleniumLib.clickOnWebElement(addButton);
+                Wait.seconds(1);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Clicking on addButton:" + exp1);
+                SeleniumLib.takeAScreenShot("NoAddButton.jpg");
+                return false;
+            }
         }
     }
 
-    public void clickSearchButton() {
+    public boolean clickSearchButton() {
         try {
+            if (!Wait.isElementDisplayed(driver, searchButton, 20)) {
+                Debugger.println("The search button is not displayed");
+                SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
+                return false;
+            }
             Wait.forElementToBeClickable(driver, searchButton);
             Click.element(driver, searchButton);
+            Wait.seconds(2);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on searchButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
+            try {
+                seleniumLib.clickOnWebElement(searchButton);
+                Wait.seconds(2);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Clicking on searchButton:" + exp1);
+                SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
+                return false;
+            }
         }
     }
 
-    public void clickResetButton() {
+    public boolean clickResetButton() {
         try {
+            if (!Wait.isElementDisplayed(driver, resetButton, 20)) {
+                Debugger.println("The reset button is not displayed");
+                SeleniumLib.takeAScreenShot("NoResetButton.jpg");
+                return false;
+            }
             Wait.forElementToBeClickable(driver, resetButton);
             try {
                 Click.element(driver, resetButton);
                 Wait.seconds(2);
+                return true;
             } catch (ElementClickInterceptedException exc) { //to handle the 3rd dropdown selection box overlay intercepting sometimes.
-                Debugger.println("Click on Reset Intercepted, clicking on body first and trying to reset again...."+exc);
+                Debugger.println("Click on Reset Intercepted, clicking on body first and trying to reset again...." + exc);
                 WebElement body = driver.findElement(By.xpath("//body"));
                 body.click();
                 Wait.seconds(2);
+                //resetButton.click();
+                seleniumLib.clickOnWebElement(resetButton);
+                return true;
             }
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetButton.jpg");
+            return false;
         }
     }
 
-    public void selectSearchValueDropDown(String value,String dropDownButton) {
+
+    public boolean selectSearchValueDropDown(String value, String dropDownButton) {
         try {
             Wait.seconds(2);
             By buttonElement;
@@ -244,7 +301,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(buttonElement));
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
-
+            if (value == null || value.isEmpty()) {
+                Debugger.println("There is no value to select from dropdown.");
+                SeleniumLib.takeAScreenShot("SearchValueDropDown.jpg");
+                return false;
+            }
             String[] valueList = null;
             if (value.indexOf(",") == -1) {
                 valueList = new String[]{value};
@@ -255,15 +316,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Wait.seconds(2);
                 Click.element(driver, driver.findElement(By.xpath("//div[contains(@class,'active')]//ul[@class='dropdown-menu inner ']/li//span[text()='" + valueList[i] + "']")));
             }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
+            SeleniumLib.takeAScreenShot("SearchValueDropDown.jpg");
+            return false;
         }
     }
 
     public List<String> getDropDownValues(String dropDownButton) {
         try {
             By buttonElement;
-            //button[@data-id='file_submissions-search-operator']
             Wait.seconds(3);
             buttonElement = By.xpath("//button[@data-id=\"" + dropDownButton + "\"]");
             Actions.clickElement(driver, driver.findElement(buttonElement));
@@ -271,10 +334,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             for (WebElement actualValue : genericDropDropDownValues) {
                 actualDropDownValues.add(actualValue.getText().trim());
             }
-            Debugger.println("Actual values: " + actualDropDownValues);
             return actualDropDownValues;
         } catch (Exception exp) {
-            Debugger.println("Actual values are not displayed");
+            Debugger.println("Exception in getDropDownValues for dropdown field:" + dropDownButton + "\nExp:" + exp);
             SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
             return null;
         }
@@ -284,14 +346,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.forElementToBeDisplayed(driver, mainSearchContainer);
             Wait.forElementToBeDisplayed(driver, searchBoxHeader);
-            if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
-                Debugger.println("badge search criteria is displayed");
-                return true;
-            } else {
+            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 20)) {
                 Debugger.println("badge search criteria element is not found");
                 SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
                 return false;
             }
+            return true;
         } catch (Exception exp) {
             Debugger.println("badge search criteria element is not found");
             SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
@@ -345,15 +405,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             } else {
                 displayedMessage = By.xpath("//p[text()='" + noResultMessage + "']");
             }
-            Wait.forElementToBeDisplayed(driver, driver.findElement(displayedMessage), 30);
-            if (!Wait.isElementDisplayed(driver, driver.findElement(displayedMessage), 10)) {
-                Debugger.println(" no result message is shown...Failing.");
+            //Wait.forElementToBeDisplayed(driver, driver.findElement(displayedMessage), 30);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(displayedMessage), 30)) {
+                Debugger.println(" No search result found -message is Not shown...Failing.");
                 SeleniumLib.takeAScreenShot("noResultMessage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("no result message is shown...Failing...Failing." + exp);
+            Debugger.println("Exception from checking:verifyNoSearchResultMessage: " + exp);
             SeleniumLib.takeAScreenShot("noResultMessage.jpg");
             return false;
         }
@@ -363,8 +423,13 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsInTheSearchResultSection() {
         try {
             Wait.seconds(1);
+            if(!Wait.isElementDisplayed(driver,searchResultTitle,20)){
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
+                return false;
+            }
             if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 20)) {
-                Debugger.println("Search result display option is not displayed.");
+                Debugger.println("Search result display option button is not displayed.");
                 SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                 return false;
             }
@@ -373,7 +438,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                 return false;
             }
-//            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton, 20);
             List<WebElement> expectedElements = new ArrayList<WebElement>();
             expectedElements.add(searchResultTitle);
             expectedElements.add(searchResultDisplayOptionsButton);
@@ -382,15 +446,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             expectedElements.add(downloadCSVButton);
             for (int i = 0; i < expectedElements.size(); i++) {
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
-                    Debugger.println("Search result section element not displayed: "+expectedElements.get(i));
+                    Debugger.println("Search result section element not displayed: " + expectedElements.get(i));
                     SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                     return false;
                 }
-                Debugger.println("Element " + i + " shown");
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Search result section is not properly loaded"+exp);
+            Debugger.println("Search result section is not properly loaded" + exp);
             SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
             return false;
         }
@@ -401,20 +464,25 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             //Delete if File already present
             TestUtils.deleteIfFilePresent(fileName, "");
+            if (!Wait.isElementDisplayed(driver, downloadCSVButton, 20)) {
+                Debugger.println("The CSV file download option is not displayed");
+                SeleniumLib.takeAScreenShot("DownloadCSVFile.jpg");
+                return false;
+            }
             seleniumLib.clickOnWebElement(downloadCSVButton);
             Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
             Debugger.println("Form: " + fileName + " ,downloaded from section: " + fileName);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Could not locate the form download button ..... " + exp);
-            SeleniumLib.takeAScreenShot("OfflineOrderPrintFormsDownload.jpg");
+            Debugger.println("Exception from checking CSV file download: " + exp);
+            SeleniumLib.takeAScreenShot("DownloadCSVFile.jpg");
             return false;
         }
     }
 
     public boolean clickSearchResultDisplayOptionsButton() {
         try {
-            if(!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton,10)){
+            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 30)) {
                 Debugger.println("The Display Options button is not displayed");
                 SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
                 return false;
@@ -422,58 +490,119 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Click.element(driver, searchResultDisplayOptionsButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on displayOptions:" + exp);
-            SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
-            return false;
+            try {
+                seleniumLib.clickOnWebElement(searchResultDisplayOptionsButton);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Clicking on displayOptions:" + exp1);
+                SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
+                return false;
+            }
         }
     }
 
     public boolean modalContentIsDisplayed() {
         try {
-            if (Wait.isElementDisplayed(driver, displayOptionsModalContent, 10)) {
-                Debugger.println("modal-content is displayed as expected");
-                return true;
-            } else {
+            if (!Wait.isElementDisplayed(driver, displayOptionsModalContent, 10)) {
                 Debugger.println("modal-content is NOT displayed");
                 SeleniumLib.takeAScreenShot("modalContentNotShown.jpg");
                 return false;
             }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("modal-content is NOT displayed");
+            Debugger.println("Exception from:modalContentIsDisplayed: " + exp);
             SeleniumLib.takeAScreenShot("modalContentNotShown.jpg");
             return false;
         }
     }
 
-    public boolean verifyTheCheckBoxesDisplayedOnModalContent() {
-        Wait.forElementToBeDisplayed(driver,displayOptionsModalContent, 10 );
-        List<WebElement> expectedElements = new ArrayList<WebElement>();
-        expectedElements.add(compactGridCheckBox);
-        expectedElements.add(truncateColumnsCheckBox);
-        for (int i = 0; i < expectedElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+    public boolean verifyTheCheckBoxesUnderSaveSpaceSection() {
+        try {
+            if (!Wait.isElementDisplayed(driver, displayOptionsModalContent, 10)) {
+                Debugger.println("The modal content is not present");
+                SeleniumLib.takeAScreenShot("CheckBoxOnModalPopup.jpg");
                 return false;
             }
-            Debugger.println("element " + i + " shown");
+            if (!Wait.isElementDisplayed(driver, compactGridCheckBox, 10)) {
+                Debugger.println("The compactGridCheckBox is not present");
+                SeleniumLib.takeAScreenShot("compactGridCheckBox.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, truncateColumnsCheckBox, 10)) {
+                Debugger.println("The truncateColumnsCheckBox is not present");
+                SeleniumLib.takeAScreenShot("truncateColumnsCheckBox.jpg");
+                return false;
+            }
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking for compact & truncate check boxes: " + exp);
+            SeleniumLib.takeAScreenShot("CheckBoxOnModalPopup.jpg");
+            return false;
         }
-        return true;
     }
 
-
-    public void clickResetButtonOnModalContent() {
+    public boolean clickResetButtonOnModalContent() {
         try {
+            if (!Wait.isElementDisplayed(driver, resetHeaderOrdering, 15)) {
+                Debugger.println("The reset button is not displayed on the modal pop-up");
+                SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
+                return false;
+            }
             Wait.forElementToBeClickable(driver, resetHeaderOrdering);
             Click.element(driver, resetHeaderOrdering);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
+            try {
+                seleniumLib.clickOnWebElement(resetHeaderOrdering);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp1);
+                SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean verifyColumnOrderingSectionDisplay() {
+        try {
+            if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 10)) {
+                Debugger.println("Column Ordering Section not displayed.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, headerShow, 10)) {
+                Debugger.println("Show Section not displayed.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, headerHide, 10)) {
+                Debugger.println("Hide Section not displayed.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, headerShowAll, 10)) {
+                Debugger.println("ShowAll button not displayed.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, headerHideAll, 10)) {
+                Debugger.println("ShowAll button not displayed.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("No headerColumn,show or hide element shown:" + exp);
+            SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+            return false;
         }
     }
 
     public List<String> getColumnOrderShowHideLabelsOnDisplayedModal() {
         try {
-            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
-            if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 10)){
+//            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
+            if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 20)) {
                 Debugger.println("No headerColumn element shown.");
                 SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
                 return null;
@@ -494,150 +623,233 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public String getHeaderShowOrHideLabel(String headerColumnStatus) {
         try {
             By columnElement;
-            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
+            if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 20)) {
+                Debugger.println("The columns ordering is not displayed on the modal Pop-up");
+                SeleniumLib.takeAScreenShot("ShowHideLabelsOnModalPopUp.jpg");
+                return null;
+            }
             columnElement = By.xpath("//label[text()=\"" + headerColumnStatus + "\"]");
-            if (!Wait.isElementDisplayed(driver,driver.findElement(columnElement) , 10)){
-                Debugger.println("No " + columnElement +  "element shown.");
-                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+            if (!Wait.isElementDisplayed(driver, driver.findElement(columnElement), 10)) {
+                Debugger.println("No " + columnElement + "element shown.");
+                SeleniumLib.takeAScreenShot("ShowHideLabelsOnModalPopUp.jpg");
                 return null;
             }
             return Actions.getText(driver.findElement(columnElement));
         } catch (Exception exp) {
             Debugger.println("No element shown.");
-            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            SeleniumLib.takeAScreenShot("ShowHideLabelsOnModalPopUp.jpg");
             return null;
         }
     }
 
     public List<String> getListOfColumnsInHeaderShowOrHidden(String headerColumnStatus) {
         try {
-            By columnStatusElement;
-            By columnStatusElementList;
-            String columnStatusHeaderLocator = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,\"" + headerColumnStatus + "\")]";
-            columnStatusElement = By.xpath(columnStatusHeaderLocator);
-            Wait.forElementToBeDisplayed(driver, driver.findElement(columnStatusElement), 10);
-            if (!Wait.isElementDisplayed(driver, driver.findElement(columnStatusElement), 10)) {
-                Debugger.println("No " + columnStatusElement + "element shown.");
-                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
-                return null;
-            }
-            columnStatusElementList = By.xpath(columnStatusHeaderLocator + "/div");
-            List<WebElement> listOfHeaderValueElements = driver.findElements(columnStatusElementList);
             List<String> actualHeaderValueList = new ArrayList<>();
-            for (WebElement headerValue : listOfHeaderValueElements) {
-                actualHeaderValueList.add(headerValue.getText().trim());
+            if (headerColumnStatus.equalsIgnoreCase("Show")) {
+                for (WebElement headerValue : visibleColumnReorderingList) {
+                    actualHeaderValueList.add(headerValue.getText().trim());
+                }
+            } else if (headerColumnStatus.equalsIgnoreCase("Hide")) {
+                for (WebElement headerValue : hiddenColumnReorderingList) {
+                    actualHeaderValueList.add(headerValue.getText().trim());
+                }
             }
-            Debugger.println("Method Actual actualHeaderValueList " + ":" + actualHeaderValueList.size() + ":" + actualHeaderValueList);
             return actualHeaderValueList;
         } catch (Exception exp) {
-            Debugger.println("No element shown.");
-            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            Debugger.println("Exception from:getListOfColumnsInHeaderShowOrHidden:" + exp);
+            SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
             return null;
+        }
+    }
+
+    public boolean verifyListOfColumnsInHeaderShowOrHidden(String headerColumnStatus, List<List<String>> expValues) {
+        try {
+            List<String> actualHeaderValueList = new ArrayList<>();
+            if (headerColumnStatus.equalsIgnoreCase("Show")) {
+                for (WebElement headerValue : visibleColumnReorderingList) {
+                    actualHeaderValueList.add(headerValue.getText().trim());
+                }
+            } else if (headerColumnStatus.equalsIgnoreCase("Hide")) {
+                for (WebElement headerValue : hiddenColumnReorderingList) {
+                    actualHeaderValueList.add(headerValue.getText().trim());
+                }
+            }
+            boolean isPresent = false;
+            for (int i = 1; i < expValues.size(); i++) {//Starts from index 1 to exclude heading
+                for (int j = 0; j < actualHeaderValueList.size(); j++) {
+                    if (expValues.get(i).get(0).equalsIgnoreCase(actualHeaderValueList.get(j))) {
+                        isPresent = true;
+                        break;
+                    }
+                }
+                if (!isPresent) {
+                    Debugger.println("Expected value :" + expValues.get(i).get(0) + " Not present under section:" + headerColumnStatus);
+                    SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
+                    return isPresent;
+                }
+                isPresent = false;//For next value verification
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from:getListOfColumnsInHeaderShowOrHidden:" + exp);
+            SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
+            return false;
         }
     }
 
 
     public String getTheSelectedPaginationEntryValue() {
         try {
-            Wait.forElementToBeDisplayed(driver, searchResultEntryOptionsSelection);
-            Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
+            if (!Wait.isElementDisplayed(driver, searchResultEntryOptionsSelection, 20)) {
+                Debugger.println("The pagination value selection option is not present");
+                SeleniumLib.takeAScreenShot("NoPaginationEntryOption.jpg");
+                return null;
+            }
+//            Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
             if (!Wait.isElementDisplayed(driver, defaultPaginationEntryOptionsValue, 10)) {
                 Debugger.println("No defaultPaginationEntryOptionsValue element shown.");
-                SeleniumLib.takeAScreenShot("NodDefaultPaginationEntryOptionsElement.jpg");
+                SeleniumLib.takeAScreenShot("NoPaginationEntryOption.jpg");
                 return null;
             }
             Select select = new Select(defaultPaginationEntryOptionsValue);
             return select.getFirstSelectedOption().getText();
         } catch (Exception exp) {
-            Debugger.println("No element shown.");
-            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            Debugger.println("Exception from checking Pagination: " + exp);
+            SeleniumLib.takeAScreenShot("NoPaginationEntryOption.jpg");
             return null;
         }
     }
 
     public List<String> getAllThePaginationEntryDropDownValues() {
-        Wait.seconds(3);
-        Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
-        Select paginationSelect = new Select(defaultPaginationEntryOptionsValue);
-        List<WebElement> allOptionsElement = paginationSelect.getOptions();
         List<String> allOptions = new ArrayList<>();
-        for (WebElement optionElement : allOptionsElement) {
-            allOptions.add(optionElement.getText());
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, defaultPaginationEntryOptionsValue, 10)) {
+                Debugger.println("No defaultPaginationEntryOptionsValue element displayed.");
+                SeleniumLib.takeAScreenShot("AllPaginationValues.jpg");
+                return allOptions;
+            }
+            Select paginationSelect = new Select(defaultPaginationEntryOptionsValue);
+            List<WebElement> allOptionsElement = paginationSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the pagination drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("AllPaginationValues.jpg");
+            return allOptions;
         }
-        Debugger.println("Options are " + allOptions);
-        return allOptions;
     }
 
-    public void selectValueInPagination(String valueToSelect) {
-        Wait.seconds(5);
-        Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
-        Select paginationSelect = new Select(defaultPaginationEntryOptionsValue);
-        paginationSelect.selectByVisibleText(valueToSelect);
+    public boolean selectValueInPagination(String valueToSelect) {
+        try {
+            Wait.seconds(5);
+            if (!Wait.isElementDisplayed(driver, defaultPaginationEntryOptionsValue, 20)) {
+                Debugger.println("The Pagination selection box is not displayed");
+                SeleniumLib.takeAScreenShot("SelectPagination.jpg");
+                return false;
+            }
+            seleniumLib.selectFromListByText(defaultPaginationEntryOptionsValue, valueToSelect);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selecting pagination value: " + exp);
+            SeleniumLib.takeAScreenShot("SelectPagination.jpg");
+            return false;
+        }
     }
 
     public boolean getTheTotalNumberOfSearchResult(int size) {
         try {
             Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, searchResultRowHeader);
-            if (!(searchResultTable.size() <= size)) {
-                Debugger.println("Pagination is not working");
-                SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+
+            if (!Wait.isElementDisplayed(driver, searchResultRowHeader, 20)) {
+                Debugger.println("The result table header is not displayed");
+                SeleniumLib.takeAScreenShot("TotalSearchResultNum.jpg");
                 return false;
             }
-            Debugger.println("The total search result is " + searchResultTable.size());
+            int actualNumOfResults = searchResultTable.size();
+            if (!(actualNumOfResults <= size)) {
+                Debugger.println("Pagination is not working");
+                SeleniumLib.takeAScreenShot("TotalSearchResultNum.jpg");
+                return false;
+            }
+            Debugger.println("The total search results displayed are " + actualNumOfResults);
             return true;
         } catch (Exception exp) {
             Debugger.println("No search result");
-            SeleniumLib.takeAScreenShot("NoSearchResultShown.jpg");
+            SeleniumLib.takeAScreenShot("TotalSearchResultNum.jpg");
             return false;
         }
     }
 
     public boolean verifyTheButtonsShowAllAndHideAllAreDisplayedOnModalContent() {
-        Wait.forElementToBeDisplayed(driver, displayOptionsModalContent, 10);
-        List<WebElement> expectedElements = new ArrayList<WebElement>();
-        expectedElements.add(headerShowAll);
-        expectedElements.add(headerHideAll);
-        for (int i = 0; i < expectedElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
-                SeleniumLib.takeAScreenShot(" element" + i + "is NOT shown.jpg");
+        try {
+            if (!Wait.isElementDisplayed(driver, displayOptionsModalContent, 10)) {
+                Debugger.println("The modal content pop up is not displayed");
+                SeleniumLib.takeAScreenShot("ShowAllHideAllOptions.jpg");
                 return false;
             }
-            Debugger.println("element " + i + " shown");
+            List<WebElement> expectedElements = new ArrayList<WebElement>();
+            expectedElements.add(headerShowAll);
+            expectedElements.add(headerHideAll);
+            for (int i = 0; i < expectedElements.size(); i++) {
+                if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                    SeleniumLib.takeAScreenShot("Element" + i + "is_NOT_shown.jpg");
+                    return false;
+                }
+                Debugger.println("element " + i + " shown");
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking Show all-Hide all option in the modal pop-up: " + exp);
+            SeleniumLib.takeAScreenShot("ShowAllHideAllOptions.jpg");
+            return false;
         }
-        return true;
     }
 
-    public void clickShowAllOrHideAllButton(String headerDisplayButton) {
+    public boolean clickShowAllOrHideAllButton(String displayOption) {
         try {
-            By buttonElement;
-            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
-            buttonElement = By.xpath("//button[contains(string(),\"" + headerDisplayButton + "\")]");
-            Wait.forElementToBeDisplayed(driver, driver.findElement(buttonElement));
-            if (!Wait.isElementDisplayed(driver, driver.findElement(buttonElement), 10)) {
-                Debugger.println("No " + headerDisplayButton + "element shown.");
-                SeleniumLib.takeAScreenShot("no" + headerDisplayButton + " button.jpg");
+            if (displayOption.equalsIgnoreCase("Show all")) {
+                Actions.clickElement(driver, headerShowAll);
+            } else {
+                Actions.clickElement(driver, headerHideAll);
             }
-            Actions.clickElement(driver, driver.findElement(buttonElement));
+            return true;
         } catch (Exception exp) {
-            Debugger.println("No noShowAllOrHideAllButtonShown shown.");
-            SeleniumLib.takeAScreenShot("noShowAllOrHideAllButtonShown.jpg");
+            try {
+                if (displayOption.equalsIgnoreCase("Show all")) {
+                    seleniumLib.clickOnWebElement(headerShowAll);
+                } else {
+                    seleniumLib.clickOnWebElement(headerHideAll);
+                }
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from clicking on the " + displayOption + " button: " + exp);
+                SeleniumLib.takeAScreenShot("ClickShowAllHideAll.jpg");
+                return false;
+            }
         }
     }
 
     public boolean saveAndCloseButtonIsDisabled() {
         try {
+            Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, saveAndCloseHeaderOrderingButton, 10)) {
                 Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
-                SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButtonElement.jpg");
+                SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
                 return false;
             }
-            Wait.seconds(3);
-            Debugger.println("Save and Close Header Ordering button is disabled :  " + saveAndCloseHeaderOrderingButton.isEnabled());
-            return saveAndCloseHeaderOrderingButton.isEnabled();
+            boolean enabledStatus = saveAndCloseHeaderOrderingButton.isEnabled();
+            if (enabledStatus) {
+                Debugger.println("Save and Close button is enabled: " + enabledStatus);
+                SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
+                return false;
+            }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("No noShowAllOrHideAllButtonShown shown.");
-            SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButton.jpg");
+            Debugger.println("Exception from checking the Save and Close button status: " + exp);
+            SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
             return false;
         }
     }
@@ -651,14 +863,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
             // first check the column header is in 'From Section'
             if (fromSection.equalsIgnoreCase("Show")) {
-                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("visible");
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("show");
             } else if (fromSection.equalsIgnoreCase("Hide")) {
-                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("hidden");
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("hide");
             }
             assert actualListOfColumnHeaders != null;
 
             if (!actualListOfColumnHeaders.contains(columnHeader)) {
-                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                Debugger.println("No columnHeader: " + columnHeader + " element is present.");
                 SeleniumLib.takeAScreenShot("columnHeaderNotFoundInColumnHeaderList.jpg");
                 return false;
             }
@@ -677,42 +889,85 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             action.dragAndDrop(columnHeaderElement, toSectionElement).build().perform();
             return true;
         } catch (Exception exp) {
-            Debugger.println("unable to move column header between show and hide.");
+            Debugger.println("unable to move column header between show and hide." + exp);
             SeleniumLib.takeAScreenShot("unableToMoveColumnHeaderBetweenShowAndHide.jpg");
             return false;
         }
     }
 
-    public void clickSaveAndCloseButtonOnModalContent() {
+    public boolean clickSaveAndCloseButtonOnModalContent() {
         try {
             if (!Wait.isElementDisplayed(driver, saveAndCloseHeaderOrderingButton, 10)) {
                 Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
                 SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButtonElement.jpg");
+                return false;
             }
             //Wait.forElementToBeClickable(driver, saveAndCloseHeaderOrderingButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndCloseHeaderOrderingButton);
             //Click.element(driver, resetHeaderOrderingButton);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on saveAndCloseHeaderOrderingButton:" + exp);
-            SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
+            try {
+                seleniumLib.clickOnWebElement(saveAndCloseHeaderOrderingButton);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Clicking on saveAndCloseHeaderOrderingButton:" + exp);
+                SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
+                return false;
+            }
+
         }
     }
 
-    public void clickOnCheckBoxOptionsForSaveSpaceOnScreen(String saveSpaceCompactorTruncate) {
+    public boolean clickOnCheckBoxOptionsForSaveSpaceOnScreen(String optionName) {
         try {
-            String saveSpaceScreen = "//span[text()='dummySaveSpace']/../input";
-            String saveSpaceScreenLocator = saveSpaceScreen.replace("dummySaveSpace", saveSpaceCompactorTruncate);
-            WebElement saveSpaceScreenElement = driver.findElement(By.xpath(saveSpaceScreenLocator));
-            if (!Wait.isElementDisplayed(driver, saveSpaceScreenElement, 10)) {
-                Debugger.println("No saveSpaceCompactOrTruncate element is shown.");
-                SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
+            if (optionName.equalsIgnoreCase("Compact grid")) {
+                if (!Wait.isElementDisplayed(driver, compactGridCheckBox, 10)) {
+                    Debugger.println("Check box option:" + optionName + " not displayed.");
+                    SeleniumLib.takeAScreenShot("CheckBoxOption.jpg");
+                    return false;
+                }
+                seleniumLib.clickOnWebElement(compactGridCheckBox);
+            } else if (optionName.equalsIgnoreCase("Truncate columns")) {
+                if (!Wait.isElementDisplayed(driver, truncateColumnsCheckBox, 10)) {
+                    Debugger.println("Check box option:" + optionName + " not displayed.");
+                    SeleniumLib.takeAScreenShot("CheckBoxOption.jpg");
+                    return false;
+                }
+                seleniumLib.clickOnWebElement(truncateColumnsCheckBox);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, saveSpaceScreenElement);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("No saveSpaceCompactOrTruncate element shown.");
+            Debugger.println("No Compact Or Truncate element shown." + exp);
             SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
+            return false;
         }
     }
+
+    //New From Stag
+    @FindBy(xpath = "//input[contains(@data-date-format,'dd-mm-yyyy')]")
+    public WebElement dateSearchField;
+
+    String searchBox = "//div[contains(@id,'dummySection')]//button[@role='button']";
+
+    @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//th")
+    public List<WebElement> displayOptionsTableHeaders;
+
+    String resultData = "//table[contains(@id,'DataTables_Table')]/tbody//tr//td[dummyValue]";
+
+    @FindBy(xpath = "//button[contains(@id,'display-save_close')]")
+    public WebElement saveAndCloseButton;
+
+    @FindBy(xpath = "//body")
+    public WebElement pageBody;
+
+    @FindBy(xpath = "//footer")
+    public WebElement menuFooter;
+
+    @FindBy(xpath = "//header[contains(@class,'main-header')]//*[contains(@class,'logo')]")
+    public WebElement portalNameAndEnv;
+
+    String searchBoxPath = "//input[@id='dummyValue']";
 
     public boolean verifyThePresenceOfColumnHeader(String columnName) {
         try {
@@ -765,10 +1020,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    // new
-    @FindBy(xpath = "//button[contains(@id,'display-save_close')]")
-    public WebElement saveAndCloseButton;
-
     public boolean clickOnSaveAndCloseButton() {
         try {
             if (!Wait.isElementDisplayed(driver, saveAndCloseButton, 10)) {
@@ -779,16 +1030,16 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Actions.clickElement(driver, saveAndCloseButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in: MiOrderTrackingPage : clickOnSaveAndCloseButton : " + exp);
-            SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
-            return false;
+            try {
+                seleniumLib.clickOnWebElement(saveAndCloseButton);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception in: MiOrderTrackingPage : clickOnSaveAndCloseButton : " + exp1);
+                SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
+                return false;
+            }
         }
     }
-
-    @FindBy(xpath = "//body")
-    public WebElement pageBody;
-    @FindBy(xpath = "//footer")
-    public WebElement menuFooter;
 
     public boolean verifyPresenceOfFeedbackLink() {
         try {
@@ -818,9 +1069,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
-    @FindBy(xpath = "//header[contains(@class,'main-header')]//*[contains(@class,'logo')]")
-    public WebElement portalNameAndEnv;
 
     public boolean verifyPortalLogoAndEnvName(String logoName) {
         try {
@@ -889,8 +1137,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheButtonsAddSearchResetAreDisplayed() {
         try {
             if (!Wait.isElementDisplayed(driver, resetButton, 10)) {
-                Debugger.println("Home Page Buttons are not display.");
-                SeleniumLib.takeAScreenShot("Button.jpg");
+                Debugger.println("Home Page Buttons are not displayed.");
+                SeleniumLib.takeAScreenShot("verifyTheButtonsAddSearchResetAreDisplayed.jpg");
                 return false;
             }
             List<WebElement> expectedElements = new ArrayList<WebElement>();
@@ -900,7 +1148,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
             for (int i = 0; i < expectedElements.size(); i++) {
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
-                    SeleniumLib.takeAScreenShot(" element" + i + "is NOT shown.jpg");
+                    SeleniumLib.takeAScreenShot(" element" + i + "is_NOT_shown.jpg");
                     return false;
                 }
                 Debugger.println("element " + i + " shown");
@@ -916,8 +1164,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheButtonsResetSaveAndCloseAreDisplayed() {
         try {
             if (!Wait.isElementDisplayed(driver, displayOptionsModalContent, 10)) {
-                Debugger.println("display Options Modal Content is not display.");
-                SeleniumLib.takeAScreenShot("displayOptionsModalContent.jpg");
+                Debugger.println("Display Options Modal Content is not displayed.");
+                SeleniumLib.takeAScreenShot("ResetSaveAndCloseButtonsOnModalContent.jpg");
                 return false;
             }
             List<WebElement> expectedElements = new ArrayList<WebElement>();
@@ -933,7 +1181,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheButtonsResetSaveAndCloseAreDisplayed " + exp);
-            SeleniumLib.takeAScreenShot("verifyTheButtonsResetSaveAndCloseAreDisplayed.jpg");
+            SeleniumLib.takeAScreenShot("ResetSaveAndCloseButtonsOnModalContent.jpg");
             return false;
         }
     }
@@ -942,29 +1190,27 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             JavascriptExecutor javascript = (JavascriptExecutor) driver;
             Boolean presence = (Boolean) javascript.executeScript("return document.documentElement.scrollWidth>document.documentElement.clientWidth;");
-            if (presence == true) {
-                Debugger.println("Horizontal Scroll Bar Present");
-                SeleniumLib.takeAScreenShot("HorizontalScrollBarPresentafterSelecting .jpg");
+            if (presence) {
+                Debugger.println("Horizontal scroll bar present when it should not be present");
+                SeleniumLib.takeAScreenShot("verifyHorizontalScrollBarPresence.jpg");
                 return false;
             }
             Debugger.println("Horizontal Scroll Bar is not present");
             return true;
         } catch (Exception exp) {
-            Debugger.println("MiportalhomePage : verifyHorizontalScrollBar : " + exp);
-            SeleniumLib.takeAScreenShot("verifyHorizontalScrollBar.jpg");
+            Debugger.println("MiPortalHomePage:verifyHorizontalScrollBar: " + exp);
+            SeleniumLib.takeAScreenShot("verifyHorizontalScrollBarPresence.jpg");
             return false;
 
         }
     }
-
-    String searchBoxPath = "//input[@id='dummyValue']";
 
     public boolean fillValueInTheTextSearchBox(String value, String searchBox) {
         try {
             Wait.seconds(2);
             String textSearchBoxPath = searchBoxPath.replaceAll("dummyValue", searchBox);
             WebElement textSearchBox = driver.findElement(By.xpath(textSearchBoxPath));
-            if (!Wait.isElementDisplayed(driver, textSearchBox, 10)) {
+            if (!Wait.isElementDisplayed(driver, textSearchBox, 20)) {
                 Debugger.println("The text search box is Not displayed");
                 SeleniumLib.takeAScreenShot("TextSearchBox.jpg");
                 return false;
@@ -987,7 +1233,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if (!Wait.isElementDisplayed(driver, sampleProcessing, 10)) {
                 Debugger.println("Sample processing section header is not displayed.");
-                SeleniumLib.takeAScreenShot("SampleProcessingSection.jpg");
+                SeleniumLib.takeAScreenShot("SampleProcessingMenu.jpg");
                 return false;
             }
             return true;
@@ -1007,7 +1253,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return isPresent;
             }
             for (int i = 0; i < subMenusOfSimpleProcessing.size(); i++) {
-                if (subMenusOfSimpleProcessing.get(i).getText().equalsIgnoreCase(sectionHeader)) {
+                String actualMenuItems = subMenusOfSimpleProcessing.get(i).getText();
+                if (actualMenuItems.equalsIgnoreCase(sectionHeader)) {
                     isPresent = true;
                     break;
                 }
@@ -1024,24 +1271,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    //New From Stag
-    @FindBy(xpath = "//input[contains(@data-date-format,'dd-mm-yyyy')]")
-    public WebElement dateSearchField;
-
-    String searchBox = "//div[contains(@id,'dummySection')]//button[@role='button']";
-
-    @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//th")
-    public List<WebElement> displayOptionsTableHeaders;
-
-    String resultData = "//table[contains(@id,'DataTables_Table')]/tbody//tr//td[dummyValue]";
-
     public boolean verifyThePresenceOfSearchBoxes(String numberOfSearchField, String section) {
         try {
             Wait.seconds(3);
-            Wait.forElementToBeDisplayed(driver, addButton, 10);
+            if (!Wait.isElementDisplayed(driver, addButton, 10)) {
+                Debugger.println("Add button is not displayed.");
+                SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
+                return false;
+            }
             if (!Wait.isElementDisplayed(driver, searchTitle, 10)) {
                 Debugger.println("Search title is not displayed.");
-                SeleniumLib.takeAScreenShot("SearchTitleNotPresent.jpg");
+                SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
                 return false;
             }
             Wait.seconds(5);//As observed page is taking time to load all elements
@@ -1050,18 +1290,24 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             int searchBoxSize = Integer.parseInt(numberOfSearchField);
             if (searchBoxFields.size() == searchBoxSize) {
                 return true;
-            }
-            if (searchBoxFields.size() == 2) {
-                if (seleniumLib.isElementPresent(dateSearchField)) {
-                    return true;
+            } else if (searchBoxFields.size() != searchBoxSize) {
+                if (searchBoxFields.size() == 2) {
+                    if (!seleniumLib.isElementPresent(dateSearchField)) {
+                        Debugger.println("Number of search box is " + searchBoxFields.size() + " and expected is " + searchBoxSize + " ,But the date box is not present");
+                        SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
+                        return false;
+                    }
                 }
+                return true;
+            } else {
+                Debugger.println("Actual search box size :" + searchBoxFields.size() + ", Excepted search box size :" + searchBoxSize);
+                SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
+                return false;
             }
-            Debugger.println("Actual search box size :" + searchBoxFields.size() + ", Excepted search box size :" + searchBoxSize);
-            SeleniumLib.takeAScreenShot("PresenceOfSearchBoxes.jpg");
-            return false;
+
         } catch (Exception exp) {
             Debugger.println("Exception from verifyThePresenceOfSearchBoxes, " + exp);
-            SeleniumLib.takeAScreenShot("PresenceOfSearchBoxes.jpg");
+            SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
             return false;
         }
     }
@@ -1178,10 +1424,13 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "lsid2find")
     public WebElement searchField;
 
+    @FindBy(id = "findLSID")
+    public WebElement findLsid;
+
     public boolean clickOnSearchAndPassLSIDRefNo(int LSIDRefNo) {
         try {
             if (!Wait.isElementDisplayed(driver, searchField, 30)) {
-                Debugger.println("searchField for present even after waiting period: ");
+                Debugger.println("searchField not present even after waiting period: ");
                 SeleniumLib.takeAScreenShot("SearchAndPassLSIDRefNo.jpg");
                 return false;
             }
@@ -1194,9 +1443,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    @FindBy(id = "findLSID")
-    public WebElement findLsid;
-
     public boolean clickOnFindLSID() {
         try {
             if (!Wait.isElementDisplayed(driver, findLsid, 30)) {
@@ -1207,9 +1453,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Actions.clickElement(driver, findLsid);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on FindLSID:" + exp);
-            SeleniumLib.takeAScreenShot("FindLSID.jpg");
-            return false;
+            try {
+                seleniumLib.clickOnWebElement(findLsid);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Clicking on FindLSID:" + exp1);
+                SeleniumLib.takeAScreenShot("FindLSID.jpg");
+                return false;
+            }
         }
     }
 
@@ -1372,7 +1623,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 headers.add(header);
             }
             Debugger.println("All headers" + headers);
-            //formate : dd/mm/yyyy
+            //format : dd/mm/yyyy
             String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
             Pattern p = Pattern.compile(regex);
             for (String date : headers) {
@@ -1409,23 +1660,26 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyErrorMessage(String expErrorMessage) {
-        try{
-            if (Wait.isElementDisplayed(driver,errorMessageElement,5)){
-                if(!errorMessageElement.getText().contains(expErrorMessage)){
-                    Debugger.println("Actual error message : "+errorMessageElement.getText()+"  is not matching with the expected error message :"+expErrorMessage);
-                    SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
-                    return false;
-                }
-                return true;
+        try {
+            if (!Wait.isElementDisplayed(driver, errorMessageElement, 30)) {
+                Debugger.println("Error message element not displayed as expected :" + expErrorMessage);
+                SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+                return false;
             }
-            Debugger.println("Error message not found :");
-            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
-            return false;
+            String actMessage = errorMessageElement.getText();
+            if (!actMessage.contains(expErrorMessage)) {
+                Debugger.println("Actual error message : " + actMessage + ",Expected:" + expErrorMessage);
+                SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+                return false;
+            }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("MiportalhomePage : verifyErrorMessage : "+exp);
+            Debugger.println("Exception from verifyErrorMessage : " + exp);
             SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
             return false;
         }
     }
+
+
 }
 

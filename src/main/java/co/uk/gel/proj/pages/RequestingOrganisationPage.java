@@ -79,8 +79,19 @@ public class RequestingOrganisationPage {
     public WebElement noSearchResult;
 
     public boolean verifyOrganisationDetails() {
-        Wait.forElementToBeDisplayed(driver, organisationDetailsContainer);
-        return organisationDetailsContainer.getText().contains(organisationDetailText.get(0).getText());
+        if (!Wait.isElementDisplayed(driver, organisationDetailsContainer, 30)) {
+            Debugger.println("organisationDetailsContainer not displayed.");
+            SeleniumLib.takeAScreenShot("organisationDetailsContainer.jpg");
+            return false;
+        }
+        String containerText = organisationDetailsContainer.getText();
+        String orgDetails = organisationDetailText.get(0).getText();
+        if (!containerText.contains(orgDetails)) {
+            Debugger.println("Organization Details not selected.");
+            SeleniumLib.takeAScreenShot("organisationDetailText.jpg");
+            return false;
+        }
+        return true;
     }
 
     public boolean checkTheContinueButtonIsClickable() {
@@ -88,16 +99,10 @@ public class RequestingOrganisationPage {
         return saveAndContinueButton.isEnabled();
     }
 
-    public void clickTheContinueButton() {
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        saveAndContinueButton.click();
-    }
-
     public boolean shouldSeeNoResultsOnThePage() {
         Wait.forElementToBeDisplayed(driver, zeroResulsFoundLabel);
         return zeroResulsFoundLabel.isDisplayed();
     }
-
 
     public boolean checkOrderingEntityPageLabel() {
         return orderEntityPageSubtitle.isDisplayed();
@@ -139,21 +144,20 @@ public class RequestingOrganisationPage {
             testDirectoryOrderingEntityPageTitle.getText().matches(pageTitle);
             testDirectoryOrderEntityPageSubtitle.getText().matches(copyText);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from verifying checkRequestingOrganisationPageInfo: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying checkRequestingOrganisationPageInfo: " + exp);
             return false;
         }
     }
 
-    public String getNoResultMessage(){
+    public String getNoResultMessage() {
         try {
-        Wait.forElementToBeDisplayed(driver, noSearchResult);
-        return Actions.getText(noSearchResult);
-        }catch(Exception exp){
-            Debugger.println("Exception during RequestingOrganisationPage -> getNoResultMessage() : "+exp);
+            Wait.forElementToBeDisplayed(driver, noSearchResult);
+            return Actions.getText(noSearchResult);
+        } catch (Exception exp) {
+            Debugger.println("Exception during RequestingOrganisationPage -> getNoResultMessage() : " + exp);
             SeleniumLib.takeAScreenShot("NoResultMessage.jpg");
             return null;
         }
     }
-
 }

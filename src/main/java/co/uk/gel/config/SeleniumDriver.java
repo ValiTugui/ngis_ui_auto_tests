@@ -11,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import co.uk.gel.lib.SeleniumLib;
+
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumDriver extends EventFiringWebDriver {
@@ -29,10 +31,13 @@ public class SeleniumDriver extends EventFiringWebDriver {
     };
 
     static {
-
-        DRIVER = new BrowserFactory().getDriver();
-
+        try {
+            DRIVER = new BrowserFactory().getDriver();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         Actions.deleteCookies(DRIVER);
+        //Commenting the snapshot clean up as each browser invocation clean the existing snapshots, loosing snapshots with parallel run
         TestUtils.clearAllSnapShots();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
         Capabilities cap = ((RemoteWebDriver) DRIVER).getCapabilities();

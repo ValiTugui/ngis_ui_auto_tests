@@ -1,16 +1,18 @@
 #@regression
 #@panelsPage_LandingPage
-@PANEL
-@SYSTEM_TEST
-Feature: Panels Page Landing Page
+@06-PANEL_ASSIGNER
+@SYSTEM_TEST_Deprecated
+   ##This feature files have to be re-implemented based on new/modified tickets for Panel App.
+  ##This changes are from Hanna Release
+Feature: PanelAssigner: Panels Page Landing Page
 
-  @NTS-3424 @LOGOUT
+  @NTS-3424 @Z-LOGOUT
 #    @E2EUI-1469 @E2EUI-1322 @E2EUI-1278 @E2EUI-1258
   Scenario Outline: NTS-3424: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     ##Clinical Questions
     When the user navigates to the "<ClinicalQuestion>" stage
     Then the user is navigated to a page with title Answer clinical questions

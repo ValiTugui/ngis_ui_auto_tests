@@ -1,16 +1,17 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_RD
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Feature: Global Patient Flow 2- End to end RD
+Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 
-  @NTS-4731 @LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
     ##Patient Details Page
+    When the user navigates to the "<PatientDetails>" stage
     When the user is navigated to a page with title Check your patient's details
     And the user fill in the first name field
     ##Navigating By Logout
@@ -79,7 +80,7 @@ Feature: Feature: Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Notes Page
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -96,9 +97,16 @@ Feature: Feature: Global Patient Flow 2- End to end RD
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks on the Back link
-    Then the user is navigated to a page with title Confirm family member details
+#    Then the user is navigated to a page with title Confirm family member details
+#  ## commented the above step and uncommented the below ones to match a/c to Gonzalo release
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
+
     And the user fill in the last name field
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -111,6 +119,9 @@ Feature: Feature: Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Family Members Test Package Page
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
+
     Then the user is navigated to a page with title Select tests for
     And the user selects the test by clicking the deselected test
     ##Navigating By Logout
@@ -188,7 +199,7 @@ Feature: Feature: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     ##Panels Page
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user search and add the "<SearchPanels>" panels
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -219,5 +230,5 @@ Feature: Feature: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
-      | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
+      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
+      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |

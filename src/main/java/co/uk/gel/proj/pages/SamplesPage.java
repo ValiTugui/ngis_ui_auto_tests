@@ -112,7 +112,7 @@ public class SamplesPage {
     @FindBy(css = "*[class*='sample-detail__edit-link']")
     public WebElement editSampleButton;
 
-    @FindBy(xpath = "//button[text()='Add sample']")
+    @FindBy(xpath = "//button[@type='button']/span[text()='Add sample']")
     public WebElement addSampleButton;
 
     @FindBy(css = "*[class*='checkmark']")
@@ -148,14 +148,14 @@ public class SamplesPage {
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> sampleStateDropDownValues;
 
-    @FindBy (css = "label[for*='sampleType']")
-    public WebElement sampleTypeLabel;
+	@FindBy (css = "label[for*='sampleType']")
+	public WebElement sampleTypeLabel;
 
-    @FindBy (css = "label[for*='sampleState']")
-    public WebElement sampleStateLabel;
+	@FindBy (css = "label[for*='sampleState']")
+	public WebElement sampleStateLabel;
 
-    @FindBy (css = "label[for*='labId']")
-    public WebElement labIdLabel;
+	@FindBy (css = "label[for*='labId']")
+	public WebElement labIdLabel;
 
     @FindBy(css = "*[class*='styles_field-label--error']")
     public List<WebElement> fieldsLabelErrors;
@@ -173,11 +173,11 @@ public class SamplesPage {
     @FindBy (css = "h6[class*='styles_text--6']")
     public WebElement infoTextForLinkingSamples;
 
-    @FindBy(xpath = "//h2[contains(@class,'styles_text--3')]")
-    public WebElement addSampleDetailsSubHeading;
-
     @FindBy(css ="span[class*='checkmark--checked']")
     public WebElement sampleTypeSVGTickMark;
+
+    @FindBy(xpath = "//a[contains(@class,'styles_sample-detail__edit-link')]")
+    List<WebElement> sampleEditButtons;
 
     public boolean selectSampleType(String type) {
         try {
@@ -220,7 +220,8 @@ public class SamplesPage {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
+            Actions.clickElement(driver, sampleState);
+            Wait.seconds(2);
             if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
                 Debugger.println("SampleState Drop values not loaded: ");
                 SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
@@ -257,10 +258,10 @@ public class SamplesPage {
 
     public void answerSampleTopography(String value) {
         try {
-            Wait.forElementToBeDisplayed(driver, sampleTopographyField);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectRandomValueFromDropdown(dropdownValues);
+        Wait.forElementToBeDisplayed(driver, sampleTopographyField);
+        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectRandomValueFromDropdown(dropdownValues);
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("SampleTopograhy.jpg");
             Debugger.println(" Sample Topograhy value " + value + " is not displayed in the dynamic dropdown list");
@@ -275,10 +276,10 @@ public class SamplesPage {
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectRandomValueFromDropdown(dropdownValues);
         } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
-            Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
-            Assert.assertFalse(true);
-        }
+                SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
+                Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
+                Assert.assertFalse(true);
+            }
     }
 
     public int fillInPercentageOfMalignantNuclei() {
@@ -319,8 +320,25 @@ public class SamplesPage {
     }
 
 
-    public void clickAddSampleButton() {
+    public boolean clickAddSampleButton() {
+        try {
+            if(!Wait.isElementDisplayed(driver,addSampleButton,10)){
+                Debugger.println("Add sample button not displayed\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("clickAddSampleButton.jpg");
+                return false;
+            }
         Actions.clickElement(driver, addSampleButton);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(addSampleButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickAddSampleButton:" + exp1 + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("clickAddSampleButton.jpg");
+                return false;
+            }
+        }
     }
 
     public String getDynamicQuestionsLabelText() {
@@ -352,7 +370,7 @@ public class SamplesPage {
         for (WebElement fieldLabel : fieldsLabelErrors) {
             actualFieldErrorLabels.add(fieldLabel.getText().trim());
         }
-        // Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
+       // Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
         return actualFieldErrorLabels;
     }
 
@@ -623,4 +641,28 @@ public class SamplesPage {
             return false;
         }
     }
-}
+    public boolean verifyAddSampleButtonIsDisplayed() {
+        if(!Wait.isElementDisplayed(driver,addSampleButton,10)){
+            Debugger.println("Add Samples Button not displayed as expected.");
+            SeleniumLib.takeAScreenShot("AddSamplesButton.jpg");
+            return false;
+        }
+        return true;
+    }
+    public boolean editSpecificSample(String sampleNo) {
+        try {
+            int noOfSamples = Integer.parseInt(sampleNo);
+            if(sampleEditButtons.size() < noOfSamples){
+                Debugger.println("Edit Sample Button Not Present ");
+                SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,sampleEditButtons.get((noOfSamples-1)));
+            return true;
+        } catch (NumberFormatException exp) {
+            Debugger.println("Exception in : editSpecificSample" + exp);
+            SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
+            return false;
+        }
+    }
+}//

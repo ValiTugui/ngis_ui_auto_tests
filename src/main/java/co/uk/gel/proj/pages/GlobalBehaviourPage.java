@@ -48,11 +48,20 @@ public class GlobalBehaviourPage {
     @FindBy(xpath = "//li[contains(@class,'styles_text_')]")
     List<WebElement> referralHeaderDetails;
 
-    @FindBy(xpath = "//button[text()='Continue']")
+    @FindBy(xpath = "//button/span[text()='Continue']")
     public WebElement continueButtonOnLandingPage;
 
     @FindBy(xpath = "//header[contains(@class,'styles_header')]//*[text()='NHS England']/..")
     WebElement NHSEnglandSVGlogo;
+
+    @FindBy(xpath = "//div[@id='passwordError']")
+    WebElement errorMessageOnLoginPage;
+
+    @FindBy(xpath = ("//button[@id='idBtn_Back']//img"))
+    WebElement backToLoginPage;
+
+    @FindBy(id = "otherTileText")
+    public WebElement useAnotherAccount;
 
     public void getNGISVersion() {
         driver.get(AppConfig.getTo_NGISVerion_url());
@@ -75,6 +84,7 @@ public class GlobalBehaviourPage {
     }
 
     public boolean checkPrivacyPolicyLinkPage(String pageTitle) {
+        Wait.forElementToBeDisplayed(driver, privacyPolicyPageTitle);
         return privacyPolicyPageTitle.getText().matches(pageTitle);
     }
 
@@ -210,6 +220,65 @@ public class GlobalBehaviourPage {
         } catch (Exception exp) {
             Debugger.println("Probound referral details not found: Elements not found " + exp);
             SeleniumLib.takeAScreenShot("ReferralHeaderElements.jpg");
+            return false;
+        }
+    }
+    public boolean loginWithMicrosoftAccount(String loginType) {
+        try {
+            String username = AppConfig.getApp_username();
+            String password = AppConfig.getApp_password();
+            if(loginType.equalsIgnoreCase("Invalid")){
+                password = password+"12";//Invalid password
+            }
+            if(Wait.isElementDisplayed(driver, useAnotherAccount, 20)){
+                useAnotherAccount.click();
+            }
+            if(Wait.isElementDisplayed(driver,emailAddressField,5)) {
+                emailAddressField.sendKeys(username);
+                nextButton.click();
+                Wait.seconds(4);
+            }
+            Actions.clearInputField(passwordField);
+            passwordField.sendKeys(password);
+            nextButton.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in fill In User Name:" + exp);
+            SeleniumLib.takeAScreenShot("UserNameAndPasswordField.jpg");
+            return false;
+        }
+    }
+    public boolean verifyMicrosoftLoginError(String errMessage) {
+        try {
+            if (!Wait.isElementDisplayed(driver, errorMessageOnLoginPage, 10)) {
+                Debugger.println("Error message not found :");
+                SeleniumLib.takeAScreenShot("LoginError.jpg");
+                return false;
+            }
+            String actualErrMessage = errorMessageOnLoginPage.getText();
+            if (!actualErrMessage.contains(errMessage)) {
+                Debugger.println("Actual error message : " + actualErrMessage + ",Expected :" + errMessage);
+                SeleniumLib.takeAScreenShot("LoginError.jpg");
+                return false;
+            }
+            if(Wait.isElementDisplayed(driver,backToLoginPage,10)) {
+                backToLoginPage.click();
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyMicrosoftLoginError : " + exp);
+            SeleniumLib.takeAScreenShot("LoginError.jpg");
+            return false;
+        }
+    }
+    public boolean navigateToURLWithInvalidReferralID(String invalidReferralURL) {
+        try {
+            driver.navigate().to(invalidReferralURL);
+            driver.get(invalidReferralURL);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from navigateToURLWithInvalidReferralID:" + exp);
+            SeleniumLib.takeAScreenShot("navigateToURLWithInvalidReferralID.jpg");
             return false;
         }
     }

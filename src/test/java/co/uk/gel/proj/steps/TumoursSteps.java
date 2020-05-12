@@ -67,11 +67,11 @@ public class TumoursSteps extends Pages {
                 break;
             }
             default:
-                String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
                 Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
                 break;
-            // throw new IllegalArgumentException("Invalid text field name");
+               // throw new IllegalArgumentException("Invalid text field name");
         }
     }
 
@@ -170,10 +170,8 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.newTumourIsDisplayedInLandingPage(1));
     }
 
-
     @Then("the new tumour is displayed in the landing page for the existing patient with tumour list")
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
-
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         //Debugger.println("Number of Tumour(s) :" + numberOfTumours);
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
@@ -210,7 +208,10 @@ public class TumoursSteps extends Pages {
     public void theWebBrowserIsStillAtTheSamePage(String partCurrentUrl) {
         String fullCurrentURL = driver.getCurrentUrl();
         partCurrentUrl = partCurrentUrl.toLowerCase();
-        Assert.assertTrue(fullCurrentURL.contains(partCurrentUrl));
+        if(!fullCurrentURL.contains(partCurrentUrl)){
+            Debugger.println("FullURL:"+fullCurrentURL+"\nPart:"+partCurrentUrl);
+            Assert.assertTrue(false);
+        }
 
     }
 
@@ -273,25 +274,25 @@ public class TumoursSteps extends Pages {
 
     @And("information text are displayed on the select or edit a tumour page")
     public void informationTextAreDisplayedOnTheTheSelectOrEditATumourPage(DataTable dataTable) {
-
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
-        List<String> expectedInformationText = new ArrayList<>();
         List<String> actualInformationText = tumoursPage.getInformationTextOnEditTumourPage();
-
+        String expectedText = "";
+        boolean isPresent;
         for (int i = 0; i < expectedList.size(); i++) {
-            expectedInformationText.add(expectedList.get(i).get("informationTextHeader"));
-            //Debugger.println("Expected : " + i + " : " + expectedInformationText.get(i));
+            expectedText = expectedList.get(i).get("informationTextHeader");
+            isPresent = false;
+            for(int  j=0;j<actualInformationText.size();j++){
+                if(actualInformationText.get(j).contains(expectedText)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                SeleniumLib.takeAScreenShot("TumourPageValue.jpg");
+                Debugger.println("URL:"+driver.getCurrentUrl());
+                Assert.fail("Expected value:"+expectedText+" not present in Tumour Page.");
+            }
         }
-
-//        for (int i = 0; i < actualInformationText.size(); i++) {
-//            Debugger.println("Actual : " + i + " : " + actualInformationText.get(i));
-//        }
-
-        Assert.assertEquals(expectedInformationText.get(0), actualInformationText.get(0));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(1)));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(2)));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(3)));
-        Assert.assertTrue(actualInformationText.get(2).contains(expectedInformationText.get(4)));
     }
 
     @And("on the select or edit a tumour page, the tumour table list shows the column names")
@@ -307,7 +308,7 @@ public class TumoursSteps extends Pages {
         }
         //Debugger.println("Expected Table columns: " + expectedHeaders);
         actualHeaders = tumoursPage.getTumourTableHeaders();
-        // Debugger.println("Actual Table columns: " + actualHeaders.toString());
+       // Debugger.println("Actual Table columns: " + actualHeaders.toString());
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
 
@@ -439,13 +440,28 @@ public class TumoursSteps extends Pages {
         int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
 
         tumoursPage.fillInTumourDescription();
-        tumoursPage.fillInDateOfDiagnosis();
-        tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
-        tumoursPage.fillInSpecimenID();
-        referralPage.clickSaveAndContinueButton();
-        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"));
-        tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"));
-        referralPage.clickSaveAndContinueButton();
+        if(!tumoursPage.fillInDateOfDiagnosis()){
+            Assert.assertTrue(false);
+        }
+        if(tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader")) == null){
+            Assert.assertTrue(false);
+
+        }
+        if(tumoursPage.fillInSpecimenID() == null){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.clickSaveAndContinueButton()){
+            Assert.assertTrue(false);
+        }
+        if(!tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"))){
+            Assert.assertTrue(false);
+        }
+        if(!tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"))){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.clickSaveAndContinueButton()){
+            Assert.assertTrue(false);
+        }
         tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
 
     }

@@ -20,7 +20,15 @@
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
+        <forkCount>5</forkCount>
         <reportName>test</reportName>
+        <jsonFolder>target/cucumber-parallel</jsonFolder>
+        <browser>Chrome</browser>
+        <browserVersion>70</browserVersion>
+        <serverType>Local</serverType>
+        <osName>Windows</osName>
+        <osVersion>10</osVersion>
+        <features></features>
     </properties>
     <build>
         <plugins>
@@ -277,29 +285,29 @@
             <version>${junit.version}</version>
         </dependency>
         <!--Cucumber  dependencies-->
-       <!-- <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <scope>test</scope>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-jvm</artifactId>
-            <scope>test</scope>
-            <type>pom</type>
-            <version>${cucumber.version}</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-picocontainer</artifactId>
+             <version>${cucumber.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-junit</artifactId>
+             <version>${cucumber.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-java</artifactId>
+             <scope>test</scope>
+             <version>${cucumber.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-jvm</artifactId>
+             <scope>test</scope>
+             <type>pom</type>
+             <version>${cucumber.version}</version>
+         </dependency>-->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -413,6 +421,11 @@
             <groupId>io.github.jonathanlink</groupId>
             <artifactId>PDFLayoutTextStripper</artifactId>
             <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
         </dependency>
         <!--Pdf file reading dependencies End-->
     </dependencies>

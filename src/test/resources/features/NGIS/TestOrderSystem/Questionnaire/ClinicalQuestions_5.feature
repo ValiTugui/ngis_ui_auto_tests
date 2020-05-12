@@ -1,34 +1,36 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 5 - RD Questionnaire
 
-  Background:
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
-    And the "Patient details" stage is marked as Completed
-
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1546
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
-    Then the "<title>" page is displayed
+    When the user is navigated to a page with title Answer clinical questions
     When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
     Then the user clicks the Save and Continue button
     And the "<ClinicalQuestions>" stage is marked as Completed
     And the "<notes>" stage is selected
     Examples:
-      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                           | notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   | Notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Uncertain:AgeOfOnset=10,02:HpoPhenoType=Lymphedema  | Notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Unknown:AgeOfOnset=10,02:HpoPhenoType=Lymphedema    | Notes |
+      | ClinicalQuestions  | ClinicalQuestionDetails                                           | notes |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   | Notes |
+      | Clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+      | Clinical questions | DiseaseStatus=Uncertain:AgeOfOnset=10,02:HpoPhenoType=Lymphedema  | Notes |
+      | Clinical questions | DiseaseStatus=Unknown:AgeOfOnset=10,02:HpoPhenoType=Lymphedema    | Notes |
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1894
   Scenario Outline: NTS-3433 - Clinical Questions - clear the value from Disease status field
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
@@ -41,9 +43,13 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
       | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                         | notes |
       | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1546
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -62,9 +68,13 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1625 @E2EUI-1068 @E2EUI-842
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     # user adds 3 HPO terms

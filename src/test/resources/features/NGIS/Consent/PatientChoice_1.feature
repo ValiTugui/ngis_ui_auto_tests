@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-1 - Adult with Capacity
 
@@ -9,7 +9,7 @@ Feature: Patient Choice-1 - Adult with Capacity
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -54,7 +54,7 @@ Feature: Patient Choice-1 - Adult with Capacity
 
     Examples:
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
-      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3434
     #@E2EUI-1447 @E2EUI-2034
@@ -157,7 +157,7 @@ Feature: Patient Choice-1 - Adult with Capacity
       | WarningMessage                                                                                                                                                      | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3434 @LOGOUT
+  @NTS-3434 @Z-LOGOUT
     #@E2EUI-1447
   Scenario Outline: NTS-3434: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
@@ -189,20 +189,24 @@ Feature: Patient Choice-1 - Adult with Capacity
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
 
-  @NTS-3449 @LOGOUT
+  @NTS-3449 @Z-LOGOUT
     #@E2EUI-989
   Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test

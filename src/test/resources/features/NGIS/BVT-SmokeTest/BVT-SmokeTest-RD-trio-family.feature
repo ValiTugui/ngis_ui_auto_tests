@@ -3,15 +3,13 @@
 #@BVT_UI_SMOKE_TEST_RD
 Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
-  @NTS-3407 @LOGOUT
+  @NTS-3407 @Z-LOGOUT
 #    @E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     When the user navigates to the "<RequestingOrganisation>" stage
@@ -39,11 +37,10 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-    ##Notes
+    #Notes
     When the user navigates to the "<Notes>" stage
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
-
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
@@ -58,10 +55,11 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the "<PatientChoice>"
-    Then the "<PatientChoice>" page is displayed
+    And the user clicks the Save and Continue button on the patient choice
+    Then the user is navigated to a page with title Patient choice
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     #Patient Choice - Family Details Provided below should be same as above
@@ -73,7 +71,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       | NHSNumber=NA:DOB=10-11-1949 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
     #Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
     And the user clicks the Save and Continue button
@@ -87,15 +85,15 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     ##Print forms
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=14-05-1931 |
-      | NHSNumber=NA:DOB=10-11-1949 |
+#    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
+#      | FamilyMemberDetails         |
+#      | NHSNumber=NA:DOB=14-05-1931 |
+#      | NHSNumber=NA:DOB=10-11-1949 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     ##Save ReferralID for @E2E_TEST
     And the referralID is saved to a file
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
+      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |

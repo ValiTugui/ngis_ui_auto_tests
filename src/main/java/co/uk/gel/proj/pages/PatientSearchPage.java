@@ -124,17 +124,18 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "button[class*='search']")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//button[contains(@class,'button--search')]")   //@FindBy(xpath = "//button[contains(string(),'Search')]")
+    @FindBy(xpath = "//button[@type='submit'][contains(@class,'SearchForm')]")
     public WebElement searchButtonByXpath;
 
 
-    @FindBy(css = "a[class*='patient-card']")
+    @FindBy(xpath = "//a[contains(@class,'patient-card')]")
     public WebElement patientCard;
 
     @FindBy(css = "h3[class*='results__header']")
     public WebElement patientSearchResultsHeader;
 
-    @FindBy(css = "span[class*='badge']")
+//    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//a//span[contains(@class,'child-element')]")
     public WebElement patientCardBadge;
 
     @FindBy(css = "p[class*='patient-name']")
@@ -167,8 +168,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
 
-    @FindBy(css = "a[class*='inline-link']")
-    public WebElement noResultsHelpLink; // create a new patient link
+    @FindBy(xpath = "//a[text()='create a new patient record']")
+    public WebElement createNewPatientRecordLink; // create a new patient link
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
@@ -186,6 +187,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     //For checking Panels Search field is enabled or not, declared here to re-use the existing method of enable/disable
     @FindBy(xpath = "//input[@placeholder='e.g. Adult solid tumours for rare disease']")
     public WebElement panelsSearchFieldPlaceHolder;
+
+    //For Spine patient Search
+    @FindBy(xpath = "//div[@data-testid='notification-error']//span")
+    public WebElement notificationError;
+
+    @FindBy(xpath = "//button[@type='submit' and contains(text(),'Continue')]")
+    public WebElement continueButton;
+
+    @FindBy(xpath = "//button[@type='button']//span[contains(text(),'Edit patient details')]")
+    public WebElement editPatientDetails;
 
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
@@ -210,19 +221,37 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         return value;
     }
 
-    public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-
-        nhsNumber.sendKeys(nhsNo);
-        dateDay.sendKeys(dayOfBirth);
-        dateMonth.sendKeys(monthOfBirth);
-        dateYear.sendKeys(yearOfBirth);
+    public boolean fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
+        try {
+            Debugger.println("SPINE SEARCH:NHS:"+nhsNo+":"+dayOfBirth+"-"+monthOfBirth+"-"+yearOfBirth);
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            nhsNumber.sendKeys(nhsNo);
+            dateDay.sendKeys(dayOfBirth);
+            dateMonth.sendKeys(monthOfBirth);
+            dateYear.sendKeys(yearOfBirth);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInValidPatientDetailsUsingNHSNumberAndDOB:"+exp);
+            SeleniumLib.takeAScreenShot("fillInValidPatientDetailsUsingNHSNumberAndDOB.jpg");
+            return false;
+        }
 
     }
 
-    public void clickNoButton() {
-        Wait.forElementToBeDisplayed(driver, noButton);
-        noButton.click();
+    public boolean clickNoButton() {
+        try {
+            if(!Wait.isElementDisplayed(driver, noButton,30)){
+                Debugger.println("No button not present:");
+                SeleniumLib.takeAScreenShot("clickNoButton.jpg");
+                return false;
+            }
+            noButton.click();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clickNoButton:"+exp);
+            SeleniumLib.takeAScreenShot("clickNoButton.jpg");
+            return false;
+        }
     }
 
     public void clickSearchButton(WebDriver driver) {
@@ -230,41 +259,62 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Click.element(driver, searchButton);
     }
 
-    public void clickSearchButtonByXpath(WebDriver driver) {
+    public boolean clickSearchButtonByXpath() {
         try {
-            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 200);
-            Wait.forElementToBeClickable(driver, searchButtonByXpath);
-            Actions.retryClickAndIgnoreElementInterception(driver, searchButtonByXpath);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            // searchButtonByXpath.Click();
+            if(!Wait.isElementDisplayed(driver,searchButtonByXpath,30)){
+                Debugger.println("Search Button could not locate on Patient Search Page.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, searchButtonByXpath);
+            return true;
         }catch(Exception exp){
-            Debugger.println("Exception from clicking on Search Patient Button:"+exp);
-            SeleniumLib.takeAScreenShot("SearchPatientButton.jpg");
+            try{
+                seleniumLib.clickOnWebElement(searchButtonByXpath);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from clicking on Search Patient Button:" + exp+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("SearchPatientButton.jpg");
+                return false;
+            }
         }
     }
 
 
     public String checkThatPatientCardIsDisplayed() {
+        String badge = "";
         try {
-            Wait.forElementToBeDisplayed(driver, patientCard, 60);
-            Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
-            Debugger.println("The search result is from :" + patientCardBadge.getText());
-            //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
-            return patientCardBadge.getText().trim();
+            if(!Wait.isElementDisplayed(driver,patientCard,30)){
+                Debugger.println("Expected Patient card not displayed.");
+                SeleniumLib.takeAScreenShot("patientCardNotDisplayed.jpg");
+                return null;
+            }
+            if(!Wait.isElementDisplayed(driver,patientCardBadge,10)){
+                Debugger.println("Expected patientCardBadge displayed.");
+                SeleniumLib.takeAScreenShot("patientCardBadgeNotDisplayed.jpg");
+                return null;
+            }
+            badge =  patientCardBadge.getText();
+            return badge.trim();
         }catch(Exception exp){
-            Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp);
-            return null;
+            try{
+                badge = seleniumLib.getText(patientCardBadge);
+                return badge;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp1);
+                SeleniumLib.takeAScreenShot("patientCardBadgeNotDisplayed.jpg");
+                return null;
+            }
         }
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
         Actions.deleteCookies(driver);
-        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
-            if (!Wait.isElementDisplayed(driver,emailAddressField,120)) {//If the element is not displayed, even after the waiting time
-                Debugger.println("Email Address Field is not visible, even after the waiting period.");
-                if (Wait.isElementDisplayed(driver,useAnotherAccount,120)) {//Click on UseAnotherAccount and Proceed.
+            if (!Wait.isElementDisplayed(driver,emailAddressField,60)) {//If the element is not displayed, even after the waiting time
+                Debugger.println("Email Address Field is not visible, even after the waiting period of 60 seconds");
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,60)) {//Click on UseAnotherAccount and Proceed.
                     Debugger.println("Clicking on useAnotherAccount to Proceed.");
                     useAnotherAccount.click();
                     Wait.seconds(3);
@@ -287,6 +337,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
             SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
+            Assert.assertTrue("Exception from loginToTestOrderingSystemAsStandardUser"+exp,false);
         }
     }
 
@@ -327,44 +378,47 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void fillInValidPatientDetailsUsingNOFields(String searchParams) {
-
-        //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
-        // Extract the patient details from the example-table
-
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey) {
-            switch (key) {
-                case "DOB": {
-                    String dobValue = paramNameValue.get(key);
-                    String[] dobSplit = dobValue.split("-");
-                    dateDay.sendKeys(dobSplit[0]);
-                    dateMonth.sendKeys(dobSplit[1]);
-                    dateYear.sendKeys(dobSplit[2]);
-                    break;
-                }
-                case "FirstName": {
-                    firstName.sendKeys(paramNameValue.get(key));
-                    break;
-                }
-                case "LastName": {
-                    lastName.sendKeys(paramNameValue.get(key));
-                    break;
-                }
-                case "Gender": {
-                    genderButton.click();
-                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
-                    break;
-                }
-                case "Postcode": {
-                    postcode.sendKeys(paramNameValue.get(key));
-                    break;
+    public boolean fillInValidPatientDetailsUsingNOFields(String searchParams) {
+        try {
+            //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
+            // Extract the patient details from the example-table
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                switch (key) {
+                    case "DOB": {
+                        String dobValue = paramNameValue.get(key);
+                        String[] dobSplit = dobValue.split("-");
+                        dateDay.sendKeys(dobSplit[0]);
+                        dateMonth.sendKeys(dobSplit[1]);
+                        dateYear.sendKeys(dobSplit[2]);
+                        break;
+                    }
+                    case "FirstName": {
+                        firstName.sendKeys(paramNameValue.get(key));
+                        break;
+                    }
+                    case "LastName": {
+                        lastName.sendKeys(paramNameValue.get(key));
+                        break;
+                    }
+                    case "Gender": {
+                        genderButton.click();
+                        genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                        break;
+                    }
+                    case "Postcode": {
+                        postcode.sendKeys(paramNameValue.get(key));
+                        break;
+                    }
                 }
             }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInValidPatientDetailsUsingNOFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInValidPatientDetailsUsingNOFields.jpg");
+            return false;
         }
-
-
     }
 
     public void checkSearchResultHeaderIsDisplayed(WebDriver driver, String resultHeader) {
@@ -687,7 +741,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
-
         // Find elements
         Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
@@ -762,91 +815,122 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean clickCreateNewPatientLinkFromNoSearchResultsPage() {
         try {
             Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-            Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
+            Actions.clickElement(driver, createNewPatientRecordLink);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
-            SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(createNewPatientRecordLink);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
+                SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
+                return false;
+            }
         }
     }
 
-    public void fillInNHSNumberAndDateOfBirth(String patientType) throws IOException {
+    public boolean fillInNHSNumberAndDateOfBirth(String patientType) throws IOException {
         if (patientType.equals("NGIS")) {
-            fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
+            return fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
         } else if (patientType.equals("NHS Spine")) {
             // used to validate the spine details in patient result card
-            fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER, SpinePatientOne.DAY_OF_BIRTH, SpinePatientOne.MONTH_OF_BIRTH, SpinePatientOne.YEAR_OF_BIRTH);
+            return fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER, SpinePatientOne.DAY_OF_BIRTH, SpinePatientOne.MONTH_OF_BIRTH, SpinePatientOne.YEAR_OF_BIRTH);
         } else if (patientType.equals("SPINE")) {
             SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
             ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
             String dayOfBirth = dobString.get(0);
             String monthOfBirth = dobString.get(1);
             String yearOfBirth = dobString.get(2);
-            fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+            return fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
         } else {
-            throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
+            Debugger.println(" Patient type not found -> provide either NGIS or SPINE patient");
+            return false;
         }
     }
 
-    public void fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne() {
-        fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
+    public boolean fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne() {
+        return fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
     }
 
-    public void fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo() {
-        fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientTwo.NHS_NUMBER, NgisPatientTwo.DAY_OF_BIRTH, NgisPatientTwo.MONTH_OF_BIRTH, NgisPatientTwo.YEAR_OF_BIRTH);
+    public boolean fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo() {
+        return fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientTwo.NHS_NUMBER, NgisPatientTwo.DAY_OF_BIRTH, NgisPatientTwo.MONTH_OF_BIRTH, NgisPatientTwo.YEAR_OF_BIRTH);
     }
 
-    public void fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord() throws IOException {
-        SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
-        ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
-        String dayOfBirth = dobString.get(0);
-        String monthOfBirth = dobString.get(1);
-        String yearOfBirth = dobString.get(2);
-        fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+    public boolean fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord() throws IOException {
+        try {
+            SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
+            ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
+            String dayOfBirth = dobString.get(0);
+            String monthOfBirth = dobString.get(1);
+            String yearOfBirth = dobString.get(2);
+            return fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord.jpg");
+            return false;
+        }
     }
     public boolean windowTitleValidation(String titleText) {
         String actual = driver.getTitle();
         return actual.equalsIgnoreCase(titleText);
     }
 
-    public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        //testData.setNhsNumber(Actions.createValidNHSNumber());
-        nhsNumber.sendKeys(testData.getNhsNumber());
-        testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
-        testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
-        testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-        dateDay.sendKeys(testData.getDay());
-        dateMonth.sendKeys(testData.getMonth());
-        dateYear.sendKeys(testData.getYear());
-//        String DOB1 = testData.getDay()  + "/" + testData.getMonth() + "/" + testData.getYear();
-//        Debugger.println("Expected DOB tobe :" + DOB1);
+    public boolean fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+            //testData.setNhsNumber(Actions.createValidNHSNumber());
+            nhsNumber.sendKeys(testData.getNhsNumber());
+            testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
+            testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
+            testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInNonExistingPatientDetailsUsingNHSNumberAndDOB:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNonExistingPatientDetailsUsingNHSNumberAndDOB.jpg");
+            return false;
+        }
     }
-    public void fillInNonExistingPatientDetailsForChildReferral() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        nhsNumber.sendKeys(testData.getNhsNumber());
-        testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
-        testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
-        testData.setYear(String.valueOf(faker.number().numberBetween(2005, 2018)));//Child
-        dateDay.sendKeys(testData.getDay());
-        dateMonth.sendKeys(testData.getMonth());
-        dateYear.sendKeys(testData.getYear());
+    public boolean fillInNonExistingPatientDetailsForChildReferral() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+            nhsNumber.sendKeys(testData.getNhsNumber());
+            testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
+            testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
+            testData.setYear(String.valueOf(faker.number().numberBetween(2005, 2018)));//Child
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            return true;
+    }catch(Exception exp){
+        Debugger.println("Exception from fillInNonExistingPatientDetailsForChildReferral:"+exp);
+        SeleniumLib.takeAScreenShot("fillInNonExistingPatientDetailsForChildReferral.jpg");
+        return false;
+    }
     }
 
-    public void fillInNonExistingPatientDetailsForAdultReferral() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        //testData.setNhsNumber(Actions.createValidNHSNumber());
-        nhsNumber.sendKeys(testData.getNhsNumber());
-        testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
-        testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
-        testData.setYear(String.valueOf(faker.number().numberBetween(1900, 1960)));
-        dateDay.sendKeys(testData.getDay());
-        dateMonth.sendKeys(testData.getMonth());
-        dateYear.sendKeys(testData.getYear());
+    public boolean fillInNonExistingPatientDetailsForAdultReferral() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+            //testData.setNhsNumber(Actions.createValidNHSNumber());
+            nhsNumber.sendKeys(testData.getNhsNumber());
+            testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
+            testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
+            testData.setYear(String.valueOf(faker.number().numberBetween(1900, 1960)));
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInNonExistingPatientDetailsForAdultReferral:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNonExistingPatientDetailsForAdultReferral.jpg");
+            return false;
+        }
     }
 
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
@@ -856,22 +940,29 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public void fillInInvalidPatientDetailsInTheNOFields() {
-        Wait.forElementToBeDisplayed(driver, dateDay);
-        testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
-        testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
-        testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-        dateDay.sendKeys(testData.getDay());
-        dateMonth.sendKeys(testData.getMonth());
-        dateYear.sendKeys(testData.getYear());
-        testData.setFirstName(TestUtils.getRandomFirstName());
-        firstName.sendKeys(testData.getFirstName());
-        testData.setLastName(TestUtils.getRandomLastName());
-        lastName.sendKeys(testData.getLastName());
-        Click.element(driver, genderButton);
-        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
-        testData.setPostCode(getRandomUKPostCode());
-        postcode.sendKeys(testData.getPostCode());
+    public boolean fillInInvalidPatientDetailsInTheNOFields() {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
+            testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
+            testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            testData.setFirstName(TestUtils.getRandomFirstName());
+            firstName.sendKeys(testData.getFirstName());
+            testData.setLastName(TestUtils.getRandomLastName());
+            lastName.sendKeys(testData.getLastName());
+            Click.element(driver, genderButton);
+            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
+            testData.setPostCode(getRandomUKPostCode());
+            postcode.sendKeys(testData.getPostCode());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInInvalidPatientDetailsInTheNOFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInInvalidPatientDetailsInTheNOFields.jpg");
+            return false;
+        }
     }
 
     public void noFieldsArePrePopulatedInNewPatientPage() {
@@ -901,16 +992,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void waitForPageTitleDisplayed(){
+    public boolean waitForPageTitleDisplayed(){
         try {
-            Wait.forElementToBeDisplayed(driver, pageTitle);
-            if(!Wait.isElementDisplayed(driver,pageTitle,10)){
+            if(!Wait.isElementDisplayed(driver,pageTitle,30)){
                 Debugger.println("Patient Search Page is not Loaded Successfully.");
-                Assert.assertFalse("Patient Search Page is not Loaded Successfully.",true);
+                SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
+                Assert.fail("Patient Search Page is not Loaded Successfully.");
+                return false;
             }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from loading Patient Search Page:"+exp);
-            Assert.assertFalse("Exception from loading Patient Search Page:",true);
+            SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
+            Assert.fail("Exception from loading Patient Search Page:");
+            return false;
         }
     }
     public void logoutFromApplication(){
@@ -950,16 +1045,23 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         fillInValidSecondPatientDetailsUsingNOFields(searchParams);
     }
 
-    public void fillInNewPatientDetailsInTheNoFields() {
-        Wait.forElementToBeDisplayed(driver, dateDay);
-        dateDay.sendKeys(newPatient.getDay());
-        dateMonth.sendKeys(newPatient.getMonth());
-        dateYear.sendKeys(newPatient.getYear());
-        firstName.sendKeys(newPatient.getFirstName());
-        lastName.sendKeys(newPatient.getLastName());
-        Click.element(driver, genderButton);
-        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
-        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+    public boolean fillInNewPatientDetailsInTheNoFields() {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            dateDay.sendKeys(newPatient.getDay());
+            dateMonth.sendKeys(newPatient.getMonth());
+            dateYear.sendKeys(newPatient.getYear());
+            firstName.sendKeys(newPatient.getFirstName());
+            lastName.sendKeys(newPatient.getLastName());
+            Click.element(driver, genderButton);
+            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
+            Debugger.println(" New patient search details " + newPatient.getFirstName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNewPatientDetailsInTheNoFields.jpg");
+            return false;
+        }
     }
 
     public void fillInNewPatientDetailsInTheNoFieldsWithEditedGender(String editedGender) {
@@ -975,13 +1077,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public void fillInNewPatientDetailsInTheYesFields() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(newPatient.getNhsNumber());
-        dateDay.sendKeys(newPatient.getDay());
-        dateMonth.sendKeys(newPatient.getMonth());
-        dateYear.sendKeys(newPatient.getYear());
-        Debugger.println(" New patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+    public boolean fillInNewPatientDetailsInTheYesFields() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            nhsNumber.sendKeys(newPatient.getNhsNumber());
+            dateDay.sendKeys(newPatient.getDay());
+            dateMonth.sendKeys(newPatient.getMonth());
+            dateYear.sendKeys(newPatient.getYear());
+            Debugger.println(" New patient search details " + newPatient.getNhsNumber() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInNewPatientDetailsInTheYesFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNewPatientDetailsInTheYesFields.jpg");
+            return false;
+        }
     }
 
     public void fillInNewPatientDetailsWithPostCodeInTheNoFields() {
@@ -990,24 +1099,24 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() + " " +  newPatient.getPostCode());
     }
     public String searchPatientReferral(NGISPatientModel referralDetails) {
-        try {
-            Wait.forElementToBeDisplayed(driver, nhsNumber);
-            nhsNumber.sendKeys(referralDetails.getNHS_NUMBER());
-            if (referralDetails.getDATE_OF_BIRTH() == null || referralDetails.getDATE_OF_BIRTH().isEmpty()) {
-                referralDetails.setDATE_OF_BIRTH(faker.number().numberBetween(10, 31) + "-" + faker.number().numberBetween(10, 12) + "-" + faker.number().numberBetween(1900, 2019));
-            }
-            dateDay.sendKeys(referralDetails.getDAY_OF_BIRTH());
-            dateMonth.sendKeys(referralDetails.getMONTH_OF_BIRTH());
-            dateYear.sendKeys(referralDetails.getYEAR_OF_BIRTH());
-            //Search for the referral
-            clickSearchButtonByXpath(driver);
-            Wait.forElementToBeDisplayed(driver,patientSearchResult,120);
-            return patientSearchResult.getText();
-        }catch(Exception exp){
-            Debugger.println("Exception from Search Patient Referral: "+exp);
-            SeleniumLib.takeAScreenShot("SearchPatientReferralError.jpg");
-            return "Search Failed.";
-        }
+       try {
+           Wait.forElementToBeDisplayed(driver, nhsNumber);
+           nhsNumber.sendKeys(referralDetails.getNHS_NUMBER());
+           if (referralDetails.getDATE_OF_BIRTH() == null || referralDetails.getDATE_OF_BIRTH().isEmpty()) {
+               referralDetails.setDATE_OF_BIRTH(faker.number().numberBetween(10, 31) + "-" + faker.number().numberBetween(10, 12) + "-" + faker.number().numberBetween(1900, 2019));
+           }
+           dateDay.sendKeys(referralDetails.getDAY_OF_BIRTH());
+           dateMonth.sendKeys(referralDetails.getMONTH_OF_BIRTH());
+           dateYear.sendKeys(referralDetails.getYEAR_OF_BIRTH());
+           //Search for the referral
+           clickSearchButtonByXpath();
+           Wait.forElementToBeDisplayed(driver,patientSearchResult,120);
+           return patientSearchResult.getText();
+       }catch(Exception exp){
+           Debugger.println("Exception from Search Patient Referral: "+exp);
+           SeleniumLib.takeAScreenShot("SearchPatientReferralError.jpg");
+           return "Search Failed.";
+       }
 
     }
     public boolean verifyNHSAndDOBInPatientCard(String familyDetails) {
@@ -1037,8 +1146,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 }else{
                     //Checking with the first part of the DOB as Month/Days/Hours shown based on some internal logic
                     if(familyMember.getBORN_WITH_AGE().contains(bornExpected.substring(0,11))){
-                        return true;
-                    }
+                return true;
+            }
                 }
             }
             Debugger.println("Search Result - Patient Card does not contains the NHS and DOB as expected for :"+familyDetails);
@@ -1065,7 +1174,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Click.element(driver, genderButton);
             Click.element(driver, genderValue.findElement(By.xpath("//span[text()='"+searchPatient.getGENDER()+"']")));
             return true;
-        }catch(Exception exp){
+       }catch(Exception exp){
             Debugger.println("Exception in searching patient with No Option."+exp);
             SeleniumLib.takeAScreenShot("PatientSearchNo.jpg");
             return false;
@@ -1113,6 +1222,28 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from  verifyTheNHSQuestionOfThePage..." + exp);
             SeleniumLib.takeAScreenShot("NHSQuestion.jpg");
+            return false;
+        }
+    }
+    public boolean isNotificationErrorPresent(){
+        if(Wait.isElementDisplayed(driver,notificationError,10)){
+            return true;
+        }
+        return false;
+
+    }
+    public boolean editPatientDetails(){
+        try{
+            if(!Wait.isElementDisplayed(driver,editPatientDetails,10)){
+                Debugger.println("Edit Patient Details Link not exists.");
+                SeleniumLib.takeAScreenShot("EditPatientLink.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,editPatientDetails);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from editPatientDetails:"+exp);
+            SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
             return false;
         }
     }

@@ -81,7 +81,6 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theHPOPhenotypeDetailsMandatoryStateIs(String mandatoryValue) {
         boolean expectedMandatoryValue = Boolean.parseBoolean(mandatoryValue);
         boolean actualMandatoryValue = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
-
         Assert.assertEquals(actualMandatoryValue, expectedMandatoryValue);
     }
 
@@ -282,15 +281,12 @@ public class ClinicalQuestionsSteps extends Pages {
     @When("the user clicks the phenotypic sex dropdown")
     public void theUserClicksThePhenotypicSexDropdown() {
         phenotypicSexDropdownList = clinicalQuestionsPage.getValuesFromPhenotypicSexDropDown();
-
     }
 
     @When("the user clicks the karyotypic sex dropdown")
     public void theUserClicksTheKaryotypicSexDropdown() {
         karyotypicSexDropdownList = clinicalQuestionsPage.getValuesFromKaryotypicSexDropDown();
-
     }
-
 
     @And("the user sees the following values in phenotypic sex dropdown")
     public void theUserSeesTheFollowingValuesInPhenotypicSexDropdown(List<String> expectedValues) {
@@ -309,7 +305,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user clicks on add another link")
     public void theUserClicksOnAddAnotherLink() {
-        clinicalQuestionsPage.clickAddAnotherLink();
+        Assert.assertTrue(clinicalQuestionsPage.clickAddAnotherLink());
     }
 
     @And("the user selects a value {string} from the Rare disease diagnosis in the second table")
