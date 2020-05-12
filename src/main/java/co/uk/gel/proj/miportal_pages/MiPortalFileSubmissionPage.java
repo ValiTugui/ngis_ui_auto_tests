@@ -77,6 +77,9 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='file_submissions-search-col']")
     public WebElement fileSubmissionSearchColumn;
 
+    @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
+    public WebElement searchResults;
+
     public boolean fillInTheFileSubmissionDate(String date) {
         try {
             if(!Wait.isElementDisplayed(driver, getFileSubmissionDate,30)){
@@ -395,6 +398,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public List<String> getAllHeadersInSearchResultTable() {
         Wait.seconds(3);
         try {
+            if(!Wait.isElementDisplayed(driver,searchResults,20)){
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
+                return null;
+            }
             List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
             //Retrieve the column headers
             List<String> headers = new ArrayList<>();
@@ -406,7 +414,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             return headers;
         } catch (Exception exp) {
             Debugger.println("Exception from retrieving data." + exp);
-            SeleniumLib.takeAScreenShot("UnableToRetrieiveAllHeaders.jpg");
+            SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
             return null;
         }
     }

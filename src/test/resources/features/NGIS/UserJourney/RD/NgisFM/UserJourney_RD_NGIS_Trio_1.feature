@@ -1,6 +1,3 @@
-#@userJourneys
-#@userJourneysRD
-#@userJourneysRD_NGIS_TrioFamily
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Trio_1 - UC08 - E2EUI-1329,905
 
