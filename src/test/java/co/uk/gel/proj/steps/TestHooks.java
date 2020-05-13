@@ -423,13 +423,6 @@ public class TestHooks extends Pages {
         this.request = request;
     }
 
-    public ValidatableResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(ValidatableResponse response) {
-        this.response = response;
-    }
 
 
 }//end class

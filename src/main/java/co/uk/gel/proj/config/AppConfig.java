@@ -31,6 +31,7 @@ public class AppConfig {
     public static String BASE_URL_PA;
     public static String BASE_URL_PP;
     public static String BASE_URL_DS;
+    public static String mi_portal_test_data_file;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -63,6 +64,7 @@ public class AppConfig {
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         panel_app_url = properties.getProperty("PANEL_APP_URL");
+        mi_portal_test_data_file = properties.getProperty("MI_PORTAL_TEST_DATA_FILE");
 
         BASE_URL_TS =   properties.getProperty("BASE_URL_TS");
         BASE_URL_TO =  properties.getProperty("BASE_URL_TO");
