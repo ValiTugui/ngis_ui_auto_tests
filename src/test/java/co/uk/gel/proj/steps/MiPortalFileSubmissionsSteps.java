@@ -164,7 +164,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("the user should be able to see the non-empty data cell in the (.*) column of file submission search result table")
     public void theUserShouldBeAbleToSeeTheNonEmptyDataCellInTheColumn(String columnName) {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,"non-empty");
+        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,"non-empty-data");
         Assert.assertTrue(testResult);
     }
 

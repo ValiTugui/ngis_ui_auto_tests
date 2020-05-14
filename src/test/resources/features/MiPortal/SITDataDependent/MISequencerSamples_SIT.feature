@@ -31,4 +31,4 @@ Feature: MIPORTAL: Sequencer Samples SIT (E2EUI-2256,2233)
 
     Examples:
       | mi_stage          | value                      | operator | dropdown |
-      | Sequencer Samples | gel1010 Illumina QC Status | is       | Pass     |
+      | Sequencer Samples | GEL1010 Illumina QC Status | is       | Pass     |
