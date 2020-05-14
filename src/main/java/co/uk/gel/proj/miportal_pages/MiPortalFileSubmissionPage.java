@@ -66,9 +66,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement hideColumnSpace;
 
     By fileSubmissionTableHead = By.xpath("//div[contains(@id,'-display-table_contents')]//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String fileSubmissionTableRows = "//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+//    String fileSubmissionTableRows = "//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    String fileSubmissionTableRows = "//div[contains(@id,'-display-table_contents')]//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
-    @FindBy(xpath = "//select[@id='file_submissions-search-value']")
+//    @FindBy(xpath = "//select[@id='file_submissions-search-value']" )
+    @FindBy(xpath ="//select[contains(@id,'-search-value')]")
     public WebElement fileSubmissionSearchValue;
 
     @FindBy(xpath = "//select[@id='file_submissions-search-operator']")
@@ -300,7 +302,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyColumnValueInFileSubmissionSearchResultTable(String columnName,String expValue) {
-        Wait.seconds(3);
+        Wait.seconds(5);
         try {
             int noOfFilteredRows = seleniumLib.getNoOfRows(fileSubmissionTableRows);
             if(noOfFilteredRows == 0){

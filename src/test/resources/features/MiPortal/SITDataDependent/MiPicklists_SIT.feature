@@ -49,13 +49,13 @@ Feature: MIPORTAL SIT - PickLists
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
-    When the user drag the column header "gel1008__plate__warning_msgs" from the section "Hide" to "Show" section
+    When the user drag the column header "GEL1008 Plate Warning Msgs" from the section "Hide" to "Show" section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList     |
-      | gel1008__plate__warning_msgs |
+      | GEL1008 Plate Warning Msgs |
     And the user clicks on save and close button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-    And the pick lists search result table column gel1008 Plate Warning Msgs is displayed with data non-empty-data
+    And the pick lists search result table column GEL1008 Plate Warning Msgs is displayed with data non-empty-data
     And the selected search option is reset after test
 
     Examples:
@@ -78,11 +78,11 @@ Feature: MIPORTAL SIT - PickLists
     And the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
-    When the user drag the column header "gel1008__plate__warning_msgs" from the section "Hide" to "Show" section
+    When the user drag the column header "GEL1008 Plate Warning Msgs" from the section "Hide" to "Show" section
     And the user clicks on save and close button
     When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     ## We Are checking for Data and blank fields Not for {}
-    And the pick lists search result table column gel1008 Plate Warning Msgs is displayed with data non-empty-data
+    And the pick lists search result table column GEL1008 Plate Warning Msgs is displayed with data non-empty-data
     Then the selected search option is reset after test
 #### This is a failure, as per the current UI the "gel1008 Plate Warning Msgs" column does not appear in the results table
     Examples:
