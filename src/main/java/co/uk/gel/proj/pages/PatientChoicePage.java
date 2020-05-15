@@ -1222,12 +1222,12 @@ public class PatientChoicePage {
     public boolean statusUpdatedCorrectly(String status, int row) {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 30)) {
-                Debugger.println("Patient Choice Landing Page not loaded.");
+                Debugger.println("Patient Choice Landing Page not loaded.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
                 return false;
             }
             if (statuses.size() < 1) {
-                Debugger.println("Patient Choice Test Status not loaded.");
+                Debugger.println("Patient Choice Test Status not loaded."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
                 return false;
             }
