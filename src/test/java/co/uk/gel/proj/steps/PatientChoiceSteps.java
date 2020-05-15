@@ -4,9 +4,11 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -35,6 +37,9 @@ public class PatientChoiceSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             boolean testResult = false;
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Adding");
+            }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nPatient Choice for Family Member:"+i);
                 //No need to alert as there are cases which directly landing to specific patient page
@@ -109,6 +114,9 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("\nPC done for FM:"+i);
             }//end
             Wait.seconds(5);
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Added");
+            }
         } catch (Exception exp) {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp+"\n"+driver.getCurrentUrl());
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
@@ -273,6 +281,9 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsTheProband() {
         boolean testResult = false;
         testResult = patientChoicePage.selectMember(0);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ProbandPC"," ")+"_Start");
+        }
         Assert.assertTrue(testResult);
     }
 
@@ -386,6 +397,9 @@ public class PatientChoiceSteps extends Pages {
     public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
         boolean testResult = false;
         testResult = patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PCProband"," ")+"_Done");
+        }
         Assert.assertTrue(testResult);
     }
 

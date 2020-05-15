@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.ReferralPage;
@@ -348,6 +349,9 @@ public class FamilyMemberDetailsSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             String nhsNumber = "";
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMember"," ")+"_Adding");
+            }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nAdding Family Member: " + i);
                 if (!referralPage.navigateToFamilyMemberSearchPage()) {
@@ -463,6 +467,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Verified added family member" + memberDetails.get(i).get(0) + " details in the FM landing page.\n");
                 Wait.seconds(5);
             }//end
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMember"," ")+"_Added");
+            }
         } catch (Exception exp) {
             Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: " + exp);
             Assert.assertTrue("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ", false);

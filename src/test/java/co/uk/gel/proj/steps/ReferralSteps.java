@@ -47,6 +47,9 @@ public class ReferralSteps extends Pages {
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: " + stage + " Starting.");
         referralPage.navigateToStage(stage);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
+        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -199,6 +202,9 @@ public class ReferralSteps extends Pages {
                 } else {
                     Debugger.println("Stage: " + stage + " Completed.");
                 }
+            }
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_End");
             }
             Assert.assertTrue(testResult);
         } catch (Exception exp) {
@@ -509,6 +515,9 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Referral"," ")+"_Submitting");
+        }
     }
 
     @When("the user clicks the Cancel referral link")
@@ -565,6 +574,9 @@ public class ReferralSteps extends Pages {
         if (!homePage.typeInSearchField(searchTerm)) {
             Assert.assertTrue(false);
         }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("CI"," ")+"_Searching");
+        }
         if (!homePage.clickSearchIconFromSearchField()) {
             Assert.assertTrue(false);
         }
@@ -572,6 +584,9 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue(false);
         }
         homePage.closeCookiesBannerFromFooter();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("CI"," ")+"_SearchResult");
+        }
         if (!homePage.selectFirstEntityFromResultList()) {
             Assert.assertTrue(false);
         }
@@ -592,6 +607,9 @@ public class ReferralSteps extends Pages {
         if (!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()) {
             Assert.assertTrue(false);
         }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Patient"," ")+"_Searching");
+        }
         if (!patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral()) {
             Assert.assertTrue(false);
         }
@@ -605,6 +623,9 @@ public class ReferralSteps extends Pages {
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         if (!patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink)) {
             Assert.assertTrue(false);
+        }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Patient"," ")+"_Creating");
         }
         if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
             Assert.assertTrue(false);
@@ -634,6 +655,9 @@ public class ReferralSteps extends Pages {
         if (!patientDetailsPage.patientIsCreated()) {
             Assert.assertTrue(false);
         }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Starting"," ")+"_Referral");
+        }
         if (!patientDetailsPage.clickStartReferralButton()) {
             Assert.assertTrue(false);
         }
@@ -653,12 +677,19 @@ public class ReferralSteps extends Pages {
         PatientDetailsPage.newPatient.setClinicalIndication(referralPage.getPatientClinicalIndication());
         PatientDetailsPage.newPatient.setReferralHumanReadableID(referralPage.getPatientReferralId());
         patientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
+        //Debugger.println("SNAP REQD: "+AppConfig.snapshotRequired);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"ReferralCreated.jpg");
+        }
     }
 
     @And("the referral status is set to {string}")
     public void theReferralStatusIsSetTo(String expectedReferralStatus) {
         boolean testResult = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Referral"," ")+"_Submitted");
+        }
         Assert.assertTrue(testResult);
         referralPage.saveReferralID();
     }
@@ -757,6 +788,9 @@ public class ReferralSteps extends Pages {
 
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("CI"," ")+"_Search");
+        }
         boolean stepResult = false;
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         Assert.assertTrue(stepResult);
@@ -830,11 +864,17 @@ public class ReferralSteps extends Pages {
             if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
                 Assert.assertTrue(false);
             }
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("RDReferral"," ")+"_Creating");
+            }
             if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
                 Assert.assertTrue(false);
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
                 Assert.assertTrue(false);
+            }
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("RDReferral"," ")+"_Created");
             }
             if (!referralPage.saveAndContinueButtonIsDisplayed()) {
                 Assert.assertTrue(false);
