@@ -2,8 +2,11 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -17,6 +20,9 @@ public class NotesSteps extends Pages {
     public void theUserFillsInTheAddNotesField() {
         boolean testResult;
         testResult = notesPage.fillInAddNotesField();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Notes"," ")+"_Filled");
+        }
         Assert.assertTrue(testResult);
     }
 

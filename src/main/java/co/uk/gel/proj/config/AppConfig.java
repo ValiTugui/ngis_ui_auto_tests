@@ -28,13 +28,17 @@ public class AppConfig {
     public static Properties properties = null;
     //MIPortal test data
     public static String mi_portal_test_data_file;
+    public static boolean snapshotRequired = false;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
-        String EnvironmentName = System.getProperty("TestEnvironment");
-        System.out.println("TestEnvironment: " + EnvironmentName);
-
-        configFileName = String.format(configFileName, EnvironmentName);
+        String current_environment = System.getProperty("TestEnvironment");
+        System.out.println("TestEnvironment: " + current_environment);
+        if(current_environment.equalsIgnoreCase("UAT") ||
+        current_environment.equalsIgnoreCase("Beta")){
+            snapshotRequired = true;
+        }
+        configFileName = String.format(configFileName, current_environment);
         properties = new Properties();
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
