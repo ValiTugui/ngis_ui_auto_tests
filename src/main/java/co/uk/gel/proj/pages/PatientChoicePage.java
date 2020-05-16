@@ -1024,7 +1024,7 @@ public class PatientChoicePage {
                 SeleniumLib.scrollToElement(adultWithCapacityCategory);
                 if(!Wait.isElementDisplayed(driver,adultWithCapacityCategory,3)) {
                     Debugger.println("adultWithCapacityCategory not displayed.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
+                    SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
                     return false;
                 }
             }
@@ -1144,16 +1144,16 @@ public class PatientChoicePage {
             boolean isEnabled = saveAndContinuePC.isEnabled();
             Debugger.println("SaveAndContinue in PC:"+isEnabled);
             while(!isEnabled){
-                Wait.seconds(10);
+                Wait.seconds(15);
                 isEnabled = saveAndContinuePC.isEnabled();
                 count++;
                 Debugger.println("In While..."+isEnabled);
                 if(count > 12){
-                    break;//after a minute
+                    break;//after 3 minute
                 }
             }
             if(!isEnabled){
-                Debugger.println("Save and Continue But not enabled even after 120 seconds...");
+                Debugger.println("Save and Continue But not enabled even after 180 seconds...\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SaveAndContinueDisabled.jpg");
                 return false;
             }

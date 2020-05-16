@@ -72,7 +72,7 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing
     And the user clicks the Save and Continue button on the patient choice
-    Then the user is navigated to a page with title Add patient choice information
+    Then the user is navigated to a page with title Patient choice
     Then the Patient Choice landing page is updated to "Authorised by clinician" for the proband
     When the user clicks the Save and Continue button
     Then the "<stage9>" stage is selected

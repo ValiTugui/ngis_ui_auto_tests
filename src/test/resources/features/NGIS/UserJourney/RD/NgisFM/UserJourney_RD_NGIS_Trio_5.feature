@@ -50,12 +50,21 @@ Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
-    And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
-    And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the patient choice
     Then the user is navigated to a page with title Add patient choice information
-    Then the help text is displayed
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
+    When the user selects the option Adult (With Capacity) in patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    When the user is in the section Patient choices
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
     #Patient Choice - Family Details Provided below should be same as above
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
