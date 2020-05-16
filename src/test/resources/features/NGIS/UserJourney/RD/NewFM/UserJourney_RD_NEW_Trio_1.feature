@@ -1,6 +1,5 @@
 #@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NEW_TrioFamily
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_1 - UC08 - E2EUI-844
 
@@ -77,10 +76,6 @@ Feature: UserJourney_RD_NEW_Trio_1 - UC08 - E2EUI-844
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms - FamilyDetails -same as provided above Family details
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<ThreeParticipant>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=21-05-2005 |
-      | NHSNumber=NA:DOB=13-03-1965 |
     ###Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed

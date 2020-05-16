@@ -521,7 +521,7 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
             } catch (Exception exp1) {
-                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp);
+                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
             }

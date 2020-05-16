@@ -1641,7 +1641,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyThePresenceOfResultInTableFormatWithDisplayOptions() {
         try {
             Wait.seconds(2);
-            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 20)) {
+            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 60)) {
                 Debugger.println("Search result display option is not displayed.");
                 SeleniumLib.takeAScreenShot("DisplayOptionsButton.jpg");
                 return false;

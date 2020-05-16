@@ -43,8 +43,9 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
 
     And the success notification is displayed "Tumour added"
     And the user navigates to the "<stage6>" stage
+    Then the user is navigated to a page with title Manage samples
     And the "<stage6>" stage is selected
-    Then the "Manage samples" page is displayed
+
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state and filling SampleID
@@ -70,10 +71,8 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     And the user navigates to the "<stage8>" stage
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing
-    And the user clicks the Save and Continue button
-    Then the "<stage8>" page is displayed
-    Then the help text is displayed
-
+    And the user clicks the Save and Continue button on the patient choice
+    Then the user is navigated to a page with title Patient choice
     Then the Patient Choice landing page is updated to "Authorised by clinician" for the proband
     When the user clicks the Save and Continue button
     Then the "<stage9>" stage is selected
