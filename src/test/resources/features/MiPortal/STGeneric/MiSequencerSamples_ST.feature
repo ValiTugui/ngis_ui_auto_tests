@@ -10,67 +10,44 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects <value> as the sequencer samples search column dropdown
-    And the user selects <operator> as the sequencer samples search operator dropdown
-    And the user sees the below values in the sequencer samples search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
-
-    Examples:
-      | mi_stage          | value | operator |
-      | Sequencer Samples | GLH   | is       |
-
-
-  @NTS-5190
-  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    And the user selects <value> as the sequencer samples search column dropdown
-    And the user selects <operator> as the sequencer samples search operator dropdown
-    And the user sees the below values in the sequencer samples search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
-
-    Examples:
-      | mi_stage          | value | operator  |
-      | Sequencer Samples | GLH   | is one of |
-
-  @NTS-5051
-   # @E2EUI-2321
-  Scenario Outline:NTS-5051:E2EUI-2321: Add "glh" and "ordering_entity" as fields which are returned from the miportalplateview API and are also fields which can be used as filters - Sequencer samples
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user should be able to see sample processing menu is displayed
-    And the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
     And the user selects GLH as the sequencer samples search column dropdown
-    And the user sees the below values in the sequencer samples search column drop-down menu
-      | GLH             |
-      | Ordering Entity |
+    And the user selects is as the sequencer samples search operator dropdown
+    And the user sees the below values in the sequencer samples search value drop-down menu
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
+
+     And the user selects is one of as the sequencer samples search operator dropdown
+     And the user sees the below values in the sequencer samples search value drop-down menu
+       | East Mids and East of England |
+       | London North                  |
+       | London South                  |
+       | North West                    |
+       | South West                    |
+       | Wessex & West Midlands        |
+       | Yorkshire & North East        |
+     And the selected search option is reset after test
+
     Examples:
       | mi_stage          |
       | Sequencer Samples |
 
+  @NTS-5051
+   # @E2EUI-2321
+  Scenario: NTS-5051:E2EUI-2321: Add "glh" and "ordering_entity" as fields which are returned from the miportalplateview API and are also fields which can be used as filters - Sequencer samples
+    When the user selects GLH as the sequencer samples search column dropdown
+    And the user sees the below values in the sequencer samples search column drop-down menu
+      | GLH             |
+      | Ordering Entity |
+
 
   @NTS-5032
      #@E2EUI-2332
-  Scenario Outline:NTS-5032:E2EUI-2332: Sequencer Sample Report UI improvement
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
+  Scenario: NTS-5032:E2EUI-2332: Sequencer Sample Report UI improvement
     And the user sees the below values in the sequencer samples search column drop-down menu
       | GLH                                   |
       | Ordering Entity                       |
@@ -84,10 +61,6 @@ Feature:  MIPORTAL ST -  Sequencer Samples
     And the user selects Referral ID as the sequencer samples search column dropdown
     Then the user selects is exactly as the sequencer samples search operator dropdown
     And the selected search option is reset after test
-
-    Examples:
-      | mi_stage          |
-      | Sequencer Samples |
 
   @NTS-5186
     #@E2EUI-2256

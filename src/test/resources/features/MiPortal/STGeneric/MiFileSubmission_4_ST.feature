@@ -13,7 +13,7 @@ Feature: MIPORTAL ST - File Submission 4
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -21,19 +21,15 @@ Feature: MIPORTAL ST - File Submission 4
     And the user sees the search results pagination entry drop-down with default selection of "10"
 
     Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 5        |
+      | mi_stage         |
+      | File Submissions |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: NTS-3390: Pagination drop-down options shown in search result table
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    And the user selects Created as the search column dropdown
+  Scenario: NTS-3390: Pagination drop-down options shown in search result table
+    When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -52,20 +48,12 @@ Feature: MIPORTAL ST - File Submission 4
       | 100        | 100           |
     And the selected search option is reset after test
 
-    Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 5        |
-
   @NTS-3390
     #@E2EUI-1283 ##Drag and Drop to be rechecked
-  Scenario Outline:NTS-3390: Drag and drop a column header from Show to Hide section (vice-versa)
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
+  Scenario: NTS-3390: Drag and drop a column header from Show to Hide section (vice-versa)
     And the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -85,25 +73,16 @@ Feature: MIPORTAL ST - File Submission 4
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 
-    Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283 ##Drag and Drop
-  Scenario Outline:NTS-3390:Verify the drag and drop columnHeader in search result table
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
+  Scenario: NTS-3390:Verify the drag and drop columnHeader in search result table
     And the user selects Created as the search column dropdown
     And the user selects equals as the search operator dropdown
-#    And the user enters a date "<date>" in the file-submission date field
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
@@ -114,26 +93,17 @@ Feature: MIPORTAL ST - File Submission 4
       | HeaderColumnOrderingList |
       | ID                       |
     And the user save the changes on modal content by clicking Save and Close button
-    And the user sees a search box container section for "<mi_stage>" page
     And the columns fields are not displayed in the list of columns headers of the search result table
       | columnHeaders |
       | ID            |
     And the selected search option is reset after test
 
-    Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 1        |
-
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline:NTS-3390: User select the "Compact grid" check box on the modal content page
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    And the user selects Created as the search column dropdown
+  Scenario: NTS-3390: User select the "Compact grid" check box on the modal content page
+    When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -143,23 +113,14 @@ Feature: MIPORTAL ST - File Submission 4
     And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
-    And the user sees a search box container section for "<mi_stage>" page
     And the selected search option is reset after test
-
-    Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: NTS-3390:User select the "Truncate Columns" check box on the modal content page
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
+  Scenario: NTS-3390:User select the "Truncate Columns" check box on the modal content page
     And the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -169,23 +130,14 @@ Feature: MIPORTAL ST - File Submission 4
     And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
-    And the user sees a search box container section for "<mi_stage>" page
     And the selected search option is reset after test
-
-    Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: NTS-3390:Verify the expand compact button on a search row result and click to expand
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    And the user selects Created as the search column dropdown
+  Scenario: NTS-3390:Verify the expand compact button on a search row result and click to expand
+    When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 5 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -195,10 +147,5 @@ Feature: MIPORTAL ST - File Submission 4
     And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
-    And the user sees a search box container section for "<mi_stage>" page
     And the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values
     And the selected search option is reset after test
-
-    Examples:
-      | mi_stage         | noOfDays |
-      | File Submissions | 5        |
