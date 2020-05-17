@@ -1580,13 +1580,13 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyThePresenceOfNonEmptyColumn(String columnName) {
         try {
             if (!Wait.isElementDisplayed(driver, searchResultRowHeader, 20)) {
-                Debugger.println("Table Header is not display.");
+                Debugger.println("Table Header is not display."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("TableHeaderNotPresent.jpg");
                 return false;
             }
             Wait.seconds(3);//As observed it take time to load
             if (displayOptionsTableHeaders.size() == 0) {
-                Debugger.println("Nothing present in the table header.");
+                Debugger.println("Nothing present in the table header."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("TableHeaderNotPresent.jpg");
                 return false;
             }
@@ -1599,7 +1599,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(2);//As observed it take time to load
                     for (int j = 0; j < dataCell.size(); j++) {
                         if (dataCell.get(j).getText().equalsIgnoreCase("")) {
-                            Debugger.println("Not present any data in cell number " + j);
+                            Debugger.println("Data Not present any data in cell number " + j+"\n"+driver.getCurrentUrl());
                             SeleniumLib.takeAScreenShot("TableCellNotPresent.jpg");
                             return false;
                         }
@@ -1608,7 +1608,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyThePresenceOfNonEmptyColumn " + exp);
+            Debugger.println("Exception from verifyThePresenceOfNonEmptyColumn " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("TableDataNotPresent.jpg");
             return false;
         }
@@ -1622,7 +1622,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 String header = elementHeader.getText();
                 headers.add(header);
             }
-            Debugger.println("All headers" + headers);
+            //Debugger.println("All headers" + headers);
             //format : dd/mm/yyyy
             String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
             Pattern p = Pattern.compile(regex);
@@ -1632,7 +1632,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verify Date Format " + exp);
+            Debugger.println("Exception from verify Date Format " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("verifyDateFormat.jpg");
             return false;
         }
@@ -1642,18 +1642,18 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 60)) {
-                Debugger.println("Search result display option is not displayed.");
+                Debugger.println("Search result display option is not displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("DisplayOptionsButton.jpg");
                 return false;
             }
             if (!Wait.isElementDisplayed(driver, displayedResultTable, 10)) {
-                Debugger.println("Search result is not displayed as a table format.");
+                Debugger.println("Search result is not displayed as a table format."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SearchResultTableNotFound.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("search result table is not found");
+            Debugger.println("Exception in verifyThePresenceOfResultInTableFormatWithDisplayOptions:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("SearchResultTableNotFound.jpg");
             return false;
         }
@@ -1661,20 +1661,20 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyErrorMessage(String expErrorMessage) {
         try {
-            if (!Wait.isElementDisplayed(driver, errorMessageElement, 30)) {
-                Debugger.println("Error message element not displayed as expected :" + expErrorMessage);
+            if (!Wait.isElementDisplayed(driver, errorMessageElement, 60)) {
+                Debugger.println("Error message element not displayed as expected :" + expErrorMessage+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
                 return false;
             }
             String actMessage = errorMessageElement.getText();
             if (!actMessage.contains(expErrorMessage)) {
-                Debugger.println("Actual error message : " + actMessage + ",Expected:" + expErrorMessage);
+                Debugger.println("Actual error message : " + actMessage + ",Expected:" + expErrorMessage+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyErrorMessage : " + exp);
+            Debugger.println("Exception from verifyErrorMessage : " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
             return false;
         }
