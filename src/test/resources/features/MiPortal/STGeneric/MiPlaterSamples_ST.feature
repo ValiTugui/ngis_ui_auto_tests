@@ -26,6 +26,24 @@ Feature:  MIPORTAL ST - Plater Samples
     Examples:
       | mi_stage       | value | operator  |
       | Plater Samples | GLH   | is        |
+
+  @NTS-5190
+  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects <value> as the plater samples search column dropdown
+    And the user selects <operator> as the plater samples search operator dropdown
+    And the user sees the below values in the plater samples search value drop-down menu
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
+
+    Examples:
+      | mi_stage       | value | operator  |
       | Plater Samples | GLH   | is one of |
 
   @NTS-4978
