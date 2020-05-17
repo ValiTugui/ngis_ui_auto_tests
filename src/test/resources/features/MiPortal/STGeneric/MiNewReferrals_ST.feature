@@ -1,4 +1,5 @@
 @MIPORTAL
+@MIPORTAL_ST_Referral
 @SYSTEM_TEST
 
 Feature:  MIPORTAL ST -  New Referrals ST

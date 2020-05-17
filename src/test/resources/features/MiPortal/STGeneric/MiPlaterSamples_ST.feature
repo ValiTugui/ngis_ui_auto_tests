@@ -1,4 +1,5 @@
 @MIPORTAL
+@MIPORTAL_ST_PlaterSample
 @SYSTEM_TEST
 
 Feature:  MIPORTAL ST - Plater Samples

@@ -1,4 +1,5 @@
 @MIPORTAL
+@MIPORTAL_ST_HomePage
 @SYSTEM_TEST
 
 Feature:  MIPORTAL ST -  Home Page
