@@ -61,7 +61,7 @@ Feature: MIPORTAL SIT - PickLists
     Examples:
       | mi_stage  |
       | Picklists |
-      #### This is a failure, as per the current UI the "gel1008 Plate Warning Msgs" column does not appear in the results table
+      #### This is a failure, as per the current UI the "gel1008 Plate Warning Msgs" column appear in the results table but there is no data in it.
 
   @NTS-5055
     #@E2EUI-2410
@@ -84,7 +84,7 @@ Feature: MIPORTAL SIT - PickLists
     ## We Are checking for Data and blank fields Not for {}
     And the pick lists search result table column GEL1008 Plate Warning Msgs is displayed with data non-empty-data
     Then the selected search option is reset after test
-#### This is a failure, as per the current UI the "gel1008 Plate Warning Msgs" column does not appear in the results table
+#### This is a failure, as per the current UI the "gel1008 Plate Warning Msgs" column does not appear in the results table with data
     Examples:
       | mi_stage  | NoOfSearchField |
       | Picklists | 3               |

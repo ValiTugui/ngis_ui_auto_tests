@@ -41,7 +41,7 @@ Feature: MIPORTAL SIT - File Submission 1
 
     Examples:
       | mi_stage         | column  | noOfDays |
-      | File Submissions | Created | 0        |
+      | File Submissions | Created | 1        |
 #
 #  @NTS-5059
 #    #@E2EUI-2779

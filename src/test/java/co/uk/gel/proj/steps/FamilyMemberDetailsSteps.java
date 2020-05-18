@@ -373,10 +373,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                         familyMember.setETHNICITY("A - White - British");
                     }
                     if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"fillInNHSNumberAndDateOfBirth Failed",false);
                     }
                     if (!patientSearchPage.clickSearchButtonByXpath()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"fillInNHSNumberAndDateOfBirth Failed",false);
                     }
                     if (patientSearchPage.getPatientSearchNoResult() == null) {//Got error saying invalid NHS number, proceeding with No search in that case
                         if (patientSearchPage.fillInPatientSearchWithNoFields(familyMember)) {
@@ -384,38 +384,42 @@ public class FamilyMemberDetailsSteps extends Pages {
                         }
                     }
                     if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickCreateNewPatientLinkFromNoSearchResultsPage Failed",false);
                     }
                     if (!patientDetailsPage.newPatientPageIsDisplayed()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"newPatientPageIsDisplayed Failed",false);
                     }
                     Debugger.println("Creating new Family Member:"+familyMember.getDATE_OF_BIRTH());
                     if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"createNewFamilyMember Failed",false);
                     }
                     Debugger.println("Created:"+familyMember.getDATE_OF_BIRTH());
                     if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
                         if(!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
-                        Assert.assertTrue(false);
-                    }
+                            Assert.assertTrue(memberDetails.get(i).get(0)+"verifyThePageTitlePresence Failed",false);
+                        }
                     }
                     referralPage.updatePatientNGSID(familyMember);
                     if (!referralPage.clickSaveAndContinueButton()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickSaveAndContinueButton Failed",false);
                     }
                 } else {
                     if (!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"searchFamilyMemberWithGivenParams Failed",false);
                     }
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
                         continue;
                     }
                     if (!familyMemberDetailsPage.clickPatientCard()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickPatientCard Failed",false);
                     }
-                    familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
-                    referralPage.clickSaveAndContinueButton();
+                    if(!familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1))){
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"fillTheRelationshipToProband Failed",false);
+                    }
+                    if(!referralPage.clickSaveAndContinueButton()){
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickSaveAndContinueButton Failed",false);
+                    }
                 }
                 Wait.seconds(5);
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));

@@ -28,7 +28,7 @@ Feature: MIPORTAL SIT - Order_Tracking
     Then the user should be able to see the non-empty data cell in the gel1001 GLH Sample Dispatch Date column of file submission search result table
     And the user should be able to see the non-empty data cell in the gel1001 Dispatched Sample State column of file submission search result table
     And the selected search option is reset after test
-    ##Note:Enure testdata present in testdata folder
+    ##Note:Ensure test data present in testdata folder
     Examples:
       | mi_stage       | section        | NoOfSearchField |
       | Order Tracking | order_tracking | 3               |
@@ -60,7 +60,7 @@ Feature: MIPORTAL SIT - Order_Tracking
     Examples:
       | mi_stage       | operator  | value                                                                                              |
       | Order Tracking | is        | Epilepsy - early onset or syndromic WGS                  |
-      | Order Tracking | is one of | Diabetes - neonatal onset WGS,Cerebral malformations WGS |
+      | Order Tracking | is one of | Craniosynostosis WGS,Epilepsy - early onset or syndromic WGS |
 
   @NTS-5029
     #@E2EUI-2438 ##DRag and Drop
@@ -120,6 +120,7 @@ Feature: MIPORTAL SIT - Order_Tracking
     And the user clicks on the Display Options button
     When the user clicks "Show all" button on the modal-content page
     And the user clicks on save and close button
+    When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the order tracking search result table column Status is displayed with data non-empty-data
     Then the selected search option is reset after test
 
