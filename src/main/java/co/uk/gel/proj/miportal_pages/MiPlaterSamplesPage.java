@@ -32,6 +32,9 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='plater_samples-search-value']")
     public WebElement getPlaterSamplesDate;
 
+    @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
+    public WebElement searchResults;
+
     By platerSamplesTableHead = By.xpath("//div[@id='plater_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String platerSamplesTableRows = "//div[@id='plater_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
@@ -144,6 +147,11 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyColumnValueInPlaterSamplesSearchResultTable(String columnName,String expValue) {
         Wait.seconds(3);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(platerSamplesTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in PlaterSamples Search Result Table");
@@ -156,6 +164,7 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
                 return false;
             }
+            Wait.seconds(3);
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";

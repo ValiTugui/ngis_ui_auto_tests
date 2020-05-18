@@ -1,7 +1,7 @@
 @MIPORTAL
 @MIPORTAL_SIT
 
-Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EUI-1489,1836)
+Feature: MIPORTAL: SIT - User Journey - Sequencer Samples and New Referrals(E2EUI-1489,1836)
 
   @NTS-5189
     #@E2EUI-1489
@@ -17,11 +17,11 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-      | gel1009 Plate Barcode                 |
-      | gel1010 Illumina QC Status            |
-      | gel1010 Illumina Sample Concentration |
-      | gel1009 Patient ID                    |
-      | gel1009 Plate Date of Dispatch        |
+      | GEL1009 Plate Barcode                 |
+      | GEL1010 Illumina QC Status            |
+      | GEL1010 Illumina Sample Concentration |
+      | GEL1009 Patient ID                    |
+      | GEL1009 Plate Date of Dispatch        |
     Then the selected search option is reset after test
     ###For 1st filter-GLH
     And the user selects a value "<filter_value1>" from the "sequencer_samples-search-col" column drop-down
@@ -50,30 +50,33 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     And the user selects a search operator "<operator1>" from the "sequencer_samples-search-operator" operator drop-down
     And the user fills in a "<value5>" in the "sequencer_samples-search-value" search box
     Then the selected search option is reset after test
-      ###6  gel1004 Disease Area
+      ###6  GEL1010 Illumina QC Status
     And the user selects a value "<filter_value6>" from the "sequencer_samples-search-col" column drop-down
     And the user selects a search operator "<fixed_operator>" from the "sequencer_samples-search-operator" operator drop-down
     And the user selects a value "<value6>" from the "sequencer_samples-search-value" column drop-down
     And the user sees the selected "<value6>" in the "sequencer_samples-search-value" value drop-down
     Then the selected search option is reset after test
-    ###7   gel1004 GLH Sample Consignment Number
+    ###7   GEL1010 Illumina Sample Concentration
     And the user selects a value "<filter_value7>" from the "sequencer_samples-search-col" column drop-down
-    And the user selects a search operator "<fixed_operator>" from the "sequencer_samples-search-operator" operator drop-down
+    And the user selects a search operator "<operator7>" from the "sequencer_samples-search-operator" operator drop-down
     And the user fills in a "<value7>" in the "sequencer_samples-search-value" search box
     Then the selected search option is reset after test
-    ####8  gel1004 Laboratory ID
+    ####8  GEL1009 Patient ID
     And the user selects a value "<filter_value8>" from the "sequencer_samples-search-col" column drop-down
     And the user selects a search operator "<operator1>" from the "sequencer_samples-search-operator" operator drop-down
-    And the user fills in a "<value7>" in the "sequencer_samples-search-value" search box
-    ####9  gel1005 Sample Received Datetime
+    And the user fills in a "<value8>" in the "sequencer_samples-search-value" search box
+    ####9  GEL1009 Plate Date of Dispatch
     And the user selects a value "<filter_value9>" from the "sequencer_samples-search-col" column drop-down
     And the user selects a search operator "<operator9>" from the "sequencer_samples-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     Then the selected search option is reset after test
     ### Value given to All Dropdowns for Table Data
-    And the user selects a value "<filter_value1>" from the "sequencer_samples-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "sequencer_samples-search-operator" operator drop-down
-    And the user selects a value "<value1>" from the "sequencer_samples-search-value" column drop-down
+#    And the user selects a value "<filter_value1>" from the "sequencer_samples-search-col" column drop-down
+#    And the user selects a search operator "<operator>" from the "sequencer_samples-search-operator" operator drop-down
+#    And the user selects a value "<value1>" from the "sequencer_samples-search-value" column drop-down
+    And the user selects GLH as the sequencer samples search column dropdown
+    And the user selects is as the sequencer samples search operator dropdown
+    And the user selects GLHName as the sequencer samples search value dropdown
     And the user sees the buttons - Add, Search, Reset buttons under the Search boxes
     And the user clicks on Add criteria button
     When the user click on the Search button
@@ -96,14 +99,14 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     Then the user sees the buttons - Reset, Save and close under Display Options
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
-    When the user drag the column header "gel1008__gel1009__ethnicity" from the section "Hide" to "Show" section
+    When the user drag the column header "GEL1009 Ethnicity" from the section "Hide" to "Show" section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList    |
-      | gel1008__gel1009__ethnicity |
+      | GEL1009 Ethnicity        |
     And the user save the changes on modal content by clicking Save and Close button
     And the columns fields are  displayed in the list of columns headers of the search result table
       | columnHeaders               |
-      | gel1008__gel1009__ethnicity |
+      | GEL1009 Ethnicity |
     When the user clicks on the Display Options button
     When the user clicks "Hide all" button on the modal-content page
     And the Save and Close button under Show All and Hide All button becomes disabled
@@ -125,9 +128,9 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     And the user sees a search box container section for "<mi_stage>" page
     And the selected search option is reset after test
     Examples:
-      | mi_stage          | paginationValue | filter_value1 | operator  | value1                    | filter_value2   | value2                                              | filter_value3 | value3      | filter_value4   | operator1  | value4                    | filter_value5         | fixed_operator | value5                      | filter_value6              | value6 | filter_value7                         | value7 | filter_value8      | filter_value9                  | operator9    | date       |
-      | Sequencer Samples | 25              | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | r1234       | Patient NGIS ID | is exactly | p08395405325              | gel1009 Plate Barcode | is             | r1234                       | gel1010 Illumina QC Status | Pass   | gel1010 Illumina Sample Concentration | r9876  | gel1009 Patient ID | gel1009 Plate Date of Dispatch | equals       | 11-03-2020 |
-      | Sequencer Samples | 50              | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | r1234,r5678 | Patient NGIS ID | is one of  | p08395405325,p67752570099 | gel1009 Plate Barcode | is             | LP6264316-DNA,LP8907987-DNA | gel1010 Illumina QC Status | Fail   | gel1010 Illumina Sample Concentration | r9888  | gel1009 Patient ID | gel1009 Plate Date of Dispatch | before or on | 14-03-2020 |
+      | mi_stage          | paginationValue | filter_value1 | operator  | value1                    | filter_value2   | value2                                                     | filter_value3 | value3      | filter_value4   | operator1  | value4                    | filter_value5         | fixed_operator | value5                      | filter_value6              | value6 | operator7                   | filter_value7                         | value7 | value8 | filter_value8      | filter_value9                  | operator9    | date       |
+      | Sequencer Samples | 25              | GLH           | is        | London North              | Ordering Entity | Airedale NHS Foundation Trust                              | Referral ID   | r1234       | Patient NGIS ID | is exactly | p08395405325              | GEL1009 Plate Barcode | is             | r1234                       | GEL1010 Illumina QC Status | Pass   | is greater than or equal to | GEL1010 Illumina Sample Concentration | 90     | r9876  | GEL1009 Patient ID | GEL1009 Plate Date of Dispatch | equals       | 11-03-2020 |
+      | Sequencer Samples | 50              | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Airedale NHS Foundation Trust | Referral ID   | r1234,r5678 | Patient NGIS ID | is one of  | p08395405325,p67752570099 | GEL1009 Plate Barcode | is             | LP6264316-DNA,LP8907987-DNA | GEL1010 Illumina QC Status | Fail   | is less than or equal to    | GEL1010 Illumina Sample Concentration | 90     | r9888  | GEL1009 Patient ID | GEL1009 Plate Date of Dispatch | before or on | 14-03-2020 |
 
   @NTS-5017
    ## @E2EUI-1836 @E2EUI-2408
@@ -141,10 +144,10 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
       | GLH                              |
       | Ordering Entity                  |
       | Referral ID                      |
-      | Has Gel1001                      |
+      | Has GEL1001                      |
       | Priority                         |
       | Sample Processing GLH            |
-      | Test Type Name                   |
+      | Test Type                        |
     Then the selected search option is reset after test
     ###For 1st filter-GLH
     When the user selects a value "<filter_value1>" from the "new_referrals-search-col" column drop-down
@@ -185,11 +188,16 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     And the user selects a value "<value1>" from the "new_referrals-search-value" value drop-down
     Then the user sees the selected "<value1>" in the "new_referrals-search-value" value drop-down
     And the selected search option is reset after test
-    ###For 7th filter-Test Type Name
+     ###For 7th filter-Test Type
     When the user selects a value "<filter_value7>" from the "new_referrals-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "new_referrals-search-operator" operator drop-down
     And the user selects a value "<value7>" from the "new_referrals-search-value" value drop-down
     And the user sees the selected "<value7>" in the "new_referrals-search-value" value drop-down
+    And the selected search option is reset after test
+     ### Results table generation
+    And the user selects GLH as the new referrals search column dropdown
+    And the user selects is as the new referrals search operator dropdown
+    And the user selects GLHName as the search value dropdown
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -213,13 +221,12 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     And the user sees the buttons - Reset, Save and close under Display Options
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
-    When the user drag the column header "priority" from the section "Hide" to "Show" section
+    When the user drag the column header "Priority" from the section "Hide" to "Show" section
     Then the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | priority                 |
+      | Priority                 |
     And the user save the changes on modal content by clicking Save and Close button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-#    Then the table column "<ColumnHeader>" is displayed with data
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user clicks on the button "Hide all"
@@ -243,7 +250,7 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     Then the selected search option is reset after test
 
     Examples:
-      | mi_stage      | filter_value1 | operator  | value1                    | filter_value2   | value2                                              | filter_value3 | value3      | filter_value4 | operator1 | value4 | filter_value5 | value5         | filter_value6         | filter_value7  | value7                                 | paginationValue | ColumnHeader |
-      | New Referrals | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | r1234       | Has Gel1001   | is        | TRUE   | Priority      | Routine        | Sample Processing GLH | Test Type Name | Craniosynostosis WGS                   | 25              | Priority     |
-      | New Referrals | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | r1234,r5678 | Has Gel1001   | is        | FALSE  | Priority      | Routine,Urgent | Sample Processing GLH | Test Type Name | Craniosynostosis WGS,Hydrocephalus WGS | 50              | Priority     |
+      | mi_stage      | filter_value1 | operator  | value1                    | filter_value2   | value2                                                     | filter_value3 | value3      | filter_value4 | operator1 | value4 | filter_value5 | value5         | filter_value6         | filter_value7 | value7                                 | paginationValue |
+      | New Referrals | GLH           | is        | London North              | Ordering Entity | Airedale NHS Foundation Trust                              | Referral ID   | r1234       | Has GEL1001   | is        | TRUE   | Priority      | Routine        | Sample Processing GLH | Test Type     | Craniosynostosis WGS                   | 25              |
+      | New Referrals | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Airedale NHS Foundation Trust | Referral ID   | r1234,r5678 | Has GEL1001   | is        | FALSE  | Priority      | Routine,Urgent | Sample Processing GLH | Test Type     | Craniosynostosis WGS,Hydrocephalus WGS | 50              |
 

@@ -1,8 +1,11 @@
 package co.uk.gel.proj.miportal_pages;
 
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,6 +34,9 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='order_tracking-search-col']")
     public WebElement orderTrackSearchColumn;
+
+    @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
+    public WebElement searchResults;
 
     By orderTrackingTableHead = By.xpath("//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String orderTrackingTableRows = "//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
@@ -92,6 +98,11 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName,String expValue) {
         Wait.seconds(3);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(orderTrackingTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in Order Tracking Search Result Table");
@@ -104,6 +115,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
+            Wait.seconds(3);
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
@@ -135,6 +147,11 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyOrderTrackingResultColumnValuesDifference(String columnName1,String columnName2) {
         Wait.seconds(3);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(orderTrackingTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in Order Tracking Search Result Table");

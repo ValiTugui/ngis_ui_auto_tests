@@ -285,6 +285,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyColumnValueInFileSubmissionSearchResultTable(String columnName, String expValue) {
         Wait.seconds(5);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("VerifyColumnData.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(fileSubmissionTableRows);
             if (noOfFilteredRows == 0) {
                 Debugger.println("No search result found in File Submission Search Result Table");
@@ -330,6 +335,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         List<String> allColumnData = new ArrayList<>();
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("UnableToRetrieveColumnData.jpg");
+                return null;
+            }
             int colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");

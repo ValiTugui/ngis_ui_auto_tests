@@ -3,11 +3,8 @@
 
 Feature: MIPORTAL SIT - Plater Samples
 
-  Background:
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
-  @NTS-50301
+  @NTS-5030
     #@E2EUI-2331
   Scenario Outline:NTS-5030:E2EUI-2331: Plater Sample Report UI improvement
     Given a web browser is at the mi-portal home page
