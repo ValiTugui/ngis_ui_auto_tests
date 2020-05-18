@@ -70,7 +70,7 @@ public class PaperFormSteps extends Pages {
 
     @Then("the {string} page is properly opened and by default a test is selected")
     public void checkThatReviewTestSelectionPageIsProperlyOpened(String pageTitle) {
-        paperFormPage.checkThatReviewTestSelectionIsOpened();
+        Assert.assertTrue(paperFormPage.checkThatReviewTestSelectionIsOpened());
         Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
         Assert.assertTrue("First Test is NOT selected by Default", paperFormPage.checkThatTestIsSelected());
         Assert.assertTrue((paperFormPage.confirmTestsSubCaption.getText()).contains("1 of " + Integer.toString(paperFormPage.testsPackage.size())));
