@@ -58,6 +58,7 @@ public class MiPortalSequencerSamplesSteps extends Pages {
     public void theUserSeesBelowValuesInTheSequencerSamplesSearchValueDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miSequencerSamplesPage.selectSequencerSamplesDropDownSearchValue(expectedDropDownValues.get(i).get(0));
             if(!testResult){

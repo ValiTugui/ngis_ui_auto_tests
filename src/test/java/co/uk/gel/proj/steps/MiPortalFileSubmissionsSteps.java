@@ -354,6 +354,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theUserSeesBelowValuesInTheFileSubmissionSearchValueDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);

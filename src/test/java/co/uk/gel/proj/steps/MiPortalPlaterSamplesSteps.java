@@ -88,6 +88,7 @@ public class MiPortalPlaterSamplesSteps extends Pages {
     public void theUserSeesBelowValuesInThePlaterSamplesSearchValueDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPlaterSamplesPage.selectPlaterSamplesDropDownSearchValue(expectedDropDownValues.get(i).get(0));
             if(!testResult){
