@@ -683,6 +683,7 @@ public class ClinicalQuestionsPage {
             String diagnosisType = null;
             Wait.forElementToBeDisplayed(driver, omimRadioButton);
             Wait.forElementToBeDisplayed(driver, orphanetRadioButton);
+            Actions.scrollToTop(driver);
             if (expectedDiseaseDiagnosisType.equalsIgnoreCase("Omim")) {
                 Actions.clickElement(driver, omimRadioButton);
             } else {
