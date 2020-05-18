@@ -4,10 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -660,6 +658,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyListOfColumnsInHeaderShowOrHidden(String headerColumnStatus, List<List<String>> expValues) {
         try {
             List<String> actualHeaderValueList = new ArrayList<>();
+            Wait.seconds(5);
             if (headerColumnStatus.equalsIgnoreCase("Show")) {
                 for (WebElement headerValue : visibleColumnReorderingList) {
                     actualHeaderValueList.add(headerValue.getText().trim());

@@ -550,6 +550,7 @@ public class MilHomePageSteps extends Pages {
     @Then("search results are displayed in table format with display options button")
     public void searchResultsAreDisplayedInTableFormatWithDisplayOptionsButton() {
         boolean testResult = false;
+        Wait.seconds(8);
         testResult = miPortalHomePage.verifyThePresenceOfResultInTableFormatWithDisplayOptions();
         Assert.assertTrue(testResult);
     }

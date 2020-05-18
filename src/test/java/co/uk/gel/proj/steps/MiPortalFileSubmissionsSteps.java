@@ -45,14 +45,6 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Debugger.println("Refreshing the browser page before starting...");
     }
 
-
-//    @And("the user enters a date {string} in the file-submission date field")
-//    public void theUserEntersADateInTheFileSubmissionDateField(String date) {
-//        boolean testResult =false;
-//        testResult=miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
-//        Assert.assertTrue(testResult);
-//    }
-
     @And("the user enters a date (.*) in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
         boolean testResult =false;
@@ -70,6 +62,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
         boolean testResult = false;
+        Wait.seconds(3);
         testResult = miPortalHomePage.badgeFilterSearchCriteriaIsDisplayed();
         Assert.assertTrue(testResult);
     }
@@ -207,24 +200,11 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @And("the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values")
     public void theUserSeesTheExpandPlusIconAtTheStartOfEachRowWhereItIsClickedToShowColumnNamesAndValues() {
         boolean testResult = false;
+        Wait.seconds(5);
         testResult = miPortalFileSubmissionPage.verifyThePusIconAtTheStartOfEachRowAndClickToExpand();
         Assert.assertTrue(testResult);
-        Debugger.println("test + " + testResult);
-    }
 
-//    @And("the columns headers are displayed in the list of columns headers of the search result table")
-//    public void theColumnsHeadersAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
-//
-//        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
-//        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
-//
-//        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-//            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
-//            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
-//            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
-//        }
-//    }
-// Duplicate
+    }
 
     @And("the user see dates value in {string} column of file-submission search result in descending order")
     public void theUserSeeDatesValueInColumnOfFileSubmissionSearchResultInDescendingOrder(String columnHeader) {
@@ -270,6 +250,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @And("the user selects (.*) as the search value dropdown")
     public void theUserSelectSpecifiedSearchValue(String searchValue) {
         boolean testResult = false;
+        Wait.seconds(5);
         if(searchValue.equalsIgnoreCase("GLHName")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
@@ -286,12 +267,14 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @And("the user selects (.*) as the search operator dropdown")
     public void theUserSelectSpecifiedSearchOperator(String searchOperator) {
         boolean testResult = false;
+        Wait.seconds(5);
         testResult = miPortalFileSubmissionPage.selectDropDownSearchOperator(searchOperator);
         Assert.assertTrue(testResult);
     }
     @And("the user selects (.*) as the search column dropdown")
     public void theUserSelectSpecifiedSearchColumn(String searchColumn) {
         boolean testResult = false;
+        Wait.seconds(5);
         testResult = miPortalFileSubmissionPage.selectDropDownSearchColumn(searchColumn);
         Assert.assertTrue(testResult);
     }
