@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST_SequencerSample
+@MIPORTAL_ST
 @SYSTEM_TEST
 
 Feature:  MIPORTAL ST -  Sequencer Samples
@@ -8,6 +8,7 @@ Feature:  MIPORTAL ST -  Sequencer Samples
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    And the user should be able to see sample processing menu is displayed
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects GLH as the sequencer samples search column dropdown
@@ -64,21 +65,13 @@ Feature:  MIPORTAL ST -  Sequencer Samples
 
   @NTS-5186
     #@E2EUI-2256
-  Scenario Outline:NTS-5186:E2EUI-2256: Plate Date Of Dispatch field should be displayed as in 'dd/mm/yyyy' format
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    And the user selects GEL1009 Plate Date of Dispatch as the sequencer samples search column dropdown
+  Scenario: NTS-5186:E2EUI-2256: Plate Date Of Dispatch field should be displayed as in 'dd/mm/yyyy' format
+    When the user selects GEL1009 Plate Date of Dispatch as the sequencer samples search column dropdown
     And the user selects before or on as the sequencer samples search operator dropdown
-    And the user enters a date "<noOfDays>" days before today in the file-submission date field
+    And the user enters 10 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
     Then search results are displayed in table format with display options button
     And the user verify the date format displayed in sequencer samples result table under column GEL1009 Plate Date of Dispatch
     And the selected search option is reset after test
-
-    Examples:
-      | mi_stage          | noOfDays |
-      | Sequencer Samples | 10       |

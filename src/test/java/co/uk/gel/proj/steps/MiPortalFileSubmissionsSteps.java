@@ -46,14 +46,21 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     }
 
 
-    @And("the user enters a date {string} in the file-submission date field")
+//    @And("the user enters a date {string} in the file-submission date field")
+//    public void theUserEntersADateInTheFileSubmissionDateField(String date) {
+//        boolean testResult =false;
+//        testResult=miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
+//        Assert.assertTrue(testResult);
+//    }
+
+    @And("the user enters a date (.*) in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
         boolean testResult =false;
         testResult=miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user enters a date {string} days before today in the file-submission date field")
+    @And("the user enters (.*) days before today in the file-submission date field")
     public void theUserEntersADateNDaysBeforeInTheFileSubmissionDateField(String noOfDaysBefore) {
         boolean testResult =false;
         testResult=miPortalFileSubmissionPage.fillInPastDateInTheFileSubmissionDate(noOfDaysBefore);

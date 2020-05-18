@@ -1,8 +1,8 @@
 @MIPORTAL
-@MIPORTAL_ST_FileSubmission
+@MIPORTAL_ST1
 @SYSTEM_TEST
 
-Feature: MIPORTAL ST - File Submission 2
+Feature: MIPORTAL ST - File Submission
 
   @NTS-5190
   Scenario Outline: NTS-5190:E2EUI-2770:When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values

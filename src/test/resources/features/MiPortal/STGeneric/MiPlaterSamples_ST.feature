@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST_PlaterSample
+@MIPORTAL_ST
 @SYSTEM_TEST
 
 Feature:  MIPORTAL ST - Plater Samples
@@ -54,7 +54,7 @@ Feature:  MIPORTAL ST - Plater Samples
       | GEl1005 Sample Received Datetime      |
     And the user selects gel1005 Sample Received Datetime as the plater samples search column dropdown
     And the user selects before or on as the plater samples search operator dropdown
-    And the user enters 5 days before today in the file-submission date field
+    And the user enters 5 days before today in the plater sample date field
     And the user clicks on Add criteria button
     When the user click on the Search button
     Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
@@ -69,7 +69,7 @@ Feature:  MIPORTAL ST - Plater Samples
   Scenario: NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
     When the user selects GEL1005 Sample Received Datetime as the plater samples search column dropdown
     And the user selects before or on as the plater samples search operator dropdown
-    And the user enters 5 days before today in the file-submission date field
+    And the user enters 5 days before today in the plater sample date field
     And the user clicks on Add criteria button
     When the user click on the Search button
     Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV

@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
@@ -24,6 +25,13 @@ public class MiPortalPlaterSamplesSteps extends Pages {
     public void theUserEntersADateInThePlaterSamplesDateField(String date) {
         boolean testResult=false;
         testResult=miPlaterSamplesPage.fillInThePlaterSamplesDate(date);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user enters (.*) days before today in the plater sample date field")
+    public void theUserEntersADateNDaysBeforeInThePlaterSampleDateField(String noOfDaysBefore) {
+        boolean testResult =false;
+        testResult=miPlaterSamplesPage.fillInPastDateInThePlaterSampleDate(noOfDaysBefore);
         Assert.assertTrue(testResult);
     }
 
@@ -82,7 +90,10 @@ public class MiPortalPlaterSamplesSteps extends Pages {
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPlaterSamplesPage.selectPlaterSamplesDropDownSearchValue(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                Assert.assertTrue(expectedDropDownValues.get(i).get(0)+" Not present in Plater Samples.",testResult);
+            }
+            Wait.seconds(2);
         }
     }
 
@@ -92,7 +103,10 @@ public class MiPortalPlaterSamplesSteps extends Pages {
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPlaterSamplesPage.selectPlaterSamplesDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            if(!testResult) {
+                Assert.assertTrue(expectedDropDownValues.get(i).get(0) + "not present in plater samples.", testResult);
+            }
+            Wait.seconds(2);
         }
     }
 

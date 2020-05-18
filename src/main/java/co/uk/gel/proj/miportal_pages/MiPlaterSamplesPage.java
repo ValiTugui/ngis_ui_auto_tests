@@ -29,9 +29,6 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='plater_samples-search-col']")
     public WebElement platerSampleSearchColumn;
 
-    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
-    public WebElement searchBoxHeader;
-
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='plater_samples-search-value']")
     public WebElement getPlaterSamplesDate;
 
@@ -76,33 +73,71 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+    public boolean fillInPastDateInThePlaterSampleDate(String noOfDays) {
+        String pastDate = "";
+        try {
+            if(!Wait.isElementDisplayed(driver, getPlaterSamplesDate,30)){
+                Debugger.println("fillInPastDateInThePlaterSampleDate not displayed.");
+                SeleniumLib.takeAScreenShot("fillInPastDateInThePlaterSampleDate.jpg");
+                return false;
+            }
+            int daysBefore = -1*Integer.parseInt(noOfDays);
+            String dateToday = TestUtils.todayInDDMMYYYFormat();
+            dateToday = dateToday.replace("/", "-");
+            pastDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore,0, 0); //Add future day +1
+            Actions.clickElement(driver, getPlaterSamplesDate);
+            Actions.clearInputField(getPlaterSamplesDate);
+            Wait.seconds(2);
+            Actions.fillInValue(getPlaterSamplesDate,pastDate);
+            return true;
+
+        } catch (Exception exp) {
+            try{
+                seleniumLib.sendValue(getPlaterSamplesDate,pastDate);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in fillInPastDateInThePlaterSampleDate:" + exp);
+                SeleniumLib.takeAScreenShot("fillInPastDateInThePlaterSampleDate.jpg");
+                return false;
+            }
+        }
+    }
     public boolean selectPlaterSamplesDropDownSearchColumn(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(platerSampleSearchColumn,value);
+            if(!seleniumLib.selectFromListByText(platerSampleSearchColumn,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(platerSampleSearchColumn,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchColumn: "+ exp);
-            SeleniumLib.takeAScreenShot("PlaterSamplesselectDropDownSearchColumn.jpg");
+            SeleniumLib.takeAScreenShot("platerSampleSearchColumn.jpg");
             return false;
         }
     }
     public boolean selectPlaterSamplesDropDownSearchOperator(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(platerSampleSearchOperator,value);
+            if(!seleniumLib.selectFromListByText(platerSampleSearchOperator,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(platerSampleSearchOperator,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchOperator: "+ exp);
-            SeleniumLib.takeAScreenShot("PlaterSamplesselectDropDownSearchOperator.jpg");
+            SeleniumLib.takeAScreenShot("platerSampleSearchOperator.jpg");
             return false;
         }
     }
     public boolean selectPlaterSamplesDropDownSearchValue(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(platerSampleSearchValue,value);
+            if(!seleniumLib.selectFromListByText(platerSampleSearchValue,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(platerSampleSearchValue,value);
+            }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchValue: "+ exp);
-            SeleniumLib.takeAScreenShot("PlaterSamplesselectDropDownSearchValue.jpg");
+            Debugger.println("Exception in platerSampleSearchValue:selectDropDownSearchValue: "+ exp);
+            SeleniumLib.takeAScreenShot("platerSampleSearchValue.jpg");
             return false;
         }
     }

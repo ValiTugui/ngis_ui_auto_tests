@@ -1,22 +1,13 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -28,10 +19,6 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-
-
-    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
-    public WebElement searchBoxHeader;
 
     @FindBy(xpath = "//input[@id='order_tracking-search-value']")
     public WebElement orderTrackSearchInput;
@@ -50,37 +37,50 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectOrderTrackingDropDownSearchColumn(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
+            if(!seleniumLib.selectFromListByText(orderTrackSearchColumn,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchColumn: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingselectDropDownSearchColumn.jpg");
+            SeleniumLib.takeAScreenShot("orderTrackSearchColumn.jpg");
             return false;
         }
     }
     public boolean selectOrderTrackingDropDownSearchOperator(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
+            if(!seleniumLib.selectFromListByText(orderTrackSearchOperator,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingselectDropDownSearchOperator.jpg");
+            SeleniumLib.takeAScreenShot("orderTrackSearchOperator.jpg");
             return false;
         }
     }
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         try {
-            Wait.seconds(5);
-            return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
+            if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingselectDropDownSearchValue.jpg");
+            SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
     }
     public boolean enterOrderTrackingTextSearchValue(String value) {
         try {
-            Wait.seconds(2);
+            if(!Wait.isElementDisplayed(driver,orderTrackSearchInput,30)){
+                Debugger.println("orderTrackSearchInput not loaded...");
+                SeleniumLib.takeAScreenShot("orderTrackSearchInput.jpg");
+                return false;
+            }
             seleniumLib.sendValue(orderTrackSearchInput,value);
             return true;
         } catch (Exception exp) {

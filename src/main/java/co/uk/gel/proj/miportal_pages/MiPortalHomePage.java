@@ -156,19 +156,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
     public WebElement errorMessageElement;
 
-    String badgeFilterSearchCriteriaBy = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]";
-
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
         try {
             if(!Wait.isElementDisplayed(driver,sampleProcessingMenuLink,40)){
-                Debugger.println("MIPortal Menu List not loaded.");
+                Debugger.println("MIPortal Menu List not loaded."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
                 return false;
             }
             miStage = By.xpath("//a[contains(string(),'" + expectedMipage + "')]");
             if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 20)) {
-                Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing.");
+                Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
             }
@@ -344,16 +342,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean badgeFilterSearchCriteriaIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
-            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
-            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 20)) {
-                Debugger.println("badge search criteria element is not found");
+            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 30)) {
+                Debugger.println("badge search criteria element is not found."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("badge search criteria element is not found");
+            Debugger.println("Exception in badge search criteria element is not found:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
             return false;
         }
@@ -362,17 +358,16 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
         Wait.seconds(2);
         try {
-            Wait.forElementToDisappear(driver, By.xpath(badgeFilterSearchCriteriaBy));
-            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
-                Debugger.println("badge search criteria is NOT displayed as expected");
-                return true;
-            } else {
-                Debugger.println("badge search criteria element is found");
-                SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
-                return false;
+            if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Wait.seconds(3);
+                if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                    Debugger.println("badge search criteria is displayed , but not expected."+driver.getCurrentUrl());
+                    return false;
+                }
             }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("badge search criteria element is found");
+            Debugger.println("Exception from badgeFilterSearchCriteriaIsNotDisplayed:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
             return false;
         }
@@ -1231,8 +1226,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePresenceOfSampleProcessingMenu() {
         try {
-            if (!Wait.isElementDisplayed(driver, sampleProcessing, 10)) {
-                Debugger.println("Sample processing section header is not displayed.");
+            if (!Wait.isElementDisplayed(driver, sampleProcessing, 180)) {
+                Debugger.println("Sample processing section header is not displayed even after 180 seconds.");
                 SeleniumLib.takeAScreenShot("SampleProcessingMenu.jpg");
                 return false;
             }

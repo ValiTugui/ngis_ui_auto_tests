@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,34 +39,39 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-
-    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
-    public WebElement searchBoxHeader;
-
     public boolean selectSequencerSamplesDropDownSearchColumn(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value);
+            if(!seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalSequencerSamples:selectDropDownSearchColumn: "+ exp);
-            SeleniumLib.takeAScreenShot("SequencerSamplesselectDropDownSearchColumn.jpg");
+            SeleniumLib.takeAScreenShot("sequencerSamplesSearchColumn.jpg");
             return false;
         }
     }
     public boolean selectSequencerSamplesDropDownSearchOperator(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value);
+            if(!seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalSequencerSamples:selectDropDownSearchOperator: "+ exp);
-            SeleniumLib.takeAScreenShot("SequencerSamplesselectDropDownSearchOperator.jpg");
+            SeleniumLib.takeAScreenShot("sequencerSamplesSearchOperator.jpg");
             return false;
         }
     }
     public boolean selectSequencerSamplesDropDownSearchValue(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
+            if(!seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalSequencerSamples:selectDropDownSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("SequencerSamplesselectDropDownSearchValue.jpg");
@@ -119,5 +125,4 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
 }

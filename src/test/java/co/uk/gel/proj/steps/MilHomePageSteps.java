@@ -139,7 +139,7 @@ public class MilHomePageSteps extends Pages {
         }
     }
 
-    @Then("the user sees the message {string} below the search container")
+    @Then("the user sees the message (.*) below the search container")
     public void theUserSeesTheMessageBelowTheSearchContainer(String noResultFoundMessage) {
         boolean testResult = false;
         testResult = miPortalHomePage.verifyNoSearchResultMessage(noResultFoundMessage);
