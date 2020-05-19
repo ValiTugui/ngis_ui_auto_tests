@@ -1,7 +1,7 @@
 @SecurityScan
 Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
-  @NTS-3362 @SecurityScan_Cancer @LOGOUT
+  @SecurityScan_Cancer @LOGOUT
    #@E2EUI-2372
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -106,7 +106,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
 
 
-  @NTS-3407 @SecurityScan_RD @LOGOUT
+  @SecurityScan_RD @LOGOUT
     #@E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
     ##Create referral with new patient without providing NHS number
