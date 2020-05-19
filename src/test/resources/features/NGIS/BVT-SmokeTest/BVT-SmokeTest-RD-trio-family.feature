@@ -60,6 +60,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
     Then the user is navigated to a page with title Patient choice
+
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     #Patient Choice - Family Details Provided below should be same as above

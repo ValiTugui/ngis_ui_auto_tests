@@ -93,12 +93,15 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
+
     Then the user is navigated to a page with title Patient choice
     And the help text is displayed
+
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
 
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
+
 #    And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
