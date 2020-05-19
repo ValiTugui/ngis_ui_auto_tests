@@ -37,12 +37,19 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M4</version>
                 <configuration>
-                    <!--<excludes>
+                    <excludes>
                         <exclude>**/RunnerTest.java</exclude>
-                    </excludes>-->
+                    </excludes>
+                    <systemPropertyVariables>
+                        <browser>${browser}</browser>
+                        <browserVersion>${browserVersion}</browserVersion>
+                        <serverType>${serverType}</serverType>
+                        <osName>${osName}</osName>
+                        <osVersion>${osVersion}</osVersion>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
-            <!--<plugin>
+            <plugin>
                 <groupId>com.github.temyers</groupId>
                 <artifactId>cucumber-jvm-parallel-plugin</artifactId>
                 <version>5.0.0</version>
@@ -57,8 +64,8 @@
                             <glue>
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
-                            <featuresDirectory>src/test/resources/features</featuresDirectory>
-                            <tags>@userJourneys</tags>
+                            <featuresDirectory>src/test/resources/features/${features}</featuresDirectory>
+                            <tags>@BVT_UI_SMOKE_TEST_PACK</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
@@ -66,13 +73,13 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.0</version>
                 <configuration>
-                    <forkCount>5</forkCount>
+                    <forkCount>${forkCount}</forkCount>
                     <reuseForks>false</reuseForks>
                     <includes>
                         <include>**/Parallel*IT.class</include>
@@ -103,7 +110,7 @@
                                 <resultSource>
                                     <!-- optional format, defaults to cucumber -->
                                     <format>cucumber</format>
-                                    <directory>target/cucumber-parallel</directory>
+                                    <directory>${jsonFolder}</directory>
                                 </resultSource>
                             </resultSources>
                             <outputPath>target/test-report</outputPath>
