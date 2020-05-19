@@ -521,7 +521,7 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
             } catch (Exception exp1) {
-                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp+"\n"+driver.getCurrentUrl());
+                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp);
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
             }
@@ -947,8 +947,12 @@ public class ReferralPage<check> {
     }
 
     public String getPatientNGISId() {
+        try {
         Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 3);
         return Actions.getText(referralHeaderPatientNgisId);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public String getPatientReferralId() {
@@ -961,8 +965,12 @@ public class ReferralPage<check> {
     }
 
     public String getPatientClinicalIndication() {
+        try {
         Wait.isElementDisplayed(driver, referralHeaderClinicalId, 3);
         return Actions.getText(referralHeaderClinicalId);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public boolean submitCancellation() {
