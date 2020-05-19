@@ -4,7 +4,6 @@
 
 Feature:  MIPORTAL ST -  Home Page
 
-
   @NTS-5180
     #@E2EUI-2328
   Scenario Outline: NTS-5180:E2EUI-2328: Feedback Link removed from Mi Portal

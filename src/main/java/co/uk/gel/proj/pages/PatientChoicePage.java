@@ -1024,7 +1024,7 @@ public class PatientChoicePage {
                 SeleniumLib.scrollToElement(adultWithCapacityCategory);
                 if(!Wait.isElementDisplayed(driver,adultWithCapacityCategory,3)) {
                     Debugger.println("adultWithCapacityCategory not displayed.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
+                    SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
                     return false;
                 }
             }

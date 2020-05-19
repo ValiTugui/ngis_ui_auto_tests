@@ -50,6 +50,7 @@ Feature: MIPORTAL ST - File Submission 1
       | Invalid             |
       | Valid               |
       | Valid with Warnings |
+
     And the selected search option is reset after test
 
     Examples:

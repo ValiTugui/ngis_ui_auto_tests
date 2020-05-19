@@ -43,7 +43,7 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(pickListsSearchColumn,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(pickListsSearchColumn,value);
+                return seleniumLib.selectFromListByText(pickListsSearchColumn,value);
             }
             return true;
         } catch (Exception exp) {
@@ -56,7 +56,7 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(pickListsSearchOperator,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(pickListsSearchOperator,value);
+                return seleniumLib.selectFromListByText(pickListsSearchOperator,value);
             }
             return true;
         } catch (Exception exp) {
@@ -69,7 +69,7 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(pickListsSearchValue,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(pickListsSearchValue,value);
+                return seleniumLib.selectFromListByText(pickListsSearchValue,value);
             }
             return true;
         } catch (Exception exp) {

@@ -109,7 +109,7 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(platerSampleSearchColumn,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(platerSampleSearchColumn,value);
+                return seleniumLib.selectFromListByText(platerSampleSearchColumn,value);
             }
             return true;
         } catch (Exception exp) {
@@ -122,7 +122,7 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(platerSampleSearchOperator,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(platerSampleSearchOperator,value);
+                return seleniumLib.selectFromListByText(platerSampleSearchOperator,value);
             }
             return true;
         } catch (Exception exp) {
@@ -135,7 +135,7 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(platerSampleSearchValue,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(platerSampleSearchValue,value);
+                return seleniumLib.selectFromListByText(platerSampleSearchValue,value);
             }
             return true;
         } catch (Exception exp) {

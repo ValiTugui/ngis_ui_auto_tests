@@ -1,5 +1,4 @@
 package co.uk.gel.proj.miportal_pages;
-
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -39,7 +38,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value);
+                return seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value);
             }
             return true;
         } catch (Exception exp) {
@@ -52,7 +51,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value);
+                return seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value);
             }
             return true;
         } catch (Exception exp) {
@@ -65,7 +64,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
+                return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
             }
             return true;
         } catch (Exception exp) {
@@ -121,5 +120,4 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
 }

@@ -23,14 +23,14 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | Yorkshire & North East        |
 
      And the user selects is one of as the sequencer samples search operator dropdown
-    And the user sees the below values in the sequencer samples search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+     And the user sees the below values in the sequencer samples search value drop-down menu
+       | East Mids and East of England |
+       | London North                  |
+       | London South                  |
+       | North West                    |
+       | South West                    |
+       | Wessex & West Midlands        |
+       | Yorkshire & North East        |
      And the selected search option is reset after test
 
     Examples:

@@ -363,7 +363,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
             }
-                return true;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from badgeFilterSearchCriteriaIsNotDisplayed:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");

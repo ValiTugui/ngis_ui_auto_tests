@@ -45,7 +45,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(orderTrackSearchColumn,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
+                return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
             }
             return true;
         } catch (Exception exp) {
@@ -58,7 +58,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(orderTrackSearchOperator,value)){
                 Wait.seconds(5);
-            return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
+                return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
             }
             return true;
         } catch (Exception exp) {
@@ -70,8 +70,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         try {
             if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
-            Wait.seconds(5);
-            return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
             }
             return true;
         } catch (Exception exp) {
