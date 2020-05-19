@@ -1198,16 +1198,16 @@ public class PedigreePage {
             switch(fieldName) {
                 case "Ethnicity":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Ethnicity, option);
-                    break;
+                break;
                 case "Gender":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Gender, option);
-                    break;
+                break;
                 case "KaryoTypicSex":
                     isPresent = seleniumLib.selectFromListByText(personalTab_KaryotypicSex, option);
-                    break;
+                break;
                 case "GestationAge":
                     isPresent = seleniumLib.selectFromListByText(personalTab_gestationAge, option);
-                    break;
+                break;
                 case "Heredity":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Heredity, option);
                     break;

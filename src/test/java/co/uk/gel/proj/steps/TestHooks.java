@@ -34,6 +34,7 @@ public class TestHooks extends Pages {
     private ValidatableResponse response;
     public static String ntsTag="";
 
+
     public TestHooks(SeleniumDriver driver) {
         super(driver);
         //seleniumLib = new SeleniumLib(driver);
@@ -57,7 +58,7 @@ public class TestHooks extends Pages {
          request = RestAssured.with();
     }
 
-    @Before("@TD_VERSION_INFO")
+    @Before ("@TD_VERSION_INFO")
     public void getNGISVersion() {
         globalBehaviourPage.getNGISVersion();
     }
@@ -93,7 +94,7 @@ public class TestHooks extends Pages {
 
     @After("@CLEANUP")
     public void cleanUp() {
-        //   driver = null;
+     //   driver = null;
     }
 
     @After(order = 1)

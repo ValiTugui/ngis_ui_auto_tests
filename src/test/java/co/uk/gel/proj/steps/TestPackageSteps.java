@@ -149,7 +149,7 @@ public class TestPackageSteps extends Pages {
 
     @And("the Test Package page {string} is de-selected")
     public void theTestPackagePageIsDeSelected(String previousPriority) {
-        Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
+       Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
     }
 
     @And("the Test Package page has the help text as {string} on the page")

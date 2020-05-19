@@ -91,7 +91,7 @@ public class ClinicalQuestionsSteps extends Pages {
         clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInYearsOfOnset(year);
         clinicalQuestionsPage.fillInMonthsOfOnset(month);
-    }
+   }
 
     @When("the user provided the values {string} for Age of onset fields")
     public void theUserProvidedTheValuesForAgeOfOnsetFields(String months) {
@@ -163,7 +163,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @When("the user clicks the delete icon which is displayed across the {string}")
     public void theUserClicksTheDeleteIconWhichIsDisplayedAcrossThe(String hPOTermToBeRemoved) {
-        Assert.assertTrue(clinicalQuestionsPage.deleteHPOTerm(hPOTermToBeRemoved));
+     Assert.assertTrue(clinicalQuestionsPage.deleteHPOTerm(hPOTermToBeRemoved));
     }
 
     @When("the user fills the clinical questions with the {string} except to the Rare disease diagnosis field for the family member")
@@ -314,7 +314,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user selects a value {string} from the Rare disease diagnosis in the second table")
     public void theUserSelectsAValueFromTheRareDiseaseDiagnosisInTheSecondTable(String expectedDiagnosis) {
-        clinicalQuestionsPage.searchAndSelectSpecificDiagnosisSecondField(expectedDiagnosis);
+       clinicalQuestionsPage.searchAndSelectSpecificDiagnosisSecondField(expectedDiagnosis);
     }
 
     @And("the user selects the Rare disease diagnosis questions such as {string} and corresponding status {string} in the second table")
