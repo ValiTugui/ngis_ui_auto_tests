@@ -1,5 +1,3 @@
-#@regression
-#@tumoursPage2
 #@tumoursPage
 @03-TEST_ORDER
 @SYSTEM_TEST

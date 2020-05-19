@@ -3,14 +3,13 @@
 @07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - Diagram Layout
-
   @NTS-3304 @Z-LOGOUT
 #    @E2EUI-934 @E2EUI-1046
   Scenario Outline: NTS-3304:(E2EUI-934,1046) Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
      ##Pedigree
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -55,7 +54,7 @@ Feature: Pedigree - Diagram Layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2009:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
      ##Pedigree
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -76,7 +75,7 @@ Feature: Pedigree - Diagram Layout
   Scenario Outline: NTS-3464:User is making a referral and has arrived in the Pedigree section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2000:Gender=Female |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Pedigree>" stage
     And the user is navigated to a page with title Build a pedigree
     Then the user should be able to see Save button on Pedigree Page

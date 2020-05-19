@@ -2,10 +2,13 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.But;
@@ -59,7 +62,9 @@ public class SamplesSteps extends Pages {
 
     @And("the user clicks the Add sample button")
     public void theUserClicksTheAddSampleButton() {
-        samplesPage.clickAddSampleButton();
+        boolean testResult = false;
+        testResult = samplesPage.clickAddSampleButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state and filling SampleID")
@@ -136,7 +141,9 @@ public class SamplesSteps extends Pages {
     @Then("the new sample is displayed in the landing page")
     public void theNewSampleIsDisplayedInTheLandingPage() {
         int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
-        ///Debugger.println("Number of sample(s) :" + numberOfSamples);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Organization"," ")+"_Added");
+        }
         Assert.assertTrue("Numbers of samples displayed should 1 or great than 1", numberOfSamples > 0);
     }
 

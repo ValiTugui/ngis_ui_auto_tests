@@ -8,7 +8,7 @@ Feature: RDReferral:NTS-4960:E2E19:Submit a RD Referral for Additional Participa
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |
      ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -34,7 +34,7 @@ Feature: RDReferral:NTS-4960:E2E19:Submit a RD Referral for Additional Participa
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -79,7 +79,7 @@ Feature: RDReferral:NTS-4960:E2E19:Submit a RD Referral for Additional Participa
     Then the "<PatientChoiceStage>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks on Complete button and button will show tick marked
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button

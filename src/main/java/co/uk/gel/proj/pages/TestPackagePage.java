@@ -90,11 +90,11 @@ public class TestPackagePage {
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_optimalFamilyStructure')]/child::*[1]")
-    public WebElement trioFamilyIconInPedigree;
+    @FindBy(xpath = "//p[text()='Trio']/../*[name()='svg']")
+    public WebElement trioFamilyIcon;
 
-    @FindBy(xpath = "(//div[contains(@class,'styles_test-card__test-category__25tRP')])[2]/child::*[@fill='inherit']")
-    public WebElement trioFamilyIconInTestPackage;
+    @FindBy(xpath = "//span[text()='Trio']/../*[name()='svg']")
+    public WebElement trioFamilyIcon_TestOrder;
 
     @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
     public WebElement testCardCIName;
@@ -168,8 +168,8 @@ public class TestPackagePage {
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
             Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
             //Ensure that the test package is selected
-            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']"));
-            if (!Wait.isElementDisplayed(driver, selectedPack, 10)) {
+            By selectedPack = By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']");
+            if (!seleniumLib.isElementPresent(selectedPack)) {
                 //Trying with seleniumlib click which handled the javascript click also
                 seleniumLib.clickOnWebElement(numberOfParticipants);
                 if(!Wait.isElementDisplayed(driver,dropdownValue,5)){
@@ -179,6 +179,7 @@ public class TestPackagePage {
                 Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
                 Wait.seconds(4);
             }
+            Debugger.println("Selected TestPack: "+seleniumLib.getText(selectedPack));
             return true;
         } catch (Exception exp) {
             try{
@@ -399,31 +400,18 @@ public class TestPackagePage {
         }
     }
 
-    public boolean validateTrioFamilyIconInOfflineOrder() {
+    public boolean verifyTrioFamilyIcon() {
         try {
-            if (!Wait.isElementDisplayed(driver, trioFamilyIconInPedigree, 10)) {
-                Debugger.println("try family icon not visible : validateTrioFamilyIconInPedigree : in pedigree page");
-                SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
-                return false;
+            if (!Wait.isElementDisplayed(driver, trioFamilyIcon, 30)) {
+                if(!Wait.isElementDisplayed(driver,trioFamilyIcon_TestOrder,30)) {
+                    Debugger.println("Try family icon is not visible." + driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("TestPackage : validateTrioFamilyIconInPedigree : in pedigree page : " + exp);
-            SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyTrioFamilyIconPresenceInTestPackage() {
-        try {
-            if (!Wait.isElementDisplayed(driver, trioFamilyIconInTestPackage, 10)) {
-                Debugger.println("try family icon is not visible : test package page");
-                SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("try family icon is not visible : test package page : " + exp);
+            Debugger.println("try family icon is not visible : test package page : " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
             return false;
         }

@@ -4,8 +4,10 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -63,6 +65,9 @@ public class TestPackageSteps extends Pages {
         boolean testResult = false;
         try {
             testResult = testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("TestPackage"," ")+"_Filled");
+            }
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("Could not select test package: "+numberOfParticipants+", Trying with default 2...");
@@ -118,6 +123,9 @@ public class TestPackageSteps extends Pages {
             testPackagePage.clickUrgentPriority();
         } else {
             testPackagePage.clickRoutinePriority();
+        }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Test"," ")+"_Filled");
         }
         //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
         Wait.seconds(5);
@@ -243,14 +251,14 @@ public class TestPackageSteps extends Pages {
     @Then("the user should be able to sees trio family icon in review test selection")
     public void theUserShouldBeAbleToSeesTrioFamilyIconInReviewTestSelection() {
         boolean testResult = false;
-        testResult = testPackagePage.validateTrioFamilyIconInOfflineOrder();
+        testResult = testPackagePage.verifyTrioFamilyIcon();
         Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see trio family icon in test package")
     public void theUserShouldBeAbleToSeeTrioFamilyIconInTestPackage() {
         boolean testResult = false;
-        testResult = testPackagePage.verifyTrioFamilyIconPresenceInTestPackage();
+        testResult = testPackagePage.verifyTrioFamilyIcon();
         Assert.assertTrue(testResult);
     }
 

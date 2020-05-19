@@ -8,9 +8,8 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=28-04-2007:Gender=Female |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the print forms stage is locked
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -35,13 +34,13 @@ Feature: TestOrder - Print Forms 3 - Validations
       | PrintForms  | Watermark               | PatientDetails  | RequestingOrganisation  | OrderingEntityName    | TestPackage  | NoOfParticipants |
       | Print forms | N ot for C linical U se | Patient details | Requesting organisation | BOLTON ROYAL HOSPITAL | Test package | 1                |
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1794 @E2EUI-1786
   Scenario Outline: NTS-4702: Cancel a referral as revoked or marked in error
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=9-09-1999:Gender=Male |
     ###Patient Details- cancelling referral
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
     ##Title,Question,Warning,button1,button2
     Then the cancel referral dialog box is displayed with the following fields
@@ -67,7 +66,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=9449310661:DOB=05-04-2000 |
      ###Patient Details
-    When the user is navigated to a page with title Check your patient
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
     And the user selects the cancellation reason "<CancellationReason>" from the modal
     When the user submits the cancellation
@@ -101,8 +100,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -138,8 +136,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation

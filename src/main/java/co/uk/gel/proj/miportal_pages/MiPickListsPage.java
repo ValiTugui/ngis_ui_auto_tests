@@ -17,6 +17,9 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
+    @FindBy(xpath = "//input[@id='picklists-search-value']")
+    public WebElement pickListsSearchInput;
+
     @FindBy(xpath = "//select[@id='picklists-search-value']")
     public WebElement pickListsSearchValue;
 
@@ -25,9 +28,6 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='picklists-search-col']")
     public WebElement pickListsSearchColumn;
-
-    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
-    public WebElement searchBoxHeader;
 
     By pickListsTableHead = By.xpath("//div[@id='picklists-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String pickListsTableRows = "//div[@id='picklists-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
@@ -41,31 +41,52 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectPickListsDropDownSearchColumn(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(pickListsSearchColumn,value);
+            if(!seleniumLib.selectFromListByText(pickListsSearchColumn,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(pickListsSearchColumn,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalPickLists:selectDropDownSearchColumn: "+ exp);
-            SeleniumLib.takeAScreenShot("PickListsselectDropDownSearchColumn.jpg");
+            SeleniumLib.takeAScreenShot("pickListsSearchColumn.jpg");
             return false;
         }
     }
     public boolean selectPickListsDropDownSearchOperator(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(pickListsSearchOperator,value);
+            if(!seleniumLib.selectFromListByText(pickListsSearchOperator,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(pickListsSearchOperator,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalPickLists:selectDropDownSearchOperator: "+ exp);
-            SeleniumLib.takeAScreenShot("PickListsselectDropDownSearchOperator.jpg");
+            SeleniumLib.takeAScreenShot("pickListsSearchOperator.jpg");
             return false;
         }
     }
     public boolean selectPickListsDropDownSearchValue(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(pickListsSearchValue,value);
+            if(!seleniumLib.selectFromListByText(pickListsSearchValue,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(pickListsSearchValue,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalPickLists:selectDropDownSearchValue: "+ exp);
-            SeleniumLib.takeAScreenShot("PickListsselectDropDownSearchValue.jpg");
+            SeleniumLib.takeAScreenShot("pickListsSearchValue.jpg");
+            return false;
+        }
+    }
+    public boolean enterPickListsTextSearchValue(String value) {
+        try {
+
+            Wait.seconds(2);
+            seleniumLib.sendValue(pickListsSearchInput,value);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalOrderTracking:pickListsSearchInput: "+ exp);
+            SeleniumLib.takeAScreenShot("pickListsSearchInput.jpg");
             return false;
         }
     }

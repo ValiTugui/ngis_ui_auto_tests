@@ -8,7 +8,7 @@ Feature: RDReferral:NTS-4959:E2E15:Create Referral for Additional Participants (
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -31,7 +31,7 @@ Feature: RDReferral:NTS-4959:E2E15:Create Referral for Additional Participants (
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -80,7 +80,7 @@ Feature: RDReferral:NTS-4959:E2E15:Create Referral for Additional Participants (
     Then the "<PatientChoiceStage>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks on Complete button and button will show tick marked
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button

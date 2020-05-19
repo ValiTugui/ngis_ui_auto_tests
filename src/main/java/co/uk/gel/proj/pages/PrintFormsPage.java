@@ -30,8 +30,12 @@ public class PrintFormsPage {
     String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
 
     String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
-    String probandPrintFormDownloadLocator = "//button[@class='css-dixxn2']";
-    @FindBy(css = "button[class*='link-button']")
+
+    //@FindBy(xpath = "//strong[contains(text(),'Tumour')]")
+    @FindBy(xpath = "//button[@aria-label='print button']")
+    WebElement probandPrintFormDownloadLocator;
+
+    @FindBy(xpath = "//button[@type='button']/span[text()='Show address']")
     WebElement showAddressButton;
 
     @FindBy(css = "span[class*='address__line']")
@@ -151,7 +155,7 @@ public class PrintFormsPage {
                     document.close();
                 }
             } catch (Exception ex) {
-
+                Debugger.println("Exception in closing PDF FileDocument.");
             }
         }
 
@@ -163,69 +167,29 @@ public class PrintFormsPage {
             Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", "");
             Debugger.println("Attempting to download the Proband sample form");
-
-            try {
-                By downloadForm = By.xpath(probandPrintFormDownloadLocator);
-                WebElement element = driver.findElement(downloadForm);
-                if (Wait.isElementDisplayed(driver, element, 50)) {
-                    element.click();
-                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                } else {
-                    //Wait for another 30 seconds more
-                    if (Wait.isElementDisplayed(driver, element, 50)) {
-                        element.click();
-                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                    } else {
-                        Debugger.println("Form download option could not locate.");
+            if (!Wait.isElementDisplayed(driver, probandPrintFormDownloadLocator, 30)) {
+                Debugger.println("Proband Pritform download button not displayed.." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("probandPrintForm.jpg");
                         return false;
                     }
-                }
-            } catch (Exception exp) {
-                By downloadForm = By.xpath(probandPrintFormDownloadLocator_e2elatest);
-                WebElement element = driver.findElement(downloadForm);
-                if (Wait.isElementDisplayed(driver, element, 50)) {
-                    element.click();
-                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                } else {
-                    //Wait for another 30 seconds more
-                    if (Wait.isElementDisplayed(driver, element, 50)) {
-                        element.click();
-                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                    } else {
-                        Debugger.println("Form download option could not locate.");
-                        return false;
-                    }
-                }
-            }
+            Actions.clickElement(driver, probandPrintFormDownloadLocator);
+            Wait.seconds(5);
             return true;
-        } catch (Exception exp) {
+            } catch (Exception exp) {
+            try{
+                seleniumLib.clickOnWebElement(probandPrintFormDownloadLocator);
+                Wait.seconds(5);
+            return true;
+            }catch(Exception exp1) {
             Debugger.println("Could not locate the print button ..... " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormsDownload.jpg");
+                SeleniumLib.takeAScreenShot("ProbandPrintFormsDownload.jpg");
             return false;
         }
     }
+    }
 
     public boolean openAndVerifyPDFContent(List<String> expValues) {
-        String expectedName = expValues.get(0);
-        String expectedDOB = expValues.get(1);
-        String expectedGender = expValues.get(2);
-
-        String expectedPatientNGISId = expValues.get(3);
-        String expectedPatientReferralId = expValues.get(4);
-
-        String expectedCI = expValues.get(5);
-        String expectedRequestingOrg = expValues.get(6);
-
-        String expectedResponsibleClinicianName = expValues.get(7);
-        String expectedResponsibleClinicianEmail = expValues.get(8);
-        String expectedResponsibleClinicianContact = expValues.get(9);
-
-        String expectedTumour = expValues.get(10);
-        String expectedSample = expValues.get(11);
-
         PDDocument document = null;
-
-        InputStream is = null;
         try {
 
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
@@ -238,60 +202,24 @@ public class PrintFormsPage {
             // outputData = outputData.replaceAll("/  +/g", " ");
             outputData = outputData.replaceAll("\\s+", " ");
             Debugger.println("Actual Data from PDF sample form :\n" + outputData);
-            boolean testResult = true;
-            if (!outputData.contains(expectedName)) {
-                Debugger.println(" Patient Name " + expectedName + " is  NOT shown correctly in Sample form");
+            boolean testResult = false;
+            String expValue;
+            for (String value : expValues) {
+                expValue = value;
+                if (expValue == null) {
+                    testResult = true;
+                    continue;
+                }
+                if (!outputData.contains(expValue)) {
+                    Debugger.println("Expected Value: " + expValue + ", not contains in PDF content.\n" + outputData);
                 testResult = false;
+                    break;
             }
-            if (!outputData.contains(expectedDOB)) {
-                Debugger.println(" Patient DOB " + expectedDOB + " is NOT shown correctly in Sample form");
-                testResult = false;
+                testResult = true;
             }
-            if (!outputData.contains(expectedGender)) {
-                Debugger.println(" Patient Gender " + expectedGender + " is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedCI)) {
-                Debugger.println(" Patient's Clinical Indication " + expectedCI + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedRequestingOrg)) {
-                Debugger.println(" Requesting Organisation " + expectedRequestingOrg + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedResponsibleClinicianName)) {
-                Debugger.println(" Responsible Clinician Name " + expectedResponsibleClinicianName + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedResponsibleClinicianEmail)) {
-                Debugger.println(" Responsible Clinician Email " + expectedResponsibleClinicianEmail + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedResponsibleClinicianContact)) {
-                Debugger.println(" Responsible Clinician Contact " + expectedResponsibleClinicianContact + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedTumour)) {
-                Debugger.println(" Tumour info " + expectedTumour + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedSample)) {
-                Debugger.println(" Sample info " + expectedSample + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedPatientNGISId)) {
-                Debugger.println(" Patient NGIS Id " + expectedPatientNGISId + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-            if (!outputData.contains(expectedPatientReferralId)) {
-                Debugger.println(" Patient Referral Id " + expectedPatientReferralId + " info is NOT shown correctly in Sample form");
-                testResult = false;
-            }
-
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from loading PDF content: " + exp);
-            SeleniumLib.closeCurrentWindow();
             return false;
         } finally {
             try {
@@ -300,26 +228,32 @@ public class PrintFormsPage {
                 }
 
             } catch (Exception ex) {
-
+                Debugger.println("Exception in closing document.");
             }
         }
     }
 
     public String getLaboratoryAddress() {
-        String address = null;
-        Wait.isElementDisplayed(driver, showAddressButton, 10);
+        StringBuilder address = null;
+        if(Wait.isElementDisplayed(driver, showAddressButton, 10)) {
         showAddressButton.click();
-        Wait.isElementDisplayed(driver, laboratoryAddress.get(0), 5);
+        }
+        if(Wait.isElementDisplayed(driver, laboratoryAddress.get(0), 5)){
         for (WebElement ele : laboratoryAddress) {
             if (address == null) {
-                address = Actions.getText(ele) + ", ";
+                    address = new StringBuilder(Actions.getText(ele) + ", ");
             } else {
-                address = address + Actions.getText(ele) + ", ";
+                    address.append(Actions.getText(ele)).append(", ");
+                }
             }
         }
         //remove last comma from the address
-        address = address.substring(0, address.length() - 2);
-        return address;
+        try {
+            address = new StringBuilder(address.substring(0, address.length() - 2));
+        }catch(Exception exp){
+            //Nothing to catch and handle
+        }
+        return address.toString();
     }
 
     public String getTumourInfo() {
@@ -350,15 +284,16 @@ public class PrintFormsPage {
 
     public boolean validateLockIconInPrintFormsStage(String lockStatus) {
         try {
-            Wait.forElementToBeDisplayed(driver, printFormsStage);
+            if(!Wait.isElementDisplayed(driver, printFormsStage,20)){
+                Debugger.println("printFormsStage not displayed");
+                SeleniumLib.takeAScreenShot("PrintFormsStage.jpg");
+                return false;
+            }
             if (!lockStatus.equals("locked")) {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
                 WebElement unlockedPrintFormsStage = driver.findElement(By.xpath(webElementLocator));
-                if (unlockedPrintFormsStage != null) {
-                    //then procces
-                } else {
-                    // debugger line
+                if (unlockedPrintFormsStage == null) {
                     return false;
                 }
                 if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {

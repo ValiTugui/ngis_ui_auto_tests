@@ -4,9 +4,11 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -35,38 +37,43 @@ public class PatientChoiceSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             boolean testResult = false;
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Adding");
+            }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nPatient Choice for Family Member:"+i);
                 //No need to alert as there are cases which directly landing to specific patient page
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
+                //Debugger.println("Selected Family Member:");
                 testResult = patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
                 if(!testResult){
                     Assert.assertTrue("Failed in selectPatientChoiceCategory",false);
                     break;
                 }
                 Wait.seconds(2);
+                //Debugger.println("Category Done:");
                 testResult = patientChoicePage.selectTestType(memberDetails.get(i).get(2));
                 if(!testResult){
                     Assert.assertTrue("Failed in selectTestType",false);
                     break;
                 }
-
                 Wait.seconds(2);
+                //Debugger.println("Test Type done:");
                 testResult = patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3));
                 if(!testResult){
                     Assert.assertTrue("Failed in fillRecordedByDetails",false);
                     break;
                 }
-
                 Wait.seconds(2);
+                //Debugger.println("Record details done:");
                 testResult = patientChoicePage.clickOnContinue();
                 if(!testResult){
                     Assert.assertTrue("Failed in clickOnContinue",false);
                     break;
                 }
-
                 Wait.seconds(2);
+                //Debugger.println("Continuing:");
                 String patientChoice=memberDetails.get(i).get(4);
                 if(patientChoice.equalsIgnoreCase("Patient has agreed to the test")) {
                     patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
@@ -94,13 +101,9 @@ public class PatientChoiceSteps extends Pages {
                     }
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
-                    //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
-                    testResult = patientChoicePage.drawSignature();
-                    if(!testResult){
-                        Assert.assertTrue("Failed in drawSignature",false);
-                        break;
-                    }
+                    patientChoicePage.drawSignature();
                 }
+                Debugger.println("Submitting PC:");
                 if (!patientChoicePage.submitPatientChoice()) {
                     referralPage.navigateToStage("Patient choice");
                     Wait.seconds(5);
@@ -110,9 +113,12 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
                 Debugger.println("\nPC done for FM:"+i);
             }//end
-
+            Wait.seconds(5);
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Added");
+            }
         } catch (Exception exp) {
-            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp+"\n"+driver.getCurrentUrl());
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
         }
     }
@@ -198,18 +204,10 @@ public class PatientChoiceSteps extends Pages {
         Wait.seconds(3);
     }
 
-    @When("the user fills signature details in (.*)")
-    public void theUserFillsDetailsInPatientSignature(String arg) {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectPatientSignature();
-        Assert.assertTrue(testResult);
-        Wait.seconds(3);
-    }
-
     @When("the user fills PatientSignature details in patient signature")
     public void theUserFillsDetailsInPatientSignature() {
         boolean testResult = false;
-        testResult = patientChoicePage.selectPatientSignature();
+        testResult = patientChoicePage.drawSignature();
         Assert.assertTrue(testResult);
         Wait.seconds(3);
     }
@@ -283,6 +281,9 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsTheProband() {
         boolean testResult = false;
         testResult = patientChoicePage.selectMember(0);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ProbandPC"," ")+"_Start");
+        }
         Assert.assertTrue(testResult);
     }
 
@@ -322,12 +323,8 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should see patient choice submit button as (.*)")
     public void theUserShouldBeAbleToSeeTheHighlightedSubmitPatientChoiceButton(String status) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus("#f0f0f0");
-        if(status.equalsIgnoreCase("enabled")){
-            Assert.assertFalse(testResult);
-        }else {
-            Assert.assertTrue(testResult);
-        }
+        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus(status,"#f0f0f0");
+        Assert.assertTrue(testResult);
     }
     @And("the user should see form to follow button as (.*)")
     public void theUserShouldSeeHighlightedFormToFollowButton(String status) {
@@ -398,49 +395,79 @@ public class PatientChoiceSteps extends Pages {
 
     @Then("the Patient Choice landing page is updated to {string} for the proband")
     public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
-         Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
+        boolean testResult = false;
+        testResult = patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PCProband"," ")+"_Done");
+        }
+        Assert.assertTrue(testResult);
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
-
-        if(!patientChoicePage.selectPatientChoiceCategory()){
-            Assert.assertTrue(false);
+        boolean testResult = false;
+        testResult = patientChoicePage.selectPatientChoiceCategory();
+        if (!testResult) {
+            Assert.assertTrue("Cancer : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
         }
         Wait.seconds(2);
-        if(!patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS")){
-            Assert.assertTrue(false);
+        testResult = patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        if (!testResult) {
+            Assert.assertTrue("Cancer: Failure from patientChoicePage.selectTestType.", false);
         }
         Wait.seconds(2);
-        if(!patientChoicePage.enterRecordedByDetails()){
-            Assert.assertTrue(false);
+        testResult = patientChoicePage.enterRecordedByDetails();
+        if (!testResult) {
+            Assert.assertTrue("Cancer: Failure from patientChoicePage.enterRecordedByDetails.", false);
         }
         Wait.seconds(2);
-        if(!patientChoicePage.selectChoicesWithAgreeingTesting()){
-            Assert.assertTrue(false);
+        testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
+        if (!testResult) {
+            Assert.assertTrue("Cancer: Failure from patientChoicePage.selectChoicesWithAgreeingTesting.", false);
         }
         Wait.seconds(2);
-        patientChoicePage.drawSignature();
+        testResult = patientChoicePage.drawSignature();
+        if (!testResult) {
+            Assert.assertTrue("Cancer:Failure from patientChoicePage.drawSignature.", false);
+        }
         Wait.seconds(2);
 
     }
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesForRD() {
-        patientChoicePage.selectPatientChoiceCategory();
+        boolean testResult = false;
+        testResult = patientChoicePage.selectPatientChoiceCategory();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
+        testResult = patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectTestType.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.enterRecordedByDetails();
+        testResult = patientChoicePage.enterRecordedByDetails();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.enterRecordedByDetails.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectChoicesWithAgreeingTesting();
+        testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.drawSignature();
+        testResult = patientChoicePage.drawSignature();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.drawSignature.", false);
+        }
         Wait.seconds(2);
     }
 
     @Then("the help text is displayed")
     public void theHelpTextIsDisplayed() {
-        Assert.assertTrue(patientChoicePage.verifyHelpTextLabelIsVisible());
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyHelpTextLabelIsVisible();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should see the question displayed as (.*)")

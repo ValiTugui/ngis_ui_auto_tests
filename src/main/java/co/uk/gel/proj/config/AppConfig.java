@@ -26,15 +26,23 @@ public class AppConfig {
     public static String searchTerm;
     public static String panel_app_url;
     public static Properties properties = null;
-    //MIPortal test data
+    public static String BASE_URL_TS;
+    public static String BASE_URL_TO;
+    public static String BASE_URL_PA;
+    public static String BASE_URL_PP;
+    public static String BASE_URL_DS;
     public static String mi_portal_test_data_file;
+    public static boolean snapshotRequired = false;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
-        String EnvironmentName = System.getProperty("TestEnvironment");
-        System.out.println("TestEnvironment: " + EnvironmentName);
-
-        configFileName = String.format(configFileName, EnvironmentName);
+        String current_environment = System.getProperty("TestEnvironment");
+        System.out.println("TestEnvironment: " + current_environment);
+        if(current_environment.equalsIgnoreCase("UAT") ||
+        current_environment.equalsIgnoreCase("Beta")){
+            snapshotRequired = true;
+        }
+        configFileName = String.format(configFileName, current_environment);
         properties = new Properties();
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -59,6 +67,13 @@ public class AppConfig {
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         panel_app_url = properties.getProperty("PANEL_APP_URL");
         mi_portal_test_data_file = properties.getProperty("MI_PORTAL_TEST_DATA_FILE");
+
+        BASE_URL_TS =   properties.getProperty("BASE_URL_TS");
+        BASE_URL_TO =  properties.getProperty("BASE_URL_TO");
+        BASE_URL_PA =  properties.getProperty("BASE_URL_PA");
+        BASE_URL_PP =  properties.getProperty("BASE_URL_PP");
+        BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
+
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {

@@ -8,8 +8,7 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -36,7 +35,7 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -59,7 +58,7 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     Then the "<PatientChoiceStage>" stage is marked as Completed
     #Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

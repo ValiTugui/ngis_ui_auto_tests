@@ -9,7 +9,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -255,7 +255,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     And the user should see Continue button as disabled
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
-    And the user fills signature details in Child signature
+    And the user fills PatientSignature details in patient signature
     And the user clicks on Continue Button
     Then the Child assent option is marked as completed
     And the user should see selected details displayed under the section Child assent
@@ -278,7 +278,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
   Scenario Outline: NTS-4603: Moving the warn message to research section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband

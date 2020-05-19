@@ -21,7 +21,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient is a foreign national"
     And the user clicks the Start Referral button
     ##Patient Details Page Title
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user should see previous labels replaced as current labels
       | PreviousLabel | CurrentLabel |
       | test order    | Referral     |
@@ -93,7 +93,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
       | test order    | Referral     |
     When the user clicks the Save and Continue button
     ##Notes Page Title
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     When the user fills in the Add Notes field
     And the user should see previous labels replaced as current labels
       | PreviousLabel         | CurrentLabel      |

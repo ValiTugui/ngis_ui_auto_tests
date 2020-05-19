@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: RDFamily:NTS-4951: CSV -E2E-Submit a RD referral and process the csv and check ddf payload
+Feature: RDFamily:NTS-4953: CSV -E2E-Submit a RD referral and process the csv and check ddf payload
 
   @NTS-4953 @Z-LOGOUT
     #@E2EUI-2656
@@ -8,8 +8,7 @@ Feature: RDFamily:NTS-4951: CSV -E2E-Submit a RD referral and process the csv an
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R95 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1970:Gender=Male |
   ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4951: CSV -E2E-Submit a RD referral and process the csv an
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -44,6 +43,7 @@ Feature: RDFamily:NTS-4951: CSV -E2E-Submit a RD referral and process the csv an
       | FamilyMemberDetails                                      | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=14-05-2009:Gender=Male:Relationship=Son | Son                   | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
+    And the user clicks the Save and Continue button
     #patient choice for the proband
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -61,17 +61,17 @@ Feature: RDFamily:NTS-4951: CSV -E2E-Submit a RD referral and process the csv an
     And the user clicks the Save and Continue button
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
+    Then the Patient Choice landing page is updated to "Agreed: Form to follow" for the proband
      ###Patient Choice - Family Details Provided below same as the Family Members
     Then the user is navigated to a page with title Patient choice
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
       | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=NA:DOB=16-08-2019 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=14-05-2009 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
       ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -83,7 +83,7 @@ Feature: RDFamily:NTS-4951: CSV -E2E-Submit a RD referral and process the csv an
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=16-08-2019 |
+      | NHSNumber=NA:DOB=14-05-2009 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"

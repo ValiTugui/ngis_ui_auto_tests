@@ -67,7 +67,6 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And the user clicks the Save and Continue button
     And the user navigates to the "<patientChoice>" stage
     ##Patient Choice
-    Then the "<patientChoice>" stage is selected
     And the "<notes>" stage is marked as Completed
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes

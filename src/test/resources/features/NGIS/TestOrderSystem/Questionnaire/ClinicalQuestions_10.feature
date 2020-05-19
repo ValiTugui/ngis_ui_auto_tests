@@ -10,7 +10,7 @@ Feature: ClinicalQuestions 10 - Page Validation
   Scenario Outline: NTS-4438: Field headers on clinical questions page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<Stage>" stage
     And the user is navigated to a page with title Answer clinical questions
@@ -21,7 +21,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | Rare disease diagnoses        |
       | Phenotypic and karyotypic Sex |
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     Examples:
       | Stage              |
       | Clinical questions |
@@ -32,7 +32,7 @@ Feature: ClinicalQuestions 10 - Page Validation
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient details Stage
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##requesting organisation stage
@@ -70,7 +70,7 @@ Feature: ClinicalQuestions 10 - Page Validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
     ##Patient details Stage
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     ##Clinical questions Stage
     And the user navigates to the "<Clinical Questions Stage>" stage
     Then the user is navigated to a page with title Answer clinical questions
@@ -105,7 +105,7 @@ Feature: ClinicalQuestions 10 - Page Validation
   Scenario Outline:NTS-4440:Form fields for the referral shown in sections (CI specific)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1987:Gender=Male |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Answer clinical questions
@@ -138,7 +138,7 @@ Feature: ClinicalQuestions 10 - Page Validation
   Scenario Outline: NTS-4628: Create the SNOMED custom dynamic unit
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And  the user navigates to the "<TumourStage>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
     And the user clicks the Save and Continue button

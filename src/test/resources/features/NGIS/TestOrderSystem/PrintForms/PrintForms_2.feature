@@ -7,9 +7,6 @@ Feature: TestOrder - Print Forms 2 - User flows
   Scenario Outline: NTS-4746: Update copy on print form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=24-08-1998:Gender=Male |
-    ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "TAMESIDE GENERAL HOSPITAL" in the search field
@@ -36,9 +33,8 @@ Feature: TestOrder - Print Forms 2 - User flows
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-11-2011:Gender=Male |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the print forms stage is locked
-    And the user clicks the Save and Continue button
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Queen" in the search field
@@ -63,9 +59,6 @@ Feature: TestOrder - Print Forms 2 - User flows
   Scenario Outline: NTS-4746: User has submitted a referral and able to start a new referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2001:Gender=Female |
-    ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "LONDON" in the search field

@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.ReferralPage;
@@ -162,7 +163,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on back button")
     public void clicksOnBackButton() {
-        familyMemberDetailsPage.clickOnBackButton();
+        Assert.assertTrue(familyMemberDetailsPage.clickOnBackButton());
     }
 
     @And("the color of referral name for {string} displays as {string}")
@@ -229,7 +230,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks on Continue Button")
     public void theUserClicksOnContinueButton() {
-        patientChoicePage.clickOnContinue();
+        Assert.assertTrue(patientChoicePage.clickOnContinue());
     }
 
     @And("the user should see an error message displayed as {string} in {string} color")
@@ -348,6 +349,9 @@ public class FamilyMemberDetailsSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             String nhsNumber = "";
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMember"," ")+"_Adding");
+            }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nAdding Family Member: " + i);
                 if (!referralPage.navigateToFamilyMemberSearchPage()) {
@@ -369,10 +373,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                         familyMember.setETHNICITY("A - White - British");
                     }
                     if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"fillInNHSNumberAndDateOfBirth Failed",false);
                     }
                     if (!patientSearchPage.clickSearchButtonByXpath()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"fillInNHSNumberAndDateOfBirth Failed",false);
                     }
                     if (patientSearchPage.getPatientSearchNoResult() == null) {//Got error saying invalid NHS number, proceeding with No search in that case
                         if (patientSearchPage.fillInPatientSearchWithNoFields(familyMember)) {
@@ -380,36 +384,42 @@ public class FamilyMemberDetailsSteps extends Pages {
                         }
                     }
                     if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickCreateNewPatientLinkFromNoSearchResultsPage Failed",false);
                     }
                     if (!patientDetailsPage.newPatientPageIsDisplayed()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"newPatientPageIsDisplayed Failed",false);
                     }
                     Debugger.println("Creating new Family Member:"+familyMember.getDATE_OF_BIRTH());
                     if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"createNewFamilyMember Failed",false);
                     }
                     Debugger.println("Created:"+familyMember.getDATE_OF_BIRTH());
                     if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
-                        Assert.assertTrue(false);
+                        if(!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
+                            Assert.assertTrue(memberDetails.get(i).get(0)+"verifyThePageTitlePresence Failed",false);
+                        }
                     }
                     referralPage.updatePatientNGSID(familyMember);
                     if (!referralPage.clickSaveAndContinueButton()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickSaveAndContinueButton Failed",false);
                     }
                 } else {
                     if (!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"searchFamilyMemberWithGivenParams Failed",false);
                     }
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
                         continue;
                     }
                     if (!familyMemberDetailsPage.clickPatientCard()) {
-                        Assert.assertTrue(false);
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickPatientCard Failed",false);
                     }
-                    familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
-                    referralPage.clickSaveAndContinueButton();
+                    if(!familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1))){
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"fillTheRelationshipToProband Failed",false);
+                    }
+                    if(!referralPage.clickSaveAndContinueButton()){
+                        Assert.assertTrue(memberDetails.get(i).get(0)+"clickSaveAndContinueButton Failed",false);
+                    }
                 }
                 Wait.seconds(5);
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
@@ -461,6 +471,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Verified added family member" + memberDetails.get(i).get(0) + " details in the FM landing page.\n");
                 Wait.seconds(5);
             }//end
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMember"," ")+"_Added");
+            }
         } catch (Exception exp) {
             Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: " + exp);
             Assert.assertTrue("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ", false);

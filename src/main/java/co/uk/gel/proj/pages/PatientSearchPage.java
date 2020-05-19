@@ -124,7 +124,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "button[class*='search']")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//button[contains(@class,'button--search')]")   //@FindBy(xpath = "//button[contains(string(),'Search')]")
+    @FindBy(xpath = "//button[@type='submit'][contains(@class,'SearchForm')]")
     public WebElement searchButtonByXpath;
 
 
@@ -134,7 +134,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "h3[class*='results__header']")
     public WebElement patientSearchResultsHeader;
 
-    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+//    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//a//span[contains(@class,'child-element')]")
     public WebElement patientCardBadge;
 
     @FindBy(css = "p[class*='patient-name']")
@@ -260,18 +261,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickSearchButtonByXpath() {
         try {
-            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 200);
-            Wait.forElementToBeClickable(driver, searchButtonByXpath);
+            if(!Wait.isElementDisplayed(driver,searchButtonByXpath,30)){
+                Debugger.println("Search Button could not locate on Patient Search Page.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+                return false;
+            }
             Actions.clickElement(driver, searchButtonByXpath);
             return true;
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            // searchButtonByXpath.Click();
         }catch(Exception exp){
             try{
                 seleniumLib.clickOnWebElement(searchButtonByXpath);
                 return true;
             }catch(Exception exp1) {
-                Debugger.println("Exception from clicking on Search Patient Button:" + exp);
+                Debugger.println("Exception from clicking on Search Patient Button:" + exp+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SearchPatientButton.jpg");
                 return false;
             }
@@ -820,7 +822,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 seleniumLib.clickOnWebElement(createNewPatientRecordLink);
                 return true;
             }catch(Exception exp1){
-                Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
+                Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp1);
                 SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
                 return false;
             }
@@ -990,16 +992,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void waitForPageTitleDisplayed(){
+    public boolean waitForPageTitleDisplayed(){
         try {
-            Wait.forElementToBeDisplayed(driver, pageTitle);
-            if(!Wait.isElementDisplayed(driver,pageTitle,10)){
+            if(!Wait.isElementDisplayed(driver,pageTitle,30)){
                 Debugger.println("Patient Search Page is not Loaded Successfully.");
-                Assert.assertFalse("Patient Search Page is not Loaded Successfully.",true);
+                SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
+                Assert.fail("Patient Search Page is not Loaded Successfully.");
+                return false;
             }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from loading Patient Search Page:"+exp);
-            Assert.assertFalse("Exception from loading Patient Search Page:",true);
+            SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
+            Assert.fail("Exception from loading Patient Search Page:");
+            return false;
         }
     }
     public void logoutFromApplication(){
@@ -1094,7 +1100,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public String searchPatientReferral(NGISPatientModel referralDetails) {
        try {
-           Wait.forElementToBeDisplayed(driver, nhsNumber);
+           if(!Wait.isElementDisplayed(driver, nhsNumber,60)){
+               SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+               return "Patient Search Page not displayed even after a minute wait..";
+           }
            nhsNumber.sendKeys(referralDetails.getNHS_NUMBER());
            if (referralDetails.getDATE_OF_BIRTH() == null || referralDetails.getDATE_OF_BIRTH().isEmpty()) {
                referralDetails.setDATE_OF_BIRTH(faker.number().numberBetween(10, 31) + "-" + faker.number().numberBetween(10, 12) + "-" + faker.number().numberBetween(1900, 2019));
@@ -1103,13 +1112,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
            dateMonth.sendKeys(referralDetails.getMONTH_OF_BIRTH());
            dateYear.sendKeys(referralDetails.getYEAR_OF_BIRTH());
            //Search for the referral
-           clickSearchButtonByXpath();
-           Wait.forElementToBeDisplayed(driver,patientSearchResult,120);
+           if(!clickSearchButtonByXpath()){
+               SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+               return "Could not click on Search Button in Patient Search Page.";
+           }
+           if(!Wait.isElementDisplayed(driver, patientSearchResult,120)){
+               SeleniumLib.takeAScreenShot("PatientSearchResult.jpg");
+               return "Patient Search Result Page not displayed even after 2 minute wait..";
+           }
            return patientSearchResult.getText();
        }catch(Exception exp){
            Debugger.println("Exception from Search Patient Referral: "+exp);
            SeleniumLib.takeAScreenShot("SearchPatientReferralError.jpg");
-           return "Search Failed.";
+           return "Exception from Search Patient Referral: "+exp;
        }
 
     }

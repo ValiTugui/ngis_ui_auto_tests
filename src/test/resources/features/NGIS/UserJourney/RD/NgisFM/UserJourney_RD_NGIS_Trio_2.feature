@@ -10,7 +10,7 @@ Feature: UserJourney_RD_NGIS_Trio_2 - UC10 - E2EUI-1009
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -36,7 +36,7 @@ Feature: UserJourney_RD_NGIS_Trio_2 - UC10 - E2EUI-1009
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -74,7 +74,7 @@ Feature: UserJourney_RD_NGIS_Trio_2 - UC10 - E2EUI-1009
     And the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree

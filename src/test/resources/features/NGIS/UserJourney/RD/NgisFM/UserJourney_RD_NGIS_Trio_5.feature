@@ -9,7 +9,7 @@ Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -35,7 +35,7 @@ Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -50,12 +50,21 @@ Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
-    And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
-    And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the patient choice
     Then the user is navigated to a page with title Add patient choice information
-    Then the help text is displayed
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
+    When the user selects the option Adult (With Capacity) in patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    When the user is in the section Patient choices
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
     #Patient Choice - Family Details Provided below should be same as above
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -65,7 +74,7 @@ Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
       | NHSNumber=NA:DOB=19-12-1970 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree

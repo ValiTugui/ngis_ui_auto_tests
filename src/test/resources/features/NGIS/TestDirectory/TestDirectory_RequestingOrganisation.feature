@@ -68,7 +68,9 @@ Feature: TestDirectory: Requesting Organisation page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=9449306680:DOB=14-06-2011 |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
     And the user should be able to see the active stage "<PatientDetails>" in to-do list
     And the user clicks the Save and Continue button
     Then the "<PatientDetails>" stage is marked as Completed
@@ -97,7 +99,8 @@ Feature: TestDirectory: Requesting Organisation page
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes automatically filling notes with some random data
-    Then the user is navigated to a page with title Add notes to this referral
+#    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -115,7 +118,8 @@ Feature: TestDirectory: Requesting Organisation page
       | Requesting organisation |
       | Test package            |
       | Clinical questions      |
-    And the user should be able to see the active stage "<PatientChoice>" in to-do list
+#    And the user should be able to see the active stage "<PatientChoice>" in to-do list
+    ### Defect where Patient choice and Patient details are active at the same time -NTOS-5039
     And the below stages marked as incompleted
       | Family members |
       | Patient choice |

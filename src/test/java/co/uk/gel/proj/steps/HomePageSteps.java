@@ -69,19 +69,14 @@ public class HomePageSteps extends Pages {
 
     @And("^the number of results shown in each filters & total results should match$")
     public void validateFilterResultCountToTotalResult() throws InterruptedException {
-        long a = homePage.totalSearchResult();
-        if(a == 0){
+        long totalSearchResult = homePage.totalSearchResult();
+        if(totalSearchResult == 0){
+            Debugger.println("Total Search Result Zero.. Something wrong.");
             Assert.assertTrue(false);
         }
-        long b = homePage.rareAndInheritedDiseasesSearchResult();
-        if(b == 0){
-            Assert.assertTrue(false);
-        }
-        long c = homePage.tumorSearchResult();
-        if(c == 0){
-            Assert.assertTrue(false);
-        }
-        if(a != (b+c)){
+        long inheritedDisease = homePage.rareAndInheritedDiseasesSearchResult();
+        long tumours = homePage.tumorSearchResult();
+        if(totalSearchResult != (inheritedDisease+tumours)){
             Debugger.println("Total search result not equals the inherited and tumor search results as expected.");
             Assert.assertTrue(false);
         }

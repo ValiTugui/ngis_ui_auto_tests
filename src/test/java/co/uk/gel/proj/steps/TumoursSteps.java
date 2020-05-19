@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
@@ -173,7 +174,9 @@ public class TumoursSteps extends Pages {
     @Then("the new tumour is displayed in the landing page for the existing patient with tumour list")
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
-        //Debugger.println("Number of Tumour(s) :" + numberOfTumours);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Tumour"," ")+"_Filled");
+        }
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
     }
 
@@ -274,25 +277,25 @@ public class TumoursSteps extends Pages {
 
     @And("information text are displayed on the select or edit a tumour page")
     public void informationTextAreDisplayedOnTheTheSelectOrEditATumourPage(DataTable dataTable) {
-
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
-        List<String> expectedInformationText = new ArrayList<>();
         List<String> actualInformationText = tumoursPage.getInformationTextOnEditTumourPage();
-
+        String expectedText = "";
+        boolean isPresent;
         for (int i = 0; i < expectedList.size(); i++) {
-            expectedInformationText.add(expectedList.get(i).get("informationTextHeader"));
-            //Debugger.println("Expected : " + i + " : " + expectedInformationText.get(i));
+            expectedText = expectedList.get(i).get("informationTextHeader");
+            isPresent = false;
+            for(int  j=0;j<actualInformationText.size();j++){
+                if(actualInformationText.get(j).contains(expectedText)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                SeleniumLib.takeAScreenShot("TumourPageValue.jpg");
+                Debugger.println("URL:"+driver.getCurrentUrl());
+                Assert.fail("Expected value:"+expectedText+" not present in Tumour Page.");
+            }
         }
-
-//        for (int i = 0; i < actualInformationText.size(); i++) {
-//            Debugger.println("Actual : " + i + " : " + actualInformationText.get(i));
-//        }
-
-        Assert.assertEquals(expectedInformationText.get(0), actualInformationText.get(0));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(1)));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(2)));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(3)));
-        Assert.assertTrue(actualInformationText.get(2).contains(expectedInformationText.get(4)));
     }
 
     @And("on the select or edit a tumour page, the tumour table list shows the column names")
@@ -483,7 +486,9 @@ public class TumoursSteps extends Pages {
 
         Debugger.println("Expected TumourTest Details-list            : " + expectedTumourTestData);
         Debugger.println("Actual TumourTest Details List on SamplePage: " + actualTumourTestDetailsOnAddSamplePage);
-
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Sample"," ")+"_Filled");
+        }
         for (int i = 0; i < expectedTumourTestData.size(); i++) {
             Debugger.println("Expected TumourTestData: " + i + " : " + expectedTumourTestData.get(i));
             Debugger.println("Actual TumourTest Details on Sample Page: " + i + " : " + actualTumourTestDetailsOnAddSamplePage.get(i) + "\n");

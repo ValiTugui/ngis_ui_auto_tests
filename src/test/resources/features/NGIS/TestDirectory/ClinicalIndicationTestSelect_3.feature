@@ -10,10 +10,10 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient
-    Then the user should be able to see same referral id in the global banner and the url
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
+#    When the user is navigated to a page with title Check your patient
+#    Then the user should be able to see same referral id in the global banner and the url
+#    And the user clicks the Save and Continue button
+#    And the "<PatientDetails>" stage is marked as Completed
     ##Test Package Page
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
@@ -29,7 +29,8 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     Then the user should be able to see same referral id in the global banner and the url
     And the user clicks the Save and Continue button
     ##Notes Page
-    And the user is navigated to a page with title Add notes to this referral
+#    And the user is navigated to a page with title Add notes to this referral
+    And the user is navigated to a page with title Add clinical notes
     ##Family Member Page
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
@@ -66,7 +67,8 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "Patient details" stage
+    Then the user is navigated to a page with title Check your patient's details
     And the user fill in the first name field
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
@@ -96,7 +98,8 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     And the user clicks the Save and Continue button
     #Panels - no need to check for its completion
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+#    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "Cerebral malformations" panels
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it

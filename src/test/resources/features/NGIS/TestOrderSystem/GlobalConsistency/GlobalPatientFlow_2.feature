@@ -11,6 +11,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
     ##Patient Details Page
+    When the user navigates to the "<PatientDetails>" stage
     When the user is navigated to a page with title Check your patient's details
     And the user fill in the first name field
     ##Navigating By Logout
@@ -79,7 +80,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Notes Page
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -198,7 +199,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     ##Panels Page
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user search and add the "<SearchPanels>" panels
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -229,5 +230,5 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
-      | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
+      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
+      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |

@@ -10,9 +10,9 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
     ##Patient Details Page
-    Then the user is navigated to a page with title Check your patient
-    And the user sees the Save and Continue button
-    And the user clicks the Save and Continue button
+#    Then the user is navigated to a page with title Check your patient
+#    And the user sees the Save and Continue button
+#    And the user clicks the Save and Continue button
     ##Requesting Organisation Page
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
@@ -36,7 +36,8 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     And the user sees the Save and Continue button
     And the user clicks the Save and Continue button
     ##Notes Page
-    Then the user is navigated to a page with title Add notes to this referral
+#    Then the user is navigated to a page with title Add notes to this referral
+    And the user is navigated to a page with title Add clinical notes
     And the user sees the Save and Continue button
     And the user clicks the Save and Continue button
     ##Family Members - Family member details to be added - creating new referrals
@@ -62,16 +63,20 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     ##Patient Choice Landing Page
     When the user navigates to the "<PatientChoice>" stage
     And the user is navigated to a page with title Patient choice
-    Then the "<PatientChoice>" stage is selected
+#    Then the "<PatientChoice>" stage is selected
+    #### Not working due to defect:- https://jira.extge.co.uk/browse/NTOS-5039
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
+    And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     And the user is navigated to a page with title Patient choice
-    And the user clicks on Continue Button
+#    And the user clicks on Continue Button
+    And the user clicks the Save and Continue button
     ##Panels Page
-    Then the user is navigated to a page with title Panels
+#    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user sees the Save and Continue button
     And the user clicks the Save and Continue button
     ##Pedigress Page

@@ -9,7 +9,7 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
   Scenario Outline: NTS-3506 - Clinical Questions -  scenario 2 - Present recommended answers to some questions and select if they apply
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     When the user is navigated to a page with title Answer clinical questions
@@ -33,7 +33,7 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
   Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     When the user is navigated to a page with title Answer clinical questions

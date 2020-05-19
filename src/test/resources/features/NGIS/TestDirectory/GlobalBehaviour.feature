@@ -8,7 +8,6 @@ Feature: TestDirectory: Global Behaviour Page
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
 
-
   @NTS-3169 @TD_VERSION_INFO
 #  @E2EUI-1755
   Scenario: NTS-3169 - Home Page - User is able to see the version of NGIS at the bottom of the page

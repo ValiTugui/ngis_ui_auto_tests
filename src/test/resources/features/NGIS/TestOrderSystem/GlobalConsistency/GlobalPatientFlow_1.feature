@@ -11,7 +11,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     ##Family Member Landing Page
     And the user navigates to the "<FamilyMembers>" stage
     And the user is navigated to a page with title Add a family member to this referral
@@ -29,11 +29,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
-    ##Patient Details Page
-    When the user is navigated to a page with title Check your patient
-    ##Requesting Organisation Page
-    When the user navigates to the "<RequestingOrganisation>" stage
-    Then the user is navigated to a page with title Add a requesting organisation
+
+    When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ROCHDALE INFIRMARY" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -82,7 +79,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    And the user clicks the Start Referral button
     And the user clicks the Start a new Referral button
     ##Referral Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
@@ -94,7 +91,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #      | NHS number,NHS no. | NHS Number,NHS No |
 #    When the user clicks the Start a new Referral button
 #    ##Referral Details Page
-#    Then the user is navigated to a page with title Check your patient's details
+#    Then the user is navigated to a page with title Add a requesting organisation
 #    And the user should see previous labels replaced as current labels
 #      | PreviousLabel      | CurrentLabel      |
 #      | NHS number,NHS no. | NHS Number,NHS No |
@@ -145,7 +142,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
     ###Patient Details
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see the patient referral banner at the top
     ###Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
@@ -168,7 +165,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should be able to see the patient banner at same location
     ###Notes
     When the user navigates to the "<Notes>" stage
-    And the user is navigated to a page with title Add notes to this referral
+    And the user is navigated to a page with title Add clinical notes
     Then the user should be able to see the patient banner at same location
     ###Family Members
     When the user navigates to the "<Family members>" stage
@@ -180,7 +177,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should be able to see the patient banner at same location
     ###Panels
     When the user navigates to the "<Panels>" stage
-    And the user is navigated to a page with title Panels
+    And the user is navigated to a page with title Manage panels
     Then the user should be able to see the patient banner at same location
     ###Pedigree
     When the user navigates to the "<Pedigree>" stage

@@ -5,12 +5,13 @@
 @SYSTEM_TEST
 Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
 
- @NTS-4731 @Z-LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731:E2EUI-1087,873: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M211 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-11-2011:Gender=Male |
     ##Patient Details Page
+    When the user navigates to the "<PatientDetails>" stage
     When the user is navigated to a page with title Check your patient's details
     And the user fill in the first name field
     ##Navigating By Logout
@@ -123,7 +124,7 @@ Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
     Then the user is navigated to a page with title Manage samples
     When the user clicks the Save and Continue button
     ##Notes Page
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     When the user fills in the Add Notes field
     When the user clicks the Log out button
     Then the user sees a prompt alert "<warningMessage>" after clicking "logout" button and "<acknowledgeMessage>" it
@@ -159,5 +160,5 @@ Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                  |
-      | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=NARAYAN:HospitalNumber=102030 |
+      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                  |
+      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=NARAYAN:HospitalNumber=102030 |

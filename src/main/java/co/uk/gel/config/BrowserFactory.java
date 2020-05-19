@@ -1,8 +1,9 @@
 package co.uk.gel.config;
 
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.sl.In;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import net.continuumsecurity.proxy.ScanningProxy;
+import net.continuumsecurity.proxy.ZAProxyScanner;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.opera.OperaDriver;
@@ -46,6 +48,12 @@ public class BrowserFactory {
     String project = "NGIS UI Automation";
     String applicationType = "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream";
 
+    private final static String ZAP_PROXYHOST = "127.0.0.1";
+    private final static int ZAP_PROXYPORT = 9191;
+    private final static String ZAP_APIKEY = null;
+    private ScanningProxy zapScanner;
+    private String OS = null;
+
     public WebDriver getDriver() throws MalformedURLException {
         return getDriver(BrowserConfig.getServerType(), BrowserConfig.getBrowser(), true);
     }
@@ -64,7 +72,7 @@ public class BrowserFactory {
                 case FIREFOX:
                     WebDriverManager.firefoxdriver().clearPreferences();
                     WebDriverManager.firefoxdriver().setup();
-                    driver = getFirefoxDriver(null, javascriptEnabled);
+                    driver = getFirefoxDriverLocal(null, javascriptEnabled);
                     break;
                 case SAFARI:
                     driver = getSafariDriver(null, javascriptEnabled);
@@ -84,9 +92,39 @@ public class BrowserFactory {
                     WebDriverManager.edgedriver().forceDownload().setup();
                     driver = getEdge(null, javascriptEnabled);
                     break;
+                case SECUREBROWSER_CHROME:
+                    try {
+                        Debugger.println("Browser: SECURE BROWSER...Initializing ZAPProxyScanner...Host:");
+                        try {
+                            zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
+                        } catch (Exception exp1) {
+                            Debugger.println("INIT EXCEPTION: " + exp1);
+                            Assert.assertTrue(false);
+                        }
+                        Debugger.println("ZAProxyScanner Initialized......Clearing to start new session...");
+                        zapScanner.clear(); //Start a new session
+                        //Debugger.println("Cleared...Initializing zapSpider.....");
+                        //Default considering Chrome
+                        WebDriverManager.chromedriver().clearPreferences();
+                        WebDriverManager.chromedriver().setup();
+                        Debugger.println("ChromePath: " + WebDriverManager.chromedriver().getBinaryPath());
+                        OS = System.getProperty("os.name").toLowerCase();
+                        Debugger.println("OS: " + OS);
+                        if (OS.indexOf("win") >= 0) {
+                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath());
+                        } else if (OS.indexOf("linux") >= 0) {
+                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath(), "linux");
+                        } else {//Mac
+                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath());
+                        }
+
+                    } catch (Exception exp) {
+                        Debugger.println("EXCEPTION: " + exp);
+                    }
+                    break;
                 default:
                     Debugger.println("Invalid Browser information");
-                    Assert.fail("Browser : " + browser + " is not present in the BrowserEnum");
+                    Assert.assertFalse("Browser : " + browser + " is not present in the BrowserEnum", true);
                     break;
             }
         }
@@ -121,7 +159,6 @@ public class BrowserFactory {
         driver.manage().window().maximize();
         return driver;
     }
-
     private WebDriver getSafariDriver(String userAgent,
                                       boolean javascriptEnabled) {
         return new SafariDriver(getSafariLocalOptions(userAgent, javascriptEnabled));
@@ -132,7 +169,6 @@ public class BrowserFactory {
         safariLocalOptions.setCapability("safari.options.dataDir", downloadFilepath());
         return safariLocalOptions;
     }
-
 
     private SafariOptions getsafariOptions(String userAgent, boolean javascriptEnabled) {
         SafariOptions safariOptions = new SafariOptions();
@@ -148,7 +184,7 @@ public class BrowserFactory {
         return safariOptions;
     }
 
-    private WebDriver getFirefoxDriver(String userAgent,
+    private WebDriver getFirefoxDriverLocal(String userAgent,
                                        boolean javascriptEnabled) {
         return new FirefoxDriver(getFirefoxLocalOptions(userAgent, javascriptEnabled));
 
@@ -189,7 +225,6 @@ public class BrowserFactory {
         firefoxOptions.setProfile(profile);
         return firefoxOptions;
     }
-
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
     private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
         return new ChromeDriver(getChromeLocalOptions(userAgent, javascriptEnabled));
@@ -207,6 +242,7 @@ public class BrowserFactory {
         }
         return chromeLocalOptions;
     }
+
 
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
@@ -265,7 +301,6 @@ public class BrowserFactory {
         edgeLocalOptions.setCapability("prefs", downloadPathsetup());
         return edgeLocalOptions;
     }
-
 
     private EdgeOptions getEdgeOptions(String userAgent, boolean javascriptEnabled) {
         EdgeOptions edgeOptions = new EdgeOptions();
@@ -331,4 +366,169 @@ public class BrowserFactory {
         }
         return downloadFilepath;
     }
-}
+
+
+    private FirefoxOptions getFirefoxSecurityOptions(String userAgent,
+                                             boolean javascriptEnabled) {
+        FirefoxProfile profile = new FirefoxProfile();
+        profile.setAcceptUntrustedCertificates(true);
+//			profile.setEnableNativeEvents(true);
+        profile.shouldLoadNoFocusLib();
+        profile.setAssumeUntrustedCertificateIssuer(true);
+        profile.setPreference("javascript.enabled", javascriptEnabled);
+        String downloadFilepath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
+        try {
+            File download_loc = new File(downloadFilepath);
+            if (!download_loc.exists()) {
+                download_loc.mkdirs();
+            }
+        } catch (Exception exp) {
+            System.out.println("Exception in creating download directory..." + exp);
+        }
+        profile.setPreference("browser.download.folderList", 2);
+        profile.setPreference("browser.download.dir", downloadFilepath);
+        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+        if (null != userAgent) {
+            profile.setPreference("general.useragent.override", userAgent);
+        }
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setProfile(profile);
+        firefoxOptions.setCapability("marionette", true);
+        return firefoxOptions;
+    }
+
+    public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
+        return createProxyDriver(type, proxy, path, null);
+    }
+
+    public static WebDriver createProxyDriver(String type, Proxy proxy, String path, String typeOfOS) {
+        Debugger.println("createProxyDriver............");
+        if (typeOfOS != null) {
+            System.out.println("Calling typeOfOS = linux");
+            if (type.equalsIgnoreCase("Chrome")){
+                return createChromeDriver(createProxyCapabilities(proxy), path, "linux");
+            }else{//FireFox
+                return createFirefoxDriver(createProxyCapabilities(proxy));
+            }
+        } else {
+            Debugger.println("Calling typeOfOS = non-linux");
+            if (type.equalsIgnoreCase("Chrome")) {
+                return createChromeDriver(createProxyCapabilities(proxy), path);
+            }else{//FireFox
+                return createFirefoxDriver(createProxyCapabilities(proxy));
+            }
+        }
+    }
+
+    public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path, String OS) {
+        Debugger.println("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--ignore-certificate-errors");
+        System.setProperty("webdriver.chrome.driver", path);
+        if (OS.equalsIgnoreCase("linux")) {
+            chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("window-size=1920,1080");
+            // 1920x1080x24
+            chromeOptions.addArguments("disable-infobars"); // disabling infobars
+            // chromeOptions.addArguments("--disable-extensions"); // disabling extensions
+            //   chromeOptions.addArguments("--disable-gpu"); // applicable to windows os only
+            chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+            chromeOptions.addArguments("--no-sandbox"); // Bypass OS security model
+        }
+        //  chromeOptions.addArguments("--headless");
+        if (capabilities != null) {
+            capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+            capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+            return new ChromeDriver(capabilities);
+        } else return new ChromeDriver();
+    }
+
+    public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
+        return createChromeDriver(capabilities, path, "non-linux");
+    }
+
+    public static WebDriver createFirefoxDriver(DesiredCapabilities capabilities) {
+        if (capabilities != null) {
+            return new FirefoxDriver(capabilities);
+        }
+        ProfilesIni allProfiles = new ProfilesIni();
+        FirefoxProfile myProfile = allProfiles.getProfile("WebDriver");
+        if (myProfile == null) {
+            File ffDir = new File(System.getProperty("user.dir") + File.separator + "ffProfile");
+            if (!ffDir.exists()) {
+                ffDir.mkdir();
+            }
+            myProfile = new FirefoxProfile(ffDir);
+        }
+        myProfile.setAcceptUntrustedCertificates(true);
+        myProfile.setAssumeUntrustedCertificateIssuer(true);
+        myProfile.setPreference("webdriver.load.strategy", "unstable");
+        if (capabilities == null) {
+            capabilities = new DesiredCapabilities();
+        }
+        capabilities.setCapability(FirefoxDriver.PROFILE, myProfile);
+        return new FirefoxDriver(capabilities);
+    }
+
+    public static DesiredCapabilities createProxyCapabilities(Proxy proxy) {
+        Debugger.println("createProxyCapabilities.........");
+        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability("proxy", proxy);
+        return capabilities;
+    }
+
+    private static Proxy createZapProxyConfigurationForWebDriver() {
+        Debugger.println("createZapProxyConfigurationForWebDriver.........");
+        Proxy proxy = new Proxy();
+        proxy.setHttpProxy(ZAP_PROXYHOST + ":" + ZAP_PROXYPORT);
+        proxy.setSslProxy(ZAP_PROXYHOST + ":" + ZAP_PROXYPORT);
+        return proxy;
+    }
+
+    private WebDriver getSafariDriver(Object object,
+                                      boolean javascriptEnabled) {
+        DesiredCapabilities safariCaps = DesiredCapabilities.safari();
+        safariCaps.setCapability("safari.cleanSession", true);
+        return new SafariDriver(safariCaps);
+    }
+
+    private WebDriver getFirefoxDriver(String userAgent,
+                                      boolean javascriptEnabled) {
+        return new FirefoxDriver(getFirefoxOptions(userAgent, javascriptEnabled));
+    }
+
+
+
+    // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
+//    private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
+//        Debugger.println("getChromeDriver.........");
+//        return new ChromeDriver(getChromeOptionsSecurity(userAgent, javascriptEnabled));
+//    }
+
+
+    private ChromeOptions getChromeOptionsSecurity(String userAgent,
+                                           boolean javascriptEnabled) {
+        Debugger.println("getChromeOptions.........");
+        //Setting default download path for chrome browser
+        String downloadFilePath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
+        File location = new File(downloadFilePath);
+        if (!location.exists()) {
+            location.mkdirs();
+        }
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("profile.default_content_settings.popups", 0);
+        chromePrefs.put("download.default_directory", downloadFilePath);
+        ChromeOptions opts = new ChromeOptions();
+        if (null != userAgent) {
+            opts.addArguments("user-agent=" + userAgent);
+        }
+        opts.setExperimentalOption("prefs", chromePrefs);
+        if (!javascriptEnabled) {
+            opts.addArguments("disable-javascript");
+        }
+        return opts;
+    }
+}//end
+
+

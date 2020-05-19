@@ -10,7 +10,7 @@ Feature: UserJourney_RD_NEW_Proband_5 - UC03 - E2EUI-1032
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-2007:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -36,7 +36,7 @@ Feature: UserJourney_RD_NEW_Proband_5 - UC03 - E2EUI-1032
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -63,7 +63,7 @@ Feature: UserJourney_RD_NEW_Proband_5 - UC03 - E2EUI-1032
     Then the user should see the question displayed as Does the child agree to participate in research?
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
-    And the user fills signature details in Child signature
+    And the user fills PatientSignature details in patient signature
     And the user clicks on Continue Button
     When the user is in the section Parent/Guardian signature
     And the user fills "<Parent/Guardian signature>" details for signature
@@ -73,7 +73,7 @@ Feature: UserJourney_RD_NEW_Proband_5 - UC03 - E2EUI-1032
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user should see the default status of penetrance button as Incomplete
     When the user search and add the "<SearchPanels>" panels
     And the user clicks the Save and Continue button

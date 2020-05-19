@@ -11,7 +11,7 @@ Feature: ClinicalQuestions 13 - Page Validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestion>" stage
     Then the user is navigated to a page with title Answer clinical questions
@@ -48,7 +48,7 @@ Feature: ClinicalQuestions 13 - Page Validation
   Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     When the user is navigated to a page with title Answer clinical questions
@@ -99,7 +99,7 @@ Feature: ClinicalQuestions 13 - Page Validation
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed

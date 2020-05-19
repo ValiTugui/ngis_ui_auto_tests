@@ -1,7 +1,10 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -39,11 +42,19 @@ public class PanelsSteps extends Pages {
 
     @When("the user clicks on VisitPanelApp link")
     public void theUserClicksOnVisitPanelAppLink() {
-        Assert.assertTrue(panelsPage.clicksOnVisitPanelsAppLink());
+        boolean testResult;
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PanelApp"," ")+"_Starting");
+        }
+        testResult = panelsPage.clicksOnVisitPanelsAppLink();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user navigates to panelApp page")
     public void theUserNavigatesToPanelAppPage() {
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PanelApp"," ")+"_External");
+        }
         Assert.assertTrue(panelsPage.verifyPanelAppNavigation());
     }
 

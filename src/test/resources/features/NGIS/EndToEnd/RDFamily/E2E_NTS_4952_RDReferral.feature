@@ -8,8 +8,7 @@ Feature: RDFamily:NTS-4952: Create Referral for Trio Family + Default Data + Add
   Given a new patient referral is created with associated tests in Test Order System online service
   | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R19 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-2000:Gender=Male |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4952: Create Referral for Trio Family + Default Data + Add
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -43,8 +42,8 @@ Feature: RDFamily:NTS-4952: Create Referral for Trio Family + Default Data + Add
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                                                                                |
-      | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=0,02:HpoPhenoType=Bladder diverticulum:PhenotypicSex=Male:Karyotypic sex=XX       |
-      | NHSNumber=NA:DOB=12-02-1979:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Unaffected:AgeOfOnset=0,01:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=Female:Karyotypic sex=XY |
+      | NHSNumber=NA:DOB=10-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=0,02:HpoPhenoType=Bladder diverticulum:PhenotypicSex=Male:Karyotypic sex=XX       |
+      | NHSNumber=NA:DOB=14-02-1979:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Unaffected:AgeOfOnset=0,01:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=Female:Karyotypic sex=XY |
     Then the "<FamilyMembers>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##patient choice for the proband-YES
@@ -61,12 +60,12 @@ Feature: RDFamily:NTS-4952: Create Referral for Trio Family + Default Data + Add
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
       | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=NA:DOB=12-03-1978 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
-      | NHSNumber=NA:DOB=12-02-1979 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=10-03-1978 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=14-02-1979 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -79,8 +78,8 @@ Feature: RDFamily:NTS-4952: Create Referral for Trio Family + Default Data + Add
     And the user is able to download print form for the proband
     And the user is able to download print forms for "<TwoFamilyMember>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=12-03-1978 |
-      | NHSNumber=NA:DOB=12-02-1979 |
+      | NHSNumber=NA:DOB=10-03-1978 |
+      | NHSNumber=NA:DOB=14-02-1979 |
     ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed

@@ -101,10 +101,10 @@ public class TumoursPage {
     @FindBy(css = "*[class*='error-message__text']")
     public List<WebElement> errorMessages;
 
-    @FindBy(xpath = "//button[text()='add a new tumour']")
+    @FindBy(xpath = "//button/span[text()='add a new tumour']")
     public WebElement addAnotherTumourLink;
 
-    @FindBy(xpath = "//button[text()='add a new tumour']")  //added
+    @FindBy(xpath = "//*[text()='add a new tumour']")  //added
     public List<WebElement> addAnotherTumourLinkList;
 
     //@FindBy(css = "*[class*='checkbox-row__arrow']")
@@ -173,13 +173,13 @@ public class TumoursPage {
     @FindBy(xpath = "//div[contains(@id,'question-id-q161')]//input[@type!='hidden']")
     public List<WebElement> topographyOfThisMetastaticDepositFieldList;
 
-    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[1]/child::*[text()='+ Add another']")
+    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[1]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForTumourDiagnosis;
 
     @FindBy(xpath = "//div[contains(@id,'question-id-q160')]//input[@type!='hidden']")
     public List<WebElement> workingDiagnosisMorphologyFieldList;
 
-    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*[text()='+ Add another']")
+    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
 
     public boolean navigateToAddTumourPageIfOnEditTumourPage() {
@@ -388,33 +388,47 @@ public class TumoursPage {
     public boolean newTumourIsDisplayedInLandingPage(int i) {
         try {
             if(!Wait.isElementDisplayed(driver, tumoursLandingPageTable,30)){
-                Debugger.println("Tumour Table not displayed.");
+                Debugger.println("Tumour Table not displayed."+driver.getCurrentUrl());
                 Debugger.println("newTumourIsDisplayedInLandingPage.jpg");
                 return false;
             }
             int numberOfTumours = tumoursLandingPageList.size() - 1;
             if(numberOfTumours != i){
-                Debugger.println("Expected Number of Tumours: "+i+", Actual:"+numberOfTumours);
+                Debugger.println("Expected Number of Tumours: "+i+", Actual:"+numberOfTumours+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("newTumourIsDisplayedInLandingPage.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in newTumourIsDisplayedInLandingPage:"+exp);
+            Debugger.println("Exception in newTumourIsDisplayedInLandingPage:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("newTumourIsDisplayedInLandingPage.jpg");
             return false;
         }
     }
 
     public int getTheNumbersOfTumoursDisplayedInLandingPage() {
-        Wait.forElementToBeDisplayed(driver, successNotification);
-        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        try {
+            if(!Wait.isElementDisplayed(driver,successNotification,30)){
+                Debugger.println("TumourPage successNotification not displayed.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TumourSuccessNotification.jpg");
+                return -1;
+            }
+            if(!Wait.isElementDisplayed(driver,tumoursLandingPageTable,30)){
+                Debugger.println("TumourPage tumoursLandingPageTable not displayed.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("tumoursLandingPageTable.jpg");
+                return -1;
+            }
         return listOfTumoursInTheTable.size();
+        }catch(Exception exp){
+            Debugger.println("Exception in getTheNumbersOfTumoursDisplayedInLandingPage:"+exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("getTheNumbersOfTumoursDisplayedInLandingPage.jpg");
+            return -1;
+        }
     }
 
     public boolean tumourIsNotHighlighted() {
         try {
-            if (!Wait.isElementDisplayed(driver, successNotification, 10)) {
+            if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
                 Debugger.println("Tumour page successNotification not displayed:");
                 SeleniumLib.takeAScreenShot("tumourIsNotHighlighted.jpg");
                 return false;
@@ -441,6 +455,7 @@ public class TumoursPage {
 
     public boolean warningMessageIsNotDisplayed() {
         try {
+            Wait.seconds(5);
             if (tumoursWarningMessage.size() > 0) {
                 Debugger.println("Warning message present in Tumours page, but not expected.");
                 SeleniumLib.takeAScreenShot("warningMessageIsNotDisplayed.jpg");
@@ -662,9 +677,25 @@ public class TumoursPage {
         return expectedTumourFieldsLabels;
     }
 
-    public void clickOnTheAddANewTumourTextLink() {
-        Wait.forElementToBeClickable(driver, addAnotherTumourLink);
-        Click.element(driver, addAnotherTumourLink);
+    public boolean clickOnTheAddANewTumourTextLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver, addAnotherTumourLink,10)){
+                Debugger.println("AddAnotherTumourLink not displayed..\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("addAnotherTumourLink.jpg");
+                return false;
+            }
+            Click.element(driver, addAnotherTumourLink);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(addAnotherTumourLink);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from AddAnotherTumourLink not displayed.." + exp + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("addAnotherTumourLink.jpg");
+                return false;
+            }
+        }
     }
 
     public String getDynamicQuestionsSnomedCTLabelText() {
@@ -797,14 +828,14 @@ public class TumoursPage {
     public boolean clicksOnAddAnotherLinkForTumourDiagnosis() {
         try {
             if (!Wait.isElementDisplayed(driver, addAnotherLinkForTumourDiagnosis, 10)) {
-                Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page");
+                Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("AddAnotherLinkForTumourDiagnosis.jpg");
                 return false;
             }
             Actions.clickElement(driver, addAnotherLinkForTumourDiagnosis);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page :" + exp);
+            Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page :" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("AddAnotherLinkForTumourDiagnosis.jpg");
             return false;
         }

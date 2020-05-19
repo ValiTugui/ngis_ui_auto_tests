@@ -165,10 +165,21 @@ public class PanelsPage {
 
     public boolean clicksOnVisitPanelsAppLink() {
         if (!Wait.isElementDisplayed(driver, visitPanelApp, 100)) {
-            Debugger.println("Visit Panel App Link not displayed...");
+            Debugger.println("Visit Panel App Link not displayed..."+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("VisitPanelAppLink.jpg");
             return false;
         }
+        try {
         Actions.clickElement(driver,visitPanelApp);
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(visitPanelApp);
+            }catch(Exception exp1){
+                Debugger.println("Exception in Visiting Panelapp Link.."+exp1);
+                SeleniumLib.takeAScreenShot("VisitPanelAppLink.jpg");
+                return false;
+            }
+        }
         seleniumLib.ChangeWindow();
         return true;
     }
@@ -288,7 +299,7 @@ public class PanelsPage {
     public boolean verifyPenetranceTitle(String expSubtitle) {
         try {
             if(!Wait.isElementDisplayed(driver,penetranceTitle,10)){
-                Debugger.println("Section "+expSubtitle+" not present in Panels Landing Page");
+                Debugger.println("Section "+expSubtitle+" not present in Panels Landing Page\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
                 return false;
             }

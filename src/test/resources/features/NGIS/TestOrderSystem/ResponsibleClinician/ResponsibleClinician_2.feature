@@ -1,5 +1,3 @@
-#@regression
-#@responsibleClinicianOrg
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
@@ -9,7 +7,7 @@ Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
   Scenario Outline: NTS-3895:  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-07-1981:Gender=Male |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
@@ -23,12 +21,12 @@ Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
   Scenario Outline: NTS-3895:  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=07-07-1960:Gender=Male |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
     And the user should be able to close the pop up dialog box
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
 
     Examples:
       | Title                        |
@@ -39,12 +37,12 @@ Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
   Scenario Outline: NTS-3895 :  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-08-1988:Gender=Male |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
     When the user clicks outside of the modal
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
 
     Examples:
       | Title                        |
@@ -57,7 +55,7 @@ Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=17-01-1967:Gender=Male |
    ##Patient details
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user clicks the Save and Continue button
     ##Requesting Organisation

@@ -1,6 +1,3 @@
-#@regression
-#@tumoursPage1
-#@tumoursPage
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 5
@@ -9,7 +6,7 @@ Feature: Tumours Page - 5
 #    @E2EUI-1159 @E2EUI-1577 @E2EUI-1377
   Scenario Outline: NTS-3174:E2EUI-1159,1577,1377:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer | create a new patient record |
     And the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the tumours stage is at Add a Tumour page
@@ -39,6 +36,7 @@ Feature: Tumours Page - 5
     And the user clicks the Save and Continue button
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
+
     And the "<stage>" stage is marked as Completed
     And the tumour stage is on select or edit a tumour page showing
       | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
@@ -49,7 +47,9 @@ Feature: Tumours Page - 5
       | If the tumour to be tested is:                  |
       | not shown                                       |
       | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
+      | you must                                        |
+      | add a new tumour                                |
+      | then select it.                                 |
     And on the select or edit a tumour page, the tumour table list shows the column names
       | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
 #      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
@@ -88,7 +88,9 @@ Feature: Tumours Page - 5
       | If the tumour to be tested is:                  |
       | not shown                                       |
       | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
+      | you must                                        |
+      | add a new tumour                                |
+      | then select it.                                 |
     And on the select or edit a tumour page, the tumour table list shows the column names
       | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
 #      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |

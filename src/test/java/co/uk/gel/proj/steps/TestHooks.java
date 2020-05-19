@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.ValidatableResponse;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -31,6 +32,7 @@ public class TestHooks extends Pages {
     public static boolean new_scenario_feature = false;
     private RequestSpecification request;
     private ValidatableResponse response;
+    public static String ntsTag="";
 
 
     public TestHooks(SeleniumDriver driver) {
@@ -41,6 +43,7 @@ public class TestHooks extends Pages {
     @Before
     public void begininingOfTest(Scenario scenario) {
         currentTagName = scenario.getSourceTagNames().toString();
+        ntsTag = TestUtils.getNtsTag(currentTagName);
         currentTags = scenario.getSourceTagNames().toString();
         currentFeature = scenario.getId().split(";")[0];
         if (temptagname.isEmpty() || !(temptagname.equalsIgnoreCase(currentTagName))) {

@@ -8,8 +8,7 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-2000:Gender=Male |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -43,7 +42,7 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                                                                                |
-      | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=0,02:HpoPhenoType=Bladder diverticulum:PhenotypicSex=Male:Karyotypic sex=XX       |
+      | NHSNumber=NA:DOB=12-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=0,02:HpoPhenoType=Bladder diverticulum:PhenotypicSex=Male:Karyotypic sex=XX       |
       | NHSNumber=NA:DOB=12-02-1979:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Unaffected:AgeOfOnset=0,01:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=Female:Karyotypic sex=XY |
     Then the "<FamilyMembers>" stage is marked as Completed
     And the user clicks the Save and Continue button
@@ -66,7 +65,7 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

@@ -51,12 +51,6 @@ public class TestUtils {
             paramNameValue.put(param.split("=")[0], param.split("=")[1]);
         }
 
-        // To print key and value
-//        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
-//        for (Map.Entry eachEntry : allEntries) {
-//            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
-//        }
-
         return paramNameValue;
 
     }
@@ -458,5 +452,31 @@ public class TestUtils {
         } catch (Exception exp) {
             return "Exception from downloadFile:" + exp;
         }
+    }
+    public static String fetchNumberFromAGivenString(String InputString) {
+        String numFound = "";
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(InputString);
+        if(m.find()){
+            numFound = m.group(0);
+        }
+        return numFound;
+    }
+    public static String getNtsTag(String fullTagName){
+        Debugger.println("FullTag:"+fullTagName);
+        String ntsTag = "";
+        String[] tags = fullTagName.split(",");
+        if(tags != null){
+            for(int i=0; i<tags.length; i++){
+                Debugger.println("Tag:"+tags[i]);
+                if(tags[i].contains("NTS")){
+                    ntsTag = tags[i].replaceAll("@","");
+                    ntsTag = ntsTag.replaceAll("]","");
+                    Debugger.println("Heer is NTS:"+ntsTag);
+                    return ntsTag.trim();
+                }
+            }
+        }
+        return "T";
     }
 }

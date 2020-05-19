@@ -12,12 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
 public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     WebDriver driver;
@@ -28,10 +22,6 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-
-
-    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
-    public WebElement searchBoxHeader;
 
     @FindBy(xpath = "//input[@id='order_tracking-search-value']")
     public WebElement orderTrackSearchInput;
@@ -45,42 +35,58 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='order_tracking-search-col']")
     public WebElement orderTrackSearchColumn;
 
+    @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
+    public WebElement searchResults;
+
     By orderTrackingTableHead = By.xpath("//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String orderTrackingTableRows = "//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
     public boolean selectOrderTrackingDropDownSearchColumn(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
+            if(!seleniumLib.selectFromListByText(orderTrackSearchColumn,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchColumn: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingselectDropDownSearchColumn.jpg");
+            SeleniumLib.takeAScreenShot("orderTrackSearchColumn.jpg");
             return false;
         }
     }
     public boolean selectOrderTrackingDropDownSearchOperator(String value) {
         try {
-            Wait.seconds(2);
-            return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
+            if(!seleniumLib.selectFromListByText(orderTrackSearchOperator,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingselectDropDownSearchOperator.jpg");
+            SeleniumLib.takeAScreenShot("orderTrackSearchOperator.jpg");
             return false;
         }
     }
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         try {
-            Wait.seconds(5);
-            return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
+            if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
+                Wait.seconds(5);
+                return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingselectDropDownSearchValue.jpg");
+            SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
     }
     public boolean enterOrderTrackingTextSearchValue(String value) {
         try {
-            Wait.seconds(2);
+            if(!Wait.isElementDisplayed(driver,orderTrackSearchInput,30)){
+                Debugger.println("orderTrackSearchInput not loaded...");
+                SeleniumLib.takeAScreenShot("orderTrackSearchInput.jpg");
+                return false;
+            }
             seleniumLib.sendValue(orderTrackSearchInput,value);
             return true;
         } catch (Exception exp) {
@@ -92,6 +98,11 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName,String expValue) {
         Wait.seconds(3);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(orderTrackingTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in Order Tracking Search Result Table");
@@ -104,6 +115,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
+            Wait.seconds(3);
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
@@ -135,6 +147,11 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyOrderTrackingResultColumnValuesDifference(String columnName1,String columnName2) {
         Wait.seconds(3);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(orderTrackingTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in Order Tracking Search Result Table");

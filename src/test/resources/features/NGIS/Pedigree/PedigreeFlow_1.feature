@@ -10,7 +10,7 @@ Feature: Pedigree - Pedigree Flow 1
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2007:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -31,7 +31,7 @@ Feature: Pedigree - Pedigree Flow 1
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
      ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     ##Family Member
     And the user clicks the Save and Continue button
@@ -64,7 +64,7 @@ Feature: Pedigree - Pedigree Flow 1
     When the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Build a pedigree
     And the "<Pedigree>" stage is marked as Mandatory To Do

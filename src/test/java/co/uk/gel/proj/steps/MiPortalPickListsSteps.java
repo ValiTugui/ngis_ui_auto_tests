@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
@@ -58,16 +59,40 @@ public class MiPortalPickListsSteps extends Pages {
     public void theUserSeesBelowValuesInThePickListsSearchValueDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPickListsPage.selectPickListsDropDownSearchValue(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);
         }
+    }
+    @And("the user selects (.*) as the picklists search input value")
+    public void theUserEnterSpecifiedPickListsSearchInputValue(String searchValue) {
+        boolean testResult = false;
+        if(searchValue.equalsIgnoreCase("Referral ID")) {
+            MIPortalTestData mipData = csvFileReader.getRandomTestData();
+            if (mipData == null) {
+                Debugger.println("No Data exists in the test data file provided.");
+                Assert.assertTrue("No Data exists in the test data file provided.", false);
+            }
+            searchValue = mipData.getReferral_id();
+        }else if(searchValue.equalsIgnoreCase("Patient NGIS ID")) {
+            MIPortalTestData mipData = csvFileReader.getRandomTestData();
+            if (mipData == null) {
+                Debugger.println("No Data exists in the test data file provided.");
+                Assert.assertTrue("No Data exists in the test data file provided.", false);
+            }
+            searchValue = mipData.getPatient_ngsid();
+        }
+
+        testResult = miPickListsPage.enterPickListsTextSearchValue(searchValue);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user sees the below values in the pick lists search column drop-down menu")
     public void theUserSeesBelowValuesInThePickListsSearchColumnDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPickListsPage.selectPickListsDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);

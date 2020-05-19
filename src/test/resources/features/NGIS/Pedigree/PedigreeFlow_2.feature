@@ -9,7 +9,7 @@ Feature: Pedigree - Pedigree Flow 2
   Scenario Outline: NTS-3464:E2EUI-1630,1051: User is making a referral and has arrived in the Pedigree section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2000:Gender=Female |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Pedigree>" stage
     And the user is navigated to a page with title Build a pedigree
     Then the user should be able to see Save button on Pedigree Page
@@ -45,7 +45,7 @@ Feature: Pedigree - Pedigree Flow 2
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Female |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
      ##Test Package
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package

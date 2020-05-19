@@ -8,8 +8,7 @@ Feature: RDFamily:NTS-4962:CSV-E2E- Deceased patient CSV process
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1970:Gender=Male |
   ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4962:CSV-E2E- Deceased patient CSV process
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -72,7 +71,7 @@ Feature: RDFamily:NTS-4962:CSV-E2E- Deceased patient CSV process
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
       ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

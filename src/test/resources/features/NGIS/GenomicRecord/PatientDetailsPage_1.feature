@@ -27,7 +27,7 @@ Feature: GenomicRecord: Patient details page 1
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type |
+      | pageTitle                        | pageTitle2        | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS                |
 
 
@@ -51,7 +51,7 @@ Feature: GenomicRecord: Patient details page 1
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
-      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
+      | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
       | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
 
 
@@ -65,7 +65,7 @@ Feature: GenomicRecord: Patient details page 1
     Then the Patient Search page is displayed
 
     Examples:
-      | pageTitle                         |
+      | pageTitle                        |
       | Create a record for this patient |
 
 
@@ -110,10 +110,10 @@ Feature: GenomicRecord: Patient details page 1
     And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
 
     Examples:
-      | pageTitle                         | maximumAllowedValues |
+      | pageTitle                        | maximumAllowedValues |
       | Create a record for this patient | 50                   |
 
-  @NTS-3438 @Z-LOGOUT
+  @NTS-34381 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -132,7 +132,6 @@ Feature: GenomicRecord: Patient details page 1
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Save and Continue button on Patient details page
     Then the patient is successfully updated with a message "<notification>"
-#   Navigate back to patient search, to search for the patient details and verify edited details
     When the user clicks the - "Back to patient search" - link
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
@@ -142,14 +141,14 @@ Feature: GenomicRecord: Patient details page 1
     Then the Patient Details page is displayed
     And the user clicks on edit patient details
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
-#    Navigate back to referral page
-    And the user navigates back to patient existing referral page
-      | APP_URL | patient-details |
-    And the referral page is displayed
-    And the new patient gender "<gender>" is displayed on the referral banner
-
+    ###Navigate back to referral page
+    ##Below steps no more valid as per Hanna Release, need to replace
+#    And the user navigates back to patient existing referral page
+#      | APP_URL | patient-details |
+#    And the referral page is displayed
+#    And the new patient gender "<gender>" is displayed on the referral banner
     Examples:
-      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
+      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
 
   @NTS-3454 @Z-LOGOUT
@@ -169,7 +168,6 @@ Feature: GenomicRecord: Patient details page 1
     And the user clicks the patient result card
     Then the Patient Details page is displayed
     And the user clicks on edit patient details
-    And the patient detail page displays expected input-fields and drop-down fields
     And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
       | labelHeader     |
       | First name ✱    |
@@ -179,9 +177,8 @@ Feature: GenomicRecord: Patient details page 1
       | Life status ✱   |
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
+      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
       | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national |
-
 
   @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538

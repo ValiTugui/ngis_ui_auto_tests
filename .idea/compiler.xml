@@ -7,7 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ngis_ui_auto_tests" />
+        <module name="HANNA" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="HANNA" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -5,6 +5,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -44,11 +45,11 @@ public class HomePage {
     @FindBy(xpath = "//div[contains(text(), 'Tests')]/span")
     public WebElement testsTabValue;
 
-    @FindBy(xpath = "//div/ul/li[1]/label")
+    @FindBy(xpath = "//input[@id='Rare and inherited Disease']/..")
     public WebElement rareAndInheritedDiseasesChkBox;
 
-    @FindBy(xpath = "//div/ul/li[3]/label")
-    public WebElement tumorChkBox;
+    @FindBy(xpath = "//input[@id='Tumour']/..")
+    public WebElement tumourChkBox;
 
     @FindBy(css = "a[class*='link']")
     public List<WebElement> resultsPanels;
@@ -151,7 +152,8 @@ public class HomePage {
 
     public boolean TestDirectoryHomePageIsDisplayed() {
         try {
-            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+//            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+            Wait.forURLToContainSpecificText(driver, "/test-selection");
             Wait.forElementToBeDisplayed(driver, searchField);
             return true;
         }catch(Exception exp){
@@ -163,17 +165,26 @@ public class HomePage {
 
     public long rareAndInheritedDiseasesSearchResult() {
         try {
-            rareAndInheritedDiseasesChkBox.click();
-            waitUntilHomePageResultsContainerIsLoaded();
-            Wait.seconds(1);
-            String a = clinicalIndicationsTabValue.getText();
-            String b = testsTabValue.getText();
-            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-            Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-            rareAndInheritedDiseasesChkBox.click();
-            Wait.seconds(1);
-            return Integer.parseInt(a) + Integer.parseInt(b);
+            if(!Wait.isElementDisplayed(driver,rareAndInheritedDiseasesChkBox,30)){
+                Debugger.println("Rare and Inherited Filter box not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesChkBox.jpg");
+                return 0;
+            }
+            Actions.clickElement(driver, rareAndInheritedDiseasesChkBox);
+            if(!waitUntilHomePageResultsContainerIsLoaded()){
+                Debugger.println("Results Panel not Reloaded."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesChkBox.jpg");
+                return 0;
+            }
+            Wait.seconds(10);
+            String clinicalIndications = TestUtils.fetchNumberFromAGivenString(clinicalIndicationsTabValue.getText());
+            String tests = TestUtils.fetchNumberFromAGivenString(testsTabValue.getText());
+            Debugger.println("RD: ClinicalIndications:"+clinicalIndications+",Tests:"+tests);
+            //Deselect
+            Actions.clickElement(driver, rareAndInheritedDiseasesChkBox);
+            Wait.seconds(2);
+            return Integer.parseInt(clinicalIndications) + Integer.parseInt(tests);
+
         }catch(Exception exp){
             Debugger.println("Exception in rareAndInheritedDiseasesSearchResult:"+exp);
             SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesSearchResult.jpg");
@@ -183,32 +194,39 @@ public class HomePage {
 
     public long tumorSearchResult() {
         try {
-            tumorChkBox.click();
-            waitUntilHomePageResultsContainerIsLoaded();
-            Wait.seconds(1);
-            String a = clinicalIndicationsTabValue.getText();
-            String b = testsTabValue.getText();
-            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-            Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-            tumorChkBox.click();
-            waitUntilHomePageResultsContainerIsLoaded();
-            return Integer.parseInt(a) + Integer.parseInt(b);
+            if(!Wait.isElementDisplayed(driver,tumourChkBox,30)){
+                Debugger.println("Tumour Filter box not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("tumourChkBox.jpg");
+                return 0;
+            }
+            Actions.clickElement(driver, tumourChkBox);
+            if(!waitUntilHomePageResultsContainerIsLoaded()){
+                Debugger.println("Results Panel not Reloaded."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("tumourChkBox.jpg");
+                return 0;
+            }
+            Wait.seconds(10);
+            String clinicalIndications = TestUtils.fetchNumberFromAGivenString(clinicalIndicationsTabValue.getText());
+            String tests = TestUtils.fetchNumberFromAGivenString(testsTabValue.getText());
+            Debugger.println("Tumour ClinicalIndications:"+clinicalIndications+",Tests:"+tests);
+            //Deselect
+            Actions.clickElement(driver, tumourChkBox);
+            Wait.seconds(2);
+            return Integer.parseInt(clinicalIndications) + Integer.parseInt(tests);
+
         }catch(Exception exp){
-            Debugger.println("Exception in tumorSearchResult:"+exp);
-            SeleniumLib.takeAScreenShot("tumorSearchResult.jpg");
+            Debugger.println("Exception in tumourChkBox:"+exp);
+            SeleniumLib.takeAScreenShot("tumourChkBox.jpg");
             return 0;
         }
     }
 
     public long totalSearchResult() {
         try {
-            String a = clinicalIndicationsTabValue.getText();
-            String b = testsTabValue.getText();
-            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-            Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-            return Integer.parseInt(a) + Integer.parseInt(b);
+            String clinicalIndications = TestUtils.fetchNumberFromAGivenString(clinicalIndicationsTabValue.getText());
+            String tests = TestUtils.fetchNumberFromAGivenString(testsTabValue.getText());
+            Debugger.println("ClinicalIndications:"+clinicalIndications+",Tests:"+tests);
+            return Integer.parseInt(clinicalIndications) + Integer.parseInt(tests);
         }catch(Exception exp){
             Debugger.println("Exception in totalSearchResult:"+exp);
             SeleniumLib.takeAScreenShot("totalSearchResult.jpg");

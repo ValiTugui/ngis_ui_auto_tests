@@ -10,7 +10,7 @@ Feature: UserJourney_RD_NGIS_Trio_3 - UC12 - E2EUI-1233
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
@@ -36,7 +36,7 @@ Feature: UserJourney_RD_NGIS_Trio_3 - UC12 - E2EUI-1233
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ###Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -71,7 +71,7 @@ Feature: UserJourney_RD_NGIS_Trio_3 - UC12 - E2EUI-1233
       | NHSNumber=NA:DOB=12-02-1979 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient conversation happened; form to follow |             |                 |
     And the user clicks the Save and Continue button
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed

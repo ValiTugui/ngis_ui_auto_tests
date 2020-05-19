@@ -9,7 +9,7 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -108,9 +108,6 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-#      | WarningMessage                                                                                                                                                                             |
-#      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060  @scenario_1(b)
@@ -140,9 +137,6 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-
-#      | WarningMessage                                                                                                                                                                             |
-#      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060 @scenario_2

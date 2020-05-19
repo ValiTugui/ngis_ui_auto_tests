@@ -15,7 +15,7 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
       | Ordering Entity               |
       | Referral ID                   |
       | Patient NGIS ID               |
-      | Clinical Indication Test Type |
+      | Test Type       |
     Then the selected search option is reset after test
     ###For 1st filter-GLH
     And the user selects GLH as the order tracking search column dropdown
@@ -32,26 +32,31 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
     And the user selects is exactly as the order tracking search operator dropdown
     And the user selects Referral ID as the order tracking search input value
     Then the selected search option is reset after test
-    And the user clicks on Add criteria button
-    And file submission search criteria badge information is displayed below drop-down buttons
-    And the user click on the Search button
-    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-    And the selected search option is reset after test
+#    And the user clicks on Add criteria button
+#    And file submission search criteria badge information is displayed below drop-down buttons
+#    And the user click on the Search button
+#    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
+#    And the selected search option is reset after test
 #    Then the user sees the message "No results found for these search terms." below the search container
 #    And the selected search option is reset after test
     ###For 4th filter-Patient NGIS ID
     When the user selects Patient NGIS ID as the order tracking search column dropdown
     And the user selects is exactly as the order tracking search operator dropdown
     And the user selects Patient NGIS ID as the order tracking search input value
-    And the user clicks on Add criteria button
-    And file submission search criteria badge information is displayed below drop-down buttons
-    And the user click on the Search button
-    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
+#    And the user clicks on Add criteria button
+#    And file submission search criteria badge information is displayed below drop-down buttons
+#    And the user click on the Search button
+#    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
     ###For 5th filter-Clinical Indication Test Type
     When the user selects Test Type as the order tracking search column dropdown
     And the user selects is as the order tracking search operator dropdown
     And the user selects Test Type as the order tracking search value dropdown
+    And the selected search option is reset after test
+    ### Results Table
+    And the user selects GLH as the order tracking search column dropdown
+    And the user selects is as the order tracking search operator dropdown
+    And the user selects GLHName as the order tracking search value dropdown
     And the user clicks on Add criteria button
     And file submission search criteria badge information is displayed below drop-down buttons
     And the user click on the Search button
@@ -75,14 +80,14 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
     And the user sees the buttons - Reset, Save and close under Display Options
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
-    And the user drag the column header "gel1008__well_id" from the section "Show" to "Hide" section
+    And the user drag the column header "GEL1008 Well ID" from the section "Show" to "Hide" section
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | gel1008__well_id         |
+      | GEL1008 Well ID          |
     And the user save the changes on modal content by clicking Save and Close button
     Then the columns fields are not displayed in the list of columns headers of the search result table
       | columnHeaders   |
-      | gel1008 Well ID |
+      | GEL1008 Well ID |
     When the user clicks on the Display Options button
     And the user sees a modal-content page
     And the user clicks on the button "Hide all"
@@ -124,6 +129,8 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
       | Referral ID                      |
       | Patient NGIS ID                  |
       | Batch Import Filename            |
+      | Dispatched Sample Type                |
+      | GEL1004 GLH Sample Consignment Number |
     Then the selected search option is reset after test
     ###For 1st filter-GLH
     And the user selects GLH as the glh search column dropdown
@@ -145,6 +152,29 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
     And the user selects Patient NGIS ID as the glh search column dropdown
     And the user selects is exactly as the glh search operator dropdown
     And the user enters Patient NGIS ID in the glh search value box
+    And the user clicks on Add criteria button
+    Then the selected search option is reset after test
+     ###For 5th filter-Batch Import Filename
+    And the user selects Batch Import Filename as the glh search column dropdown
+    And the user selects matches as the glh search operator dropdown
+    And the user enters <FilenameValue> in the glh search value box
+    And the user clicks on Add criteria button
+    Then the selected search option is reset after test
+     ###For 6th filter-Dispatched Sample Type
+    And the user selects Dispatched Sample Type as the glh search column dropdown
+    And the user selects is as the glh search operator dropdown
+    And the user selects Liquid tumour sample as the glh search value dropdown
+    And the user clicks on Add criteria button
+    Then the selected search option is reset after test
+     ###For 7th filter-GEL1004 GLH Sample Consignment Number
+    And the user selects GEL1004 GLH Sample Consignment Number as the glh search column dropdown
+    And the user selects is as the glh search operator dropdown
+    And the user enters ConsignmentNumber in the glh search value box
+    Then the selected search option is reset after test
+      ### Results Table
+    And the user selects GLH as the glh search column dropdown
+    And the user selects is as the glh search operator dropdown
+    And the user selects GLHName as the glh search value dropdown
     Then the user sees the buttons - Add, Search, Reset buttons under the Search boxes
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -158,7 +188,6 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
       | 100                      |
     When the user selects a pagination drop-down value "<paginationValue>"
     And the user sees the search result table updated with "<paginationValue>" results
-#    When the user clicks on the Download CSV button to download the CSV file as "file_submissions_filtered".csv in GLH samples page
     When the user clicks on the Download CSV button to download the CSV file as "glh_samples_filtered".csv
     When the user clicks on the Display Options button
     And the user sees the buttons - Reset, Save and close under Display Options
@@ -170,42 +199,42 @@ Feature: MIPORTAL SIT - User Journey - Order Tracking and GLH Samples.
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList                       |
-      | gel1001__created                               |
-      | gel1001__primary_sample_id_received_glh        |
-      | gel1001__dispatched_sample_id_glh_lims         |
-      | gel1001__dispatched_sample_state               |
-      | gel1001__laboratory_remaining_volume_banked_ul |
-      | gel1001__glh_od_260_280                        |
-      | gel1001__glh_din_value                         |
-      | gel1001__glh_percentage_dna                    |
-      | gel1001__dna_extraction_protocol               |
-      | gel1001__prolonged_sample_storage              |
-      | gel1001__retrospective_sample                  |
-      | gel1001__approved_by                           |
-      | gel1001__clinical_indication_test_type_id      |
+      | GEL1001 Created                               |
+      | GEL1001 Primary Sample ID Received GLH        |
+      | GEL1001 Dispatched Sample ID GLH Lims         |
+      | GEL1001 Dispatched Sample State               |
+      | GEL1001 Laboratory Remaining Volume Banked ul |
+      | GEL1001 GLH OD 260 280                        |
+      | GEL1001 GLH Din Value                         |
+      | GEL1001 GLH Percentage DNA                    |
+      | GEL1001 DNA Extraction Protocol               |
+      | GEL1001 Prolonged Sample Storage              |
+      | GEL1001 Retrospective Sample                  |
+      | GEL1001 Approved By                           |
+      | GEL1001 Clinical Indication Test Type ID      |
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList               |
-      | gel1001__filename                      |
-      | gel1001__patient_nhs_number            |
-      | gel1001__patient_ngis_id               |
-      | gel1001__ordering_entity_id            |
-      | gel1001__primary_sample_received_date  |
-      | gel1001__primary_sample_id_glh_lims    |
-      | gel1001__dispatched_sample_lsid        |
-      | gel1001__dispatched_sample_volume_ul   |
-      | gel1001__glh_concentration_ng_ul       |
-      | gel1001__glh_qc_status                 |
-      | gel1001__glh_sample_dispatch_date      |
-      | gel1001__gmc_rack_id                   |
-      | gel1001__gmc_rack_well                 |
-      | gel1001__referral_id                   |
-      | gel1001__glh_laboratory_id             |
-      | gel1001__dispatched_sample_type        |
-      | gel1001__glh_sample_consignment_number |
+      | GEL1001 Filename                      |
+      | GEL1001 Patient NHS Number            |
+      | GEL1001 Patient NHS Number            |
+      | GEL1001 Ordering Entity ID            |
+      | GEL1001 Primary Sample Received Date  |
+      | GEL1001 Primary Sample ID GLH Lims    |
+      | GEL1001 Dispatched Sample Lsid        |
+      | GEL1001 Dispatched Sample Volume ul   |
+      | GEL1001 GLH Concentration ng ul       |
+      | GEL1001 GLH QC Status                 |
+      | GEL1001 GLH Sample Dispatch Date      |
+      | GEL1001 GMC Rack ID                   |
+      | GEL1001 GMC Rack Well                 |
+      | GEL1001 Referral ID                   |
+      | GEL1001 GLH Laboratory ID             |
+      | GEL1001 Dispatched Sample Type        |
+      | GEL1001 GLH Sample Consignment Number |
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values
     Then the selected search option is reset after test
 
     Examples:
-      | mi_stage    |paginationValue |
-      | GLH Samples |25              |
+      | mi_stage    | paginationValue | FilenameValue           |
+      | GLH Samples | 25              | ngis_glh_to_gel_sample_ |

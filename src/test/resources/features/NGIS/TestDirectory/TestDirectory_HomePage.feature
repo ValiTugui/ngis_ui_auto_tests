@@ -29,7 +29,9 @@ Feature: TestDirectory : Home Page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449309221:DOB=26-02-2004 |
       ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
     And the user should be able to see the active stage "<PatientDetails>" in to-do list
     And the user clicks the Save and Continue button
     Then the "<PatientDetails>" stage is marked as Completed
@@ -60,7 +62,8 @@ Feature: TestDirectory : Home Page
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+#    Then the user is navigated to a page with title Add notes to this referral
+    And the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     And the "<Notes>" stage is marked as Completed

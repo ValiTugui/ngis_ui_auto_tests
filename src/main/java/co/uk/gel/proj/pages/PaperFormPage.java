@@ -28,7 +28,7 @@ public class PaperFormPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "h2[class*='stepHeader']")
+    @FindBy(css = "h1[class*='stepHeader']")
     public WebElement paperFormHeader;
 
     @FindBy(xpath = "//div[contains(@class,'paragraph')]/p")
@@ -178,9 +178,24 @@ public class PaperFormPage {
         Click.element(driver, cancelOrderLink);
     }
 
-    public void checkThatReviewTestSelectionIsOpened() {
-        Wait.forElementToBeDisplayed(driver, testCardContainer);
-        Wait.forElementToBeDisplayed(driver, paperFormHeader);
+    public boolean checkThatReviewTestSelectionIsOpened() {
+        try{
+        if(!Wait.isElementDisplayed(driver,testCardContainer,30)){
+            Debugger.println("The test card is not displayed.");
+            SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
+            return false;
+        }
+        if(!Wait.isElementDisplayed(driver,paperFormHeader,30)){
+            Debugger.println("The page title is not displayed.");
+            SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
+            return false;
+        }
+        return true;
+    }catch (Exception exp){
+        Debugger.println("Exception from checkThatReviewTestSelectionIsOpened: "+exp);
+        SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
+        return false;
+        }
     }
 
     public boolean checkThatTestIsSelected() {

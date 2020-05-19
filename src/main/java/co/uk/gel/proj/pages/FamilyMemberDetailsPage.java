@@ -92,7 +92,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "a[class*='patient-card']")
     public WebElement patientCard;
 
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Back')]")
     public WebElement backButton;
 
     @FindBy(xpath = "//button/span[contains(text(),'Edit patient details')]")
@@ -212,10 +212,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
 
-    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Add family member')]")
     public WebElement addFamilyMemberButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Continue')]")
     public WebElement continueButton;
 
     @FindBy(xpath = "//span[contains(text(),'Family member removed from referral')]")
@@ -481,7 +481,7 @@ public class FamilyMemberDetailsPage {
         if (parValue != null && !parValue.isEmpty()) {
             try {
                 if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,60)){
-                    Debugger.println("diseaseStatusDropdown not loaded...");
+                    Debugger.println("diseaseStatusDropdown not loaded...\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("diseaseStatusDropdown.jpg");
                     return false;
                 }
@@ -494,7 +494,7 @@ public class FamilyMemberDetailsPage {
                     Wait.seconds(2);
                     seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + parValue+ "']")));
                 }catch(Exception exp1) {
-                    Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp1);
+                    Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp1+"\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("DiseaseDropDown.jpg");
                     return false;
                 }
@@ -538,7 +538,7 @@ public class FamilyMemberDetailsPage {
                     Wait.seconds(2);
                     seleniumLib.clickOnElement(By.xpath("//span[text()='" + parValue+ "']"));
                 }catch(Exception exp1) {
-                    Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1);
+                    Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1+"\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
                     return false;
                 }
@@ -874,16 +874,18 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public void clickOnBackButton() {
+    public boolean clickOnBackButton() {
         try {
             Actions.clickElement(driver, backButton);
+            return true;
         } catch (Exception exp) {
             try {
-                Actions.scrollToBottom(driver);
-                Actions.clickElement(driver, backButton);
+                seleniumLib.clickOnWebElement(backButton);
+                return true;
             } catch (Exception exp1) {
                 SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
-                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1);
+                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1+"\n"+driver.getCurrentUrl());
+                return false;
             }
         }
     }
@@ -1050,7 +1052,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyTheDetailsOfFamilyMemberOnFamilyMemberPage() {
-        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         List<WebElement> expElements = new ArrayList<WebElement>();
         expElements.add(beingTestedField);
         expElements.add(dobField);
@@ -1060,6 +1061,8 @@ public class FamilyMemberDetailsPage {
 
         for (int i = 0; i < expElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                Debugger.println("Expected Element:"+expElements.get(i)+" not present in FM Page.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("FMPageValidation.jpg");
                 return false;
             }
         }
