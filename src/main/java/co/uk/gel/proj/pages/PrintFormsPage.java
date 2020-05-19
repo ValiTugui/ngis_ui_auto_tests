@@ -543,33 +543,33 @@ public class PrintFormsPage {
 
     public String readLabAddress(String showAddress) {
         try {
-            Wait.forElementToBeDisplayed(driver, showLabAddressLink);
-            if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
-                seleniumLib.clickOnWebElement(showLabAddressLink);
-            }
-            Wait.forElementToBeDisplayed(driver, detailedAddressText);
-            String detailedAddress = detailedAddressText.getText();
-            if(detailedAddress == null || detailedAddress.isEmpty()){
-                Debugger.println("No detailed Address present.");
-                SeleniumLib.takeAScreenShot("LabAddress.jpg");
-                return null;
-            }
-            if (!detailedAddress.contains("Hide address")) {
-                Debugger.println("Laboratory address does not contain Hide Address option");
-                SeleniumLib.takeAScreenShot("LabAddress.jpg");
-                return null;
-            }
+                Wait.forElementToBeDisplayed(driver, showLabAddressLink);
+                if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
+                    seleniumLib.clickOnWebElement(showLabAddressLink);
+                }
+                Wait.forElementToBeDisplayed(driver, detailedAddressText);
+                String detailedAddress = detailedAddressText.getText();
+                if(detailedAddress == null || detailedAddress.isEmpty()){
+                    Debugger.println("No detailed Address present.");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
+                if (!detailedAddress.contains("Hide address")) {
+                    Debugger.println("Laboratory address does not contain Hide Address option");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
 
-            //Debugger.println("The lab address is: " + detailedAddressText.getText());
-            String[] labAddress = detailedAddress.split("\\n");
-            if (labAddress == null || labAddress.length < 2) {
-                Debugger.println("Lab address is Not Shown");
-                SeleniumLib.takeAScreenShot("LabAddress.jpg");
-                return null;
-            }
-            //Debugger.println("lab Address to search in form: " + labAddress[1]);
-            hideLabAddressLink.click();
-            return labAddress[1];
+                //Debugger.println("The lab address is: " + detailedAddressText.getText());
+                String[] labAddress = detailedAddress.split("\\n");
+                if (labAddress == null || labAddress.length < 2) {
+                    Debugger.println("Lab address is Not Shown");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
+                //Debugger.println("lab Address to search in form: " + labAddress[1]);
+                hideLabAddressLink.click();
+                return labAddress[1];
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readLabAddress: " + exp);
             SeleniumLib.takeAScreenShot("LabAddress.jpg");
