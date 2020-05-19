@@ -822,7 +822,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 seleniumLib.clickOnWebElement(createNewPatientRecordLink);
                 return true;
             }catch(Exception exp1){
-                Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
+                Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp1);
                 SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
                 return false;
             }
@@ -1100,7 +1100,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public String searchPatientReferral(NGISPatientModel referralDetails) {
        try {
-           Wait.forElementToBeDisplayed(driver, nhsNumber);
+           if(!Wait.isElementDisplayed(driver, nhsNumber,60)){
+               SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+               return "Patient Search Page not displayed even after a minute wait..";
+           }
            nhsNumber.sendKeys(referralDetails.getNHS_NUMBER());
            if (referralDetails.getDATE_OF_BIRTH() == null || referralDetails.getDATE_OF_BIRTH().isEmpty()) {
                referralDetails.setDATE_OF_BIRTH(faker.number().numberBetween(10, 31) + "-" + faker.number().numberBetween(10, 12) + "-" + faker.number().numberBetween(1900, 2019));
@@ -1109,13 +1112,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
            dateMonth.sendKeys(referralDetails.getMONTH_OF_BIRTH());
            dateYear.sendKeys(referralDetails.getYEAR_OF_BIRTH());
            //Search for the referral
-           clickSearchButtonByXpath();
-           Wait.forElementToBeDisplayed(driver,patientSearchResult,120);
+           if(!clickSearchButtonByXpath()){
+               SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+               return "Could not click on Search Button in Patient Search Page.";
+           }
+           if(!Wait.isElementDisplayed(driver, patientSearchResult,120)){
+               SeleniumLib.takeAScreenShot("PatientSearchResult.jpg");
+               return "Patient Search Result Page not displayed even after 2 minute wait..";
+           }
            return patientSearchResult.getText();
        }catch(Exception exp){
            Debugger.println("Exception from Search Patient Referral: "+exp);
            SeleniumLib.takeAScreenShot("SearchPatientReferralError.jpg");
-           return "Search Failed.";
+           return "Exception from Search Patient Referral: "+exp;
        }
 
     }
