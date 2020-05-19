@@ -481,7 +481,7 @@ public class FamilyMemberDetailsPage {
         if (parValue != null && !parValue.isEmpty()) {
             try {
                 if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,60)){
-                    Debugger.println("diseaseStatusDropdown not loaded...");
+                    Debugger.println("diseaseStatusDropdown not loaded...\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("diseaseStatusDropdown.jpg");
                     return false;
                 }
@@ -494,7 +494,7 @@ public class FamilyMemberDetailsPage {
                     Wait.seconds(2);
                     seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + parValue+ "']")));
                 }catch(Exception exp1) {
-                    Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp1);
+                    Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp1+"\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("DiseaseDropDown.jpg");
                     return false;
                 }
@@ -538,7 +538,7 @@ public class FamilyMemberDetailsPage {
                     Wait.seconds(2);
                     seleniumLib.clickOnElement(By.xpath("//span[text()='" + parValue+ "']"));
                 }catch(Exception exp1) {
-                    Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1);
+                    Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1+"\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
                     return false;
                 }

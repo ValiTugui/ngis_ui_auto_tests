@@ -507,7 +507,7 @@ public class PatientDetailsPage {
 
     public boolean clickStartReferralButton() {
         try {
-            if (!Wait.isElementDisplayed(driver, startReferralButton, 10)) {
+            if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
                 Debugger.println("Start Referral Button not displayed.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
@@ -693,92 +693,17 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean editAndAddNhsNumberAsSuperUser() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        Actions.clearInputField(nhsNumber);  //nhsNumber.clear();
-        nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
-        return true;
-    }
-
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
         String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
         Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
         Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
     }
 
-
-    public boolean verifyTheElementsOnAddNewPatientPageNormalUserFlow() {
-
-        Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
-        pageTitle.isDisplayed();
-        title.isDisplayed();
-        titleLabel.isDisplayed();
-        firstName.isDisplayed();
-        firstnameLabel.isDisplayed();
-        familyName.isDisplayed();
-        familyNameLabel.isDisplayed();
-        dateOfBirth.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        administrativeGenderButton.isDisplayed();
-        administrativeGenderLabel.isDisplayed();
-        lifeStatusButton.isDisplayed();
-        lifeStatusLabel.isDisplayed();
-        dateOfBirth.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        ethnicityButton.isDisplayed();
-        ethnicityLabel.isDisplayed();
-        noNhsNumberReasonDropdown.isDisplayed();
-        hospitalNumber.isDisplayed();
-        hospitalNumberLabel.isDisplayed();
-        addressLabel.isDisplayed();
-        addressLine0.isDisplayed();
-        addressLine1.isDisplayed();
-        addressLine2.isDisplayed();
-        addressLine3.isDisplayed();
-        addressLine4.isDisplayed();
-        postcodeLabel.isDisplayed();
-        postcode.isDisplayed();
-
-        return true;
-    }
-
-    public boolean verifyTheElementsOnAddNewPatientPageSuperUserFlow() {
-
-        Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
-        pageTitle.isDisplayed();
-        title.isDisplayed();
-        titleLabel.isDisplayed();
-        firstName.isDisplayed();
-        firstnameLabel.isDisplayed();
-        familyName.isDisplayed();
-        familyNameLabel.isDisplayed();
-        dateOfBirth.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        administrativeGenderButton.isDisplayed();
-        administrativeGenderLabel.isDisplayed();
-        lifeStatusButton.isDisplayed();
-        lifeStatusLabel.isDisplayed();
-        dateOfBirth.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        ethnicityButton.isDisplayed();
-        ethnicityLabel.isDisplayed();
-        hospitalNumber.isDisplayed();
-        hospitalNumberLabel.isDisplayed();
-        addressLabel.isDisplayed();
-        addressLine0.isDisplayed();
-        addressLine1.isDisplayed();
-        addressLine2.isDisplayed();
-        addressLine3.isDisplayed();
-        addressLine4.isDisplayed();
-        postcodeLabel.isDisplayed();
-        postcode.isDisplayed();
-
-        return true;
-    }
-
     public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
-
-        Wait.forElementToBeDisplayed(driver, referralCard, 70);
+        if(!Wait.isElementDisplayed(driver, referralCard, 70)){
+            Debugger.println("No referral card found");
+            return;
+        }
         if (referralListCards.size() > 0)
             referralListCards.get(0).click();
         else {
@@ -801,11 +726,20 @@ public class PatientDetailsPage {
 
     public boolean patientReferralsAreDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, referralLink);
-            Wait.forElementToBeDisplayed(driver, referralCard);
+            if(!Wait.isElementDisplayed(driver, referralLink,60)){
+                Debugger.println("Referral Link not displayed.");
+                SeleniumLib.takeAScreenShot("ReferralLink.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver, referralCard,60)){
+                Debugger.println("Referral Card not displayed.");
+                SeleniumLib.takeAScreenShot("ReferralCard.jpg");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
-            Debugger.println("No Referrals are found for the patient");
+            Debugger.println("No Referrals are found for the patient:"+exp);
+            SeleniumLib.takeAScreenShot("ReferralLinkCard.jpg");
             return false;
         }
     }
@@ -837,7 +771,11 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyReferralReason(String expectedReason) {
-        Wait.forElementToBeDisplayed(driver, referralCancelReason);
+        if(!Wait.isElementDisplayed(driver, referralCancelReason,60)){
+            Debugger.println("referralCancelReason not displayed.");
+            SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
+            return false;
+        }
         return expectedReason.equalsIgnoreCase(Actions.getText(referralCancelReason));
     }
 
@@ -984,15 +922,16 @@ public class PatientDetailsPage {
         }
     }
 
-    public void addPatientEthnicity(String ethnicity) {
+    public boolean addPatientEthnicity(String ethnicity) {
         try {
             if (Wait.isElementDisplayed(driver, ethnicityButton, 15)) {
-                editDropdownField(ethnicityButton, ethnicity);
-                Debugger.println("Ethnicity field is now filled + " + Actions.getText(ethnicityButton));
+                return editDropdownField(ethnicityButton, ethnicity);
             }
+            return false;
         } catch (Exception exp) {
             Debugger.println("Exception from adding ethnicity value " + exp);
             SeleniumLib.takeAScreenShot("AddEthnicityDropDownValue.jpg");
+            return false;
         }
     }
 
@@ -1002,10 +941,15 @@ public class PatientDetailsPage {
             Click.element(driver, addDetailsToNGISButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:" + exp);
+            try{
+                seleniumLib.clickOnWebElement(addDetailsToNGISButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:" + exp1);
             SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
             return false;
         }
+    }
     }
 
     public boolean clickUpdateNGISRecordButton() {
@@ -1034,57 +978,30 @@ public class PatientDetailsPage {
             Wait.forElementToBeDisplayed(driver, successNotification);
             return Actions.getText(successNotification);
         } catch (Exception exp) {
-            Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: " + exp);
+            try{
+                return seleniumLib.getText(successNotification);
+            }catch(Exception exp1) {
+                Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: " + exp1);
             SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
             return null;
         }
     }
-
-
-    public boolean verifyTheElementsOfPatientDetailsPageWithNhsNumber() {
-
-        Wait.forElementToBeDisplayed(driver, ethnicityButton);
-        pageTitle.isDisplayed();
-        title.isDisplayed();
-        titleLabel.isDisplayed();
-        firstName.isDisplayed();
-        firstnameLabel.isDisplayed();
-        familyName.isDisplayed();
-        familyNameLabel.isDisplayed();
-        dateOfBirth.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        administrativeGenderButton.isDisplayed();
-        administrativeGenderLabel.isDisplayed();
-        lifeStatusButton.isDisplayed();
-        lifeStatusLabel.isDisplayed();
-        dateOfBirth.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        ethnicityButton.isDisplayed();
-        ethnicityLabel.isDisplayed();
-        nhsNumber.isDisplayed();
-        nhsNumberLabel.isDisplayed();
-        hospitalNumber.isDisplayed();
-        hospitalNumberLabel.isDisplayed();
-        addressLabel.isDisplayed();
-        addressLine0.isDisplayed();
-        addressLine1.isDisplayed();
-        addressLine2.isDisplayed();
-        addressLine3.isDisplayed();
-        addressLine4.isDisplayed();
-        postcodeLabel.isDisplayed();
-        postcode.isDisplayed();
-        return true;
     }
 
     public List<String> getTheEthnicityDropDownValues() {
+        try {
         Wait.forElementToBeClickable(driver, ethnicityButton);
         Actions.clickElement(driver, ethnicityButton);
         List<String> actualEthnicityValues = new ArrayList<String>();
         for (WebElement ethnicityValue : ethnicityValues) {
             actualEthnicityValues.add(ethnicityValue.getText().trim());
         }
-        Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
+            //Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
         return actualEthnicityValues;
+        }catch(Exception exp){
+            Debugger.println("Exception in getting Ethnicity Dropdown."+exp);
+            return null;
+        }
     }
 
     public boolean fillInLastName() {
@@ -1232,38 +1149,8 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean startReferral() {
-        try {
-            boolean flag = false;
-            // Check condition for different scenarios when referral submit button is displayed
-            if (addDetailsToNGISButtonList.size() > 0) {
-                Debugger.println("Add Patient Details button shown");
-                //Ethnicity included as it is mandatory field
-                editDropdownField(ethnicityButton, "A - White - British");
-                addDetailsToNGISButton.click();
-                Wait.forElementToBeDisplayed(driver, successNotification);
-                clickStartReferralButton();
-            } else if (updateNGISRecordButtonList.size() > 0) {
-                Debugger.println("Update Patient Details button shown");
-                clickStartReferralButton();
-            } else if (savePatientDetailsToNGISButtonList.size() > 0) {
-                Debugger.println("Save Patient Details button shown");
-                //clickSavePatientDetailsToNGISButton();
-                clickOnCreateRecord();
-                patientIsCreated();
-                flag = clickStartNewReferralButton();
-            }
-            return flag;
-        } catch (Exception exp) {
-            Debugger.println("Exception in starting the Referral: " + exp);
-            SeleniumLib.takeAScreenShot("startReferralError.jpg");
-            return false;
-        }
-    }
-
-
     public List<String> getActualPatientAddressOnPatientDetailPage() {
-
+        try {
         Wait.forElementToBeDisplayed(driver, addressLine0);
         List<String> actualPatientAddress = new ArrayList<>();
 
@@ -1273,8 +1160,12 @@ public class PatientDetailsPage {
         actualPatientAddress.add(Actions.getValue(addressLine3));
         actualPatientAddress.add(Actions.getValue(addressLine4));
 
-        Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
+            //Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
         return actualPatientAddress;
+        }catch(Exception exp){
+            Debugger.println("Exception getting Actual Patient Address:"+exp);
+            return null;
+        }
     }
 
     public void fillInHospitalNo() {
@@ -1404,31 +1295,6 @@ public class PatientDetailsPage {
             } catch (Exception exp1) {
                 Debugger.println("Exception from saveAndContinue:" + exp);
                 SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
-                return false;
-            }
-        }
-    }
-
-    public boolean clearEthnicityField() {
-        try {
-            Debugger.println("Clearing Ethnicity Vlue:" + ethnicityIndicators.size());
-            Wait.seconds(5);
-            if (ethnicityIndicators.size() < 1) {
-                Debugger.println("Ethnicity Indicators not visible.");
-                SeleniumLib.takeAScreenShot("EthnicityIndicator.jpg");
-                return false;
-            }
-            Actions.clickElement(driver, ethnicityIndicators.get(0));
-            Wait.seconds(5);
-            return true;
-        } catch (Exception exp) {
-            try {
-                seleniumLib.clickOnWebElement(ethnicityIndicators.get(0));
-                Wait.seconds(5);
-                return true;
-            } catch (Exception exp1) {
-                Debugger.println("Exception in clearEthnicityField:" + exp1);
-                SeleniumLib.takeAScreenShot("clearEthnicityField.jpg");
                 return false;
             }
         }

@@ -947,8 +947,12 @@ public class ReferralPage<check> {
     }
 
     public String getPatientNGISId() {
+        try {
         Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 3);
         return Actions.getText(referralHeaderPatientNgisId);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public String getPatientReferralId() {
@@ -961,8 +965,12 @@ public class ReferralPage<check> {
     }
 
     public String getPatientClinicalIndication() {
+        try {
         Wait.isElementDisplayed(driver, referralHeaderClinicalId, 3);
         return Actions.getText(referralHeaderClinicalId);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public boolean submitCancellation() {

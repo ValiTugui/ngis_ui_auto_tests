@@ -2,8 +2,11 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import com.github.javafaker.Faker;
@@ -24,6 +27,9 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserFillsInAllTheClinicianFormFields() {
         boolean testResult = false;
         testResult = responsibleClinicianPage.fillInClinicianFormFields();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ClinicalInfo"," ")+"_Filled");
+        }
         Assert.assertTrue(testResult);
     }
     @When("the user fills in {string} in clinician form fields")
@@ -280,6 +286,9 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserFillsTheResponsibleClinicianPageWith(String clinicalInfo) {
         boolean testResult = false;
         testResult = responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("RespClinician"," ")+"_Filled");
+        }
         Assert.assertTrue(testResult);
     }
 

@@ -37,9 +37,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
     public WebElement searchBoxHeader;
 
-    @FindBy(xpath = "//div[@class='tab-pane active']//h3[@class='box-title']")
-    public WebElement searchTitle;
-
     @FindBy(xpath = "//button[@data-id='file_submissions-search-operator']")
     public WebElement fileSubmissionSearchOperatorDropDownButton;
 
@@ -50,25 +47,18 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "file_submissions-search-add")
     public WebElement addButton;
 
-    @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
-    public WebElement badgeClosefilterCriteria;
-
     @FindBy(xpath = "//button[@id='file_submissions-search-search']")
     public WebElement searchButton;
 
     @FindBy(xpath = "//button[@id='file_submissions-search-reset']")
     public WebElement resetButton;
 
-    @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
-    public List<WebElement> searchResultTable;
-
     @FindBy(xpath = "//div[contains(@id,'column_order_hidden')]")
     public WebElement hideColumnSpace;
 
     By fileSubmissionTableHead = By.xpath("//div[contains(@id,'-display-table_contents')]//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String fileSubmissionTableRows = "//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
-
-    @FindBy(xpath = "//select[@id='file_submissions-search-value']")
+    String fileSubmissionTableRows = "//div[contains(@id,'-display-table_contents')]//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    @FindBy(xpath = "//select[contains(@id,'-search-value')]")
     public WebElement fileSubmissionSearchValue;
 
     @FindBy(xpath = "//select[@id='file_submissions-search-operator']")
@@ -79,6 +69,15 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
+
+    @FindBy(xpath = "//button[contains(.,'Show all')]")
+    public WebElement showAllButtonOnModalContentPage;
+    @FindBy(xpath = "//button[contains(.,'Hide all')]")
+    public WebElement hideAllButtonOnModalContentPage;
+
+    @FindBy(xpath = "//button[contains(@data-id,'file_submissions-search')]")
+    public List<WebElement> searchFieldsForFileSubmission;
+
 
     public boolean fillInTheFileSubmissionDate(String date) {
         try {
@@ -140,6 +139,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean fillInPastDateInTheFileSubmissionDate(String noOfDays) {
         String pastDate = "";
         try {
+            Wait.seconds(5);
             if(!Wait.isElementDisplayed(driver, getFileSubmissionDate,30)){
                 Debugger.println("File Submission Date not displayed.");
                 SeleniumLib.takeAScreenShot("fileSubmissionDate.jpg");
@@ -150,6 +150,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             dateToday = dateToday.replace("/", "-");
             pastDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore,0, 0); //Add future day +1
             Actions.clickElement(driver, getFileSubmissionDate);
+            Wait.seconds(2);
             Actions.clearInputField(getFileSubmissionDate);
             Wait.seconds(2);
             Actions.fillInValue(getFileSubmissionDate,pastDate);
@@ -239,24 +240,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean resetButtonIsDisplayed() {
-        try {
-            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
-            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
-            if (Wait.isElementDisplayed(driver, resetButton, 10)) {
-                Debugger.println("reset button is displayed");
-                return true;
-            } else {
-                Debugger.println("reset button element is not found");
-                return false;
-            }
-        } catch (Exception exp) {
-            Debugger.println("reset button element is not found");
-            SeleniumLib.takeAScreenShot("resetButtonIsNotFound.jpg");
-            return false;
-        }
-    }
-
     public boolean verifyTheElementsOnFileSubmissionPage() {
 
         if (!Wait.isElementDisplayed(driver, mainSearchContainer, 20)) {
@@ -300,8 +283,13 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyColumnValueInFileSubmissionSearchResultTable(String columnName,String expValue) {
-        Wait.seconds(3);
+        Wait.seconds(5);
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("VerifyColumnData.jpg");
+                return false;
+            }
             int noOfFilteredRows = seleniumLib.getNoOfRows(fileSubmissionTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in File Submission Search Result Table");
@@ -347,6 +335,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         List<String> allColumnData = new ArrayList<>();
         try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("UnableToRetrieveColumnData.jpg");
+                return null;
+            }
             int colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead,columnName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the FileSubmission Search Result Table.");
@@ -422,24 +415,24 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePusIconAtTheStartOfEachRowAndClickToExpand() {
         try {
-            String loc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[1]/td[@style='display: none;']";
             List<WebElement> allRows = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr"));
             String allHiddenCol = "//table[contains(@id,'DataTables_Table')]//tbody/tr/td[@style='display: none;']";
             List<WebElement> allHiddenColEle = driver.findElements(By.xpath(allHiddenCol));
 
             if (allHiddenColEle.size() > 0) {
+                int count = 1;
                 for (int i = 0; i < allRows.size(); i++) {
-                    List<WebElement> allHiddenColumns = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr[" + i + "]/td[@style='display: none;']"));
-//                    Debugger.println("Columns hidden :" + allHiddenColumns.size());
                     String expandLoc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[" + (i + 1) + "]/td[1]";
                     Actions.clickElement(driver, driver.findElement(By.xpath(expandLoc)));
                     Wait.seconds(2);
                     List<WebElement> allUnhiddenColumns = driver.findElements(By.xpath("//tbody/tr[position()= " + (i + 2) + "and @class='child']"));
                     for (WebElement col : allUnhiddenColumns) {
                         String value = col.getText();
-                        // Checking if no col value is null
                         Assert.assertNotNull(value);
-//                        Debugger.println("Unhidden col values " + value);
+                    }
+                    count++;
+                    if (count > 5) {
+                        break;
                     }
                 }
                 return true;
@@ -454,13 +447,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-    @FindBy(xpath = "//button[contains(.,'Show all')]")
-    public WebElement showAllButtonOnModalContentPage;
-    @FindBy(xpath = "//button[contains(.,'Hide all')]")
-    public WebElement hideAllButtonOnModalContentPage;
-
-    @FindBy(xpath = "//button[contains(@data-id,'file_submissions-search')]")
-    public List<WebElement> searchFieldsForFileSubmission;
 
     public boolean theUserClicksHideAllOrShowAllButtonOnTheModalContentPage(String buttonOnModalContentPage) {
         try {
@@ -529,8 +515,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectDropDownSearchColumn(String value) {
         try {
-            Wait.seconds(2);
+            if (!seleniumLib.selectFromListByText(fileSubmissionSearchColumn, value)) {
+                Wait.seconds(5);
             return seleniumLib.selectFromListByText(fileSubmissionSearchColumn,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalFileSubmission:selectDropDownSearchColumn: "+ exp);
             SeleniumLib.takeAScreenShot("selectDropDownSearchColumn.jpg");
@@ -539,8 +528,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean selectDropDownSearchOperator(String value) {
         try {
-            Wait.seconds(2);
+            if (!seleniumLib.selectFromListByText(fileSubmissionSearchOperator, value)) {
+                Wait.seconds(5);
             return seleniumLib.selectFromListByText(fileSubmissionSearchOperator,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalFileSubmission:selectDropDownSearchOperator: "+ exp);
             SeleniumLib.takeAScreenShot("selectDropDownSearchOperator.jpg");
@@ -549,8 +541,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean selectDropDownSearchValue(String value) {
         try {
-            Wait.seconds(2);
+            if (!seleniumLib.selectFromListByText(fileSubmissionSearchValue, value)) {
+                Wait.seconds(8);
             return seleniumLib.selectFromListByText(fileSubmissionSearchValue,value);
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalFileSubmission:selectDropDownSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("selectDropDownSearchValue.jpg");

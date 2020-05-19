@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: GenomicRecord: New Patient page
 
-  @NTS-3072 @debugSecurity
+  @NTS-3072
 #    @E2EUI-981
   Scenario Outline: NTS-3072:E2EUI-981: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page

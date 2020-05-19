@@ -168,7 +168,6 @@ Feature: GenomicRecord: Patient details page 1
     And the user clicks the patient result card
     Then the Patient Details page is displayed
     And the user clicks on edit patient details
-    And the patient detail page displays expected input-fields and drop-down fields
     And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
       | labelHeader     |
       | First name ✱    |

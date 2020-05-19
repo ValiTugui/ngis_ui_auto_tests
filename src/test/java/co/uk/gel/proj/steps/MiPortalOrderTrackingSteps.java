@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
@@ -83,6 +84,7 @@ public class MiPortalOrderTrackingSteps extends Pages {
     public void theUserSeesBelowValuesInTheOrderTrackingSearchValueDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);

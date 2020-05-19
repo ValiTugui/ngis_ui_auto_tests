@@ -276,11 +276,6 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedEthnicity, actualEthnicity);
     }
 
-    @And("the patient detail page displays expected input-fields and drop-down fields")
-    public void thePatientDetailPageDisplaysExpectedInputFieldsAndDropDownFields() {
-        Assert.assertTrue("All expected fields are not displayed on patient detail page", patientDetailsPage.verifyTheElementsOfPatientDetailsPageWithNhsNumber());
-    }
-
     @And("the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol")
     public void theMandatoryInputFieldsAndDropsDownsLabelsAreShownWithMandatoryAsteriskStarSymbol(DataTable dataTable) {
         List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
@@ -514,7 +509,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user fills in the Ethnicity field {string}")
     public void theUserFillsInTheEthnicityField(String ethnicity) {
-        patientDetailsPage.addPatientEthnicity(ethnicity);
+        boolean testResult = false;
+        testResult = patientDetailsPage.addPatientEthnicity(ethnicity);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user attempts to fill in the NHS Number {string} with data that exceed the maximum data allowed {int}")

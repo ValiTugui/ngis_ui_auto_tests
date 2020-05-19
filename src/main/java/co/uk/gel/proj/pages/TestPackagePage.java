@@ -168,8 +168,8 @@ public class TestPackagePage {
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
             Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
             //Ensure that the test package is selected
-            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']"));
-            if (!Wait.isElementDisplayed(driver, selectedPack, 10)) {
+            By selectedPack = By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']");
+            if (!seleniumLib.isElementPresent(selectedPack)) {
                 //Trying with seleniumlib click which handled the javascript click also
                 seleniumLib.clickOnWebElement(numberOfParticipants);
                 if(!Wait.isElementDisplayed(driver,dropdownValue,5)){
@@ -179,6 +179,7 @@ public class TestPackagePage {
                 Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
                 Wait.seconds(4);
             }
+            Debugger.println("Selected TestPack: "+seleniumLib.getText(selectedPack));
             return true;
         } catch (Exception exp) {
             try{

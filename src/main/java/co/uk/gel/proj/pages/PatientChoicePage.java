@@ -1144,16 +1144,16 @@ public class PatientChoicePage {
             boolean isEnabled = saveAndContinuePC.isEnabled();
             Debugger.println("SaveAndContinue in PC:"+isEnabled);
             while(!isEnabled){
-                Wait.seconds(10);
+                Wait.seconds(15);
                 isEnabled = saveAndContinuePC.isEnabled();
                 count++;
                 Debugger.println("In While..."+isEnabled);
                 if(count > 12){
-                    break;//after a minute
+                    break;//after 3 minute
                 }
             }
             if(!isEnabled){
-                Debugger.println("Save and Continue But not enabled even after 120 seconds...");
+                Debugger.println("Save and Continue But not enabled even after 180 seconds...\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SaveAndContinueDisabled.jpg");
                 return false;
             }
@@ -1222,12 +1222,12 @@ public class PatientChoicePage {
     public boolean statusUpdatedCorrectly(String status, int row) {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 30)) {
-                Debugger.println("Patient Choice Landing Page not loaded.");
+                Debugger.println("Patient Choice Landing Page not loaded.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
                 return false;
             }
             if (statuses.size() < 1) {
-                Debugger.println("Patient Choice Test Status not loaded.");
+                Debugger.println("Patient Choice Test Status not loaded."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
                 return false;
             }

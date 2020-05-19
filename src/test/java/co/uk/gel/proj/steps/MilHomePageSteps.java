@@ -139,7 +139,7 @@ public class MilHomePageSteps extends Pages {
         }
     }
 
-    @Then("the user sees the message {string} below the search container")
+    @Then("the user sees the message (.*) below the search container")
     public void theUserSeesTheMessageBelowTheSearchContainer(String noResultFoundMessage) {
         boolean testResult = false;
         testResult = miPortalHomePage.verifyNoSearchResultMessage(noResultFoundMessage);
@@ -260,6 +260,7 @@ public class MilHomePageSteps extends Pages {
     @And("the user sees all the drop-down values in the search results pagination entry selection")
     public void theUserSeesAllTheDropDownValuesInTheSearchResultsPaginationEntrySelection(DataTable dataTable) {
         List<Map<String, String>> expectedPaginationDropDownValues = dataTable.asMaps(String.class, String.class);
+        Wait.seconds(5);
         List actualPaginationDropDownValues = miPortalHomePage.getAllThePaginationEntryDropDownValues();
         if(expectedPaginationDropDownValues.size() != actualPaginationDropDownValues.size()){
             Assert.assertTrue(false);
@@ -279,6 +280,7 @@ public class MilHomePageSteps extends Pages {
 
         List<List<String>> paginationValues = dataInputs.asLists();
         String paginationValue = "",expectedRows="";
+        Wait.seconds(5);
         for(int i=1;i<paginationValues.size(); i++){
            paginationValue = paginationValues.get(i).get(0);
            expectedRows   = paginationValues.get(i).get(1);
@@ -548,6 +550,7 @@ public class MilHomePageSteps extends Pages {
     @Then("search results are displayed in table format with display options button")
     public void searchResultsAreDisplayedInTableFormatWithDisplayOptionsButton() {
         boolean testResult = false;
+        Wait.seconds(8);
         testResult = miPortalHomePage.verifyThePresenceOfResultInTableFormatWithDisplayOptions();
         Assert.assertTrue(testResult);
     }

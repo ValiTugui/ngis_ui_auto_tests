@@ -47,6 +47,9 @@ public class ReferralSteps extends Pages {
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: " + stage + " Starting.");
         referralPage.navigateToStage(stage);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
+        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -199,6 +202,9 @@ public class ReferralSteps extends Pages {
                 } else {
                     Debugger.println("Stage: " + stage + " Completed.");
                 }
+            }
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_End");
             }
             Assert.assertTrue(testResult);
         } catch (Exception exp) {
@@ -509,6 +515,9 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Referral"," ")+"_Submitting");
+        }
     }
 
     @When("the user clicks the Cancel referral link")
@@ -560,27 +569,27 @@ public class ReferralSteps extends Pages {
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
-            Assert.assertTrue(false);
+            Assert.fail("Home page result containers not loaded properly.");
         }
         if (!homePage.typeInSearchField(searchTerm)) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not search for CI Term.");
         }
         if (!homePage.clickSearchIconFromSearchField()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not search the CI Term.");
         }
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
-            Assert.assertTrue(false);
+            Assert.fail("CI Term search results are not displayed.");
         }
         homePage.closeCookiesBannerFromFooter();
         if (!homePage.selectFirstEntityFromResultList()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not select the first entitry from CI Search Result.");
         }
         homePage.closeCookiesBannerFromFooter();
         if (!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not click on StartTestOrderReferral Button");
         }
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not click on SignInToTheOnlineServiceButton");
         }
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         Debugger.println(" User Type : " + userType);
@@ -590,27 +599,27 @@ public class ReferralSteps extends Pages {
             switchToURL(driver.getCurrentUrl());
         }
         if (!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()) {
-            Assert.assertTrue(false);
+            Assert.fail("Patient Search Page not displayed properly.");
         }
         if (!patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not fill the patient search information.");
         }
         if (!patientSearchPage.clickSearchButtonByXpath()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not click search button in Patient Search Page");
         }
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         if (actualNoPatientFoundLabel == null) {
-            Assert.assertTrue(false);
+            Assert.fail("Patient Search Result:"+actualNoPatientFoundLabel);
         }
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         if (!patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink)) {
-            Assert.assertTrue(false);
+            Assert.fail(createPatientHyperTextLink+" not displayed.");
         }
         if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not Click on create new patient link.");
         }
         if (!patientDetailsPage.newPatientPageIsDisplayed()) {
-            Assert.assertTrue(false);
+            Assert.fail("New Patient creation page not displayed properly.");
         }
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         if (userType != null) {
@@ -629,36 +638,39 @@ public class ReferralSteps extends Pages {
             }
         }
         if (!patientDetailsPage.clickOnCreateRecord()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not click on Create Record.");
         }
         if (!patientDetailsPage.patientIsCreated()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not verify Patient Created Message.");
         }
         if (!patientDetailsPage.clickStartReferralButton()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not start referral button.");
         }
         if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-            Assert.assertTrue(false);
+            Assert.fail("Could not verify the successful creation of referral.");
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
         if (!referralPage.saveAndContinueButtonIsDisplayed()) {
-            Assert.assertTrue(false);
+            Assert.fail("Save and Continue button not displayed after Referral Creation.");
         }
         // Store the Clinical Indication info into the NewPatient test context
-        Debugger.println("PATIENT CI " + referralPage.getPatientClinicalIndication());
-        Debugger.println("PATIENT Referral Id " + referralPage.getPatientReferralId());
-        Debugger.println("PATIENT NGIS Id " + referralPage.getPatientNGISId());
+//        Debugger.println("PATIENT CI " + referralPage.getPatientClinicalIndication());
+//        Debugger.println("PATIENT Referral Id " + referralPage.getPatientReferralId());
+//        Debugger.println("PATIENT NGIS Id " + referralPage.getPatientNGISId());
 
         PatientDetailsPage.newPatient.setClinicalIndication(referralPage.getPatientClinicalIndication());
         PatientDetailsPage.newPatient.setReferralHumanReadableID(referralPage.getPatientReferralId());
-        patientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
+        PatientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
     }
 
     @And("the referral status is set to {string}")
     public void theReferralStatusIsSetTo(String expectedReferralStatus) {
         boolean testResult = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Referral"," ")+"_Submitted");
+        }
         Assert.assertTrue(testResult);
         referralPage.saveReferralID();
     }
@@ -757,6 +769,9 @@ public class ReferralSteps extends Pages {
 
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("CI"," ")+"_Search");
+        }
         boolean stepResult = false;
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         Assert.assertTrue(stepResult);
@@ -825,42 +840,42 @@ public class ReferralSteps extends Pages {
         if (searchResult.equalsIgnoreCase("No patient found")) {
             //Create New Patient and Add as Referral
             if (!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")) {
-                Assert.assertTrue(false);
+                Assert.fail("create a new patient record link not displayed");
             }
             if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
-                Assert.assertTrue(false);
+                Assert.fail("Could not click on create a new patient record link");
             }
             if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
-                Assert.assertTrue(false);
+                Assert.fail("Could not create new Patient Referral");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-                Assert.assertTrue(false);
+                Assert.fail("Referral successfully created message not displayed.");
             }
             if (!referralPage.saveAndContinueButtonIsDisplayed()) {
-                Assert.assertTrue(false);
+                Assert.fail("SaveAndContinue button not displayed after referral creation.");
             }
         } else if (searchResult.equalsIgnoreCase("1 patient record found")) {
             //Existing Patient
             if (!patientSearchPage.clickPatientCard()) {
-                Assert.assertTrue(false);
+                Assert.fail("Could not click on Patient Card");
             }
             if (!patientDetailsPage.clickStartNewReferralButton()) {
-                Assert.assertTrue(false);
+                Assert.fail("Could not click on StartNewReferral Button");
             }
 
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-                Assert.assertTrue(false);
+                Assert.fail("Could not verify the Referral successfully creation message");
             }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if (!toDoListDisplayed) {
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
                 //Observed undefined attached in the URL sometime....This is to verify the URL the moment
                 Debugger.println("ToDoListNotLeaded:URL:" + driver.getCurrentUrl());
-                Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..", true);
+                Assert.fail("ToDoList in Referral Page is not loaded even after the waiting time..");
             }
         } else {
             Debugger.println("Search Result: " + searchResult);
-            Assert.assertTrue(false);
+            Assert.fail(searchResult);
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();

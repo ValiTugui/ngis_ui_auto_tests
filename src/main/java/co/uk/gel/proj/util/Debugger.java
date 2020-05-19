@@ -36,8 +36,8 @@ public class Debugger {
                 //handler.setFormatter(new SimpleFormatter());
                 logger.addHandler(handler);
 
-            } catch (Exception exp) {
-                Debugger.println("Exception from creating Log file:"+exp);
+            } catch (Exception E) {
+                System.out.println("failed to create log file");
             }
         }finally{
 

@@ -623,10 +623,13 @@ public class SeleniumLib {
             if(filename.indexOf(".") == -1){
                 filename = filename+".jpg";
             }
+            if(!filename.contains("NTS")) {
             String[]today = TestUtils.getCurrentDay();
             if(today != null && today.length == 3){
                 filename = "T"+today[0]+today[1]+filename;
             }
+            }
+            Debugger.println("ScreenShotFile:"+filename);
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
 

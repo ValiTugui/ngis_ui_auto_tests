@@ -58,11 +58,6 @@ public class BrowserFactory {
         return getDriver(BrowserConfig.getServerType(), BrowserConfig.getBrowser(), true);
     }
 
-
-//    public WebDriver getDriver() {
-//        return getDriver(BrowserConfig.getBrowser(), true);
-//    }
-
     public WebDriver getDriver(String serverType, String browser,
                                boolean javascriptEnabled) throws MalformedURLException {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
@@ -264,23 +259,23 @@ public class BrowserFactory {
         return chromeOptions;
     }
 
-//    private WebDriver getInternetExplorer(String userAgent, boolean javascriptEnabled) {
-//        InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-//        internetExplorerOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.NATIVE_EVENTS, true);
-//        internetExplorerOptions.setCapability("unexpectedAlertBehaviour", "accept");
-//        internetExplorerOptions.setCapability("ignoreProtectedModeSettings", true);
-//        internetExplorerOptions.setCapability("disable-popup-blocking", true);
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.INITIAL_BROWSER_URL, "");
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.EXTRACT_PATH, downloadFilepath());
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
-//        internetExplorerOptions.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, false);
-//        return driver = new InternetExplorerDriver(internetExplorerOptions);
-//
-//    }
+    private WebDriver getInternetExplorer(String userAgent, boolean javascriptEnabled) {
+        InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
+        internetExplorerOptions.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+        internetExplorerOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.NATIVE_EVENTS, true);
+        internetExplorerOptions.setCapability("unexpectedAlertBehaviour", "accept");
+        internetExplorerOptions.setCapability("ignoreProtectedModeSettings", true);
+        internetExplorerOptions.setCapability("disable-popup-blocking", true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.INITIAL_BROWSER_URL, "");
+        internetExplorerOptions.setCapability(InternetExplorerDriver.EXTRACT_PATH, downloadFilepath());
+        internetExplorerOptions.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, false);
+        return driver = new InternetExplorerDriver(internetExplorerOptions);
+
+    }
 
     private InternetExplorerOptions getInternetExplorerOptions(String userAgent, boolean javascriptEnabled) {
         InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
@@ -533,15 +528,6 @@ public class BrowserFactory {
             opts.addArguments("disable-javascript");
         }
         return opts;
-    }
-
-    private WebDriver getInternetExplorer(String UserAgent,
-                                          boolean javascriptEnabled) {
-        System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + File.separator + "drivers/IEDriverServer.exe");
-        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-        capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-        return driver = new InternetExplorerDriver(capabilities);
-
     }
 }//end
 

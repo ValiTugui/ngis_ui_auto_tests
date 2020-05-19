@@ -945,7 +945,7 @@ public class PedigreePage {
             return false;
         }
         //Scroll to the WorkArea to locate the diagram nodes without interruption
-        SeleniumLib.scrollToElement(pedigreeWorkArea);
+        SeleniumLib.scrollToElement(zoomInButton);
         String gender = patient.getGENDER();
         if (gender == null || patient.getNGIS_ID() == null) {
             Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");

@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
@@ -173,7 +174,9 @@ public class TumoursSteps extends Pages {
     @Then("the new tumour is displayed in the landing page for the existing patient with tumour list")
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
-        //Debugger.println("Number of Tumour(s) :" + numberOfTumours);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Tumour"," ")+"_Filled");
+        }
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
     }
 
@@ -483,7 +486,9 @@ public class TumoursSteps extends Pages {
 
         Debugger.println("Expected TumourTest Details-list            : " + expectedTumourTestData);
         Debugger.println("Actual TumourTest Details List on SamplePage: " + actualTumourTestDetailsOnAddSamplePage);
-
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Sample"," ")+"_Filled");
+        }
         for (int i = 0; i < expectedTumourTestData.size(); i++) {
             Debugger.println("Expected TumourTestData: " + i + " : " + expectedTumourTestData.get(i));
             Debugger.println("Actual TumourTest Details on Sample Page: " + i + " : " + actualTumourTestDetailsOnAddSamplePage.get(i) + "\n");

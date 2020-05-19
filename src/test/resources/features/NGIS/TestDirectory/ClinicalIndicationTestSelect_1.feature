@@ -16,8 +16,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
     And the text "This test cannot be ordered yet" is not displayed
     And the loading wheel is displayed
     And the list of clinical indications are loaded
-#    @securitydebugging When user run security scan
-
 
   @NTS-3238 @NTS-3205
 # @E2EUI-1530 @E2EUI-1500

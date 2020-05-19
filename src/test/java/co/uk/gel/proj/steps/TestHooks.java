@@ -54,6 +54,7 @@ public class TestHooks extends Pages {
         } else {
             new_scenario_feature = false;
         }
+         request = RestAssured.with();
     }
 
     @Before("@TD_VERSION_INFO")
@@ -99,5 +100,22 @@ public class TestHooks extends Pages {
     public void afterScenario() {
         //login_page.logoutFromMI();
     }
+
+    public RequestSpecification getRequest() {
+        return request;
+    }
+
+    public void setRequest(RequestSpecification request) {
+        this.request = request;
+    }
+
+    public ValidatableResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(ValidatableResponse response) {
+        this.response = response;
+    }
+
 
 }//end class
