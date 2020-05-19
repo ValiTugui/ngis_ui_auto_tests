@@ -6,7 +6,6 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
   @NTS-3407 @Z-LOGOUT
 #    @E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
-
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
