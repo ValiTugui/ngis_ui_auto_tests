@@ -194,4 +194,23 @@ public class FamilyMemberNewPatientPage {
 
     }
 
+    public boolean newFamilyMemberPageIsDisplayed() {
+        try {
+            String currentURL = driver.getCurrentUrl();
+            if(currentURL.contains("family-members/new")){
+                return true;
+            }
+            Wait.seconds(10);
+            currentURL = driver.getCurrentUrl();
+            if(currentURL.contains("family-members/new")){
+                return true;
+            }
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Exception from newFamilyMemberPageIsDisplayed:" + exp);
+            SeleniumLib.takeAScreenShot("newFamilyMemberPageIsDisplayed.jpg");
+            return false;
+        }
+    }
+
 }//end

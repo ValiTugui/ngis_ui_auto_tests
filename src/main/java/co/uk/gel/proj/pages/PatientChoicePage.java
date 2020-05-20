@@ -1145,9 +1145,7 @@ public class PatientChoicePage {
             boolean isEnabled = saveAndContinuePC.isEnabled();
             Debugger.println("SaveAndContinue in PC:"+isEnabled);
             while(!isEnabled){
-
                 Wait.seconds(15);
-
                 isEnabled = saveAndContinuePC.isEnabled();
                 count++;
                 Debugger.println("In While..."+isEnabled);
@@ -1161,7 +1159,6 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("SaveAndContinueDisabled.jpg");
                 return false;
             }
-            Debugger.println("SaveAndContinue in PC1:"+isEnabled);
             seleniumLib.clickOnWebElement(saveAndContinuePC);
             Wait.seconds(5);
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
