@@ -81,7 +81,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     ##Since Pedigree is always ticked, navigating to printforms
-   ##And the user clicks the Save and Continue button
+    ##And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     When the user navigates to the "<PrintForms>" stage

@@ -386,8 +386,8 @@ public class FamilyMemberDetailsSteps extends Pages {
                     if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
                         Assert.assertTrue(memberDetails.get(i).get(0)+"clickCreateNewPatientLinkFromNoSearchResultsPage Failed",false);
                     }
-                    if (!patientDetailsPage.newPatientPageIsDisplayed()) {
-                        Assert.assertTrue(memberDetails.get(i).get(0)+"newPatientPageIsDisplayed Failed",false);
+                    if (!familyMemberNewPatientPage.newFamilyMemberPageIsDisplayed()) {
+                        Assert.assertTrue(memberDetails.get(i).get(0)+": new Family Member URL not displayed",false);
                     }
                     Debugger.println("Creating new Family Member:"+familyMember.getDATE_OF_BIRTH());
                     if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
