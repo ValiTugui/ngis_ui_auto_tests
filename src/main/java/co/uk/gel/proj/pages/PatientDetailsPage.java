@@ -234,6 +234,12 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[contains(@class,'styles_referral-list__link__')]")
     List<WebElement> submittedReferralCardsList;
 
+    @FindBy(xpath = "//input[@id='postcode']")
+    public WebElement postcodeField;
+
+    @FindBy(xpath = "//*[string()='Address']//following-sibling::span")
+    public WebElement addressField;
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -1300,8 +1306,6 @@ public class PatientDetailsPage {
         }
     }
 
-    @FindBy(xpath = "//input[@id='postcode']")
-    public WebElement postcodeField;
     public boolean fillPostcodeValue(String postcode) {
         try {
             if(!Wait.isElementDisplayed(driver,postcodeField,20)){
@@ -1318,8 +1322,7 @@ public class PatientDetailsPage {
             return false;
         }
     }
-@FindBy(xpath = "//*[string()='Address']//following-sibling::span")
-public WebElement addressField;
+
     public boolean verifyPostcodeFormatInAddress(String formattedPostcode) {
         try{
             if(!Wait.isElementDisplayed(driver,addressField,20)){
