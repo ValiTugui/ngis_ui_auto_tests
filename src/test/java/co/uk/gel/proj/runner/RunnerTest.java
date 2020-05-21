@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
          glue = {"co.uk.gel.proj.steps"},
          features = {"src/test/resources/features"},
          tags = {"@NTS-3407"}
-
         )
     public class RunnerTest {
         @BeforeClass
