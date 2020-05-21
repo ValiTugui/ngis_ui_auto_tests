@@ -1299,4 +1299,66 @@ public class PatientDetailsPage {
             }
         }
     }
+
+    @FindBy(xpath = "//input[@id='postcode']")
+    public WebElement postcodeField;
+    public boolean fillPostcodeValue(String postcode) {
+        try {
+            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
+                Debugger.println("The Postcode field is not displayed in the edit patient details page."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillPostcode.jpg");
+                return false;
+            }
+            postcodeField.clear();
+            postcodeField.sendKeys(postcode);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in filling the postcode: "+exp);
+            SeleniumLib.takeAScreenShot("fillPostcode.jpg");
+            return false;
+        }
+    }
+@FindBy(xpath = "//*[string()='Address']//following-sibling::span")
+public WebElement addressField;
+    public boolean verifyPostcodeFormatInAddress(String formattedPostcode) {
+        try{
+            if(!Wait.isElementDisplayed(driver,addressField,20)){
+                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
+                return false;
+            }
+            String actualAddress=addressField.getText();
+            if(!actualAddress.contains(formattedPostcode)){
+                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual address is:"+actualAddress);
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking the postcode format in address:"+exp);
+            SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPostcodeFormatInPD(String formattedPostcode) {
+        try{
+            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
+                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
+                return false;
+            }
+            String actualPostcode=postcodeField.getAttribute("value");
+            if(!actualPostcode.equalsIgnoreCase(formattedPostcode)){
+                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual is:"+actualPostcode);
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking the postcode format in address:"+exp);
+            SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
+            return false;
+        }
+    }
 }//end

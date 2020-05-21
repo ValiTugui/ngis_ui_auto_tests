@@ -89,3 +89,90 @@ Feature: GenomicRecord: Patient details page 2
     Examples:
       | patient-search-type | NhsNumber  | DOB        | error_message                     | DOB2       |
       | NGIS                | 9449305935 | 30-02-2000 | Check the day and month are valid | 19-03-2000 |
+
+  @NTS-5810 @Z-LOGOUT
+#    @E2EUI-3018
+  Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- create a new patient by passing Postcode.
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Find your patient
+    And the display question for NHS Number is Do you have the patient's NHS Number?
+    And the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    Then the "Create a record for this patient" page is displayed
+    And the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user fills in the Postcode field box with "<Postcode>"
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "NGIS patient record created"
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat>" format
+
+    Examples:
+      | message          | hyperlinkText               | reason_for_no_nhsNumber       | Postcode | PostcodeFormat |
+      | No patient found | create a new patient record | Patient is a foreign national | AB1 2CD  | AB1 2CD        |
+      | No patient found | create a new patient record | Patient is a foreign national | AB1  2CD | AB1 2CD        |
+      | No patient found | create a new patient record | Patient is a foreign national | AB12CD   | AB1 2CD        |
+      | No patient found | create a new patient record | Patient is a foreign national | ab1 2cd  | ab1 2cd        |
+      | No patient found | create a new patient record | Patient is a foreign national | ab1  2cd | ab1 2cd        |
+      | No patient found | create a new patient record | Patient is a foreign national | ab12cd   | ab1 2cd        |
+
+  @NTS-5810  @Z-LOGOUT
+#    @E2EUI-3018
+  Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- update a patient record by passing postcode.
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-2005:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
+
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user fills in the Postcode field box with "<Postcode1>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user is able to see the entered postcode value is in correct "<PostcodeFormat>" format
+
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user fills in the Postcode field box with "<Postcode2>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user is able to see the entered postcode value is in correct "<PostcodeFormat>" format
+
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user fills in the Postcode field box with "<Postcode3>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user is able to see the entered postcode value is in correct "<PostcodeFormat>" format
+
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user fills in the Postcode field box with "<Postcode4>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user is able to see the entered postcode value is in correct "<PostcodeFormat>" format
+
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user fills in the Postcode field box with "<Postcode5>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user is able to see the entered postcode value is in correct "<PostcodeFormat>" format
+
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user fills in the Postcode field box with "<Postcode6>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user is able to see the entered postcode value is in correct "<PostcodeFormat>" format
+
+    Examples:
+      | PatientDetails  | PostcodeFormat | Postcode1 | Postcode2 | Postcode3 | Postcode4 | Postcode5 | Postcode6 |
+      | Patient details | AB1 2CD        | AB1 2CD   | AB1  2CD  | AB12CD    | ab12cd    | ab1 2cd   | ab1  2cd  |

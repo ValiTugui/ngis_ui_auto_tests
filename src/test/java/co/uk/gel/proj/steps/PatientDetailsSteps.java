@@ -713,4 +713,24 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user fills in the Postcode field box with {string}")
+    public void theUserFillsInThePostcodeWith(String postcode) {
+        boolean testResult = false;
+        testResult=patientDetailsPage.fillPostcodeValue(postcode);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user is able to see the entered postcode value in the address field in correct {string} format")
+    public void theUserIsAbleToSeeTheEnteredPostcodeValueInTheAddressFieldInCorrectFormat(String formattedPostcode) {
+        boolean testResult=false;
+        testResult=patientDetailsPage.verifyPostcodeFormatInAddress(formattedPostcode);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user is able to see the entered postcode value is in correct {string} format")
+    public void theUserIsAbleToSeeTheEnteredPostcodeValueIsInCorrectFormat(String formattedPostcode) {
+        boolean testResult=false;
+        testResult=patientDetailsPage.verifyPostcodeFormatInPD(formattedPostcode);
+        Assert.assertTrue(testResult);
+    }
 }
