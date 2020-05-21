@@ -51,6 +51,3 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
       | stage          | SearchDetails                                                                      | ResultMessage          | PostcodeFormat |
       | Family members | DOB=20-09-2008:FirstName=OCTAVIA:LastName=CHISLETT:Gender=Female:Postcode=KT19 0ST | 1 patient record found | KT19 0ST       |
       | Family members | DOB=20-09-2008:FirstName=OCTAVIA:LastName=CHISLETT:Gender=Female:Postcode=kt19 0st | 1 patient record found | KT19 0ST       |
-      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=ab12cd      | 1 patient record found | ab1 2cd        |
-      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=ab1 2cd     | 1 patient record found | ab1 2cd        |
-      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=ab1  2cd    | 1 patient record found | ab1 2cd        |
