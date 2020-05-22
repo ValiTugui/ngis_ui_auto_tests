@@ -459,11 +459,16 @@ public class PatientDetailsPage {
             if (!Wait.isElementDisplayed(driver, noNhsNumberReasonDropdown, 15)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, noNhsNumberReasonDropdown);
+            try {
+                Actions.clickElement(driver, noNhsNumberReasonDropdown);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(noNhsNumberReasonDropdown);
+            }
             Actions.selectValueFromDropdown(noNhsNumberReasonDropdown, reason);
             if (reason.equalsIgnoreCase("Other - provide explanation")) {
-                Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-                otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+                if(Wait.isElementDisplayed(driver, otherReasonExplanation,20)) {
+                    otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+                }
             }
             return true;
         } catch (Exception exp) {

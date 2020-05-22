@@ -252,15 +252,15 @@ public class HomePage {
                 Actions.acceptAlert(driver);
             }
             Actions.deleteCookies(driver);
+            Wait.seconds(15);
         } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().defaultContent();
                 Actions.deleteCookies(driver);
-
             } catch (NoAlertPresentException e) {
                 e.printStackTrace();
             }
-            Wait.seconds(5);
+            Wait.seconds(15);
             Debugger.println("Logged Out Successfully.");
         }catch(Exception exp){
             Debugger.println("Exception from Logging out...."+exp);
@@ -268,16 +268,26 @@ public class HomePage {
     }
     public boolean searchForTheTest(String testName){
         try{
-            waitUntilHomePageResultsContainerIsLoaded();
-            typeInSearchField(testName);
-            clickSearchIconFromSearchField();
-            waitUntilHomePageResultsContainerIsLoaded();
+            if(!waitUntilHomePageResultsContainerIsLoaded()){
+                return false;
+            }
+            if(!typeInSearchField(testName)){
+                return false;
+            }
+            if(!clickSearchIconFromSearchField()){
+                return false;
+            }
+            if(!waitUntilHomePageResultsContainerIsLoaded()){
+                return false;
+            }
             closeCookiesBannerFromFooter();
-            selectFirstEntityFromResultList();
+            if(!selectFirstEntityFromResultList()){
+                return false;
+            }
             closeCookiesBannerFromFooter();
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from searching the Test:"+exp);
+            Debugger.println("Exception from searching the Test:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("TestSearchError.jpg");
             return false;
         }

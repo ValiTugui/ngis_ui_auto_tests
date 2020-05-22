@@ -1,4 +1,3 @@
-#@regression
 #@homePage
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
@@ -21,7 +20,6 @@ Feature: TestDirectory : Home Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user selects the Tests tab
     Then various test details are displayed
-
 
   @NTS-4726 @Z-LOGOUT
 #    @E2EUI-1155

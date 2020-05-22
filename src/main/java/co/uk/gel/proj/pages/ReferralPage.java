@@ -411,7 +411,7 @@ public class ReferralPage<check> {
         partialUrls.put("Requesting organisation", "ordering-entity");
         partialUrls.put("Test package", "test-package");
         partialUrls.put("Responsible clinician", "clinicians");
-        partialUrls.put("Clinical questions", "clinical-questions");
+        partialUrls.put("Clinical questions", "clinical-details");
         partialUrls.put("Notes", "notes");
         partialUrls.put("Print forms", "downloads");
         partialUrls.put("Family members", "family-members");
