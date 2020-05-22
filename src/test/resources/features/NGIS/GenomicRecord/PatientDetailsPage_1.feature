@@ -113,7 +113,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | maximumAllowedValues |
       | Create a record for this patient | 50                   |
 
-  @NTS-34381 @Z-LOGOUT
+  @NTS-3438 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

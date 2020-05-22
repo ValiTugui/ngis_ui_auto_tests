@@ -611,9 +611,9 @@ public class PatientDetailsSteps extends Pages {
     @And("the Hospital number field displays the hint text {string}")
     public void theHospitalNumberFieldDisplaysTheHintText(String expectedHintText) {
         String actualHintText = Actions.getPlaceHolderAttribute(patientDetailsPage.hospitalNumber);
-        Debugger.println("Actual Hint text  " + actualHintText);
-        Debugger.println("Expected Hint text " + expectedHintText);
-        Assert.assertEquals(expectedHintText, actualHintText);
+        if(!actualHintText.contains(expectedHintText)){
+            Assert.fail("Actual Hint:"+actualHintText+",Expected:"+expectedHintText);
+        }
     }
 
     @And("the user deletes data in the fields - First Name, Last Name, Date of Birth, Gender, Life Status and Ethnicity")

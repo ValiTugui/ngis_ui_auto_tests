@@ -150,6 +150,11 @@ public class PaperFormPage {
 
     public boolean selectRandomEntityFromSuggestionsList() {
         try {
+            if(orderEntitySearchSuggestionsList.size() == 0){
+                Debugger.println("No Organisation list loaded for the search."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NoOgranisation.jpg");
+                return false;
+            }
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             return true;
         }catch(Exception exp){
@@ -158,7 +163,7 @@ public class PaperFormPage {
               seleniumLib.clickOnElement(firstElement);
               return true;
             }catch(Exception exp1) {
-                Debugger.println("Exception from Selecting Requesting Organization: " + exp);
+                Debugger.println("Exception from Selecting Requesting Organization: " + exp+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
                 return false;
             }

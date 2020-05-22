@@ -1,4 +1,3 @@
-#@regression
 #@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST

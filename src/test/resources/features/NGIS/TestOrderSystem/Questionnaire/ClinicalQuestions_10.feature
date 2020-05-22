@@ -1,6 +1,4 @@
-#@regression
 #@clinicalQuestions
-#@clinicalQuestionsFM
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 10 - Page Validation
@@ -77,15 +75,14 @@ Feature: ClinicalQuestions 10 - Page Validation
     And the mandatory fields shown with the symbol in red color
       | mandatory_field | field_type | symbol | symbol color |
       | Disease status  | label      | ✱      | #dd2509      |
-    Then the user should be able to see the hint text "<HintText>" for the "<DiseaseStatus>"
+    Then the user should be able to see the hint text "<DiseaseHintText>" for the "<DiseaseStatus>"
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
-      | labelHeader                   |
-      | Age of onset                  |
-      | Find an HPO phenotype or code |
-      | Diagnosis                     |
-      | Status                        |
-      | Phenotypic sex                |
-      | Karyotypic sex                |
+      | labelHeader    |
+      | Age of onset   |
+      | Diagnosis      |
+      | Status         |
+      | Phenotypic sex |
+      | Karyotypic sex |
     Then the user should be able to see the hint text "<HpoHintText>" for HPO phenotype details
     And the user should be able to see the field headers on Clinical questions page
       | labelHeader                   |
@@ -97,8 +94,8 @@ Feature: ClinicalQuestions 10 - Page Validation
     And the user should be able to see the hint text "<HintText>" for the "<KaryotypicSex>"
 
     Examples:
-      | Clinical Questions Stage | HintText | HpoHintText  | DiseaseStatus  | PhenotypicSex  | KaryotypicSex  |
-      | Clinical questions       | Select   | Start typing | Disease status | Phenotypic sex | Karyotypic sex |
+      | Clinical Questions Stage | DiseaseHintText | HpoHintText  | DiseaseStatus  | PhenotypicSex  | KaryotypicSex  | HintText |
+      | Clinical questions       | Affected        | Start typing | Disease status | Phenotypic sex | Karyotypic sex | Select   |
 
   @NTS-4440 @Z-LOGOUT
 #    @E2EUI-1198
@@ -116,8 +113,8 @@ Feature: ClinicalQuestions 10 - Page Validation
       | Rare disease diagnoses        |
       | Phenotypic and karyotypic Sex |
     And the mandatory fields shown with the symbol in red color
-      | mandatory_field               | field_type | symbol | symbol color |
-      | Disease status                | label      | ✱      | #dd2509      |
+      | mandatory_field | field_type | symbol | symbol color |
+      | Disease status  | label      | ✱      | #dd2509      |
     And the user sees an bottom message "<Message1>" on the page
     And  the user selects "<diseaseStatueValue>"
     When the user provided the values "<year>" "<month>" for Age of onset fields

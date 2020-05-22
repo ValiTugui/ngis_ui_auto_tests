@@ -929,7 +929,7 @@ public class ClinicalQuestionsPage {
             List actualFieldsLabels = getTheOptionalFieldsLabelsOnCurrentPage();
             for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
                 if (!actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader"))) {
-                    Debugger.println("Expected Label " + expectedLabelList.get(i).get("labelHeader") + " Not present in Clinical Page");
+                    Debugger.println("Expected Label " + expectedLabelList.get(i).get("labelHeader") + " Not present in Clinical Page.\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
                     return false;
                 }

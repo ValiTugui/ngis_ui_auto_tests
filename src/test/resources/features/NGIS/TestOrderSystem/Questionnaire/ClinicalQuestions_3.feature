@@ -1,4 +1,3 @@
-#@regression
 #@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
@@ -39,11 +38,12 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
     When the user is navigated to a page with title Answer clinical questions
     And the phenotype label marked as mandatory based on the disease status selection
       | diseaseStatueValue             | phenotypeMandatory |
-      | USER_DOES_NOT_SELECT_ANY_VALUE | false              |
-      | Affected                       | true               |
+      | USER_DOES_NOT_SELECT_ANY_VALUE | true               |
       | Unaffected                     | false              |
       | Uncertain                      | false              |
       | Unknown                        | false              |
+      | Affected                       | true               |
+
     Examples:
       | stage              |
       | Clinical questions |

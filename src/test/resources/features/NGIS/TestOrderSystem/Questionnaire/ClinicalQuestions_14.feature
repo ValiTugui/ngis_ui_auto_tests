@@ -1,6 +1,4 @@
-#@regression
 #@clinicalQuestions
-#@clinicalQuestionsFM
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questionnaire- Rare Disease/Cancer.
