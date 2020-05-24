@@ -1,6 +1,4 @@
-#@regression
 #@FamilyMemberStageNavigation
-#@FamilyMemberStageNavigation_addFM
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Navigation Stage 4 - Member additions
@@ -84,7 +82,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user navigate to Family Member - Add a new Patient to the database page "<pageTitle>"
-      | APP_URL | family-members/new-patient |
+      | APP_URL | family-members/new |
     And the user clicks the Add new patient to referral button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
       | labelHeader                    | errorMessageHeader                   | messageColourHeader |

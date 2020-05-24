@@ -1,4 +1,3 @@
-#@regression
 #@pedigree_diagramLayout
 @07-PEDIGREE
 @SYSTEM_TEST

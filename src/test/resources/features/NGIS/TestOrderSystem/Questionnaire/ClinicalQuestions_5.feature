@@ -1,4 +1,3 @@
-#@regression
 #@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
@@ -13,16 +12,16 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     When the user is navigated to a page with title Answer clinical questions
-    When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     Then the user clicks the Save and Continue button
     And the "<ClinicalQuestions>" stage is marked as Completed
     And the "<notes>" stage is selected
     Examples:
-      | ClinicalQuestions  | ClinicalQuestionDetails                                           | notes |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   | Notes |
-      | Clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
-      | Clinical questions | DiseaseStatus=Uncertain:AgeOfOnset=10,02:HpoPhenoType=Lymphedema  | Notes |
-      | Clinical questions | DiseaseStatus=Unknown:AgeOfOnset=10,02:HpoPhenoType=Lymphedema    | Notes |
+      | ClinicalQuestions  | ClinicalQuestionDetails                  | notes |
+      | Clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+      | Clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+      | Clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+      | Clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
   @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1894
@@ -33,15 +32,15 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
-    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     When the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon
-    Then the Disease status field is not set with the disease status value "<ClinicalQuestionDetails>"
+    Then the Disease status field is NOT set with the disease status value Affected
     And the user clicks the Save and Continue button
     And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
     And the "<notes>" stage is selected
     Examples:
-      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                         | notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                  | notes |
+      | Clinical questions | Answer clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
   @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1546
@@ -55,14 +54,14 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
-    When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
-    Then the user clicks the Save and Continue button
-    And the "<ClinicalQuestions>" stage is marked as Completed
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father         | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |

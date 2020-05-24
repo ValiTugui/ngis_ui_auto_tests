@@ -139,36 +139,30 @@ public class ClinicalQuestionsSteps extends Pages {
         Assert.assertTrue(clinicalQuestionsPage.verifyMaxAllowedValuesOMIMField(Integer.parseInt(allowedValuesCount)));
     }
 
-
-    @And("the user fills the ClinicalQuestionsPage with the {string} except to the Rare disease diagnosis field")
-    public void theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(String searchDetails) {
-        theUserSearchTheFamilyMemberWithTheSpecifiedDetails(searchDetails);
-    }
-
     @When("the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon")
     public void theUserClearsTheValueThatIsSetOnOnTheCloseIconPlacedInTheDiseaseStatusFieldByClickingTheCloseIcon() {
         clinicalQuestionsPage.clickCloseIcon();
     }
 
-    @Then("the Disease status field is not set with the disease status value {string}")
-    public void theDiseaseStatusFieldIsNotSetWithTheDiseaseStatusValue(String searchTerms) {
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
-        String previouslyAssignedValueOfDiseaseStatus = paramNameValue.get("DiseaseStatus");
-        String expectedDefaultValueOfDiseaseStatus = "Select...";
+    @Then("the Disease status field is NOT set with the disease status value (.*)")
+    public void theDiseaseStatusFieldIsNotSetWithTheDiseaseStatusValue(String expectedDefaultValueOfDiseaseStatus) {
         String actualValueOfDiseaseStatus = clinicalQuestionsPage.getDefaultValueOfDiseaseStatus();
         Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
-        Assert.assertFalse(actualValueOfDiseaseStatus.equals(previouslyAssignedValueOfDiseaseStatus));
-        Assert.assertTrue(actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus));
+        Assert.assertFalse(actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus));
+    }
+    @Then("the Disease status field is SET with the disease status value (.*)")
+    public void theDiseaseStatusFieldIsSetWithTheDiseaseStatusValue(String expectedDefaultValueOfDiseaseStatus) {
+        String actualValueOfDiseaseStatus = clinicalQuestionsPage.getDefaultValueOfDiseaseStatus();
+        Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
+        if(!actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus)){
+            Debugger.println("URL:"+driver.getCurrentUrl());
+            Assert.fail("Expected :"+expectedDefaultValueOfDiseaseStatus+",Actual:"+actualValueOfDiseaseStatus);
+        }
     }
 
     @When("the user clicks the delete icon which is displayed across the {string}")
     public void theUserClicksTheDeleteIconWhichIsDisplayedAcrossThe(String hPOTermToBeRemoved) {
      Assert.assertTrue(clinicalQuestionsPage.deleteHPOTerm(hPOTermToBeRemoved));
-    }
-
-    @When("the user fills the clinical questions with the {string} except to the Rare disease diagnosis field for the family member")
-    public void theUserFillsTheClinicalQuestionsWithTheExceptToTheRareDiseaseDiagnosisFieldForTheFamilyMember(String searchTerms) {
-        theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
     }
 
     @And("the user selects the HPO phenotype questions such as Name, Term presence {string} and corresponding modifier")
@@ -181,11 +175,6 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserAnswersThePhenotypicAndKaryotypicSexQuestions() {
         Assert.assertTrue(clinicalQuestionsPage.selectRandomPhenotypicSex() != null);
         Assert.assertTrue(clinicalQuestionsPage.selectRandomKaryotypicSex() != null);
-    }
-
-    @And("the user fills the ClinicalQuestionsPage with the {string} except to the disease status field")
-    public void theUserFillsTheClinicalQuestionsPageWithTheExceptToTheDiseaseStatusField(String searchTerms) {
-        theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
     }
 
     @And("the user sees the data such as {string} {string} {string} {string} phenotypic and karyotypic sex are saved")

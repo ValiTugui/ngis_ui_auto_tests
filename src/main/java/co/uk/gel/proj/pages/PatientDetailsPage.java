@@ -262,6 +262,16 @@ public class PatientDetailsPage {
             return false;
         }
     }
+    public boolean newFamilyMemberPageIsDisplayed() {
+        try {
+            Wait.forURLToContainSpecificText(driver, "/family-members/new");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from newFamilyMemberPageIsDisplayed:" + exp);
+            SeleniumLib.takeAScreenShot("newFamilyMemberPage.jpg");
+            return false;
+        }
+    }
 
     public String getPageSubTitle() {
         try {
@@ -489,9 +499,14 @@ public class PatientDetailsPage {
             Actions.clickElement(driver, createRecord);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in clickOnCreateRecord:" + exp);
-            SeleniumLib.takeAScreenShot("CreateRecord.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(createRecord);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickOnCreateRecord:" + exp);
+                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
+                return false;
+            }
         }
     }
 

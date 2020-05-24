@@ -41,7 +41,7 @@ Feature: Tumours Page - 6
 
     Examples:
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
-      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
+      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/new        |
 
   @NTS-3172 @Z-LOGOUT
 #    @E2EUI-1465

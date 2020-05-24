@@ -37,7 +37,6 @@ Feature: TestDirectory : Home Page
       | Requesting organisation |
       | Test package            |
       | Responsible clinician   |
-      | Clinical questions      |
       | Patient choice          |
     And the print forms stage is locked
     ##Requesting Organisation

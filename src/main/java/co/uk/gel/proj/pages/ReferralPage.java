@@ -486,12 +486,9 @@ public class ReferralPage<check> {
             }
             //Swapped the method of verification
             String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
-            WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-            if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
-                return true;
+            if(seleniumLib.isElementPresent(By.xpath(completedMark))){
+                 return true;
             }
-
-            Wait.forElementToBeDisplayed(driver, toDoList, 200);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             Wait.seconds(2);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
@@ -513,8 +510,7 @@ public class ReferralPage<check> {
             try {
                 //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
                 String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
-                WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-                if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
+                if(seleniumLib.isElementPresent(By.xpath(completedMark))){
                     return true;
                 }
                 Debugger.println("Exception in Checking Stage Completion Status: " + exp);

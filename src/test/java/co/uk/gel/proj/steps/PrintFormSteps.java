@@ -184,13 +184,8 @@ public class PrintFormSteps extends Pages {
     @And("the print forms stage is (.*)")
     public void thePrintFormsStageIsLocked(String lockStatus) {
         boolean testResult = false;
-        if (lockStatus.equalsIgnoreCase("locked")) {
-            testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
-            Assert.assertTrue(testResult);
-        } else {
-            testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
-            Assert.assertTrue(testResult);
-        }
+        testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user will not see back button on print forms page")
