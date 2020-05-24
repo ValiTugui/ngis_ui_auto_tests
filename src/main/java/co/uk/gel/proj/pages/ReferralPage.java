@@ -325,18 +325,18 @@ public class ReferralPage<check> {
                     Wait.seconds(3);
                 }
             }
-            if (helix.size() > 0) {
-                Debugger.println("HelixSize:"+helix.size());
-                try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                } catch (TimeoutException texp) {
-                    //Still the helix in action, waiting for another 40 seconds.
-                    //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
-                    Wait.seconds(40);
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            int count = 1;
+            int helixSize = helix.size();
+            while(helixSize > 0){
+                Wait.seconds(5);
+                helixSize = helix.size();
+                count++;
+                if(count > 10){
+                    break;
                 }
-                Debugger.println("HelixSize After:"+helix.size());
+                Debugger.println("Waiting for Helix to disappear.."+count);
             }
+            Debugger.println("HelixSize After:"+helix.size());
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
             return true;
         } catch (UnhandledAlertException exp) {
@@ -344,7 +344,7 @@ public class ReferralPage<check> {
             SeleniumLib.dismissAllert();
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
+            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
             return false;
         }

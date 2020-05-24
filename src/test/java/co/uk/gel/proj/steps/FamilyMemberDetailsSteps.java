@@ -76,6 +76,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String diseaseStatus) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(diseaseStatus);
+        Debugger.println("HERE..\n"+driver.getCurrentUrl());
         Assert.assertTrue(testResult);
     }
 
