@@ -1,6 +1,4 @@
-#@regression
 #@GlobalFlow
-#@GlobalFlow_Validations_Tumour
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
@@ -28,7 +26,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
     And the user clicks the Save and Continue button
     ##Requesting Organisation Page Title
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "BOLTON ROYAL HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button

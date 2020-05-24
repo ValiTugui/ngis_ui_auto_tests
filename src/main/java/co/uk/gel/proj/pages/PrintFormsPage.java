@@ -59,6 +59,9 @@ public class PrintFormsPage {
     @FindBy(xpath = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(text(),'Print forms')]")
     public WebElement printFormsStage;
 
+    @FindBy(xpath = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(text(),'Print forms')]//*[name()='svg'][@data-testid='locked-icon']")
+    public WebElement printFormsLockIcon;
+
     @FindBy(xpath = "//button[contains(text(),'Back')]")
     WebElement backButtonOnPrintFormPage;
 
@@ -284,38 +287,23 @@ public class PrintFormsPage {
 
     public boolean validateLockIconInPrintFormsStage(String lockStatus) {
         try {
+            Debugger.println("validateLockIconInPrintFormsStage:Print form: "+driver.getCurrentUrl());
             if(!Wait.isElementDisplayed(driver, printFormsStage,20)){
                 Debugger.println("printFormsStage not displayed");
                 SeleniumLib.takeAScreenShot("PrintFormsStage.jpg");
                 return false;
             }
-            if (!lockStatus.equals("locked")) {
-                String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
-                String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
-                WebElement unlockedPrintFormsStage = driver.findElement(By.xpath(webElementLocator));
-                if (unlockedPrintFormsStage == null) {
-                    return false;
+            if(lockStatus.equalsIgnoreCase("Locked")){
+                if(Wait.isElementDisplayed(driver,printFormsLockIcon,10)){
+                    return true;
                 }
-                if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {
-                    Debugger.println("Print forms stage is not unlocked");
-                    SeleniumLib.takeAScreenShot("LockedPrintForms.jpg");
+                return false;
+            }else{
+                if(Wait.isElementDisplayed(driver,printFormsLockIcon,10)){
                     return false;
                 }
                 return true;
             }
-            WebElement lockIcon = printFormsStage.findElement(By.xpath(".//*[name()='svg']"));
-            if (lockIcon == null) {
-                Debugger.println("Could not find the lock Icon element.");
-                SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
-                return false;
-            }
-            String lock = lockIcon.getAttribute("data-testid");
-            if (!lock.contains(lockStatus)) {
-                Debugger.println("Print forms stage: actual " + lock + " expected " + lockStatus);
-                SeleniumLib.takeAScreenShot("PrintFormsLockStatus.jpg");
-                return false;
-            }
-            return true;
         } catch (Exception exp) {
             Debugger.println("PrintForms: validateLockIconInPrintFormsStage: " + exp);
             SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");

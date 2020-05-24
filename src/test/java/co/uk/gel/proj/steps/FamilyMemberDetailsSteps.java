@@ -587,7 +587,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserNavigateToFamilyMemberAddANewPatientToTheDatabasePage(String expectedPageTitle, List<String> attributeOfURL) {
         try {
             String existingReferralID = referralPage.getPatientReferralId();
-            Debugger.println("existingReferralID " + existingReferralID);
+            Debugger.println("existingReferralID:" + existingReferralID);
             String baseURL = attributeOfURL.get(0);
             String confirmationPage = attributeOfURL.get(1);
             String referralFullUrl = TestUtils.getReferralURL(baseURL, existingReferralID, confirmationPage);

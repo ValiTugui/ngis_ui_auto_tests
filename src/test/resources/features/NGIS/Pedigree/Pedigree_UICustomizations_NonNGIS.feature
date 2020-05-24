@@ -1,4 +1,3 @@
-#@regression
 #@pedigree_uiCustomizationNonNGIS
 @07-PEDIGREE
 @SYSTEM_TEST

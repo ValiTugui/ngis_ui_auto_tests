@@ -461,7 +461,9 @@ public class ReferralSteps extends Pages {
         if (actualSearchResult == null) {
             Assert.assertTrue("Failure in getPatientSearchNoResult", false);
         }
-        Assert.assertEquals("No patient found", actualSearchResult);
+        if(!actualSearchResult.equalsIgnoreCase("No patient found")){
+            Assert.fail("Patient result expected as No patient found, but is:"+actualSearchResult);
+        }
         if (!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")) {
             Assert.assertTrue("Failure in checkCreateNewPatientLinkDisplayed", false);
         }
@@ -1182,7 +1184,7 @@ public class ReferralSteps extends Pages {
         for (int i = 0; i < stages.size(); i++) {
             testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
             if (testResult) {
-                Debugger.println("Stage: " + stages.get(i).get(0) + " expected to be incomplete, but complete.");
+                Debugger.println("Stage: " + stages.get(i).get(0) + " expected to be incomplete, but complete."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("IncompletedStage.jpg");
                 Assert.assertFalse(testResult);
             }

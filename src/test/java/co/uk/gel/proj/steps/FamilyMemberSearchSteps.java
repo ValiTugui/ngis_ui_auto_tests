@@ -112,9 +112,10 @@ public class FamilyMemberSearchSteps extends Pages {
             if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
                 Assert.assertTrue(false);
             }
-            if(!patientDetailsPage.newPatientPageIsDisplayed()){
+            if(!patientDetailsPage.newFamilyMemberPageIsDisplayed()){
                 Assert.assertTrue(false);
             }
+
             familyMember.setNO_NHS_REASON("Patient is a foreign national");
             familyMember.setGENDER(paramNameValue.get("Gender"));
             familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));

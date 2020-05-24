@@ -62,7 +62,7 @@ Feature: Samples Page -4
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
-      | Samples | Manage samples | Add a sample | Notes     | Normal or germline sample | Saliva      | Dismiss            | unsaved information | samples/add        |
+      | Samples | Manage samples | Add a sample | Notes     | Normal or germline sample | Saliva      | Dismiss            | unsaved information | samples/new        |
 
 
   @NTS-3416 @Z-LOGOUT
@@ -95,8 +95,8 @@ Feature: Samples Page -4
     And the user clicks the Save and Continue button
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Normal or germline sample | Saliva      | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partialCurrentUrl1 |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | Saliva      | Dismiss            | may not be saved. | samples/new       |
 
 
   @NTS-3416 @Z-LOGOUT

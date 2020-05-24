@@ -29,9 +29,6 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
-    @FindBy(xpath = "//div[contains(text(),'Select...')]")
-    public WebElement diseaseStatusPlaceholderText;
-
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]//div[contains(@class,'indicatorContainer')][1]")
     public WebElement diseaseStatusCloseIcon;
 
@@ -549,8 +546,11 @@ public class ClinicalQuestionsPage {
     }
 
     public String getDefaultValueOfDiseaseStatus() {
-        Wait.forElementToBeDisplayed(driver, diseaseStatusPlaceholderText);
-        return Actions.getText(diseaseStatusPlaceholderText);
+        if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,30)){
+            Debugger.println("Disease Status drop down not displayed: "+driver.getCurrentUrl());
+            return "";
+        }
+        return Actions.getText(diseaseStatusDropdown);
     }
 
     public boolean deleteHPOTerm(String hpoTerm) {

@@ -126,7 +126,7 @@ public class Pages implements Navigable {
 
     private void login(String urlToNavigate, String pageToNavigate, String userType) {
         try {
-            Debugger.println("Pages:login:Navigating to URL: " + urlToNavigate + ", Page:" + pageToNavigate);
+            Debugger.println("Pages:login:Navigating to URL: " + urlToNavigate + ",\n Page:" + pageToNavigate);
             driver.get(urlToNavigate);
             Wait.seconds(15);//Wait for 15 Seconds
             String navigatedURL = driver.getCurrentUrl();
@@ -237,12 +237,14 @@ public class Pages implements Navigable {
     }
     @Override
     public void switchToURL(String currentURL, String userType) {
-        Debugger.println("Switching URL from: " + currentURL);
+        Debugger.println("Switching URL...");
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
+                Debugger.println("URL Contains: patientSearchURL:"+patientSearchURL);
                 //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
+                Debugger.println("URL Contains: testOrderLoginURL:"+testOrderLoginURL+"\n"+userType);
                 if(userType.equalsIgnoreCase(normalUser)) {
                    String email = AppConfig.getApp_username();
                    if(email.contains("nhs.net")){
