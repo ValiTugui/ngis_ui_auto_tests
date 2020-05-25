@@ -14,38 +14,38 @@ Feature: MIPORTAL ST - File Submission 2
     When the user selects Submitted By as the search column dropdown
     And the user selects is as the search operator dropdown
     Then the user sees the below values in the file-submission search value drop-down menu
-      | East Mids and East of England    |
-      | London North                     |
-      | London South                     |
-      | North West                       |
-      | South West                       |
-      | Wessex and West Midlands         |
-      | Yorkshire and North East         |
-      | ILMN                             |
-      | UKB                              |
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
+      | ILMN                          |
+      | UKB                           |
 
     When the user selects is one of as the search operator dropdown
     Then the user sees the below values in the file-submission search value drop-down menu
-      | East Mids and East of England    |
-      | London North                     |
-      | London South                     |
-      | North West                       |
-      | South West                       |
-      | Wessex and West Midlands         |
-      | Yorkshire and North East         |
-      | ILMN                             |
-      | UKB                              |
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands      |
+      | Yorkshire & North East      |
+      | ILMN                          |
+      | UKB                           |
     And the selected search option is reset after test
 
     Examples:
       | mi_stage         |
-       | File Submissions |
+      | File Submissions |
 
   @NTS-4938
   Scenario: NTS-4938:E2EUI-2703: Verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
     Then the user should not sees the below values in the file-submission search column drop-down menu
-      | GLH                               |
-      | Ordering Entity                   |
+      | GLH             |
+      | Ordering Entity |
 
   @NTS-4938
   Scenario: NTS-4938:E2EUI-2703: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint

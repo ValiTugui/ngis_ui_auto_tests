@@ -1,5 +1,3 @@
-#@regression
-#@clinicalIndicationTestSelect
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory: TestOrder
@@ -10,7 +8,6 @@ Feature: Test Directory: TestOrder
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
     ##Patient Details Page
-#    Then the user is navigated to a page with title Check your patient
     Then the user is navigated to a page with title Add a requesting organisation
     And the web browser is still at the same "<PartCurrentURL>" page
     Examples:
@@ -33,12 +30,11 @@ Feature: Test Directory: TestOrder
       | Test Package   |
 
   @NTS-3493 @Z-LOGOUT
-#    @E2EUI-2015 @scenario_01
+# @E2EUI-2015 @scenario_01
   Scenario Outline: NTS-3493: Restricted access to navigate to cancelled referrals
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_SUPER_USER | NHSNumber=9449305897:DOB=10-10-1987 |
     ##Patient Details Page
-#    Then the user is navigated to a page with title Check your patient
     Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Cancel referral link
     And the user selects the cancellation reason "<Reason>" from the modal
@@ -50,13 +46,10 @@ Feature: Test Directory: TestOrder
       | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
 
   @NTS-3161 @Z-LOGOUT
-#    @E2EUI-2091 @scenario1
+# @E2EUI-2091 @scenario1
   Scenario Outline: NTS-3161: Verify Spinning Helix
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    ##Patient Details Page
-#    When the user is navigated to a page with title Check your patient
-#    And the user clicks the Save and Continue button
     ##Requesting Organisation Page
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field

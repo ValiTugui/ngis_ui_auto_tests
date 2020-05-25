@@ -1,7 +1,8 @@
-@SecurityScan_RD_Duo
-Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
+@SecurityScan
+@SecurityScan_RD
+Feature: NTS-3407 - Security scan for RD Duo flow - Create New NGIS Patient Referral for Duo Family - Create Referral for Duo Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
-  @LOGOUT
+  @Z-LOGOUT
     #@E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
     ##Create referral with new patient without providing NHS number
@@ -45,8 +46,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     #patient choice for the proband
     When the user navigates to the "<PatientChoice>" stage
@@ -57,6 +58,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
     Then the user is navigated to a page with title Patient choice
+
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     #Patient Choice - Family Details Provided below should be same as above
@@ -76,7 +78,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     ##Since Pedigree is always ticked, navigating to printforms
-   ##And the user clicks the Save and Continue button
+    ##And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     When the user navigates to the "<PrintForms>" stage
@@ -86,5 +88,5 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the referral status is set to "Submitted"
     When user run security scan
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
+      | Patient details | Requesting organisation | Maidstone            | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |

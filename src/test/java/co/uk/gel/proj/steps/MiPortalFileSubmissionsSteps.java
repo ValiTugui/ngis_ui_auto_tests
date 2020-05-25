@@ -340,7 +340,9 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            if(!testResult){
+              Assert.fail(expectedDropDownValues.get(i).get(0)+" not available in FileSubmission search value drop down");
+            }
         }
     }
     @And("the columns fields are  displayed in the list of columns headers of the search result table")

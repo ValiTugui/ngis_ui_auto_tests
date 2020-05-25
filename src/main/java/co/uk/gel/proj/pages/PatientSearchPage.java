@@ -321,7 +321,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 } else {
                     Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
-                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
+                    Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
             }else{
                 Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
@@ -331,29 +331,29 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }catch(Exception exp1){
                 seleniumLib.sendValue(emailAddressField,AppConfig.getApp_username());
             }
-            Wait.seconds(2);
+            Wait.seconds(4);
             try {
-                nextButton.click();
-            }catch(Exception exp1){
                 seleniumLib.clickOnWebElement(nextButton);
+            }catch(Exception exp1){
+                Actions.clickElement(driver,nextButton);
             }
-            Wait.seconds(2);
+            Wait.seconds(4);
             try {
                 passwordField.sendKeys(AppConfig.getApp_password());
             }catch(Exception exp1){
                 seleniumLib.sendValue(passwordField,AppConfig.getApp_password());
             }
-            Wait.seconds(2);
+            Wait.seconds(4);
             try {
-                nextButton.click();
-            }catch(Exception exp1){
                 seleniumLib.clickOnWebElement(nextButton);
+            }catch(Exception exp1){
+                Actions.clickElement(driver,nextButton);
             }
             Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
             SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
-            Assert.assertTrue("Exception from loginToTestOrderingSystemAsStandardUser"+exp,false);
+            Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser"+exp);
         }
     }
 

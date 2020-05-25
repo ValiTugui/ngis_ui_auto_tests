@@ -131,7 +131,9 @@ public class MiPortalGlhSamplesSteps extends Pages {
         Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miGlhSamplesPage.selectGlhDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                Assert.fail(expectedDropDownValues.get(i).get(0)+" not present in GLH Samples Search Column Drop Down.");
+            }
         }
     }
     @Then("the glh search result table column (.*) is displayed with data (.*)")

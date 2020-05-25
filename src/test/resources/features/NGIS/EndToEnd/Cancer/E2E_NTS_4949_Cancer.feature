@@ -12,7 +12,7 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "TRAFFORD GENERAL HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button

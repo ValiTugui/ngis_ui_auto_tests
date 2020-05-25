@@ -4,7 +4,7 @@
 Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
   @NTS-4711 @Z-LOGOUT
-#    @E2EUI-964 @E2EUI-1587
+# @E2EUI-964 @E2EUI-1587
   Scenario Outline:NTS-4711:E2EUI-964,1587:Verify Page titles for Cancer/Tumour on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | GEL_NORMAL_USER |
