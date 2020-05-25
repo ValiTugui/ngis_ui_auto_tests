@@ -49,7 +49,8 @@ Feature: ClinicalQuestions 7 - RD Questionnaire
     Then the "<notes>" stage is selected
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the Disease status field is SET with the disease status value Affected
-    And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
+    And the "Clinical questions" stage is marked as Completed
+
     Examples:
       | ClinicalQuestions  | title                     | ClinicalQuestionDetails                  | notes |
       | Clinical questions | Answer clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |

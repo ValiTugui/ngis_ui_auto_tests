@@ -5,7 +5,7 @@
 Feature: Family Members Navigation Stage 5 - Patient Identifiers
 
   @NTS-3299 @Z-LOGOUT
-#    @E2EUI-1698
+# @E2EUI-1698
   Scenario Outline: NTS-3299: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1959:Gender=Male |
@@ -30,7 +30,7 @@ Feature: Family Members Navigation Stage 5 - Patient Identifiers
       | Family members | NHSNumber=NA:DOB=14-05-1960:Gender=Male:Relationship=Full Sibling |
 
   @NTS-3338 @Z-LOGOUT
-#    @E2EUI-1510
+# @E2EUI-1510
   Scenario Outline: NTS-3338: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1982:Gender=Male |

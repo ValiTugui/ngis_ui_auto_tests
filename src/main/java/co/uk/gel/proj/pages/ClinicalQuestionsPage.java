@@ -212,29 +212,28 @@ public class ClinicalQuestionsPage {
         }
     }
 
-    public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTermToBeDisplayedInTheFirstRow) {
+    public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTerm) {
         try {
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, hpoTable, 10)) {
-                Debugger.println("hpoTable not loaded..");
+                Debugger.println("hpoTable not loaded.."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
             if (hpoTermNames.size() < 1) {
-                Debugger.println("hpoTermNames not loaded..");
+                Debugger.println("hpoTermNames not loaded.."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
             String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
-            if (!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow)) {
-                Debugger.println("Expected HPOTerms in first Row:" + expectedHPOTermToBeDisplayedInTheFirstRow + ",Actual:" + actualHPOTermDisplayedInTheFirstRow);
+            if (!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTerm)) {
+                Debugger.println("Expected HPOTerms in first Row:" + expectedHPOTerm+ ",Actual:" + actualHPOTermDisplayedInTheFirstRow+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifySpecificHPOTermDisplayedInTheFirstRow:" + exp);
+            Debugger.println("Exception from verifySpecificHPOTermDisplayedInTheFirstRow:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
             return false;
         }

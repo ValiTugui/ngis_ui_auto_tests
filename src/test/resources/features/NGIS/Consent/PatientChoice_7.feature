@@ -1,5 +1,3 @@
-#@regression
-#@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-7 - Form Library
