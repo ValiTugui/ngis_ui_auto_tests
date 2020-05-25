@@ -1,6 +1,6 @@
 @SecurityScan
 @SecurityScan_Cancer
-Feature: NTS-3407 - BVT PACK - Create Referral for Proband Only - Standard user - patient choice Yes
+Feature: NTS-3407 - Security Scan for Cancer flow - Create Referral for Proband Only - Standard user - patient choice Yes
 
   @Z-LOGOUT
    #@E2EUI-2372

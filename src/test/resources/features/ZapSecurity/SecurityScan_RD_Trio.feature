@@ -1,6 +1,6 @@
 @SecurityScan
 @SecurityScan_RD_Trio
-Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
+Feature: NTS-3407 - Security Scan for RD Trio flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
   @Z-LOGOUT
     #@E2EUI-895

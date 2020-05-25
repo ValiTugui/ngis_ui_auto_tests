@@ -1,6 +1,6 @@
 @SecurityScan
 @SecurityScan_RD
-Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Duo Family - Create Referral for Duo Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
+Feature: NTS-3407 - Security scan for RD Duo flow - Create New NGIS Patient Referral for Duo Family - Create Referral for Duo Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
   @Z-LOGOUT
     #@E2EUI-895
