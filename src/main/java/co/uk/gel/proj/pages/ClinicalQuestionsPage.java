@@ -248,9 +248,14 @@ public class ClinicalQuestionsPage {
             }
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
-                return null;
+                //Try again
+                diagnosisValue.clear();
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
+                if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                    Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
+                    return null;
+                }
             }
             Wait.seconds(2);
             boolean testResult = Actions.selectByIndexFromDropDown(dropdownValues, 0);

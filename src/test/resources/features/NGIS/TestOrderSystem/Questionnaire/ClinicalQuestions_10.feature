@@ -97,7 +97,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | Clinical Questions Stage | DiseaseHintText | HpoHintText  | DiseaseStatus  | PhenotypicSex  | KaryotypicSex  | HintText |
       | Clinical questions       | Affected        | Start typing | Disease status | Phenotypic sex | Karyotypic sex | Select   |
 
-  @NTS-4440 @Z-LOGOUT
+ @NTS-4440 @Z-LOGOUT
 #    @E2EUI-1198
   Scenario Outline:NTS-4440:Form fields for the referral shown in sections (CI specific)
     Given a new patient referral is created with associated tests in Test Order System online service
