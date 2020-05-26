@@ -2,11 +2,11 @@
 #@userJourneysRD_BVT
 #@BVT_UI_SMOKE_TEST_RD
  ##Chaning BVT back to DUO Family from Trio Family
-Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
+Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Duo Family - Create Referral for Duo Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
   @NTS-3407 @Z-LOGOUT
 #    @E2EUI-895
-  Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
+  Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |

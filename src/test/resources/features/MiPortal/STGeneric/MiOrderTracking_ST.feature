@@ -1,11 +1,8 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST_MI
+@SYSTEM_TEST
 
 Feature: MIPORTAL ST - Order_Tracking
-
-  Background:
-
 
   @NTS-5190
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values

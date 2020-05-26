@@ -1,13 +1,12 @@
 #@regression
 @02-DASHBOARD
-@SYSTEM_TEST
+@SYSTEM_TEST1
 Feature: DashBoard - Dashboard Page
 
 #  Background:
 #    Given a web browser is at the dashboard page
 
   ##No need to mention the background as single Given step in first scenario is applicable for both the scenarios
-
 
 @NTS-3158
 #@E2EUI-1974
@@ -22,5 +21,3 @@ Feature: DashBoard - Dashboard Page
 #    Given a web browser is at the dashboard page
     When the user sees the NHS logo on top in left side
     Then the user should be able to see clickable tabs
-
-

@@ -7,6 +7,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -69,16 +70,22 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         try {
+            Wait.seconds(3);
             if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
                 Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
             }
             return true;
-        } catch (Exception exp) {
+        } catch (StaleElementReferenceException exp) {
+            By searchValue = By.xpath("//select[@id='order_tracking-search-value']");
+            return seleniumLib.optionFromListByText(searchValue,value);
+        }catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
+
+
     }
     public boolean enterOrderTrackingTextSearchValue(String value) {
         try {
