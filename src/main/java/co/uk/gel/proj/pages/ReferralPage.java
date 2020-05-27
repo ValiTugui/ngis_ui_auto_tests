@@ -720,7 +720,7 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Debugger.println("EXP TITLE: " + expTitle);
-            Wait.seconds(3);//Many places observed the Title loading issue, trying with a 3 seconds forceful wait
+            Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
             // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
             int titlesSize = titleElements.size();

@@ -25,9 +25,6 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user edits the patient choice status")
     public void theUserEditsThePatientChoiceStatus() {
-//        boolean testResult = false;
-//        testResult = patientChoicePage.editPatientChoice();
-//        Assert.assertTrue(testResult);
         patientChoicePage.selectMember(0);
     }
 
@@ -113,7 +110,7 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
                 Debugger.println("\nPC done for FM:"+i);
             }//end
-            Wait.seconds(5);
+            Wait.seconds(10);
             if(AppConfig.snapshotRequired){
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Added");
             }
