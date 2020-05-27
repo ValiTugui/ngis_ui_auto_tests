@@ -326,12 +326,10 @@ public class ReferralSteps extends Pages {
         if (!testResult) {
             Assert.assertTrue("Failed in clickOnCreateRecord", false);
         }
-
         testResult = patientDetailsPage.patientIsCreated();
         if (!testResult) {
             Assert.assertTrue("Failed in patientIsCreated", false);
         }
-
         testResult = patientDetailsPage.clickStartReferralButton();
         if (!testResult) {
             Assert.assertTrue("Failed in clickStartReferralButton", false);

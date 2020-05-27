@@ -496,11 +496,11 @@ public class PatientDetailsPage {
                 Actions.scrollToBottom(driver);
                 return false;
             }
-            Actions.clickElement(driver, createRecord);
+            seleniumLib.clickOnWebElement(createRecord);
             return true;
         } catch (Exception exp) {
             try{
-                seleniumLib.clickOnWebElement(createRecord);
+                Actions.clickElement(driver, createRecord);
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
@@ -513,20 +513,20 @@ public class PatientDetailsPage {
     public boolean patientIsCreated() {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
-                Debugger.println("NGIS Patient Created Message not displayed.");
-                SeleniumLib.takeAScreenShot("PatientNoCreated.jpg");
+                Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
                 return false;
             }
             String successMsg = Actions.getText(successNotification);
             if (successMsg.equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
-            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created");
+            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception in creating the patient." + exp);
-            SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
+            Debugger.println("Exception in creating the patient." + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PCCreatedException.jpg");
             return false;
         }
     }
@@ -704,14 +704,16 @@ public class PatientDetailsPage {
 
     public boolean nhsNumberFieldIsEnabled() {
         try {
-            Wait.forElementToBeDisplayed(driver, title);
-            if (!Wait.isElementDisplayed(driver, nhsNumber, 10)) {
+             if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
                 Debugger.println("NHS number field not displayed");
                 SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
                 return false;
             }
-            Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
-            return nhsNumber.isEnabled();
+            if(!nhsNumber.isEnabled()){
+                Debugger.println("For a Super user, NHSNumber field is expected to be enabled and set to True, but not."+driver.getCurrentUrl());
+                return false;
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from nhsNumberFieldIsEnabled:" + exp);
             SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
