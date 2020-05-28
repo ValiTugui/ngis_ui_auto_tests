@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 @CucumberOptions(
         strict = true,
         features = {"@target/generated-test-sources/rerun.txt"},
-        plugin = {"pretty", "json:target/cucumber-parallel/rerun/rerun.json"},
+        plugin = {"pretty", "json:target/cucumber-parallel/rerun/rerun.json", "rerun:target/generated-test-sources/rerun_again.txt"},
         monochrome = false,
         tags = {"@test"},
         glue = {"co.uk.gel.proj.steps"})
