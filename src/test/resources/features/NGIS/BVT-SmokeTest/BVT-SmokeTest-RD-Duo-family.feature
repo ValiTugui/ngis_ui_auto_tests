@@ -2,7 +2,7 @@
 #@userJourneysRD_BVT
 #@BVT_UI_SMOKE_TEST_RD
  ##Chaning BVT back to DUO Family from Trio Family
-Feature: NTS-3407: Create RD Duo Family by completing - Patient Details - Requesting Organisation - ordering_entity_name - Test Package - No Of Participants - Responsible Clinician - Responsible Clinician Details - Clinical Question - Clinical Question Details - Notes - Notes Details - Family Members  - Patient Choice - Panels - Pedigree - Print Forms - Submit
+Feature: NTS-3407: Create RD Duo Family by completing - Patient Details - Requesting Organisation - Ordering Entity Name - Test Package - No Of Participants - Responsible Clinician - Responsible Clinician Details - Clinical Question - Clinical Question Details - Notes - Notes Details - Family Members - Patient Choice - Panels - Pedigree - Print Forms - Submit
 
   @NTS-3407 @Z-LOGOUT
  #@E2EUI-895

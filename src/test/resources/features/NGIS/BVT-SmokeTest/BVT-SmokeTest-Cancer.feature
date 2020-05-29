@@ -1,7 +1,7 @@
 @BVT_UI_SMOKE_TEST_PACK
 #@userJourneysCancer
 #@BVT_UI_SMOKE_TEST_CANCER
-Feature: NTS-3362: Create Cancer Referral by completing - Patient details - Requesting organisation - Test package - Responsible clinician - Tumours - Samples - Notes - Patient choice - Print forms - Download Sample form - Submit
+Feature: NTS-3362: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
    
   @NTS-3362 @Z-LOGOUT
   #@E2EUI-2372

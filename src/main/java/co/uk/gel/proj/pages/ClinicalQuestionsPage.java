@@ -276,8 +276,11 @@ public class ClinicalQuestionsPage {
     public void searchAndSelectSpecificDiagnosisSecondField(String diagnosis) {
         try {
             Wait.forElementToBeDisplayed(driver, diagnosisValueSecondField);
+            Wait.seconds(2);
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValueSecondField, diagnosis);
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
             }
