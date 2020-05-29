@@ -207,7 +207,7 @@ public class ReferralSteps extends Pages {
                 }
             }
             if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_stage.jpg");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(stage," ")+"Stage.jpg");
             }
             Assert.assertTrue(testResult);
         } catch (Exception exp) {
@@ -584,6 +584,9 @@ public class ReferralSteps extends Pages {
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
             Assert.fail("CI Term search results are not displayed.");
         }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+        }
         homePage.closeCookiesBannerFromFooter();
         if (!homePage.selectFirstEntityFromResultList()) {
             Assert.fail("Could not select the first entitry from CI Search Result.");
@@ -776,7 +779,7 @@ public class ReferralSteps extends Pages {
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("CI"," ")+"_Search");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
         }
         boolean stepResult = false;
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();

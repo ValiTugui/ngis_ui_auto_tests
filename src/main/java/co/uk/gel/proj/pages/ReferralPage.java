@@ -708,6 +708,7 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Debugger.println("EXP TITLE: " + expTitle);
+            long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
             // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
@@ -723,6 +724,14 @@ public class ReferralPage<check> {
                     break;
                 }
             }
+            if(titleElements.size() == 0){
+                Debugger.println("Title Elements Still not loaded.");
+                //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
+                Wait.seconds(8);
+                if (titleElements.size() == 0) {
+                    Wait.seconds(10);
+                }
+            }
             for (WebElement element : titleElements) {
                 //Debugger.println("ACT TITLE:" + element.getText());
                 if (element.getText().contains(expTitle)) {
@@ -735,14 +744,10 @@ public class ReferralPage<check> {
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
-            //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
-            Wait.seconds(8);
-            if (titleElements.size() == 0) {
-                Wait.seconds(10);
-            }
-            Debugger.println("Page title not loaded after 21 seconds waiting for another 10 seconds and trying to locate.");
+            long endTime = System.currentTimeMillis();
+            Debugger.println("Page title not loaded event after "+((endTime-startTime)/1000)+" seconds. Trying again");
+            SeleniumLib.takeAScreenShot("PageTitleNotLoaded1.jpg");
             //In case of failure again, trying with another method.
-            Wait.seconds(10);
             By pageTitle;
             if (expTitle.contains("\'")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
@@ -770,7 +775,9 @@ public class ReferralPage<check> {
                     return true;
                 }
                 Actions.scrollToTop(driver);
-                SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
+                endTime = System.currentTimeMillis();
+                Debugger.println("Page title not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
+                SeleniumLib.takeAScreenShot("PageTitleNotLoaded2.jpg");
                 Debugger.println("TITLE URL:" + driver.getCurrentUrl());
                 return false;
             }
