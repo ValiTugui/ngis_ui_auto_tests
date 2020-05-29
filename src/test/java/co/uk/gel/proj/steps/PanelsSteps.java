@@ -43,22 +43,20 @@ public class PanelsSteps extends Pages {
     @When("the user clicks on VisitPanelApp link")
     public void theUserClicksOnVisitPanelAppLink() {
         boolean testResult;
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PanelApp"," ")+"_Starting");
-        }
         testResult = panelsPage.clicksOnVisitPanelsAppLink();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Panels");
+        }
         Assert.assertTrue(testResult);
     }
 
     @Then("the user navigates to panelApp page")
     public void theUserNavigatesToPanelAppPage() {
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PanelApp"," ")+"_External");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelAppExternal");
         }
         Assert.assertTrue(panelsPage.verifyPanelAppNavigation());
     }
-
-
 
     @And("the user clicks on (.*) button and button will show tick marked")
     public void theUserClicksOnButtonAndButtonWillShowTickMarked(String expectedButton) {

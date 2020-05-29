@@ -43,7 +43,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
-    @FindBy(css = "*[data-testid*='referral-sidebar']")
+    @FindBy(xpath = "//div[@data-testid='referral-sidebar']//ul")
     public WebElement toDoList;
 
     @FindBy(css = "div[class*='referral__main']")
@@ -165,8 +165,6 @@ public class ReferralPage<check> {
 
     String stageIsMarkedAsMandatoryToDo = "a[href*='" + "dummyStage" + "']";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
-    String helixIcon = "*[class*='helix']";
-    String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
     @FindBy(xpath = "//div[@data-testid='notification-success']")
@@ -312,7 +310,7 @@ public class ReferralPage<check> {
             } catch (Exception exp1) {
                 Actions.clickElement(driver, saveAndContinueButton);
             }
-            Wait.seconds(5);
+            Wait.seconds(10);
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
             if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
                 Debugger.println("Try Again appears after SaveAndContinue Click....");
@@ -328,15 +326,15 @@ public class ReferralPage<check> {
             int count = 1;
             int helixSize = helix.size();
             while(helixSize > 0){
-                Wait.seconds(5);
+                Wait.seconds(6);
                 helixSize = helix.size();
                 count++;
                 if(count > 10){
                     break;
                 }
-                Debugger.println("Waiting for Helix to disappear.."+count);
+                //Debugger.println("Waiting for Helix to disappear.."+count);
             }
-            Debugger.println("HelixSize After:"+helix.size());
+            //Debugger.println("HelixSize After:"+helix.size());
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
             return true;
         } catch (UnhandledAlertException exp) {
@@ -431,22 +429,28 @@ public class ReferralPage<check> {
         try {
             //200 seconds waiting is too much I think. One minute is more than enough, observed that mainly this can
             //handle by scrolling up/down
-            Wait.forElementToBeDisplayed(driver, toDoList, 60);
-            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-            referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-            if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
-                Actions.scrollToTop(driver);
+            if(!Wait.isElementDisplayed(driver, toDoList, 60)){
+                Debugger.println("TODO List is not loaded successfully."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ToDoListNotLoaded.jpg");
+                return false;
             }
-            if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
-                Actions.scrollToBottom(driver);
-            }
-            Actions.clickElement(driver, referralStage);
+            By stageElement = By.xpath("//a[contains(text(),'" + stage + "')]");
+            seleniumLib.clickOnElement(stageElement);
+            Wait.seconds(10);//Wait for 5 seconds after navigating to each stage
             return true;
         } catch (Exception exp) {
             try {
-                Wait.seconds(15);
-                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                seleniumLib.clickOnWebElement(referralStage);
+                Debugger.println("Navigating to Stage by Actions Class.");
+                String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+                referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+                if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
+                    Actions.scrollToTop(driver);
+                }
+                if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
+                    Actions.scrollToBottom(driver);
+                }
+                Actions.clickElement(driver, referralStage);
+                Wait.seconds(10);//Wait for 5 seconds after navigating to each stage
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from navigating to Stage:" + stage);
@@ -481,44 +485,28 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, toDoList, 120)) {
                 Debugger.println("TODO LIST IS NOT LOADED IN 120 SECONDS !!!!");
-                //Do scroll up on page
-                Actions.scrollToTop(driver);
             }
             //Swapped the method of verification
             String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
             if(seleniumLib.isElementPresent(By.xpath(completedMark))){
                  return true;
             }
-            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-            Wait.seconds(2);
-            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-            Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, referralStage);
-            Wait.seconds(2);
-            List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
-            if (completedIcon != null && completedIcon.size() > 0) {//Got ArrayIndexOutOfBounds Exception some times, so added this cehck
-                Wait.forElementToBeDisplayed(driver, completedIcon.get(0), 200);
-                //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
-                if (completedIcon.size() == 1) {
-                    return true;
-                }
-            }
-            Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
-            SeleniumLib.takeAScreenShot("StageComplete.jpg");
+            Debugger.println("Stage :"+stage+" not displayed as completed..("+completedMark+")."+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot(stage.replaceAll(" ","")+"_stage.jpg");
             return false;
         } catch (Exception exp) {
             try {
-                //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
+                //In case of failure due to element not found exception, stale exception etc, trying again
                 String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
                 if(seleniumLib.isElementPresent(By.xpath(completedMark))){
                     return true;
                 }
-                Debugger.println("Exception in Checking Stage Completion Status: " + exp);
-                SeleniumLib.takeAScreenShot("StageComplete.jpg");
+                Debugger.println("Exception in Checking Stage Completion Status: " + exp+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot(stage.replaceAll(" ","")+"_stage.jpg");
                 return false;
             } catch (Exception exp1) {
-                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp);
-                SeleniumLib.takeAScreenShot("StageComplete.jpg");
+                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot(stage.replaceAll(" ","")+"_stage.jpg");
                 return false;
             }
         }
@@ -720,14 +708,15 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Debugger.println("EXP TITLE: " + expTitle);
+            long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
             // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
             int titlesSize = titleElements.size();
             int count = 1;
-            Debugger.println("Size.."+titlesSize);
+            //Debugger.println("Size.."+titlesSize);
             while(titlesSize == 0){
-                Debugger.println("Loop.....");
+                //Debugger.println("Loop.....");
                 Wait.seconds(10);
                 titlesSize = titleElements.size();
                 count++;
@@ -735,26 +724,30 @@ public class ReferralPage<check> {
                     break;
                 }
             }
+            if(titleElements.size() == 0){
+                Debugger.println("Title Elements Still not loaded.");
+                //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
+                Wait.seconds(8);
+                if (titleElements.size() == 0) {
+                    Wait.seconds(10);
+                }
+            }
             for (WebElement element : titleElements) {
-                Debugger.println("ACT TITLE:" + element.getText());
+                //Debugger.println("ACT TITLE:" + element.getText());
                 if (element.getText().contains(expTitle)) {
                     return true;
                 }
             }
-            Debugger.println("CONTINUING...............TITLE." + titleElements.size()+"\nURL:"+driver.getCurrentUrl());
+            //Debugger.println("CONTINUING...............TITLE." + titleElements.size()+"\nURL:"+driver.getCurrentUrl());
             String actualPageTitle = getTheCurrentPageTitle();
-            Debugger.println("TITLE...:" + actualPageTitle);
+            //Debugger.println("TITLE...:" + actualPageTitle);
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
-            //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
-            Wait.seconds(8);
-            if (titleElements.size() == 0) {
-                Wait.seconds(10);
-            }
-            Debugger.println("Page title not loaded after 21 seconds waiting for another 10 seconds and trying to locate.");
+            long endTime = System.currentTimeMillis();
+            Debugger.println("Page title not loaded event after "+((endTime-startTime)/1000)+" seconds. Trying again");
+            SeleniumLib.takeAScreenShot("PageTitleNotLoaded1.jpg");
             //In case of failure again, trying with another method.
-            Wait.seconds(10);
             By pageTitle;
             if (expTitle.contains("\'")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
@@ -765,24 +758,26 @@ public class ReferralPage<check> {
             WebElement titleElement = null;
             try {
                 Wait.seconds(2);
-                Debugger.println("Trying with Path...:" + pageTitle);
+                //Debugger.println("Trying with Path...:" + pageTitle);
                 titleElement = driver.findElement(pageTitle);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
-                    Debugger.println("Title found..");
+                    //Debugger.println("Title found..");
                     return true;
                 }
             } catch (Exception exp) {
                 //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
                 //So clicking on save abd continue and trying again.
-                Debugger.println("Title verification..exception....Clicking on Save and Continue.");
+                //Debugger.println("Title verification..exception....Clicking on Save and Continue.");
                 clickSaveAndContinueButton();
-                Wait.seconds(2);
+                Wait.seconds(10);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
-                    Debugger.println("Title found..");
+                    //Debugger.println("Title found..");
                     return true;
                 }
                 Actions.scrollToTop(driver);
-                SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
+                endTime = System.currentTimeMillis();
+                Debugger.println("Page title not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
+                SeleniumLib.takeAScreenShot("PageTitleNotLoaded2.jpg");
                 Debugger.println("TITLE URL:" + driver.getCurrentUrl());
                 return false;
             }

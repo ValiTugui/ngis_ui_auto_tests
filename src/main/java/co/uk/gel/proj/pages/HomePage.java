@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
@@ -19,9 +20,10 @@ import static co.uk.gel.lib.Actions.isAlertPresent;
 public class HomePage {
 
     WebDriver driver;
-
+    SeleniumLib seleniumLib;
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        seleniumLib = new SeleniumLib(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -105,9 +107,14 @@ public class HomePage {
             searchField.sendKeys(searchTerm);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from entering the search Term: "+exp);
-            SeleniumLib.takeAScreenShot("stypeInSearchField.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(searchField);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from entering the search Term: " + exp1);
+                SeleniumLib.takeAScreenShot("stypeInSearchField.jpg");
+                return false;
+            }
         }
     }
 
@@ -116,9 +123,14 @@ public class HomePage {
             Click.element(driver, searchIcon);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from clickSearchIconFromSearchField:"+exp);
-            SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(searchIcon);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from clickSearchIconFromSearchField:" + exp);
+                SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
+                return false;
+            }
         }
     }
 

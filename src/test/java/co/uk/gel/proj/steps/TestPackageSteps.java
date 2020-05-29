@@ -66,12 +66,15 @@ public class TestPackageSteps extends Pages {
         try {
             testResult = testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
             if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("TestPackage"," ")+"_Filled");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
             }
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("Could not select test package: "+numberOfParticipants+", Trying with default 2...");
             testResult = testPackagePage.selectNumberOfParticipants(2);
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
+            }
             Assert.assertTrue(testResult);
         }
     }
@@ -119,13 +122,17 @@ public class TestPackageSteps extends Pages {
 
     @Then("the user selects the {string}")
     public void theUserSelectsThe(String testReferralUrgencyInfo) {
+        boolean testResult = false;
         if (testReferralUrgencyInfo.contains("Urgent")) {
-            testPackagePage.clickUrgentPriority();
+            testResult = testPackagePage.clickUrgentPriority();
         } else {
-            testPackagePage.clickRoutinePriority();
+            testResult = testPackagePage.clickRoutinePriority();
+        }
+        if(!testResult){
+            Assert.fail("Test Package :"+testReferralUrgencyInfo+" could not select.");
         }
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Test"," ")+"_Filled");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestPackage");
         }
         //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
         Wait.seconds(5);
