@@ -233,13 +233,8 @@ public class SamplesSteps extends Pages {
         actualHelpHintTexts.add(1, "None");
 
         for (int i = 1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
-            //Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
-            //Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
-            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i - 1));
-
-           // Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
-           // Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i - 1) + "\n");
-            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i - 1));
+             Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i - 1));
+             Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i - 1));
         }
     }
 
@@ -256,7 +251,6 @@ public class SamplesSteps extends Pages {
         List<String> actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
 
         for (int i = 0; i < actualFieldsLabels.size(); i++) { //i starts from 1 because i=0 represents the header;
-            //Debugger.println("Actual fields labels on Add a Sample page :" + actualFieldsLabels.get(i) + "\n");
             Assert.assertTrue(actualFieldsLabels.get(i).contains("✱"));
         }
     }
@@ -269,13 +263,8 @@ public class SamplesSteps extends Pages {
         List<String> actualPlaceHolderTexts = samplesPage.getTheFieldPlaceHolderTextOnAddASamplePage();
 
         for (int i = 1; i < expectedLabelsAndPlaceHolderList.size(); i++) { //i starts from 1 because i=0 represents the header
-            //Debugger.println("Expected labelHeader " + expectedLabelsAndPlaceHolderList.get(i).get(0));
-            //Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
-            Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(0), actualFieldsLabels.get(i - 1));
-
-            //Debugger.println("Expected PlaceHolderText " + expectedLabelsAndPlaceHolderList.get(i).get(1));
-            //Debugger.println("Actual PlaceHolderText " + actualPlaceHolderTexts.get(i - 1) + "\n");
-            Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(1), actualPlaceHolderTexts.get(i - 1));
+             Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(0), actualFieldsLabels.get(i - 1));
+             Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(1), actualPlaceHolderTexts.get(i - 1));
         }
     }
 
@@ -350,13 +339,14 @@ public class SamplesSteps extends Pages {
 
         for (int i = 0; i < headerRow.size(); i++) {
             expectedHeaders.add(headerRow.get(i));
-            //Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
-            //Debugger.println("Actual Sample Table columns: " + actualHeaders.get(i));
             Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
         }
-        Debugger.println("Expected Table columns: " + expectedHeaders);
-        Debugger.println("Actual Table columns: " + actualHeaders.toString());
+        //Debugger.println("Expected Table columns: " + expectedHeaders);
+        //Debugger.println("Actual Table columns: " + actualHeaders.toString());
         Assert.assertEquals(expectedHeaders, actualHeaders);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Samples");
+        }
     }
 
     @And("on the Manage Samples page, the new sample details are displayed in the sample table list")

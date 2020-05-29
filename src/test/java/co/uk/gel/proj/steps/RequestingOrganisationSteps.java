@@ -26,21 +26,19 @@ public class RequestingOrganisationSteps extends Pages {
     @Then("the details of the new organisation are displayed")
     public void theDetailsOfTheNewOrganisationAreDisplayed() {
         try {
-            Assert.assertTrue("Stage : Requesting Organisation - Ordering entity details are not shown", requestingOrganisationPage.verifyOrganisationDetails());
-            for (WebElement header : requestingOrganisationPage.organisationDetailHeader) {
-                Assert.assertTrue(!Actions.getText(header).isEmpty());
+            boolean testResult = requestingOrganisationPage.verifyOrganisationDetails();
+            if(!testResult){
+                Assert.fail("Organisation details are not displayed properly.");
             }
-            for (WebElement details : requestingOrganisationPage.organisationDetailText) {
-                Assert.assertTrue(!Actions.getText(details).isEmpty());
+            if(AppConfig.snapshotRequired){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrderingEntity");
             }
             // to store Ordering entity name and address
             PatientDetailsPage.newPatient.setOrderingEntity(Actions.getText(requestingOrganisationPage.organisationDetailText.get(1)));
-            if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Organization"," ")+"_Filled");
-            }
+
         }catch(Exception exp){
             Debugger.println("Exception from verifying details of Selected Organization Details: "+exp);
-            SeleniumLib.takeAScreenShot("SelectedOrgDetails.jpg");
+            SeleniumLib.takeAScreenShot("OrderingEntity.jpg");
         }
     }
 

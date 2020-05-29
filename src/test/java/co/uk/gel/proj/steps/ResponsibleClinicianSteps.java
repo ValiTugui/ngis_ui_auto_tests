@@ -28,7 +28,7 @@ public class ResponsibleClinicianSteps extends Pages {
         boolean testResult = false;
         testResult = responsibleClinicianPage.fillInClinicianFormFields();
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ClinicalInfo"," ")+"_Filled");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ResponsibleClinician");
         }
         Assert.assertTrue(testResult);
     }
@@ -286,11 +286,13 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserFillsTheResponsibleClinicianPageWith(String clinicalInfo) {
         boolean testResult = false;
         testResult = responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("RespClinician"," ")+"_Filled");
+        if(!testResult){
+            Assert.fail("Responsible Clinician Details could not enter.");
         }
-        Assert.assertTrue(testResult);
-    }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ResponsibleClinician");
+        }
+   }
 
     @And("the user deletes the data in the Clinician Phone Number field")
     public void theUserDeletesTheDataInTheClinicianPhoneNumberField() {

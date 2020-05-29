@@ -29,9 +29,10 @@ public class ResponsibleClinicianPage {
     String key2 = "additionalClinician1";
     String key3 = "additionalClinician2";
     public HashMap<String, ArrayList<String>> cliniciansMap = new HashMap<>();
-
+    SeleniumLib seleniumLib;
     public ResponsibleClinicianPage(WebDriver driver) {
         this.driver = driver;
+        seleniumLib = new SeleniumLib(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -601,38 +602,58 @@ public class ResponsibleClinicianPage {
     public boolean fillResponsibleClinicianDetails(String clinicalInfo) {
         try {
             if (clinicalInfo == null || clinicalInfo.isEmpty()) {
-                return true;
+                return true;//Some cases where responsible clinician details need not enter
             }
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
             //Changed switch case, as the order matters to avoid overlay elements
             //FirstName
             String paramValue = paramNameValue.get("FirstName");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                clinicianFirstNameField.sendKeys(paramValue);
+                try {
+                    clinicianFirstNameField.sendKeys(paramValue);
+                }catch(Exception exp){
+                    seleniumLib.sendValue(clinicianFirstNameField,paramValue);
+                }
             }
             //LastName
             paramValue = paramNameValue.get("LastName");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                clinicianLastNameField.sendKeys(paramValue);
+                try{
+                    clinicianLastNameField.sendKeys(paramValue);
+                }catch(Exception exp){
+                    seleniumLib.sendValue(clinicianLastNameField,paramValue);
+                }
             }
             //Email
             paramValue = paramNameValue.get("Email");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                clinicianEmailField.sendKeys(paramValue);
+                try{
+                    clinicianEmailField.sendKeys(paramValue);
+                }catch(Exception exp){
+                    seleniumLib.sendValue(clinicianEmailField,paramValue);
+                }
             }
             //Department
             paramValue = paramNameValue.get("Department");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                clinicianDepartmentAddressField.sendKeys(paramValue);
+                try{
+                    clinicianDepartmentAddressField.sendKeys(paramValue);
+                }catch(Exception exp){
+                    seleniumLib.sendValue(clinicianDepartmentAddressField,paramValue);
+                }
             }
             //Registration
             paramValue = paramNameValue.get("Registration");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                clinicianProfesionalRegistrationNumberField.sendKeys(paramValue);
+                try {
+                    clinicianProfesionalRegistrationNumberField.sendKeys(paramValue);
+                }catch(Exception exp){
+                    seleniumLib.sendValue(clinicianProfesionalRegistrationNumberField,paramValue);
+                }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp);
+            Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ResponsibleClinician.jpg");
             return false;
         }

@@ -175,7 +175,7 @@ public class TumoursSteps extends Pages {
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Tumour"," ")+"_Filled");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Tumour");
         }
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
     }

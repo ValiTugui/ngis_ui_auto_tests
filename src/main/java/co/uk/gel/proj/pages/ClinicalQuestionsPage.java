@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
+import java.sql.Driver;
 import java.util.*;
 import java.util.List;
 
@@ -155,7 +156,7 @@ public class ClinicalQuestionsPage {
         Wait.seconds(5);
         try {
             if (hpoSearchField.size() < 1) {
-                Debugger.println("HPO Search field not displayed.");
+                Debugger.println("HPO Search field not displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOSearchField.jpg");
                 return 0;
             }
@@ -206,7 +207,7 @@ public class ClinicalQuestionsPage {
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             return 0;
         } catch (Exception exp) {
-            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
+            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("HPOPhenotypeException.jpg");
             return 0;
         }
@@ -304,17 +305,25 @@ public class ClinicalQuestionsPage {
 
     public String selectDiseaseStatus(String diseaseStatusValue) {
         try {
-            if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 15)) {
+            if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 30)) {
                 Actions.scrollToTop(driver);
             }
-            if (!Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(diseaseStatusValue)) {
-                Actions.clickElement(driver, diseaseStatusDropdown);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
-                Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            String selectedValue = Actions.getText(diseaseStatusDropdown);
+            if (selectedValue != null &&
+                    selectedValue.equalsIgnoreCase(diseaseStatusValue)) {
+                return selectedValue;//Already Selected the Specified Value
             }
-            return Actions.getText(diseaseStatusDropdown);
+            Actions.clickElement(driver, diseaseStatusDropdown);
+            if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
+                Debugger.println("Disease Status not loaded in Clinical Questions."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("DiseaseStatusDD.jpg");
+                return null;
+            }
+            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            selectedValue = Actions.getText(diseaseStatusDropdown);
+            return selectedValue;
         } catch (Exception exp) {
-            Debugger.println("Exception from selecting Disease Status in Clinical Page: " + exp);
+            Debugger.println("Exception from selecting Disease Status in Clinical Page: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("DiseaseStatus.jpg");
             return null;
         }
@@ -399,18 +408,24 @@ public class ClinicalQuestionsPage {
     //Method added by @Stag for filling the ClinicalQuestionsPage
     public boolean fillDiseaseStatusAgeOfOnsetAndHPOTerm(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
         //DiseaseStatus
         String paramValue = paramNameValue.get("DiseaseStatus");
         if (paramValue != null && !paramValue.isEmpty()) {
-            selectDiseaseStatus(paramNameValue.get("DiseaseStatus"));
+            if(selectDiseaseStatus(paramNameValue.get("DiseaseStatus")) == null){
+                return false;
+            }
         }
         //AgeOfOnset
         paramValue = paramNameValue.get("AgeOfOnset");
         if (paramValue != null && !paramValue.isEmpty()) {
             String[] age_of_onsets = paramValue.split(",");
-            ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
-            ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+            try {
+                ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
+                ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+            }catch(Exception exp){
+                seleniumLib.sendValue(ageOfOnsetYearsField,age_of_onsets[0]);
+                seleniumLib.sendValue(ageOfOnsetMonthsField,age_of_onsets[1]);
+            }
         }
         //PhenoType
         boolean isFilled = false;
