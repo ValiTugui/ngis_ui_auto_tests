@@ -276,9 +276,6 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsTheProband() {
         boolean testResult = false;
         testResult = patientChoicePage.selectMember(0);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ProbandPC"," ")+"_Start");
-        }
         Assert.assertTrue(testResult);
     }
 

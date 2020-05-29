@@ -123,11 +123,11 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails);
-        if(!testResult){
-            Assert.fail("Clinical Questions could not enter.");
-        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalQuestions");
+        }
+        if(!testResult){
+            Assert.fail("Clinical Questions could not enter.");
         }
    }
 

@@ -519,9 +519,6 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Referral"," ")+"_Submitting");
-        }
     }
 
     @When("the user clicks the Cancel referral link")
