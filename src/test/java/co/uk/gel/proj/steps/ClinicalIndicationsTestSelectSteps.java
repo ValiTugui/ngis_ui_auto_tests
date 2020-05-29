@@ -20,18 +20,11 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         super(driver);
     }
 
-//    @When("^the user clicks on Start test order button$")
-//    public void clickStartTestOrderButton() {
-//        homePage.closeCookiesBannerFromFooter();
-//        clinicalIndicationsTestSelect.clickStartTestOrderButton();
-//    }
-
     @And("the user clicks the Start Test Order Referral button")
     public void theUserClicksTheStartTestOrderReferralButton() {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
     }
-
 
     @And("the loading wheel is displayed")
     public void theLoadingWheelIsDisplayed() {

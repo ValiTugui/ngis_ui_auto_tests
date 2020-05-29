@@ -1016,7 +1016,7 @@ public class ReferralPage<check> {
             try {
                 return seleniumLib.getText(submissionConfirmationBannerTitle);
             } catch (Exception exp1) {
-                Debugger.println("Referral submission confirm message not displayed: " + exp);
+                Debugger.println("Referral submission confirm message not displayed: " + exp+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
                 return null;
             }
