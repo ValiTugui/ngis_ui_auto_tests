@@ -120,14 +120,41 @@ public class PaperFormPage {
 
     String entitySuggestionLocatior = "div[class*='suggestions']";
 
-    public void fillInSpecificKeywordInSearchField(String keyword) {
-        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
-        orderEntitySearchField.clear();
-        orderEntitySearchField.sendKeys(keyword);
+    public boolean fillInSpecificKeywordInSearchField(String keyword) {
+        try {
+            if (!Wait.isElementDisplayed(driver, orderEntitySearchField, 30)) {
+                Debugger.println("Could not find orderEntitySearchField..Trying with SeleniumLib.");
+                seleniumLib.sendValue(orderEntitySearchField,keyword);
+                Wait.seconds(2);
+                return false;
+            }
+            orderEntitySearchField.clear();
+            orderEntitySearchField.sendKeys(keyword);
+            Wait.seconds(2);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.sendValue(orderEntitySearchField,keyword);
+                Wait.seconds(2);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception1 from orderEntitySearchField.."+exp1+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("OrderEntity.jpg");
+                return false;
+            }
+        }
     }
 
-    public void checkThatEntitySuggestionsAreDisplayed() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(entitySuggestionLocatior), 0);
+    public boolean checkThatEntitySuggestionsAreDisplayed() {
+        try {
+            Wait.seconds(2);
+            Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(entitySuggestionLocatior), 0);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in Order Entity Suggestion List display."+exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("OrderEntityDisplay.jpg");
+            return false;
+        }
     }
 
     public boolean clickSignInToTheOnlineServiceButton() {

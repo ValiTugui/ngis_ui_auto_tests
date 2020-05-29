@@ -175,7 +175,7 @@ public class TumoursSteps extends Pages {
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Tumour"," ")+"_Filled");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Tumour");
         }
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
     }
@@ -483,15 +483,13 @@ public class TumoursSteps extends Pages {
         expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
         List<String> actualTumourTestDetailsOnAddSamplePage;
         actualTumourTestDetailsOnAddSamplePage = samplesPage.getTheTumourDetailsValuesFromAddSamplePage();
+//
+//        Debugger.println("Expected TumourTest Details-list            : " + expectedTumourTestData);
+//        Debugger.println("Actual TumourTest Details List on SamplePage: " + actualTumourTestDetailsOnAddSamplePage);
 
-        Debugger.println("Expected TumourTest Details-list            : " + expectedTumourTestData);
-        Debugger.println("Actual TumourTest Details List on SamplePage: " + actualTumourTestDetailsOnAddSamplePage);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Sample"," ")+"_Filled");
-        }
         for (int i = 0; i < expectedTumourTestData.size(); i++) {
-            Debugger.println("Expected TumourTestData: " + i + " : " + expectedTumourTestData.get(i));
-            Debugger.println("Actual TumourTest Details on Sample Page: " + i + " : " + actualTumourTestDetailsOnAddSamplePage.get(i) + "\n");
+//            Debugger.println("Expected TumourTestData: " + i + " : " + expectedTumourTestData.get(i));
+//            Debugger.println("Actual TumourTest Details on Sample Page: " + i + " : " + actualTumourTestDetailsOnAddSamplePage.get(i) + "\n");
             Assert.assertEquals( expectedTumourTestData.get(i), actualTumourTestDetailsOnAddSamplePage.get(i));
         }
 

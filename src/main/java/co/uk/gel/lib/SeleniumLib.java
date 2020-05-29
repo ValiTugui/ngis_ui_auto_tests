@@ -78,7 +78,7 @@ public class SeleniumLib {
 
     public static WebElement waitForElementVisible(By element) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, 20);
+            WebDriverWait wait = new WebDriverWait(driver, 60);
             final WebElement el = driver.findElement(element);
 
             wait.until(new ExpectedCondition<Boolean>() {
@@ -437,7 +437,7 @@ public class SeleniumLib {
 
     public static WebElement getWebElement(By by) {
         try {
-            WebElement element = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
+            WebElement element = new WebDriverWait(driver, 60).until(ExpectedConditions.presenceOfElementLocated(by));
             return element;
         } catch (Exception exp) {
             return null;

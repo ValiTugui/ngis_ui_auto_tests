@@ -124,10 +124,12 @@ public class ClinicalQuestionsSteps extends Pages {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails);
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ClinicalQuestion"," ")+"_Filled");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalQuestions");
         }
-        Assert.assertTrue(testResult);
-    }
+        if(!testResult){
+            Assert.fail("Clinical Questions could not enter.");
+        }
+   }
 
     @And("the HPO phenotype drop-down is allowed to have values up to {string}")
     public void theHPOPhenotypeDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {

@@ -1,30 +1,32 @@
 @BVT_UI_SMOKE_TEST_PACK
 #@userJourneysCancer
 #@BVT_UI_SMOKE_TEST_CANCER
-Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
+Feature: NTS-3362: Create Cancer Referral by completing - Patient details - Requesting organisation - Test package - Responsible clinician - Tumours - Samples - Notes - Patient choice - Print forms - Download Sample form - Submit
    
   @NTS-3362 @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Patient Details
     And the "<patientDetails>" stage is marked as Completed
-
+    ##Requesting Organisation
     When the user navigates to the "<requestingOrganisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     Then the "<requestingOrganisation>" stage is marked as Completed
-
+    ##Test Package
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
     And the user clicks the Save and Continue button
     Then the "<testPackage>" stage is marked as Completed
+
     And the "<responsibleClinician>" stage is selected
     And the correct "1" tests are saved to the referral in  "<testPackage>"
-
+    ##Responsible Clinician
     When the user navigates to the "<responsibleClinician>" stage
     Then the user is navigated to a page with title Add clinician information
     And the user fills in all the clinician form fields
@@ -93,16 +95,14 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
-
     Then the user is navigated to a page with title Patient choice
     And the help text is displayed
-
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
 
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
+    And the user is able to download print form for the proband
 
-#    And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"

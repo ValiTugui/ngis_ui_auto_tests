@@ -218,6 +218,10 @@ public class TestUtils {
             for (int i = 0; i < files.length; i++) {
                 if (!(files[i].getName().startsWith("T" + prefix))) {
                     files[i].delete();
+                }else{
+                    if(files[i].getName().startsWith("NTS")){
+                        files[i].delete();
+                    }
                 }
             }
         } catch (Exception exp) {
