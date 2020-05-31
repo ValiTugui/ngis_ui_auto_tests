@@ -136,7 +136,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
       | mi_stage       | paginationValue | filter_value5              | operator | value5     | filter_value6        | value6       | filter_value7                         | value7           | filter_value8         | value8     | filter_value9                    | operator9 | date       |
       | Plater Samples | 25              | GEL1004 Clinic Sample Type | is       | dna_saliva | GEL1004 Disease Area | Rare Disease | GEL1004 GLH Sample Consignment Number | lns-2020-04-08-1 | GEL1004 Laboratory ID | North West | GEL1005 Sample Received Datetime | equals    | 14-03-2020 |
 
-
   @NTS-5063
    ## @E2EUI-1305
   Scenario Outline:NTS-5063:E2EUI-1305 :Mi dashboard Picklists section
@@ -260,4 +259,3 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
       | mi_stage  | filter_value1 | operator  | value1                    | filter_value2   | value2                                              | filter_value3 | value3      | filter_value4   | operator1  | value4                                 | filter_value5    | value5                      | filter_value6                                  | operator2                | value6 | operator3                   | filter_value7                  | operator4    | operator5    | date1      | date2      | paginationValue |
       | Picklists | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | r1234       | Patient NGIS ID | is exactly | p87902736451                           | GEL1008 Plate ID | LP1110102-DNA               | GEL1008 Normalised Biorepository Sample Volume | equals                   | 90     | is greater than or equal to | GEL1008 Plate Date of Dispatch | equals       | before or on | 30-03-2020 | 25-03-2020 | 25              |
       | Picklists | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | r1234,r5678 | Patient NGIS ID | is one of  | p24295001324,p44616417782,p16259578271 | GEL1008 Plate ID | LP1211302-DNA,LP1110102-DNA | GEL1008 Normalised Biorepository Sample Volume | is less than or equal to | 100    | is greater than or equal to | GEL1008 Plate Date of Dispatch | before or on | on or after  | 30-03-2020 | 20-03-2020 | 50              |
-

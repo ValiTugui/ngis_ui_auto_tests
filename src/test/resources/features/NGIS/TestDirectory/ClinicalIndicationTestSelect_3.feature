@@ -111,4 +111,3 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     Examples:
       | new_stage               | TestPackage  | acknowledgeMessage | partOfMessage1                     | acknowledgeMessage | partOfMessage                                               | Panels |
       | Requesting organisation | Test package | Dismiss            | Changes you made may not be saved. | Dismiss            | This section contains unsaved information. Discard changes? | Panels |
-

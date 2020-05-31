@@ -98,7 +98,6 @@ Feature: Samples Page -1
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Solid tumour sample  | test                   | Sample added     |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Liquid tumour sample | test                   | Sample added     |
 
-
   @NTS-3287  @Z-LOGOUT
 #    @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample - sample's details are displayed

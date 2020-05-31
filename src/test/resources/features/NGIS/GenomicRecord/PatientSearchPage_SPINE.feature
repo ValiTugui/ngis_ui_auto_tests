@@ -66,7 +66,6 @@ Feature: Patient search page_SPINE
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
 
-
   @NTS-2822
 #    @E2EUI-2140 @E2EUI-2132 @E2EUI-2131
   Scenario Outline: NTS-2822:patient search - "<ui-ticket-no>" - "<patient-search-type>" Defuzzing, accented and special characters
@@ -187,7 +186,6 @@ Feature: Patient search page_SPINE
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female                  | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female                   |
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
 
-
   @NTS-2799
 #    @E2EUI-1390
   Scenario Outline: NTS-2799:To verify the text information present on the 'Find a Patient' page
@@ -285,7 +283,6 @@ Feature: Patient search page_SPINE
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-
   @NTS-2819
 #    @E2EUI-1991
   Scenario Outline: NTS-2819: A validation Error should not be triggered while entering DOB as 01-01-1970
@@ -308,7 +305,6 @@ Feature: Patient search page_SPINE
     Examples:
       | patient-search-type | NhsNumber  | DOB        | NhsNumber2 | DOB2       |
       | NHS Spine           | 9449310602 | 23-03-2011 | 9449304580 | 11-04-1909 |
-
 
   @NTS-2797
 #    @E2EUI-2161
@@ -370,7 +366,6 @@ Feature: Patient search page_SPINE
     And User place the cursor over the tab in which the Dashboard - Home page is opened
     Then The user should see the tab title as "Genomic Medicine Service | Test Ordering Application - NGIS"
 
-
   @NTS-4722
 #    @E2EUI-835
   Scenario Outline: NTS-4722:Patient Search - Integer/decimal Type Validation in NHS Number Field
@@ -382,7 +377,6 @@ Feature: Patient search page_SPINE
       | patient-search-type | NhsNumber | DOB        | error_message           |
       | NHS Spine           | abcdefghh | 01-01-2020 | NHS Number is required. |
       | NHS Spine           | !@#$%^&*  | 01-01-2020 | NHS Number is required. |
-
 
   @NTS-4727
 #    @E2EUI-1133
@@ -396,7 +390,6 @@ Feature: Patient search page_SPINE
       | patient-search-type | SearchDetails                                              | error_message       |
       | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz | Gender is required. |
 
-
   @NTS-4742
 #    @E2EUI-1071
   Scenario Outline:NTS-4727:Patient Search Page Layout - NHS number is NOT Known - Verify placeholder values
@@ -407,7 +400,6 @@ Feature: Patient search page_SPINE
     Examples:
       | pageTitle         | DOB        | firstName  | lastName   | postCode   |
       | Find your patient | DD-MM-YYYY | e.g. Helen | e.g. Jones | e.g. N16 7TU |
-
 
   @NTS-4742
 #    @E2EUI-1071
@@ -424,7 +416,6 @@ Feature: Patient search page_SPINE
     Examples:
       | pageTitle         |
       | Find your patient |
-
 
   @NTS-4801
 #    @E2EUI-1106

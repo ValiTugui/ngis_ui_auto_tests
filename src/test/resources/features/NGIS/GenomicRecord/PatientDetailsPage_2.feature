@@ -118,7 +118,7 @@ Feature: GenomicRecord: Patient details page 2
       | No patient found | create a new patient record | Patient is a foreign national | ab1  2cd | ab1 2cd        |
       | No patient found | create a new patient record | Patient is a foreign national | ab12cd   | ab1 2cd        |
 
-  @NTS-5810  @Z-LOGOUT
+  @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- update a patient record by passing postcode.
     Given a new patient referral is created with associated tests in Test Order System online service

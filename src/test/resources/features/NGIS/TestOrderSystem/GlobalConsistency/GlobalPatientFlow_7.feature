@@ -43,7 +43,6 @@ Feature: GlobalConsistency:Global Patent Flow 7 - Referral Header
       | stage1          | dialogTitle                  | stage2                  | pageTitle                     | ordering_entity_name | stage3       |
       | Patient details | There is missing information | Requesting organisation | Add a requesting organisation | Maidstone            | Test package |
 
-
   @NTS-4813 @Z-LOGOUT
     #@E2EUI-1005
   Scenario Outline:NTS-4813:Referral RD - Show alert when page is mandatory and must be completed to submit

@@ -44,7 +44,6 @@ Feature: Genomic Record - Patient details page_SPINE
       | patient-search-type | stage1          | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | NGIS                | Patient details | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
 
-
   @NTS-4795 @Z-LOGOUT
 #    @E2EUI-969
   Scenario Outline: NTS-4795:SPINE patient search "<patient-search-type>" With NHS Number and Date of Birth and add to NGIS
@@ -61,7 +60,6 @@ Feature: Genomic Record - Patient details page_SPINE
     Examples:
       | patient-search-type | NhsNumber  | DOB        | addToPatientDetails |
       | NHS Spine           | 9449308691 | 23-05-2011 | Add details to NGIS |
-
 
   @NTS-4795 @Z-LOGOUT
 #    @E2EUI-969
@@ -83,7 +81,6 @@ Feature: Genomic Record - Patient details page_SPINE
       | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown                  |
 
 #  SPINE DATA replaced with NGIS DATA
-
 #  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @Z-LOGOUT
 #  Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
 #    Given a web browser is at the patient search page
@@ -98,7 +95,6 @@ Feature: Genomic Record - Patient details page_SPINE
 #    Examples:
 #      | patient-search-type | NhsNumber  | DOB        |
 #      | NHS Spine           | 9449310602 | 23-03-2011 |
-
 
 #  @NTS-3068 @E2EUI-1182 @Z-LOGOUT
 #  Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
@@ -115,7 +111,6 @@ Feature: Genomic Record - Patient details page_SPINE
 #    Examples:
 #      | patient-search-type | SearchDetails                                                            |
 #      | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
-
 
 #  @NTS-3067 @E2EUI-1128 @Z-LOGOUT
 #  Scenario Outline:NTS-3067:The user can not create a referral for an existing patient without a clinical indication test selected

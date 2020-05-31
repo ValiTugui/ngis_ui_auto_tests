@@ -165,7 +165,6 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
       | patient-search-type | stage1          |
       | NGIS                | Patient details |
 
-
   @NTS-4809 @Z-LOGOUT
     #@E2EUI-1324
   Scenario Outline: NTS-4809: Header bar for a referral

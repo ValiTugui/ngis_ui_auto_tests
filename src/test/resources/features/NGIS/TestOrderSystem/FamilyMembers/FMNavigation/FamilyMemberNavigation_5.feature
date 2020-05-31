@@ -6,7 +6,7 @@ Feature: Family Members Navigation Stage 5 - Patient Identifiers
 
   @NTS-3299 @Z-LOGOUT
 # @E2EUI-1698
-  Scenario Outline: NTS-3299: Verify the family members test package are selected by default
+  Scenario Outline: NTS-3299:E2EUI-1698: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1959:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation

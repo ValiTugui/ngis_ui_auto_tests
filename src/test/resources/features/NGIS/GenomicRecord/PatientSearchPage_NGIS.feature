@@ -28,7 +28,6 @@ Feature: GenomicRecord: Patient search page_NGIS
       | pageTitle                        | pageTitle2        | patient-search-type | patient-type |
       | Create a record for this patient | Find your patient | NGIS                | NGIS         |
 
-
   @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068:E2EUI-1182: Verifying the Patient Details page after successful search for "<patient-type>" patient
@@ -77,7 +76,6 @@ Feature: GenomicRecord: Patient search page_NGIS
       | pageTitle                        | pageTitle2        | result_message         |
       | Create a record for this patient | Find your patient | 1 patient record found |
 
-
   @NTS-2795 @Z-LOGOUT
 #    @E2EUI-2129 @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @E2EUI-1662 @E2EUI-865 @E2EUI-1217 @E2EUI-1125 @E2EUI-1268
   Scenario Outline: NTS-2795:(E2EUI-2129,2136,1762,1788,1363,1662,865,1217,1125,1268)NGIS Alternate Search - date of birth, first-name, last-name, and gender
@@ -114,7 +112,6 @@ Feature: GenomicRecord: Patient search page_NGIS
     Examples:
       | stage           | patient-search-type | patient-type |
       | Patient details | NGIS                | NGIS         |
-
 
   @NTS-2822 @Z-LOGOUT
 #    @E2EUI-2140 @E2EUI-2132 @E2EUI-2131
