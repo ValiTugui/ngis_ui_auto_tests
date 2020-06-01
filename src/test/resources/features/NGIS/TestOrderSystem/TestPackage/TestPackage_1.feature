@@ -36,7 +36,6 @@ Feature: Test Package 1  - Cancer
       | stage        | new_stage             |
       | Test package | Responsible clinician |
 
-
   @NTS-3109 @Z-LOGOUT
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
@@ -51,7 +50,6 @@ Feature: Test Package 1  - Cancer
     Examples:
       | stage        | browser_exit_option |
       | Test package | refresh             |
-
 
   @NTS-3156 @Z-LOGOUT
 #    @E2EUI-828
@@ -104,7 +102,6 @@ Feature: Test Package 1  - Cancer
     Examples:
       | stage        | number | new_stage             |
       | Test package | 2      | Responsible clinician |
-
 
   @NTS-3109 @Z-LOGOUT
 #    @E2EUI-2139

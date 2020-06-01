@@ -47,4 +47,3 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
     Examples:
       | stage              |
       | Clinical questions |
-

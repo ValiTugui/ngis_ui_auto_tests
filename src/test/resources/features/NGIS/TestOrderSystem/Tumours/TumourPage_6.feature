@@ -24,7 +24,6 @@ Feature: Tumours Page - 6
       | stage   | pathologySampleId                 | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | A12345678912345667890-ABCDEFGHIJK | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
-
   @NTS-3171 @Z-LOGOUT
 #    @E2EUI-2145
   Scenario Outline:NTS:3171:E2EUI-2145:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing

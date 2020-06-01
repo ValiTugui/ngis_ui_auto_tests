@@ -135,7 +135,6 @@ Feature: Samples Page -4
       | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState         | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
       | Samples | Manage samples | Add a sample | Normal or germline sample | Fresh frozen tumour | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
-
   @NTS-3432 @Z-LOGOUT
 #    @E2EUI-1352
   Scenario Outline: NTS-3432: Add a Sample - 'Not the Right Tumour' in 'Add a Sample' page and Selecting a different tumour in 'Select or edit a tumour' page
@@ -175,7 +174,6 @@ Feature: Samples Page -4
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
 
-
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
@@ -209,7 +207,6 @@ Feature: Samples Page -4
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour     | notificationText |
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Sample added     |
 
-
   @NTS-4709 @Z-LOGOUT
 #     @E2EUI-1023
   Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
@@ -229,4 +226,3 @@ Feature: Samples Page -4
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Fibroblasts |
-

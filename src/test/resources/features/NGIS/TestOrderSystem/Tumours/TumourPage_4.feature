@@ -96,7 +96,6 @@ Feature: Tumours Page - 4
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
-
   @NTS-3431 @Z-LOGOUT
 #    @E2EUI-997
   Scenario Outline:NTS-3431:E2EUI-997:The Tumours stage is marked 'Mandatory ToDo' when not completed and marked 'Completed' when all tumour field completed
@@ -119,7 +118,6 @@ Feature: Tumours Page - 4
       | stage   | tumour_type              | presentationType   | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added     |
 
-
   @NTS-4503 @Z-LOGOUT
 #    @E2EUI-1130
   Scenario Outline:NTS-4503:E2EUI-1130: Add Tumour Page - Description field - maximum length validation
@@ -133,7 +131,6 @@ Feature: Tumours Page - 4
     Examples:
       | stage   | TumourDescription                                  |
       | Tumours | 12345678901234567890123456789012345678901234567890 |
-
 
   @NTS-4757 @Z-LOGOUT
 #    @E2EUI-1339
@@ -153,7 +150,6 @@ Feature: Tumours Page - 4
     Examples:
       | stage   | pageTitle    |
       | Tumours | Add a tumour |
-
 
   @NTS-4829 @Z-LOGOUT
 #    @E2EUI-1758

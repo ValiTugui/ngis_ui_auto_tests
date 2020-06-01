@@ -3,7 +3,6 @@
 
 Feature: MIPORTAL SIT - Plater Samples
 
-
   @NTS-5030
     #@E2EUI-2331
   Scenario Outline:NTS-5030:E2EUI-2331: Plater Sample Report UI improvement

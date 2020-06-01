@@ -86,7 +86,6 @@ Feature: MIPORTAL SIT - Order_Tracking
       | mi_stage       | NoOfSearchField |
       | Order Tracking | 3               |
 
-
   @NTS-5056
     #@E2EUI-2234
   Scenario Outline: NTS-5056:E2EUI-2234:The plate id and well id fields in Order tracking should be different for each files

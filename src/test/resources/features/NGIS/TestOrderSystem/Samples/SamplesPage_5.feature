@@ -65,7 +65,6 @@ Feature: Samples Page -5
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
 
-
   @NTS-3333 @Z-LOGOUT
 #    @E2EUI-1252
   Scenario Outline: NTS-3333:E2EUI-1252: Add a Sample page - verify the help hint-text on Local sample tube ID
