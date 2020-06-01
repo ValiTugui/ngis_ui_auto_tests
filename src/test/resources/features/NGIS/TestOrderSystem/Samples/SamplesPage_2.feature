@@ -111,7 +111,6 @@ Feature: Samples Page -2
       | stage   | pageTitle      | pageTitle2   | subPageTitle                                                 |
       | Samples | Manage samples | Add a sample | Enter sample information if your local processes require it. |
 
-
   @NTS-3335 @Z-LOGOUT
 #   @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
   Scenario Outline: NTS-3335:E2EUI-1261,1232,1476: Add a Sample page - page layout - verify sample-states drop-down values

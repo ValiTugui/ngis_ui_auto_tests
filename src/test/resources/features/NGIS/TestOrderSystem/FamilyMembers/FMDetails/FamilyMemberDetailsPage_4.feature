@@ -57,7 +57,6 @@ Feature: Family Members Details Page 4- Field Validation_4
       | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |FamilyMemberDetails|
       | Family members | Patient is a foreign national | Father                | NHSNumber=9449305327:DOB=14-02-2012                  |
 
-
   @NTS-4053 @Z-LOGOUT
 #    @E2EUI-2474 @scenario_3
   ##Note: Scenarios 1 and 2 for this ticket is covered in 1990

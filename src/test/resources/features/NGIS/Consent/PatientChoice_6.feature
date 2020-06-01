@@ -5,7 +5,7 @@
 Feature: Patient Choice-6 - File uploads
 
   @NTS-3440 @Z-LOGOUT
-    #@E2EUI-2038 @2036 @E2EUI-1823 @E2EUI-1680 @E2EUI-1827
+    #@E2EUI-2038 @E2EUI-2036 @E2EUI-1823 @E2EUI-1680 @E2EUI-1827
   Scenario Outline: NTS-3440: Editing Patient Choice Recorded by when uploading a paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |

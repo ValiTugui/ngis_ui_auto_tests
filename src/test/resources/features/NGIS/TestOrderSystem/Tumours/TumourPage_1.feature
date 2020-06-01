@@ -47,7 +47,6 @@ Feature: TestOrder - Tumours Page - 1
       | stage   |
       | Tumours |
 
-
   @NTS-3170 @Z-LOGOUT
 #   @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @E2EUI-1846
   Scenario Outline:NTS-3152:E2EUI-2018,1840,1350,1486,1459,1846: Future date  can't be entered in the Date of diagnosis field from the Add a tumour page
@@ -74,7 +73,6 @@ Feature: TestOrder - Tumours Page - 1
       | stage   |
       | Tumours |
 
-
   @NTS-3157 @Z-LOGOUT
 #    @E2EUI-1020
     # Replaced SPINE data with NGIS Data creation
@@ -89,7 +87,6 @@ Feature: TestOrder - Tumours Page - 1
     Examples: of leaving the date of diagnosis field blank
       | stage   | tumour_type              | error_message |
       | Tumours | Solid tumour: metastatic | Enter a year  |
-
 
 #    Test to be skipped till we sort out SPINE Data 20/02/2020
 # @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @Z-LOGOUT

@@ -60,7 +60,6 @@ Feature: Family Members Details Page 5- Field Validation_5
       | patient-search-type | NHSNumber  | DOB        |
       | NGIS                | 9449306206 | 06-05-2011 |
 
-
   @NTS-4052 @Z-LOGOUT
 #    @E2EUI-1837 @scenario_2
   Scenario Outline: NTS-4052: Multidate picker - Real dates validation on Family Members Page.
