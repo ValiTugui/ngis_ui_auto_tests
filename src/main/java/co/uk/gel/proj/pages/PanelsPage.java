@@ -74,6 +74,9 @@ public class PanelsPage {
     @FindBy(xpath = "//h3[contains(@class,'subheader')]")
     public List<WebElement> panelSubtitles;
 
+    @FindBy(xpath = "//h3[text()='No suggested panels found']")
+    public WebElement noSuggestedPanels;
+
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
@@ -461,6 +464,26 @@ public class PanelsPage {
         } catch (Exception exp) {
             Debugger.println("Exception in verifying verifyThePresenceOfSection:" + exp);
             SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNoSuggestedPanels(String message) {
+        try {
+            if (!(suggestedPanelsList.size() == 0)) {
+                Debugger.println("Suggested Panels are displayed.");
+                SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver,noSuggestedPanels);
+            if(!noSuggestedPanels.getText().equalsIgnoreCase(message)){
+                Debugger.println("Panels have been suggested on Page.");
+
+            }
+            return  true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying verifyNoSuggestedPanels:" + exp);
+            SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
             return false;
         }
     }
