@@ -148,7 +148,6 @@ Feature: GenomicRecord: New Patient page
     And the Start Referral button is disabled
  #   And the Start New Referral button is disabled
 
-
     Examples:
       | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     | notification                |
       | create a new patient record | Create a record for this patient | Other - provide explanation | NGIS patient record created |
@@ -363,7 +362,6 @@ Feature: GenomicRecord: New Patient page
     Examples:
       | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
-
 
   @NTS-3512 @Z-LOGOUT
 #    @E2EUI-1508

@@ -6,9 +6,8 @@
   ##This changes are from Hanna Release
 Feature: PanelAssigner: Panels Page Add Panel
 
-  @NTS-33801 @Z-LOGOUT
+  @NTS-3380 @Z-LOGOUT
 #    @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976
-
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |

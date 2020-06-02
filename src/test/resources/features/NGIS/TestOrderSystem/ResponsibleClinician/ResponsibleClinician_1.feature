@@ -36,7 +36,7 @@ Feature: Responsible Clinician - 1
       | stage                 | new_stage      | warning_text                                                |
       | Responsible clinician | Patient choice | This section contains unsaved information. Discard changes? |
 
-  @NTS-3167  @Z-LOGOUT
+  @NTS-3167 @Z-LOGOUT
 #    @E2EUI-1216 @Z-LOGOUT
   Scenario Outline: NTS-3167 - Responsible Clinician Page - Email and Phone Number field validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -52,7 +52,7 @@ Feature: Responsible Clinician - 1
       | stage                 | invalid_email | invalid_number_of_digits | total_number_of_digits_acceptable | error_info                         |
       | Responsible clinician | ab@ad.com     | 19                       | 15                                | Please enter a valid email address |
 
-  @NTS-3175  @Z-LOGOUT
+  @NTS-3175 @Z-LOGOUT
 #    @E2EUI-956 @Z-LOGOUT
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User selects 'Save and continue' button without providing inputs in mandatory fields
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -71,7 +71,7 @@ Feature: Responsible Clinician - 1
       | Responsible clinician | Add another   | Last name is required | #dd2509           |
 
   # E2EUI-1641
-  @NTS-3175  @Z-LOGOUT
+  @NTS-3175 @Z-LOGOUT
 #    @E2EUI-956 @E2EUI-1355
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User select 'Save and continue' button without providing nullable Department address
   Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -89,7 +89,7 @@ Feature: Responsible Clinician - 1
       | stage                 |  new_stage   |
       | Responsible clinician |   Tumours    |
 
-  @NTS-3286  @Z-LOGOUT
+  @NTS-3286 @Z-LOGOUT
 #    @E2EUI-939
   Scenario Outline: NTS-3286 - Responsible Clinician Page - Save and continue the responsible section by leaving the Last name field empty
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -109,8 +109,7 @@ Feature: Responsible Clinician - 1
       | stage                 | pageTitle                 | hyperlinkText | error_info            | red_color_hex_code |
       | Responsible clinician | Add clinician information | Add another   | Last name is required | #dd2509            |
 
-
-  @NTS-3311  @Z-LOGOUT
+  @NTS-3311 @Z-LOGOUT
 #    @E2EUI-972
   Scenario Outline: NTS-3311 - Responsible Clinician Page - Assign a responsible practitioner to a referral - Cancer flow
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -132,7 +131,7 @@ Feature: Responsible Clinician - 1
       | stage1                | stage2  | pageTitle                 | hyperlinkText |
       | Responsible clinician | Tumours | Add clinician information | Add another   |
 
-  @NTS-3321  @Z-LOGOUT
+  @NTS-3321 @Z-LOGOUT
 #    @E2EUI-1137 @E2EUI-1295 @E2EUI-1238 @E2EUI-1629
   Scenario Outline: NTS-3321 - Responsible Clinician Page - Layout
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -164,7 +163,7 @@ Feature: Responsible Clinician - 1
       | stage                 | pageTitle                 | sectionName         |hyperlinkText |
       | Responsible clinician | Add clinician information | Additional contacts |Add another   |
 
-  @NTS-3327  @Z-LOGOUT
+  @NTS-3327 @Z-LOGOUT
 #    @E2EUI-1354
   Scenario Outline: NTS-3327 - Responsible Clinician Page - No pre-filled responsible clinician details
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -203,7 +202,7 @@ Feature: Responsible Clinician - 1
       | stage1                | pageTitle                 | hyperlinkText | removeHyperLink | stage2  |
       | Responsible clinician | Add clinician information | Add another   | Remove          | Tumours |
 
-  @NTS-3336  @Z-LOGOUT
+  @NTS-3336 @Z-LOGOUT
 #    @E2EUI-1663
   Scenario Outline: NTS-3336 - Responsible Clinician Page - Verify No auto-fill suggestions
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -223,8 +222,7 @@ Feature: Responsible Clinician - 1
       | stage1                | pageTitle                 |
       | Responsible clinician | Add clinician information |
 
-
-  @NTS-4503  @Z-LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #    @E2EUI-1130
   Scenario Outline: Responsible Clinician Page - Phone number field - maximum length validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -241,8 +239,7 @@ Feature: Responsible Clinician - 1
       | stage                 | ClinicianPhoneNumber|
       | Responsible clinician | 1234567890123456789 |
 
-
-  @NTS-4696  @Z-LOGOUT
+  @NTS-4696 @Z-LOGOUT
   # E2EUI-1037
   Scenario Outline: NTS-4696 - Responsible Clinician Page - responsible clinician details updated
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -266,9 +263,7 @@ Feature: Responsible Clinician - 1
       | stage1                | stage2  | pageTitle                 | hyperlinkText |
       | Responsible clinician | Tumours | Add clinician information | Add another   |
 
-
-
-  @NTS-4696  @Z-LOGOUT
+  @NTS-4696 @Z-LOGOUT
    # @E2EUI-1642
   Scenario Outline: NTS-4696 - Responsible Clinician Page - user returns back and complete the responsible clinician stage
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

@@ -27,7 +27,6 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
-
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "South Warwickshire NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -77,7 +76,6 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
-
 #    ##Patient Details Page
      ##Requesting Organisation Page
     When the user navigates to the "<RequestingOrganisation>" stage

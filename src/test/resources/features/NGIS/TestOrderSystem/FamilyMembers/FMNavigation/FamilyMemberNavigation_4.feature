@@ -5,7 +5,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
 
   @NTS-3295 @Z-LOGOUT
 #    @E2EUI-1279 @E2EUI-1362 @E2EUI-1581
-  Scenario Outline: NTS-3295: Verify the family members page layout
+  Scenario Outline: NTS-3295:E2EUI-1279,E2EUI-1362,E2EUI-1581: Verify the family members page layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
@@ -29,7 +29,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
 
   @NTS-3301 @Z-LOGOUT
 #    @E2EUI-1291
-  Scenario Outline: NTS-3301: Verify the current additional family member information
+  Scenario Outline: NTS-3301:E2EUI-1291: Verify the current additional family member information
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-09-2011:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
@@ -52,7 +52,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
 
   @NTS-3322 @Z-LOGOUT
 #    @E2EUI-1509
-  Scenario Outline: NTS-3322: Verify family members has completed in to-do list
+  Scenario Outline: NTS-3322:E2EUI-1509: Verify family members has completed in to-do list
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1955:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
@@ -75,7 +75,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
 
   @NTS-4801 @Z-LOGOUT
 #    @E2EUI-1106
-  Scenario Outline: NTS-4801 - Family members add page - Add non-nullable validation for system fields
+  Scenario Outline: NTS-4801:E2EUI-1106 - Family members add page - Add non-nullable validation for system fields
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation

@@ -2,7 +2,7 @@
 @SYSTEM_TEST
 Feature: TestOrder - Print Forms 3 - Validations
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1306
   Scenario Outline: NTS-4702: As a user I want to see some advisory notice on the PDFs that says Not for Clinical use
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -94,7 +94,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | NhsNumber            | DOB            | Reason  |
       | NHSNumber=9449310661 | DOB=05-04-2000 | Revoked |
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1212
   Scenario Outline: NTS-4702: update the 'warning' message design - Print forms
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -130,7 +130,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | WarningMessage                                                                                            |
       | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-3413  @Z-LOGOUT
+  @NTS-3413 @Z-LOGOUT
 #    @E2EUI-1661
   Scenario Outline: NTS-3413 :scenario_1: Any updates done in the referral will not be reflected in the Print Forms stage- for Family Member
     Given a new patient referral is created with associated tests in Test Order System online service

@@ -18,9 +18,11 @@ import java.util.List;
 public class ClinicalIndicationsTestSelectPage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public ClinicalIndicationsTestSelectPage(WebDriver driver) {
         this.driver = driver;
+        seleniumLib = new SeleniumLib(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -97,14 +99,13 @@ public class ClinicalIndicationsTestSelectPage {
 
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
-    //@FindBy(xpath = "//div[contains(@class,'styles_container__3_ged')]")
     @FindBy(xpath = "//div[contains(@class,'styles_overlayShow')]")
     public WebElement overlayPage;
 
     public boolean clickStartTestOrderReferralButton() {
         try {
             Debugger.println("Starting Referral....");
-            if (!Wait.isElementDisplayed(driver, startTestOrderButton, 60)) {
+            if (!Wait.isElementDisplayed(driver, startTestOrderButton, 80)) {
                 Debugger.println("Start Referral button not displayed even after waiting period 60s...Failing.");
                 SeleniumLib.takeAScreenShot("startReferralError.jpg");
                 return false;
@@ -112,9 +113,14 @@ public class ClinicalIndicationsTestSelectPage {
             Actions.clickElement(driver,startTestOrderButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Starting Referral...." + exp);
-            SeleniumLib.takeAScreenShot("startReferralError.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(startTestOrderButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from Starting Referral...." + exp);
+                SeleniumLib.takeAScreenShot("startReferralError.jpg");
+                return false;
+            }
         }
 
     }
@@ -124,10 +130,14 @@ public class ClinicalIndicationsTestSelectPage {
             if (!Wait.isElementDisplayed(driver, backToSearch, 10)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, backToSearch);
+            Actions.clickElement(driver, backToSearch);
         }catch(Exception exp){
-            Debugger.println("Exception in clickBackToSearchButton:"+exp);
-            SeleniumLib.takeAScreenShot("clickBackToSearchButton.jpg");
+            try {
+               seleniumLib.clickOnWebElement(backToSearch);
+            }catch(Exception exp1){
+                Debugger.println("Exception in clickBackToSearchButton:" + exp1+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("clickBackToSearchButton.jpg");
+            }
         }
     }
 
@@ -137,9 +147,14 @@ public class ClinicalIndicationsTestSelectPage {
             Click.element(driver, goToTestPageButtonFromPopup);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clickGoToTestPageButton:"+exp);
-            SeleniumLib.takeAScreenShot("clickGoToTestPageButton.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(goToTestPageButtonFromPopup);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickGoToTestPageButton:" + exp);
+                SeleniumLib.takeAScreenShot("clickGoToTestPageButton.jpg");
+                return false;
+            }
         }
     }
 
@@ -149,9 +164,14 @@ public class ClinicalIndicationsTestSelectPage {
             Click.element(driver, goToClinicalIndicationsButtonInPopup);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clickGoToClinicalIndicationButton:"+exp);
-            SeleniumLib.takeAScreenShot("clickGoToClinicalIndicationButton.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(goToClinicalIndicationsButtonInPopup);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickGoToClinicalIndicationButton:" + exp);
+                SeleniumLib.takeAScreenShot("clickGoToClinicalIndicationButton.jpg");
+                return false;
+            }
         }
     }
 
@@ -212,11 +232,11 @@ public class ClinicalIndicationsTestSelectPage {
             if(Wait.isElementDisplayed(driver, clinicalIndicationsResultContainer,180)) {
                 return clinicalIndicationsResults.size() >= 0;
             }
-            Debugger.println("FAILED: ClinicalIndicationResultContainer not loaded.");
+            Debugger.println("FAILED: ClinicalIndicationResultContainer not loaded."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("clinicalIndicationsResultContainer.jpg");
             return false;
         }catch(Exception exp){
-            Debugger.println("Exception in ClinicalIndicationResultContainer loading.. "+exp);
+            Debugger.println("Exception in ClinicalIndicationResultContainer loading.. "+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("clinicalIndicationsResultContainer.jpg");
             return false;
         }

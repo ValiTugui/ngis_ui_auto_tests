@@ -3,12 +3,10 @@
 
 Feature: MIPORTAL SIT - File Submission 1
 
-  Background:
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-
   @NTS-4969
   Scenario Outline: NTS-4969:E2EUI-2699,2702: ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user selects Submitted By as the search column dropdown
     And the user selects is as the search operator dropdown

@@ -301,7 +301,7 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 Actions.scrollToBottom(driver);
             }
-            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
+            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)) {
                 Debugger.println("Save and Continue not visible even after 60 minutes.");
                 return false;
             }
@@ -717,7 +717,7 @@ public class ReferralPage<check> {
             //Debugger.println("Size.."+titlesSize);
             while(titlesSize == 0){
                 //Debugger.println("Loop.....");
-                Wait.seconds(10);
+                Wait.seconds(15);
                 titlesSize = titleElements.size();
                 count++;
                 if(count > 6){
@@ -1016,7 +1016,7 @@ public class ReferralPage<check> {
             try {
                 return seleniumLib.getText(submissionConfirmationBannerTitle);
             } catch (Exception exp1) {
-                Debugger.println("Referral submission confirm message not displayed: " + exp);
+                Debugger.println("Referral submission confirm message not displayed: " + exp+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
                 return null;
             }

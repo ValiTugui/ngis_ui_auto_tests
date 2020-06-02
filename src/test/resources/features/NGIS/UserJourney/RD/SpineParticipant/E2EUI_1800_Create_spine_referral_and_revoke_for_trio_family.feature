@@ -52,7 +52,7 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     ###Notes
     When the user navigates to the "<Notes>" stage
     Then the user is navigated to a page with title Add notes to this referral
-    And the user fills the NotesPage with the "<NotesDetails>"
+    And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
     ###Family Members - Adding two members - Father and Mother

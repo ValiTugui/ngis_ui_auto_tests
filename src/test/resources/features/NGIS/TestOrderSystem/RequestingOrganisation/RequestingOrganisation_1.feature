@@ -50,7 +50,6 @@ Feature: TestOrder - Requesting Organisation page 1
      # entity name with two characters
       | Requesting organisation | lm                   |
 
-
   @NTS-3155 @Z-LOGOUT
 #    @E2EUI-1361 @E2EUI-1542
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout

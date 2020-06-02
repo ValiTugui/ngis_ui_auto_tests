@@ -75,7 +75,6 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | error_info            | red_color_hex_code | TestPackage  | ordering_entity_name | NoOfParticipants | DiseaseStatus | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | hpoTerm                |
       | Last name is required | #dd2509            | Test package | Queen                | 1                | Affected      | 130        | 0           | Patient age cannot exceed 125 years | 5          | 8           | Phenotypic abnormality |
 
-
   @NTS-5183 @Z-LOGOUT
   Scenario Outline:NTS-5183:E2EUI-1042:scenario-2: Validation of dynamic questions in Questionnaire- Cancer
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

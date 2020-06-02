@@ -69,7 +69,6 @@ Feature: Patient Choice -13 Page - FamilyMemberAddition
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Test package | 3                | Family members | Patient choice |
 
-
   @NTS-3445 @Z-LOGOUT
     #@E2EUI-1931
   Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick

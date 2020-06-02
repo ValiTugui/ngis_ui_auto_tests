@@ -44,7 +44,6 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
       | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm1  | termPresence1 | hpoTerm2                | termPresence2 | rareDiseaseValue | diagnosisTypeValue | statusValue |
       | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | Fibrosarcoma     | Orphanet           | Suspected   |
 
-
   @NTS-3511 @Z-LOGOUT
 #    @E2EUI-876 @E2EUI-944 - specify single omim value
   Scenario Outline: NTS-3511 - Clinical Questions - Show dynamic Clinical Questions about the proband
@@ -77,7 +76,6 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
     Examples:
       | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm                 | termPresence | rareDiseaseValue | diagnosisTypeValue | statusValue |
       | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Sparse and thin eyebrow | Present      | CEREBRAL SARCOMA | Omim               | Confirmed   |
-
 
   @NTS-3511 @Z-LOGOUT
 #    @E2EUI-1068  @E2EUI-944 - multiple HPO terms added in the test
