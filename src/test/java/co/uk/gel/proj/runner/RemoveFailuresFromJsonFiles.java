@@ -1,5 +1,6 @@
 package co.uk.gel.proj.runner;
 
+import co.uk.gel.proj.util.Debugger;
 import com.google.gson.*;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -24,13 +25,10 @@ public class RemoveFailuresFromJsonFiles {
         String directory = "target/cucumber-parallel/";
         File dir = new File(directory);
 
-        FilenameFilter jsonFilter = new FilenameFilter() {
-            public boolean accept(File d, String name) {
-                return (name.toLowerCase().endsWith(".json") && !name.toLowerCase().contains("rerun"));
-            }
-        };
+        FilenameFilter jsonFilter = (d, name) -> (name.toLowerCase().endsWith(".json") && !name.toLowerCase().contains("rerun"));
 
         String[] jsonFiles = dir.list(jsonFilter);
+        Debugger.println("Total number of JSON file(s) to process is/are " + jsonFiles.length);
 
         for (int i = 1; i <= jsonFiles.length; i++) {
 
@@ -50,16 +48,22 @@ public class RemoveFailuresFromJsonFiles {
                 Pattern p = Pattern.compile("(:)\\d+");
                 Matcher m = p.matcher(failureContents.get(0));
 
-                ArrayList<String> lineNumber = new ArrayList<String>();
+                ArrayList<String> lineNumber = new ArrayList<>();
 
                 while (m.find()) {
                     lineNumber.add(m.group().replaceAll(":", ""));
                 }
 
+                Debugger.println("Number of Error(s) in file " + textFilePath + " is/are " + lineNumber.size());
+
+                Debugger.println("Now Processing the file --> " + jsonFilePath);
+
                 for (int x = 0; x < lineNumber.size(); x++) {
 
                     String contents = new String(Files.readAllBytes(jsonPath));
                     Object document = Configuration.defaultConfiguration().jsonProvider().parse(contents);
+
+                    Debugger.println("Now removing the failed test from " + jsonFilePath + " for line number " + lineNumber.get(x));
 
                     String errorLine = patternStart + lineNumber.get(x) + patternEnd;
 
@@ -75,9 +79,11 @@ public class RemoveFailuresFromJsonFiles {
                     for (int y = 0; y < element.size(); y++) {
                         if (element.get(element.size() - 1).toString().contains("background")) {
                             element.remove(element.size() - 1);
+                            Debugger.println("Removing the related Background");
                         }
                         if ((element.get(y).toString().contains("background")) && (element.get(y + 1).toString().contains("background"))) {
                             element.remove(y);
+                            Debugger.println("Removing the related Background");
                         }
                     }
 
@@ -105,6 +111,13 @@ public class RemoveFailuresFromJsonFiles {
                         a.add("]");
 
                         FileUtils.writeLines(FileUtils.getFile(jsonFilePath), a);
+
+                        Debugger.println("Failed test from " + jsonFilePath + " for line number " + lineNumber.get(x) +" has been removed ");
+                    }
+                    else {
+                        Files.write(jsonPath, "".getBytes());
+                        Debugger.println("All the test(s) in the " + textFilePath + "have failed, Hence made the file empty. All the tests will be re-run again.");
+
                     }
 
                 }
