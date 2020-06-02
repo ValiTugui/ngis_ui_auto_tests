@@ -73,8 +73,8 @@ public class RemoveFailuresFromJsonFiles {
                     JSONArray tags = JsonPath.read(document, "$.*.tags");
 
                     for (int y = 0; y < element.size(); y++) {
-                        if (element.get(element.size()-1).toString().contains("background")) {
-                            element.remove(element.size()-1);
+                        if (element.get(element.size() - 1).toString().contains("background")) {
+                            element.remove(element.size() - 1);
                         }
                         if ((element.get(y).toString().contains("background")) && (element.get(y + 1).toString().contains("background"))) {
                             element.remove(y);
@@ -83,28 +83,31 @@ public class RemoveFailuresFromJsonFiles {
 
                     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("line", line.get(0));
-                    jsonObject.put("elements", element.toArray());
-                    jsonObject.put("name", name.get(0));
-                    jsonObject.put("description", description.get(0));
-                    jsonObject.put("id", id.get(0));
-                    jsonObject.put("keyword", keyword.get(0));
-                    jsonObject.put("uri", uri.get(0));
-                    jsonObject.put("tags", tags.get(0));
+                    if (!element.isEmpty()) {
 
-                    Files.write(jsonPath, gson.toJson(jsonObject).getBytes());
-                    List<String> a = Files.readAllLines(jsonPath);
-                    a.remove(a.size() - 1);
-                    a.remove(0);
-                    a.remove(0);
-                    a.add(0, "   {");
-                    a.add(0, "[");
-                    a.add("]");
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("line", line.get(0));
+                        jsonObject.put("elements", element.toArray());
+                        jsonObject.put("name", name.get(0));
+                        jsonObject.put("description", description.get(0));
+                        jsonObject.put("id", id.get(0));
+                        jsonObject.put("keyword", keyword.get(0));
+                        jsonObject.put("uri", uri.get(0));
+                        jsonObject.put("tags", tags.get(0));
 
-                    FileUtils.writeLines(FileUtils.getFile(jsonFilePath), a);
+                        Files.write(jsonPath, gson.toJson(jsonObject).getBytes());
+                        List<String> a = Files.readAllLines(jsonPath);
+                        a.remove(a.size() - 1);
+                        a.remove(0);
+                        a.remove(0);
+                        a.add(0, "   {");
+                        a.add(0, "[");
+                        a.add("]");
+
+                        FileUtils.writeLines(FileUtils.getFile(jsonFilePath), a);
+                    }
+
                 }
-
             }
         }
     }
