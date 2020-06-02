@@ -40,17 +40,12 @@ public class RemoveFailuresFromJsonFiles {
             Path textPath = Paths.get(textFilePath);
             Path jsonPath = Paths.get(jsonFilePath);
 
-            String contents = new String(Files.readAllBytes(jsonPath));
-            Object document = Configuration.defaultConfiguration().jsonProvider().parse(contents);
-
             List<String> failureContents = Files.readAllLines((textPath));
 
             if (!failureContents.isEmpty()) {
 
                 String patternStart = "$.*.elements[?(@.line!=";
                 String patternEnd = ")]";
-
-                //String errorLine = patternStart + lineNumber + patternEnd;
 
                 Pattern p = Pattern.compile("(:)\\d+");
                 Matcher m = p.matcher(failureContents.get(0));
@@ -62,6 +57,9 @@ public class RemoveFailuresFromJsonFiles {
                 }
 
                 for (int x = 0; x < lineNumber.size(); x++) {
+
+                    String contents = new String(Files.readAllBytes(jsonPath));
+                    Object document = Configuration.defaultConfiguration().jsonProvider().parse(contents);
 
                     String errorLine = patternStart + lineNumber.get(x) + patternEnd;
 
