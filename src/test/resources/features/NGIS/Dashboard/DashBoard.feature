@@ -1,6 +1,6 @@
 #@regression
 @02-DASHBOARD
-@SYSTEM_TEST1
+@SYSTEM_TEST
 Feature: DashBoard - Dashboard Page
 
 #  Background:

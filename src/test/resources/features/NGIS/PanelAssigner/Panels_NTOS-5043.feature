@@ -1,8 +1,8 @@
-@PANEL_ASSIGNER_STAGE
+#@regression
+@06-PANEL_ASSIGNER
+@SYSTEM_TEST
 
-
-Feature: PanelAssigner: Panels are mandatory if there are no suggested panels and no selected panels
-
+Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggested panels and no selected panels
 
   @NTOS-5043 @Z-LOGOUT
   Scenario Outline: NTOS-5043: panels stage has no status indicator
@@ -17,7 +17,8 @@ Feature: PanelAssigner: Panels are mandatory if there are no suggested panels an
       | Panels |
       | Panels |
 
-  @NTOS-5043 @Z-LOGOUT @Scenario2
+  @NTOS-5043 @Z-LOGOUT
+    #@Scenario2
   Scenario Outline: NTOS-5043: panels stage has no suggested panels
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R89 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
@@ -41,7 +42,8 @@ Feature: PanelAssigner: Panels are mandatory if there are no suggested panels an
       | Panels | Message                      |
       | Panels | There is missing information |
 
-  @NTOS-5043 @Z-LOGOUT @Scenario3
+  @NTOS-5043 @Z-LOGOUT
+    #@Scenario3
   Scenario Outline: NTOS-5043:  Panels stage saved with at least one suggested or manually added panel select
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
@@ -50,14 +52,15 @@ Feature: PanelAssigner: Panels are mandatory if there are no suggested panels an
     Then the user should see the section with title Suggestions based on the clinical information
     And the user sees suggested panels under the section Suggestions based on the clinical information
     When the user search and add the "<searchPanels>" panels
-    And the user clicks on Continue Button
+    And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
 
     Examples:
       | Panels | searchPanels |
       | Panels | cardiac arr  |
 
-  @NTOS-5043 @Z-LOGOUT @Scenario4
+  @NTOS-5043 @Z-LOGOUT
+    #@Scenario4
   Scenario Outline: NTOS-5043: panels stage saved with no suggested or manually added panels selected
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R89 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
