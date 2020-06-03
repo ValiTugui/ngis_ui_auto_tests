@@ -475,7 +475,7 @@ public class PatientDetailsPage {
                 seleniumLib.clickOnWebElement(noNhsNumberReasonDropdown);
             }
             Actions.selectValueFromDropdown(noNhsNumberReasonDropdown, reason);
-            if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            if (reason.equalsIgnoreCase("Other (please provide reason)")) {
                 if(Wait.isElementDisplayed(driver, otherReasonExplanation,20)) {
                     otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
                 }
@@ -840,7 +840,7 @@ public class PatientDetailsPage {
             editDropdownField(ethnicityButton, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
-            if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            if (reason.equalsIgnoreCase("Other (please provide reason)")) {
                 Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
                 otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
             }

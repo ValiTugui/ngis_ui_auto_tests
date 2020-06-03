@@ -7,7 +7,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    @E2EUI-1065
   Scenario Outline: NTS-4320: Verify continue button
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2010:Gender=Male |
     ##Patient Details Page
     When the user is navigated to a page with title Add a requesting organisation
     ##Family Member Landing Page
@@ -121,7 +121,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    @E2EUI-1701
   Scenario Outline: NTS-3498: Verify Global patient information bar component
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     ###Patient Details
     And the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see the patient referral banner at the top

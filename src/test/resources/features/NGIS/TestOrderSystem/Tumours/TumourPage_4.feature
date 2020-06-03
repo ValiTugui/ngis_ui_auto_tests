@@ -7,7 +7,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-890 @E2EUI-1026
   Scenario Outline: NTS-3204:E2EUI-890,1026:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -30,7 +30,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-2279 @E2EUI-1434
   Scenario Outline: :NTS-3225:E2EUI-2279,1434: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -60,7 +60,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-1412
   Scenario Outline: NTS-3176:E2EUI-1412: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -100,7 +100,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-997
   Scenario Outline:NTS-3431:E2EUI-997:The Tumours stage is marked 'Mandatory ToDo' when not completed and marked 'Completed' when all tumour field completed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the "<stage>" stage is marked as Mandatory To Do
@@ -122,7 +122,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-1130
   Scenario Outline:NTS-4503:E2EUI-1130: Add Tumour Page - Description field - maximum length validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the tumours stage displays Add a tumour page with appropriate fields - description, Date of diagnosis etc
     When the user attempts to fill in the Tumour Description "<TumourDescription>" with data that exceed the maximum data allowed 45
@@ -136,7 +136,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-1339
   Scenario Outline: NTS-4757:E2EUI-1339: Add Tumour page error validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user clicks the Save and Continue button
@@ -155,7 +155,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-1758
   Scenario Outline:NTS-4829:E2EUI-1758:Update validation in Estimated Date of Diagnosis to account for birth date on Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
     Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
@@ -170,7 +170,7 @@ Feature: Tumours Page - 4
 #    @E2EUI-2144 @E2EUI-2097
   Scenario Outline: NTS-3487:E2EUI-2144,2097: Change 'Tumour Content' display value
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M185 | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M185 | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"

@@ -9,7 +9,7 @@ Feature: Samples Page -2
 #    @E2EUI-1946 @E2EUI-1239
   Scenario Outline: NTS-3272:E2EUI-1946,1239: Verifying the page titles and sub-title of Manage Samples, Add a Sample, Edit details and Add sample details pages
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user adds a new tumour
@@ -55,7 +55,7 @@ Feature: Samples Page -2
 #    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
   Scenario Outline: NTS-3308:E2EUI-943,1050,1186,887: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
@@ -74,7 +74,7 @@ Feature: Samples Page -2
 #    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
   Scenario Outline: NTS-3308:E2EUI-943,1050,1186,887: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
@@ -92,7 +92,7 @@ Feature: Samples Page -2
 #    @E2EUI-1261 @E2EUI-1476
   Scenario Outline: NTS-3335:E2EUI-1261,1476: Add a Sample page - page layout
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
@@ -115,7 +115,7 @@ Feature: Samples Page -2
 #   @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
   Scenario Outline: NTS-3335:E2EUI-1261,1232,1476: Add a Sample page - page layout - verify sample-states drop-down values
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed

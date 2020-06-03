@@ -8,7 +8,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
 #    @E2EUI-1602
   Scenario Outline: NTS-3266 - Tumour and Sample Questionnaire -  Dynamic questions label changes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage1>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -38,7 +38,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
 #    @E2EUI-970
   Scenario Outline: NTS-4728 -  Add Sample Details - Sample morphology
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     And the user adds a new tumour
       | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
@@ -62,7 +62,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
 #    @E2EUI-1971
   Scenario Outline: NTS-4728 - Selecting / deselecting a tumour will  not prompt the 'Tumour updated' message
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "<patientDetails>" stage is marked as Completed
     When the user navigates to the "<tumours>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
@@ -87,7 +87,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
 #    @E2EUI-1949
   Scenario Outline: NTS-3499: Update guidance on Tumours stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
     And the user clicks the Save and Continue button

@@ -9,7 +9,7 @@ Feature: TestOrder - Test Package 3 - RD
 #    @E2EUI-1900
   Scenario Outline: NTS-3258:E2EUI-1900:Selection/deselection of test should be saved based on the submission
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage1>" stage
@@ -29,7 +29,7 @@ Feature: TestOrder - Test Package 3 - RD
   Scenario Outline: NTS-4540:E2EUI-1569:Showing participants selected for the test - Family Member
     ##Test Package - Trio family - No of participants - 2
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
@@ -62,7 +62,7 @@ Feature: TestOrder - Test Package 3 - RD
   Scenario Outline: NTS-4700:E2EUI-886: New fields on Test package page
     ##Test Package
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage

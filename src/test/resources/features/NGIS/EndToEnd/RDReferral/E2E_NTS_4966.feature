@@ -6,7 +6,7 @@ Feature: RDReferral:NTS-4966:Create Referral for Additional Participants
     #@E2EUI-2678
   Scenario Outline: NTS-4966 : Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=29-03-2011:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=29-03-2011:Gender=Male |
       ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button

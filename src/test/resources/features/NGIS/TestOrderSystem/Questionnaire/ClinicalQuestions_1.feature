@@ -9,7 +9,7 @@ Feature: Clinical Question Page 1 - Family Members
 #    @E2EUI-1271
   Scenario Outline: NTS-4735: Show dynamic Clinical Questions about additional family members
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=12-03-1999:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=12-03-1999:Gender=Female |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     ##Family Member
@@ -52,7 +52,7 @@ Feature: Clinical Question Page 1 - Family Members
 #    @E2EUI-1884
   Scenario Outline: NTS-4735 :  The update to the diagnosis type for the Rare Disease question will not be saved
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R80 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R80 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
    ##Patient details Stage
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed

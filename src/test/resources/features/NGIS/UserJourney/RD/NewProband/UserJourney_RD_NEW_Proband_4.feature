@@ -8,7 +8,7 @@ Feature: UserJourney_RD_NEW_Proband_4 - UC26 - E2EUI-1801
 #    @E2EUI-1801
   Scenario Outline: NTS-5185: Use Case #26: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Create new Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-06-2011:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-06-2011:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
