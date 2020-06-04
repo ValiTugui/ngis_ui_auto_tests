@@ -7,7 +7,7 @@ Feature: Patient Choice-8 - History - Preference
     #@E2EUI-1878 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -59,7 +59,7 @@ Feature: Patient Choice-8 - History - Preference
     #@E2EUI-2151
   Scenario Outline: NTS-3481: Verify the updated warning message content in patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
      #patient choice for the proband
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
@@ -89,7 +89,7 @@ Feature: Patient Choice-8 - History - Preference
     #@E2EUI-1678
   Scenario Outline:Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     #patient choice for the proband
@@ -116,7 +116,7 @@ Feature: Patient Choice-8 - History - Preference
     #@E2EUI-1891
   Scenario Outline: NTS-4603: Verify verify referral id displayed in history tab is same as on the banner
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice

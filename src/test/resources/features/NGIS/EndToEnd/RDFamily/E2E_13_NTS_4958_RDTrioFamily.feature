@@ -6,7 +6,7 @@ Feature: RDFamily:NTS-4958:E2E20::Create Referral for Trio Family, Add Family Me
       #@E2EUI-2671
   Scenario Outline:NTS-4958: E2E#13:Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=14-05-2004:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=14-05-2004:Gender=Female |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed

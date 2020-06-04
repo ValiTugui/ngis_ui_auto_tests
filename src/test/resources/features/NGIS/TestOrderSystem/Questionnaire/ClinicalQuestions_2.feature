@@ -9,7 +9,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
 #    @E2EUI-1531 @E2EUI-992
   Scenario Outline: NTS-3246 - Clinical Questions - Age at Onset - Negative Tests
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -32,7 +32,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -51,7 +51,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  months only provided
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -70,7 +70,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  years only provided
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed

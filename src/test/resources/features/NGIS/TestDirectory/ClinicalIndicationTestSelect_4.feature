@@ -8,7 +8,7 @@ Feature: Test Directory: ClinicalIndicationSelect_4
 #    @E2EUI-1573
   Scenario Outline: NTS-4710:E2EUI-1573: test environment content consistency: update save and continue
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER | child |
     ##Requesting Organisation Page
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field

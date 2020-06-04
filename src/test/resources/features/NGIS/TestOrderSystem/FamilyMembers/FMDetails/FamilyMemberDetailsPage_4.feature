@@ -8,7 +8,7 @@ Feature: Family Members Details Page 4- Field Validation_4
 #    @E2EUI-1426
   Scenario Outline: NTS-4409: Remove diagnosis Age at Onset
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -36,7 +36,7 @@ Feature: Family Members Details Page 4- Field Validation_4
 #    @E2EUI-859
   Scenario Outline:NTS-4380: Validate the Relationship to proband drop down values to check the order of the drop down is logical
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
@@ -55,14 +55,14 @@ Feature: Family Members Details Page 4- Field Validation_4
     Then the user clicks the Add new patient to referral button
     Examples:
       | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |FamilyMemberDetails|
-      | Family members | Patient is a foreign national | Father                | NHSNumber=9449305327:DOB=14-02-2012                  |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Father                | NHSNumber=9449305327:DOB=14-02-2012                  |
 
   @NTS-4053 @Z-LOGOUT
 #    @E2EUI-2474 @scenario_3
   ##Note: Scenarios 1 and 2 for this ticket is covered in 1990
   Scenario Outline: NTS-4053 - To verify that Auto filled should not be enabled for search fields in family member page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -77,7 +77,7 @@ Feature: Family Members Details Page 4- Field Validation_4
 #    @E2EUI-2474 @scenario_5
   Scenario Outline: NTS-4053:  To verify that Auto filled should not be enabled for add tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
@@ -90,7 +90,7 @@ Feature: Family Members Details Page 4- Field Validation_4
 #    @E2EUI-960
   Scenario Outline:NTS-4019: Assign family members to specific tests
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral

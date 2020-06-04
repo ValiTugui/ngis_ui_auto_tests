@@ -7,7 +7,7 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     #@E2EUI-2040 @E2EUI-1060 @E2EUI-1450
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice

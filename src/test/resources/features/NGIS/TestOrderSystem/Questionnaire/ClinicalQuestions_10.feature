@@ -7,7 +7,7 @@ Feature: ClinicalQuestions 10 - Page Validation
 #    @E2EUI-1273 @E2EUI-1198
   Scenario Outline: NTS-4438: Field headers on clinical questions page
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<Stage>" stage
@@ -28,7 +28,7 @@ Feature: ClinicalQuestions 10 - Page Validation
 #    @E2EUI-1169
   Scenario Outline: Age of Onset field input validation with special characters under Disease status - Clinical questions
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     ##Patient details Stage
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
@@ -66,7 +66,7 @@ Feature: ClinicalQuestions 10 - Page Validation
 #    @E2EUI-1479
   Scenario Outline: NTS-4679: UI | Recommended vs mandatory fields
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     ##Patient details Stage
     When the user is navigated to a page with title Add a requesting organisation
     ##Clinical questions Stage
@@ -101,7 +101,7 @@ Feature: ClinicalQuestions 10 - Page Validation
 #    @E2EUI-1198
   Scenario Outline:NTS-4440:Form fields for the referral shown in sections (CI specific)
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1987:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
@@ -134,7 +134,7 @@ Feature: ClinicalQuestions 10 - Page Validation
 #    @E2EUI-1338
   Scenario Outline: NTS-4628: Create the SNOMED custom dynamic unit
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user is navigated to a page with title Add a requesting organisation
     And  the user navigates to the "<TumourStage>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"

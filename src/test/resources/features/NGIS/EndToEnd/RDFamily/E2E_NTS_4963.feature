@@ -6,7 +6,7 @@ Feature: RDFamily:NTS-4963:Submit an RD referral for 7 participants with various
     #@E2EUI-2690
   Scenario Outline:NTS-4963: Create a referral with 2 siblings,2 grand parents,father,mother for a proband and process the CSVs and check in DDF payload
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-1999:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-1999:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed

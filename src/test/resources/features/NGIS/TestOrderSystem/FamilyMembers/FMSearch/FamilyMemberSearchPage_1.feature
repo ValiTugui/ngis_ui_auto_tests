@@ -8,7 +8,7 @@ Feature: Family Members Search Page - Field Validation_1
 #    @E2EUI-965 @E2EUI-1395
   Scenario Outline: NTS-3302: Find a Family Member page layout
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -52,7 +52,7 @@ Feature: Family Members Search Page - Field Validation_1
 #    @E2EUI-1249
   Scenario Outline:NTS-3234: Search a family member record with NHS selected - No, First name field validation with incorrect data
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -68,7 +68,7 @@ Feature: Family Members Search Page - Field Validation_1
 #    @E2EUI-1394
   Scenario Outline:NTS-3233: Find a family member page validation with NHS selected as YES: Invalid NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -87,7 +87,7 @@ Feature: Family Members Search Page - Field Validation_1
 #    @E2EUI-1399 @E2EUI-1406 @E2EUI-1885 @E2EUI-1614
   Scenario Outline: NTS-2801-DOB field Validations - invalid day , month , year values
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | RD | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -98,7 +98,7 @@ Feature: Family Members Search Page - Field Validation_1
     Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
 
     Examples: of alphaNumeric
-      | stage         | patient-search-type | NhsNumber  | DOB        | error_message |
+      | stage          | patient-search-type | NhsNumber  | DOB        | error_message |
       | Family members | NGIS                | 9449305099 | ab-02-2011 | Enter a day   |
       | Family members | NGIS                | 9449305099 | 22-!!-2011 | Enter a month |
       | Family members | NGIS                | 9449305099 | 01-02-abcd | Enter a year  |
@@ -114,7 +114,7 @@ Feature: Family Members Search Page - Field Validation_1
 #    @E2EUI-835
   Scenario Outline: - NTS-4722: Integer/decimal Type Validation in NHS Number Field
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

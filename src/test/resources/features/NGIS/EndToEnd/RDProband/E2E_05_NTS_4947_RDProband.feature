@@ -7,7 +7,7 @@ Feature: RDProband:NTS-4947:E2E05: Create RD Referrals for NEW Patient - Proband
   Scenario Outline: NTS-4947: E2E #5: Submit a RD Referral for Proband with Patient Choice No and check ddf payload
     ###creating new patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button

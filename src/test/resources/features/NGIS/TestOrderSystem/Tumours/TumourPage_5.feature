@@ -26,7 +26,7 @@ Feature: Tumours Page - 5
 #    @E2EUI-1171
   Scenario Outline: NTS-3176:E2EUI-1171: Select or edit a tumour page - Add a new tumour and Tumour added notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -64,7 +64,7 @@ Feature: Tumours Page - 5
 #    @E2EUI-1513 @E2EUI-903
   Scenario Outline: NTS-3190:E2EUI-1513,903: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -106,7 +106,7 @@ Feature: Tumours Page - 5
 #    @E2EUI-1513 @E2EUI-903
   Scenario Outline: NTS-3190:E2EUI-1513,903: Select or edit a tumour page - Edit and save changes to a Tumour and Tumour updated notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"

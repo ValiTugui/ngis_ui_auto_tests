@@ -8,7 +8,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-911
   Scenario Outline: NTS-3073 - Test package - Page Layout - Cancer
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
@@ -25,7 +25,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Cancer
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user clicks a test to de-select it
@@ -40,7 +40,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user clicks a test to de-select it
@@ -55,7 +55,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-828
   Scenario Outline: NTS-3156 - Test package - selecting Routine for the question priority of the test - Cancer
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
@@ -71,7 +71,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-1316 @E2EUI-1123
   Scenario Outline: NTS-3070 - Test package - Urgency selection
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page priority header has "<priority_label>"
@@ -91,7 +91,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Rare-Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
@@ -107,7 +107,7 @@ Feature: Test Package 1  - Cancer
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Rare-Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage

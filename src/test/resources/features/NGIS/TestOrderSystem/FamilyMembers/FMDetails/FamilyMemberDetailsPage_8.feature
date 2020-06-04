@@ -7,7 +7,7 @@ Feature: Family Members Details Page 8- Post Code validation_2
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field -Create a new family member, pass postcode
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
     Then the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
@@ -27,10 +27,10 @@ Feature: Family Members Details Page 8- Post Code validation_2
     Then the user is navigated to a page with title Continue with this family member
     And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat>" format
     Examples:
-      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband | FamilyMemberDetails | Postcode | PostcodeFormat |
-      | Family members | Patient is a foreign national | Son                   | null                | AB1 2CD  | AB1 2CD        |
-      | Family members | Patient is a foreign national | Father                | null                | AB1  2CD | AB1 2CD        |
-      | Family members | Patient is a foreign national | Mother                | null                | AB12CD   | AB1 2CD        |
-      | Family members | Patient is a foreign national | Daughter              | null                | ab12cd   | ab1 2cd        |
-      | Family members | Patient is a foreign national | Full Sibling          | null                | ab1 2cd  | ab1 2cd        |
-      | Family members | Patient is a foreign national | Other                 | null                | ab1  2cd | ab1 2cd        |
+      | FamilyMember   | reason_for_no_nhsNumber                                     | RelationshipToProband | FamilyMemberDetails | Postcode | PostcodeFormat |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Son                   | null                | AB1 2CD  | AB1 2CD        |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Father                | null                | AB1  2CD | AB1 2CD        |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Mother                | null                | AB12CD   | AB1 2CD        |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Daughter              | null                | ab12cd   | ab1 2cd        |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Full Sibling          | null                | ab1 2cd  | ab1 2cd        |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Other                 | null                | ab1  2cd | ab1 2cd        |
