@@ -102,15 +102,14 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^a \"([^\"]*)\" result is successfully returned$")
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
-        boolean testResult = false;
+
         String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
         if(actualBadge == null) {
-            Assert.assertTrue(testResult);
+            Assert.fail("Could not read the Patient Card ID");
         }
-        if(actualBadge.equalsIgnoreCase(badgeText)) {
-            testResult = true;
+        if(!actualBadge.equalsIgnoreCase(badgeText)) {
+            Assert.fail("Actual Badge:"+actualBadge+",Expected:"+badgeText);
         }
-        Assert.assertTrue(testResult);
     }
 
 

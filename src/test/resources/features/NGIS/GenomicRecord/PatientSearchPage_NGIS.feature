@@ -1,4 +1,3 @@
-#@regression
 #@patientSearchNGIS
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
@@ -26,9 +25,8 @@ Feature: GenomicRecord: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type | patient-type |
+      | pageTitle                        | pageTitle2        | patient-search-type | patient-type |
       | Create a record for this patient | Find your patient | NGIS                | NGIS         |
-
 
   @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
@@ -52,7 +50,7 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then the Patient Details page is displayed
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-type |
+      | pageTitle                        | pageTitle2        | patient-type |
       | Create a record for this patient | Find your patient | NGIS         |
 
   @NTS-2796 @Z-LOGOUT
@@ -75,9 +73,8 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then The patient record is displayed with a heading of "<result_message>"
 
     Examples:
-      | pageTitle                         | pageTitle2        | result_message         |
+      | pageTitle                        | pageTitle2        | result_message         |
       | Create a record for this patient | Find your patient | 1 patient record found |
-
 
   @NTS-2795 @Z-LOGOUT
 #    @E2EUI-2129 @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @E2EUI-1662 @E2EUI-865 @E2EUI-1217 @E2EUI-1125 @E2EUI-1268
@@ -116,7 +113,6 @@ Feature: GenomicRecord: Patient search page_NGIS
       | stage           | patient-search-type | patient-type |
       | Patient details | NGIS                | NGIS         |
 
-
   @NTS-2822 @Z-LOGOUT
 #    @E2EUI-2140 @E2EUI-2132 @E2EUI-2131
   Scenario Outline: NTS-2822:(@E2EUI-2140,2132,2131) NGIS Defuzzing, accented and special characters
@@ -135,13 +131,13 @@ Feature: GenomicRecord: Patient search page_NGIS
       | stage           | patient-search-type | patient-type |
       | Patient details | NGIS                | NGIS         |
 
-    @NTS-4503 @Z-LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #      @E2EUI-1130
   Scenario Outline: NTS-4503:E2EUI-1130:- NHSNumber field - maximum length validation
-      Given a web browser is at the patient search page
-        | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-      When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
-      Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
+    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
 
     Examples:
       | NHSNumber        |
@@ -157,7 +153,6 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the user is navigated to a page with title Patient record
-    And the user should verify the role and relationship of patient on referral card
 
     Examples:
       | patient-search-type | NhsNumber  | DOB        |

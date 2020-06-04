@@ -1,10 +1,9 @@
-@BVT_UI_SMOKE_TEST_PACK
-#@userJourneysRD_BVT
-#@BVT_UI_SMOKE_TEST_RD
-Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
+@SecurityScan
+@SecurityScan_RD_Trio
+Feature: NTS-3407 - Security Scan for RD Trio flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
-  @NTS-3407 @Z-LOGOUT
-#    @E2EUI-895
+  @Z-LOGOUT
+    #@E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -81,18 +80,15 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     ##Since Pedigree is always ticked, navigating to printforms
-   ##And the user clicks the Save and Continue button
+    ##And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
-#    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
-#      | FamilyMemberDetails         |
-#      | NHSNumber=NA:DOB=14-05-1931 |
-#      | NHSNumber=NA:DOB=10-11-1949 |
-    And the user submits the referral
+    ##And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
+    When user run security scan
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
       | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |

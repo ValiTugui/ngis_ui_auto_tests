@@ -37,8 +37,15 @@ public class PaperFormSteps extends Pages {
 
     @And("the user enters the keyword {string} in the search field")
     public void theUserEntersTheKeywordInTheSearchField(String ordering_entity) {
-        paperFormPage.fillInSpecificKeywordInSearchField(ordering_entity);
-        paperFormPage.checkThatEntitySuggestionsAreDisplayed();
+        boolean testResult = false;
+        testResult = paperFormPage.fillInSpecificKeywordInSearchField(ordering_entity);
+        if(!testResult){
+            Assert.fail("Could not search for Order entity.");
+        }
+        testResult = paperFormPage.checkThatEntitySuggestionsAreDisplayed();
+        if(!testResult){
+            Assert.fail("No suggestions listed for the order entity:"+ordering_entity);
+        }
     }
 
     @And("the user selects a random entity from the suggestions list")

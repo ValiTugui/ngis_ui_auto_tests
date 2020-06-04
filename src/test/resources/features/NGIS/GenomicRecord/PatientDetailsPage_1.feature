@@ -30,7 +30,6 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | pageTitle2        | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS                |
 
-
   @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
@@ -54,7 +53,6 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
       | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
 
-
   @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068: The user can return to the patient search page by clicking the Back link
@@ -67,7 +65,6 @@ Feature: GenomicRecord: Patient details page 1
     Examples:
       | pageTitle                        |
       | Create a record for this patient |
-
 
   @NTS-3067 @Z-LOGOUT
 #    @E2EUI-1128
@@ -83,7 +80,6 @@ Feature: GenomicRecord: Patient details page 1
     Examples:
       | hyperlinkText               | reason_for_no_nhsNumber       |
       | create a new patient record | Patient is a foreign national |
-
 
   @NTS-3067 @Z-LOGOUT
 #    @E2EUI-1128
@@ -113,7 +109,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | maximumAllowedValues |
       | Create a record for this patient | 50                   |
 
-  @NTS-34381 @Z-LOGOUT
+  @NTS-3438 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

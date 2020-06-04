@@ -25,9 +25,6 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user edits the patient choice status")
     public void theUserEditsThePatientChoiceStatus() {
-//        boolean testResult = false;
-//        testResult = patientChoicePage.editPatientChoice();
-//        Assert.assertTrue(testResult);
         patientChoicePage.selectMember(0);
     }
 
@@ -37,39 +34,37 @@ public class PatientChoiceSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             boolean testResult = false;
-            if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Adding");
-            }
+
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nPatient Choice for Family Member:"+i);
                 //No need to alert as there are cases which directly landing to specific patient page
                 patientChoicePage.selectMember(i);
-                Wait.seconds(2);
+                Wait.seconds(8);
                 //Debugger.println("Selected Family Member:");
                 testResult = patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
                 if(!testResult){
-                    Assert.assertTrue("Failed in selectPatientChoiceCategory",false);
+                    Assert.fail("FM "+i+": Could not select Patient Choice Category:"+memberDetails.get(i).get(1));
                     break;
                 }
                 Wait.seconds(2);
                 //Debugger.println("Category Done:");
                 testResult = patientChoicePage.selectTestType(memberDetails.get(i).get(2));
                 if(!testResult){
-                    Assert.assertTrue("Failed in selectTestType",false);
+                    Assert.fail("FM "+i+": Could not select Patient Choice Test Type:"+memberDetails.get(i).get(2));
                     break;
                 }
                 Wait.seconds(2);
                 //Debugger.println("Test Type done:");
                 testResult = patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3));
                 if(!testResult){
-                    Assert.assertTrue("Failed in fillRecordedByDetails",false);
+                    Assert.fail("FM "+i+": Could not fill Patient Choice RecordedBy Details:"+memberDetails.get(i).get(3));
                     break;
                 }
                 Wait.seconds(2);
                 //Debugger.println("Record details done:");
                 testResult = patientChoicePage.clickOnContinue();
                 if(!testResult){
-                    Assert.assertTrue("Failed in clickOnContinue",false);
+                    Assert.fail("FM "+i+": Could not Click Patient Choice Continue");
                     break;
                 }
                 Wait.seconds(2);
@@ -113,13 +108,13 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
                 Debugger.println("\nPC done for FM:"+i);
             }//end
-            Wait.seconds(5);
+            Wait.seconds(10);
             if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("FamilyMemberPC"," ")+"_Added");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientChoiceFM");
             }
         } catch (Exception exp) {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp+"\n"+driver.getCurrentUrl());
-            Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
+            Assert.fail("PatientChoiceSteps: Exception in Filling FM PatientChoice Details: " + exp);
         }
     }
     @When("the user completes the patient choice for below family members as agreeing to test")
@@ -281,9 +276,6 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsTheProband() {
         boolean testResult = false;
         testResult = patientChoicePage.selectMember(0);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("ProbandPC"," ")+"_Start");
-        }
         Assert.assertTrue(testResult);
     }
 
@@ -397,10 +389,12 @@ public class PatientChoiceSteps extends Pages {
     public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
         boolean testResult = false;
         testResult = patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("PCProband"," ")+"_Done");
+        if(!testResult){
+            Assert.fail("Proband Patient Choice could not complete.");
         }
-        Assert.assertTrue(testResult);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientChoiceProband");
+        }
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")

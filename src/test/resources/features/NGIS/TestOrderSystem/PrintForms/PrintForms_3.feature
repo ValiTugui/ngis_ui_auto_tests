@@ -2,7 +2,7 @@
 @SYSTEM_TEST
 Feature: TestOrder - Print Forms 3 - Validations
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1306
   Scenario Outline: NTS-4702: As a user I want to see some advisory notice on the PDFs that says Not for Clinical use
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -13,7 +13,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<OrderingEntityName>" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -60,7 +60,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Start a new referral |
       | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1787
   Scenario Outline: NTS-4702: scenario_1: View cancelled referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -94,7 +94,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | NhsNumber            | DOB            | Reason  |
       | NHSNumber=9449310661 | DOB=05-04-2000 | Revoked |
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1212
   Scenario Outline: NTS-4702: update the 'warning' message design - Print forms
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -104,7 +104,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "ST MARY'S HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -130,7 +130,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | WarningMessage                                                                                            |
       | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-3413  @Z-LOGOUT
+  @NTS-3413 @Z-LOGOUT
 #    @E2EUI-1661
   Scenario Outline: NTS-3413 :scenario_1: Any updates done in the referral will not be reflected in the Print Forms stage- for Family Member
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -140,7 +140,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "MANCHESTER ROYAL INFIRMARY" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -180,5 +180,5 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the user verifies that the relationship to proband "<ChangedRelationshipToProband>" is updated in Print forms section
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | FamilyMemberDetails                 | RelationshipToProband | ChangedRelationshipToProband | DiseaseStatusDetails                      |
-      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Paternal Half Sibling        | DiseaseStatus=Unaffected:AgeOfOnset=01,02 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | FamilyMemberDetails                 | RelationshipToProband | ChangedRelationshipToProband |
+      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Paternal Half Sibling        |

@@ -71,7 +71,7 @@ Feature:  MIPORTAL ST -  Home Page
       | Patient NGIS ID                       |
       | Batch Import Filename                 |
       | Dispatched Sample Type                |
-      | GEL1004 GLH Sample Consignment Number |
+      | GLH Sample Consignment Number |
     When the user navigates to the mi-portal "<plater_samples>" stage
     And the user sees a search box container section for "<plater_samples>" page
     And the user sees the below values in the plater samples search column drop-down menu

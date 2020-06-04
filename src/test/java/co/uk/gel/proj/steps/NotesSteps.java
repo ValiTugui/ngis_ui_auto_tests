@@ -20,10 +20,12 @@ public class NotesSteps extends Pages {
     public void theUserFillsInTheAddNotesField() {
         boolean testResult;
         testResult = notesPage.fillInAddNotesField();
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord("Notes"," ")+"_Filled");
+        if(!testResult){
+            Assert.fail("Could not fill Notes Details.");
         }
-        Assert.assertTrue(testResult);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Notes");
+        }
     }
 
     @When("the user attempts to fill in Referral Notes field with {int} data that exceed the maximum data allowed 3000")

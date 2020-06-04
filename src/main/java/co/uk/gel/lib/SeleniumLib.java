@@ -78,7 +78,7 @@ public class SeleniumLib {
 
     public static WebElement waitForElementVisible(By element) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, 20);
+            WebDriverWait wait = new WebDriverWait(driver, 60);
             final WebElement el = driver.findElement(element);
 
             wait.until(new ExpectedCondition<Boolean>() {
@@ -259,27 +259,27 @@ public class SeleniumLib {
         }
     }
 
-    public String optionFromListByText(By element, String text) {
+    public boolean optionFromListByText(By element, String text) {
         if (text == null || text.isEmpty()) {
-            return "";
+            return false;
         }
         try {
             webElementList = driver.findElements(element);
             if (webElementList == null) {
                 Debugger.println("element list is null " + webElementList);
-                return "Web element list is empty: " + element;
+                return false;
             }
             for (WebElement actWebelement : webElementList) {
                 String actualText = text.trim().replace(" ", "").replace(" ", "").toLowerCase();
                 String expectedText = actWebelement.getText().trim().replace(" ", "").toLowerCase();
                 if (actualText.equalsIgnoreCase(expectedText)) {
                     actWebelement.click();
-                    return "Success";
+                    return true;
                 }
             }
-            return "Option : " + text + " Not Present";
+            return false;
         } catch (NoSuchElementException e) {
-            return "Exception Occurred while selecting from DropDown List " + e;
+            return false;
         }
     }
 
@@ -437,7 +437,7 @@ public class SeleniumLib {
 
     public static WebElement getWebElement(By by) {
         try {
-            WebElement element = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
+            WebElement element = new WebDriverWait(driver, 60).until(ExpectedConditions.presenceOfElementLocated(by));
             return element;
         } catch (Exception exp) {
             return null;

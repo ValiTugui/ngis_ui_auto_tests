@@ -1,4 +1,3 @@
-#@regression
 #@homePage
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
@@ -22,7 +21,6 @@ Feature: TestDirectory : Home Page
     And the user selects the Tests tab
     Then various test details are displayed
 
-
   @NTS-4726 @Z-LOGOUT
 #    @E2EUI-1155
   Scenario Outline: NTS-4726:E2EUI-1155: Displaying the current state for each stage
@@ -39,7 +37,6 @@ Feature: TestDirectory : Home Page
       | Requesting organisation |
       | Test package            |
       | Responsible clinician   |
-      | Clinical questions      |
       | Patient choice          |
     And the print forms stage is locked
     ##Requesting Organisation

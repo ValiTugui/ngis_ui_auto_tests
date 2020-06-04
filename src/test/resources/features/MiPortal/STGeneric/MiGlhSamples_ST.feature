@@ -11,34 +11,34 @@ Feature: MIPORTAL ST -  Glh Samples
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     Then the user sees the below values in the glh samples search column drop-down menu
-      | GLH                                   |
-      | Ordering Entity                       |
-      | Referral ID                           |
-      | Patient NGIS ID                       |
-      | Batch Import Filename                 |
-      | Dispatched Sample Type                |
-      | GEL1004 GLH Sample Consignment Number |
+      | GLH                           |
+      | Ordering Entity               |
+      | Referral ID                   |
+      | Patient NGIS ID               |
+      | Batch Import Filename         |
+      | Dispatched Sample Type        |
+      | GLH Sample Consignment Number |
 
     When the user selects GLH as the glh search column dropdown
     And the user selects is as the glh search operator dropdown
     Then the user sees the below values in the glh samples search value drop-down menu
-      | East Mids and East of England    |
-      | London North                     |
-      | London South                     |
-      | North West                       |
-      | South West                       |
-      | Wessex & West Midlands           |
-      | Yorkshire & North East           |
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
 
     When the user selects is one of as the glh search operator dropdown
     Then the user sees the below values in the glh samples search value drop-down menu
-      | East Mids and East of England    |
-      | London North                     |
-      | London South                     |
-      | North West                       |
-      | South West                       |
-      | Wessex & West Midlands           |
-      | Yorkshire & North East           |
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
     And the selected search option is reset after test
 
     Examples:

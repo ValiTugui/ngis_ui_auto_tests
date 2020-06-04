@@ -1,4 +1,3 @@
-#@regression
 #@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
@@ -44,13 +43,14 @@ Feature: ClinicalQuestions 7 - RD Questionnaire
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
-    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the disease status field
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user selects a value "CEREBRAL SARCOMA" from the Rare disease diagnosis
     And the user clicks the Save and Continue button
     Then the "<notes>" stage is selected
     And the user navigates to the "<ClinicalQuestions>" stage
-    Then the Disease status field is not set with the disease status value "<ClinicalQuestionDetails>"
-    And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
+    Then the Disease status field is SET with the disease status value Affected
+    And the "Clinical questions" stage is marked as Completed
+
     Examples:
       | ClinicalQuestions  | title                     | ClinicalQuestionDetails                  | notes |
       | Clinical questions | Answer clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |

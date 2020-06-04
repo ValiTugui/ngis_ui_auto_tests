@@ -17,9 +17,29 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
     And the loading wheel is displayed
     And the list of clinical indications are loaded
 
-  @NTS-3238 @NTS-3205
-# @E2EUI-1530 @E2EUI-1500
-  Scenario: NTS-3205 - NTS-3238:E2EUI-1530,1500 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
+  @NTS-3238
+# @E2EUI-1530
+  Scenario: NTS-3238:E2EUI-1530 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
+  As a user when I start the test order I want that action to be my confirmation that I agree to the patient eligibility criteria, so that I don't have to re-read it in a modal
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | R100 |
+    Then the user sees the "Eligibility Criteria" tab is selected by default
+    And the user sees the button "Yes, start Referral" on Bottom right
+    And the user selects the "Test Package" tab
+    And the user clicks on view more icon
+    Then the user should be able to see a new modal window
+    And the user click on Go to test page button
+    Then the list of clinical indications are loaded
+    And the user sees the "Clinical Indications" tab is selected by default
+    Then the user clicks the Start Test Order Referral button
+    And the user selects the test in the test page and clicks on Continue button
+    And the user should able to select online or offline order
+
+  @NTS-3205
+# @E2EUI-1500
+  Scenario: NTS-3205 :E2EUI-1500 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
   As a user when I start the test order I want that action to be my confirmation that I agree to the patient eligibility criteria, so that I don't have to re-read it in a modal
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -51,7 +71,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
     And the user sees the "Clinical Indications" tab is selected by default
     And the user should be able to see all "4" tabs and are clickable
       | Clinical Indications | Test details | Labs | Order process |
-
 
   @NTS-3251
 #  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069
@@ -103,7 +122,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | tabName1     | tabName2             | linkName       |
       | Test Package | Clinical Indications | Back to search |
 
-
   @NTS-3260
 #      @E2EUI-1003 @E2EUI-1174
   Scenario Outline: NTS-3260:E2EUI-1003,1174: - Clinical Indication Page - Display additional details on who can order card.
@@ -123,7 +141,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | searchTerm | tabName1             | tab1        | tab2          | tab3                | tab4          | whoCanOrderContent                                                    |
       | R100       | Eligibility Criteria | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     |
       | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
-
 
   @NTS-3262
 #      @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
@@ -149,7 +166,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | 270        | Test Package | Clinical Indications | Who to test  | Test package includes... |
       | M85        | Test Package | Clinical Indications | Who to test  | Test package includes... |
 
-
   @NTS-3265
 #      @E2EUI-1063
   Scenario Outline: NTS-3265:E2EUI-1063:Clinical Indication Page - View details for Further Info Tab..
@@ -167,7 +183,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | searchTerm |
       | R100       |
       | R237       |
-
 
   @NTS-3268
 #      @E2EUI-948

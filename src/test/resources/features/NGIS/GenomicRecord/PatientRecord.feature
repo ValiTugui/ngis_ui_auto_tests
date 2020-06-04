@@ -24,7 +24,6 @@ Feature: GenomicRecord: Patient Record
       | InvalidNHS                          |
       | NHSNumber=5922721713:DOB=20-09-2008 |
 
-
   @NTS-3513 @Z-LOGOUT
 #    @E2EUI-849
   Scenario Outline:NTS-3513:(E2EUI-849) New Patient Page - User journey when Clinical Indication has not been selected
@@ -91,7 +90,6 @@ Feature: GenomicRecord: Patient Record
       | pageTitle                         | lifeStatus |
       | Create a record for this patient | Deceased   |
 
-
   @NTS-3517 @Z-LOGOUT
 #    @E2EUI-891
   Scenario Outline: NTS-3517:(E2EUI-891): Normal-User: Verify the mandatory input field validations for non-NHS patient creation when invalid DOB is entered and all mandatory fields left blank
@@ -147,7 +145,6 @@ Feature: GenomicRecord: Patient Record
       | pageTitle                         |
       | Create a record for this patient |
 
-
   @NTS-4541 @Z-LOGOUT
 #   @E2EUI-1753
   Scenario Outline: NTS-4541:(E2EUI-1753): New patient be created without filling in the non-mandatory Title field
@@ -161,7 +158,6 @@ Feature: GenomicRecord: Patient Record
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     |
       | Create a record for this patient | Other - provide explanation |
-
 
   @NTS-4745 @Z-LOGOUT
 #    @E2EUI-821
@@ -222,7 +218,6 @@ Feature: GenomicRecord: Patient Record
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
-
   @NTS-4754 @Z-LOGOUT
 #     @E2EUI-1380
   Scenario Outline: NTS-4754:(E2EUI-1380): Normal User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
@@ -252,7 +247,6 @@ Feature: GenomicRecord: Patient Record
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
-
   @NTS-4754 @Z-LOGOUT
 #     @E2EUI-1380
   Scenario Outline: NTS-4754:(E2EUI-1380):Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
@@ -279,11 +273,9 @@ Feature: GenomicRecord: Patient Record
       | NHS Number ✱      | NHS Number is required.      | #dd2509             |
       | Hospital number ✱ | Hospital number is required. | #dd2509             |
 
-
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
-
 
   @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097

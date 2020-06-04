@@ -23,15 +23,6 @@ public class MiPortalOrderTrackingSteps extends Pages {
         super(driver);
     }
 
-
-//    @When("the user clicks on the Download CSV button to download the CSV file as {string}.csv in GLH samples page")
-//    public void theUserClicksOnTheDownloadCSVButtonToDownloadTheCSVFileAsCsvInGLHSamplesPage(String fileName) {
-//        String dateToday = miGlhSamplesPage.getGlhFileSubmissionDate.getAttribute("data-shinyjs-resettable-value");
-//        fileName = fileName + "-" + dateToday + ".csv";
-//        Debugger.println("Actual-filename : " + fileName);
-//        miPortalHomePage.downloadMiCSVFile(fileName);
-//    }
-
     @And("the user selects (.*) as the order tracking search value dropdown")
     public void theUserSelectSpecifiedOrderTrackingSearchValue(String searchValue) {
         boolean testResult = false;
@@ -60,7 +51,10 @@ public class MiPortalOrderTrackingSteps extends Pages {
             String[] values = searchValue.split(",");
             for(int i=0; i<values.length; i++){
                 testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(values[i]);
-                Assert.assertTrue(testResult);
+                if(!testResult){
+                    Debugger.println("URL:"+driver.getCurrentUrl());
+                    Assert.fail(values[i]+" not found in Order Tracking Search Value DropDown.");
+                }
             }
             return;
         }

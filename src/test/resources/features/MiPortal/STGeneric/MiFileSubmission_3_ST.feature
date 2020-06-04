@@ -51,25 +51,26 @@ Feature: MIPORTAL ST - File Submission 3
     Then the table column Status is displayed with data valid_with_warnings
     And the table column Field Warnings is displayed with data non-empty-data
 
-  @NTS-5031
-    #@E2EUI-2513
-  Scenario: NTS-5031:E2EUI-2513 Search by "Status" in File Submissions
-    When the selected search option is reset after test
-    And the user sees the below values in the file-submission search column drop-down menu
-      | Created                           |
-      | Status                            |
-      | Submitted By                      |
-    When the user selects Status as the search column dropdown
-    Then the user sees the below values in the file-submission search operator drop-down menu
-      | is                                  |
-      | is one of                           |
-    When the user selects is as the search operator dropdown
-    And the user selects Duplicate as the search value dropdown
-    And the user clicks on Add criteria button
-    Then file submission search criteria badge information is displayed below drop-down buttons
-    When the user click on the Search button
-    Then search results are displayed in table format with display options button
-    And the table column Status is displayed with data duplicate
+    ##Commenting as , after the database clean up, no data related to duplicate search exists
+#  @NTS-5031
+#    #@E2EUI-2513
+#  Scenario: NTS-5031:E2EUI-2513 Search by "Status" in File Submissions
+#    When the selected search option is reset after test
+#    And the user sees the below values in the file-submission search column drop-down menu
+#      | Created                           |
+#      | Status                            |
+#      | Submitted By                      |
+#    When the user selects Status as the search column dropdown
+#    Then the user sees the below values in the file-submission search operator drop-down menu
+#      | is                                  |
+#      | is one of                           |
+#    When the user selects is as the search operator dropdown
+#    And the user selects Duplicate as the search value dropdown
+#    And the user clicks on Add criteria button
+#    Then file submission search criteria badge information is displayed below drop-down buttons
+#    When the user click on the Search button
+#    Then search results are displayed in table format with display options button
+#    And the table column Status is displayed with data duplicate
 
   @NTS-5177
     #@E2EUI-2578

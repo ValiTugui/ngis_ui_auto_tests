@@ -9,7 +9,7 @@ Feature: TestOrder - Print Forms 8 - User flows
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "NORTH MANCHESTER GENERAL HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button
     ###Test Package
@@ -75,7 +75,7 @@ Feature: TestOrder - Print Forms 8 - User flows
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=15-09-2009:Gender=Male |
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "UNIVERSITY DENTAL HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button
     ###Test Package

@@ -224,19 +224,44 @@ public class TestPackagePage {
         Click.element(driver, testCheckBoxCard);
     }
 
-    public void clickUrgentPriority() {
+    public boolean clickUrgentPriority() {
         try {
-            Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
+            if(!Wait.isElementDisplayed(driver, urgentPriorityButton,30)){
+                Debugger.println("TestPackage Urgent not displayed.");
+                SeleniumLib.takeAScreenShot("TPUrgent.jpg");
+            }
             urgentPriorityButton.click();
+            return true;
         }catch(Exception exp){
-            Debugger.println("Exception on clickUrgentPriority:"+exp);
-            SeleniumLib.takeAScreenShot("clickUrgentPriority.jpg");
+            try {
+                seleniumLib.clickOnWebElement(urgentPriorityButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("TestPackage Urgent not displayed."+exp1);
+                SeleniumLib.takeAScreenShot("TPUrgent.jpg");
+                return false;
+            }
         }
     }
 
-    public void clickRoutinePriority() {
-        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-        routinePriorityButton.click();
+    public boolean clickRoutinePriority() {
+        try {
+            if(!Wait.isElementDisplayed(driver, routinePriorityButton,30)){
+                Debugger.println("TestPackage Routine not displayed.");
+                SeleniumLib.takeAScreenShot("TPRoutine.jpg");
+            }
+            routinePriorityButton.click();
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(routinePriorityButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("TestPackage Routine not displayed."+exp1);
+                SeleniumLib.takeAScreenShot("TPRoutine.jpg");
+                return false;
+            }
+        }
     }
 
     public void setTotalNumberOfParticipantsField(int number) {

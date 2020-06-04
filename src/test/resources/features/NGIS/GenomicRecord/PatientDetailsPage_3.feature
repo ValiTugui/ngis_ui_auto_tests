@@ -1,4 +1,3 @@
-#@regression
 #@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
@@ -152,7 +151,6 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-search-type | NHSNumber        | HospitalNumber      |
       | Create a record for this patient | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
 
-
   @NTS-4538 @Z-LOGOUT
 #    @E2EUI-1054 @E2EUI-1507
   Scenario Outline: NTS-4538:(E2EUI-1054,1507) - Add patient contact(address) details to a patient
@@ -180,7 +178,6 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-type | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS         | NGIS                |
 
-
   @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1582
   Scenario Outline: NTS-4565:E2EUI-1582:The Patient Details page is loaded when clicking browser's Back button after starting a referral
@@ -197,7 +194,6 @@ Feature: GenomicRecord: Patient details page 3
     Examples:
       | stage           | pageTitle      | directoryPathPage  |
       | Patient details | Patient record | test-order/patient |
-
 
   @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1582
@@ -271,7 +267,6 @@ Feature: GenomicRecord: Patient details page 3
     Examples:
       | pageTitle                        | pageTitle2        | patient-search-type | HospitalNumber      | hintText |
       | Create a record for this patient | Find your patient | NGIS                | 1234567890123456789 | B123456  |
-
 
   @NTS-4549 @Z-LOGOUT
 #    @E2EUI-822

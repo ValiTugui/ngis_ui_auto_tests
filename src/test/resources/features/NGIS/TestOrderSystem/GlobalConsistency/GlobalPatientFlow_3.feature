@@ -1,12 +1,10 @@
-#@regression
 #@GlobalFlow
-#@GlobalFlow_Validations_Tumour
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
   @NTS-4711 @Z-LOGOUT
-#    @E2EUI-964 @E2EUI-1587
+# @E2EUI-964 @E2EUI-1587
   Scenario Outline:NTS-4711:E2EUI-964,1587:Verify Page titles for Cancer/Tumour on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | GEL_NORMAL_USER |
@@ -28,7 +26,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
     And the user clicks the Save and Continue button
     ##Requesting Organisation Page Title
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "BOLTON ROYAL HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button

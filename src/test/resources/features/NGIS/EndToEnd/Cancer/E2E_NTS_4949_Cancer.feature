@@ -2,7 +2,8 @@
 
 Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
 
-  @NTS-4949 @E2EUI-2682 @Z-LOGOUT
+  @NTS-4949 @Z-LOGOUT
+    ##@E2EUI-2682
   Scenario Outline: NTS-4949: CSV-E2E-Add additional clinician to a referral and check in downstream
     ###creating new patient
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -12,7 +13,7 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "TRAFFORD GENERAL HOSPITAL" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button

@@ -87,7 +87,7 @@ public class RequestingOrganisationPage {
         String containerText = organisationDetailsContainer.getText();
         String orgDetails = organisationDetailText.get(0).getText();
         if (!containerText.contains(orgDetails)) {
-            Debugger.println("Organization Details not selected.");
+            Debugger.println("Organization Details not selected."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("organisationDetailText.jpg");
             return false;
         }

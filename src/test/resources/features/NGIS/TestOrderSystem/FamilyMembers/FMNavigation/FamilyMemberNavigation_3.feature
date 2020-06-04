@@ -1,6 +1,4 @@
-#@regression
 #@FamilyMemberStageNavigation
-#@FamilyMemberStageNavigation_patientIdentifier
 @03-TEST_ORDER
 @SYSTEM_TEST
 

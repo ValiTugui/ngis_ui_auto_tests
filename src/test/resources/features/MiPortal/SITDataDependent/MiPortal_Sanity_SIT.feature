@@ -147,7 +147,6 @@ Feature: MIPORTAL SIT - Sanity
       | mi_stage     | mi_stage1        | value1 | value | mi_stage2      | mi_stage3   | mi_stage4      | mi_stage5 | mi_stage6         | mi_stage7     | value2 | dropdown     | value4                      | NoOfSearchField | section        | value3          | value5       | value6                           | value7                        | operator1 | operator2    | date       | paginationValue | operator | ColumnHeader    | LSID       |
       | Search LSIDs | File Submissions | Status | Valid | Order Tracking | GLH Samples | Plater Samples | Picklists | Sequencer Samples | New Referrals | GLH    | London North | Bolton NHS Foundation Trust | 3               | plater_samples | Ordering Entity | London North | gel1005 Sample Received Datetime | East Mids and East of England | is one of | before or on | 21-02-2020 | 25              | is       | gel1008 Created | 1371612610 |
 
-
   @NTS-5053
     #@E2EUI-2705 @Scenario1
   Scenario Outline: NTS-5053:E2EUI-2705:File Submissions- Prevent user from hiding all columns in Display Options

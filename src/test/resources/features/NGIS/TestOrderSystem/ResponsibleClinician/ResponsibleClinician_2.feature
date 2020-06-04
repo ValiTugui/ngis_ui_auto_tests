@@ -48,7 +48,6 @@ Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
       | Title                        |
       | There is missing information |
 
-
   @NTS-3895 @Z-LOGOUT
 #    @E2EUI-1730  @Scenario_04
   Scenario Outline: NTS-3895 :  Modal showing when there are incomplete stages

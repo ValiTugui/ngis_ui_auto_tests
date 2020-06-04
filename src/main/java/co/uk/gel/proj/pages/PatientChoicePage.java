@@ -992,7 +992,7 @@ public class PatientChoicePage {
 
     public boolean selectMember(int i) {
         try {
-            if (Wait.isElementDisplayed(driver, landingPageList, 30)) {
+            if (Wait.isElementDisplayed(driver, landingPageList, 60)) {
                 if (memberEditButton.size() > i) {
                     Click.element(driver, memberEditButton.get(i));
                 }
@@ -1000,7 +1000,7 @@ public class PatientChoicePage {
                 if (memberEditButton.size() > i) {
                     Click.element(driver, memberEditButton.get(i));
                 } else {
-                    Debugger.println("Could not locate the Patient choice for member at location: " + i);
+                    Debugger.println("Could not locate the Patient choice for member at location: " + i+"\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
                     return false;
                 }
@@ -1011,7 +1011,7 @@ public class PatientChoicePage {
                 seleniumLib.clickOnWebElement(memberEditButton.get(i));
                 return true;
             }catch(Exception exp1){
-                Debugger.println("Exception from selecting Patient choice to edit at " + i + ".:" + exp);
+                Debugger.println("Exception from selecting Patient choice to edit at " + i + ".:" + exp+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PatientChoiceEdit1.jpg");
                 return false;
             }
@@ -1143,25 +1143,22 @@ public class PatientChoicePage {
             Wait.seconds(3);
             int count = 1;
             boolean isEnabled = saveAndContinuePC.isEnabled();
-            Debugger.println("SaveAndContinue in PC:"+isEnabled);
+            //Debugger.println("SaveAndContinue in PC:"+isEnabled);
             while(!isEnabled){
-
                 Wait.seconds(15);
-
                 isEnabled = saveAndContinuePC.isEnabled();
                 count++;
-                Debugger.println("In While..."+isEnabled);
+                //Debugger.println("In While..."+isEnabled);
                 if(count > 12){
                     break;//after 3 minute
                 }
             }
-            Debugger.println("SaveAndContinue in PC1:"+isEnabled);
+            //Debugger.println("SaveAndContinue in PC1:"+isEnabled);
             if(!isEnabled){
                 Debugger.println("Save and Continue But not enabled even after 180 seconds...\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SaveAndContinueDisabled.jpg");
                 return false;
             }
-            Debugger.println("SaveAndContinue in PC1:"+isEnabled);
             seleniumLib.clickOnWebElement(saveAndContinuePC);
             Wait.seconds(5);
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue

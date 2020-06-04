@@ -1,4 +1,3 @@
-#@regression
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST

@@ -1,6 +1,4 @@
-#@regression
 #@clinicalQuestions
-#@clinicalQuestionsFM
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questionnaire- Rare Disease/Cancer.
@@ -76,7 +74,6 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     Examples:
       | error_info            | red_color_hex_code | TestPackage  | ordering_entity_name | NoOfParticipants | DiseaseStatus | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | hpoTerm                |
       | Last name is required | #dd2509            | Test package | Queen                | 1                | Affected      | 130        | 0           | Patient age cannot exceed 125 years | 5          | 8           | Phenotypic abnormality |
-
 
   @NTS-5183 @Z-LOGOUT
   Scenario Outline:NTS-5183:E2EUI-1042:scenario-2: Validation of dynamic questions in Questionnaire- Cancer

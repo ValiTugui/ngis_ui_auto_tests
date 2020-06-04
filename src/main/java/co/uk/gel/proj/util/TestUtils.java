@@ -218,6 +218,10 @@ public class TestUtils {
             for (int i = 0; i < files.length; i++) {
                 if (!(files[i].getName().startsWith("T" + prefix))) {
                     files[i].delete();
+                }else{
+                    if(files[i].getName().startsWith("NTS")){
+                        files[i].delete();
+                    }
                 }
             }
         } catch (Exception exp) {
@@ -279,9 +283,7 @@ public class TestUtils {
     }
 
     public static String getReferralURL(String baseURL, String referralID, String confirmationPage) {
-        Debugger.println("existingReferralID " + referralID);
         String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "referral/" + referralID + "/" + confirmationPage;
-        Debugger.println("referralFullUrl :" + referralFullUrl);
         return referralFullUrl;
     }
 

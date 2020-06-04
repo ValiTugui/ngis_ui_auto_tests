@@ -1,4 +1,3 @@
-#@regression
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
@@ -69,7 +68,6 @@ Feature: Patient Choice -13 Page - FamilyMemberAddition
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Test package | 3                | Family members | Patient choice |
-
 
   @NTS-3445 @Z-LOGOUT
     #@E2EUI-1931

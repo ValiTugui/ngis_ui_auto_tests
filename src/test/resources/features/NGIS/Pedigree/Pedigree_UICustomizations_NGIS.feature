@@ -1,4 +1,3 @@
-#@regression
 #@pedigree_uiCustomizationNGIS
 @07-PEDIGREE
 @SYSTEM_TEST
@@ -115,7 +114,6 @@ Feature: Pedigree - UI Customizations - NGIS
     Examples:
       | ClinicalStage      | FamilyMemberDetails         | ClinicalQuestionDetails                 | Pedigree | WarningMessage                                                                                |
       | Clinical questions | NHSNumber=NA:DOB=25-10-2008 | DiseaseStatus=Affected:AgeOfOnset=03,02 | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
-
 
   @NTS-3464 @Z-LOGOUT
 #    @E2EUI-1157

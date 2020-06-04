@@ -1,4 +1,3 @@
-#@regression
 #@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
@@ -39,7 +38,6 @@ Feature: GenomicRecord: Patient details page 4
     Examples:
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
-
 
   @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
@@ -103,22 +101,6 @@ Feature: GenomicRecord: Patient details page 4
       | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient            | logout        |
 
-  @NTS-3557 @Z-LOGOUT
-#  @E2EUI-1809 @scenario_1
-  Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient is a foreign national | GEL_SUPER_USER |
-    When the user is navigated to a page with title Add a requesting organisation
-    Then the user should be able to see a cancel referral link "present"
-
-  @NTS-3557 @Z-LOGOUT
-#  @E2EUI-1809 @scenario_2
-  Scenario: : NTS-3557:E2EUI-1809-scenario_2 Validating cancel button present when login as normal user
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Add a requesting organisation
-    Then the user should be able to see a cancel referral link "not present"
-
   @NTS-4055 @Z-LOGOUT
 #    @E2EUI-1904
   Scenario Outline: NTS-4055:E2EUI-1904: The patient record should be saved without entering "DATE OF DEATH", As a user I want to save a new patient record without date of death.
@@ -136,3 +118,19 @@ Feature: GenomicRecord: Patient details page 4
     Examples:
       | reason_for_no_nhsNumber       |
       | Patient is a foreign national |
+
+  @NTS-3557 @Z-LOGOUT
+#  @E2EUI-1809 @scenario_1
+  Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient is a foreign national | GEL_SUPER_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    Then the user should be able to see a cancel referral link "present"
+
+  @NTS-3557 @Z-LOGOUT
+#  @E2EUI-1809 @scenario_2
+  Scenario: : NTS-3557:E2EUI-1809-scenario_2 Validating cancel button present when login as normal user
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    Then the user should be able to see a cancel referral link "not present"

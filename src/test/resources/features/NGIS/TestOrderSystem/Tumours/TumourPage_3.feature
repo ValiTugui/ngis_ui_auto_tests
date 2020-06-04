@@ -1,12 +1,10 @@
-#@regression
-#@tumoursPage1
 #@tumoursPage
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 3
 
   @NTS-3255 @Z-LOGOUT
-#    @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098
+# @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098
   Scenario Outline: NTS-3255:E2EUI-993,1325,1078,1098: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -76,7 +74,5 @@ Feature: Tumours Page - 3
     And the user clicks the Save and Continue button
 
     Examples:
-      | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
-      | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | tumours/create     | refresh       | back          | logout        | tumours            |
-
-
+      | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partialCurrentUrl1 | browser_exit1 | browser_exit3 |
+      | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | tumours/new     | refresh       | logout        |

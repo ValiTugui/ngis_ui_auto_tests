@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
+import java.sql.Driver;
 import java.util.*;
 import java.util.List;
 
@@ -28,9 +29,6 @@ public class ClinicalQuestionsPage {
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
-
-    @FindBy(xpath = "//div[contains(text(),'Select...')]")
-    public WebElement diseaseStatusPlaceholderText;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]//div[contains(@class,'indicatorContainer')][1]")
     public WebElement diseaseStatusCloseIcon;
@@ -158,7 +156,7 @@ public class ClinicalQuestionsPage {
         Wait.seconds(5);
         try {
             if (hpoSearchField.size() < 1) {
-                Debugger.println("HPO Search field not displayed.");
+                Debugger.println("HPO Search field not displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOSearchField.jpg");
                 return 0;
             }
@@ -209,35 +207,34 @@ public class ClinicalQuestionsPage {
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             return 0;
         } catch (Exception exp) {
-            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
+            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("HPOPhenotypeException.jpg");
             return 0;
         }
     }
 
-    public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTermToBeDisplayedInTheFirstRow) {
+    public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTerm) {
         try {
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, hpoTable, 10)) {
-                Debugger.println("hpoTable not loaded..");
+                Debugger.println("hpoTable not loaded.."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
             if (hpoTermNames.size() < 1) {
-                Debugger.println("hpoTermNames not loaded..");
+                Debugger.println("hpoTermNames not loaded.."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
             String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
-            if (!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow)) {
-                Debugger.println("Expected HPOTerms in first Row:" + expectedHPOTermToBeDisplayedInTheFirstRow + ",Actual:" + actualHPOTermDisplayedInTheFirstRow);
+            if (!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTerm)) {
+                Debugger.println("Expected HPOTerms in first Row:" + expectedHPOTerm+ ",Actual:" + actualHPOTermDisplayedInTheFirstRow+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifySpecificHPOTermDisplayedInTheFirstRow:" + exp);
+            Debugger.println("Exception from verifySpecificHPOTermDisplayedInTheFirstRow:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
             return false;
         }
@@ -252,9 +249,14 @@ public class ClinicalQuestionsPage {
             }
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
-                return null;
+                //Try again
+                diagnosisValue.clear();
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
+                if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                    Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
+                    return null;
+                }
             }
             Wait.seconds(2);
             boolean testResult = Actions.selectByIndexFromDropDown(dropdownValues, 0);
@@ -274,8 +276,11 @@ public class ClinicalQuestionsPage {
     public void searchAndSelectSpecificDiagnosisSecondField(String diagnosis) {
         try {
             Wait.forElementToBeDisplayed(driver, diagnosisValueSecondField);
+            Wait.seconds(2);
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValueSecondField, diagnosis);
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
             }
@@ -303,17 +308,25 @@ public class ClinicalQuestionsPage {
 
     public String selectDiseaseStatus(String diseaseStatusValue) {
         try {
-            if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 15)) {
+            if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 30)) {
                 Actions.scrollToTop(driver);
             }
-            if (!Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(diseaseStatusValue)) {
-                Actions.clickElement(driver, diseaseStatusDropdown);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
-                Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            String selectedValue = Actions.getText(diseaseStatusDropdown);
+            if (selectedValue != null &&
+                    selectedValue.equalsIgnoreCase(diseaseStatusValue)) {
+                return selectedValue;//Already Selected the Specified Value
             }
-            return Actions.getText(diseaseStatusDropdown);
+            Actions.clickElement(driver, diseaseStatusDropdown);
+            if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
+                Debugger.println("Disease Status not loaded in Clinical Questions."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("DiseaseStatusDD.jpg");
+                return null;
+            }
+            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            selectedValue = Actions.getText(diseaseStatusDropdown);
+            return selectedValue;
         } catch (Exception exp) {
-            Debugger.println("Exception from selecting Disease Status in Clinical Page: " + exp);
+            Debugger.println("Exception from selecting Disease Status in Clinical Page: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("DiseaseStatus.jpg");
             return null;
         }
@@ -398,18 +411,24 @@ public class ClinicalQuestionsPage {
     //Method added by @Stag for filling the ClinicalQuestionsPage
     public boolean fillDiseaseStatusAgeOfOnsetAndHPOTerm(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
         //DiseaseStatus
         String paramValue = paramNameValue.get("DiseaseStatus");
         if (paramValue != null && !paramValue.isEmpty()) {
-            selectDiseaseStatus(paramNameValue.get("DiseaseStatus"));
+            if(selectDiseaseStatus(paramNameValue.get("DiseaseStatus")) == null){
+                return false;
+            }
         }
         //AgeOfOnset
         paramValue = paramNameValue.get("AgeOfOnset");
         if (paramValue != null && !paramValue.isEmpty()) {
             String[] age_of_onsets = paramValue.split(",");
-            ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
-            ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+            try {
+                ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
+                ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+            }catch(Exception exp){
+                seleniumLib.sendValue(ageOfOnsetYearsField,age_of_onsets[0]);
+                seleniumLib.sendValue(ageOfOnsetMonthsField,age_of_onsets[1]);
+            }
         }
         //PhenoType
         boolean isFilled = false;
@@ -549,8 +568,11 @@ public class ClinicalQuestionsPage {
     }
 
     public String getDefaultValueOfDiseaseStatus() {
-        Wait.forElementToBeDisplayed(driver, diseaseStatusPlaceholderText);
-        return Actions.getText(diseaseStatusPlaceholderText);
+        if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,30)){
+            Debugger.println("Disease Status drop down not displayed: "+driver.getCurrentUrl());
+            return "";
+        }
+        return Actions.getText(diseaseStatusDropdown);
     }
 
     public boolean deleteHPOTerm(String hpoTerm) {
@@ -929,7 +951,7 @@ public class ClinicalQuestionsPage {
             List actualFieldsLabels = getTheOptionalFieldsLabelsOnCurrentPage();
             for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
                 if (!actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader"))) {
-                    Debugger.println("Expected Label " + expectedLabelList.get(i).get("labelHeader") + " Not present in Clinical Page");
+                    Debugger.println("Expected Label " + expectedLabelList.get(i).get("labelHeader") + " Not present in Clinical Page.\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
                     return false;
                 }

@@ -234,6 +234,12 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[contains(@class,'styles_referral-list__link__')]")
     List<WebElement> submittedReferralCardsList;
 
+    @FindBy(xpath = "//input[@id='postcode']")
+    public WebElement postcodeField;
+
+    @FindBy(xpath = "//*[string()='Address']//following-sibling::span")
+    public WebElement addressField;
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -253,6 +259,16 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception from newPatientPageIsDisplayed:" + exp);
             SeleniumLib.takeAScreenShot("newPatientPageIsDisplayed.jpg");
+            return false;
+        }
+    }
+    public boolean newFamilyMemberPageIsDisplayed() {
+        try {
+            Wait.forURLToContainSpecificText(driver, "/family-members/new");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from newFamilyMemberPageIsDisplayed:" + exp);
+            SeleniumLib.takeAScreenShot("newFamilyMemberPage.jpg");
             return false;
         }
     }
@@ -453,11 +469,16 @@ public class PatientDetailsPage {
             if (!Wait.isElementDisplayed(driver, noNhsNumberReasonDropdown, 15)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, noNhsNumberReasonDropdown);
+            try {
+                Actions.clickElement(driver, noNhsNumberReasonDropdown);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(noNhsNumberReasonDropdown);
+            }
             Actions.selectValueFromDropdown(noNhsNumberReasonDropdown, reason);
             if (reason.equalsIgnoreCase("Other - provide explanation")) {
-                Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-                otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+                if(Wait.isElementDisplayed(driver, otherReasonExplanation,20)) {
+                    otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+                }
             }
             return true;
         } catch (Exception exp) {
@@ -475,32 +496,37 @@ public class PatientDetailsPage {
                 Actions.scrollToBottom(driver);
                 return false;
             }
-            Actions.clickElement(driver, createRecord);
+            seleniumLib.clickOnWebElement(createRecord);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in clickOnCreateRecord:" + exp);
-            SeleniumLib.takeAScreenShot("CreateRecord.jpg");
-            return false;
+            try{
+                Actions.clickElement(driver, createRecord);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickOnCreateRecord:" + exp);
+                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
+                return false;
+            }
         }
     }
 
     public boolean patientIsCreated() {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
-                Debugger.println("NGIS Patient Created Message not displayed.");
-                SeleniumLib.takeAScreenShot("PatientNoCreated.jpg");
+                Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
                 return false;
             }
             String successMsg = Actions.getText(successNotification);
             if (successMsg.equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
-            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created");
+            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception in creating the patient." + exp);
-            SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
+            Debugger.println("Exception in creating the patient." + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PCCreatedException.jpg");
             return false;
         }
     }
@@ -678,14 +704,16 @@ public class PatientDetailsPage {
 
     public boolean nhsNumberFieldIsEnabled() {
         try {
-            Wait.forElementToBeDisplayed(driver, title);
-            if (!Wait.isElementDisplayed(driver, nhsNumber, 10)) {
+             if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
                 Debugger.println("NHS number field not displayed");
                 SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
                 return false;
             }
-            Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
-            return nhsNumber.isEnabled();
+            if(!nhsNumber.isEnabled()){
+                Debugger.println("For a Super user, NHSNumber field is expected to be enabled and set to True, but not."+driver.getCurrentUrl());
+                return false;
+            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from nhsNumberFieldIsEnabled:" + exp);
             SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
@@ -1297,6 +1325,65 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
                 return false;
             }
+        }
+    }
+
+    public boolean fillPostcodeValue(String postcode) {
+        try {
+            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
+                Debugger.println("The Postcode field is not displayed in the edit patient details page."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillPostcode.jpg");
+                return false;
+            }
+            postcodeField.clear();
+            postcodeField.sendKeys(postcode);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in filling the postcode: "+exp);
+            SeleniumLib.takeAScreenShot("fillPostcode.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPostcodeFormatInAddress(String formattedPostcode) {
+        try{
+            if(!Wait.isElementDisplayed(driver,addressField,20)){
+                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
+                return false;
+            }
+            String actualAddress=addressField.getText();
+            if(!actualAddress.contains(formattedPostcode)){
+                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual address is:"+actualAddress);
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking the postcode format in address:"+exp);
+            SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPostcodeFormatInPD(String formattedPostcode) {
+        try{
+            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
+                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
+                return false;
+            }
+            String actualPostcode=postcodeField.getAttribute("value");
+            if(!actualPostcode.equalsIgnoreCase(formattedPostcode)){
+                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual is:"+actualPostcode);
+                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking the postcode format in address:"+exp);
+            SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
+            return false;
         }
     }
 }//end

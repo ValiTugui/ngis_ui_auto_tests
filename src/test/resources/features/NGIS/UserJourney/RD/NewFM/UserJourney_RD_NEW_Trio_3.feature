@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_3 - UC13 - E2EUI-1119
 
-    ##UseCase 12 - E2EU-895 - Covered as part of BVT Smoke test
+  ##UseCase 12 - E2EU-895 - Covered as part of BVT Smoke test
   @NTS-4572 @Z-LOGOUT
 #    @E2EUI-1119 @UseCase13
   Scenario Outline: NTS:4572: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/Non NGIS Patient

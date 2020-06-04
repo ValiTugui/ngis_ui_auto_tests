@@ -4,13 +4,11 @@
 @SYSTEM_TEST
 Feature: TestDirectory: Paper Form
 
-  Background:
-    Given a web browser is at the Private Test Selection homepage
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
-
   @NTS-3194
   #@E2EUI-1502
   Scenario: NTS-3194 - Review Test Selection Page - Verify in Review Test Selection Page, by default a test is selected
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user clicks the Start Test Order Referral button
@@ -23,6 +21,8 @@ Feature: TestDirectory: Paper Form
   @NTS-3195
   #@E2EUI-1506
   Scenario: NTS-3195 - Offline Order Page - Verify Offline Order Page is Displayed
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user clicks the Start Test Order Referral button
@@ -37,6 +37,8 @@ Feature: TestDirectory: Paper Form
   @NTS-3193
   #@E2EUI-1756
   Scenario: NTS-3193 - Offline Order Page - Verify 'Consent' is replaced with 'Patient choice' on the Offline Order screen
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user clicks the Start Test Order Referral button
@@ -52,6 +54,8 @@ Feature: TestDirectory: Paper Form
   @NTS-3200
   #@E2EUI-1470
   Scenario: NTS-3200 - Offline Order Page - Verify warning message for 2+ tumours on the Offline Order screen
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user clicks the Start Test Order Referral button
@@ -68,6 +72,8 @@ Feature: TestDirectory: Paper Form
    @NTS-3237
    #@E2EUI-1541
   Scenario: NTS-3237 - Review Test Selection Page - Verify in Review Test Selection Page, by default a test is selected
+     Given a web browser is at the Private Test Selection homepage
+       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user clicks the Start Test Order Referral button
@@ -81,6 +87,8 @@ Feature: TestDirectory: Paper Form
   @NTS-3288
     #@E2EUI-1022 @E2EUI-1257 @E2EUI-906
   Scenario Outline: NTS-3288 - Offline Order Page - Verify Offline Order Page is Displayed
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
     And the user clicks the Start Test Order Referral button
@@ -140,5 +148,3 @@ Feature: TestDirectory: Paper Form
     And the user logs in to the Test Order system successfully
       | Find your patient |
     Then the user should be able to see NHS logo image
-
-

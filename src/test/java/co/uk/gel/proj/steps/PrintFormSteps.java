@@ -4,6 +4,7 @@ import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -27,6 +28,32 @@ public class PrintFormSteps extends Pages {
 
     public PrintFormSteps(SeleniumDriver driver) {
         super(driver);
+    }
+
+    @And("the user is able to download print forms for all patients")
+    public void theUserDownloadsPrintFormsForAllPatients(DataTable inputDetails) {
+        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
+            try {
+                boolean testResult = false;
+                testResult = printFormsPage.downloadProbandPrintForm();
+                if(!testResult){
+                    Debugger.println("Proband PrintForms could not download.");
+                }
+                List<List<String>> memberDetails = inputDetails.asLists();
+                for (int i = 1; i < memberDetails.size(); i++) {
+                    testResult = printFormsPage.downloadSpecificPrintForm(i, "RD");
+                    if(!testResult){
+                        Debugger.println("Family Member "+i+" PrintForms could not download.");
+                    }
+                }//for
+                if(AppConfig.snapshotRequired){
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms");
+                }
+            } catch (Exception exp) {
+                Debugger.println("PrintFormSteps: Exception in downloading PrintForms: " + exp);
+                Assert.assertFalse("PrintFormSteps: Exception in downloading PrintForms: " + exp, true);
+            }
+        }
     }
 
     @And("the user is able to download print forms for {string} family members with the below details")
@@ -184,13 +211,8 @@ public class PrintFormSteps extends Pages {
     @And("the print forms stage is (.*)")
     public void thePrintFormsStageIsLocked(String lockStatus) {
         boolean testResult = false;
-        if (lockStatus.equalsIgnoreCase("locked")) {
-            testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
-            Assert.assertTrue(testResult);
-        } else {
-            testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
-            Assert.assertTrue(testResult);
-        }
+        testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user will not see back button on print forms page")
@@ -204,6 +226,9 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToDownloadPrintFormForTheProband() {
         boolean testResult = false;
         testResult = printFormsPage.downloadProbandPrintForm();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms");
+        }
         Assert.assertTrue(testResult);
     }
 

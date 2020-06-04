@@ -285,12 +285,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String badge = "";
         try {
             if(!Wait.isElementDisplayed(driver,patientCard,30)){
-                Debugger.println("Expected Patient card not displayed.");
+                Debugger.println("Expected Patient card not displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("patientCardNotDisplayed.jpg");
                 return null;
             }
             if(!Wait.isElementDisplayed(driver,patientCardBadge,10)){
-                Debugger.println("Expected patientCardBadge displayed.");
+                Debugger.println("Expected patientCardBadge displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("patientCardBadgeNotDisplayed.jpg");
                 return null;
             }
@@ -301,7 +301,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 badge = seleniumLib.getText(patientCardBadge);
                 return badge;
             }catch(Exception exp1) {
-                Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp1);
+                Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp1+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("patientCardBadgeNotDisplayed.jpg");
                 return null;
             }
@@ -321,30 +321,45 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 } else {
                     Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
-                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
+                    Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
             }else{
                 Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
             }
-            Wait.forElementToBeClickable(driver, emailAddressField);
-            emailAddressField.sendKeys(AppConfig.getApp_username());
-            nextButton.click();
-            Wait.seconds(2);
-            Wait.forElementToBeClickable(driver, passwordField);
-            passwordField.sendKeys(AppConfig.getApp_password());
-            nextButton.click();
+            try {
+                emailAddressField.sendKeys(AppConfig.getApp_username());
+            }catch(Exception exp1){
+                seleniumLib.sendValue(emailAddressField,AppConfig.getApp_username());
+            }
+            Wait.seconds(4);
+            try {
+                seleniumLib.clickOnWebElement(nextButton);
+            }catch(Exception exp1){
+                Actions.clickElement(driver,nextButton);
+            }
+            Wait.seconds(4);
+            try {
+                passwordField.sendKeys(AppConfig.getApp_password());
+            }catch(Exception exp1){
+                seleniumLib.sendValue(passwordField,AppConfig.getApp_password());
+            }
+            Wait.seconds(4);
+            try {
+                seleniumLib.clickOnWebElement(nextButton);
+            }catch(Exception exp1){
+                Actions.clickElement(driver,nextButton);
+            }
             Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
             SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
-            Assert.assertTrue("Exception from loginToTestOrderingSystemAsStandardUser"+exp,false);
+            Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser"+exp);
         }
     }
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
         try {
             Actions.deleteCookies(driver);
-            Wait.forElementToBeDisplayed(driver,emailAddressField,30);
             if(!Wait.isElementDisplayed(driver,emailAddressField,30)){
                 Debugger.println("Email Address Field is not displayed even after the waiting period.");
                 if (Wait.isElementDisplayed(driver,useAnotherAccount,10)) {//Click on UseAnotherAccount and Proceed.
@@ -357,19 +372,42 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 }
             }
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                emailAddressField.sendKeys(AppConfig.getApp_username());
+                try {
+                    emailAddressField.sendKeys(AppConfig.getApp_username());
+                }catch(Exception exp1){
+                    seleniumLib.sendValue(emailAddressField,AppConfig.getApp_username());
+                }
             } else {
-                emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
+                try {
+                    emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
+                }catch(Exception exp1){
+                    seleniumLib.sendValue(emailAddressField,AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
+                }
             }
-            Click.element(driver, nextButton);
+            try {
+                Click.element(driver, nextButton);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(nextButton);
+            }
             Wait.seconds(3);
-            Wait.forElementToBeClickable(driver, passwordField);
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                passwordField.sendKeys(AppConfig.getApp_password());
+                try {
+                    passwordField.sendKeys(AppConfig.getApp_password());
+                }catch(Exception exp1){
+                    seleniumLib.sendValue(passwordField,AppConfig.getApp_password());
+                }
             } else {
-                passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
+                try {
+                    passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
+                }catch(Exception exp1){
+                    seleniumLib.sendValue(passwordField,AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
+                }
             }
-            Click.element(driver, nextButton);
+            try {
+                Click.element(driver, nextButton);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(nextButton);
+            }
             Wait.seconds(3);
             Debugger.println(" Logging to TO as user type: "+userType);
         }catch(Exception exp){
@@ -995,7 +1033,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean waitForPageTitleDisplayed(){
         try {
             if(!Wait.isElementDisplayed(driver,pageTitle,30)){
-                Debugger.println("Patient Search Page is not Loaded Successfully.");
+                Debugger.println("Patient Search Page is not Loaded Successfully."+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
                 Assert.fail("Patient Search Page is not Loaded Successfully.");
                 return false;
@@ -1025,12 +1063,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public String getPatientSearchNoResult() {
         String noResultText;
         try {
-            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel,200);
+            if(!Wait.isElementDisplayed(driver, noPatientFoundLabel,120)){
+                Debugger.println("Search Result not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NoSearchResult.jpg");
+                return null;
+            }
             noResultText = Actions.getText(noPatientFoundLabel);
             //Debugger.println("No result " + noResultText);
             return noResultText;
         } catch (Exception exp) {
-            Debugger.println("Oops no patient text found " + exp);
+            Debugger.println("Oops no patient text found " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("NoPatientTextFound.jpg");
             return null;
         }

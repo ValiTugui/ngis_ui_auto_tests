@@ -2,7 +2,8 @@
 
 Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the downstream
 
-  @NTS-4967 @E2EUI-2680 @Z-LOGOUT
+  @NTS-4967 @Z-LOGOUT
+    ##@E2EUI-2680
   Scenario Outline: NTS-4967 - CSV-E2E- Select a testtype in TS instead of CI and check the downstream
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -25,7 +26,7 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     And the "<PatientDetails>" stage is marked as Completed
       ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "North Bristol NHS Trust" in the search field
+    And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -110,4 +111,3 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     Examples:
       | hyperlinkText               | reason_for_no_nhsNumber       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                                    | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels | PrintFormsStage |
       | create a new patient record | Patient is a foreign national | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=18-07-2015:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested | Responsible clinician | FirstName=George:LastName=Williams:Department=Prague Street,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=00,11:HpoPhenoType=Prostatitis:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Catar,Crani  | Print forms     |
-
