@@ -189,6 +189,8 @@ Feature: GenomicRecord: Patient details page 3
     ##Two times click back is needed
     When the user attempts to navigate away by clicking "back"
     And the page url address contains the directory-path web-page "<directoryPathPage>"
+    ##refresh is needed spooler is not loading in click back
+    And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle>" page is displayed
 
     Examples:
@@ -204,6 +206,7 @@ Feature: GenomicRecord: Patient details page 3
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     When the user clicks the - "Back to patient search" - link
     And the page url address contains the directory-path web-page "<directoryPathPage>"
+#    And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle2>" page is displayed
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and gender
@@ -233,6 +236,8 @@ Feature: GenomicRecord: Patient details page 3
     And the referral page is displayed
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
+    ##refresh is needed spooler is not loading in click back
+    And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle3>" page is displayed
 
     Examples:

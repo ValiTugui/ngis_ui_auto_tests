@@ -213,18 +213,18 @@ public class PaperFormPage {
     public boolean checkThatReviewTestSelectionIsOpened() {
         try{
         if(!Wait.isElementDisplayed(driver,testCardContainer,30)){
-            Debugger.println("The test card is not displayed.");
+            Debugger.println("The test card is not displayed."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
             return false;
         }
         if(!Wait.isElementDisplayed(driver,paperFormHeader,30)){
-            Debugger.println("The page title is not displayed.");
+            Debugger.println("The page title is not displayed."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
             return false;
         }
         return true;
     }catch (Exception exp){
-        Debugger.println("Exception from checkThatReviewTestSelectionIsOpened: "+exp);
+        Debugger.println("Exception from checkThatReviewTestSelectionIsOpened: "+exp+"\n"+driver.getCurrentUrl());
         SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
         return false;
         }

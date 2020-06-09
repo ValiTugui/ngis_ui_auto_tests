@@ -14,7 +14,7 @@ Feature: Pedigree - UI Customizations - NGIS
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
     Then the user should see the below messages displayed in the pedigree page
-      | The pedigree automatically shows test participants including:                                                            |
+#      | The pedigree automatically shows test participants including:                                                            |
       | To make changes related to these participants, update the patient details and family members sections, not the pedigree. |
       | Update the pedigree to add additional family members who are not being tested as part of this referral.                  |
       | Do not include any personal identifiable information in the pedigree.                                                    |
@@ -46,7 +46,7 @@ Feature: Pedigree - UI Customizations - NGIS
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
     Then the user should see the below messages displayed in the pedigree page
-      | The pedigree automatically shows test participants including:                                                            |
+#      | The pedigree automatically shows test participants including:                                                            |
       | To make changes related to these participants, update the patient details and family members sections, not the pedigree. |
       | Update the pedigree to add additional family members who are not being tested as part of this referral.                  |
       | Do not include any personal identifiable information in the pedigree.                                                    |
@@ -72,7 +72,7 @@ Feature: Pedigree - UI Customizations - NGIS
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
     Then the user should see the below messages displayed in the pedigree page
-      | The pedigree automatically shows test participants including:                                                            |
+#      | The pedigree automatically shows test participants including:                                                            |
       | To make changes related to these participants, update the patient details and family members sections, not the pedigree. |
       | Update the pedigree to add additional family members who are not being tested as part of this referral.                  |
       | Do not include any personal identifiable information in the pedigree.                                                    |

@@ -708,6 +708,7 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
+            Wait.forPageToBeLoaded(driver);
             Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
