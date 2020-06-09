@@ -42,7 +42,7 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | SuccessDeleteMessage                |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Family member removed from referral |
 
-  @NTS-3337 @Z-LOGOUT
+  @test @NTS-3337 @Z-LOGOUT
 #    @E2EUI-1326 @E2EUI-1770
   Scenario Outline:NTS-3337: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service
