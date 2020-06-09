@@ -10,6 +10,7 @@ Feature: Test Directory: TestOrder
     ##Patient Details Page
     Then the user is navigated to a page with title Add a requesting organisation
     And the web browser is still at the same "<PartCurrentURL>" page
+
     Examples:
       | PartCurrentURL |
       | test-order     |
