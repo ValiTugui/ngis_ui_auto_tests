@@ -4,7 +4,7 @@
 
 Feature: Submitting the referral after saving the Panels stage
 
-  @NTS-5947_1 @Z-LOGOUT @Scenario1
+  @NTS-5947 @Z-LOGOUT @Scenario1
   Scenario Outline: NTS-5947:Automatically save suggested panels, if no other panels have been saved upon submission of the referral.
 
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -73,7 +73,7 @@ Feature: Submitting the referral after saving the Panels stage
       | PatientDetails  | OneParticipant | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | RecordedBy                            |
       | Patient details | 1              | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-5947_2 @Z-LOGOUT @Scenario2
+  @NTS-5947 @Z-LOGOUT @Scenario2
   Scenario Outline:NTS-5947:Saving selected panel suggestions(Disease status=affected),if the panels are not previously saved.
 
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -126,14 +126,12 @@ Feature: Submitting the referral after saving the Panels stage
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
-#    Then any suggested panels are saved in the PanelAssigner api
-#    And the suggested panels are displayed as selected on the Panels stage
 
     Examples:
       | OneParticipant | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | RecordedBy                            |
       | 1              | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-5947_3 @Z-LOGOUT @Scenario3
+  @NTS-5947 @Z-LOGOUT @Scenario3
   Scenario Outline:NTS-5947:Saving unselected panel suggestions(Disease status= unaffected),if the panels are not previously saved.
 
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -195,8 +193,6 @@ Feature: Submitting the referral after saving the Panels stage
       | MandatoryStagesToComplete |
       | Panels                    |
     And the user should be able to close the pop up dialog box
-#    Then no suggested panels are saved in the PanelAssigner api
-#    And the suggested panels are displayed as unselected on the Panels stage
 
     Examples:
       | OneParticipant | RecordedBy                            | ClinicalQuestion   | ClinicalQuestionDetails                                           | Panels | Title                        | ResponsibleClinicianDetails                               |
