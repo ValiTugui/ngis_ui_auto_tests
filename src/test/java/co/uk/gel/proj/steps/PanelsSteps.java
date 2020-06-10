@@ -5,10 +5,13 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.util.List;
 
 public class PanelsSteps extends Pages {
 
@@ -101,11 +104,24 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyDefaultStatusOfPenetranceButton(expectedButton));
     }
 
-    @And("the panels landing page displays the introduction message as {string}")
-    public void thePanelsLandingPageDisplaysTheIntroductionMessageAs(String introMessage) {
+//    @And("the panels landing page displays the introduction message as {string}")
+//    public void thePanelsLandingPageDisplaysTheIntroductionMessageAs(DataTable introMessage) {
+//        boolean testResult = false;
+//        List<List<String>> messages = introMessage.asLists();
+//        for (int i = 0; i < messages.size(); i++) {
+//            testResult = panelsPage.verifyThePanelAssignerIntoMessage(messages.get(i).get(0));
+//            Assert.assertTrue(testResult);
+//        }
+//    }
+
+    @And("the panels landing page displays the introduction message as shown below")
+    public void thePanelsLandingPageDisplaysTheIntroductionMessageAsShownBelow(DataTable introMessage) {
         boolean testResult = false;
-        testResult = panelsPage.verifyThePanelAssignerIntoMessage(introMessage);
-        Assert.assertTrue(testResult);
+        List<List<String>> messages = introMessage.asLists();
+        for (int i = 0; i < messages.size(); i++) {
+            testResult = panelsPage.verifyThePanelAssignerIntoMessage(messages.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
     }
 
     @And("Penetrance section with options Complete and Incomplete")
@@ -142,4 +158,5 @@ public class PanelsSteps extends Pages {
         testResult =  panelsPage.verifyNoSuggestedPanels(message);
         Assert.assertTrue(testResult);
     }
+
 }//end

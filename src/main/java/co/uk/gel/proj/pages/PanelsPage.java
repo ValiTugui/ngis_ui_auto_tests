@@ -68,8 +68,11 @@ public class PanelsPage {
     @FindBy(xpath = "//h3[text()='Added panels']/following::input[@checked]/ancestor::div[contains(@class,'checked')]")
     List<WebElement> addedPanelsList;
 
-    @FindBy(xpath = "//div[contains(@class,'panel-assigner__intro')]//p")
-    public WebElement panelsPageIntroMessage;
+    @FindBy(xpath = "//div[contains(@class,'panel-assigner__intro')]//p|//div[contains(@class,'styles_panel-assigner__intro_')]//div//ul")
+    public List<WebElement> panelsPageIntroMessage;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_panel-assigner__intro_')]//div//ul")
+    public  WebElement panelsPageIntroMessage2;
 
     @FindBy(xpath = "//h3[contains(@class,'subheader')]")
     public List<WebElement> panelSubtitles;
@@ -418,18 +421,18 @@ public class PanelsPage {
 
     public boolean verifyThePanelAssignerIntoMessage(String expMessage) {
         try {
-            if(!Wait.isElementDisplayed(driver,panelsPageIntroMessage,10)){
+            Wait.forElementToBeDisplayed(driver, panelsPageIntroMessage2);
+            if(!Wait.isElementDisplayed(driver,panelsPageIntroMessage2,10)){
                 Debugger.println("PanelAssignerIntoMessage Not displayed.");
                 SeleniumLib.takeAScreenShot("PanelsIntroMessage.jpg");
                 return false;
             }
-            String actualMessage = panelsPageIntroMessage.getText();
-            if(!actualMessage.contains(expMessage)){
-                Debugger.println("PanelAssignerIntoMessage mismatch. Expected:"+expMessage+"\nActual:"+actualMessage);
-                SeleniumLib.takeAScreenShot("PanelsIntroMessage.jpg");
-                return false;
+            for (int i = 0; i < panelsPageIntroMessage.size(); i++) {
+                if (panelsPageIntroMessage.get(i).getText().contains(expMessage)) {
+                    return true;
+                }
             }
-            return true;
+            return false;
 
         } catch (Exception exp) {
             Debugger.println("Exception from verifyThePanelAssignerIntoMessage:" + exp);
