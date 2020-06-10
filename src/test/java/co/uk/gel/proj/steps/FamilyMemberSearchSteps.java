@@ -116,7 +116,7 @@ public class FamilyMemberSearchSteps extends Pages {
                 Assert.assertTrue(false);
             }
 
-            familyMember.setNO_NHS_REASON("Patient is a foreign national");
+            familyMember.setNO_NHS_REASON("Patient not eligible for NHS number (e.g. foreign national)");
             familyMember.setGENDER(paramNameValue.get("Gender"));
             familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
             if(paramNameValue.get("Ethnicity") != null){

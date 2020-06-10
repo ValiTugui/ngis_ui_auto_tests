@@ -215,7 +215,10 @@ Feature: Submitting the referral after saving the Panels stage
     ##Panels Page
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
-    And the panels landing page displays the introduction message as "<IntroMessage>"
+    And the panels landing page displays the introduction message as shown below
+      | The test package requires:         |
+      | confirmation of disease penetrance |
+      | addition of at least one panel     |
     And the user should be able to see a sub title Confirm disease penetrance on panels page
     And Penetrance section with options Complete and Incomplete
     And the user should be able to see an additional line "<penetranceIntro>" underneath the penetrance title
@@ -227,8 +230,8 @@ Feature: Submitting the referral after saving the Panels stage
 #    Then the referral is not submitted
 #    And a message is shown to alert the user
     Examples:
-      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | IntroMessage                                                                                | penetranceIntro                                                                                                                                                           |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | The test package requires:confirmation of disease penetrance,addition of at least one panel | Change suggested penetrance if:there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
+      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | penetranceIntro                                                                                                                                                           |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Change suggested penetrance if:there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
 
 
 

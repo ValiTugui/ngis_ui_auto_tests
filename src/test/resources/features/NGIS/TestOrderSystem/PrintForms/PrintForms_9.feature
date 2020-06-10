@@ -4,7 +4,6 @@ Feature: Print Forms 9 - Offline Orders
 
   @NTS-5928
 #    @NDGS-53
-
   Scenario Outline: NTS-5928: User visits offline order page for form download for Rare Disease
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -47,4 +46,4 @@ Feature: Print Forms 9 - Offline Orders
 
     Examples:
       | TextToValidate                                                                                                                                                                                          |
-      | RARE AND INHERITED,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):|
+      | Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):|
