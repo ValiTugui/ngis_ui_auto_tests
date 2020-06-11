@@ -1298,4 +1298,11 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyPageLoadingWithInvalidReferralURL();
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user sees the {string} stage has no status indicator")
+    public void theUserSeesTheStageHasNoStatusIndicator(String stage) {
+        boolean testResult = false;
+        testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
+        Assert.assertTrue(testResult);
+    }
 }

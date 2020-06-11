@@ -8,7 +8,7 @@ Feature: Test Directory: ClinicalIndicationSelect_3
 #    @E2EUI-1545
   Scenario Outline: NTS-4810: Deep linking - Add patient_id to URLs
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     ##Patient Details Page
 #    When the user is navigated to a page with title Check your patient
 #    Then the user should be able to see same referral id in the global banner and the url
@@ -65,7 +65,7 @@ Feature: Test Directory: ClinicalIndicationSelect_3
 #    @E2EUI-1645
   Scenario Outline: NTS-4701 : Stop a user losing their changes when they try to navigate to away using browser behaivor
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     ##Patient Details Page
     When the user navigates to the "Patient details" stage
     Then the user is navigated to a page with title Check your patient's details

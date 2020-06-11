@@ -1,10 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 4 - Field name consistency in Print Forms
+Feature: Print Forms 9 - Offline Orders
 
-  @NTS-3414
-#    @E2EUI-2780
-  Scenario Outline: NTS-3414: User visits offline order page for form download for Rare Disease
+  @NTS-5928
+#    @NDGS-53
+  Scenario Outline: NTS-5928: User visits offline order page for form download for Rare Disease
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -23,11 +23,11 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
 
     Examples:
       | TextToValidate                                                                                                                                                                                          |
-      | RARE AND INHERITED,v1.18,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID |
+      | RARE AND INHERITED,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):|
 
-  @NTS-3414
-#    @E2EUI-2780
-  Scenario Outline: NTS-3414: scenario-2:User visits offline order page for form download for Cancer
+  @NTS-5928
+#    @NDGS-53
+  Scenario Outline: NTS-5928: scenario-2:User visits offline order page for form download for Cancer
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -44,5 +44,5 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
     And the user is able to download form of the "Referral" section and validate the text "<TextToValidate>" in the file "ReferralForm.pdf"
 
     Examples:
-      | TextToValidate                                                                                                                                                                                                                                                                                                                           |
-      | CANCER,v1.18,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other |
+      | TextToValidate                                                                                                                                                                                          |
+      | Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):|

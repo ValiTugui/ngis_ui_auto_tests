@@ -22,8 +22,8 @@ Feature: GenomicRecord: Patient details page 3
     And the user clicks on edit patient details
     And the sub-heading title is displayed "Details entered here will be added to NGIS only, not NHS Spine."
     Examples:
-      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
-      | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber       | patient-search-type |
+      | create a new patient record | Find your patient | Other (please provide reason) | NGIS                |
 
   @NTS-3513 @Z-LOGOUT
 #    @E2EUI-849
@@ -62,8 +62,8 @@ Feature: GenomicRecord: Patient details page 3
     And the user clicks the Start Referral button
     And the referral page is displayed
     Examples:
-      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
-      | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber       | patient-search-type |
+      | create a new patient record | Find your patient | Other (please provide reason) | NGIS                |
 
   @NTS-4500 @Z-LOGOUT
 #    @E2EUI-2499
@@ -182,13 +182,15 @@ Feature: GenomicRecord: Patient details page 3
 #    @E2EUI-1582
   Scenario Outline: NTS-4565:E2EUI-1582:The Patient Details page is loaded when clicking browser's Back button after starting a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user navigates to the "<stage>" stage
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
     ##Two times click back is needed
     When the user attempts to navigate away by clicking "back"
     And the page url address contains the directory-path web-page "<directoryPathPage>"
+    ##refresh is needed spooler is not loading in click back
+    And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle>" page is displayed
 
     Examples:
@@ -204,6 +206,7 @@ Feature: GenomicRecord: Patient details page 3
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     When the user clicks the - "Back to patient search" - link
     And the page url address contains the directory-path web-page "<directoryPathPage>"
+#    And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle2>" page is displayed
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and gender
@@ -233,11 +236,13 @@ Feature: GenomicRecord: Patient details page 3
     And the referral page is displayed
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
+    ##refresh is needed spooler is not loading in click back
+    And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle3>" page is displayed
 
     Examples:
-      | stage           | pageTitle                        | pageTitle2        | pageTitle3     | reason_for_no_nhsNumber     | patient-search-type | directoryPathPage         |
-      | Patient details | Create a record for this patient | Find your patient | Patient record | Other - provide explanation | NGIS                | test-order/patient-search |
+      | stage           | pageTitle                        | pageTitle2        | pageTitle3     | reason_for_no_nhsNumber       | patient-search-type | directoryPathPage         |
+      | Patient details | Create a record for this patient | Find your patient | Patient record | Other (please provide reason) | NGIS                | test-order/patient-search |
 
   @NTS-4627 @Z-LOGOUT
 #    @E2EUI-1664
@@ -290,14 +295,14 @@ Feature: GenomicRecord: Patient details page 3
     Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
-      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         |
-      | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search |
+      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber                                     | directoryPathPage         |
+      | Create a record for this patient | Find your patient | NGIS                | Patient not eligible for NHS number (e.g. foreign national) | test-order/patient-search |
 
   @NTS-4752 @Z-LOGOUT
 #    @E2EUI-1184
   Scenario Outline:NTS-4752:E2EUI-1184:Patient details stage is editable and it's not locked
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
     Then the "<stage>" stage is selected
     And the "<stage>" stage is marked as Completed

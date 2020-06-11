@@ -9,7 +9,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
   Scenario Outline: NTS-4796:(E2EUI-1138,933): editing panel – Personal tab
     ##Note: E2EUI-933 talks about pedigree diagram embedded as part of NGIS app - Can be part of any diagram click ticket
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1990:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1990:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
@@ -90,7 +90,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
 #    @E2EUI-1345 @E2EUI-1160
   Scenario Outline: NTS-4796:(E2EUI-1345,1160): Editable Fields for Non NGIS Participants
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1991:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1991:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
@@ -123,7 +123,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     ##One part of 1230 covered here and another part in NTS-4795
   Scenario Outline: NTS-4796:(E2EUI-1348,1230): Non NGIS Patient Stable UID
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1992:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1992:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
@@ -146,7 +146,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
 #    @E2EUI-1074
   Scenario Outline: NTS-4796:E2EUI-1074: Connecting Lookup Services to Pedigree Tool
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1993:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1993:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
@@ -163,5 +163,5 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
 
     Examples:
-      | FamilyMember   | ProbandDetails              | Disease|WarningMessage                                                                                |
-      | Family members | NHSNumber=NA:DOB=25-11-1993 | carcinoid|Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | FamilyMember   | ProbandDetails              | Disease   | WarningMessage                                                                                |
+      | Family members | NHSNumber=NA:DOB=25-11-1993 | carcinoid | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |

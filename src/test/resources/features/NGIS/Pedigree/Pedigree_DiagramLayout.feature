@@ -8,7 +8,7 @@ Feature: Pedigree - Diagram Layout
 #    @E2EUI-934 @E2EUI-1046
   Scenario Outline: NTS-3304:(E2EUI-934,1046) Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2008:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
      ##Pedigree
@@ -53,7 +53,7 @@ Feature: Pedigree - Diagram Layout
 #    @E2EUI-1457
   Scenario Outline: NTS-3304 :E2EUI-1457: Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2009:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2009:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
      ##Pedigree

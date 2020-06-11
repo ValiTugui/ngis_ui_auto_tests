@@ -650,7 +650,7 @@ public class PedigreePage {
                     return true;
                 }
             }
-            Debugger.println("Pedigree section does not contains the expected message: " + expMessage);
+            Debugger.println("Pedigree section does not contains the expected message: " + expMessage+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("pedigreeMessage.jpg");
             return false;
         } catch (Exception exp) {

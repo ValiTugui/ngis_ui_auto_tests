@@ -6,7 +6,7 @@ Feature: Cancer:NTS-4948:Create Cancer Referrals for NEW Patient - Proband Only
     #@E2EUI-2689
   Scenario Outline: NTS-4948: CSV -E2E-Submit a Cancer referral for Solid Tumour sample with tumour content >= 30 or NULL
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M212 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=23-01-2007:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M212 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=23-01-2007:Gender=Male |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed

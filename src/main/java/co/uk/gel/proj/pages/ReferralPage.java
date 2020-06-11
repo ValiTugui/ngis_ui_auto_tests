@@ -204,6 +204,7 @@ public class ReferralPage<check> {
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
 
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
+    String stageMandatoryMark="//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='mandatory-icon']";
 
     @FindBy(xpath = "//div[@role='dialog']/h1")
     WebElement dialogTitle;
@@ -707,6 +708,7 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
+            Wait.forPageToBeLoaded(driver);
             Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
@@ -2065,4 +2067,22 @@ public class ReferralPage<check> {
         SeleniumLib.writeToJsonFile(referralHeaderReferralId.getText());
     }
 
+    public boolean verifyStageHasNoStatusIndicator(String stage) {
+        try {
+            String completedMark = stageCompletedMark.replace("dummyStage", stage);
+            Debugger.println("completedMark is"+completedMark);
+            String mandatoryAsterixMark = stageMandatoryMark.replace("dummyStage", stage);
+            Debugger.println("mandatoryAsterixMark is"+mandatoryAsterixMark);
+            if ((seleniumLib.isElementPresent(By.xpath(completedMark)) || seleniumLib.isElementPresent(By.xpath(mandatoryAsterixMark)))) {
+                SeleniumLib.takeAScreenShot("NoStatusIndicator.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Stage :" + stage + " has Status Indicator." + exp);
+            SeleniumLib.takeAScreenShot("verifyStageHasNoStatusIndicator.jpg");
+            return false;
+        }
+    }
 }
+

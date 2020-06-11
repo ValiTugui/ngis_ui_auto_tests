@@ -6,7 +6,7 @@ Feature: Tumours Page - 6
 #    @E2EUI-1247
   Scenario Outline: NTS-3250:E2EUI-1247: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user enters "<pathologySampleId>" in the Pathology Sample ID field
@@ -28,7 +28,7 @@ Feature: Tumours Page - 6
 #    @E2EUI-2145
   Scenario Outline:NTS:3171:E2EUI-2145:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"

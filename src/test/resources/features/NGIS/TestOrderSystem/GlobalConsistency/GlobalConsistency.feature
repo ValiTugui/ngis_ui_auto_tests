@@ -6,7 +6,7 @@ Feature: TestOrder - Global Consistency
     #@E2EUI-875
   Scenario Outline: NTS-5069:E2EUI-875: Microsoft Login / Authentication
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-07-2000:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=11-07-2000:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
     Then the "Patient details" stage is marked as Completed
     When the user clicks the Log out button
@@ -24,7 +24,7 @@ Feature: TestOrder - Global Consistency
     #@E2EUI-1841
   Scenario Outline:NTS-5068:E2EUI-1841:Verify Referral Id same as url
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=02-01-2010:Gender=Female |
     ##Patient Details Page
     Then the user should be able to see same referral id in the global banner and the url
     ##Requesting Organisation Page

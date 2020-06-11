@@ -50,9 +50,9 @@ Feature: GenomicRecord: New Patient page
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
 
     Examples:
-      | hyperlinkText               | reason_for_no_nhsNumber       |
-      | create a new patient record | Other - provide explanation   |
-      | create a new patient record | Patient is a foreign national |
+      | hyperlinkText               | reason_for_no_nhsNumber                                     |
+      | create a new patient record | Other (please provide reason)                               |
+      | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
 
   @NTS-3456 @Z-LOGOUT
 #    @E2EUI-1134 @E2EUI-1067
@@ -129,8 +129,8 @@ Feature: GenomicRecord: New Patient page
       | Postcode      |
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     |
-      | No patient found | create a new patient record | Create a record for this patient | Other - provide explanation |
+      | message          | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       |
+      | No patient found | create a new patient record | Create a record for this patient | Other (please provide reason) |
 
   @NTS-3465 @Z-LOGOUT
 #    @E2EUI-892 @E2EUI-1475 @E2EUI-1308 @E2EUI-1416
@@ -149,8 +149,8 @@ Feature: GenomicRecord: New Patient page
  #   And the Start New Referral button is disabled
 
     Examples:
-      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     | notification                |
-      | create a new patient record | Create a record for this patient | Other - provide explanation | NGIS patient record created |
+      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | notification                |
+      | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS patient record created |
 
   @NTS-3465 @Z-LOGOUT
 #    @E2EUI-892 @E2EUI-1475 @E2EUI-1416
@@ -171,8 +171,8 @@ Feature: GenomicRecord: New Patient page
 #    And the Start New Referral button is disabled
 
     Examples:
-      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     | notification                |
-      | create a new patient record | Create a record for this patient | Other - provide explanation | NGIS patient record created |
+      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | notification                |
+      | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS patient record created |
 
   @NTS-3466 @Z-LOGOUT
 #    @E2EUI-1052
@@ -304,8 +304,8 @@ Feature: GenomicRecord: New Patient page
     Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
-      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     |
-      | create a new patient record | Create a record for this patient | Other - provide explanation |
+      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       |
+      | create a new patient record | Create a record for this patient | Other (please provide reason) |
 
 #  @NTS-3507 @Z-LOGOUT - Not relevant for Gonzalo
 ##    @E2EUI-1649 @E2EUI-1584
@@ -389,5 +389,5 @@ Feature: GenomicRecord: New Patient page
     Then a "<patient-type>" result is successfully returned
 
     Examples:
-      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     | patient-type |
-      | create a new patient record | Create a record for this patient | Other - provide explanation | NGIS         |
+      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | patient-type |
+      | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS         |

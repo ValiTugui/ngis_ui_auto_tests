@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 2
 
- @NTS-3101 @Z-LOGOUT
+  @NTS-3101 @Z-LOGOUT
 #    @E2EUI-2147
   Scenario Outline: NTS-3101:E2EUI-2147:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
@@ -61,7 +61,7 @@ Feature: GenomicRecord: Patient details page 2
 #    @E2EUI-1192
   Scenario Outline: NTS-4762:E2EUI-1192: Referral-Patient Detail - Update the 'success' message design
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
     Then the "<stage>" stage is selected
     And the "<stage>" stage is marked as Completed
@@ -110,19 +110,19 @@ Feature: GenomicRecord: Patient details page 2
     And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat>" format
 
     Examples:
-      | message          | hyperlinkText               | reason_for_no_nhsNumber       | Postcode | PostcodeFormat |
-      | No patient found | create a new patient record | Patient is a foreign national | AB1 2CD  | AB1 2CD        |
-      | No patient found | create a new patient record | Patient is a foreign national | AB1  2CD | AB1 2CD        |
-      | No patient found | create a new patient record | Patient is a foreign national | AB12CD   | AB1 2CD        |
-      | No patient found | create a new patient record | Patient is a foreign national | ab1 2cd  | ab1 2cd        |
-      | No patient found | create a new patient record | Patient is a foreign national | ab1  2cd | ab1 2cd        |
-      | No patient found | create a new patient record | Patient is a foreign national | ab12cd   | ab1 2cd        |
+      | message          | hyperlinkText               | reason_for_no_nhsNumber                                     | Postcode | PostcodeFormat |
+      | No patient found | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | AB1 2CD  | AB1 2CD        |
+      | No patient found | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | AB1  2CD | AB1 2CD        |
+      | No patient found | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | AB12CD   | AB1 2CD        |
+      | No patient found | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | ab1 2cd  | ab1 2cd        |
+      | No patient found | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | ab1  2cd | ab1 2cd        |
+      | No patient found | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | ab12cd   | ab1 2cd        |
 
   @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- update a patient record by passing postcode.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-2005:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
 
     When the user navigates to the "<PatientDetails>" stage

@@ -6,7 +6,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 #    @E2EUI-1306
   Scenario Outline: NTS-4702: As a user I want to see some advisory notice on the PDFs that says Not for Clinical use
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=28-04-2007:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=28-04-2007:Gender=Female |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the print forms stage is locked
@@ -38,7 +38,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 #    @E2EUI-1794 @E2EUI-1786
   Scenario Outline: NTS-4702: Cancel a referral as revoked or marked in error
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=9-09-1999:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=9-09-1999:Gender=Male |
     ###Patient Details- cancelling referral
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
@@ -98,7 +98,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 #    @E2EUI-1212
   Scenario Outline: NTS-4702: update the 'warning' message design - Print forms
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -134,7 +134,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 #    @E2EUI-1661
   Scenario Outline: NTS-3413 :scenario_1: Any updates done in the referral will not be reflected in the Print Forms stage- for Family Member
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
