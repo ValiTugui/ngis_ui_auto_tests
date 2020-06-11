@@ -474,7 +474,7 @@ public class TestUtils {
                 if(tags[i].contains("NTS")){
                     ntsTag = tags[i].replaceAll("@","");
                     ntsTag = ntsTag.replaceAll("]","");
-                    Debugger.println("Heer is NTS:"+ntsTag);
+                    Debugger.println("Here is NTS:"+ntsTag);
                     return ntsTag.trim();
                 }
             }

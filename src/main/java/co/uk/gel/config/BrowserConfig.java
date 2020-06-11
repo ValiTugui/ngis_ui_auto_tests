@@ -7,6 +7,7 @@ public class BrowserConfig {
     public static String serverType;
     public static String osName;
     public static String osVersion;
+    public static String rerunOption;
 
     public static String getBrowser() {
         browser = System.getProperty("browser");
@@ -45,6 +46,17 @@ public class BrowserConfig {
             osVersion = "10";
         }
         return osVersion;
+    }
+
+    public static String ifRerunNeeded() {
+        rerunOption = System.getProperty("rerun");
+        if (rerunOption.isEmpty() || rerunOption == null || rerunOption.toLowerCase() == "no") {
+            rerunOption = "";
+        }
+        else if (rerunOption.toLowerCase() == "yes") {
+            rerunOption = "MergeFailedScenarios.class, RemoveFailuresFromJsonFiles.class";
+        }
+        return rerunOption;
     }
 
 }//end
