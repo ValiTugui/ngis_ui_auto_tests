@@ -152,8 +152,8 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees an (.*) message on the page")
-    public void theUserSeesAnStringMessageOnThePage(String message) {
+    @And("the user sees the (.*) message on the page")
+    public void theUserSeesTheStringMessageOnThePage(String message) {
         boolean testResult = false;
         testResult =  panelsPage.verifyNoSuggestedPanels(message);
         Assert.assertTrue(testResult);
