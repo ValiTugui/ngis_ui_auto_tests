@@ -1240,7 +1240,7 @@ public class ReferralPage<check> {
     public void logTheReferralId() {
         String referralID = getPatientReferralId();
         Debugger.println("ReferralID: " + referralID);
-        System.out.println("ReferralID: " + referralID);
+        Debugger.println(driver.getCurrentUrl());
     }
 
     public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
