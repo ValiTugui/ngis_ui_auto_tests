@@ -50,8 +50,8 @@ Feature: GenomicRecord: Patient details page 1
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
-      | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-      | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
+      | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber       | patient-search-type |
+      | Create a record for this patient | Find your patient | Other (please provide reason) | NGIS                |
 
   @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
@@ -78,8 +78,8 @@ Feature: GenomicRecord: Patient details page 1
     And the Start Referral button is disabled
 
     Examples:
-      | hyperlinkText               | reason_for_no_nhsNumber       |
-      | create a new patient record | Patient is a foreign national |
+      | hyperlinkText               | reason_for_no_nhsNumber                                     |
+      | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
 
   @NTS-3067 @Z-LOGOUT
 #    @E2EUI-1128
@@ -94,8 +94,8 @@ Feature: GenomicRecord: Patient details page 1
     Then the Test Directory homepage is displayed
 
     Examples:
-      | hyperlinkText               | reason_for_no_nhsNumber       |
-      | create a new patient record | Patient is a foreign national |
+      | hyperlinkText               | reason_for_no_nhsNumber                                     |
+      | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
 
   @NTS-3346 @Z-LOGOUT
 #    @E2EUI-995
@@ -113,7 +113,7 @@ Feature: GenomicRecord: Patient details page 1
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user navigates to the "<stage>" stage
     And the "<stage>" stage is marked as Completed
     When the user navigates back to patient search page
@@ -173,8 +173,8 @@ Feature: GenomicRecord: Patient details page 1
       | Life status ✱   |
 
     Examples:
-      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
-      | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national |
+      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber                                     |
+      | Create a record for this patient | Find your patient | NGIS                | Patient not eligible for NHS number (e.g. foreign national) |
 
   @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538
@@ -198,14 +198,14 @@ Feature: GenomicRecord: Patient details page 1
     Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
-      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
-      | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber       | patient-search-type | gender | lifeStatus | ethnicity                              |
+      | create a new patient record | Find your patient | Other (please provide reason) | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
 
   @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538
   Scenario Outline: NTS-3470:E2EUI-1538: Referral Component - Patient details Page - Patient details update message
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user navigates to the "<stage>" stage
     And the "<stage>" stage is marked as Completed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields

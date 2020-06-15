@@ -6,7 +6,7 @@ Feature: GlobalConsistency:Global Patient Flow 5 - Global Patient Information Ba
 #    @E2EUI-1665
   Scenario Outline: NTS-3329:E2EUI-1665: Verify Global patient information bar component
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2010:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     And the referral submit button is not enabled
 
@@ -61,5 +61,5 @@ Feature: GlobalConsistency:Global Patient Flow 5 - Global Patient Information Ba
     Then the user should see same data in family member landing page and print forms page
     And the referral submit button is not enabled
     Examples:
-      | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Print forms |
+      | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails     | Print forms |
       | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Unaffected | Print forms |

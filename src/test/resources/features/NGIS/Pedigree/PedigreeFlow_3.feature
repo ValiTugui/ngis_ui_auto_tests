@@ -8,7 +8,7 @@ Feature: Pedigree - Pedigree Flow 3
 #    @E2EUI-1854
   Scenario Outline: NTS-3386 :E2EUI-1854: Add a new RD family of female proband and 2 female daughters with no error messages in the Pedigree application.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1990:Gender=Female |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Requesting Organisation

@@ -10,7 +10,7 @@ Feature: PanelAssigner: Panels Page Landing Page
 #    @E2EUI-1469 @E2EUI-1322 @E2EUI-1278 @E2EUI-1258
   Scenario Outline: NTS-3424: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
     When the user is navigated to a page with title Add a requesting organisation
     ##Clinical Questions
@@ -20,13 +20,16 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user clicks the Save and Continue button
     ##Panels Page
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panel
-    And the panels landing page displays the introduction message as "<IntroMessage>"
-    And the user should be able to see a sub title Penetrance on panels page
+    Then the user is navigated to a page with title Manage panels
+    And the panels landing page displays the introduction message as shown below
+      | The test package requires:         |
+      | confirmation of disease penetrance |
+      | addition of at least one panel     |
+#    And the user should be able to see a sub title Penetrance on panels page
     And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
-    And the user should be able to see an additional line "<penetranceIntro>" underneath the penetrance title
+#    And the user should be able to see an additional line "<penetranceIntro>" underneath the penetrance title
     And the user should see the section with title Suggestions based on the clinical information
     And the user sees suggested panels under the section Suggestions based on the clinical information
     And the user sees link with title View On PanelApp attached to all the suggested panels
@@ -38,5 +41,5 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user clicks the Save and Continue button
 
     Examples:
-      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | IntroMessage                                                                                                                                                                                                              | searchPanels                                  | penetranceIntro                                                                                               |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | The selected tests require a panel and penetrance setting. Don't worry if you don't know what panels you need. Please submit your request and discuss panel selection with your lab once they have received your request. | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
+      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | searchPanels                                  | penetranceIntro                                                                                                                                                            |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |

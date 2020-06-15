@@ -364,7 +364,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
                     familyMember.setGENDER(paramNameValue.get("Gender"));
                     familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
-                    familyMember.setNO_NHS_REASON("Patient is a foreign national");
+                    familyMember.setNO_NHS_REASON("Patient not eligible for NHS number (e.g. foreign national)");
                     if (paramNameValue.get("Ethnicity") != null) {
                         familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
                     } else {

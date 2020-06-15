@@ -28,7 +28,7 @@ Feature: Print Forms 1 - Offline Orders
 #    @E2EUI-1993
   Scenario Outline: NTS-4703: Scenario_2: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=04-03-2000:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=04-03-2000:Gender=Male |
     ###Requesting organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "manchester" in the search field

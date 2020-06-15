@@ -2,5 +2,5 @@
 #APP_URL=https://applicationurl.com/
 APP_URL=https://test-ordering.e2e.ngis.io/test-order/
 APP_USERNAME=ClinicalViewer.E2ETest@ngisnonprod.onmicrosoft.com
-APP_PASSWORD=Nolu12575
+APP_PASSWORD=RUDuuu005
 #ANY OTHER APP SPECIFIC CONFIGUTATIONS CAN BE ADDED HERE (LIKE LOCATIONS TO ANY DATA REFERENCE...)

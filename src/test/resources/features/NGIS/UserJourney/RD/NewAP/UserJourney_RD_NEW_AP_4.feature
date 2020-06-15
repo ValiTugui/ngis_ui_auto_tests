@@ -8,7 +8,7 @@ Feature: UserJourney_RD_NEW_AP_4 - UC15 - E2EUI-832
 #    @E2EUI-832 @UseCase15
   Scenario Outline: NTS-4594: Use Case #15: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-2011:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2011:Gender=Female |
    ###Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button

@@ -72,14 +72,14 @@ Feature: GenomicRecord: Patient details page 4
     Then the patient is successfully created with a message "Patient details updated"
 
     Examples:
-      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient            | logout        |
+      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber                                     | directoryPathPage         | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | Create a record for this patient | Find your patient | NGIS                | Patient not eligible for NHS number (e.g. foreign national) | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient            | logout        |
 
   @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline:NTS-4760:E2EUI-1097:Referral-Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
     Then the "<stage>" stage is selected
     And the "<stage>" stage is marked as Completed
@@ -116,14 +116,14 @@ Feature: GenomicRecord: Patient details page 4
       | Date of death |
     And the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Examples:
-      | reason_for_no_nhsNumber       |
-      | Patient is a foreign national |
+      | reason_for_no_nhsNumber                                     |
+      | Patient not eligible for NHS number (e.g. foreign national) |
 
   @NTS-3557 @Z-LOGOUT
 #  @E2EUI-1809 @scenario_1
   Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient is a foreign national | GEL_SUPER_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
     When the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "present"
 
@@ -131,6 +131,6 @@ Feature: GenomicRecord: Patient details page 4
 #  @E2EUI-1809 @scenario_2
   Scenario: : NTS-3557:E2EUI-1809-scenario_2 Validating cancel button present when login as normal user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     When the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "not present"

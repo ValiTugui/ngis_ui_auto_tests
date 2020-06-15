@@ -49,8 +49,8 @@ Feature: GenomicRecord: Patient Record
     And the referral page is displayed
 
     Examples:
-      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-      | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
+      | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber       | patient-search-type |
+      | Create a record for this patient | Find your patient | Other (please provide reason) | NGIS                |
 
   @NTS-3516 @Z-LOGOUT
 #    @E2EUI-1056
@@ -87,7 +87,7 @@ Feature: GenomicRecord: Patient Record
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
     Examples:
-      | pageTitle                         | lifeStatus |
+      | pageTitle                        | lifeStatus |
       | Create a record for this patient | Deceased   |
 
   @NTS-3517 @Z-LOGOUT
@@ -126,7 +126,7 @@ Feature: GenomicRecord: Patient Record
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
     Examples:
-      | pageTitle                         | InvalidDateOfBirth |
+      | pageTitle                        | InvalidDateOfBirth |
       | Create a record for this patient | Jan012020          |
 
 # Ethnicity is now Mandatory
@@ -142,7 +142,7 @@ Feature: GenomicRecord: Patient Record
     When the user deletes the content of the Ethnicity field
 
     Examples:
-      | pageTitle                         |
+      | pageTitle                        |
       | Create a record for this patient |
 
   @NTS-4541 @Z-LOGOUT
@@ -156,8 +156,8 @@ Feature: GenomicRecord: Patient Record
     Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
-      | pageTitle                         | reason_for_no_nhsNumber     |
-      | Create a record for this patient | Other - provide explanation |
+      | pageTitle                        | reason_for_no_nhsNumber       |
+      | Create a record for this patient | Other (please provide reason) |
 
   @NTS-4745 @Z-LOGOUT
 #    @E2EUI-821
@@ -185,7 +185,7 @@ Feature: GenomicRecord: Patient Record
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
     Examples:
-      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
+      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                       |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
   @NTS-4745 @Z-LOGOUT
@@ -215,7 +215,7 @@ Feature: GenomicRecord: Patient Record
       | Hospital number ✱ | Hospital number is required. | #dd2509             |
 
     Examples:
-      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
+      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                       |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
   @NTS-4754 @Z-LOGOUT
@@ -244,14 +244,14 @@ Feature: GenomicRecord: Patient Record
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
     Examples:
-      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
+      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                       | gender  |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
   @NTS-4754 @Z-LOGOUT
 #     @E2EUI-1380
   Scenario Outline: NTS-4754:(E2EUI-1380):Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER|
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
     And the user clicks the NO button
     When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
@@ -274,7 +274,7 @@ Feature: GenomicRecord: Patient Record
       | Hospital number ✱ | Hospital number is required. | #dd2509             |
 
     Examples:
-      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
+      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                       | gender  |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
   @NTS-4760 @Z-LOGOUT
@@ -296,5 +296,5 @@ Feature: GenomicRecord: Patient Record
     Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
-      | pageTitle                         | reason_for_no_nhsNumber     | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Create a record for this patient | Other - provide explanation | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |
+      | pageTitle                        | reason_for_no_nhsNumber       | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | Create a record for this patient | Other (please provide reason) | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |

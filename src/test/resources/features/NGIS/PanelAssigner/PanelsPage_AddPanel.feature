@@ -10,7 +10,7 @@ Feature: PanelAssigner: Panels Page Add Panel
 #    @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
     When the user is navigated to a page with title Add a requesting organisation
     ##Panels Page
@@ -44,7 +44,7 @@ Feature: PanelAssigner: Panels Page Add Panel
 #    @E2EUI-1045 @E2EUI-1484 @E2EUI-1158
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"

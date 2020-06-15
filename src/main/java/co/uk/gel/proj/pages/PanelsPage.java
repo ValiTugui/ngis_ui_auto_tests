@@ -68,16 +68,22 @@ public class PanelsPage {
     @FindBy(xpath = "//h3[text()='Added panels']/following::input[@checked]/ancestor::div[contains(@class,'checked')]")
     List<WebElement> addedPanelsList;
 
-    @FindBy(xpath = "//div[contains(@class,'panel-assigner__intro')]//p")
-    public WebElement panelsPageIntroMessage;
+    @FindBy(xpath = "//div[contains(@class,'panel-assigner__intro')]//p|//div[contains(@class,'styles_panel-assigner__intro_')]//div//ul")
+    public List<WebElement> panelsPageIntroMessage;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_panel-assigner__intro_')]//div//ul")
+    public  WebElement panelsPageIntroMessage2;
 
     @FindBy(xpath = "//h3[contains(@class,'subheader')]")
     public List<WebElement> panelSubtitles;
 
+    @FindBy(xpath = "//h3[text()='No suggested panels found']")
+    public WebElement noSuggestedPanels;
+
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
-            Wait.forElementToBeDisplayed(driver, penetranceTitle);
+            Wait.forElementToBeDisplayed(driver, addAnotherPanel);
             if(!expTitle.isEmpty()) {
                 By titleElement = By.xpath(titleStringPath.replaceAll("dummyTitle",expTitle));
                 if (!seleniumLib.isElementPresent(titleElement)) {
@@ -415,18 +421,18 @@ public class PanelsPage {
 
     public boolean verifyThePanelAssignerIntoMessage(String expMessage) {
         try {
-            if(!Wait.isElementDisplayed(driver,panelsPageIntroMessage,10)){
+            Wait.forElementToBeDisplayed(driver, panelsPageIntroMessage2);
+            if(!Wait.isElementDisplayed(driver,panelsPageIntroMessage2,10)){
                 Debugger.println("PanelAssignerIntoMessage Not displayed.");
                 SeleniumLib.takeAScreenShot("PanelsIntroMessage.jpg");
                 return false;
             }
-            String actualMessage = panelsPageIntroMessage.getText();
-            if(!actualMessage.contains(expMessage)){
-                Debugger.println("PanelAssignerIntoMessage mismatch. Expected:"+expMessage+"\nActual:"+actualMessage);
-                SeleniumLib.takeAScreenShot("PanelsIntroMessage.jpg");
-                return false;
+            for (int i = 0; i < panelsPageIntroMessage.size(); i++) {
+                if (panelsPageIntroMessage.get(i).getText().contains(expMessage)) {
+                    return true;
+                }
             }
-            return true;
+            return false;
 
         } catch (Exception exp) {
             Debugger.println("Exception from verifyThePanelAssignerIntoMessage:" + exp);
@@ -461,6 +467,26 @@ public class PanelsPage {
         } catch (Exception exp) {
             Debugger.println("Exception in verifying verifyThePresenceOfSection:" + exp);
             SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNoSuggestedPanels(String message) {
+        try {
+            if (!(suggestedPanelsList.size() == 0)) {
+                Debugger.println("Suggested Panels are displayed.");
+                SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver,noSuggestedPanels);
+            if(!noSuggestedPanels.getText().equalsIgnoreCase(message)){
+                Debugger.println("Panels have been suggested on Page.");
+
+            }
+            return  true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying verifyNoSuggestedPanels:" + exp);
+            SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
             return false;
         }
     }

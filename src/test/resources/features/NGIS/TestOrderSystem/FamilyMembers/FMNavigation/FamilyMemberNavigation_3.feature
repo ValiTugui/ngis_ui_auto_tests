@@ -8,7 +8,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
 #    @E2EUI-1287
   Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2007:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2007:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
@@ -48,7 +48,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
 #    @E2EUI-1604
   Scenario Outline: NTS-3291: Verify that Indicate family members with outstanding questions to answer
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1952:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1952:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
@@ -84,7 +84,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
 #    @E2EUI-1202
   Scenario Outline: NTS-3330: User is completing a referral and wants to add a family member record to the referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1980:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1980:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -123,7 +123,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
 #  @NTS-3339 @E2EUI-1791 @Z-LOGOUT
 #  Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
 #    Given a new patient referral is created with associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1951:Gender=Male |
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1951:Gender=Male |
 #    Then the user is navigated to a page with title Add a requesting organisation
 #    When the user navigates to the "<Family Members>" stage
 #    Then the user is navigated to a page with title Add a family member to this referral

@@ -7,7 +7,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
    #@E2EUI-1042
   Scenario Outline:NTS-5183:E2EUI-1042:Scenario-1: Validation of dynamic questions in Questionnaire- Rare Disease
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1999:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1999:Gender=Male |
      ###Patient details
     And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
@@ -78,7 +78,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
   @NTS-5183 @Z-LOGOUT
   Scenario Outline:NTS-5183:E2EUI-1042:scenario-2: Validation of dynamic questions in Questionnaire- Cancer
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the user clicks the Save and Continue button

@@ -31,8 +31,8 @@ Feature: MIPORTAL ST - File Submission 2
       | London South                  |
       | North West                    |
       | South West                    |
-      | Wessex & West Midlands      |
-      | Yorkshire & North East      |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
       | ILMN                          |
       | UKB                           |
     And the selected search option is reset after test
@@ -51,7 +51,7 @@ Feature: MIPORTAL ST - File Submission 2
   Scenario: NTS-4938:E2EUI-2703: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
     When the user selects Created as the search column dropdown
     And the user selects equals as the search operator dropdown
-    And the user enters a date past_date in the file-submission date field
+    And the user enters a date 03-06-2020 in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button

@@ -7,7 +7,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=02-01-2010:Gender=Female |
     ##Patient Details Page
     When the user navigates to the "<PatientDetails>" stage
     When the user is navigated to a page with title Check your patient's details
