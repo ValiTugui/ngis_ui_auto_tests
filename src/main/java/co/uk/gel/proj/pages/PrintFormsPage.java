@@ -10,6 +10,7 @@ import co.uk.gel.proj.util.TestUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -167,6 +168,7 @@ public class PrintFormsPage {
     public boolean downloadProbandPrintForm() {
         try {
             //Delete if File already present
+
             Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", "");
             Debugger.println("Attempting to download the Proband sample form");
@@ -194,7 +196,6 @@ public class PrintFormsPage {
     public boolean openAndVerifyPDFContent(List<String> expValues) {
         PDDocument document = null;
         try {
-
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
             Debugger.println("PDF file location: " + pathToFile);
             // pdf file with full path name
@@ -327,20 +328,44 @@ public class PrintFormsPage {
     }
 
     public boolean validatePDFContent(String expText, String fileName) {
-        if (fileName.endsWith(".zip")) {
-            if (!TestUtils.extractZipFile(fileName)) {
-                Debugger.println("Could not extract the zip file: " + fileName);
-                return false;
-            }
-        }
         PDDocument document = null;
         String[] textList = null;
-        if (!expText.contains(",")) {
-            textList = new String[]{expText};
-        } else {
-            textList = expText.split(",");
-        }
         try {
+
+            if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
+                Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...");
+                JavascriptExecutor javascript = (JavascriptExecutor) driver;
+                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
+                Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...1");
+                javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                // get file properties
+                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
+                Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...2");
+                javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+
+                // get file content. The content is Base64 encoded
+                String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                //decode the content to Base64
+                byte[] data = Base64.getDecoder().decode(base64EncodedFile);
+                OutputStream stream = new FileOutputStream(defaultDownloadLocation+"SampleForm.pdf");
+                stream.write(data);
+                stream.close();
+//                driver.quit();
+            }
+            SeleniumLib.sleepInSeconds(5);
+            if (fileName.endsWith(".zip")) {
+                if (!TestUtils.extractZipFile(fileName)) {
+                    Debugger.println("Could not extract the zip file: " + fileName);
+                    return false;
+                }
+            }
+
+            if (!expText.contains(",")) {
+                textList = new String[]{expText};
+            } else {
+                textList = expText.split(",");
+            }
+
             //creating path for the downloaded pdf file
             String pathToFile = defaultDownloadLocation + fileName;
             File fileLocation = new File(pathToFile);
@@ -348,6 +373,7 @@ public class PrintFormsPage {
                 pathToFile = defaultDownloadLocation + "RD" + File.separator + fileName;
             }
             Debugger.println("PDF file location: " + pathToFile);
+
             document = PDDocument.load(new File(pathToFile));
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
@@ -362,6 +388,7 @@ public class PrintFormsPage {
                     testResult = false;
                 }
             }
+
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from loading PDF content: " + exp);

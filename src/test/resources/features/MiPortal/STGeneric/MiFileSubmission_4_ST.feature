@@ -2,7 +2,6 @@
 @MIPORTAL_ST
 @SYSTEM_TEST
 
-
 Feature: MIPORTAL ST - File Submission 4
 
   @NTS-3390
@@ -80,7 +79,7 @@ Feature: MIPORTAL ST - File Submission 4
   Scenario: NTS-3390:Verify the drag and drop columnHeader in search result table
     And the user selects Created as the search column dropdown
     And the user selects equals as the search operator dropdown
-    And the user enters a date 03-06-2020 in the file-submission date field
+    And the user enters 7 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
