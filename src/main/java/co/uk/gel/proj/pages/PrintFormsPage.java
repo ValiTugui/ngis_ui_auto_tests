@@ -333,15 +333,14 @@ public class PrintFormsPage {
         try {
 
             if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
-                Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...");
+                Debugger.println("validatePDFContent: COPYING DOWNLOADED FILE FROM BROWSER STACK..."+fileName);
                 JavascriptExecutor javascript = (JavascriptExecutor) driver;
                 //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
-                Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...1");
-                javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                //javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
                 // get file properties
                 //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
-                Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...2");
-                javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                //Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...2");
+                //javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
 
                 // get file content. The content is Base64 encoded
                 String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
@@ -533,6 +532,25 @@ public class PrintFormsPage {
     public boolean extractAndValidateZipFile(String fileName) {
         try {
             Wait.seconds(15); //wait for zip file download completion
+            if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
+                Debugger.println("extractAndValidateZipFile: COPYING DOWNLOADED FILE FROM BROWSER STACK..."+fileName);
+                JavascriptExecutor javascript = (JavascriptExecutor) driver;
+                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
+                //javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                // get file properties
+                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
+                //Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...2");
+                //javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+
+                // get file content. The content is Base64 encoded
+                String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                //decode the content to Base64
+                byte[] data = Base64.getDecoder().decode(base64EncodedFile);
+                OutputStream stream = new FileOutputStream(defaultDownloadLocation+"SampleForm.pdf");
+                stream.write(data);
+                stream.close();
+//                driver.quit();
+            }
             if (fileName.endsWith(".zip")) {
                 if (!TestUtils.extractZipFile(fileName)) {
                     Debugger.println("Could not extract the zip file: " + fileName);
