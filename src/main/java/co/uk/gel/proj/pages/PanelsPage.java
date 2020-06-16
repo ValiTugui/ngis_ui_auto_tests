@@ -83,7 +83,6 @@ public class PanelsPage {
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
-            //Wait.forElementToBeDisplayed(driver, penetranceTitle);
             Wait.forElementToBeDisplayed(driver, addAnotherPanel);
             if(!expTitle.isEmpty()) {
                 By titleElement = By.xpath(titleStringPath.replaceAll("dummyTitle",expTitle));

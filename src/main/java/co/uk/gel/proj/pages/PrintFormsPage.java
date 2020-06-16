@@ -168,7 +168,6 @@ public class PrintFormsPage {
     public boolean downloadProbandPrintForm() {
         try {
             //Delete if File already present
-
             Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", "");
             Debugger.println("Attempting to download the Proband sample form");
@@ -196,6 +195,7 @@ public class PrintFormsPage {
     public boolean openAndVerifyPDFContent(List<String> expValues) {
         PDDocument document = null;
         try {
+
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
             Debugger.println("PDF file location: " + pathToFile);
             // pdf file with full path name
@@ -335,13 +335,6 @@ public class PrintFormsPage {
             if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
                 Debugger.println("validatePDFContent: COPYING DOWNLOADED FILE FROM BROWSER STACK..."+fileName);
                 JavascriptExecutor javascript = (JavascriptExecutor) driver;
-                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
-                //javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
-                // get file properties
-                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
-                //Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...2");
-                //javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
-
                 // get file content. The content is Base64 encoded
                 String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
                 //decode the content to Base64
@@ -372,7 +365,6 @@ public class PrintFormsPage {
                 pathToFile = defaultDownloadLocation + "RD" + File.separator + fileName;
             }
             Debugger.println("PDF file location: " + pathToFile);
-
             document = PDDocument.load(new File(pathToFile));
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
@@ -387,7 +379,6 @@ public class PrintFormsPage {
                     testResult = false;
                 }
             }
-
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from loading PDF content: " + exp);
@@ -535,13 +526,6 @@ public class PrintFormsPage {
             if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
                 Debugger.println("extractAndValidateZipFile: COPYING DOWNLOADED FILE FROM BROWSER STACK..."+fileName);
                 JavascriptExecutor javascript = (JavascriptExecutor) driver;
-                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
-                //javascript.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
-                // get file properties
-                //System.out.println(javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \"SampleForm.pdf\"}}"));
-                //Debugger.println("COPYING DoWNLOADED FILE FROM BROWSER STACK...2");
-                //javascript.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
-
                 // get file content. The content is Base64 encoded
                 String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
                 //decode the content to Base64

@@ -232,7 +232,6 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
     @Then("the user is able to validate the text {string} in the downloaded form {string}")
     public void theUserIsAbleToValidateTheTextInTheDownloadedForm(String expText, String formName) {
         boolean testResult = false;
