@@ -24,7 +24,7 @@ Feature: Print Forms 1 - Offline Orders
       | RequestingOrganisation                                  |
       | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-4703 @Z-LOGOUT
+  @filedownload @NTS-4703 @Z-LOGOUT
 #    @E2EUI-1993
   Scenario Outline: NTS-4703: Scenario_2: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a new patient referral is created with associated tests in Test Order System online service
