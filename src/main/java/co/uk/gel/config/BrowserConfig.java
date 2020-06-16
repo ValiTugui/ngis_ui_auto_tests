@@ -53,7 +53,6 @@ public class BrowserConfig {
         if (rerunOption == null || rerunOption.isEmpty()) {
             rerunOption = "No";
         }
-        System.out.println("Rerun Option is set to " + rerunOption);
         return rerunOption;
     }
 
