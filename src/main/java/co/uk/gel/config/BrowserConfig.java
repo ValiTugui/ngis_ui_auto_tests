@@ -10,7 +10,7 @@ public class BrowserConfig {
     public static String rerunOption;
 
     public static String getBrowser() {
-//        browser = System.getProperty("browser");
+        browser = System.getProperty("browser");
 //        if(browser == null || browser.isEmpty()){
 //            browser = "Chrome";
 //        }
