@@ -49,13 +49,11 @@ public class BrowserConfig {
     }
 
     public static String ifRerunNeeded() {
-        rerunOption = System.getProperty("rerun");
-        if (rerunOption.isEmpty() || rerunOption == null || rerunOption.toLowerCase() == "no") {
-            rerunOption = "";
+        rerunOption = System.getProperty("rerunOption");
+        if (rerunOption == null || rerunOption.isEmpty()) {
+            rerunOption = "No";
         }
-        else if (rerunOption.toLowerCase() == "yes") {
-            rerunOption = "MergeFailedScenarios.class, RemoveFailuresFromJsonFiles.class";
-        }
+        System.out.println("Rerun Option is set to " + rerunOption);
         return rerunOption;
     }
 
