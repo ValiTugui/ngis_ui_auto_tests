@@ -10,11 +10,11 @@ public class BrowserConfig {
     public static String rerunOption;
 
     public static String getBrowser() {
-        browser = System.getProperty("browser");
-        if(browser == null || browser.isEmpty()){
-            browser = "Chrome";
-        }
-        return browser;
+//        browser = System.getProperty("browser");
+//        if(browser == null || browser.isEmpty()){
+//            browser = "Chrome";
+//        }
+        return "Edge" ;
     }
     public static String getServerType() {
         serverType = System.getProperty("serverType");
