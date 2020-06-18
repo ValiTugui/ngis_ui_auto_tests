@@ -512,7 +512,7 @@ public class PatientDetailsPage {
 
     public boolean patientIsCreated() {
         try {
-            if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
+            if (!Wait.isElementDisplayed(driver, successNotification, 60)) {
                 Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
                 return false;
