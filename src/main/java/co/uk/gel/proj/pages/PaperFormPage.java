@@ -161,7 +161,7 @@ public class PaperFormPage {
     public boolean clickSignInToTheOnlineServiceButton() {
         try {
             Debugger.println("clickSignInToTheOnlineServiceButton: ");
-            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,70)){
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,80)){
                 Debugger.println("Sign Into Online Service Button not displayed even after waiting time 60s...failing."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
                 return false;

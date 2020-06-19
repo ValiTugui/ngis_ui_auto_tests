@@ -423,7 +423,7 @@ public class PatientDetailsPage {
             Actions.clickElement(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
-            Wait.seconds(2);
+            Wait.seconds(5);
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
             return true;
         } catch (Exception exp) {
@@ -512,7 +512,7 @@ public class PatientDetailsPage {
 
     public boolean patientIsCreated() {
         try {
-            if (!Wait.isElementDisplayed(driver, successNotification, 200)) {
+            if (!Wait.isElementDisplayed(driver, successNotification, 100)) {
                 Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
                 return false;
@@ -807,7 +807,7 @@ public class PatientDetailsPage {
         return expectedReason.equalsIgnoreCase(Actions.getText(referralCancelReason));
     }
 
-    public boolean fillInAllFieldsNewPatientDetailsExceptNHSNumber(String reason) {
+    public boolean  fillInAllFieldsNewPatientDetailsExceptNHSNumber(String reason) {
         try {
             Wait.forElementToBeDisplayed(driver, title);
             newPatient.setTitle("Mr");
