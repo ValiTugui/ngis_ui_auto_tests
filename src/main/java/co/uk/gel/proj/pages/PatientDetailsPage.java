@@ -490,7 +490,7 @@ public class PatientDetailsPage {
 
     public boolean clickOnCreateRecord() {
         try {
-            if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
+            if (!Wait.isElementDisplayed(driver, createRecord, 60)) {
                 Debugger.println("Create Record button not present in new patient creation page.");
                 SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 Actions.scrollToBottom(driver);
@@ -857,6 +857,7 @@ public class PatientDetailsPage {
 
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+            Wait.seconds(30);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInAllFieldsNewPatientDetailsExceptNHSNumber:" + exp);
