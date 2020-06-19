@@ -161,7 +161,7 @@ Feature: GenomicRecord: Patient details page 3
     When the user click YES button for the question - Do you have the NHS no?
     When the user fills in all the fields with NHS number on the New Patient page
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "NGIS patient record created"
+    Then the patient is successfully updated with a message "NGIS patient record created"
     And the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the user clicks the NO button

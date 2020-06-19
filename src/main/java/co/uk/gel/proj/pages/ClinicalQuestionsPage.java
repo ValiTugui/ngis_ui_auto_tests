@@ -265,7 +265,12 @@ public class ClinicalQuestionsPage {
                 return null;
             }
             Wait.seconds(2);
-            return Actions.getText(diagnosisField);
+            String actText  = Actions.getText(diagnosisField);
+            if(actText == null || !actText.equalsIgnoreCase(diagnosis)){
+                By selectedField = By.xpath("//div[contains(@id,'id-q111')]//div[contains(@class,'singleValue')]//span/span");
+                actText = seleniumLib.getText(selectedField);
+            }
+            return actText;
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificDiagnosis:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("RareDiseaseDiagnosis.jpg");
@@ -637,26 +642,38 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificAgeOnSetMonthValue(String month) {
-        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+        if(!Wait.isElementDisplayed(driver, ageOfOnsetMonthsField,30)){
+            Debugger.println("Expected ageOfOnsetMonthsField not loaded ");
+            return false;
+        }
         Debugger.println("ageOfOnsetMonthsField : " + Actions.getValue(ageOfOnsetMonthsField));
         return Actions.getValue(ageOfOnsetMonthsField).equalsIgnoreCase(month);
     }
 
     public boolean verifySpecificDiseaseStatusValue(String expectedDiseaseStatus) {
-        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+        if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,30)){
+            Debugger.println("Expected diseaseStatusDropdown not loaded ");
+            return false;
+        }
         Debugger.println("Expected diseaseStatus       : " + expectedDiseaseStatus);
         Debugger.println("Actual diseaseStatusDropdown : " + Actions.getText(diseaseStatusDropdown));
         return Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
     }
 
     public boolean verifySpecificRareDiseaseValue(String expectedRareDisease) {
-        Wait.forElementToBeDisplayed(driver, diagnosisField);
+        if(!Wait.isElementDisplayed(driver, diagnosisField,30)){
+            Debugger.println("Expected diagnosisField not loaded ");
+            return false;
+        }
         Debugger.println("Rare disease diagnosisField: " + Actions.getText(diagnosisField));
         return Actions.getText(diagnosisField).equalsIgnoreCase(expectedRareDisease);
     }
 
     public String getPhenotypicSexDropdownValue() {
-        Wait.forElementToBeDisplayed(driver, phenotypicSexDropdown);
+        if(!Wait.isElementDisplayed(driver, phenotypicSexDropdown,30)){
+            Debugger.println("Expected phenotypicSexDropdown not loaded ");
+            return "";
+        }
         return Actions.getText(phenotypicSexDropdown);
     }
 
@@ -685,8 +702,11 @@ public class ClinicalQuestionsPage {
         try {
             boolean elementFound = false;
             Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, hpoTable);
-            Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
+            if(Wait.isElementDisplayed(driver, hpoTable,30)){
+                Debugger.println("hpoTable not displayed");
+                SeleniumLib.takeAScreenShot("hpoTable.jpg");
+                return false;
+            }
             for (WebElement hpoTerm : hpoTermNames) {
                 if (hpoTerm.getText().contains(expectedHPOTermToBeDisplayed)) {
                     elementFound = true;

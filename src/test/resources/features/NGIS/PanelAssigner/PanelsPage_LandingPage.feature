@@ -25,11 +25,9 @@ Feature: PanelAssigner: Panels Page Landing Page
       | The test package requires:         |
       | confirmation of disease penetrance |
       | addition of at least one panel     |
-#    And the user should be able to see a sub title Penetrance on panels page
     And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
-#    And the user should be able to see an additional line "<penetranceIntro>" underneath the penetrance title
     And the user should see the section with title Suggestions based on the clinical information
     And the user sees suggested panels under the section Suggestions based on the clinical information
     And the user sees link with title View On PanelApp attached to all the suggested panels
@@ -41,5 +39,5 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user clicks the Save and Continue button
 
     Examples:
-      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | searchPanels                                  | penetranceIntro                                                                                                                                                            |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
+      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | searchPanels                                  |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Cardiac arrhythmias,Pigmentary skin disorders |
