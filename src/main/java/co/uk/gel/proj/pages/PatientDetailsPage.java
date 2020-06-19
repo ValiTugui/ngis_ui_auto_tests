@@ -423,7 +423,7 @@ public class PatientDetailsPage {
             Actions.clickElement(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
-            Wait.seconds(5);
+            Wait.seconds(20);
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
             return true;
         } catch (Exception exp) {
@@ -837,7 +837,8 @@ public class PatientDetailsPage {
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
             Actions.fillInValue(dateOfDeath, "01/01/2015");
-            editDropdownField(ethnicityButton, "A - White - British");
+//            editDropdownField(ethnicityButton, "A - White - British");
+            editDropdownField(ethnicityButton, "B - White - Irish");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
