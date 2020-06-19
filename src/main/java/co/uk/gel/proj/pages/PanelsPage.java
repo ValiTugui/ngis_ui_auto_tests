@@ -376,8 +376,10 @@ public class PanelsPage {
     public boolean verifyInAddedPanelsList(String addedPanel) {
         try {
             boolean isPresent = false;
-            Wait.forElementToBeDisplayed(driver, penetranceTitle);
             String actPanel = "";
+            if(addedPanelsList.size() < 1){
+                Wait.seconds(5);
+            }
             for (int i = 0; i < addedPanelsList.size(); i++) {
                 actPanel = addedPanelsList.get(i).getText();
                 if (actPanel.contains(addedPanel)) {
@@ -386,7 +388,7 @@ public class PanelsPage {
                 }
             }
             if(!isPresent){
-                Debugger.println("Added Panel :"+addedPanel+" not present under Added Panels section.");
+                Debugger.println("Added Panel :"+addedPanel+" not present under Added Panels section."+driver.getCurrentUrl());
             }
             return isPresent;
         } catch (Exception exp) {

@@ -151,7 +151,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-search-type | NHSNumber        | HospitalNumber      |
       | Create a record for this patient | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
 
-  @NTS-4538 @Z-LOGOUT
+   @NTS-4538 @Z-LOGOUT
 #    @E2EUI-1054 @E2EUI-1507
   Scenario Outline: NTS-4538:(E2EUI-1054,1507) - Add patient contact(address) details to a patient
     Given a web browser is at create new patient page
@@ -161,7 +161,7 @@ Feature: GenomicRecord: Patient details page 3
     When the user click YES button for the question - Do you have the NHS no?
     When the user fills in all the fields with NHS number on the New Patient page
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "NGIS patient record created"
+    Then the patient is successfully updated with a message "NGIS patient record created"
     And the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the user clicks the NO button

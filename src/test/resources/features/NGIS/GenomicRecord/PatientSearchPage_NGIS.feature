@@ -15,7 +15,7 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then the NHS number field is displayed
     When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "NGIS patient record created"
+    Then the patient is successfully updated with a message "NGIS patient record created"
     When the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search

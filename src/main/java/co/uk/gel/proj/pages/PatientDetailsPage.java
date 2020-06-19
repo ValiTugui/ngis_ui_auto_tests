@@ -262,6 +262,7 @@ public class PatientDetailsPage {
             return false;
         }
     }
+
     public boolean newFamilyMemberPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/family-members/new");
@@ -471,12 +472,12 @@ public class PatientDetailsPage {
             }
             try {
                 Actions.clickElement(driver, noNhsNumberReasonDropdown);
-            }catch(Exception exp1){
+            } catch (Exception exp1) {
                 seleniumLib.clickOnWebElement(noNhsNumberReasonDropdown);
             }
             Actions.selectValueFromDropdown(noNhsNumberReasonDropdown, reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
-                if(Wait.isElementDisplayed(driver, otherReasonExplanation,20)) {
+                if (Wait.isElementDisplayed(driver, otherReasonExplanation, 20)) {
                     otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
                 }
             }
@@ -499,10 +500,10 @@ public class PatientDetailsPage {
             seleniumLib.clickOnWebElement(createRecord);
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 Actions.clickElement(driver, createRecord);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
                 SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 return false;
@@ -513,7 +514,7 @@ public class PatientDetailsPage {
     public boolean patientIsCreated() {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
-                Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
+                Debugger.println("NGIS Patient Created Message not displayed." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
                 return false;
             }
@@ -521,11 +522,11 @@ public class PatientDetailsPage {
             if (successMsg.equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
-            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created."+driver.getCurrentUrl());
+            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created." + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception in creating the patient." + exp+"\n"+driver.getCurrentUrl());
+            Debugger.println("Exception in creating the patient." + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCCreatedException.jpg");
             return false;
         }
@@ -534,7 +535,7 @@ public class PatientDetailsPage {
     public boolean clickStartReferralButton() {
         try {
             if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
-                Debugger.println("Start Referral Button not displayed.\n"+driver.getCurrentUrl());
+                Debugger.println("Start Referral Button not displayed.\n" + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
@@ -581,18 +582,18 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
-            Debugger.println("Status: "+startNewReferralButton.isEnabled());
-            if(!startNewReferralButton.isEnabled()){
+            Debugger.println("Status: " + startNewReferralButton.isEnabled());
+            if (!startNewReferralButton.isEnabled()) {
                 Wait.seconds(3);
             }
             Actions.clickElement(driver, startNewReferralButton);
 
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(startReferralButton);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
@@ -704,13 +705,13 @@ public class PatientDetailsPage {
 
     public boolean nhsNumberFieldIsEnabled() {
         try {
-             if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
+            if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
                 Debugger.println("NHS number field not displayed");
                 SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
                 return false;
             }
-            if(!nhsNumber.isEnabled()){
-                Debugger.println("For a Super user, NHSNumber field is expected to be enabled and set to True, but not."+driver.getCurrentUrl());
+            if (!nhsNumber.isEnabled()) {
+                Debugger.println("For a Super user, NHSNumber field is expected to be enabled and set to True, but not." + driver.getCurrentUrl());
                 return false;
             }
             return true;
@@ -728,7 +729,7 @@ public class PatientDetailsPage {
     }
 
     public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
-        if(!Wait.isElementDisplayed(driver, referralCard, 70)){
+        if (!Wait.isElementDisplayed(driver, referralCard, 70)) {
             Debugger.println("No referral card found");
             return;
         }
@@ -754,19 +755,19 @@ public class PatientDetailsPage {
 
     public boolean patientReferralsAreDisplayed() {
         try {
-            if(!Wait.isElementDisplayed(driver, referralLink,60)){
+            if (!Wait.isElementDisplayed(driver, referralLink, 60)) {
                 Debugger.println("Referral Link not displayed.");
                 SeleniumLib.takeAScreenShot("ReferralLink.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver, referralCard,60)){
+            if (!Wait.isElementDisplayed(driver, referralCard, 60)) {
                 Debugger.println("Referral Card not displayed.");
                 SeleniumLib.takeAScreenShot("ReferralCard.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("No Referrals are found for the patient:"+exp);
+            Debugger.println("No Referrals are found for the patient:" + exp);
             SeleniumLib.takeAScreenShot("ReferralLinkCard.jpg");
             return false;
         }
@@ -799,7 +800,7 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyReferralReason(String expectedReason) {
-        if(!Wait.isElementDisplayed(driver, referralCancelReason,60)){
+        if (!Wait.isElementDisplayed(driver, referralCancelReason, 60)) {
             Debugger.println("referralCancelReason not displayed.");
             SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
             return false;
@@ -969,15 +970,15 @@ public class PatientDetailsPage {
             Click.element(driver, addDetailsToNGISButton);
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(addDetailsToNGISButton);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:" + exp1);
-            SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
-            return false;
+                SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
+                return false;
+            }
         }
-    }
     }
 
     public boolean clickUpdateNGISRecordButton() {
@@ -1003,31 +1004,33 @@ public class PatientDetailsPage {
 
     public String getNotificationMessageForPatientCreatedOrUpdated() {
         try {
-            Wait.forElementToBeDisplayed(driver, successNotification);
+            if(!Wait.isElementDisplayed(driver, successNotification,60)){
+                return "No Message displayed.";
+            }
             return Actions.getText(successNotification);
         } catch (Exception exp) {
-            try{
+            try {
                 return seleniumLib.getText(successNotification);
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: " + exp1);
-            SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
-            return null;
+                SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
+                return null;
+            }
         }
-    }
     }
 
     public List<String> getTheEthnicityDropDownValues() {
         try {
-        Wait.forElementToBeClickable(driver, ethnicityButton);
-        Actions.clickElement(driver, ethnicityButton);
-        List<String> actualEthnicityValues = new ArrayList<String>();
-        for (WebElement ethnicityValue : ethnicityValues) {
-            actualEthnicityValues.add(ethnicityValue.getText().trim());
-        }
+            Wait.forElementToBeClickable(driver, ethnicityButton);
+            Actions.clickElement(driver, ethnicityButton);
+            List<String> actualEthnicityValues = new ArrayList<String>();
+            for (WebElement ethnicityValue : ethnicityValues) {
+                actualEthnicityValues.add(ethnicityValue.getText().trim());
+            }
             //Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
-        return actualEthnicityValues;
-        }catch(Exception exp){
-            Debugger.println("Exception in getting Ethnicity Dropdown."+exp);
+            return actualEthnicityValues;
+        } catch (Exception exp) {
+            Debugger.println("Exception in getting Ethnicity Dropdown." + exp);
             return null;
         }
     }
@@ -1179,19 +1182,19 @@ public class PatientDetailsPage {
 
     public List<String> getActualPatientAddressOnPatientDetailPage() {
         try {
-        Wait.forElementToBeDisplayed(driver, addressLine0);
-        List<String> actualPatientAddress = new ArrayList<>();
+            Wait.forElementToBeDisplayed(driver, addressLine0);
+            List<String> actualPatientAddress = new ArrayList<>();
 
-        actualPatientAddress.add(Actions.getValue(addressLine0));
-        actualPatientAddress.add(Actions.getValue(addressLine1));
-        actualPatientAddress.add(Actions.getValue(addressLine2));
-        actualPatientAddress.add(Actions.getValue(addressLine3));
-        actualPatientAddress.add(Actions.getValue(addressLine4));
+            actualPatientAddress.add(Actions.getValue(addressLine0));
+            actualPatientAddress.add(Actions.getValue(addressLine1));
+            actualPatientAddress.add(Actions.getValue(addressLine2));
+            actualPatientAddress.add(Actions.getValue(addressLine3));
+            actualPatientAddress.add(Actions.getValue(addressLine4));
 
             //Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
-        return actualPatientAddress;
-        }catch(Exception exp){
-            Debugger.println("Exception getting Actual Patient Address:"+exp);
+            return actualPatientAddress;
+        } catch (Exception exp) {
+            Debugger.println("Exception getting Actual Patient Address:" + exp);
             return null;
         }
     }
@@ -1330,58 +1333,58 @@ public class PatientDetailsPage {
 
     public boolean fillPostcodeValue(String postcode) {
         try {
-            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
-                Debugger.println("The Postcode field is not displayed in the edit patient details page."+driver.getCurrentUrl());
+            if (!Wait.isElementDisplayed(driver, postcodeField, 20)) {
+                Debugger.println("The Postcode field is not displayed in the edit patient details page." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("fillPostcode.jpg");
                 return false;
             }
             postcodeField.clear();
             postcodeField.sendKeys(postcode);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in filling the postcode: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in filling the postcode: " + exp);
             SeleniumLib.takeAScreenShot("fillPostcode.jpg");
             return false;
         }
     }
 
     public boolean verifyPostcodeFormatInAddress(String formattedPostcode) {
-        try{
-            if(!Wait.isElementDisplayed(driver,addressField,20)){
-                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+        try {
+            if (!Wait.isElementDisplayed(driver, addressField, 20)) {
+                Debugger.println("The address is not displayed." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
                 return false;
             }
-            String actualAddress=addressField.getText();
-            if(!actualAddress.contains(formattedPostcode)){
-                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual address is:"+actualAddress);
+            String actualAddress = addressField.getText();
+            if (!actualAddress.contains(formattedPostcode)) {
+                Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual address is:" + actualAddress);
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from checking the postcode format in address:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the postcode format in address:" + exp);
             SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
             return false;
         }
     }
 
     public boolean verifyPostcodeFormatInPD(String formattedPostcode) {
-        try{
-            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
-                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+        try {
+            if (!Wait.isElementDisplayed(driver, postcodeField, 20)) {
+                Debugger.println("The address is not displayed." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
                 return false;
             }
-            String actualPostcode=postcodeField.getAttribute("value");
-            if(!actualPostcode.equalsIgnoreCase(formattedPostcode)){
-                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual is:"+actualPostcode);
+            String actualPostcode = postcodeField.getAttribute("value");
+            if (!actualPostcode.equalsIgnoreCase(formattedPostcode)) {
+                Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual is:" + actualPostcode);
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from checking the postcode format in address:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the postcode format in address:" + exp);
             SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
             return false;
         }

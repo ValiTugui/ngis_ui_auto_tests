@@ -44,7 +44,7 @@ Feature: ClinicalQuestions 7 - RD Questionnaire
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the user selects a value "CEREBRAL SARCOMA" from the Rare disease diagnosis
+    And the user selects a value "ADIPOSIS DOLOROSA" from the Rare disease diagnosis
     And the user clicks the Save and Continue button
     Then the "<notes>" stage is selected
     And the user navigates to the "<ClinicalQuestions>" stage
