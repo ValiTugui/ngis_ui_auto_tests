@@ -151,7 +151,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-search-type | NHSNumber        | HospitalNumber      |
       | Create a record for this patient | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
 
-   @NTS-4538 @Z-LOGOUT
+  @NTS-4538 @Z-LOGOUT
 #    @E2EUI-1054 @E2EUI-1507
   Scenario Outline: NTS-4538:(E2EUI-1054,1507) - Add patient contact(address) details to a patient
     Given a web browser is at create new patient page
