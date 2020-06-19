@@ -11,10 +11,10 @@ public class BrowserConfig {
 
     public static String getBrowser() {
         browser = System.getProperty("browser");
-//        if(browser == null || browser.isEmpty()){
-//            browser = "Chrome";
-//        }
-        return "Edge" ;
+        if(browser == null || browser.isEmpty()){
+            browser = "Chrome";
+        }
+        return browser;
     }
     public static String getServerType() {
         serverType = System.getProperty("serverType");
