@@ -167,7 +167,7 @@ Feature: MIPORTAL ST - File Submission 4
       | mi_stage         |
       | File Submissions |
 
-  @NTS-3390
+  @test @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390:Verify the expand compact button on a search row result and click to expand
     Given a web browser is at the mi-portal home page

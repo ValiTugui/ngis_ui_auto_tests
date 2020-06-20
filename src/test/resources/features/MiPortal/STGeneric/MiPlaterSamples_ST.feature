@@ -66,7 +66,12 @@ Feature:  MIPORTAL ST - Plater Samples
 
   @NTS-5021
    ## @E2EUI-2231 ##Drag and Drop  - need to recheck
-  Scenario: NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
+  Scenario Outline: NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    And the user should be able to see sample processing menu is displayed
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
     When the user selects GEL1005 Sample Received Datetime as the plater samples search column dropdown
     And the user selects before or on as the plater samples search operator dropdown
     And the user enters 5 days before today in the plater sample date field
@@ -80,3 +85,7 @@ Feature:  MIPORTAL ST - Plater Samples
     And the user clicks on save and close button
     When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
+
+    Examples:
+      | mi_stage       |
+      | Plater Samples |

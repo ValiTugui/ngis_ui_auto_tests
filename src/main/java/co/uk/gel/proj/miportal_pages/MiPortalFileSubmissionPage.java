@@ -416,7 +416,9 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePusIconAtTheStartOfEachRowAndClickToExpand() {
         try {
-            List<WebElement> allRows = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr"));
+            By tablePath = By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr");
+            seleniumLib.isElementPresent(tablePath);
+            List<WebElement> allRows = driver.findElements(tablePath);
             String allHiddenCol = "//table[contains(@id,'DataTables_Table')]//tbody/tr/td[@style='display: none;']";
             List<WebElement> allHiddenColEle = driver.findElements(By.xpath(allHiddenCol));
 
