@@ -544,6 +544,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectDropDownSearchValue(String value) {
         try {
+            Wait.seconds(3);
             if (!seleniumLib.selectFromListByText(fileSubmissionSearchValue, value)) {
                 Wait.seconds(8);
                 return seleniumLib.selectFromListByText(fileSubmissionSearchValue, value);

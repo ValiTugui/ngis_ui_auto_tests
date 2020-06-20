@@ -416,12 +416,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsInTheSearchResultSection() {
         try {
             Wait.seconds(1);
-            if(!Wait.isElementDisplayed(driver,searchResultTitle,20)){
+            if(!Wait.isElementDisplayed(driver,searchResultTitle,60)){
                 Debugger.println("Search results are not displayed");
                 SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                 return false;
             }
-            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 20)) {
+            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 60)) {
                 Debugger.println("Search result display option button is not displayed.");
                 SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                 return false;
