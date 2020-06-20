@@ -399,7 +399,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }
                     referralPage.updatePatientNGSID(familyMember);
                     if (!referralPage.clickSaveAndContinueButton()) {
-                        Assert.fail("FM:"+memberDetails.get(i).get(0)+"clickSaveAndContinueButton Failed");
+                        if(!referralPage.clickSaveAndContinueButton()) {//Again Clicking
+                            Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickSaveAndContinueButton Failed");
+                        }
                     }
                 } else {
                     if (!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))) {
