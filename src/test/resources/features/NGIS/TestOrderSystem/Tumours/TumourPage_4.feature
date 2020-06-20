@@ -77,8 +77,9 @@ Feature: Tumours Page - 4
     Then the user is navigated to a page with title Add a sample
     When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Blood (EDTA)" and filling SampleID
     And the user clicks the Save and Continue button
+    And the user sees no error message on tumour page by selecting the sample type "Solid tumour sample", sample state "Blood (EDTA)" and filling SampleID
     Then the user is navigated to a page with title Add sample details
-    Then asterisk "<TumourContentPercentageOfMalignant>" star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample
+    And asterisk "<TumourContentPercentageOfMalignant>" star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample
 
     Examples:
       | stage   | tumour_type              | presentationType   | TumourContentPercentageOfMalignant                         |
