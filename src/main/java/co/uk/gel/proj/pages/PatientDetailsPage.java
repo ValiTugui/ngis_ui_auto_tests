@@ -856,12 +856,11 @@ public class PatientDetailsPage {
             if(!seleniumLib.isElementPresent(ddValue)){
                 Debugger.println("Ethnicity not present........");
                 SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
+            }else{
+                seleniumLib.clickOnElement(ddValue);
             }
             Wait.seconds(3);
-            SeleniumLib.takeAScreenShot("EthnicityASelect11.jpg");
-            Debugger.println("DDValue3......"+seleniumLib.isElementPresent(dropdownValue));
-            Click.element(driver, dropdownValue.findElement(ddValue));
-           // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
+            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
             Wait.seconds(2);
             SeleniumLib.takeAScreenShot("EthnicityASelect.jpg");
             Wait.seconds(2);
