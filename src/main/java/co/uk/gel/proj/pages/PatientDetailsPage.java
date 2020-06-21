@@ -414,8 +414,8 @@ public class PatientDetailsPage {
             String errMsg = seleniumLib.getText(fieldErrorMessage);
             Debugger.println("Error Message present......."+errMsg);
             if(errMsg.contains("Ethnicity")) {
-                By fullDiv = By.xpath("//label[@for='ethnicity']/..//div");
-                seleniumLib.clickOnElement(fullDiv);
+                seleniumLib.clickOnWebElement(postcode);
+                seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(3);
                 By ddValue = By.xpath("//span[text()='A - White - British']");
                 seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
