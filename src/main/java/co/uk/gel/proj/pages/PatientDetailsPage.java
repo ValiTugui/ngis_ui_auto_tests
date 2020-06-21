@@ -841,12 +841,12 @@ public class PatientDetailsPage {
             String gender = "Male";
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
-            Debugger.println("DDValue1......"+dropdownValue.isDisplayed());
+            Debugger.println("DDValue1......"+seleniumLib.isElementPresent(dropdownValue));
             editDropdownField(lifeStatusButton, "Alive");
             //Actions.fillInValue(dateOfDeath, "01/01/2015");
-            Debugger.println("DDValue2......"+dropdownValue.isDisplayed());
+            Debugger.println("DDValue2......"+seleniumLib.isElementPresent(dropdownValue));
             dropdownValue.clear();
-            Debugger.println("DDValue3......"+dropdownValue.isDisplayed());
+            Debugger.println("DDValue3......"+seleniumLib.isElementPresent(dropdownValue));
             Wait.seconds(5);
             SeleniumLib.takeAScreenShot("EthnicityBClick.jpg");
             Wait.seconds(2);
