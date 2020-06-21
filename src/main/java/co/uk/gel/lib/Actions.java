@@ -40,9 +40,6 @@ public class Actions {
 
     public static boolean selectByIndexFromDropDown(List<WebElement> dropDownValues, int index) {
         try {
-            for(int i=0; i<dropDownValues.size(); i++){
-                Debugger.println("Value: "+dropDownValues.get(i).getText()+"\nElement:"+dropDownValues.get(i).toString());
-            }
             dropDownValues.get(index).click();
             return true;
         } catch (Exception exp) {

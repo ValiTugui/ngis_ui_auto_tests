@@ -424,7 +424,7 @@ public class PatientDetailsPage {
                 seleniumLib.sendValue(ethnicityInputField, "British");
                 Wait.seconds(3);
                 Debugger.println("Second Time Size......."+dropdownValues.size());
-                seleniumLib.selectFromListByText(dropdownValue,"A - White - British");
+                Actions.selectByIndexFromDropDown(dropdownValues, dropdownValues.size()-1);
                 Wait.seconds(3);
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
             }
@@ -441,7 +441,7 @@ public class PatientDetailsPage {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
                 if(dropdownValues.size() > 0) {
                     //Actions.selectByIndexFromDropDown(dropdownValues, 0);
-                    Actions.retryClickAndIgnoreElementInterception(driver,dropdownValues.get(0));
+                     Actions.clickElement(driver, dropdownValues.get(0));
                 }
                 Wait.seconds(2);
                // Actions.se
@@ -855,7 +855,6 @@ public class PatientDetailsPage {
 
             String gender = "Male";
             newPatient.setGender(gender);
-            editEthnicity("A - White - British");
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
             String hospitalId = faker.numerify("A#R##BB##");
@@ -874,6 +873,7 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
+            editEthnicity("A - White - British");
             checkIfErrorPresent();
 
             SeleniumLib.takeAScreenShot("Filling2.jpg");
