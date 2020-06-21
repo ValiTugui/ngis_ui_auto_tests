@@ -843,7 +843,7 @@ public class PatientDetailsPage {
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
             //Actions.fillInValue(dateOfDeath, "01/01/2015");
-            Wait.seconds(2);
+            Wait.seconds(5);
             SeleniumLib.takeAScreenShot("EthnicityBClick.jpg");
             Wait.seconds(2);
             seleniumLib.clickOnWebElement(ethnicityIndicator);
@@ -855,6 +855,7 @@ public class PatientDetailsPage {
                 Debugger.println("Ethnicity not present........");
                 SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
             }
+            Wait.seconds(3);
             Click.element(driver, dropdownValue.findElement(ddValue));
            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
             Wait.seconds(2);
@@ -862,15 +863,19 @@ public class PatientDetailsPage {
             Wait.seconds(2);
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present.......");
+                SeleniumLib.takeAScreenShot("EthnicityEMessage.jpg");
                 seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(2);
                 ddValue = By.xpath("//div[text()='A - White - British']");
                 if(!seleniumLib.isElementPresent(ddValue)){
-                    Debugger.println("Ethnicity Stil not present as div........");
+                    Debugger.println("Ethnicity Still not present as div........");
                     SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
+                }else{
+                    SeleniumLib.takeAScreenShot("EthniCityDone.jpg");
+                    Click.element(driver, dropdownValue.findElement(ddValue));
+                    Wait.seconds(2);
                 }
-                Click.element(driver, dropdownValue.findElement(ddValue));
-                Wait.seconds(2);
+
             }
             Wait.seconds(2);
             seleniumLib.sendValue(dateOfBirth,"01/01/2015");
