@@ -714,6 +714,7 @@ public class SeleniumLib {
             }
             Debugger.println("Performing Move and Click Action..");
             action.click(we).build().perform();
+            Wait.seconds(3);
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from moveMouseAndClickOnElement:"+exp);
