@@ -388,6 +388,13 @@ public class PatientDetailsPage {
             seleniumLib.clickOnWebElement(element);
             Wait.seconds(2);
             seleniumLib.clickOnElement(By.xpath("//span[text()='" + value + "']"));
+            Wait.seconds(3);
+            if(seleniumLib.isElementPresent(fieldErrorMessage)){
+                Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
+                boolean isSelected = seleniumLib.moveMouseAndClickOnElement(By.xpath("//span[text()='" + value + "']"));
+                Debugger.println("Dropdown Selected by Move Mouse:"+isSelected);
+                Debugger.println("Error Message present1......."+seleniumLib.getText(fieldErrorMessage));
+            }
             return true;
 
         } catch (Exception exp) {
@@ -796,44 +803,31 @@ public class PatientDetailsPage {
             newPatient.setMonth(monthOfBirth);
             newPatient.setYear(yearOfBirth);
 
-            selectMissingNhsNumberReason(reason);
+            //selectMissingNhsNumberReason(reason);
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
 
             String gender = "Male";
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
-            Wait.seconds(5);
-            SeleniumLib.takeAScreenShot("DateEntryBefore.jpg");
-            seleniumLib.sendValue(dateOfBirth,"01/01/2015");
-            Wait.seconds(2);
-            Debugger.println("DDValue1......"+seleniumLib.isElementPresent(dropdownValue));
             editDropdownField(lifeStatusButton, "Alive");
-            //Actions.fillInValue(dateOfDeath, "01/01/2015");
-            Debugger.println("DDValue2......"+seleniumLib.isElementPresent(dropdownValue));
-            Wait.seconds(5);
-            SeleniumLib.takeAScreenShot("EthnicityBClick.jpg");
-            Wait.seconds(2);
-            seleniumLib.clickOnWebElement(ethnicityIndicator);
-            Wait.seconds(2);
-            SeleniumLib.takeAScreenShot("EthnicityAClick.jpg");
-            Wait.seconds(2);
-            By ddValue = By.xpath("//span[text()='A - White - British']");
-            if(!seleniumLib.isElementPresent(ddValue)){
-                Debugger.println("Ethnicity not present........");
-                SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
-            }else{
-                Debugger.println("Selecting Ethnicity...");
-                boolean isSelected = seleniumLib.moveMouseAndClickOnElement(ddValue);
-                Debugger.println("IsSelected: "+isSelected);
-                SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
-            }
-            Wait.seconds(3);
-            if(seleniumLib.isElementPresent(fieldErrorMessage)){
-                Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
-            }
+//            seleniumLib.clickOnWebElement(ethnicityIndicator);
+//            Wait.seconds(2);
+//            SeleniumLib.takeAScreenShot("EthnicityAClick.jpg");
+//            Wait.seconds(2);
+//            By ddValue = By.xpath("//span[text()='A - White - British']");
+//            if(!seleniumLib.isElementPresent(ddValue)){
+//                Debugger.println("Ethnicity not present........");
+//                SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
+//            }else{
+//                Debugger.println("Selecting Ethnicity...");
+//                boolean isSelected = seleniumLib.moveMouseAndClickOnElement(ddValue);
+//                Debugger.println("IsSelected: "+isSelected);
+//                SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
+//            }
+//
 
-            //editDropdownField(ethnicityIndicator, "A - White - British");
+            editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
