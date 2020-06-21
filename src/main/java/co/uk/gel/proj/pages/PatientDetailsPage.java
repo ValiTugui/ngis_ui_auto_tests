@@ -424,7 +424,7 @@ public class PatientDetailsPage {
                 seleniumLib.sendValue(ethnicityInputField, "British");
                 Wait.seconds(3);
                 Debugger.println("Second Time Size......."+dropdownValues.size());
-                Actions.selectByIndexFromDropDown(dropdownValues,0);
+                seleniumLib.selectFromListByText(dropdownValue,"A - White - British");
                 Wait.seconds(3);
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
             }
@@ -849,17 +849,15 @@ public class PatientDetailsPage {
             newPatient.setMonth(monthOfBirth);
             newPatient.setYear(yearOfBirth);
 
-            Actions.fillInValue(dateOfDeath, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
-
             selectMissingNhsNumberReason(reason);
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
 
             String gender = "Male";
             newPatient.setGender(gender);
+            editEthnicity("A - White - British");
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            editEthnicity("A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             //selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
@@ -923,7 +921,7 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            editDropdownField(ethnicityButton, "A - White - British");
+            editEthnicity("A - White - British");
 
             String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(patientNhsNumber);
