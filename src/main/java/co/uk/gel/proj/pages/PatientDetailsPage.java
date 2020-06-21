@@ -409,10 +409,11 @@ public class PatientDetailsPage {
     }
     private void checkIfErrorPresent(){
         Debugger.println("Checking Error Presence.......");
-        String errMsg = seleniumLib.getText(fieldErrorMessage);
+
         if(seleniumLib.isElementPresent(fieldErrorMessage)){
-            Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
-            if(errMsg.contains("ethnicity")) {
+            String errMsg = seleniumLib.getText(fieldErrorMessage);
+            Debugger.println("Error Message present......."+errMsg);
+            if(errMsg.contains("Ethnicity")) {
                 By fullDiv = By.xpath("//label[@for='ethnicity']/..//div");
                 seleniumLib.clickOnElement(fullDiv);
                 Wait.seconds(3);
