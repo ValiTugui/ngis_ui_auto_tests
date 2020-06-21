@@ -109,7 +109,7 @@ public class PatientDetailsPage {
     public WebElement ethnicityButton;
 
     @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'indicatorContainer')]")
-    public List<WebElement> ethnicityIndicators;
+    public WebElement ethnicityIndicator;
 
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipButton;
@@ -420,18 +420,18 @@ public class PatientDetailsPage {
 
     public boolean editDropdownField(WebElement element, String value) {
         try {
-            Actions.clickElement(driver, element);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            //Click.element(driver, element);
+            seleniumLib.clickOnWebElement(element);
             Wait.seconds(2);
-            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
+            seleniumLib.clickOnElement(By.xpath("//span[text()='" + value + "']"));
             return true;
+
         } catch (Exception exp) {
             try {
-                Debugger.println("editDropdownField trying with seleniumLib..");
-                seleniumLib.clickOnWebElement(element);
+                Actions.clickElement(driver, element);
+                // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+                //Click.element(driver, element);
                 Wait.seconds(2);
-                seleniumLib.clickOnElement(By.xpath("//span[text()='" + value + "']"));
+                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp1);
@@ -840,7 +840,7 @@ public class PatientDetailsPage {
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
             Actions.fillInValue(dateOfDeath, "01/01/2015");
-            editDropdownField(ethnicityButton, "A - White - British");
+            editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
