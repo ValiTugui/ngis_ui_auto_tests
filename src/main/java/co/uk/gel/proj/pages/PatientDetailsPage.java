@@ -91,6 +91,10 @@ public class PatientDetailsPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
+    @FindBy(xpath = "//label[contains(text(),'Ethnicity')]/..//input[@id='ethnicity']")
+    public WebElement ethnicityInputField;
+
+
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipButton;
 
@@ -430,15 +434,18 @@ public class PatientDetailsPage {
     public boolean editEthnicity(String value) {
         try {
             Debugger.println("EDITING ETHNICITY........");
-            seleniumLib.clickOnWebElement(ethnicityIndicator);
+            seleniumLib.sendValue(ethnicityInputField, value);
+            //seleniumLib.clickOnWebElement(ethnicityIndicator);
             Wait.seconds(3);
             try {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
+                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+               // Actions.se
             }catch(Exception exp2){
 
             }
-            By ddValue = By.xpath("//span[text()='" + value + "']");
-            seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
+           // By ddValue = By.xpath("//span[text()='" + value + "']");
+           // seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
             Wait.seconds(3);
             return true;
         } catch (Exception exp) {
