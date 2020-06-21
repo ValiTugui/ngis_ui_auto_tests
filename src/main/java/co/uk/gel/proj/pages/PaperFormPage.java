@@ -103,8 +103,7 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='radioButton']")
     public WebElement clinicalCardCheckbox;
 
-//    @FindBy(css = "*[class*='ctaOnlineBtn']")
-    @FindBy(xpath = "//button[contains(@class,'btn btn-link styles_ctaOnlineBtn')]")
+    @FindBy(css = "*[class*='ctaOnlineBtn']")
     public WebElement signInToOnlineServiceButton;
 
     @FindBy(css = "*[class*='testCardContainer']")
@@ -161,7 +160,7 @@ public class PaperFormPage {
     public boolean clickSignInToTheOnlineServiceButton() {
         try {
             Debugger.println("clickSignInToTheOnlineServiceButton: ");
-            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,120)){
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,60)){
                 Debugger.println("Sign Into Online Service Button not displayed even after waiting time 60s...failing."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
                 return false;

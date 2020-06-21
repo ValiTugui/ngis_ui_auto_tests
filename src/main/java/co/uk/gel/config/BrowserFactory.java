@@ -292,9 +292,7 @@ public class BrowserFactory {
 
     private WebDriver getEdge(String userAgent, boolean javascriptEnabled) {
         EdgeOptions edgeOptions = new EdgeOptions();
-//        return driver = new EdgeDriver(edgeOptions);
-        return driver= new EdgeDriver(getEdgeOptions(userAgent, javascriptEnabled));
-
+        return driver = new EdgeDriver(edgeOptions);
 
     }
 
@@ -416,7 +414,7 @@ public class BrowserFactory {
             Debugger.println("Calling typeOfOS = non-linux");
             if (type.equalsIgnoreCase("Chrome")) {
                 return createChromeDriver(createProxyCapabilities(proxy), path);
-            }else {//FireFox
+            }else{//FireFox
                 return createFirefoxDriver(createProxyCapabilities(proxy));
             }
         }

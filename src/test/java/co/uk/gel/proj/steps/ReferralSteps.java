@@ -628,7 +628,6 @@ public class ReferralSteps extends Pages {
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                Debugger.println("Gel normal user details entered");
                 if (!patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber)) {
                     Assert.assertTrue(false);
                 }
