@@ -395,6 +395,7 @@ public class PatientDetailsPage {
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
                 seleniumLib.clickOnWebElement(element);
+                Wait.seconds(3);
                 boolean isSelected = seleniumLib.moveMouseAndClickOnElement(By.xpath("//span[text()='" + value + "']"));
                 Debugger.println("Dropdown Selected by Move Mouse:"+isSelected);
                 Debugger.println("Error Message present1......."+seleniumLib.getText(fieldErrorMessage));
@@ -403,6 +404,31 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp);
             SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+            return false;
+        }
+    }
+    public boolean editEthnicity(String value) {
+        try {
+            Debugger.println("EDITING ETHNICITY........");
+            Actions.clickElement(driver, ethnicityIndicator);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Click.element(driver, element);
+            Wait.seconds(2);
+            By ddValue = By.xpath("//span[text()='" + value + "']");
+            Click.element(driver, dropdownValue.findElement(ddValue));
+            Wait.seconds(3);
+            if(seleniumLib.isElementPresent(fieldErrorMessage)){
+                Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
+                seleniumLib.clickOnWebElement(ethnicityButton);
+                Wait.seconds(3);
+                seleniumLib.clickOnElement(ddValue);
+                Wait.seconds(3);
+                Debugger.println("Error Message present1......."+seleniumLib.getText(fieldErrorMessage));
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in editEthnicity:" + value + "\n" + exp);
+            SeleniumLib.takeAScreenShot("editEthnicity.jpg");
             return false;
         }
     }
@@ -805,22 +831,7 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-//            seleniumLib.clickOnWebElement(ethnicityIndicator);
-//            Wait.seconds(2);
-//            SeleniumLib.takeAScreenShot("EthnicityAClick.jpg");
-//            Wait.seconds(2);
-//            By ddValue = By.xpath("//span[text()='A - White - British']");
-//            if(!seleniumLib.isElementPresent(ddValue)){
-//                Debugger.println("Ethnicity not present........");
-//                SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
-//            }else{
-//                Debugger.println("Selecting Ethnicity...");
-//                boolean isSelected = seleniumLib.moveMouseAndClickOnElement(ddValue);
-//                Debugger.println("IsSelected: "+isSelected);
-//                SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
-//            }
-//
-            editDropdownField(ethnicityButton, "A - White - British");
+            editEthnicity("A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             //selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
