@@ -41,7 +41,7 @@ public class PatientDetailsPage {
     public WebElement firstName;
     public WebElement familyName;
     public WebElement lastName;
-    public WebElement dateOfDeath;
+    //public WebElement dateOfDeath;
     public WebElement nhsNumber;
     public WebElement hospitalNumber;
     public WebElement postcode;
@@ -313,7 +313,6 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            Actions.fillInValue(dateOfDeath, "01/01/2015");
             editDropdownField(ethnicityButton, "A - White - British");
             Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
             return true;
@@ -803,7 +802,7 @@ public class PatientDetailsPage {
             newPatient.setMonth(monthOfBirth);
             newPatient.setYear(yearOfBirth);
 
-            //selectMissingNhsNumberReason(reason);
+            selectMissingNhsNumberReason(reason);
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
 
@@ -826,10 +825,9 @@ public class PatientDetailsPage {
 //                SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
 //            }
 //
-
             editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
-            selectMissingNhsNumberReason(reason);
+            //selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
                 Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
                 otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
@@ -889,7 +887,6 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            Actions.fillInValue(dateOfDeath, "01/01/2015");
             editDropdownField(ethnicityButton, "A - White - British");
 
             String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
