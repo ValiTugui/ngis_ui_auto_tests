@@ -407,24 +407,28 @@ public class PatientDetailsPage {
             return false;
         }
     }
+    private void checkIfErrorPresent(){
+        String errMsg = seleniumLib.getText(fieldErrorMessage);
+        if(seleniumLib.isElementPresent(fieldErrorMessage)){
+            Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
+            if(errMsg.contains("ethnicity")) {
+                By fullDiv = By.xpath("//label[@for='ethnicity']/..//div");
+                seleniumLib.clickOnElement(fullDiv);
+                Wait.seconds(3);
+                By ddValue = By.xpath("//span[text()='A - White - British']");
+                seleniumLib.clickOnElement(ddValue);
+                Wait.seconds(3);
+                Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
+            }
+        }
+    }
     public boolean editEthnicity(String value) {
         try {
             Debugger.println("EDITING ETHNICITY........");
-            Actions.clickElement(driver, ethnicityButton);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            //Click.element(driver, element);
-            Wait.seconds(2);
-            By ddValue = By.xpath("//span[text()='" + value + "']");
-            Click.element(driver, dropdownValue.findElement(ddValue));
+            seleniumLib.clickOnWebElement(ethnicityIndicator);
             Wait.seconds(3);
-            if(seleniumLib.isElementPresent(fieldErrorMessage)){
-                Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
-                seleniumLib.clickOnWebElement(ethnicityIndicator);
-                Wait.seconds(3);
-                seleniumLib.clickOnElement(ddValue);
-                Wait.seconds(3);
-                Debugger.println("Error Message present1......."+seleniumLib.getText(fieldErrorMessage));
-            }
+            By ddValue = By.xpath("//span[text()='" + value + "']");
+            seleniumLib.clickOnElement(ddValue);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in editEthnicity:" + value + "\n" + exp);
@@ -848,6 +852,7 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
+            checkIfErrorPresent();
             SeleniumLib.takeAScreenShot("Filling2.jpg");
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
