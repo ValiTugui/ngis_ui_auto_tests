@@ -421,7 +421,7 @@ public class PatientDetailsPage {
             Debugger.println("Error Message present......."+errMsg);
             if(errMsg.contains("Ethnicity")) {
                 seleniumLib.clickOnWebElement(postcode);
-                seleniumLib.clickOnWebElement(ethnicityIndicator);
+                seleniumLib.sendValue(ethnicityInputField, "British");
                 Wait.seconds(3);
                 Debugger.println("Second Time Size......."+dropdownValues.size());
                 Actions.selectByIndexFromDropDown(dropdownValues,0);
@@ -429,6 +429,7 @@ public class PatientDetailsPage {
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
             }
         }
+        Actions.clearTextField(dateOfDeath);
     }
     public boolean editEthnicity(String value) {
         try {
@@ -873,7 +874,7 @@ public class PatientDetailsPage {
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
             checkIfErrorPresent();
-            Actions.clearTextField(dateOfDeath);
+
             SeleniumLib.takeAScreenShot("Filling2.jpg");
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
