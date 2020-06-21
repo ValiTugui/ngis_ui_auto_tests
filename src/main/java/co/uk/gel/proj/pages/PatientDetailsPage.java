@@ -41,7 +41,6 @@ public class PatientDetailsPage {
     public WebElement firstName;
     public WebElement familyName;
     public WebElement lastName;
-    public WebElement dateOfBirth;
     public WebElement dateOfDeath;
     public WebElement nhsNumber;
     public WebElement hospitalNumber;
@@ -57,38 +56,14 @@ public class PatientDetailsPage {
     @FindBy(css = "label[for*='dateOfBirth']")
     public WebElement dateOfBirthLabel;
 
-    @FindBy(css = "label[for*='title']")
-    public WebElement titleLabel;
-
-    @FindBy(css = "label[for*='firstName']")
-    public WebElement firstnameLabel;
-
-    @FindBy(css = "label[for*='familyName']")
-    public WebElement familyNameLabel;
-
-    @FindBy(css = "label[for*='administrativeGender']")
-    public WebElement administrativeGenderLabel;
+    @FindBy(xpath = "//input[@id='dateOfBirth']")
+    public WebElement dateOfBirth;
 
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(css = "label[for*='lifeStatus']")
-    public WebElement lifeStatusLabel;
-
-    @FindBy(css = "label[for*='ethnicity']")
-    public WebElement ethnicityLabel;
-
     @FindBy(css = "label[for*='nhsNumber']")
     public WebElement nhsNumberLabel;
-
-    @FindBy(css = "label[for*='hospitalNumber']")
-    public WebElement hospitalNumberLabel;
-
-    @FindBy(css = "label[for*='address']")
-    public WebElement addressLabel;
-
-    @FindBy(css = "label[for*='postcode']")
-    public WebElement postcodeLabel;
 
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
@@ -133,16 +108,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")
     public WebElement createRecord;
 
-
-    @FindBy(xpath = "//button[text()='Update NGIS record']")
-    public List<WebElement> updateNGISRecordButtonList;
-
-    @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
-    public List<WebElement> savePatientDetailsToNGISButtonList;
-
-    @FindBy(xpath = "//button[text()='Add details to NGIS']")
-    public List<WebElement> addDetailsToNGISButtonList;
-
     @FindBy(xpath = "//button[@type='submit']/span[text()='Start referral']")
     public WebElement startReferralButton;
 
@@ -159,9 +124,6 @@ public class PatientDetailsPage {
     //@FindBy(css = "*[data-testid*='notification-success']")
     @FindBy(xpath = "//div[@data-testid='notification-success']//span")
     public WebElement successNotification;
-
-    @FindBy(xpath = "//*[text()='Go back to patient search']")
-    public WebElement goBackToPatientSearchLink;
 
     @FindBy(css = "a[class*='referral-list']")
     public List<WebElement> referralListCards;
@@ -857,18 +819,18 @@ public class PatientDetailsPage {
                 Debugger.println("Ethnicity not present........");
                 SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
             }else{
+                Debugger.println("Selecting Ethnicity...");
                 seleniumLib.clickOnElement(ddValue);
+                SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
             }
             Wait.seconds(3);
-            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
-            Wait.seconds(2);
-            SeleniumLib.takeAScreenShot("EthnicityASelect.jpg");
             Wait.seconds(2);
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
-                Debugger.println("Error Message present.......");
+                Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
                 SeleniumLib.takeAScreenShot("EthnicityEMessage.jpg");
                 seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(2);
+                SeleniumLib.takeAScreenShot("EthnicityAClick1.jpg");
                 ddValue = By.xpath("//div[text()='A - White - British']");
                 if(!seleniumLib.isElementPresent(ddValue)){
                     Debugger.println("Ethnicity Still not present as div........");
@@ -878,9 +840,8 @@ public class PatientDetailsPage {
                     Click.element(driver, dropdownValue.findElement(ddValue));
                     Wait.seconds(2);
                 }
-
             }
-            Wait.seconds(2);
+            Wait.seconds(5);
             seleniumLib.sendValue(dateOfBirth,"01/01/2015");
             Wait.seconds(2);
             seleniumLib.clickOnWebElement(dateOfBirth);
