@@ -820,28 +820,16 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
             }else{
                 Debugger.println("Selecting Ethnicity...");
-                seleniumLib.clickOnElement(ddValue);
+                boolean isSelected = seleniumLib.moveMouseAndClickOnElement(ddValue);
+                Debugger.println("IsSelected: "+isSelected);
                 SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
             }
             Wait.seconds(3);
-            Wait.seconds(2);
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
-                SeleniumLib.takeAScreenShot("EthnicityEMessage.jpg");
-                seleniumLib.clickOnWebElement(ethnicityIndicator);
-                Wait.seconds(2);
-                SeleniumLib.takeAScreenShot("EthnicityAClick1.jpg");
-                ddValue = By.xpath("//div[text()='A - White - British']");
-                if(!seleniumLib.isElementPresent(ddValue)){
-                    Debugger.println("Ethnicity Still not present as div........");
-                    SeleniumLib.takeAScreenShot("EthniCityNP1.jpg");
-                }else{
-                    SeleniumLib.takeAScreenShot("EthniCityDone.jpg");
-                    Click.element(driver, dropdownValue.findElement(ddValue));
-                    Wait.seconds(2);
-                }
             }
             Wait.seconds(5);
+            SeleniumLib.takeAScreenShot("DateEntryBefore.jpg");
             seleniumLib.sendValue(dateOfBirth,"01/01/2015");
             Wait.seconds(2);
             seleniumLib.clickOnWebElement(dateOfBirth);
