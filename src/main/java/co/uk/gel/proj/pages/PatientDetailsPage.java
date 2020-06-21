@@ -439,7 +439,10 @@ public class PatientDetailsPage {
             Wait.seconds(3);
             try {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
-                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                if(dropdownValues.size() > 0) {
+                    //Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                    Actions.retryClickAndIgnoreElementInterception(driver,dropdownValues.get(0));
+                }
                 Wait.seconds(2);
                // Actions.se
             }catch(Exception exp2){
