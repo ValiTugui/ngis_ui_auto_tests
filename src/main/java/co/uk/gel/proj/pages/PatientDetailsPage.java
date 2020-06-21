@@ -839,8 +839,17 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
+            Wait.seconds(2);
             Actions.fillInValue(dateOfDeath, "01/01/2015");
-            editDropdownField(ethnicityIndicator, "A - White - British");
+            Wait.seconds(2);
+            SeleniumLib.takeAScreenShot("EthincityBClick.jpg");
+            seleniumLib.clickOnWebElement(ethnicityIndicator);
+            SeleniumLib.takeAScreenShot("EthincityAClick.jpg");
+            Wait.seconds(2);
+            seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
+            SeleniumLib.takeAScreenShot("EthincityASelect.jpg");
+            Wait.seconds(2);
+            //editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
