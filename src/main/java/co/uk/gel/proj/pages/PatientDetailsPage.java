@@ -845,8 +845,6 @@ public class PatientDetailsPage {
             editDropdownField(lifeStatusButton, "Alive");
             //Actions.fillInValue(dateOfDeath, "01/01/2015");
             Debugger.println("DDValue2......"+seleniumLib.isElementPresent(dropdownValue));
-            dropdownValue.clear();
-            Debugger.println("DDValue3......"+seleniumLib.isElementPresent(dropdownValue));
             Wait.seconds(5);
             SeleniumLib.takeAScreenShot("EthnicityBClick.jpg");
             Wait.seconds(2);
@@ -861,6 +859,7 @@ public class PatientDetailsPage {
             }
             Wait.seconds(3);
             SeleniumLib.takeAScreenShot("EthnicityASelect11.jpg");
+            Debugger.println("DDValue3......"+seleniumLib.isElementPresent(dropdownValue));
             Click.element(driver, dropdownValue.findElement(ddValue));
            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
             Wait.seconds(2);
