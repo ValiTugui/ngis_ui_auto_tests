@@ -41,7 +41,6 @@ public class PatientDetailsPage {
     public WebElement firstName;
     public WebElement familyName;
     public WebElement lastName;
-    //public WebElement dateOfDeath;
     public WebElement nhsNumber;
     public WebElement hospitalNumber;
     public WebElement postcode;
@@ -58,6 +57,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//input[@id='dateOfBirth']")
     public WebElement dateOfBirth;
+
+    @FindBy(xpath = "//input[@id='dateOfDeath']")
+    public WebElement dateOfDeath;
 
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
