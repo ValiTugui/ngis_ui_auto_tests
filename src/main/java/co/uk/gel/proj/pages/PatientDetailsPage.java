@@ -874,6 +874,7 @@ public class PatientDetailsPage {
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
             editEthnicity("A - White - British");
+            Wait.seconds(5);
             checkIfErrorPresent();
 
             SeleniumLib.takeAScreenShot("Filling2.jpg");
