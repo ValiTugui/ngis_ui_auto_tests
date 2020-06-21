@@ -846,7 +846,9 @@ public class PatientDetailsPage {
             seleniumLib.clickOnWebElement(ethnicityIndicator);
             SeleniumLib.takeAScreenShot("EthincityAClick.jpg");
             Wait.seconds(2);
-            seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='A - White - British']")));
+           // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
+            Wait.seconds(2);
             SeleniumLib.takeAScreenShot("EthincityASelect.jpg");
             Wait.seconds(2);
             //editDropdownField(ethnicityIndicator, "A - White - British");
