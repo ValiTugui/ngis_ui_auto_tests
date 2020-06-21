@@ -240,6 +240,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//*[string()='Address']//following-sibling::span")
     public WebElement addressField;
 
+    @FindBy(css = "div[class*='error-message__text']")
+    public WebElement fieldErrorMessage;
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -839,8 +842,7 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            Wait.seconds(2);
-            Actions.fillInValue(dateOfDeath, "01/01/2015");
+            //Actions.fillInValue(dateOfDeath, "01/01/2015");
             Wait.seconds(2);
             SeleniumLib.takeAScreenShot("EthincityBClick.jpg");
             seleniumLib.clickOnWebElement(ethnicityIndicator);
@@ -850,6 +852,15 @@ public class PatientDetailsPage {
            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
             Wait.seconds(2);
             SeleniumLib.takeAScreenShot("EthincityASelect.jpg");
+            Wait.seconds(2);
+            if(seleniumLib.isElementPresent(fieldErrorMessage)){
+                Debugger.println("Error Message present.......");
+                seleniumLib.clickOnWebElement(ethnicityIndicator);
+                Wait.seconds(2);
+                Click.element(driver, dropdownValue.findElement(By.xpath("//div[text()='A - White - British']")));
+                Wait.seconds(2);
+            }
+            seleniumLib.sendValue(dateOfBirth,"01/01/2015");
             Wait.seconds(2);
             //editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
