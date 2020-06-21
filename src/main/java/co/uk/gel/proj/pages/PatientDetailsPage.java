@@ -410,7 +410,7 @@ public class PatientDetailsPage {
     public boolean editEthnicity(String value) {
         try {
             Debugger.println("EDITING ETHNICITY........");
-            Actions.clickElement(driver, ethnicityIndicator);
+            Actions.clickElement(driver, ethnicityButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(2);
@@ -419,7 +419,7 @@ public class PatientDetailsPage {
             Wait.seconds(3);
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
-                seleniumLib.clickOnWebElement(ethnicityButton);
+                seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(3);
                 seleniumLib.clickOnElement(ddValue);
                 Wait.seconds(3);
