@@ -803,6 +803,10 @@ public class PatientDetailsPage {
             String gender = "Male";
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
+            Wait.seconds(5);
+            SeleniumLib.takeAScreenShot("DateEntryBefore.jpg");
+            seleniumLib.sendValue(dateOfBirth,"01/01/2015");
+            Wait.seconds(2);
             Debugger.println("DDValue1......"+seleniumLib.isElementPresent(dropdownValue));
             editDropdownField(lifeStatusButton, "Alive");
             //Actions.fillInValue(dateOfDeath, "01/01/2015");
@@ -828,11 +832,7 @@ public class PatientDetailsPage {
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
             }
-            Wait.seconds(5);
-            SeleniumLib.takeAScreenShot("DateEntryBefore.jpg");
-            seleniumLib.sendValue(dateOfBirth,"01/01/2015");
-            Wait.seconds(2);
-            seleniumLib.clickOnWebElement(dateOfBirth);
+
             //editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
