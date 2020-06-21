@@ -386,31 +386,24 @@ public class PatientDetailsPage {
 
     public boolean editDropdownField(WebElement element, String value) {
         try {
-            seleniumLib.clickOnWebElement(element);
+            Actions.clickElement(driver, element);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Click.element(driver, element);
             Wait.seconds(2);
-            seleniumLib.clickOnElement(By.xpath("//span[text()='" + value + "']"));
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
             Wait.seconds(3);
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
+                seleniumLib.clickOnWebElement(element);
                 boolean isSelected = seleniumLib.moveMouseAndClickOnElement(By.xpath("//span[text()='" + value + "']"));
                 Debugger.println("Dropdown Selected by Move Mouse:"+isSelected);
                 Debugger.println("Error Message present1......."+seleniumLib.getText(fieldErrorMessage));
             }
             return true;
-
         } catch (Exception exp) {
-            try {
-                Actions.clickElement(driver, element);
-                // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-                //Click.element(driver, element);
-                Wait.seconds(2);
-                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
-                return true;
-            } catch (Exception exp1) {
-                Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp1);
-                SeleniumLib.takeAScreenShot("editDropdownField.jpg");
-                return false;
-            }
+            Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp);
+            SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+            return false;
         }
     }
 
@@ -827,7 +820,7 @@ public class PatientDetailsPage {
 //                SeleniumLib.takeAScreenShot("EthnicityASelected.jpg");
 //            }
 //
-            editDropdownField(ethnicityIndicator, "A - White - British");
+            editDropdownField(ethnicityButton, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             //selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
