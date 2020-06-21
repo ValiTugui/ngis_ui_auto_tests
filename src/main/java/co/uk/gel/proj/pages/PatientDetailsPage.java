@@ -423,6 +423,7 @@ public class PatientDetailsPage {
                 seleniumLib.clickOnWebElement(postcode);
                 seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(3);
+                Debugger.println("Second Time Size......."+dropdownValues.size());
                 Actions.selectByIndexFromDropDown(dropdownValues,0);
                 Wait.seconds(3);
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
@@ -844,6 +845,8 @@ public class PatientDetailsPage {
             newPatient.setMonth(monthOfBirth);
             newPatient.setYear(yearOfBirth);
 
+            Actions.fillInValue(dateOfDeath, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+
             selectMissingNhsNumberReason(reason);
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
@@ -870,6 +873,7 @@ public class PatientDetailsPage {
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
             checkIfErrorPresent();
+            Actions.clearTextField(dateOfDeath);
             SeleniumLib.takeAScreenShot("Filling2.jpg");
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
