@@ -429,7 +429,8 @@ public class PatientDetailsPage {
             seleniumLib.clickOnWebElement(ethnicityIndicator);
             Wait.seconds(3);
             By ddValue = By.xpath("//span[text()='" + value + "']");
-            seleniumLib.clickOnElement(ddValue);
+            seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
+            Wait.seconds(3);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in editEthnicity:" + value + "\n" + exp);
