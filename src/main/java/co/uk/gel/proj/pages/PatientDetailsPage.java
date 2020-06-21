@@ -408,6 +408,7 @@ public class PatientDetailsPage {
         }
     }
     private void checkIfErrorPresent(){
+        Debugger.println("Checking Error Presence.......");
         String errMsg = seleniumLib.getText(fieldErrorMessage);
         if(seleniumLib.isElementPresent(fieldErrorMessage)){
             Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
@@ -416,7 +417,7 @@ public class PatientDetailsPage {
                 seleniumLib.clickOnElement(fullDiv);
                 Wait.seconds(3);
                 By ddValue = By.xpath("//span[text()='A - White - British']");
-                seleniumLib.clickOnElement(ddValue);
+                seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
                 Wait.seconds(3);
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
             }
@@ -918,7 +919,7 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
-
+            checkIfErrorPresent();
             Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
