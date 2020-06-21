@@ -844,24 +844,38 @@ public class PatientDetailsPage {
             editDropdownField(lifeStatusButton, "Alive");
             //Actions.fillInValue(dateOfDeath, "01/01/2015");
             Wait.seconds(2);
-            SeleniumLib.takeAScreenShot("EthincityBClick.jpg");
-            seleniumLib.clickOnWebElement(ethnicityIndicator);
-            SeleniumLib.takeAScreenShot("EthincityAClick.jpg");
+            SeleniumLib.takeAScreenShot("EthnicityBClick.jpg");
             Wait.seconds(2);
-            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='A - White - British']")));
+            seleniumLib.clickOnWebElement(ethnicityIndicator);
+            Wait.seconds(2);
+            SeleniumLib.takeAScreenShot("EthnicityAClick.jpg");
+            Wait.seconds(2);
+            By ddValue = By.xpath("//span[text()='A - White - British']");
+            if(!seleniumLib.isElementPresent(ddValue)){
+                Debugger.println("Ethnicity not present........");
+                SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
+            }
+            Click.element(driver, dropdownValue.findElement(ddValue));
            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
             Wait.seconds(2);
-            SeleniumLib.takeAScreenShot("EthincityASelect.jpg");
+            SeleniumLib.takeAScreenShot("EthnicityASelect.jpg");
             Wait.seconds(2);
             if(seleniumLib.isElementPresent(fieldErrorMessage)){
                 Debugger.println("Error Message present.......");
                 seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(2);
-                Click.element(driver, dropdownValue.findElement(By.xpath("//div[text()='A - White - British']")));
+                ddValue = By.xpath("//div[text()='A - White - British']");
+                if(!seleniumLib.isElementPresent(ddValue)){
+                    Debugger.println("Ethnicity Stil not present as div........");
+                    SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
+                }
+                Click.element(driver, dropdownValue.findElement(ddValue));
                 Wait.seconds(2);
             }
+            Wait.seconds(2);
             seleniumLib.sendValue(dateOfBirth,"01/01/2015");
             Wait.seconds(2);
+            seleniumLib.clickOnWebElement(dateOfBirth);
             //editDropdownField(ethnicityIndicator, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);
