@@ -841,8 +841,12 @@ public class PatientDetailsPage {
             String gender = "Male";
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
+            Debugger.println("DDValue1......"+dropdownValue.isDisplayed());
             editDropdownField(lifeStatusButton, "Alive");
             //Actions.fillInValue(dateOfDeath, "01/01/2015");
+            Debugger.println("DDValue2......"+dropdownValue.isDisplayed());
+            dropdownValue.clear();
+            Debugger.println("DDValue3......"+dropdownValue.isDisplayed());
             Wait.seconds(5);
             SeleniumLib.takeAScreenShot("EthnicityBClick.jpg");
             Wait.seconds(2);
@@ -856,6 +860,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
             }
             Wait.seconds(3);
+            SeleniumLib.takeAScreenShot("EthnicityASelect11.jpg");
             Click.element(driver, dropdownValue.findElement(ddValue));
            // seleniumLib.clickOnElement(By.xpath("//span[text()='A - White - British']"));
             Wait.seconds(2);
@@ -869,7 +874,7 @@ public class PatientDetailsPage {
                 ddValue = By.xpath("//div[text()='A - White - British']");
                 if(!seleniumLib.isElementPresent(ddValue)){
                     Debugger.println("Ethnicity Still not present as div........");
-                    SeleniumLib.takeAScreenShot("EthniCityNP.jpg");
+                    SeleniumLib.takeAScreenShot("EthniCityNP1.jpg");
                 }else{
                     SeleniumLib.takeAScreenShot("EthniCityDone.jpg");
                     Click.element(driver, dropdownValue.findElement(ddValue));
