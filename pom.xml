@@ -29,6 +29,7 @@
         <osName>Windows</osName>
         <osVersion>10</osVersion>
         <features></features>
+        <rerunOption>No</rerunOption>
     </properties>
     <build>
         <plugins>
@@ -46,6 +47,7 @@
                         <serverType>${serverType}</serverType>
                         <osName>${osName}</osName>
                         <osVersion>${osVersion}</osVersion>
+                        <rerunOption>${rerunOption}</rerunOption>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

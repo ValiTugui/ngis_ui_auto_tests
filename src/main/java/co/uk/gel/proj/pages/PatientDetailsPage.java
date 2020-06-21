@@ -977,10 +977,10 @@ public class PatientDetailsPage {
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:" + exp1);
-            SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
-            return false;
+                SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
+                return false;
+            }
         }
-    }
     }
 
     public boolean clickUpdateNGISRecordButton() {
@@ -1362,8 +1362,8 @@ public class PatientDetailsPage {
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from checking the postcode format in address:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the postcode format in address:" + exp);
             SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
             return false;
         }
