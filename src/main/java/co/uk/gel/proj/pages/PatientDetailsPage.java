@@ -416,7 +416,6 @@ public class PatientDetailsPage {
     }
     private void checkIfErrorPresent(){
         Debugger.println("Checking Error Presence.......");
-
         if(seleniumLib.isElementPresent(fieldErrorMessage)){
             String errMsg = seleniumLib.getText(fieldErrorMessage);
             Debugger.println("Error Message present......."+errMsg);
@@ -424,8 +423,7 @@ public class PatientDetailsPage {
                 seleniumLib.clickOnWebElement(postcode);
                 seleniumLib.clickOnWebElement(ethnicityIndicator);
                 Wait.seconds(3);
-                By ddValue = By.xpath("//span[text()='A - White - British']");
-                seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
+                Actions.selectByIndexFromDropDown(dropdownValues,0);
                 Wait.seconds(3);
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
             }
@@ -440,6 +438,7 @@ public class PatientDetailsPage {
             try {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
                 Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                Wait.seconds(2);
                // Actions.se
             }catch(Exception exp2){
 
