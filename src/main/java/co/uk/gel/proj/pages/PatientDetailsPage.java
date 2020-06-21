@@ -497,10 +497,12 @@ public class PatientDetailsPage {
                 return false;
             }
             seleniumLib.clickOnWebElement(createRecord);
+            SeleniumLib.takeAScreenShot("Filling31.jpg");
             return true;
         } catch (Exception exp) {
             try{
                 Actions.clickElement(driver, createRecord);
+                SeleniumLib.takeAScreenShot("Filling32.jpg");
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
@@ -809,6 +811,7 @@ public class PatientDetailsPage {
 
     public boolean fillInAllFieldsNewPatientDetailsExceptNHSNumber(String reason) {
         try {
+            SeleniumLib.takeAScreenShot("Filling1.jpg");
             Wait.forElementToBeDisplayed(driver, title);
             newPatient.setTitle("Mr");
             title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
@@ -854,7 +857,7 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
-
+            SeleniumLib.takeAScreenShot("Filling2.jpg");
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
