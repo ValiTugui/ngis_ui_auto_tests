@@ -88,6 +88,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'indicatorContainer')]")
     public WebElement ethnicityIndicator;
 
+    @FindBy(css = "div[id*='react-select']")
+    public List<WebElement> dropdownValues;
+
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipButton;
 
@@ -429,6 +432,11 @@ public class PatientDetailsPage {
             Debugger.println("EDITING ETHNICITY........");
             seleniumLib.clickOnWebElement(ethnicityIndicator);
             Wait.seconds(3);
+            try {
+                Debugger.println("DDValues Size:"+dropdownValues.size());
+            }catch(Exception exp2){
+
+            }
             By ddValue = By.xpath("//span[text()='" + value + "']");
             seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
             Wait.seconds(3);
