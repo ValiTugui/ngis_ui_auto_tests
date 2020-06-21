@@ -141,6 +141,16 @@ public class SeleniumLib {
         }
     }
 
+    public boolean moveMouseAndClick(By element){
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(driver.findElement(element)).click().build().perform();
+            return true;
+        }catch(Exception exp){
+            return false;
+        }
+    }
+
     public void clickOnWebElement(WebElement webEle) {
        try {
            WebDriverWait wait = new WebDriverWait(driver, 30);//Default waiting
@@ -694,13 +704,21 @@ public class SeleniumLib {
             return false;
         }
     }
-    public void moveMouseAndClickOnElement(By element) {
-        Actions action = new Actions(driver);
-        WebElement we = driver.findElement(element);
-        if(we == null){
-            return;
+    public boolean moveMouseAndClickOnElement(By element) {
+        try {
+            Debugger.println("Moving Mouse and Clicking........."+element);
+            Actions action = new Actions(driver);
+            WebElement we = driver.findElement(element);
+            if (we == null) {
+                return false;
+            }
+            Debugger.println("Performing Move and Click Action..");
+            action.click(we).build().perform();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from moveMouseAndClickOnElement:"+exp);
+          return false;
         }
-        action.click(we).build().perform();
     }
 
 

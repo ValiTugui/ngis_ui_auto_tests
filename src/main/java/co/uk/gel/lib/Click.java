@@ -12,10 +12,12 @@ import java.awt.*;
 public class Click {
 	
 	public static void element(WebDriver driver, WebElement element) {
-
-		Wait.forElementToBeClickable(driver, element);
-		element.click();
-
+		try {
+			Wait.forElementToBeClickable(driver, element);
+			element.click();
+		}catch(Exception exp){
+			Debugger.println("Exception from Click..element:"+exp+"\n"+element);
+		}
 	}
 
 	public static void mouseMoveByLocation (WebDriver driver, int x, int y) throws AWTException {
