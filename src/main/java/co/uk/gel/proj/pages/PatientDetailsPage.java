@@ -447,7 +447,8 @@ public class PatientDetailsPage {
                 Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu2));
                 //List<WebElement> list1 = strPath+"/ul";
                 if(dropdownValues.size() > 0) {
-                    Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                    seleniumLib.JavaScriptClick(dropdownValues.get(0));
+                    //Actions.selectByIndexFromDropDown(dropdownValues, 0);
                     // Actions.clickElement(driver, dropdownValues.get(0));
                 }
            }catch(Exception exp2){
