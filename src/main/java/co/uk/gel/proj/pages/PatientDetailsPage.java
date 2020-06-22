@@ -514,6 +514,7 @@ public class PatientDetailsPage {
     }
 
     public boolean clickOnCreateRecord() {
+        Debugger.println("Clicking on Create Record........");
         try {
             if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
                 Debugger.println("Create Record button not present in new patient creation page.");
