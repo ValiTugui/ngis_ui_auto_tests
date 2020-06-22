@@ -438,16 +438,15 @@ public class PatientDetailsPage {
             Wait.seconds(3);
             try {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
-                String strPath = "//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]";
-                By ddMenu = By.xpath(strPath);
-                Debugger.println("IS Present Me:"+seleniumLib.isElementPresent(ddMenu));
-                By ddMenu1 = By.xpath(strPath+"//ul");
-                Debugger.println("IS Present Me1:"+seleniumLib.isElementPresent(ddMenu1));
-                By ddMenu2 = By.xpath(strPath+"//div");
-                Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu2));
-                By ddMenu3 = By.xpath(strPath+"//div//span");
-                Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu3));
-                //List<WebElement> list1 = strPath+"/ul";
+//                String strPath = "//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]";
+//                By ddMenu = By.xpath(strPath);
+//                Debugger.println("IS Present Me:"+seleniumLib.isElementPresent(ddMenu));
+//                By ddMenu2 = By.xpath(strPath+"//div");
+//                Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu2));
+//                By ddMenu3 = By.xpath(strPath+"//div//span");
+//                Debugger.println("IS Present Mee3"+seleniumLib.isElementPresent(ddMenu3));
+//                List<WebElement> list1 = driver.findElements(ddMenu3);
+//                Debugger.println("list1 Size: "+list1.size());
                 if(dropdownValues.size() > 0) {
                     seleniumLib.JavaScriptClick(dropdownValues.get(0));
                     //Actions.selectByIndexFromDropDown(dropdownValues, 0);
@@ -883,8 +882,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(postcode, postcodeValue);
             editEthnicity("A - White - British");
             Wait.seconds(5);
-            checkIfErrorPresent();
-
+            //checkIfErrorPresent();
             SeleniumLib.takeAScreenShot("Filling2.jpg");
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
