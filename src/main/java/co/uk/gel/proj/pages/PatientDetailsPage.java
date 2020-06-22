@@ -441,9 +441,9 @@ public class PatientDetailsPage {
                 String strPath = "//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]";
                 By ddMenu = By.xpath(strPath);
                 Debugger.println("IS Present Me:"+seleniumLib.isElementPresent(ddMenu));
-                By ddMenu1 = By.xpath(strPath+"/ul");
+                By ddMenu1 = By.xpath(strPath+"//ul");
                 Debugger.println("IS Present Me1:"+seleniumLib.isElementPresent(ddMenu1));
-                By ddMenu2 = By.xpath(strPath+"/div");
+                By ddMenu2 = By.xpath(strPath+"//div");
                 Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu2));
                 //List<WebElement> list1 = strPath+"/ul";
                 if(dropdownValues.size() > 0) {
