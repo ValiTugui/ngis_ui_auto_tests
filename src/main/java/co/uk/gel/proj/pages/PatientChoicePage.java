@@ -1048,14 +1048,12 @@ public class PatientChoicePage {
 
     public boolean enterRecordedByDetails() {
         try {
-
-            Wait.forElementToBeDisplayed(driver, recordedByField);
             co.uk.gel.lib.Actions.fillInValue(recordedByField, "Sue");
-            Click.element(driver, recordedByContinueButton);
+            seleniumLib.clickOnWebElement(recordedByContinueButton);
             return true;
         }catch(Exception exp){
             try {
-                seleniumLib.clickOnWebElement(recordedByContinueButton);
+                Click.element(driver, recordedByContinueButton);
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception in enterRecordedByDetails:" + exp1);
@@ -1067,13 +1065,13 @@ public class PatientChoicePage {
 
     public boolean selectChoicesWithPatientChoiceNotRequired() {
         try {
-            Click.element(driver, patientChoiceNotRequiredForTheTest);
-            Click.element(driver, patientChoicesContinueButton);
+            seleniumLib.clickOnWebElement(patientChoiceNotRequiredForTheTest);
+            seleniumLib.clickOnWebElement(patientChoicesContinueButton);
             return true;
         }catch(Exception exp){
             try {
-                seleniumLib.clickOnWebElement(patientChoiceNotRequiredForTheTest);
-                seleniumLib.clickOnWebElement(patientChoicesContinueButton);
+                Click.element(driver, patientChoiceNotRequiredForTheTest);
+                Click.element(driver, patientChoicesContinueButton);
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception in selectChoicesWithPatientChoiceNotRequired:" + exp1);
@@ -1085,10 +1083,10 @@ public class PatientChoicePage {
 
     public boolean selectChoicesWithAgreeingTesting() {
         try {
-            Click.element(driver, agreeTestChoice);
-            Click.element(driver, agreeResearchParticipation);
-            Click.element(driver, agreeSampleUsage);
-            Click.element(driver, patientChoicesContinueButton);
+            seleniumLib.clickOnWebElement(agreeTestChoice);
+            seleniumLib.clickOnWebElement(agreeResearchParticipation);
+            seleniumLib.clickOnWebElement(agreeSampleUsage);
+            seleniumLib.clickOnWebElement(patientChoicesContinueButton);
             return true;
         } catch (Exception exp) {
             try {
@@ -1186,13 +1184,13 @@ public class PatientChoicePage {
 
     public boolean submitPatientChoiceWithSignature() {
         try {
-            Click.element(driver, submitSignatureButton);
+            seleniumLib.clickOnWebElement(submitSignatureButton);
             Debugger.println("SC:" + saveAndContinuePC.isEnabled() + ",SC Color:" + saveAndContinuePC.getCssValue("background-color"));
             Wait.seconds(10);
             return true;
         } catch (Exception exp) {
             try {
-                seleniumLib.clickOnWebElement(submitSignatureButton);
+                Click.element(driver, submitSignatureButton);
                 Debugger.println("SC1:" + saveAndContinuePC.isEnabled());
                 Wait.seconds(10);
                 return true;
@@ -1206,11 +1204,11 @@ public class PatientChoicePage {
 
     public boolean submitPatientChoiceWithoutSignature() {
         try {
-            Click.element(driver, submitButton);
+            seleniumLib.clickOnWebElement(submitButton);
             return true;
         } catch (Exception exp) {
             try {
-                seleniumLib.clickOnWebElement(submitButton);
+                Click.element(driver, submitButton);
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from submitting Patient Choice...." + exp1);
