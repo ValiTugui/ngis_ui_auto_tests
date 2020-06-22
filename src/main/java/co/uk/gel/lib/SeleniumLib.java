@@ -153,17 +153,17 @@ public class SeleniumLib {
 
     public void clickOnWebElement(WebElement webEle) {
        try {
-           Debugger.println("Clicking on : "+webEle);
+          // Debugger.println("Clicking on : "+webEle);
            WebDriverWait wait = new WebDriverWait(driver, 30);//Default waiting
            wait.until(ExpectedConditions.visibilityOf(webEle));
-           Debugger.println("Is Displayed..");
+          // Debugger.println("Is Displayed..");
            if(!webEle.isDisplayed()){
                //Waiting for another 30 seconds
                sleepInSeconds(30);
            }
-           Debugger.println("Highlighting..");
+           //Debugger.println("Highlighting..");
            elementHighlight(webEle);
-           Debugger.println("Final Click..");
+          // Debugger.println("Final Click..");
            JavascriptExecutor executor = (JavascriptExecutor) driver;
            executor.executeScript("arguments[0].click();", webEle);
            //webEle.click();

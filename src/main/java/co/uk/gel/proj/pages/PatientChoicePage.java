@@ -1112,10 +1112,10 @@ public class PatientChoicePage {
                 Debugger.println("DRAW Signature Section not displayed.."+driver.getCurrentUrl());
             }else {
                 try {
-                    Click.element(driver, signatureSection);
+                    seleniumLib.clickOnWebElement(signatureSection);
                 }catch(Exception exp1){
                     Debugger.println("PC Signature section clicked by Selenium Lib.");
-                    seleniumLib.clickOnWebElement(signatureSection);
+                    Click.element(driver, signatureSection);
                 }
             }
             org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
