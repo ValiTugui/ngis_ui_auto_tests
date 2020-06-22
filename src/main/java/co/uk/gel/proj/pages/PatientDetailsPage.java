@@ -438,8 +438,14 @@ public class PatientDetailsPage {
             Wait.seconds(3);
             try {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
-                By ddMenu = By.xpath("//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]");
+                String strPath = "//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]";
+                By ddMenu = By.xpath(strPath);
                 Debugger.println("IS Present Me:"+seleniumLib.isElementPresent(ddMenu));
+                By ddMenu1 = By.xpath(strPath+"/ul");
+                Debugger.println("IS Present Me1:"+seleniumLib.isElementPresent(ddMenu1));
+                By ddMenu2 = By.xpath(strPath+"/div");
+                Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu2));
+                //List<WebElement> list1 = strPath+"/ul";
                 if(dropdownValues.size() > 0) {
                     Actions.selectByIndexFromDropDown(dropdownValues, 0);
                     // Actions.clickElement(driver, dropdownValues.get(0));
