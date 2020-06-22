@@ -429,7 +429,6 @@ public class PatientDetailsPage {
                 Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
             }
         }
-        Actions.clearTextField(dateOfDeath);
     }
     public boolean editEthnicity(String value) {
         try {
@@ -439,13 +438,13 @@ public class PatientDetailsPage {
             Wait.seconds(3);
             try {
                 Debugger.println("DDValues Size:"+dropdownValues.size());
+                By ddMenu = By.xpath("//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]");
+                Debugger.println("IS Present Me:"+seleniumLib.isElementPresent(ddMenu));
                 if(dropdownValues.size() > 0) {
-                    //Actions.selectByIndexFromDropDown(dropdownValues, 0);
-                     Actions.clickElement(driver, dropdownValues.get(0));
+                    Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                    // Actions.clickElement(driver, dropdownValues.get(0));
                 }
-                Wait.seconds(2);
-               // Actions.se
-            }catch(Exception exp2){
+           }catch(Exception exp2){
 
             }
            // By ddValue = By.xpath("//span[text()='" + value + "']");
