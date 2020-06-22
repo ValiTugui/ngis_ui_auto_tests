@@ -49,7 +49,7 @@ public class BrowserFactory {
     String applicationType = "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream";
 
     private final static String ZAP_PROXYHOST = "127.0.0.1";
-    private final static int ZAP_PROXYPORT = 9191;
+    private final static int ZAP_PROXYPORT = 8080;
     private final static String ZAP_APIKEY = null;
     private ScanningProxy zapScanner;
     private String OS = null;
