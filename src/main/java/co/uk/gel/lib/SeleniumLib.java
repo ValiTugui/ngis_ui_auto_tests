@@ -164,7 +164,9 @@ public class SeleniumLib {
            Debugger.println("Highlighting..");
            elementHighlight(webEle);
            Debugger.println("Final Click..");
-           webEle.click();
+           JavascriptExecutor executor = (JavascriptExecutor) driver;
+           executor.executeScript("arguments[0].click();", webEle);
+           //webEle.click();
         } catch (Exception exp) {
             try {
                 Debugger.println("Clicking Via JavaScript....");
