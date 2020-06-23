@@ -34,7 +34,10 @@ Feature: MIPORTAL ST - File Submission 3
 
   @NTS-5016
     #@E2EUI-2224
-  Scenario: NTS-5016:E2EUI-2224,2470: No warnings are displayed for files with status valid_with_warning
+  Scenario Outline: NTS-5016:E2EUI-2224,2470: No warnings are displayed for files with status valid_with_warning
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the selected search option is reset after test
     When the user selects Status as the search column dropdown
     And the user selects is as the search operator dropdown
@@ -50,6 +53,10 @@ Feature: MIPORTAL ST - File Submission 3
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     Then the table column Status is displayed with data valid_with_warnings
     And the table column Field Warnings is displayed with data non-empty-data
+
+    Examples:
+      | mi_stage         |
+      | File Submissions |
 
     ##Commenting as , after the database clean up, no data related to duplicate search exists
 #  @NTS-5031
@@ -74,7 +81,10 @@ Feature: MIPORTAL ST - File Submission 3
 
   @NTS-5177
     #@E2EUI-2578
-  Scenario: NTS-5177:@E2EUI-2578: MIS - Add "Status" search filter to File Submissions
+  Scenario Outline: NTS-5177:@E2EUI-2578: MIS - Add "Status" search filter to File Submissions
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the selected search option is reset after test
     When the user selects Created as the search column dropdown
     And the user selects on or after as the search operator dropdown
@@ -101,3 +111,7 @@ Feature: MIPORTAL ST - File Submission 3
     When the user click on the Search button
     Then search results are displayed in table format with display options button
     And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         |
+      | File Submissions |

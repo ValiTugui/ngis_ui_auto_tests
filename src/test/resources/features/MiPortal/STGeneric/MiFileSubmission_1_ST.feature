@@ -5,60 +5,6 @@
 Feature: MIPORTAL ST - File Submission 1
 
   @NTS-3390
-    #@E2EUI-1283,2513
-  Scenario Outline: NTS-3390:E2EUI-1283,2513:verify the defaults elements on File Submission search page
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    Then the file-submission page displays the search header, drop-down - column, operator, and value, add, search and reset buttons
-    Then the user sees the below values in the file-submission search column drop-down menu
-      | Created      |
-      | Status       |
-      | Submitted By |
-
-    When the user selects Created as the search column dropdown
-    Then the user sees the below values in the file-submission search operator drop-down menu
-      | equals       |
-      | before or on |
-      | on or after  |
-
-    When the user selects Status as the search column dropdown
-    Then the user sees the below values in the file-submission search operator drop-down menu
-      | is        |
-      | is one of |
-
-    When the user selects Submitted By as the search column dropdown
-    Then the user sees the below values in the file-submission search operator drop-down menu
-      | is        |
-      | is one of |
-
-    When the user selects Status as the search column dropdown
-    And the user selects is as the search operator dropdown
-    Then the user sees the below values in the file-submission search value drop-down menu
-      | Duplicate           |
-      | In Progress         |
-      | Invalid             |
-      | Valid               |
-      | Valid with Warnings |
-
-    When the user selects Status as the search column dropdown
-    And the user selects is one of as the search operator dropdown
-    Then the user sees the below values in the file-submission search value drop-down menu
-      | Duplicate           |
-      | In Progress         |
-      | Invalid             |
-      | Valid               |
-      | Valid with Warnings |
-
-    And the selected search option is reset after test
-
-    Examples:
-      | mi_stage         |
-      | File Submissions |
-
-
-  @NTS-3390
     #@E2EUI-1283
   Scenario: E2EUI-1283: User is able to reset selected search criteria badge
     When the user selects Created as the search column dropdown

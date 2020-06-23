@@ -128,6 +128,7 @@ public class FamilyMemberSearchSteps extends Pages {
                 Assert.assertTrue(false);
             }
             referralPage.updatePatientNGSID(familyMember);
+            Wait.seconds(10);
         }else {
             familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
         }

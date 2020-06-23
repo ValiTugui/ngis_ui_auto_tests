@@ -371,6 +371,7 @@ public class SeleniumLib {
 
     public boolean isElementPresent(WebElement element) {
         try {
+            sleepInSeconds(5);
             element.isDisplayed();
             return true;
         } catch (NoSuchElementException e) {

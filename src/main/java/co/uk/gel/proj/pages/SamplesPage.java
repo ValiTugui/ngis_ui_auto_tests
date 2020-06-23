@@ -179,6 +179,14 @@ public class SamplesPage {
     @FindBy(xpath = "//a[contains(@class,'styles_sample-detail__edit-link')]")
     List<WebElement> sampleEditButtons;
 
+    public boolean isErrorPresent(){
+        int noOfErrors = errorMessages.size();
+        if(noOfErrors > 0){
+            return true;
+        }
+        return false;
+    }
+
     public boolean selectSampleType(String type) {
         try {
             Actions.clickElement(driver, sampleType);

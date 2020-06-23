@@ -89,6 +89,30 @@ public class SamplesSteps extends Pages {
         testResult = samplesPage.fillInSampleID();
         Assert.assertTrue(testResult);
     }
+    //Below step added to retry filling the sample details, if there is any error occurred before.
+    @And("the user sees no error message on tumour page by selecting the sample type {string}, sample state {string} and filling SampleID")
+    public void thereIsNoErrorMessaegsDisplayedOnTheTumourPage(String sampleType, String sampleState) {
+        boolean testResult = false;
+
+        testResult = samplesPage.isErrorPresent();
+        if(!testResult){
+            return;
+        }
+
+        testResult = samplesPage.selectSampleType(sampleType);
+        if(!testResult){
+            Assert.assertTrue(testResult);
+        }
+        testResult = samplesPage.selectSpecificSampleState(sampleState);
+        if(!testResult){
+            Assert.assertTrue(testResult);
+        }
+        testResult = samplesPage.fillInSampleID();
+        Assert.assertTrue(testResult);
+
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
+    }
 
     @And("the Add Samples details page displays the page title and sub-titles text body")
     public void theAddSamplesDetailsPageDisplaysThePageTitleAndSubTitlesTextBody(DataTable dataTable) {
