@@ -1674,6 +1674,36 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    @FindBy(xpath = "//*[text()='Log out']")
+    public WebElement logOutLink;
 
+    public void logOutFromMIPortal(){
+        try {
+            Debugger.println("Logging Out from MIPortal..");
+            if(!Wait.isElementDisplayed(driver,logOutLink,60)){
+                Debugger.println("Could not locate Log out Link...");
+                SeleniumLib.takeAScreenShot("NoMILogOutLink.jpg");
+                return;
+            }
+            Actions.clickElement(driver,logOutLink);
+            Wait.seconds(2);
+            if(Actions.isAlertPresent(driver)){
+                Actions.acceptAlert(driver);
+            }
+            Actions.deleteCookies(driver);
+            Wait.seconds(15);
+        } catch (UnhandledAlertException f) {
+            try {
+                driver.switchTo().defaultContent();
+                Actions.deleteCookies(driver);
+            } catch (NoAlertPresentException e) {
+                e.printStackTrace();
+            }
+            Wait.seconds(15);
+            Debugger.println("Logged Out From MI Successfully.");
+        }catch(Exception exp){
+            Debugger.println("Exception from Logging out from MI...."+exp);
+        }
+    }
 }
 
