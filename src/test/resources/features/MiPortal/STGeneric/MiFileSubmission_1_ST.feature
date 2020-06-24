@@ -4,9 +4,13 @@
 
 Feature: MIPORTAL ST - File Submission 1
 
-  @NTS-3390
+  @NTS-3390 @MI-LOGOUT
     #@E2EUI-1283
-  Scenario: E2EUI-1283: User is able to reset selected search criteria badge
+  Scenario Outline: E2EUI-1283: User is able to reset selected search criteria badge
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
     When the user selects Created as the search column dropdown
     And the user selects equals as the search operator dropdown
     And the user enters a date today in the file-submission date field
@@ -22,9 +26,17 @@ Feature: MIPORTAL ST - File Submission 1
     Then the user sees the message No results found for these search terms. below the search container
     And the selected search option is reset after test
 
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
   @NTS-3390
     #@E2EUI-1283
-  Scenario: NTS-3390:Verify the main elements displayed in search result section
+  Scenario Outline: NTS-3390:Verify the main elements displayed in search result section
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
     When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
     And the user enters 5 days before today in the file-submission date field
@@ -34,6 +46,10 @@ Feature: MIPORTAL ST - File Submission 1
     Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And search results are displayed in table format with display options button
 
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
   @NTS-3390
     #@E2EUI-1283
   Scenario: NTS-3390:Verify the elements in the Column Ordering section of File-Submission Display Options
@@ -42,7 +58,7 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user closes the modal content by clicking on the reset-button
 
-  @NTS-3390
+  @NTS-3390 @MI-LOGOUT
     #@E2EUI-1283
   Scenario: NTS-3390:E2EUI-1283: Verify the default header values of 'Show' and 'Hide' in the Column Ordering section of File-Submission Display Options
     When the user clicks on the Display Options button
@@ -67,9 +83,13 @@ Feature: MIPORTAL ST - File Submission 1
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 
-  @NTS-3390
+  @NTS-3390 @MI-LOGOUT
     #@E2EUI-1283 @E2EUI-2513
   Scenario Outline: E2EUI-1283,2513:File Submissions: ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
     When the user selects Status as the search column dropdown
     And the user selects is as the search operator dropdown
     And the user selects <value> as the search value dropdown
@@ -81,6 +101,6 @@ Feature: MIPORTAL ST - File Submission 1
     And the selected search option is reset after test
 
     Examples:
-      | value   | columnHeader | fieldValue |
-      | Valid   | Status       | valid      |
-      | Invalid | Status       | invalid    |
+      | value   | columnHeader | fieldValue |mi_stage         |
+      | Valid   | Status       | valid      |File Submissions |
+      | Invalid | Status       | invalid    |File Submissions |

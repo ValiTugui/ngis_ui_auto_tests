@@ -32,11 +32,11 @@ public class TumoursPage {
 
     @FindBy(xpath = "//input[@id='descriptiveName']")
     public WebElement descriptiveName;
-    @FindBy(xpath = "//input[@id='dateDay']")
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisDay']")
     public WebElement dateDay;
-    @FindBy(xpath = "//input[@id='dateMonth']")
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisMonth']")
     public WebElement dateMonth;
-    @FindBy(xpath = "//input[@id='dateYear']")
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisYear']")
     public WebElement dateYear;
     @FindBy(xpath = "//input[@id='pathologyReportId']")
     public WebElement pathologyReportId;
@@ -250,12 +250,13 @@ public class TumoursPage {
             tumourDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
             tumourDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
             tumourDetails.setYear(String.valueOf(faker.number().numberBetween(2018, 2019)));
-            Actions.fillInValue(dateDay, tumourDetails.getDay());
-            Actions.fillInValue(dateMonth, tumourDetails.getMonth());
-            Actions.fillInValue(dateYear, tumourDetails.getYear());
+
+            seleniumLib.sendValue(dateDay,tumourDetails.getDay());
+            seleniumLib.sendValue(dateMonth,tumourDetails.getMonth());
+            seleniumLib.sendValue(dateYear,tumourDetails.getYear());
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in fillInDateOfDiagnosis:" + exp);
+            Debugger.println("Exception in fillInDateOfDiagnosis:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fillInDateOfDiagnosis.jpg");
             return false;
         }

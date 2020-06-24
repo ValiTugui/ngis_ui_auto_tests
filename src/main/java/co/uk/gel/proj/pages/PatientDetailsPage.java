@@ -809,7 +809,7 @@ public class PatientDetailsPage {
 
     public boolean fillInAllFieldsNewPatientDetailsExceptNHSNumber(String reason) {
         try {
-            Wait.forElementToBeDisplayed(driver, title);
+
             newPatient.setTitle("Mr");
             title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
             String firstNameValue = TestUtils.getRandomFirstName();
@@ -836,7 +836,6 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            Actions.fillInValue(dateOfDeath, "01/01/2015");
             editDropdownField(ethnicityButton, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
             selectMissingNhsNumberReason(reason);

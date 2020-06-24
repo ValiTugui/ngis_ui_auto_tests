@@ -68,11 +68,19 @@ public class SamplesPage {
     @FindBy(css = "label[for*='question-id-q326']")
     public WebElement numberOfSlidesFieldLabel;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q328')]")
-    public WebElement sampleCollectionDateField;
+//    @FindBy(xpath = "//*[contains(@id,'question-id-q328')]")
+//    public WebElement sampleCollectionDateField;
 
-    @FindBy(css = "label[for*='question-id-q328']")
-    public WebElement sampleCollectionDateFieldLabel;
+//    @FindBy(css = "label[for*='question-id-q328']")
+//    public WebElement sampleCollectionDateFieldLabel;
+
+    @FindBy(xpath = "//input[@placeholder='DD']")
+    public WebElement sampleCollectionDay;
+    @FindBy(xpath = "//input[@placeholder='MM']")
+    public WebElement sampleCollectionMonth;
+    @FindBy(xpath = "//input[@placeholder='YYYY']")
+    public WebElement sampleCollectionYear;
+
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q327')]")
     public WebElement sampleCommentsField;
@@ -305,11 +313,12 @@ public class SamplesPage {
     }
 
     public void selectSampleCollectionDate() {
-        Wait.forElementToBeDisplayed(driver, sampleCollectionDateField);
         sampleDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
         sampleDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         sampleDetails.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-        Actions.fillInValue(sampleCollectionDateField, sampleDetails.getDay() + "/" + sampleDetails.getMonth() + "/" + sampleDetails.getYear());
+        seleniumLib.sendValue(sampleCollectionDay,sampleDetails.getDay());
+        seleniumLib.sendValue(sampleCollectionMonth,sampleDetails.getMonth());
+        seleniumLib.sendValue(sampleCollectionYear,sampleDetails.getYear());
     }
 
     public String fillInSampleComments() {
@@ -584,10 +593,10 @@ public class SamplesPage {
     }
 
     public boolean verifyTheElementsOnAddSampleDetailsForSampleNonTumourType() {
-        Wait.forElementToBeDisplayed(driver, sampleCollectionDateField);
         List<WebElement> expElements = new ArrayList<WebElement>();
-        expElements.add(sampleCollectionDateField);
-        expElements.add(sampleCollectionDateFieldLabel);
+        expElements.add(sampleCollectionDay);
+        expElements.add(sampleCollectionMonth);
+        expElements.add(sampleCollectionYear);
         expElements.add(sampleCommentsField);
         expElements.add(sampleCommentsFieldLabel);
         for(int i=0; i<expElements.size(); i++){
@@ -610,12 +619,14 @@ public class SamplesPage {
         expElements.add(tumourContentPercentageOfMalignantNucleiFieldLabel);
         expElements.add(numberOfSlidesField);
         expElements.add(numberOfSlidesFieldLabel);
-        expElements.add(sampleCollectionDateField);
-        expElements.add(sampleCollectionDateFieldLabel);
+        expElements.add(sampleCollectionDay);
+        expElements.add(sampleCollectionMonth);
+        expElements.add(sampleCollectionYear);
         expElements.add(sampleCommentsField);
         expElements.add(sampleCommentsFieldLabel);
         for(int i=0; i<expElements.size(); i++){
             if(!seleniumLib.isElementPresent(expElements.get(i))){
+                Debugger.println("Element: "+expElements.get(i)+" not present.");
                 return false;
             }
         }

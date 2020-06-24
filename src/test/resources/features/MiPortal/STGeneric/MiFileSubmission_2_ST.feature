@@ -4,7 +4,7 @@
 
 Feature: MIPORTAL ST - File Submission 2
 
-  @NTS-5190
+  @NTS-5190 @MI-LOGOUT
   Scenario Outline: NTS-5190:E2EUI-2770:When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -41,7 +41,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-4938
+  @NTS-4938 @MI-LOGOUT
   Scenario Outline: NTS-4938:E2EUI-2703: Verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -54,7 +54,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-4938
+  @NTS-4938 @MI-LOGOUT
   Scenario Outline: NTS-4938:E2EUI-2703: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -76,7 +76,7 @@ Feature: MIPORTAL ST - File Submission 2
       | File Submissions |
 
 
-  @NTS-4987
+  @NTS-4987 @MI-LOGOUT
   Scenario Outline: NTS-4987:E2EUI-2693:Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -130,7 +130,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5020
+  @NTS-5020 @MI-LOGOUT
   Scenario Outline: NTS-5020:E2EUI-2409: File Submissions - field_errors and field_warnings in search result table
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -152,7 +152,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5048
+  @NTS-5048 @MI-LOGOUT
     #@E2EUI-1634 ##To check as this involved drag and drop functionality
   Scenario Outline: NTS-5048 :As a user, I want to see the columns which are hidden by default in the File submissions section
     Given a web browser is at the mi-portal home page
@@ -210,7 +210,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5054
+  @NTS-5054 @MI-LOGOUT
   Scenario Outline: NTS-5054:E2EUI-2471:Sort file submissions results by created date descending
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -228,7 +228,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5027
+  @NTS-5027 @MI-LOGOUT
     #@E2EUI-1156
   Scenario Outline:NTS-5027:E2EUI-1156: As a user I want to arrange the column order the results displayed, so that I can analyse the data accordingly
     Given a web browser is at the mi-portal home page
