@@ -648,10 +648,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             errorMessage = TestUtils.removeAWord(errorMessage, "today");
             errorMessage = errorMessage + TestUtils.todayInDDMMYYYFormat();
         }
-
         Wait.forElementToBeDisplayed(driver, dobFieldValidationErrorMessageLabel);
-        Debugger.println("EXPECTED RESULT: " + errorMessage);
-        Debugger.println("ACTUAL RESULT  : " + dobFieldValidationErrorMessageLabel.getText());
         Assert.assertEquals(errorMessage, dobFieldValidationErrorMessageLabel.getText());
         String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
         Assert.assertEquals(expectedFontColor, dobFieldValidationErrorMessageLabel.getCssValue("color"));

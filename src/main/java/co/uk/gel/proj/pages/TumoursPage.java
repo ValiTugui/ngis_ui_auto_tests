@@ -213,22 +213,32 @@ public class TumoursPage {
         }
     }
 
-    public void fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
-        dateYear.sendKeys(yearOfDiagnosis);
-        dateDay.sendKeys(dayOfDiagnosis);
-        dateMonth.sendKeys(monthOfDiagnosis);
+    public String fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+       try{
+           seleniumLib.sendValue(dateYear,yearOfDiagnosis);
+           seleniumLib.sendValue(dateDay,dayOfDiagnosis);
+           seleniumLib.sendValue(dateMonth,monthOfDiagnosis);
+           return "Success";
+        }catch(Exception exp){
+           Debugger.println("Exception in filling Diagnosis Date:"+exp+"\n"+driver.getCurrentUrl());
+           return "Exception in filling Diagnosis Date:"+exp;
+       }
     }
 
     public boolean fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
         try {
             if (dayOfDiagnosis != null && !dayOfDiagnosis.isEmpty()) {
-                dateDay.sendKeys(dayOfDiagnosis);
+                seleniumLib.sendValue(dateDay,dayOfDiagnosis);
+
             }
             if (monthOfDiagnosis != null && !monthOfDiagnosis.isEmpty()) {
-                dateMonth.sendKeys(monthOfDiagnosis);
+                seleniumLib.sendValue(dateMonth,monthOfDiagnosis);
             }
             if (yearOfDiagnosis != null && !yearOfDiagnosis.isEmpty()) {
-                dateYear.sendKeys(yearOfDiagnosis);
+                seleniumLib.sendValue(dateYear,yearOfDiagnosis);
+                if(yearOfDiagnosis.length() < 4){
+                    seleniumLib.clickOnWebElement(dateMonth);//To move out focus from year
+                }
             }
             return true;
         } catch (Exception exp) {

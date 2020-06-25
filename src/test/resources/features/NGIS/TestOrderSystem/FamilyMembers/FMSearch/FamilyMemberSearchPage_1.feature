@@ -107,7 +107,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          | patient-search-type | NhsNumber  | DOB        | error_message                  |
       | Family members | NGIS                | 9449305099 | 32-03-2011 | Enter a day between 1 and 31   |
       | Family members | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12 |
-      | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900       |
+      | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year after 1900       |
 
 
   @NTS-4722 @Z-LOGOUT
