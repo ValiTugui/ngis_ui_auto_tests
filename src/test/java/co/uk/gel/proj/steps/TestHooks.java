@@ -92,6 +92,11 @@ public class TestHooks extends Pages {
         homePage.logOutFromApplication();
     }
 
+    @After("@MI-LOGOUT")
+    public void logOutFromMI(Scenario scenario) {
+        miPortalHomePage.logOutFromMIPortal();
+    }
+
     @After("@CLEANUP")
     public void cleanUp() {
      //   driver = null;

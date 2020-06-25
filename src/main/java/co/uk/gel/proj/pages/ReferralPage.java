@@ -696,7 +696,7 @@ public class ReferralPage<check> {
                 }
             }
             if (!isPresent) {
-                Debugger.println("ErrorMessage:" + errorMessage + ", not displayed in :" + expectedFontColor);
+                Debugger.println("ErrorMessage:" + errorMessage + ", not displayed in :" + expectedFontColor+",Actual:"+actColor);
                 SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
             }
             return isPresent;
@@ -1055,14 +1055,14 @@ public class ReferralPage<check> {
     public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
         try {
             List actualFieldsLabels = getTheFieldsLabelsOnCurrentPage();
-            Debugger.println("Actual fields labels on page :" + actualFieldsLabels);
+            //Debugger.println("Actual fields labels on page :" + actualFieldsLabels);
             for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
-                Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
+                //Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
                 Assert.assertTrue(actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader")));
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from getting field labels." + exp);
+            Debugger.println("Exception from getting field labels." + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fields-labels.jpg");
             return false;
         }
@@ -2063,8 +2063,10 @@ public class ReferralPage<check> {
         }
     }
 
-    public void saveReferralID() {
+    public void saveReferralID(String tagName) {
         SeleniumLib.writeToJsonFile(referralHeaderReferralId.getText());
+        String referralID = tagName + "     -->     " + referralHeaderReferralId.getText() + "\n";
+        SeleniumLib.writeToTextFile(referralID);
     }
 
     public boolean verifyStageHasNoStatusIndicator(String stage) {

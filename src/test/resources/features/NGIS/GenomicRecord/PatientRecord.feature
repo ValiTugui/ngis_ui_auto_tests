@@ -1,5 +1,3 @@
-#@regression
-#@patientSearchNGIS
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient Record
@@ -118,7 +116,7 @@ Feature: GenomicRecord: Patient Record
       | labelHeader                    | errorMessageHeader                  | messageColourHeader |
       | First name ✱                   | First name is required.             | #dd2509             |
       | Last name ✱                    | Last name is required.              | #dd2509             |
-      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
+      | Date of birth ✱                | Enter a month between 1 and 12          | #dd2509             |
       | Gender ✱                       | Gender is required.                 | #dd2509             |
       | Life status ✱                  | Life status is required.            | #dd2509             |
       | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
@@ -127,7 +125,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                        | InvalidDateOfBirth |
-      | Create a record for this patient | Jan012020          |
+      | Create a record for this patient | 10-13-2020          |
 
 # Ethnicity is now Mandatory
   @NTS-4500 @Z-LOGOUT

@@ -47,6 +47,7 @@ public class SeleniumLib {
     public static String ParentWindowID = null;
     static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
     static String referralFileName = "Referrals.json";
+    static String referralTextFileName = "ReferralID.txt";
 
     public SeleniumLib(WebDriver driver) {
         SeleniumLib.driver = driver;
@@ -207,7 +208,7 @@ public class SeleniumLib {
             element.clear();
             element.sendKeys(value);
         } catch (Exception exp) {
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+            WebDriverWait wait = new WebDriverWait(driver, 20);
             element = wait.until(ExpectedConditions.elementToBeClickable(element));
             element.sendKeys(value);
         }
@@ -370,6 +371,7 @@ public class SeleniumLib {
 
     public boolean isElementPresent(WebElement element) {
         try {
+            sleepInSeconds(5);
             element.isDisplayed();
             return true;
         } catch (NoSuchElementException e) {
@@ -737,6 +739,17 @@ public class SeleniumLib {
             gson.toJson(referrals, Referrals.class, jw);
             file.close();
         } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeToTextFile (String dataToWrite) {
+        try {
+            FileWriter file = new FileWriter(referralTextFileName, true);
+            file.write(dataToWrite);
+            file.close();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

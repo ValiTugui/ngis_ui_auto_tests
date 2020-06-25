@@ -1,4 +1,3 @@
-#@patientSearchNGIS
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient search page_NGIS
@@ -15,7 +14,7 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then the NHS number field is displayed
     When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "NGIS patient record created"
+    Then the patient is successfully updated with a message "NGIS patient record created"
     When the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
@@ -126,10 +125,10 @@ Feature: GenomicRecord: Patient search page_NGIS
     And the user search for the new patient using date of birth, first name, last name, gender and post-code
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned
-    And the correct details of the "<patient-search-type>" patient are displayed in the card
+    And the correct details of the "<patient-type>" patient are displayed in the card
     Examples:
-      | stage           | patient-search-type | patient-type |
-      | Patient details | NGIS                | NGIS         |
+      | stage           | patient-type |
+      | Patient details | NGIS         |
 
   @NTS-4503 @Z-LOGOUT
 #      @E2EUI-1130

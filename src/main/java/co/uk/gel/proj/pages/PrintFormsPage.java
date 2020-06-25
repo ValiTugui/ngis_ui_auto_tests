@@ -10,6 +10,7 @@ import co.uk.gel.proj.util.TestUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -327,20 +328,36 @@ public class PrintFormsPage {
     }
 
     public boolean validatePDFContent(String expText, String fileName) {
-        if (fileName.endsWith(".zip")) {
-            if (!TestUtils.extractZipFile(fileName)) {
-                Debugger.println("Could not extract the zip file: " + fileName);
-                return false;
-            }
-        }
         PDDocument document = null;
         String[] textList = null;
-        if (!expText.contains(",")) {
-            textList = new String[]{expText};
-        } else {
-            textList = expText.split(",");
-        }
         try {
+
+            if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
+                Debugger.println("validatePDFContent: COPYING DOWNLOADED FILE FROM BROWSER STACK..."+fileName);
+                JavascriptExecutor javascript = (JavascriptExecutor) driver;
+                // get file content. The content is Base64 encoded
+                String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                //decode the content to Base64
+                byte[] data = Base64.getDecoder().decode(base64EncodedFile);
+                OutputStream stream = new FileOutputStream(defaultDownloadLocation+"SampleForm.pdf");
+                stream.write(data);
+                stream.close();
+//                driver.quit();
+            }
+            SeleniumLib.sleepInSeconds(5);
+            if (fileName.endsWith(".zip")) {
+                if (!TestUtils.extractZipFile(fileName)) {
+                    Debugger.println("Could not extract the zip file: " + fileName);
+                    return false;
+                }
+            }
+
+            if (!expText.contains(",")) {
+                textList = new String[]{expText};
+            } else {
+                textList = expText.split(",");
+            }
+
             //creating path for the downloaded pdf file
             String pathToFile = defaultDownloadLocation + fileName;
             File fileLocation = new File(pathToFile);
@@ -506,6 +523,18 @@ public class PrintFormsPage {
     public boolean extractAndValidateZipFile(String fileName) {
         try {
             Wait.seconds(15); //wait for zip file download completion
+            if(SeleniumLib.skipIfBrowserStack("BROWSERSTACK")){
+                Debugger.println("extractAndValidateZipFile: COPYING DOWNLOADED FILE FROM BROWSER STACK..."+fileName);
+                JavascriptExecutor javascript = (JavascriptExecutor) driver;
+                // get file content. The content is Base64 encoded
+                String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \""+fileName+"\"}}");
+                //decode the content to Base64
+                byte[] data = Base64.getDecoder().decode(base64EncodedFile);
+                OutputStream stream = new FileOutputStream(defaultDownloadLocation+"SampleForm.pdf");
+                stream.write(data);
+                stream.close();
+//                driver.quit();
+            }
             if (fileName.endsWith(".zip")) {
                 if (!TestUtils.extractZipFile(fileName)) {
                     Debugger.println("Could not extract the zip file: " + fileName);

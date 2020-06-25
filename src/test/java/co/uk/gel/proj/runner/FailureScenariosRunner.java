@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
         features = {"@target/generated-test-sources/rerun.txt"},
         plugin = {"pretty", "json:target/cucumber-parallel/rerun.json"},
         monochrome = false,
-        tags = {"@test"},
         glue = {"co.uk.gel.proj.steps"})
 
 public class FailureScenariosRunner {

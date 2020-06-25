@@ -189,10 +189,10 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
         List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
         List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
-
+        if(actualListOfColumnHeaders == null || actualListOfColumnHeaders.size() == 0){
+            Assert.fail("Search Results not displayed.");
+        }
         for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
-            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
             Assert.assertFalse(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
         }
     }
