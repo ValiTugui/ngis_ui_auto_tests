@@ -1093,7 +1093,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean fillInNewPatientDetailsInTheNoFields() {
         try {
-            Wait.forElementToBeDisplayed(driver, dateDay);
             seleniumLib.sendValue(dateDay,newPatient.getDay());
             seleniumLib.sendValue(dateMonth,newPatient.getMonth());
             seleniumLib.sendValue(dateYear,newPatient.getYear());
@@ -1107,7 +1106,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
              return true;
         }catch(Exception exp){
-            Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:"+exp);
+            Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fillInNewPatientDetailsInTheNoFields.jpg");
             return false;
         }
@@ -1115,12 +1114,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean fillInNewPatientDetailsInTheNoFieldsWithEditedGender(String editedGender) {
         try {
-            Wait.forElementToBeDisplayed(driver, dateDay);
+
             seleniumLib.sendValue(dateDay,newPatient.getDay());
             seleniumLib.sendValue(dateMonth,newPatient.getMonth());
             seleniumLib.sendValue(dateYear,newPatient.getYear());
             seleniumLib.sendValue(firstName,newPatient.getFirstName());
-            seleniumLib.sendValue(familyName,newPatient.getLastName());
+            try {
+                seleniumLib.sendValue(lastName, newPatient.getLastName());
+            }catch(Exception exp1){
+                seleniumLib.sendValue(familyName, newPatient.getLastName());
+            }
+
             seleniumLib.clickOnWebElement(genderButton);
             seleniumLib.clickOnElement(By.xpath("//span[text()='"+editedGender+"']"));
             return true;
