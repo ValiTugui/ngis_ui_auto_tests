@@ -51,6 +51,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement firstName;
     @FindBy(xpath = "//input[@id='familyName']")
     public WebElement familyName;
+    @FindBy(xpath = "//input[@id='lastName']")
+    public WebElement lastName;
     @FindBy(xpath = "//input[@id='postcode']")
     public WebElement postcode;
 
@@ -426,26 +428,30 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     case "DOB": {
                         String dobValue = paramNameValue.get(key);
                         String[] dobSplit = dobValue.split("-");
-                        dateDay.sendKeys(dobSplit[0]);
-                        dateMonth.sendKeys(dobSplit[1]);
-                        dateYear.sendKeys(dobSplit[2]);
+                        seleniumLib.sendValue(dateDay,dobSplit[0]);
+                        seleniumLib.sendValue(dateMonth,dobSplit[1]);
+                        seleniumLib.sendValue(dateYear,dobSplit[2]);
                         break;
                     }
                     case "FirstName": {
-                        firstName.sendKeys(paramNameValue.get(key));
-                        break;
+                        seleniumLib.sendValue(firstName,paramNameValue.get(key));
+                         break;
                     }
                     case "LastName": {
-                        familyName.sendKeys(paramNameValue.get(key));
+                        try {
+                            seleniumLib.sendValue(lastName, paramNameValue.get(key));
+                        }catch(Exception exp1) {
+                            seleniumLib.sendValue(familyName, paramNameValue.get(key));
+                        }
                         break;
                     }
                     case "Gender": {
-                        genderButton.click();
-                        genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                        seleniumLib.clickOnWebElement(genderButton);
+                        seleniumLib.clickOnElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']"));
                         break;
                     }
                     case "Postcode": {
-                        postcode.sendKeys(paramNameValue.get(key));
+                        seleniumLib.sendValue(postcode,paramNameValue.get(key));
                         break;
                     }
                 }
@@ -981,20 +987,24 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
             testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
             testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-            dateDay.sendKeys(testData.getDay());
-            dateMonth.sendKeys(testData.getMonth());
-            dateYear.sendKeys(testData.getYear());
-            testData.setFirstName(TestUtils.getRandomFirstName());
-            firstName.sendKeys(testData.getFirstName());
             testData.setLastName(TestUtils.getRandomLastName());
-            familyName.sendKeys(testData.getLastName());
-            Click.element(driver, genderButton);
-            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
+            testData.setFirstName(TestUtils.getRandomFirstName());
             testData.setPostCode(getRandomUKPostCode());
-            postcode.sendKeys(testData.getPostCode());
+            seleniumLib.sendValue(dateDay,testData.getDay());
+            seleniumLib.sendValue(dateMonth,testData.getMonth());
+            seleniumLib.sendValue(dateYear,testData.getYear());
+            seleniumLib.sendValue(firstName,testData.getFirstName());
+            try {
+                seleniumLib.sendValue(lastName, testData.getLastName());
+            }catch(Exception exp1){
+                seleniumLib.sendValue(familyName, testData.getLastName());
+            }
+            seleniumLib.clickOnWebElement(genderButton);
+            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
+            seleniumLib.sendValue(postcode,testData.getPostCode());
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from fillInInvalidPatientDetailsInTheNOFields:"+exp);
+            Debugger.println("Exception from fillInInvalidPatientDetailsInTheNOFields:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fillInInvalidPatientDetailsInTheNOFields.jpg");
             return false;
         }
@@ -1010,18 +1020,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
         try {
-            Wait.forElementToBeDisplayed(driver, nhsNumber);
-            if (!Wait.isElementDisplayed(driver, nhsNumber, 10)) {
+            if (!Wait.isElementDisplayed(driver, nhsNumber, 20)) {
                 Debugger.println("NHS number field not loaded for Searching the Patient.");
                 return false;
             }
-            nhsNumber.sendKeys(ngisPatient.getNHS_NUMBER());
-            dateDay.sendKeys(ngisPatient.getDAY_OF_BIRTH());
-            dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
-            dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
+            seleniumLib.sendValue(nhsNumber,ngisPatient.getNHS_NUMBER());
+            seleniumLib.sendValue(dateDay,ngisPatient.getDAY_OF_BIRTH());
+            seleniumLib.sendValue(dateMonth,ngisPatient.getMONTH_OF_BIRTH());
+            seleniumLib.sendValue(dateYear,ngisPatient.getYEAR_OF_BIRTH());
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from entering patient with NHS and DOB."+exp);
+            Debugger.println("Exception from entering patient with NHS and DOB."+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fillInNHSNumberAndDateOfBirth.jpg");
             return false;
         }
@@ -1089,11 +1098,14 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             seleniumLib.sendValue(dateMonth,newPatient.getMonth());
             seleniumLib.sendValue(dateYear,newPatient.getYear());
             seleniumLib.sendValue(firstName,newPatient.getFirstName());
-            seleniumLib.sendValue(familyName,newPatient.getLastName());
+            try {
+                seleniumLib.sendValue(lastName, newPatient.getLastName());
+            }catch(Exception exp1){
+                seleniumLib.sendValue(familyName, newPatient.getLastName());
+            }
             seleniumLib.clickOnWebElement(genderButton);
             seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
-            //Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
-            return true;
+             return true;
         }catch(Exception exp){
             Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:"+exp);
             SeleniumLib.takeAScreenShot("fillInNewPatientDetailsInTheNoFields.jpg");
@@ -1137,9 +1149,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void fillInNewPatientDetailsWithPostCodeInTheNoFields() {
-        fillInNewPatientDetailsInTheNoFields();
-        postcode.sendKeys(newPatient.getPostCode());
-        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() + " " +  newPatient.getPostCode());
+        if(fillInNewPatientDetailsInTheNoFields()) {
+            seleniumLib.sendValue(postcode,newPatient.getPostCode());
+        }
     }
     public String searchPatientReferral(NGISPatientModel referralDetails) {
        try {

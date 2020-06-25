@@ -626,6 +626,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("New Patient creation page not displayed properly.");
         }
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
+        Debugger.println("USER TYPE: "+userType);
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 if (!patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber)) {

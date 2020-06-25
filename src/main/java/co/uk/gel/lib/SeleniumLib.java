@@ -208,7 +208,7 @@ public class SeleniumLib {
             element.clear();
             element.sendKeys(value);
         } catch (Exception exp) {
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+            WebDriverWait wait = new WebDriverWait(driver, 20);
             element = wait.until(ExpectedConditions.elementToBeClickable(element));
             element.sendKeys(value);
         }

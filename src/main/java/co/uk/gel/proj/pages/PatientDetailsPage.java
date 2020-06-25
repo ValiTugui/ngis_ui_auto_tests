@@ -411,16 +411,24 @@ public class PatientDetailsPage {
     public boolean selectGender(WebElement element, String optionValue) {
         WebElement ddValue = null;
         try {
-            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            try {
+                Actions.clickElement(driver, element);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(element);
+            }
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(3);
             List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='administrativeGender']/..//div//span[text()='" + optionValue + "']"));
             //Debugger.println("Size of Gender DD elements: "+ddElements.size());
             if (ddElements.size() > 0) {
-                Wait.forElementToBeClickable(driver, ddElements.get(0));
-                Actions.clickElement(driver, ddElements.get(0));
-                Wait.seconds(2);
+                try {
+                    Wait.forElementToBeClickable(driver, ddElements.get(0));
+                    Actions.clickElement(driver, ddElements.get(0));
+                    Wait.seconds(2);
+                }catch(Exception exp1){
+                    seleniumLib.clickOnWebElement(ddElements.get(0));
+                }
             }
             return true;
         } catch (Exception exp) {
@@ -832,14 +840,11 @@ public class PatientDetailsPage {
 
     public boolean fillInAllFieldsNewPatientDetailsWithNHSNumber(String patientNameWithSpecialCharacters) {
         try {
-            Wait.forElementToBeDisplayed(driver, title);
+            Debugger.println("Yes..here.......");
             String patientTitle = "Mr";
             newPatient.setTitle(patientTitle);
-            title.sendKeys(patientTitle);
-
             String firstNameValue;
             String lastNameValue;
-
             if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
                 firstNameValue = TestUtils.getRandomFirstName().replaceFirst("[a-z]", "é");
                 lastNameValue = TestUtils.getRandomLastName().concat("müller");
@@ -847,42 +852,40 @@ public class PatientDetailsPage {
                 firstNameValue = TestUtils.getRandomFirstName();
                 lastNameValue = TestUtils.getRandomLastName();
             }
-
             newPatient.setFirstName(firstNameValue);
-            Actions.fillInValue(firstName, newPatient.getFirstName());
             newPatient.setLastName(lastNameValue);
-            Actions.fillInValue(familyName, newPatient.getLastName());
-
             String dayOfBirth = PatientSearchPage.testData.getDay();
             String monthOfBirth = PatientSearchPage.testData.getMonth();
             String yearOfBirth = PatientSearchPage.testData.getYear();
             newPatient.setDay(dayOfBirth);
             newPatient.setMonth(monthOfBirth);
             newPatient.setYear(yearOfBirth);
-
             String gender = "Male";
             newPatient.setGender(gender);
+            String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
+            newPatient.setNhsNumber(patientNhsNumber);
+            String hospitalId = faker.numerify("A#R##BB##");
+            newPatient.setPostCode(getRandomUKPostCode());
+            newPatient.setHospitalNumber(hospitalId);
+            String postcodeValue = newPatient.getPostCode();
+
+            title.sendKeys(patientTitle);
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            Actions.fillInValue(familyName, newPatient.getLastName());
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
             editDropdownField(ethnicityButton, "A - White - British");
-
-            String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
-            newPatient.setNhsNumber(patientNhsNumber);
             Actions.clickElement(driver, yesButton);
             Actions.clickElement(driver, nhsNumber);
             Actions.fillInValue(nhsNumber, patientNhsNumber);
             Actions.clickElement(driver, nhsNumberLabel);
 
-            String hospitalId = faker.numerify("A#R##BB##");
             Actions.fillInValue(hospitalNumber, hospitalId);
             Actions.fillInValue(addressLine0, faker.address().buildingNumber());
             Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
             Actions.fillInValue(addressLine2, faker.address().streetName());
             Actions.fillInValue(addressLine3, faker.address().cityName());
             Actions.fillInValue(addressLine4, faker.address().state());
-            newPatient.setPostCode(getRandomUKPostCode());
-            newPatient.setHospitalNumber(hospitalId);
-            String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
 
             Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
