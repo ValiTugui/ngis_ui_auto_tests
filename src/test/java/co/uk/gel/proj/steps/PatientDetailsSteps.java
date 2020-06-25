@@ -470,8 +470,8 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user fills in the date of birth {string}")
     public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
-        //Actions.fillInValue(patientDetailsPage.dateOfBirthDay, dateOfBirth);
-
+        String stepResult = patientDetailsPage.fillDateOfBirth(dateOfBirth);
+        Assert.assertEquals("Success",stepResult);
     }
 
     @And("the date of death input field is displayed")

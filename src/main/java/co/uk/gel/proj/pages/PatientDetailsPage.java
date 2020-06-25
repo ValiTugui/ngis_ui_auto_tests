@@ -1380,13 +1380,27 @@ public class PatientDetailsPage {
             if(!newPatient.getGender().equalsIgnoreCase(actualGender)){
                 return "Expected Gender: "+newPatient.getGender()+",But Actual:"+actualGender;
             }
-            if(!newPatient.getNhsNumber().equalsIgnoreCase(actualNHSNumber)){
-                return "Expected NHSNumber: "+newPatient.getGender()+",But Actual:"+actualNHSNumber;
+            if(actualNHSNumber != null && !actualNHSNumber.isEmpty()) {
+                if (!newPatient.getNhsNumber().equalsIgnoreCase(actualNHSNumber)) {
+                    return "Expected NHSNumber: " + newPatient.getGender() + ",But Actual:" + actualNHSNumber;
+                }
             }
             return "Success";
         }catch(Exception exp){
             Debugger.println("Could not verify NGIS Patient Details:"+exp+"\n"+driver.getCurrentUrl());
             return "Could not verify NGIS Patient details:"+exp;
+        }
+    }
+    public String fillDateOfBirth(String dateOfBirth){
+        try {
+            String[] dobSplit = dateOfBirth.split("-");
+            seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+            seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+            seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
+            return "Could not fill Date Of Birth: "+exp;
         }
     }
 }//end

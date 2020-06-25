@@ -313,4 +313,4 @@ Feature: GenomicRecord: Patient details page 3
 
     Examples:
       | stage           | dateOfBirth |
-      | Patient details | 20/10/2010  |
+      | Patient details | 20-10-2010  |
