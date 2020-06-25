@@ -108,9 +108,6 @@ public class SamplesPage {
     @FindBy(css = "*[class*='add-sample__confirm-table']")
     public WebElement tumourDetailsTable;
 
-    @FindBy(xpath = "//*[contains(@class,'add-sample__confirm-table')]//child::td")
-    public WebElement tumourDetailsValues;
-
     @FindBy(css = "*[class*='error-message__text']")
     public List<WebElement> errorMessages;
 
@@ -224,13 +221,6 @@ public class SamplesPage {
     }
 
     public boolean selectSpecificSampleState(String sampleStateValue) {
-      /*
-        Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
-        // Counter for number of tries - loop for when intermittent error message is triggered upon selecting sample state
-        int numberOfAttempts = 5;
-        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver, fieldsLabelErrors, sampleState, sampleStateLabel, numberOfAttempts);
-        Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
-        sampleDetails.setSampleState(sampleStateValue); */
 
         try {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {

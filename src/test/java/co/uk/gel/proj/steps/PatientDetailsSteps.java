@@ -349,9 +349,11 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
-        patientDetailsPage.dateOfBirth.click();
+       // patientDetailsPage.dateOfBirth.click();
         Wait.seconds(1);
-        Actions.clearInputField(patientDetailsPage.dateOfBirth);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthDay);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthMonth);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthYear);
     }
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
@@ -468,13 +470,14 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user fills in the date of birth {string}")
     public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
-        Actions.fillInValue(patientDetailsPage.dateOfBirth, dateOfBirth);
+        //Actions.fillInValue(patientDetailsPage.dateOfBirthDay, dateOfBirth);
+
     }
 
     @And("the date of death input field is displayed")
     public void theDateOfDeathInputFieldIsDisplayed() {
         boolean inputFieldStatus;
-        inputFieldStatus = Wait.isElementDisplayed(driver, patientDetailsPage.dateOfDeath, 10);
+        inputFieldStatus = Wait.isElementDisplayed(driver, patientDetailsPage.dateOfBirthDay, 10);
         Assert.assertTrue(inputFieldStatus);
     }
 
@@ -623,8 +626,10 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
         Actions.clearInputField(patientDetailsPage.familyName);
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
-        patientDetailsPage.dateOfBirth.click();
-        Actions.clearInputField(patientDetailsPage.dateOfBirth);
+        //patientDetailsPage.dateOfBirth.click();
+        Actions.clearInputField(patientDetailsPage.dateOfBirthDay);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthMonth);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthYear);
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
         Wait.seconds(1);
@@ -656,8 +661,10 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
         Actions.clearInputField(patientDetailsPage.familyName);
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
-        patientDetailsPage.dateOfBirth.click();
-        Actions.clearInputField(patientDetailsPage.dateOfBirth);
+        //patientDetailsPage.dateOfBirth.click();
+        Actions.clearInputField(patientDetailsPage.dateOfBirthDay);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthMonth);
+        Actions.clearInputField(patientDetailsPage.dateOfBirthYear);
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
         Wait.seconds(1);

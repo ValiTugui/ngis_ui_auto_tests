@@ -37,15 +37,26 @@ public class PatientDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
+    @FindBy(xpath = "//input[@id='title']")
     public WebElement title;
+    @FindBy(xpath = "//input[@id='firstName']")
     public WebElement firstName;
+    @FindBy(xpath = "//input[@id='familyName']")
     public WebElement familyName;
-    public WebElement lastName;
-    public WebElement dateOfBirth;
-    public WebElement dateOfDeath;
+    @FindBy(xpath = "//input[@id='dateOfBirthDay']")
+    public WebElement dateOfBirthDay;
+    @FindBy(xpath = "//input[@id='dateOfBirthMonth']")
+    public WebElement dateOfBirthMonth;
+    @FindBy(xpath = "//input[@id='dateOfBirthYear']")
+    public WebElement dateOfBirthYear;
+
+   // public WebElement dateOfDeath;
     public WebElement nhsNumber;
+    @FindBy(xpath = "//input[@id='hospitalNumber']")
     public WebElement hospitalNumber;
+    @FindBy(xpath = "//input[@id='postcode']")
     public WebElement postcode;
+    @FindBy(xpath = "//textarea[@id='otherReasonExplanation']")
     public WebElement otherReasonExplanation;
 
     @FindBy(css = "h1[class*='page-title']")
@@ -54,41 +65,11 @@ public class PatientDetailsPage {
     @FindBy(css = "p[class*='sub-title']")
     public WebElement subPageTitle;
 
-    @FindBy(css = "label[for*='dateOfBirth']")
-    public WebElement dateOfBirthLabel;
-
-    @FindBy(css = "label[for*='title']")
-    public WebElement titleLabel;
-
-    @FindBy(css = "label[for*='firstName']")
-    public WebElement firstnameLabel;
-
-    @FindBy(css = "label[for*='familyName']")
-    public WebElement familyNameLabel;
-
-    @FindBy(css = "label[for*='administrativeGender']")
-    public WebElement administrativeGenderLabel;
-
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(css = "label[for*='lifeStatus']")
-    public WebElement lifeStatusLabel;
-
-    @FindBy(css = "label[for*='ethnicity']")
-    public WebElement ethnicityLabel;
-
     @FindBy(css = "label[for*='nhsNumber']")
     public WebElement nhsNumberLabel;
-
-    @FindBy(css = "label[for*='hospitalNumber']")
-    public WebElement hospitalNumberLabel;
-
-    @FindBy(css = "label[for*='address']")
-    public WebElement addressLabel;
-
-    @FindBy(css = "label[for*='postcode']")
-    public WebElement postcodeLabel;
 
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
@@ -107,9 +88,6 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
     public WebElement ethnicityButton;
-
-    @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'indicatorContainer')]")
-    public List<WebElement> ethnicityIndicators;
 
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipButton;
@@ -133,16 +111,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")
     public WebElement createRecord;
 
-
-    @FindBy(xpath = "//button[text()='Update NGIS record']")
-    public List<WebElement> updateNGISRecordButtonList;
-
-    @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
-    public List<WebElement> savePatientDetailsToNGISButtonList;
-
-    @FindBy(xpath = "//button[text()='Add details to NGIS']")
-    public List<WebElement> addDetailsToNGISButtonList;
-
     @FindBy(xpath = "//button[@type='submit']/span[text()='Start referral']")
     public WebElement startReferralButton;
 
@@ -156,12 +124,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement startNewReferralButton;
 
-    //@FindBy(css = "*[data-testid*='notification-success']")
     @FindBy(xpath = "//div[@data-testid='notification-success']//span")
     public WebElement successNotification;
-
-    @FindBy(xpath = "//*[text()='Go back to patient search']")
-    public WebElement goBackToPatientSearchLink;
 
     @FindBy(css = "a[class*='referral-list']")
     public List<WebElement> referralListCards;
@@ -328,14 +292,15 @@ public class PatientDetailsPage {
             String yearOfBirth = PatientSearchPage.testData.getYear();
 
             // Date of Birth field will always be empty when accessing the New Patient "test-order/new-patient" directly
-            if (Actions.getValue(dateOfBirth).isEmpty()) {
-                Debugger.println("Before: Date of Birth field empty: " + Actions.getValue(dateOfBirth));
+            String dobDay = seleniumLib.getText(dateOfBirthDay);
+            if (dobDay == null || dobDay.isEmpty()) {
                 dayOfBirth = String.valueOf(faker.number().numberBetween(10, 31));
                 monthOfBirth = String.valueOf(faker.number().numberBetween(10, 12));
                 yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
-                Actions.fillInValue(dateOfBirth, dayOfBirth + "/" + monthOfBirth + "/" + yearOfBirth);
-                Debugger.println("After: Date of Birth field empty: " + Actions.getValue(dateOfBirth));
-            }
+                seleniumLib.sendValue(dateOfBirthDay,dayOfBirth);
+                seleniumLib.sendValue(dateOfBirthMonth,monthOfBirth);
+                seleniumLib.sendValue(dateOfBirthYear,yearOfBirth);
+             }
 
             newPatient.setDay(dayOfBirth);
             newPatient.setMonth(monthOfBirth);
@@ -348,7 +313,6 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            Actions.fillInValue(dateOfDeath, "01/01/2015");
             editDropdownField(ethnicityButton, "A - White - British");
             Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
             return true;
@@ -405,7 +369,9 @@ public class PatientDetailsPage {
             newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
             Actions.fillInValue(firstName, newPatient.getFirstName());
             Actions.fillInValue(familyName, newPatient.getLastName());
-            Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+            seleniumLib.sendValue(dateOfBirthDay,newPatient.getDay());
+            seleniumLib.sendValue(dateOfBirthMonth,newPatient.getMonth());
+            seleniumLib.sendValue(dateOfBirthYear,newPatient.getYear());
             selectGender(administrativeGenderButton, "Male");
             editDropdownField(lifeStatusButton, "Alive");
             editDropdownField(ethnicityButton, "B - White - Irish");
@@ -723,8 +689,8 @@ public class PatientDetailsPage {
 
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
         String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
-        Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
-        Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
+        String actualDOB = seleniumLib.getText(dateOfBirthDay)+"/"+seleniumLib.getText(dateOfBirthMonth)+"/"+seleniumLib.getText(dateOfBirthYear);
+        Assert.assertEquals(DOB, actualDOB);
     }
 
     public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
@@ -898,7 +864,6 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
-            Actions.fillInValue(dateOfDeath, "01/01/2015");
             editDropdownField(ethnicityButton, "A - White - British");
 
             String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
@@ -1383,6 +1348,42 @@ public class PatientDetailsPage {
             Debugger.println("Exception from checking the postcode format in address:"+exp);
             SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
             return false;
+        }
+    }
+
+    public String verifyPatientDetails_NGIS(){
+        try {
+            String actualPrefix = title.getAttribute("value");
+            String actualFirstName = firstName.getAttribute("value");
+            String actualLastName = familyName.getAttribute("value");
+            String actualFullDOB = dateOfBirthDay.getAttribute("value") + "/" + dateOfBirthMonth.getAttribute("value") + "/" + dateOfBirthYear.getAttribute("value");
+            String actualGender = administrativeGenderButton.getText().trim();
+            String actualNHSNumber = nhsNumber.getAttribute("value");
+
+            NewPatient newPatient = getNewlyCreatedPatientData();
+            String expectedDOB = newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear();
+            if(!newPatient.getTitle().equalsIgnoreCase(actualPrefix)){
+                return "Expected Prefix: "+newPatient.getTitle()+",But Actual:"+actualPrefix;
+            }
+            if(!newPatient.getFirstName().equalsIgnoreCase(actualFirstName)){
+                return "Expected FirstName: "+newPatient.getFirstName()+",But Actual:"+actualFirstName;
+            }
+            if(!newPatient.getLastName().equalsIgnoreCase(actualLastName)){
+                return "Expected LastName: "+newPatient.getLastName()+",But Actual:"+actualLastName;
+            }
+            if(!expectedDOB.equalsIgnoreCase(actualFullDOB)){
+                return "Expected DOB: "+actualFullDOB+",But Actual:"+actualFullDOB;
+            }
+            if(!newPatient.getGender().equalsIgnoreCase(actualGender)){
+                return "Expected Gender: "+newPatient.getGender()+",But Actual:"+actualGender;
+            }
+            if(!newPatient.getNhsNumber().equalsIgnoreCase(actualNHSNumber)){
+                return "Expected NHSNumber: "+newPatient.getGender()+",But Actual:"+actualNHSNumber;
+            }
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not verify NGIS Patient Details:"+exp+"\n"+driver.getCurrentUrl());
+            return "Could not verify NGIS Patient details:"+exp;
         }
     }
 }//end

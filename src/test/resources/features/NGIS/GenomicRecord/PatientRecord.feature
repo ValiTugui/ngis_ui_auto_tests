@@ -1,5 +1,4 @@
-#@regression
-#@patientSearchNGIS
+@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient Record

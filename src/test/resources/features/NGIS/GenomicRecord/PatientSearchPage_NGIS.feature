@@ -1,4 +1,4 @@
-#@patientSearchNGIS
+@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient search page_NGIS

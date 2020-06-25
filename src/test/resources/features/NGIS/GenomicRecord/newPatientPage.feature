@@ -1,5 +1,4 @@
-#@regression
-#@newPatientPage
+@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: New Patient page

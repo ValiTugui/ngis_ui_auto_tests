@@ -1,5 +1,4 @@
-#@regression
-#@patientDetails
+@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 1
