@@ -339,36 +339,36 @@ public class TumoursPage {
     }
 
     public void answerTumourDiagnosisQuestionsBasedOnTumourType(String tumourType, String diagnosis) {
-
+        Debugger.println("URL : "+driver.getCurrentUrl()+"\n"+tumourType+"\n"+diagnosis);
         switch (tumourType) {
             case "Solid tumour: metastatic": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: primary": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: unknown":
             case "Brain tumour": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
@@ -376,7 +376,7 @@ public class TumoursPage {
             case "Haematological malignancy: liquid sample":
             case "Haematological malignancy: solid sample": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }

@@ -47,7 +47,10 @@ Feature: MIPORTAL ST -  Glh Samples
 
   @NTS-5036
    # @E2EUI-2486
-  Scenario: NTS-5036:E2EUI-2486: The GLH Samples section is having a new Filename filter
+  Scenario Outline: NTS-5036:E2EUI-2486: The GLH Samples section is having a new Filename filter
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Batch Import Filename as the glh search column dropdown
     And the user selects matches as the glh search operator dropdown
     And the user enters gel in the glh search value box
@@ -57,9 +60,15 @@ Feature: MIPORTAL ST -  Glh Samples
     Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
 
+    Examples:
+      | mi_stage    |
+      | GLH Samples |
   @NTS-5178
     #@E2EUI-2771
-  Scenario: NTS-5178:E2EUI-2771: In GLH Samples section the Batch Import Filename now correctly filters results
+  Scenario Outline: NTS-5178:E2EUI-2771: In GLH Samples section the Batch Import Filename now correctly filters results
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Batch Import Filename as the glh search column dropdown
     And the user selects matches as the glh search operator dropdown
     And the user enters gel in the glh search value box
@@ -68,3 +77,7 @@ Feature: MIPORTAL ST -  Glh Samples
     When the user click on the Search button
     Then search results are displayed in table format with display options button
     And the glh search result table column gel1001 Filename is displayed with data gel
+
+    Examples:
+      | mi_stage    |
+      | GLH Samples |

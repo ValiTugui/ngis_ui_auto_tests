@@ -2063,8 +2063,10 @@ public class ReferralPage<check> {
         }
     }
 
-    public void saveReferralID() {
+    public void saveReferralID(String tagName) {
         SeleniumLib.writeToJsonFile(referralHeaderReferralId.getText());
+        String referralID = tagName + "     -->     " + referralHeaderReferralId.getText() + "\n";
+        SeleniumLib.writeToTextFile(referralID);
     }
 
     public boolean verifyStageHasNoStatusIndicator(String stage) {

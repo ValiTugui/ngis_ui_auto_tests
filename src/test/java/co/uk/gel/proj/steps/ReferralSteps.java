@@ -678,7 +678,7 @@ public class ReferralSteps extends Pages {
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralSubmitted");
         }
-        referralPage.saveReferralID();
+        referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
     }
 
     @Then("the submission confirmation message {string} is displayed")

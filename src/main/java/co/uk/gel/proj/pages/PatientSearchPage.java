@@ -1064,13 +1064,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String noResultText;
         try {
             if(!Wait.isElementDisplayed(driver, noPatientFoundLabel,120)){
-                Debugger.println("Search Result not displayed."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("NoSearchResult.jpg");
-                return null;
+                By searchResult = By.xpath("//h3[contains(@class, 'no-results')]");
+                noResultText = seleniumLib.getText(searchResult);
+                return noResultText;
             }
-            noResultText = Actions.getText(noPatientFoundLabel);
-            //Debugger.println("No result " + noResultText);
-            return noResultText;
+            return "No patient found";
         } catch (Exception exp) {
             Debugger.println("Oops no patient text found " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("NoPatientTextFound.jpg");

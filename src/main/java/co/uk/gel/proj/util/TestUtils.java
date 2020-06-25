@@ -465,16 +465,16 @@ public class TestUtils {
         return numFound;
     }
     public static String getNtsTag(String fullTagName){
-        Debugger.println("FullTag:"+fullTagName);
+        //Debugger.println("FullTag:"+fullTagName);
         String ntsTag = "";
         String[] tags = fullTagName.split(",");
         if(tags != null){
             for(int i=0; i<tags.length; i++){
-                Debugger.println("Tag:"+tags[i]);
+                //Debugger.println("Tag:"+tags[i]);
                 if(tags[i].contains("NTS")){
                     ntsTag = tags[i].replaceAll("@","");
                     ntsTag = ntsTag.replaceAll("]","");
-                    Debugger.println("Here is NTS:"+ntsTag);
+                    //Debugger.println("Here is NTS:"+ntsTag);
                     return ntsTag.trim();
                 }
             }

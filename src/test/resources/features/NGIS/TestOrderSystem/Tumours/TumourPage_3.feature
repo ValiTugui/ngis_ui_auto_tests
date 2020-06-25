@@ -26,6 +26,7 @@ Feature: Tumours Page - 3
       | Tumours | Solid tumour: primary                    | Recurrence         | test       | Tumour added     |
       | Tumours | Solid tumour: unknown                    | Unknown            | test       | Tumour added     |
 
+  #Split to separate based on jenkins run failure
   @NTS-3255 @Z-LOGOUT
 #    @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098
   Scenario Outline: NTS-3255:E2EUI-993,1325,1078,1098: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
@@ -45,9 +46,7 @@ Feature: Tumours Page - 3
 
     Examples:
       | stage   | tumour_type                              | presentationType   | searchTerm | notificationText |
-      | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
-      | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 
   @NTS-3171 @Z-LOGOUT
 #    @E2EUI-2145
