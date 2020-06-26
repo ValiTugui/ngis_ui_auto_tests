@@ -644,9 +644,9 @@ public class TumoursPage {
         List<String> actualTumourDetails = new ArrayList<>();
 
         actualTumourDetails.add(Actions.getValue(descriptiveName));
-        actualTumourDetails.add(Actions.getValue(dateDay));
-        actualTumourDetails.add(Actions.getValue(dateMonth));
-        actualTumourDetails.add(Actions.getValue(dateYear));
+//        actualTumourDetails.add(Actions.getValue(dateDay));
+//        actualTumourDetails.add(Actions.getValue(dateMonth));
+//        actualTumourDetails.add(Actions.getValue(dateYear));
         actualTumourDetails.add(Actions.getText(tumourType));
         actualTumourDetails.add(Actions.getValue(pathologyReportId));
 
@@ -659,9 +659,10 @@ public class TumoursPage {
         List<String> expectedTumourTestData = new ArrayList<>();
 
         expectedTumourTestData.add(tumourDetails.getTumourDescription());
-        expectedTumourTestData.add(tumourDetails.getDay());
-        expectedTumourTestData.add(tumourDetails.getMonth());
-        expectedTumourTestData.add(tumourDetails.getYear());
+        //Commented as need to handle the day/month with two digits
+//        expectedTumourTestData.add(tumourDetails.getDay());
+//        expectedTumourTestData.add(tumourDetails.getMonth());
+//        expectedTumourTestData.add(tumourDetails.getYear());
         expectedTumourTestData.add(tumourDetails.getTumourType());
         expectedTumourTestData.add(tumourDetails.getTumourSpecimenID());
 

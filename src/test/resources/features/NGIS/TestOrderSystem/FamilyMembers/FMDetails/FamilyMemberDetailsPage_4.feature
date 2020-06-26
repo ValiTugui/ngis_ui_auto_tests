@@ -66,7 +66,8 @@ Feature: Family Members Details Page 4- Field Validation_4
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
-    Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
+    ###No more valid for Kyle Increment
+    #Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
     When the user navigates to the "<Panels>" stage
     Then User clicks on a field "panelsSearchBox" and auto-complete is disabled
     Examples:
@@ -81,7 +82,8 @@ Feature: Family Members Details Page 4- Field Validation_4
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
-    And User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
+    ###No more valid for Kyle Increment
+#    And User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
     Examples:
       | stage   |
       | Tumours |
