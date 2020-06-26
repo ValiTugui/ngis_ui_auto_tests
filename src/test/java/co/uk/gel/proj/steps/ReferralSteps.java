@@ -890,6 +890,7 @@ public class ReferralSteps extends Pages {
 
     @And("^the mandatory fields shown with the symbol in red color$")
     public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {
+
         boolean testResult = false;
         List<List<String>> messageDetails = messages.asLists();
         for (int i = 1; i < messageDetails.size(); i++) {

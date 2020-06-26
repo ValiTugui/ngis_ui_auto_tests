@@ -240,8 +240,24 @@ public class ClinicalQuestionsPage {
         }
     }
 
+    public String retrySelectingDiagnosis(String diagnosis) {
+        try {
+            seleniumLib.sendValue(diagnosisValue,diagnosis);
+            seleniumLib.sleepInSeconds(3);
+            if(dropdownValues.size() > 0){
+                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            }
+            return "Success";
+        } catch (Exception exp) {
+            Debugger.println("Exception from searchAndSelectSpecificDiagnosis1:"+exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("RareDiseaseDiagnosis1.jpg");
+            return "Exception from searchAndSelectSpecificDiagnosis1:";
+        }
+    }
+
     public String searchAndSelectSpecificDiagnosis(String diagnosis) {
         try {
+
             if(!Wait.isElementDisplayed(driver, diagnosisValue,30)){
                 Debugger.println("diagnosisValue not present .\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("DiagnosisValue1.jpg");
@@ -636,18 +652,32 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificAgeOnSetYearsValue(String years) {
-        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
-        Debugger.println("ageOfOnsetYearsField : " + Actions.getValue(ageOfOnsetYearsField));
-        return Actions.getValue(ageOfOnsetYearsField).equalsIgnoreCase(years);
+        try {
+            Wait.seconds(3);
+            String actual = ageOfOnsetYearsField.getAttribute("value");
+            if(!actual.equalsIgnoreCase(years)){
+                Debugger.println("Expected AgeOfOnset Year:"+years+", But Actual:"+actual+"\n"+driver.getCurrentUrl());
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from Validating Age Of onset Year:"+exp+"\n"+driver.getCurrentUrl());
+            return false;
+        }
     }
 
     public boolean verifySpecificAgeOnSetMonthValue(String month) {
-        if(!Wait.isElementDisplayed(driver, ageOfOnsetMonthsField,30)){
-            Debugger.println("Expected ageOfOnsetMonthsField not loaded ");
+        try {
+            String actual = ageOfOnsetMonthsField.getAttribute("value");
+            if(!actual.equalsIgnoreCase(month)){
+                Debugger.println("Expected AgeOfOnset Month:"+month+", But Actual:"+actual+"\n"+driver.getCurrentUrl());
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from Validating Age Of onset Month:"+exp+"\n"+driver.getCurrentUrl());
             return false;
         }
-        Debugger.println("ageOfOnsetMonthsField : " + Actions.getValue(ageOfOnsetMonthsField));
-        return Actions.getValue(ageOfOnsetMonthsField).equalsIgnoreCase(month);
     }
 
     public boolean verifySpecificDiseaseStatusValue(String expectedDiseaseStatus) {

@@ -41,11 +41,17 @@ public class FamilyMemberDetailsPage {
     @FindBy(id = "familyName")
     public WebElement lastName;
 
-    @FindBy(xpath = "//label[contains(text(),'Date of birth')]")
+    @FindBy(xpath = "//legend[contains(text(),'Date of birth')]")
     public WebElement dobLabel;
 
-    @FindBy(id = "dateOfBirth")
-    public WebElement dobOfFamilyMember;
+    @FindBy(id = "dateOfBirthDay")
+    public WebElement dateOfBirthDayFM;
+
+    @FindBy(id = "dateOfBirthMonth")
+    public WebElement dateOfBirthMonthFM;
+
+    @FindBy(id = "dateOfBirthYear")
+    public WebElement dateOfBirthYearFM;
 
     @FindBy(xpath = "//label[text()='Gender']")
     public WebElement genderLabel;
@@ -759,6 +765,7 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyTheElementsOnFamilyMemberDetailsPage() {
+
         Wait.forElementToBeDisplayed(driver, pageTitleLabel);
         List<WebElement> expElements = new ArrayList<WebElement>();
         expElements.add(pageTitleLabel);
@@ -768,7 +775,9 @@ public class FamilyMemberDetailsPage {
         expElements.add(lastName);
         expElements.add(lastNameLabel);
         expElements.add(dobLabel);
-        expElements.add(dobOfFamilyMember);
+        expElements.add(dateOfBirthDayFM);
+        expElements.add(dateOfBirthMonthFM);
+        expElements.add(dateOfBirthYearFM);
         expElements.add(genderLabel);
         expElements.add(gender);
         expElements.add(lifeStatusLabel);
@@ -783,8 +792,10 @@ public class FamilyMemberDetailsPage {
         expElements.add(hospitalNumber);
         for (int i = 0; i < expElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                Debugger.println("Element: "+expElements.get(i)+" not present.");
                 return false;
             }
+            seleniumLib.elementHighlight(expElements.get(i));
         }
         return true;
     }
