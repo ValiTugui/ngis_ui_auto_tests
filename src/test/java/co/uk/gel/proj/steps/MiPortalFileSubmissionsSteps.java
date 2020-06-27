@@ -199,11 +199,9 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values")
     public void theUserSeesTheExpandPlusIconAtTheStartOfEachRowWhereItIsClickedToShowColumnNamesAndValues() {
-        boolean testResult = false;
-        Wait.seconds(5);
+        String testResult = "";
         testResult = miPortalFileSubmissionPage.verifyThePusIconAtTheStartOfEachRowAndClickToExpand();
-        Assert.assertTrue(testResult);
-
+        Assert.assertEquals("Success",testResult);
     }
 
     @And("the user see dates value in {string} column of file-submission search result in descending order")

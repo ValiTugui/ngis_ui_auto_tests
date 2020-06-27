@@ -1403,4 +1403,18 @@ public class PatientDetailsPage {
             return "Could not fill Date Of Birth: "+exp;
         }
     }
+    public String clearDateOfBirth(){
+        try {
+            if(!seleniumLib.isElementPresent(dateOfBirthDay)){
+                return "Date of birth fields not displayed.";
+            }
+            Actions.clearInputField(dateOfBirthDay);
+            Actions.clearInputField(dateOfBirthMonth);
+            Actions.clearInputField(dateOfBirthYear);
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not Clear Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
+            return "Could not Clear Date Of Birth: "+exp;
+        }
+    }
 }//end

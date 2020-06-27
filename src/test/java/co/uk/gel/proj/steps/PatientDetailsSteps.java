@@ -349,16 +349,13 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
-       // patientDetailsPage.dateOfBirth.click();
-        Wait.seconds(1);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthDay);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthMonth);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthYear);
+       String stepResult = patientDetailsPage.clearDateOfBirth();
+       Assert.assertEquals("Success",stepResult);
     }
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
-
+        Debugger.println("URL............."+driver.getCurrentUrl());
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
         List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();

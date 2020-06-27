@@ -200,6 +200,7 @@ public class ReferralPage<check> {
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
+    String mandatoryFieldLegend = "//legend[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
 
@@ -1216,23 +1217,28 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
+    public String verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
         try {
             Wait.seconds(2);
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
-            String fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel", fieldLabel);
+            String fieldLabelPath = null;
+            if(fieldLabel.equalsIgnoreCase("Date of birth")){
+                fieldLabelPath = mandatoryFieldLegend.replaceAll("dummyLabel", fieldLabel);
+            }else {
+                fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel", fieldLabel);
+            }
             WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
             String actualColor = fieldElement.getCssValue("color");
             if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
                 Debugger.println("Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor);
                 SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
-                return false;
+                return "Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor;
             }
-            return true;
+            return "Success";
         } catch (Exception exp) {
             Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
             SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
-            return false;
+            return "Exception from validating verifyMandatoryFieldHighlightColor:" + exp;
         }
     }
 
