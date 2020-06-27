@@ -52,7 +52,7 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "*[class*='hpo-term__name']")
     public List<WebElement> hpoTermNames;
 
-    @FindBy(css = "table[class*='table--hpo']")
+    @FindBy(xpath = "//table[contains(@class,'table--hpo')]")
     public WebElement hpoTable;
 
     @FindBy(css = "[class*='hpo-term__name']")
@@ -732,7 +732,7 @@ public class ClinicalQuestionsPage {
         try {
             boolean elementFound = false;
             Wait.seconds(2);
-            if(Wait.isElementDisplayed(driver, hpoTable,30)){
+            if(!Wait.isElementDisplayed(driver, hpoTable,30)){
                 Debugger.println("hpoTable not displayed");
                 SeleniumLib.takeAScreenShot("hpoTable.jpg");
                 return false;

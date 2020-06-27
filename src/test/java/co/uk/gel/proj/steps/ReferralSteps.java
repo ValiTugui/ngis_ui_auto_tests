@@ -904,15 +904,13 @@ public class ReferralSteps extends Pages {
 
     @And("the blank mandatory field labels highlighted in red color")
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
-        boolean testResult = false;
+        String testResult = "";
         List<List<String>> fieldDetails = fields.asLists();
         for (int i = 1; i < fieldDetails.size(); i++) {
             testResult = referralPage.verifyBlankMandatoryFieldLabelColor(fieldDetails.get(i).get(0), fieldDetails.get(i).get(1));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
-            }
+            Assert.assertEquals("Success",testResult);
+            Wait.seconds(2);
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("^the user will see error messages highlighted in red colour$")

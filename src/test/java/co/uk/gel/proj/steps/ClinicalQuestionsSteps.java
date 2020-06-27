@@ -251,6 +251,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user sees the data in HPO phenotype details such as {string} Term presence {string}")
     public void theUserSeesTheDataInHPOPhenotypeDetailsSuchAsTermPresence(String expectedHPOTerm, String expectedTermPresence) {
+        Debugger.println("URL:...."+driver.getCurrentUrl());
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTerm));
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificTermPresence(expectedTermPresence));
     }
