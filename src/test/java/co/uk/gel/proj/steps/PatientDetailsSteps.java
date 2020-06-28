@@ -41,7 +41,7 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("^the Patient Details page is displayed$")
     public void thePatientDetailsPageIsDisplayed() {
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.patientDetailsPageIsDisplayed();
         Assert.assertTrue(testResult);
     }
@@ -70,7 +70,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Start a new Referral button")
     public void theUserClicksTheStartANewReferralButton() {
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.clickStartNewReferralButton();
         Assert.assertTrue(testResult);
 
@@ -79,14 +79,14 @@ public class PatientDetailsSteps extends Pages {
     @When("the user clicks the Start Referral button")
     public void theUserClicksTheStartReferralButton() {
 
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.clickStartReferralButton();
         Assert.assertTrue(testResult);
     }
 
     @When("the user clicks the CI Search Start Referral button")
     public void theUserClicksTheCISerachStartReferralButton() {
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.clickCISearchStartReferralButton();
         Assert.assertTrue(testResult);
     }
@@ -104,7 +104,7 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the clinical indication ID missing banner is displayed")
     public void theClinicalIndicationIDMissingBannerIsDisplayed() {
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
         Assert.assertTrue(testResult);
     }
@@ -122,7 +122,7 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clicks the - {string} - link")
     public void theUserClicksTheLink(String goBackToPatientSearch) {
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
         Assert.assertTrue(testResult);
     }
@@ -245,7 +245,7 @@ public class PatientDetailsSteps extends Pages {
     }
     @And("the user clicks the Save and Continue button on Patient details page")
     public void theUserClicksSaveAndContinue() {
-        boolean testResult = false;
+        boolean testResult;
         testResult = patientDetailsPage.clickOnSaveAndContinueButton();
         Assert.assertTrue(testResult);
     }
@@ -256,7 +256,7 @@ public class PatientDetailsSteps extends Pages {
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
         if(actualNotification == null){
-            Assert.assertTrue(false);
+            Assert.fail("Expected Notification not present:"+expectedNotification);
         }
         Assert.assertEquals(expectedNotification, actualNotification);
     }
@@ -355,22 +355,19 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
-        Debugger.println("URL............."+driver.getCurrentUrl());
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
         List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
         List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
-
+        //Checking Labels
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
             if(!actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0))) {
-                Debugger.println("Expected Header:"+ expectedLabelsAndErrorMessagesList.get(i).get(0));
-                Debugger.println("ActualHeader:" + actualFieldsLabels);
-                Assert.assertTrue(false);
+                Assert.fail("Expected Mandatory Label:"+expectedLabelsAndErrorMessagesList.get(i).get(0)+" not present in the page.");
             }
+        }
+        for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
             if(!actualFieldErrorMessages.contains(expectedLabelsAndErrorMessagesList.get(i).get(1))){
-                Debugger.println("Expected ErrorMessage:" + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
-                Debugger.println("Actual ErrorMessage:" + actualFieldErrorMessages);
-                Assert.assertTrue(false);
+                Assert.fail("Expected Error message for Label not displayed:"+expectedLabelsAndErrorMessagesList.get(i).get(1) );
             }
 
         }
