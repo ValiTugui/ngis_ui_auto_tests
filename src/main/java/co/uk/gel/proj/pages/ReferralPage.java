@@ -592,8 +592,8 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if (Wait.isElementDisplayed(driver, pageTitle, 10)) {
-                return Actions.getText(pageTitle);
+            if (Wait.isElementDisplayed(driver, pageTitle, 30)) {
+                return seleniumLib.getText(pageTitle);
             }
             return null;
         } catch (Exception exp) {
@@ -794,7 +794,6 @@ public class ReferralPage<check> {
     }
 
     public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
         try {
             List<String> actualErrorMessages = new ArrayList<>();
             for (WebElement errorMessage : errorMessages) {
@@ -810,9 +809,7 @@ public class ReferralPage<check> {
     }
 
     public List<String> getTheFieldsLabelsOnCurrentPage() {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
         List<String> actualFieldLabels = new ArrayList<>();
-
         for (WebElement fieldLabel : genericFieldLabels) {
             actualFieldLabels.add(fieldLabel.getText().trim());
         }
@@ -1549,8 +1546,8 @@ public class ReferralPage<check> {
             }
             String actStatus = "";
             boolean isPresent = false;
-            for (int i = 0; i < referralCancelReasonOnCard.size(); i++) {
-                actStatus = referralCancelReasonOnCard.get(i).getText();
+            for (WebElement webElement : referralCancelReasonOnCard) {
+                actStatus = webElement.getText();
                 if (reason.equalsIgnoreCase(actStatus)) {
                     isPresent = true;
                     break;
@@ -1589,8 +1586,8 @@ public class ReferralPage<check> {
         boolean isPresent = false;
         try {
             Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
-            for (int i = 0; i < incompleteSection.size(); i++) {
-                if (incompleteSection.get(i).getText().equalsIgnoreCase(stageName)) {
+            for (WebElement webElement : incompleteSection) {
+                if (webElement.getText().equalsIgnoreCase(stageName)) {
                     isPresent = true;
                     break;
                 }
@@ -1993,7 +1990,7 @@ public class ReferralPage<check> {
                 } else {
                     Debugger.println("Email field or UseAnotherAccount option are not available. URL:" + driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
-                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
+                    Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
             } else {
                 Debugger.println("emailAddressField Displayed.... Proceeding with Login...via NHS Test user mail account.");
@@ -2006,7 +2003,7 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, nhsLogo, 20)) {
                 Debugger.println("NHS mail account login page is not displayed.");
                 SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
-                Assert.assertFalse("NHS Login Page is not displayed.", true);
+                Assert.fail("NHS Login Page is not displayed.");
             }
             Wait.forElementToBeClickable(driver, emailAddressFieldNHSPage);
             String mailIdPresent = emailAddressFieldNHSPage.getAttribute("value");
