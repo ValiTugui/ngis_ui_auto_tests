@@ -1,26 +1,14 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.ValidatableResponse;
-import com.jayway.restassured.specification.RequestSpecification;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
-
-import java.sql.Timestamp;
-import java.util.Date;
-
-import static co.uk.gel.lib.Actions.acceptAlert;
-import static co.uk.gel.lib.Actions.isAlertPresent;
-
 
 public class TestHooks extends Pages {
 
@@ -30,8 +18,6 @@ public class TestHooks extends Pages {
     public static String currentFeature = "";
     public static String temptagname = "";
     public static boolean new_scenario_feature = false;
-    private RequestSpecification request;
-    private ValidatableResponse response;
     public static String ntsTag="";
 
 
@@ -55,7 +41,6 @@ public class TestHooks extends Pages {
         } else {
             new_scenario_feature = false;
         }
-         request = RestAssured.with();
     }
 
     @Before ("@TD_VERSION_INFO")
@@ -73,8 +58,11 @@ public class TestHooks extends Pages {
     public void tearDown(Scenario scenario) {
         Status scenarioStatus = scenario.getStatus();
         if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
-            Debugger.println("TestHooks..Taking ScreenShot........");
-            scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
+            try {
+                scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
+            }catch(Exception exp){
+
+            }
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
 
@@ -106,22 +94,5 @@ public class TestHooks extends Pages {
     public void afterScenario() {
         //login_page.logoutFromMI();
     }
-
-    public RequestSpecification getRequest() {
-        return request;
-    }
-
-    public void setRequest(RequestSpecification request) {
-        this.request = request;
-    }
-
-    public ValidatableResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(ValidatableResponse response) {
-        this.response = response;
-    }
-
 
 }//end class
