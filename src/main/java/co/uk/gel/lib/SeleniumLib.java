@@ -45,7 +45,8 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    //static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"target"+File.separator+"snapshots"+File.separator;
     static String referralFileName = "Referrals.json";
     static String referralTextFileName = "ReferralID.txt";
 
@@ -128,11 +129,12 @@ public class SeleniumLib {
         WebElement webele = null;
         try {
             webele = getElement(element);
-            webele.click();
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", webele);
+
         } catch (Exception exp) {
             try {
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].click();", webele);
+                webele.click();
             } catch (Exception exp1) {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
@@ -149,16 +151,16 @@ public class SeleniumLib {
                //Waiting for another 30 seconds
                sleepInSeconds(30);
            }
-           elementHighlight(webEle);
-           webEle.click();
+           JavascriptExecutor executor = (JavascriptExecutor) driver;
+           executor.executeScript("arguments[0].click();", webEle);
+
         } catch (Exception exp) {
             try {
-                Debugger.println("Clicking Via JavaScript....");
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].click();", webEle);
-
+                //Debugger.println("Clicking Via JavaScript....");
+                elementHighlight(webEle);
+                webEle.click();
             } catch (Exception exp1) {
-                Debugger.println("Clicking Via Action....");
+               // Debugger.println("Clicking Via Action....");
                 Actions actions = new Actions(driver);
                 actions.moveToElement(webEle).click();
             }
@@ -631,7 +633,11 @@ public class SeleniumLib {
                     filename = "T" + today[0] + today[1] + filename;
                 }
             }
-            Debugger.println("ScreenShotFile:"+filename);
+            File snapLocation = new File(defaultSnapshotLocation);
+            if(!snapLocation.exists()){
+                snapLocation.mkdirs();
+            }
+            //Debugger.println("ScreenShotFile:"+filename);
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
 
