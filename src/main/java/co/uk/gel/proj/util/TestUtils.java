@@ -33,7 +33,7 @@ public class TestUtils {
     public static final String PREFIX = "UItest";
 
     static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "snapshots" + File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "NGIS_UI_Snapshots" + File.separator;
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 

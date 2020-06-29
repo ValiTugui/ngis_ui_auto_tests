@@ -8,8 +8,6 @@ import co.uk.gel.proj.util.TestUtils;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
@@ -19,20 +17,11 @@ import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -45,8 +34,7 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
-    //static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"target"+File.separator+"NGIS_UI_Snapshots"+File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "NGIS_UI_Snapshots" + File.separator;
     static String referralFileName = "Referrals.json";
     static String referralTextFileName = "ReferralID.txt";
 
