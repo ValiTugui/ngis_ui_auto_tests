@@ -670,7 +670,7 @@ public class ReferralSteps extends Pages {
     }
 
     @And("the referral status is set to {string}")
-    public void theReferralStatusIsSetTo(String expectedReferralStatus) {
+    public void theReferralStatusIsSetTo(String expectedReferralStatus) throws IOException {
         boolean testResult = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
         if(!testResult){
@@ -680,6 +680,7 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralSubmitted");
         }
         referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
+        TestUtils.printTheFullLogs(driver, TestUtils.getNtsTag(TestHooks.currentTagName));
     }
 
     @Then("the submission confirmation message {string} is displayed")
