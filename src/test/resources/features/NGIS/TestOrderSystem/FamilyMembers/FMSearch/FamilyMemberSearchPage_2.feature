@@ -20,10 +20,10 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | message                        | color   |
       | Enter a day between 1 and 31   | #dd2509 |
       | Enter a month between 1 and 12 | #dd2509 |
-      | Enter a year beyond 1900       | #dd2509 |
+      | Enter a year after 1900        | #dd2509 |
     And the user will see error messages highlighted in red colour when search with the given details
-      | SearchDetails                       | message                  | color   |
-      | NHSNumber=9449310351:DOB=11-11-1111 | Enter a year beyond 1900 | #dd2509 |
+      | SearchDetails                       | message                 | color   |
+      | NHSNumber=9449310351:DOB=11-11-1111 | Enter a year after 1900 | #dd2509 |
     Examples:
       | stage          | SearchDetails                       |
       | Family members | NHSNumber=9449310351:DOB=00-00-0000 |
@@ -36,11 +36,9 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user will see error messages highlighted in red colour
-      | Enter a day             | #dd2509 |
-      | Enter a month           | #dd2509 |
-      | Enter a year            | #dd2509 |
-      | First name is required. | #dd2509 |
-      | Gender is required.     | #dd2509 |
+      | Date of birth is required. | #dd2509 |
+      | First name is required.    | #dd2509 |
+      | Gender is required.        | #dd2509 |
 
     Examples:
       | stage          | SearchDetails               |
@@ -180,8 +178,8 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
 
     Examples:
-      | stage          | SearchDetails | ErrorMessage                                                                          | MessageColor |
-      | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |
+      | stage          | SearchDetails | ErrorMessage                                                              | MessageColor |
+      | Family members | Gender=Female | Date of birth is required.,First name is required.,Last name is required. | #dd2509      |
 
   @NTS-3328
 #    @E2EUI-830
@@ -191,11 +189,9 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user will see error messages highlighted in red colour
-      | Enter a day            | #dd2509 |
-      | Enter a month          | #dd2509 |
-      | Enter a year           | #dd2509 |
-      | Last name is required. | #dd2509 |
-      | Gender is required.    | #dd2509 |
+      | Date of birth is required. | #dd2509 |
+      | Last name is required.     | #dd2509 |
+      | Gender is required.        | #dd2509 |
     And the blank mandatory field labels highlighted in red color
       | field_name | color   |
       | Last name  | #dd2509 |
@@ -214,12 +210,10 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user will see error messages highlighted in red colour
-      | Enter a day             | #dd2509 |
-      | Enter a month           | #dd2509 |
-      | Enter a year            | #dd2509 |
-      | First name is required. | #dd2509 |
-      | Last name is required.  | #dd2509 |
-      | Gender is required.     | #dd2509 |
+      | Date of birth is required. | #dd2509 |
+      | First name is required.    | #dd2509 |
+      | Last name is required.     | #dd2509 |
+      | Gender is required.        | #dd2509 |
     And the blank mandatory field labels highlighted in red color
       | field_name | color   |
       | First name | #dd2509 |
@@ -246,11 +240,9 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     And the background colour of the YES button in family member is strong blue "#005eb8"
     When the user clicks the Search button in family member search page
     Then the user will see error messages highlighted in red colour
-      | message                 | color   |
-      | NHS Number is required. | #dd2509 |
-      | Enter a day             | #dd2509 |
-      | Enter a month           | #dd2509 |
-      | Enter a year            | #dd2509 |
+      | message                    | color   |
+      | NHS Number is required.    | #dd2509 |
+      | Date of birth is required. | #dd2509 |
 
     Examples:
       | stage          |
@@ -262,10 +254,8 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     When the user clicks the NO button in family member search page
     And the user clicks the Search button in family member search page
     Then the user will see error messages highlighted in red colour
-      | message                 | color   |
-      | Enter a day             | #dd2509 |
-      | Enter a month           | #dd2509 |
-      | Enter a year            | #dd2509 |
-      | First name is required. | #dd2509 |
-      | Last name is required.  | #dd2509 |
-      | Gender is required.     | #dd2509 |
+      | message                    | color   |
+      | Date of birth is required. | #dd2509 |
+      | First name is required.    | #dd2509 |
+      | Last name is required.     | #dd2509 |
+      | Gender is required.        | #dd2509 |

@@ -1,4 +1,3 @@
-#@patientSearchNGIS
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient search page_NGIS
@@ -126,10 +125,10 @@ Feature: GenomicRecord: Patient search page_NGIS
     And the user search for the new patient using date of birth, first name, last name, gender and post-code
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned
-    And the correct details of the "<patient-search-type>" patient are displayed in the card
+    And the correct details of the "<patient-type>" patient are displayed in the card
     Examples:
-      | stage           | patient-search-type | patient-type |
-      | Patient details | NGIS                | NGIS         |
+      | stage           | patient-type |
+      | Patient details | NGIS         |
 
   @NTS-4503 @Z-LOGOUT
 #      @E2EUI-1130

@@ -40,8 +40,12 @@ public class FamilyMemberNewPatientPage {
     @FindBy(xpath = "//label[contains(text(),'Date of birth')]")
     public WebElement dobLabel;
 
-    @FindBy(id = "dateOfBirth")
-    public WebElement dobOfFamilyMember;
+    @FindBy(xpath = "//input[@id='dateOfBirthDay']")
+    public WebElement dateOfBirthDayFM;
+    @FindBy(xpath = "//input[@id='dateOfBirthMonth']")
+    public WebElement dateOfBirthMonthFM;
+    @FindBy(xpath = "//input[@id='dateOfBirthYear']")
+    public WebElement dateOfBirthYearFM;
 
     @FindBy(xpath = "//label[text()='Gender']")
     public WebElement genderLabel;
@@ -102,7 +106,9 @@ public class FamilyMemberNewPatientPage {
         expElements.add(lastName);
         expElements.add(lastNameLabel);
         expElements.add(dobLabel);
-        expElements.add(dobOfFamilyMember);
+        expElements.add(dateOfBirthDayFM);
+        expElements.add(dateOfBirthMonthFM);
+        expElements.add(dateOfBirthYearFM);
         expElements.add(genderLabel);
         expElements.add(gender);
         expElements.add(lifeStatusLabel);
@@ -123,26 +129,34 @@ public class FamilyMemberNewPatientPage {
         return true;
     }
 
-    public void clearFieldsInFamilyMemberNewPatientPage(String clearToDropdown){
-        Actions.clearInputField(firstName);
-        Actions.clearInputField(lastName);
-        Actions.clearInputField(dobOfFamilyMember);
-        String[] expInputs = null;
-        expInputs = clearToDropdown.split(",");
-        String pathToElement = "";
-        By xpathElement = null;
-        for(int i=0; i<expInputs.length;i++) {
-            pathToElement = "//label[text()='"+expInputs[i]+"']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
-            xpathElement = By.xpath(pathToElement);
-            if(!seleniumLib.isElementPresent(xpathElement)){
-                Debugger.println("Path :"+pathToElement+" Could not locate");
-                break;
+    public String clearFieldsInFamilyMemberNewPatientPage(String clearToDropdown){
+        try {
+            Actions.clearInputField(firstName);
+            Actions.clearInputField(lastName);
+            Actions.clearInputField(dateOfBirthDayFM);
+            Actions.clearInputField(dateOfBirthMonthFM);
+            Actions.clearInputField(dateOfBirthYearFM);
+            String[] expInputs = null;
+            expInputs = clearToDropdown.split(",");
+            String pathToElement = "";
+            By xpathElement = null;
+            for (int i = 0; i < expInputs.length; i++) {
+                pathToElement = "//label[text()='" + expInputs[i] + "']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
+                xpathElement = By.xpath(pathToElement);
+                if (!seleniumLib.isElementPresent(xpathElement)) {
+                    Debugger.println("Path :" + pathToElement + " Could not locate");
+                    return "Path :" + pathToElement + " Could not locate";
+               }
+                try {
+                    seleniumLib.clickOnElement(xpathElement);
+                } catch (Exception exp) {
+                    //seleniumLib.moveMouseAndClickOnElement(xpathElement);
+                }
             }
-            try {
-                seleniumLib.clickOnElement(xpathElement);
-            }catch(Exception exp){
-                //seleniumLib.moveMouseAndClickOnElement(xpathElement);
-            }
+            return "Success";
+        }catch(Exception exp1){
+            Debugger.println("Exception in Clearing input fields:"+exp1);
+            return "Exception in Clearing input fields:"+exp1;
         }
     }
     public boolean clickOnCreateNGISRecord(){

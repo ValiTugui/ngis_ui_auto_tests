@@ -22,7 +22,7 @@ Feature: Family Members Details Page 2- Field Validation_2
       | mandatory_field              | field_type | symbol | symbol color |
       | First name                   | label      | ✱      | #dd2509      |
       | Last name                    | label      | ✱      | #dd2509      |
-      | Date of birth                | label      | ✱      | #dd2509      |
+      | Date of birth                | legend      | ✱      | #dd2509      |
       | Gender                       | label      | ✱      | #dd2509      |
       | Life status                  | label      | ✱      | #dd2509      |
       | Reason NHS Number is missing | label      | ✱      | #dd2509      |

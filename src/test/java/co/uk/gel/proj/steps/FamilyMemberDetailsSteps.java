@@ -138,7 +138,8 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user removes the data from all fields {string} in the family member new patient page")
     public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberNewPatientPage(String clearDropdown) {
-        familyMemberNewPatientPage.clearFieldsInFamilyMemberNewPatientPage(clearDropdown);
+        String stepResult = familyMemberNewPatientPage.clearFieldsInFamilyMemberNewPatientPage(clearDropdown);
+        Assert.assertEquals("Success",stepResult);
     }
 
     @And("the user clicks the Add new patient to referral button")

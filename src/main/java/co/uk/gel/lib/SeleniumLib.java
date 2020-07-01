@@ -8,8 +8,6 @@ import co.uk.gel.proj.util.TestUtils;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
@@ -19,20 +17,11 @@ import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -45,7 +34,7 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "NGIS_UI_Snapshots" + File.separator;
     static String referralFileName = "Referrals.json";
     static String referralTextFileName = "ReferralID.txt";
 
@@ -128,11 +117,12 @@ public class SeleniumLib {
         WebElement webele = null;
         try {
             webele = getElement(element);
-            webele.click();
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", webele);
+
         } catch (Exception exp) {
             try {
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].click();", webele);
+                webele.click();
             } catch (Exception exp1) {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
@@ -149,16 +139,16 @@ public class SeleniumLib {
                //Waiting for another 30 seconds
                sleepInSeconds(30);
            }
-           elementHighlight(webEle);
-           webEle.click();
+           JavascriptExecutor executor = (JavascriptExecutor) driver;
+           executor.executeScript("arguments[0].click();", webEle);
+
         } catch (Exception exp) {
             try {
-                Debugger.println("Clicking Via JavaScript....");
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].click();", webEle);
-
+                //Debugger.println("Clicking Via JavaScript....");
+                elementHighlight(webEle);
+                webEle.click();
             } catch (Exception exp1) {
-                Debugger.println("Clicking Via Action....");
+               // Debugger.println("Clicking Via Action....");
                 Actions actions = new Actions(driver);
                 actions.moveToElement(webEle).click();
             }
@@ -208,7 +198,7 @@ public class SeleniumLib {
             element.clear();
             element.sendKeys(value);
         } catch (Exception exp) {
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+            WebDriverWait wait = new WebDriverWait(driver, 20);
             element = wait.until(ExpectedConditions.elementToBeClickable(element));
             element.sendKeys(value);
         }
@@ -631,7 +621,11 @@ public class SeleniumLib {
                     filename = "T" + today[0] + today[1] + filename;
                 }
             }
-            Debugger.println("ScreenShotFile:"+filename);
+            File snapLocation = new File(defaultSnapshotLocation);
+            if(!snapLocation.exists()){
+                snapLocation.mkdirs();
+            }
+            //Debugger.println("ScreenShotFile:"+filename);
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
 

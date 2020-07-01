@@ -54,7 +54,7 @@ Feature: TestOrder - Tumours Page - 1
 #    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
 #    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
     Then the DateOfDiagnosis field displays given messages in specific color for the wrong values
-      | Date_of_Diagnosis | error_message                                     | color   |
+      | Date_of_Diagnosis | error_message                       | color   |
       | 12-03-2150        | Please enter a date before today                  | #dd2509 |
       | 32-03-2011        | Enter a day between 1 and 31 or leave blank       | #dd2509 |
       | 0-04-2011         | Enter a day between 1 and 31 or leave blank       | #dd2509 |
@@ -62,11 +62,10 @@ Feature: TestOrder - Tumours Page - 1
       | 10-0-2011         | Enter a month between 1 and 12 or leave blank     | #dd2509 |
       | 14-11-1           | Enter a year in 4 figures e.g. 1983               | #dd2509 |
       | 14-11-19          | Enter a year in 4 figures e.g. 1983               | #dd2509 |
-      | 14-11-1899        | Cannot be more than 9 months before date of birth | #dd2509 |
-      | 14-11-190         | Cannot be more than 9 months before date of birth | #dd2509 |
-      | 14-11-null        | Enter a year                                      | #dd2509 |
-      | 30-02-2012        | Check the day and month are valid                 | #dd2509 |
-#      | 14-10-1899        | Enter a year beyond 1900                          | #dd2509 |
+      | 14-11-190         | Enter a year in 4 figures e.g. 1983 | #dd2509 |
+      | 14-11-null        | Enter a year                        | #dd2509 |
+      | 30-02-2012        | Check the day and month are valid   | #dd2509 |
+      | 14-10-1899        | Enter a year after 1900             | #dd2509 |
     Examples: of future date scenario
       | stage   |
       | Tumours |

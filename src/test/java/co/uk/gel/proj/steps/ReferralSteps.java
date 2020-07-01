@@ -626,6 +626,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("New Patient creation page not displayed properly.");
         }
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
+        Debugger.println("USER TYPE: "+userType);
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 if (!patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber)) {
@@ -669,7 +670,7 @@ public class ReferralSteps extends Pages {
     }
 
     @And("the referral status is set to {string}")
-    public void theReferralStatusIsSetTo(String expectedReferralStatus) {
+    public void theReferralStatusIsSetTo(String expectedReferralStatus) throws IOException {
         boolean testResult = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
         if(!testResult){
@@ -679,6 +680,7 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralSubmitted");
         }
         referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
+        TestUtils.printTheFullLogs(driver, TestUtils.getNtsTag(TestHooks.currentTagName));
     }
 
     @Then("the submission confirmation message {string} is displayed")
@@ -889,6 +891,7 @@ public class ReferralSteps extends Pages {
 
     @And("^the mandatory fields shown with the symbol in red color$")
     public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {
+
         boolean testResult = false;
         List<List<String>> messageDetails = messages.asLists();
         for (int i = 1; i < messageDetails.size(); i++) {
@@ -902,15 +905,13 @@ public class ReferralSteps extends Pages {
 
     @And("the blank mandatory field labels highlighted in red color")
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
-        boolean testResult = false;
+        String testResult = "";
         List<List<String>> fieldDetails = fields.asLists();
         for (int i = 1; i < fieldDetails.size(); i++) {
             testResult = referralPage.verifyBlankMandatoryFieldLabelColor(fieldDetails.get(i).get(0), fieldDetails.get(i).get(1));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
-            }
+            Assert.assertEquals("Success",testResult);
+            Wait.seconds(2);
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("^the user will see error messages highlighted in red colour$")

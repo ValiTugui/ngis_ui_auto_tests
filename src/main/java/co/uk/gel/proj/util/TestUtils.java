@@ -5,13 +5,17 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import com.github.javafaker.Faker;
 import com.google.common.base.Splitter;
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
 import io.cucumber.java.hu.De;
+import net.minidev.json.JSONArray;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import sun.security.ssl.Debug;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +37,7 @@ public class TestUtils {
     public static final String PREFIX = "UItest";
 
     static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "snapshots" + File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "NGIS_UI_Snapshots" + File.separator;
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 
@@ -218,8 +222,8 @@ public class TestUtils {
             for (int i = 0; i < files.length; i++) {
                 if (!(files[i].getName().startsWith("T" + prefix))) {
                     files[i].delete();
-                }else{
-                    if(files[i].getName().startsWith("NTS")){
+                } else {
+                    if (files[i].getName().startsWith("NTS")) {
                         files[i].delete();
                     }
                 }
@@ -438,13 +442,13 @@ public class TestUtils {
         return newDate;
     }
 
-    public static String downloadFile(String url, String fileName,String folder) {
+    public static String downloadFile(String url, String fileName, String folder) {
         try {
             String downLocation = "";
-            if(folder == null || folder.isEmpty()){
+            if (folder == null || folder.isEmpty()) {
                 downLocation = defaultDownloadLocation;
-            }else{
-                downLocation = defaultDownloadLocation+folder+File.separator;
+            } else {
+                downLocation = defaultDownloadLocation + folder + File.separator;
             }
             InputStream inputStream = new URL(url).openStream();
             Wait.seconds(10);
@@ -455,25 +459,27 @@ public class TestUtils {
             return "Exception from downloadFile:" + exp;
         }
     }
+
     public static String fetchNumberFromAGivenString(String InputString) {
         String numFound = "";
         Pattern p = Pattern.compile("[0-9]+");
         Matcher m = p.matcher(InputString);
-        if(m.find()){
+        if (m.find()) {
             numFound = m.group(0);
         }
         return numFound;
     }
-    public static String getNtsTag(String fullTagName){
+
+    public static String getNtsTag(String fullTagName) {
         //Debugger.println("FullTag:"+fullTagName);
         String ntsTag = "";
         String[] tags = fullTagName.split(",");
-        if(tags != null){
-            for(int i=0; i<tags.length; i++){
+        if (tags != null) {
+            for (int i = 0; i < tags.length; i++) {
                 //Debugger.println("Tag:"+tags[i]);
-                if(tags[i].contains("NTS")){
-                    ntsTag = tags[i].replaceAll("@","");
-                    ntsTag = ntsTag.replaceAll("]","");
+                if (tags[i].contains("NTS")) {
+                    ntsTag = tags[i].replaceAll("@", "");
+                    ntsTag = ntsTag.replaceAll("]", "");
                     //Debugger.println("Here is NTS:"+ntsTag);
                     return ntsTag.trim();
                 }
@@ -481,4 +487,53 @@ public class TestUtils {
         }
         return "T";
     }
+
+    public static void printTheFullLogs(WebDriver driver, String NTStag) throws IOException {
+        List<LogEntry> entries = driver.manage().logs().get(LogType.PERFORMANCE).getAll();
+
+        Debugger.println(entries.size() + " " + LogType.PERFORMANCE + " log entries found");
+        File file = new File("APIStatus-" + NTStag + ".html");
+        FileWriter network = new FileWriter("NetworkTrafficLog-" + NTStag + ".txt", true);
+        StringBuilder htmlBuilder = new StringBuilder();
+        htmlBuilder.append(String.format("<h1 style=\"text-align:center\">NGIS API - URL Test Results</h1>" +
+                "<table>" +
+                "<thead>" +
+                "<tr>" +
+                "<th style=\"text-align:left\">API-URL</th>" +
+                "<th style=\"text-align:center; text-indent: 5em;\">STATUS-CODE</th>" +
+                "</tr>" +
+                "</thead>" +
+                "<tbody>"));
+
+        for (LogEntry entry : entries) {
+            network.write(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
+            Object document = Configuration.defaultConfiguration().jsonProvider().parse(entry.getMessage());
+            try {
+                JSONArray response = JsonPath.read(document, "$.*.method");
+                JSONArray url = JsonPath.read(document, "$.*.*.*.url");
+                if (response.get(0).equals("Network.responseReceived") && !url.toString().contains("static") &&
+                        !url.toString().contains("logws") && !url.toString().contains("microsoft") && !url.toString().contains("msftauth") &&
+                        url.toString().contains("https") && !url.get(0).toString().endsWith(".js") && !url.get(0).toString().endsWith(".ico")
+                        && !url.get(0).toString().endsWith(".png") && !url.get(0).toString().endsWith(".svg") && !url.toString().contains("msauth")
+                        && !url.toString().contains("login.live")) {
+
+                    JSONArray statusCode = JsonPath.read(document, "$.*.*.*.status");
+                    htmlBuilder.append(String.format("<tr>" +
+                                    "<td style=\"text-align:left\">%s</td>" +
+                                    "<td style=\"text-align:center; text-indent: 5em;\">%s</td>" +
+                                    "</tr>",
+                            url.get(0), statusCode.get(0)));
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        htmlBuilder.append("</tbody>" +
+                "</table>");
+
+        String html = htmlBuilder.toString();
+        FileUtils.writeStringToFile(file, html, "UTF-8");
+        network.close();
+    }
+
 }

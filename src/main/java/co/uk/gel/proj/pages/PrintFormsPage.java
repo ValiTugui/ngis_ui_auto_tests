@@ -433,7 +433,9 @@ public class PrintFormsPage {
     public String readSelectedTestDetails() {
         try {
             String returnValue = null;
-            Wait.forElementToBeDisplayed(driver, orderedTestType);
+            if(!Wait.isElementDisplayed(driver, orderedTestType,30)){
+                return null;
+            }
             String testTypes = orderedTestType.getText();
             String[] selectedTestTypes = testTypes.split("\\.");
             if (selectedTestTypes == null || selectedTestTypes.length < 1) {

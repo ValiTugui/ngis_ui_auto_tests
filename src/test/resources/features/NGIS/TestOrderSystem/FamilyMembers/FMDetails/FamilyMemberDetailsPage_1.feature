@@ -23,7 +23,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
       | Last name               | label      | ✱      | #dd2509      |
-      | Date of birth           | label      | ✱      | #dd2509      |
+      | Date of birth           | legend      | ✱      | #dd2509      |
       | Gender                  | label      | ✱      | #dd2509      |
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |
@@ -89,7 +89,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
       | Last name               | label      | ✱      | #dd2509      |
-      | Date of birth           | label      | ✱      | #dd2509      |
+      | Date of birth           | legend      | ✱      | #dd2509      |
       | Gender                  | label      | ✱      | #dd2509      |
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |

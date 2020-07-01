@@ -45,13 +45,13 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//legend[text()='Date of birth']")
     public WebElement dateOfBirthLabel;
 
-    @FindBy(id = "dateDay")
+    @FindBy(xpath = "//input[@id='birthDateDay']")
     public WebElement dateDay;
 
-    @FindBy(id = "dateMonth")
+    @FindBy(xpath = "//input[@id='birthDateMonth']")
     public WebElement dateMonth;
 
-    @FindBy(id = "dateYear")
+    @FindBy(xpath = "//input[@id='birthDateYear']")
     public WebElement dateYear;
 
     @FindBy(xpath = "//button[contains(string(),'Search')]")
@@ -245,7 +245,6 @@ public class FamilyMemberSearchPage {
 
     public boolean searchFamilyMemberWithGivenParams(String searchParams) {
         try {
-            Wait.forElementToBeDisplayed(driver, dateDay);
             if (searchParams == null || searchParams.isEmpty()) {//Search without entering any values
                 seleniumLib.clickOnWebElement(searchButton);
                 return true;
@@ -253,24 +252,20 @@ public class FamilyMemberSearchPage {
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
-                switch (key) {
+                 switch (key) {
                     case "NHSNumber": {
-                        nhsNumber.clear();
-                        nhsNumber.sendKeys(paramNameValue.get(key));
+                        seleniumLib.sendValue(nhsNumber,paramNameValue.get(key));
                         break;
                     }
                     case "DOB": {
                         String dobValue = paramNameValue.get(key);
                         if (dobValue != null && !dobValue.isEmpty()) {
                             String[] dobSplit = dobValue.split("-");
-                            dateDay.clear();
-                            dateMonth.clear();
-                            dateYear.clear();
-                            dateDay.sendKeys(dobSplit[0]);
-                            dateMonth.sendKeys(dobSplit[1]);
-                            dateYear.sendKeys(dobSplit[2]);
-                        }
-                        break;
+                            seleniumLib.sendValue(dateDay,dobSplit[0]);
+                            seleniumLib.sendValue(dateMonth,dobSplit[1]);
+                            seleniumLib.sendValue(dateYear,dobSplit[2]);
+                       }
+                       break;
                     }
                     case "FirstName": {
                         if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
@@ -299,10 +294,9 @@ public class FamilyMemberSearchPage {
                         }
                         break;
                     }
-
                 }//switch
-            }//for
-            Actions.clickElement(driver, searchButton);
+             }//for
+             seleniumLib.clickOnWebElement(searchButton);
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in searching family member: "+exp);
