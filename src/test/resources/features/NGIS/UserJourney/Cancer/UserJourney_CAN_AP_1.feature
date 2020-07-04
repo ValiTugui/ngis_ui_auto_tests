@@ -1,4 +1,4 @@
-@userJourneysCancer
+#@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
 

@@ -1,5 +1,5 @@
-@userJourneysRD
-@userJourneysRD_NgisAP
+#@userJourneysRD
+#@userJourneysRD_NgisAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_6 - UC19 - E2EUI-1303
 

@@ -1,5 +1,5 @@
-@userJourneysRD
-@userJourneysRD_NgisAP
+#@userJourneysRD
+#@userJourneysRD_NgisAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_5 - UC-17 - E2EUI-843
 

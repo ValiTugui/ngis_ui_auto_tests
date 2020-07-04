@@ -1,4 +1,4 @@
-@userJourneysCancer
+#@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
 
 Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905

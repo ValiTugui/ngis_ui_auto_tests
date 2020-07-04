@@ -1,5 +1,5 @@
-@userJourneysRD
-@userJourneysRD_NewProband
+#@userJourneysRD
+#@userJourneysRD_NewProband
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Proband_7 - UC07 - E2EUI-1274
 

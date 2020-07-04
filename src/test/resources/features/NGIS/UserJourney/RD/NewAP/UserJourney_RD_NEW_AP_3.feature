@@ -1,5 +1,5 @@
-@userJourneysRD
-@userJourneysRD_NewAP
+#@userJourneysRD
+#@userJourneysRD_NewAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_AP_3 - UC18 - E2EUI-882
 

@@ -1,5 +1,5 @@
-@userJourneysRD
-@userJourneysRD_NgisFM
+#@userJourneysRD
+#@userJourneysRD_NgisFM
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Trio_6 - UC11 - E2EUI-1478
 

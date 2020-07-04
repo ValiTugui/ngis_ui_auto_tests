@@ -489,51 +489,54 @@ public class TestUtils {
     }
 
     public static void printTheFullLogs(WebDriver driver, String NTStag) throws IOException {
-        List<LogEntry> entries = driver.manage().logs().get(LogType.PERFORMANCE).getAll();
+        try {
+            List<LogEntry> entries = driver.manage().logs().get(LogType.PERFORMANCE).getAll();
+            Debugger.println(entries.size() + " " + LogType.PERFORMANCE + " log entries found");
+            File file = new File("APIStatus-" + NTStag + ".html");
+            FileWriter network = new FileWriter("NetworkTrafficLog-" + NTStag + ".txt", true);
+            StringBuilder htmlBuilder = new StringBuilder();
+            htmlBuilder.append(String.format("<h1 style=\"text-align:center\">NGIS API - URL Test Results</h1>" +
+                    "<table>" +
+                    "<thead>" +
+                    "<tr>" +
+                    "<th style=\"text-align:left\">API-URL</th>" +
+                    "<th style=\"text-align:center; text-indent: 5em;\">STATUS-CODE</th>" +
+                    "</tr>" +
+                    "</thead>" +
+                    "<tbody>"));
 
-        Debugger.println(entries.size() + " " + LogType.PERFORMANCE + " log entries found");
-        File file = new File("APIStatus-" + NTStag + ".html");
-        FileWriter network = new FileWriter("NetworkTrafficLog-" + NTStag + ".txt", true);
-        StringBuilder htmlBuilder = new StringBuilder();
-        htmlBuilder.append(String.format("<h1 style=\"text-align:center\">NGIS API - URL Test Results</h1>" +
-                "<table>" +
-                "<thead>" +
-                "<tr>" +
-                "<th style=\"text-align:left\">API-URL</th>" +
-                "<th style=\"text-align:center; text-indent: 5em;\">STATUS-CODE</th>" +
-                "</tr>" +
-                "</thead>" +
-                "<tbody>"));
+            for (LogEntry entry : entries) {
+                network.write(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
+                Object document = Configuration.defaultConfiguration().jsonProvider().parse(entry.getMessage());
+                try {
+                    JSONArray response = JsonPath.read(document, "$.*.method");
+                    JSONArray url = JsonPath.read(document, "$.*.*.*.url");
+                    if (response.get(0).equals("Network.responseReceived") && !url.toString().contains("static") &&
+                            !url.toString().contains("logws") && !url.toString().contains("microsoft") && !url.toString().contains("msftauth") &&
+                            url.toString().contains("https") && !url.get(0).toString().endsWith(".js") && !url.get(0).toString().endsWith(".ico")
+                            && !url.get(0).toString().endsWith(".png") && !url.get(0).toString().endsWith(".svg") && !url.toString().contains("msauth")
+                            && !url.toString().contains("login.live")) {
 
-        for (LogEntry entry : entries) {
-            network.write(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
-            Object document = Configuration.defaultConfiguration().jsonProvider().parse(entry.getMessage());
-            try {
-                JSONArray response = JsonPath.read(document, "$.*.method");
-                JSONArray url = JsonPath.read(document, "$.*.*.*.url");
-                if (response.get(0).equals("Network.responseReceived") && !url.toString().contains("static") &&
-                        !url.toString().contains("logws") && !url.toString().contains("microsoft") && !url.toString().contains("msftauth") &&
-                        url.toString().contains("https") && !url.get(0).toString().endsWith(".js") && !url.get(0).toString().endsWith(".ico")
-                        && !url.get(0).toString().endsWith(".png") && !url.get(0).toString().endsWith(".svg") && !url.toString().contains("msauth")
-                        && !url.toString().contains("login.live")) {
-
-                    JSONArray statusCode = JsonPath.read(document, "$.*.*.*.status");
-                    htmlBuilder.append(String.format("<tr>" +
-                                    "<td style=\"text-align:left\">%s</td>" +
-                                    "<td style=\"text-align:center; text-indent: 5em;\">%s</td>" +
-                                    "</tr>",
-                            url.get(0), statusCode.get(0)));
+                        JSONArray statusCode = JsonPath.read(document, "$.*.*.*.status");
+                        htmlBuilder.append(String.format("<tr>" +
+                                        "<td style=\"text-align:left\">%s</td>" +
+                                        "<td style=\"text-align:center; text-indent: 5em;\">%s</td>" +
+                                        "</tr>",
+                                url.get(0), statusCode.get(0)));
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
-            } catch (Exception e) {
-                System.out.println(e);
             }
-        }
-        htmlBuilder.append("</tbody>" +
-                "</table>");
+            htmlBuilder.append("</tbody>" +
+                    "</table>");
 
-        String html = htmlBuilder.toString();
-        FileUtils.writeStringToFile(file, html, "UTF-8");
-        network.close();
+            String html = htmlBuilder.toString();
+            FileUtils.writeStringToFile(file, html, "UTF-8");
+            network.close();
+        }catch(Exception exp){
+
+        }
     }
 
 }
