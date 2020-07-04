@@ -1,5 +1,6 @@
 #@userJourneysRD
 #@userJourneysRD_NgisFM
+@rerunme
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Trio_7 - UC13 - E2EUI-975
 
