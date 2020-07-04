@@ -1,6 +1,5 @@
-#@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NEW_ProbandOnly
+#@userJourneysRD_NewProband
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Proband_1 - UC02 - E2EUI-1166
 

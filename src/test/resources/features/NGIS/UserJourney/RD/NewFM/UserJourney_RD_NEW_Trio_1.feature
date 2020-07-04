@@ -1,5 +1,5 @@
-#@userJourneys
 #@userJourneysRD
+#@userJourneysRD_NewFM
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_1 - UC08 - E2EUI-844
 
