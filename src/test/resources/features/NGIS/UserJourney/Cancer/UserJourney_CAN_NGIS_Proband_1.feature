@@ -1,6 +1,4 @@
-#@userJourneys
-#@userJourneysCancer
-#@userJourneysCancer_NGIS_ProbandOnly
+@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NGIS_Proband_1 - UC21- E2EUI-1636
 

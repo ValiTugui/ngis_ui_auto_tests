@@ -1,6 +1,5 @@
-#@userJourneys
-#@userJourneysRD
-#@userJourneysRD_NEW_TrioFamily
+@userJourneysRD
+@userJourneysRD_NewFM
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_3 - UC13 - E2EUI-1119
 

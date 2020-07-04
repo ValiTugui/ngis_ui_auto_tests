@@ -1,6 +1,4 @@
-#@userJourneys
-#@userJourneysCancer
-#@userJourneysCancer_NEW_ProbandOnly
+@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NEW_Proband_3 - UC27- E2EUI-1802
 

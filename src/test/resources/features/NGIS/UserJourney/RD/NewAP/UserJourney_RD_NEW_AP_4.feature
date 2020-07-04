@@ -1,6 +1,5 @@
-#@userJourneys
-#@userJourneysRD
-#@userJourneysRD_NEW_AdditionalParticipant
+@userJourneysRD
+@userJourneysRD_NewAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_AP_4 - UC15 - E2EUI-832
 

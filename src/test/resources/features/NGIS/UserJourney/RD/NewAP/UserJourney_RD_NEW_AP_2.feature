@@ -1,5 +1,5 @@
-#@userJourneys
-#@userJourneysRD
+@userJourneysRD
+@userJourneysRD_NewAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_AP_2 - UC16 - E2EUI-1428
 
