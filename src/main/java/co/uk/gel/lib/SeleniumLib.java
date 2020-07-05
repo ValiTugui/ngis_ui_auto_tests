@@ -685,7 +685,7 @@ public class SeleniumLib {
             action.moveToElement(element).build().perform();
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
+            //Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
             return false;
         }
     }

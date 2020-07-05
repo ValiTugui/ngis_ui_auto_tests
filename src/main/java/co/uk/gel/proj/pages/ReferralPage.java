@@ -713,13 +713,9 @@ public class ReferralPage<check> {
             Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
-            //Added extra below code, as it is observed that the page title path for each element in stage is not same
-            // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
             int titlesSize = titleElements.size();
             int count = 1;
-            //Debugger.println("Size.."+titlesSize);
             while(titlesSize == 0){
-                //Debugger.println("Loop.....");
                 Wait.seconds(15);
                 titlesSize = titleElements.size();
                 count++;
@@ -736,14 +732,11 @@ public class ReferralPage<check> {
                 }
             }
             for (WebElement element : titleElements) {
-                //Debugger.println("ACT TITLE:" + element.getText());
                 if (element.getText().contains(expTitle)) {
                     return true;
                 }
             }
-            //Debugger.println("CONTINUING...............TITLE." + titleElements.size()+"\nURL:"+driver.getCurrentUrl());
             String actualPageTitle = getTheCurrentPageTitle();
-            //Debugger.println("TITLE...:" + actualPageTitle);
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }

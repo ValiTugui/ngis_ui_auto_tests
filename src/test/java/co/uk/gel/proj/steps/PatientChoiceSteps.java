@@ -123,11 +123,17 @@ public class PatientChoiceSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             for (int i = 1; i < memberDetails.size(); i++) {//First line is title
                 Debugger.println("Patient Choice for Member: "+i);
-                Assert.assertTrue(patientChoicePage.selectMember(i));
+                if(!patientChoicePage.selectMember(i)){
+                    Assert.fail("Could not select the member to complete PC");
+                }
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(2)));
+                if(!patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(2))){
+                    Assert.fail("Could not complete PC for the member "+i);
+                }
                 Wait.seconds(5);//After submitting PC
-                patientChoicePage.clickOnSaveAndContinueButton();
+                if(!patientChoicePage.clickOnSaveAndContinueButton()){
+                    Assert.fail("Could not proceed from PC after submitting Patient Choice..");
+                }
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
             }//end
 

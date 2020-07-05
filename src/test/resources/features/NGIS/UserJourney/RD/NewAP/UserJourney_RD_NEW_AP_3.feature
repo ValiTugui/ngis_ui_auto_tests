@@ -35,12 +35,13 @@ Feature: UserJourney_RD_NEW_AP_3 - UC18 - E2EUI-882
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-    ##Notes
+    #Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
     ##Family Members - for Additional Participants, need to deselect the test
+    When the user navigates to the "<FamilyMemberStage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
