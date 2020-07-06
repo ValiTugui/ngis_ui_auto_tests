@@ -680,7 +680,9 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralSubmitted");
         }
         referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
-        TestUtils.printTheFullLogs(driver, TestUtils.getNtsTag(TestHooks.currentTagName));
+        if(TestHooks.currentTagName.contains("BVT_UI_SMOKE_TEST_PACK")) {//Full Log only for BVT Pack
+            TestUtils.printTheFullLogs(driver, TestUtils.getNtsTag(TestHooks.currentTagName));
+        }
     }
 
     @Then("the submission confirmation message {string} is displayed")

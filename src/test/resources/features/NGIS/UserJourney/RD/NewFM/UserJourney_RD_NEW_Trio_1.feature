@@ -46,16 +46,16 @@ Feature: UserJourney_RD_NEW_Trio_1 - UC08 - E2EUI-844
       | FamilyMemberDetails                                                  | RelationshipToProband | DiseaseStatusDetails                                               |
       | NHSNumber=NA:DOB=21-05-2005:Gender=Male:Relationship=Son             | Son                   | DiseaseStatus=Affected:AgeOfOnset=05,11:HpoPhenoType=Gastroschisis |
       | NHSNumber=NA:DOB=13-03-1965:Gender=Female:Relationship=Maternal Aunt | Maternal Aunt         | DiseaseStatus=Affected:AgeOfOnset=12,05:HpoPhenoType=Epistaxis     |
-    Then the "<FamilyMembers>" stage is marked as Completed
     And the user clicks the Save and Continue button
+    Then the "<FamilyMembers>" stage is marked as Completed
     ##Patient choice for the proband
-    Then the user is navigated to a page with title Patient choice
+    When the user is navigated to a page with title Patient choice
     And the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
     Then the "<PatientChoice>" page is displayed
-    Then the help text is displayed
+    And the help text is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
     ###Patient Choice - Family Details Provided below same as the Family Members
     And the user is navigated to a page with title Patient choice

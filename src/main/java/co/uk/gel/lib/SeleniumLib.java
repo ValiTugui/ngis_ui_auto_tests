@@ -542,13 +542,14 @@ public class SeleniumLib {
     //File upload logic changed from using Robot script to Selenium option
     public static boolean upload(WebElement element, String path) {
         try {
-            File file = new File(path);
-            if (!file.exists()) {
-                Debugger.println("Specified File does not exist for upload:"+path);
-                return false;
-            }
+//            File file = new File(path);
+//            if (!file.exists()) {
+//                Debugger.println("Specified File does not exist for upload:"+path);
+//                return false;
+//            }
             Debugger.println("Uploading the file: "+path);
             element.sendKeys(path);
+            sleepInSeconds(5);
             Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
@@ -685,7 +686,7 @@ public class SeleniumLib {
             action.moveToElement(element).build().perform();
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
+            //Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
             return false;
         }
     }
