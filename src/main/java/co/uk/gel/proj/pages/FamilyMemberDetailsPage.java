@@ -112,7 +112,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
-    @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
+   @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipToProbandDropdown;
 
     @FindBy(xpath = "//div[@data-testid='notification-error']//span")
@@ -380,6 +380,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean fillTheRelationshipToProband(String relationToProband) {
         try {
+            Debugger.println("URLLLLLLL: "+driver.getCurrentUrl());
             validationErrors.clear();
             Actions.scrollToTop(driver);
             if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
@@ -389,6 +390,7 @@ public class FamilyMemberDetailsPage {
             }
             seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
             Wait.seconds(2);
+            Debugger.println("DDSise: "+dropdownValues.size());
             By ddElement = By.xpath("//span[text()='" + relationToProband + "']");
             if (seleniumLib.isElementPresent(ddElement)) {
                 seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));

@@ -48,10 +48,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserSelectRelationshipForFamilyMember(String relationToProband, String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
         if (!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")) {
-            Assert.assertTrue(false);
+            Assert.fail("Ethnicity could not select.");
         }
-        if (!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)) {
-            Assert.assertTrue(false);
+        if (!patientDetailsPage.editDropdownField(familyMemberDetailsPage.relationshipToProbandDropdown,relationToProband)){
+             Assert.fail("Relationship to proband could not fill...");
         }
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
         if (familyMember != null) {

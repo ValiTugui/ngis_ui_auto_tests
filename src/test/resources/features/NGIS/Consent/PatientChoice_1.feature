@@ -189,7 +189,7 @@ Feature: Patient Choice-1 - Adult with Capacity
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
 
-  @NTS-3449 @Z-LOGOUT
+   @NTS-3449 @Z-LOGOUT
     #@E2EUI-989
   Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
