@@ -1,6 +1,5 @@
 #@userJourneysRD
 ##@userJourneysRD_NewAP
-@rerunme
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_AP_6 - UC19 - E2EUI-1140
 
