@@ -20,7 +20,7 @@ Feature: GenomicRecord: New Patient page
       | hyperlinkText               | label_on_button |
       | create a new patient record | Create record   |
 
-  @rerun @NTS-3072
+  @NTS-3072
 #    @E2EUI-981
   Scenario Outline: NTS-3072:E2EUI-981: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields
     Given a web browser is at the patient search page
@@ -53,7 +53,7 @@ Feature: GenomicRecord: New Patient page
       | create a new patient record | Other (please provide reason)                               |
       | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
 
-  @rerun @NTS-3456 @Z-LOGOUT
+   @NTS-3456 @Z-LOGOUT
 #    @E2EUI-1134 @E2EUI-1067
   Scenario Outline: NTS-3456:(E2EUI-1134,1067) Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page
@@ -88,7 +88,7 @@ Feature: GenomicRecord: New Patient page
       | No patient found | create a new patient record | Create a record for this patient |
 
 
-  @rerun @NTS-3456 @Z-LOGOUT
+  @NTS-3456 @Z-LOGOUT
 #    @E2EUI-1134
   Scenario Outline: NTS-3456:E2EUI-1134: Super User - To validate input fields for the Non-NHS patient creation - with a Super User
     Given a web browser is at the patient search page
@@ -131,7 +131,7 @@ Feature: GenomicRecord: New Patient page
       | message          | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       |
       | No patient found | create a new patient record | Create a record for this patient | Other (please provide reason) |
 
-  @rerun @NTS-3465 @Z-LOGOUT
+  @NTS-3465 @Z-LOGOUT
 #    @E2EUI-892 @E2EUI-1475 @E2EUI-1308 @E2EUI-1416
   Scenario Outline: NTS-3465:(E2EUI-892,1475,1308,1416): Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
@@ -151,7 +151,7 @@ Feature: GenomicRecord: New Patient page
       | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | notification                |
       | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS patient record created |
 
-  @rerun @NTS-3465 @Z-LOGOUT
+  @NTS-3465 @Z-LOGOUT
 #    @E2EUI-892 @E2EUI-1475 @E2EUI-1416
   Scenario Outline: NTS-3465:(E2EUI-892,1475,1416) Super User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
@@ -173,7 +173,7 @@ Feature: GenomicRecord: New Patient page
       | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | notification                |
       | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS patient record created |
 
-  @rerun @NTS-3466 @Z-LOGOUT
+  @NTS-3466 @Z-LOGOUT
 #    @E2EUI-1052
   Scenario Outline: NTS-3466:E2EUI-1052: Validate the Ethnicity drop down values to check for the order of the drop down is in logical - Alphabetical order
     Given a web browser is at the patient search page

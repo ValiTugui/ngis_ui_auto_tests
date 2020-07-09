@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Family Members Details Page 2- Field Validation_2
 
-  @rerun @NTS-3296 @Z-LOGOUT
+  @NTS-3296 @Z-LOGOUT
 #    @E2EUI-1038
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -36,7 +36,7 @@ Feature: Family Members Details Page 2- Field Validation_2
       | First name                   | #dd2509 |
       | Last name                    | #dd2509 |
       | Date of birth                | #dd2509 |
-      | Gender                       | #dd2509 |
+#      | Gender                       | #dd2509 |
       | Life status                  | #dd2509 |
       | Reason NHS Number is missing | #dd2509 |
       | Hospital number              | #dd2509 |

@@ -128,7 +128,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @rerun @NTS-3418 @Z-LOGOUT
+  @NTS-3418 @Z-LOGOUT
     #@E2EUI-1702
   Scenario Outline: NTS-3418:Research change messages displayed in Patient choice section
     Given a new patient referral is created with associated tests in Test Order System online service

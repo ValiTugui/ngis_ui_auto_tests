@@ -38,7 +38,7 @@ Feature: GenomicRecord: Patient details page 4
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
 
-  @rerun @NTS-4760 @Z-LOGOUT
+  @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline: NTS-4760:E2EUI-1097: The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a web browser is at create new patient page
