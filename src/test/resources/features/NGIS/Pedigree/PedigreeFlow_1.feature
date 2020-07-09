@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Pedigree - Pedigree Flow 1
 
-  @NTS-3458 @Z-LOGOUT
+  @rerun @NTS-3458 @Z-LOGOUT
 #    @E2EUI-1994 @E2EUI-1728 @E2EUI-2148 @E2EUI-1996
   Scenario Outline: NTS-3458 :E2EUI-1994,1728,2148,1996: Validating Pedigree section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service

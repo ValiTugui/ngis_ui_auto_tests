@@ -2,7 +2,7 @@
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 1
 
-  @NTS-3068 @Z-LOGOUT
+  @rerun @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182 @E2EUI-1463
   Scenario Outline: NTS-3068: New "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at create new patient page
@@ -28,7 +28,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | pageTitle2        | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS                |
 
-  @NTS-3068 @Z-LOGOUT
+  @rerun @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at create new patient page
@@ -107,7 +107,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | maximumAllowedValues |
       | Create a record for this patient | 50                   |
 
-  @NTS-3438 @Z-LOGOUT
+  @rerun @NTS-3438 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -145,7 +145,7 @@ Feature: GenomicRecord: Patient details page 1
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
 
-  @NTS-3454 @Z-LOGOUT
+  @rerun @NTS-3454 @Z-LOGOUT
 #    @E2EUI-893
   Scenario Outline: NTS-3454:E2EUI-893: Verify the elements and mandatory fields on patient detail page
     Given a web browser is at create new patient page
@@ -174,7 +174,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber                                     |
       | Create a record for this patient | Find your patient | NGIS                | Patient not eligible for NHS number (e.g. foreign national) |
 
-  @NTS-3470 @Z-LOGOUT
+  @rerun @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538
   Scenario Outline: NTS-3470:E2EUI-1538:Test Order - Patient details page - Patient details update message
     Given a web browser is at the patient search page

@@ -2,7 +2,7 @@
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 3
 
-  @NTS-3848 @Z-LOGOUT
+  @rerun @NTS-3848 @Z-LOGOUT
 #    @E2EUI-1609
   Scenario Outline: NTS-3848:E2EUI-1609: Verifying the sub-heading on patient details page
     Given a web browser is at the patient search page
@@ -24,7 +24,7 @@ Feature: GenomicRecord: Patient details page 3
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber       | patient-search-type |
       | create a new patient record | Find your patient | Other (please provide reason) | NGIS                |
 
-  @NTS-3513 @Z-LOGOUT
+  @rerun @NTS-3513 @Z-LOGOUT
 #    @E2EUI-849
   Scenario Outline:NTS-3513:E2EUI-849: User journey when Clinical Indication has not been selected
     Given a web browser is at the patient search page
@@ -150,7 +150,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-search-type | NHSNumber        | HospitalNumber      |
       | Create a record for this patient | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
 
-  @NTS-4538 @Z-LOGOUT
+  @rerun @NTS-4538 @Z-LOGOUT
 #    @E2EUI-1054 @E2EUI-1507
   Scenario Outline: NTS-4538:(E2EUI-1054,1507) - Add patient contact(address) details to a patient
     Given a web browser is at create new patient page
@@ -177,7 +177,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-type | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS         | NGIS                |
 
-  @NTS-4565 @Z-LOGOUT
+  @4565 @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1582
   Scenario Outline: NTS-4565:E2EUI-1582:The Patient Details page is loaded when clicking browser's Back button after starting a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -272,7 +272,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-search-type | HospitalNumber      | hintText |
       | Create a record for this patient | Find your patient | NGIS                | 1234567890123456789 | B123456  |
 
-  @NTS-4549 @Z-LOGOUT
+  @rerun @NTS-4549 @Z-LOGOUT
 #    @E2EUI-822
   Scenario Outline:NTS-4549:E2EUI-822: Mandatory input field validations for navigation from Patient Details to Patient details in ToDo List page
     Given a web browser is at create new patient page

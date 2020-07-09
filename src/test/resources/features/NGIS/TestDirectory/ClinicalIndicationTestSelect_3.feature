@@ -61,7 +61,7 @@ Feature: Test Directory: ClinicalIndicationSelect_3
       | PatientDetails  | FamilyMember   | TestPackage  | ClinicalQuestions  | RelationshipToProband | FamilyMemberDetails                 |
       | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=9449305307:DOB=14-02-2011 |
 
-  @NTS-4701 @Z-LOGOUT
+  @rerun @NTS-4701 @Z-LOGOUT
 #    @E2EUI-1645
   Scenario Outline: NTS-4701 : Stop a user losing their changes when they try to navigate to away using browser behaivor
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

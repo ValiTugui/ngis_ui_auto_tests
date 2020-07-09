@@ -5,7 +5,7 @@
 
 Feature: Clinical Question Page 1 - Family Members
 
-  @NTS-4735 @Z-LOGOUT
+  @rerun @NTS-4735 @Z-LOGOUT
 #    @E2EUI-1271
   Scenario Outline: NTS-4735: Show dynamic Clinical Questions about additional family members
     Given a new patient referral is created with associated tests in Test Order System online service

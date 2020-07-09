@@ -35,7 +35,7 @@ Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
       | Stage   | sampleType                | sampleState        | sampleType1            | sampleState1            |
       | Samples | Normal or germline sample | Fetal blood (EDTA) | Normal or germline sample | Amniotic fluid |
 
-  @NTS-4621 @Z-LOGOUT
+  @rerun @NTS-4621 @Z-LOGOUT
 #    @E2EUI-1191
   Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
     Given a web browser is at the patient search page
