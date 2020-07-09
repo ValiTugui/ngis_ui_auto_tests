@@ -177,7 +177,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                        | pageTitle2        | patient-type | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS         | NGIS                |
 
-  @NTS-4565 @Z-LOGOUT
+  @4565 @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1582
   Scenario Outline: NTS-4565:E2EUI-1582:The Patient Details page is loaded when clicking browser's Back button after starting a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
