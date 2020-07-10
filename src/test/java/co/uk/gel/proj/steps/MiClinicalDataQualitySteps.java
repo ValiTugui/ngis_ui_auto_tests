@@ -10,9 +10,9 @@ import org.junit.Assert;
 
 import java.util.List;
 
-public class MiClinicalDataQuality extends Pages {
+public class MiClinicalDataQualitySteps extends Pages {
     MiClinicalDataQualityPage miClinicalDataQualityPage = new MiClinicalDataQualityPage(driver);
-    public MiClinicalDataQuality (SeleniumDriver driver) {
+    public MiClinicalDataQualitySteps(SeleniumDriver driver) {
         super(driver);
     }
 
