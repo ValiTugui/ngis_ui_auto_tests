@@ -42,4 +42,47 @@ public class MiClinicalDataQualitySteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
+    @And("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
+    public void theUserSelectsspecifiedvalueAsTheClinicalDqFilterGlhDropDownMenu(String value) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.selectValueInGlhDropDown(value);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user selects on ordering entity drop-down")
+    public void theUserSelectsOnOrderingEntityDropDown() {
+        boolean testResult = false;
+        miClinicalDataQualityPage.ClickOnOrderingEntityDd();
+    }
+
+    @And("the user click on Deselect All button by default all the ordering entites should select")
+    public void theUserClickOnDeselectAllButtonByDefaultAllTheOrderingEntitesShouldSelect() {
+        boolean testResult = false;
+        miClinicalDataQualityPage.ClickOnDeselectAllButton();
+//        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Select All button")
+    public void theUserClickOnSelectAllButton() {
+        boolean testResult = false;
+        miClinicalDataQualityPage.ClickOnSelectAllButton();
+//        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Apply Filters button")
+    public void theUserClickOnApplyFiltersButton() {
+        boolean testResult = false;
+        miClinicalDataQualityPage.clickOnApplyFiltersButton();
+//        Assert.assertTrue(testResult);
+    }
+
+    @Then("the filter results displays the elements - Summary, Full Output, Streamline Output, Genomic Identity Output, Appendix - all rules")
+    public void theFilterResultsDisplaysTheElementsSummaryFullOutputStreamlineOutputGenomicIdentityOutputAppendixAllRules() {
+       boolean testResult = false;
+       testResult = miClinicalDataQualityPage.VerifyTheElementsPresentInApplyFiltersSection();
+       Assert.assertTrue(testResult);
+    }
+
+
 }
