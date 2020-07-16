@@ -56,25 +56,25 @@ public class MiClinicalDataQualitySteps extends Pages {
         miClinicalDataQualityPage.ClickOnOrderingEntityDd();
     }
 
-    @And("the user click on Deselect All button by default all the ordering entites should select")
-    public void theUserClickOnDeselectAllButtonByDefaultAllTheOrderingEntitesShouldSelect() {
+    @And("the user click on Deselect All button by default all the ordering entities should select")
+    public void theUserClickOnDeselectAllButtonByDefaultAllTheOrderingEntitiesShouldSelect() {
         boolean testResult = false;
-        miClinicalDataQualityPage.ClickOnDeselectAllButton();
-//        Assert.assertTrue(testResult);
+        testResult = miClinicalDataQualityPage.ClickOnDeselectAllButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user click on Select All button")
     public void theUserClickOnSelectAllButton() {
         boolean testResult = false;
-        miClinicalDataQualityPage.ClickOnSelectAllButton();
-//        Assert.assertTrue(testResult);
+        testResult = miClinicalDataQualityPage.ClickOnSelectAllButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user click on Apply Filters button")
     public void theUserClickOnApplyFiltersButton() {
         boolean testResult = false;
-        miClinicalDataQualityPage.clickOnApplyFiltersButton();
-//        Assert.assertTrue(testResult);
+        testResult = miClinicalDataQualityPage.clickOnApplyFiltersButton();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the filter results displays the elements - Summary, Full Output, Streamline Output, Genomic Identity Output, Appendix - all rules")
@@ -84,5 +84,45 @@ public class MiClinicalDataQualitySteps extends Pages {
        Assert.assertTrue(testResult);
     }
 
+    @Then("the user able to see all the ordering entities should deselect")
+    public void theUserAbleToSeeAllTheOrderingEntitiesShouldDeselect() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.OrderingEntitiesDeselect();
+        Assert.assertTrue(testResult);
+    }
 
+    @Then("the user able to see all the ordering entities should select")
+    public void theUserAbleToSeeAllTheOrderingEntitiesShouldSelect() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.OrderingEntitiesSelect();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the Clinical DQ Report table column (.*) is displayed with data (.*)")
+    public void theUserSeesTheClinicalDQReportTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesInClinicalDqReportTable(ColName, ColValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Full Output tab")
+    public void theUserClickOnFullOutputTab() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnFullOptputTab();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Streamline Output tab")
+    public void theUserClickOnStreamlineOutputTab() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnStreamlineOutputTab();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees Clinical DQ Report table column (.*) is displayed with data (.*)")
+    public void theUserSeesClinicalDQReportTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderFullOutputTab(ColName, ColValue);
+        Assert.assertTrue(testResult);
+    }
 }

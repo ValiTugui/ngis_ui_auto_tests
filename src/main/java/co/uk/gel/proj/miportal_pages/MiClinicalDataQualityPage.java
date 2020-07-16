@@ -4,6 +4,7 @@ package co.uk.gel.proj.miportal_pages;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.java.hu.De;
 import org.apache.bcel.generic.ARETURN;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -92,7 +93,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 Wait.seconds(5);
                 return seleniumLib.selectFromListByText(GlhDropDown,value);
             }
-            Wait.seconds(5);
+            Wait.seconds(3);
             return true;
         }
         catch (Exception exp) {
@@ -105,33 +106,38 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "(//div[@class='box']//span[@class='caret'])[2]")
     public WebElement OrderingEntityDropdown;
-    public void ClickOnOrderingEntityDd(){
-        OrderingEntityDropdown.click();
+    public boolean ClickOnOrderingEntityDd(){
         Wait.seconds(5);
+        OrderingEntityDropdown.click();
+        return true;
     }
 
     @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
     public WebElement clickOnDeselectAllButton;
-    public void ClickOnDeselectAllButton() {
-        clickOnDeselectAllButton.click();
+    public boolean ClickOnDeselectAllButton() {
         Wait.seconds(3);
+        clickOnDeselectAllButton.click();
+        return true;
     }
 
     @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][1]")
     public WebElement clickOnSelectAllButton;
-    public void ClickOnSelectAllButton() {
+    public boolean ClickOnSelectAllButton() {
+        Wait.seconds(2);
         clickOnSelectAllButton.click();
-        Wait.seconds(5);
+        return true;
     }
 
     @FindBy(xpath = "//button[@id='clinical_dq-apply_filters']")
     public WebElement ClickOnApplyFiltersButton;
-    public void clickOnApplyFiltersButton() {
+    public boolean clickOnApplyFiltersButton() {
+        Wait.seconds(5);
         ClickOnApplyFiltersButton.click();
         Wait.seconds(15);
+        return true;
     }
 
-    @FindBy(xpath = "//a[text()='Summary']")
+    @FindBy(xpath = "//a[contains(text(),'Summary')]")
     public WebElement SummaryTitle;
 
     @FindBy(xpath = "//a[text()='Full Output']")
@@ -193,4 +199,152 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+    @FindBy(xpath = "//a[@id='bs-select-16-0']//span[@class='glyphicon glyphicon-ok check-mark']")
+    public WebElement checkMark;
+    public boolean OrderingEntitiesDeselect() {
+        try {
+            Wait.seconds(5);
+            if(!checkMark.isDisplayed()){
+                Debugger.println("Check mark is not present");
+                SeleniumLib.takeAScreenShot("CheckMark_1.jpg");
+                return true;
+            }
+            return false;
+        } catch (Exception exp){
+            Debugger.println("Check mark is present");
+            return false;
+        }
+    }
+
+    public boolean OrderingEntitiesSelect() {
+        try {
+            Wait.seconds(5);
+            if(checkMark.isDisplayed()){
+                Debugger.println("Check mark is present");
+                SeleniumLib.takeAScreenShot("CheckMark_2.jpg");
+                return true;
+            }return false;
+        } catch (Exception exp){
+            Debugger.println("Check mark is not present");
+            return false;
+        }
+    }
+
+    By ClinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
+    String ClinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
+
+    public boolean verifyTheColumnValuesInClinicalDqReportTable(String ColName,String expValue) {
+        try{
+            Wait.seconds(10);
+            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+                Debugger.println("Summary Title is displayed");
+                SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
+                return false;
+            }
+            int noOfFilteredRows = seleniumLib.getNoOfRows(ClinicalDqReportTableRows);
+            if(noOfFilteredRows == 0){
+                Debugger.println("No Filter results found in Clinical Dq Report table");
+                SeleniumLib.takeAScreenShot("Clinical_Dq_Report_1.jpg");
+                return false;
+            }
+            int colIndex = seleniumLib.getColumnIndex(ClinicalDqReportTableHead,ColName);
+            if(colIndex == -1){
+                Debugger.println("Specified column "+ColName+" not present in Clinical Dq Report table");
+                SeleniumLib.takeAScreenShot("Clinical_Dq_Report_2.jpg");
+                return false;
+            }
+            Wait.seconds(15);
+            //Verify value in each column value as expected.
+            By cellPath = null;
+            String cellValue  = "";
+            for(int i=0; i<noOfFilteredRows; i++){
+                cellPath = By.xpath(ClinicalDqReportTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+                cellValue = seleniumLib.getText(cellPath);
+                if (expValue.equalsIgnoreCase("non-empty-data")){
+                    if (cellValue.isEmpty()){
+                        Debugger.println("Column: "+ ColName +" value supposed to be non-empty, but Actual is empty");
+                        SeleniumLib.takeAScreenShot("Clinical_Dq_Report_3");
+                        return false;
+                    }else {
+                        if (!cellValue.contains(expValue)){
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            SeleniumLib.takeAScreenShot("Clinical_Dq_Report_4");
+                            return true;
+                        }
+                    }
+                }
+            }return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable:" + exp);
+            SeleniumLib.takeAScreenShot("ClinicalDqReportException.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnFullOptputTab() {
+        Wait.seconds(5);
+        FullOutputTitle.click();
+        return true;
+    }
+
+    public boolean clickOnStreamlineOutputTab() {
+        Wait.seconds(5);
+        StreamlineOutputTitle.click();
+        return true;
+    }
+
+    By FullOutputTabHead = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[2]//table[@class='display dataTable no-footer']/thead/tr/th") ;
+    String FullOutputTabHeadRows = "(//div[@class='dataTables_scrollBody'])[2]//table[@class='display dataTable no-footer']/tbody/tr";
+
+    public boolean verifyTheColumnValuesUnderFullOutputTab(String ColName,String expValue) {
+        try{
+            Wait.seconds(10);
+            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+                Debugger.println("Summary Title is displayed");
+                SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
+                return false;
+            }
+            int noOfFilteredRows = seleniumLib.getNoOfRows(FullOutputTabHeadRows);
+            if(noOfFilteredRows == 0){
+                Debugger.println("No Filter results found in Clinical Dq Report table");
+                SeleniumLib.takeAScreenShot("Clinical_Dq_Report_1.jpg");
+                return false;
+            }
+            int colIndex = seleniumLib.getColumnIndex(FullOutputTabHead,ColName);
+            if(colIndex == -1){
+                Debugger.println("Specified column "+ColName+" not present in Clinical Dq Report table");
+                SeleniumLib.takeAScreenShot("Clinical_Dq_Report_2.jpg");
+                return false;
+            }
+            Wait.seconds(15);
+            //Verify value in each column value as expected.
+            By cellPath = null;
+            String cellValue  = "";
+            for(int i=0; i<noOfFilteredRows; i++){
+                cellPath = By.xpath(FullOutputTabHeadRows+"["+(i+1)+"]/td["+colIndex+"]");
+                cellValue = seleniumLib.getText(cellPath);
+                if (expValue.equalsIgnoreCase("non-empty-data")){
+                    if (cellValue.isEmpty()){
+                        Debugger.println("Column: "+ ColName +" value supposed to be non-empty, but Actual is empty");
+                        SeleniumLib.takeAScreenShot("Clinical_Dq_Report_3");
+                        return false;
+                    }else {
+                        if (!cellValue.contains(expValue)){
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            SeleniumLib.takeAScreenShot("Clinical_Dq_Report_4");
+                            return true;
+                        }
+                    }
+                }
+            }return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable:" + exp);
+            SeleniumLib.takeAScreenShot("ClinicalDqReportException.jpg");
+            return false;
+        }
+    }
 }
+
+
+
+
