@@ -48,10 +48,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserSelectRelationshipForFamilyMember(String relationToProband, String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
         if (!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")) {
-            Assert.assertTrue(false);
+            Assert.fail("Ethnicity could not select.");
         }
-        if (!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)) {
-            Assert.assertTrue(false);
+        if (!patientDetailsPage.editDropdownField(familyMemberDetailsPage.relationshipToProbandDropdown,relationToProband)){
+             Assert.fail("Relationship to proband could not fill...");
         }
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
         if (familyMember != null) {
@@ -76,7 +76,6 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String diseaseStatus) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(diseaseStatus);
-        Debugger.println("HERE..\n"+driver.getCurrentUrl());
         Assert.assertTrue(testResult);
     }
 
@@ -388,11 +387,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                     if (!familyMemberNewPatientPage.newFamilyMemberPageIsDisplayed()) {
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": new Family Member URL not displayed");
                     }
-                    Debugger.println("Creating new Family Member:"+familyMember.getDATE_OF_BIRTH());
                     if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+"createNewFamilyMember Failed");
                     }
-                    Debugger.println("Created:"+familyMember.getDATE_OF_BIRTH());
                     if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
                         if(!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
                             Assert.fail("FM:"+memberDetails.get(i).get(0)+"verifyThePageTitlePresence Failed");
@@ -429,7 +426,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Assert.fail("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
                 }
                 Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
-                Debugger.println("Verifying Test details for Family member: " + memberDetails.get(i).get(0));
                 if (!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)) {
                     Assert.fail("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg");
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
@@ -438,34 +434,28 @@ public class FamilyMemberDetailsSteps extends Pages {
                 if (memberDetails.get(i).size() < 3) {
                     continue;//Some times the Disease status not passing
                 }
-                Debugger.println("Clicking on Save and Continue in Family Member Stage...to proceed with Disease status updation");
                 if (!referralPage.clickSaveAndContinueButton()) {
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);
-                Debugger.println("Updating family member with Disease status...");
                 if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
                     Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
-                    Assert.assertTrue(false);
+                    Assert.fail("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                 }
                 Wait.seconds(5);
-                Debugger.println("Disease status updated .. Clicking on Save and Continue in Family Member Stage...");
                 if (!referralPage.clickSaveAndContinueButton()) {
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);
                 if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
-                    Debugger.println("Family Member Details Page is Yet be loaded......waiting for 10 more seconds");
                     Wait.seconds(10);
                     if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
-                        Debugger.println("Family Member Details Page is Still not loaded......waiting for 20 more seconds");
                         Wait.seconds(20);
                     }
                 }
 
                 if (!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))) {
-                    Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
-                    Assert.fail("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
+                     Assert.fail("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                 }
                 Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " Added Successfully.\n");
                 Wait.seconds(5);

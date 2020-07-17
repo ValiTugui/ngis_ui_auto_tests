@@ -1,4 +1,3 @@
-#@userJourneys
 #@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
 

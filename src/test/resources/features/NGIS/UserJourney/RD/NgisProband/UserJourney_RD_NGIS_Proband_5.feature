@@ -1,5 +1,5 @@
-#@userJourneys
 #@userJourneysRD
+#@userJourneysRD_NgisProband
 @SYSTEM_INTEGRATION_TEST
 
 Feature: UserJourney_RD_NGIS_Proband_5: - UC05 - E2EUI-1296

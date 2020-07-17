@@ -1,6 +1,5 @@
-#@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NGIS_ProbandOnly
+#@userJourneysRD_NgisProband
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Proband_4 - UC03 - E2EUI-991
 

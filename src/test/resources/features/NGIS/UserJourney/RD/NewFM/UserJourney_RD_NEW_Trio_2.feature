@@ -1,6 +1,5 @@
-#@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NEW_TrioFamily
+#@userJourneysRD_NewFM
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_2 - UC10 - E2EUI-1251
 

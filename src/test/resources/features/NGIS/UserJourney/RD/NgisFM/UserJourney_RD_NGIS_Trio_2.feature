@@ -1,5 +1,5 @@
-#@userJourneys
 #@userJourneysRD
+#@userJourneysRD_NgisFM
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Trio_2 - UC10 - E2EUI-1009
 
