@@ -1,11 +1,13 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.miportal_pages.MiClinicalDataQualityPage;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.apache.maven.wagon.Wagon;
 import org.junit.Assert;
 
 import java.util.List;
@@ -53,7 +55,8 @@ public class MiClinicalDataQualitySteps extends Pages {
     @And("the user selects on ordering entity drop-down")
     public void theUserSelectsOnOrderingEntityDropDown() {
         boolean testResult = false;
-        miClinicalDataQualityPage.ClickOnOrderingEntityDd();
+        testResult = miClinicalDataQualityPage.ClickOnOrderingEntityDd();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user click on Deselect All button by default all the ordering entities should select")
@@ -108,7 +111,7 @@ public class MiClinicalDataQualitySteps extends Pages {
     @And("the user click on Full Output tab")
     public void theUserClickOnFullOutputTab() {
         boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnFullOptputTab();
+        testResult = miClinicalDataQualityPage.clickOnFullOutputTab();
         Assert.assertTrue(testResult);
     }
 
@@ -123,6 +126,48 @@ public class MiClinicalDataQualitySteps extends Pages {
     public void theUserSeesClinicalDQReportTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderFullOutputTab(ColName, ColValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the Streamline Output table column (.*) is displayed with data (.*)")
+    public void theUserSeesTheStreamlineOutputTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderStreamlineOutputTab(ColName, ColValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Genomic Identity Output tab")
+    public void theUserClickOnGenomicIdentityOutputTab() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnGenomicIdentityOutputTab();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Appendix - all rules tab")
+    public void theUserClickOnAppendixAllRulesTab() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnAppendixAllRulesTab();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Reset Filters Button")
+    public void theUserClickOnResetFiltersButton() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnResetFiltersButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the column (.*) is displayed with data (.*)")
+    public void theUserSeesTheColumnIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderGenomicIdentityOutputTab(ColName, ColValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the Appendix - all table column (.*) is displayed with data (.*)")
+    public void theUserSeesTheAppendixAllTableColumnIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderAppendixAllRulesTab(ColName, ColValue);
         Assert.assertTrue(testResult);
     }
 }
