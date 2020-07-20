@@ -170,4 +170,11 @@ public class MiClinicalDataQualitySteps extends Pages {
         testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderAppendixAllRulesTab(ColName, ColValue);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user sees the Streamline_Output_table column (.*) is displayed with data (.*)")
+    public void theUserSeesTheStreamline_Output_tableColumnPatientSFirstNameIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesInClinicalDqReportTable(ColName, ColValue);
+        Assert.assertTrue(testResult);
+    }
 }

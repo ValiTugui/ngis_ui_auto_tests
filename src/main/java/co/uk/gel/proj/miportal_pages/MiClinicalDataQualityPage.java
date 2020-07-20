@@ -264,6 +264,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("Clinical_Dq_Report_1.jpg");
                 return false;
             }
+            Wait.seconds(5);
             int colIndex = seleniumLib.getColumnIndex(ClinicalDqReportTableHead,ColName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+ColName+" not present in Clinical Dq Report table");
