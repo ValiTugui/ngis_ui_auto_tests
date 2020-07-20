@@ -114,24 +114,3 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | mi_stage              | header                       |
       | Clinical Data Quality | Clinical Data Quality Report |
 
-
-
-  @MiPortalClinicalDataQuality_6
-  Scenario Outline: Validate the values displayed in table columns
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a header as Clinical Data Quality Report on "<header>" stage
-    And the user selects Yorkshire & North East as the Clinical Dq Filter Glh drop-down menu
-    And the user click on Streamline Output tab
-    And the user click on Apply Filters button
-    And the user sees the Streamline_Output_table column Referral ID is displayed with data non-empty-data
-    And the user sees the Streamline_Output_table column Patient's first name is displayed with data non-empty-data
-    And the user sees the Streamline_Output_table column Failed rule ID is displayed with data non-empty-data
-    And the user sees the Streamline_Output_table column Programme is displayed with data non-empty-data
-    And the user click on Reset Filters Button
-
-    Examples:
-      | mi_stage              | header                       |
-      | Clinical Data Quality | Clinical Data Quality Report |
-

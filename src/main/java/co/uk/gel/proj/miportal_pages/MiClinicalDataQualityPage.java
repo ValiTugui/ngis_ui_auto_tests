@@ -108,22 +108,13 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void clickOnClinicalDqFilterGlhDropdown() {
-        clinical_dq_filter_dropdown.click();
-    }
+//    public void clickOnClinicalDqFilterGlhDropdown() {
+//        clinical_dq_filter_dropdown.click();
+//    }
     public boolean selectClinicalDqFilterGlh(String value) {
         try {
-            Wait.seconds(1);
-            boolean result = false;
-            for (int i = 0; i < clinical_dq_filter_glh.size(); i++) {
-                if (clinical_dq_filter_glh.get(i).getText().contains(value)) {
-                    result = true;
-                    break;
-                } else {
-                    Debugger.println("Exp value = " + clinical_dq_filter_glh.get(i).getText() + " : ACT value : " + value + " : is not match");
-                }
-            }
-            return result;
+            Wait.seconds(10);
+            return seleniumLib.selectFromListByText(GlhDropDown, value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: " + exp);
             SeleniumLib.takeAScreenShot("GlhselectDropDownSearchValue.jpg");
