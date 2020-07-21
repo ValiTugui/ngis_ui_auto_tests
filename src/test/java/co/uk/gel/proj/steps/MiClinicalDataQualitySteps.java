@@ -36,10 +36,10 @@ public class MiClinicalDataQualitySteps extends Pages {
 
     @Then("the user sees the below values in the GLH search column drop-down menu")
     public void theUserSeesTheBelowValuesInTheGLHSearchColumnDropDownMenu(DataTable dataTable) {
-//        miClinicalDataQualityPage.clickOnClinicalDqFilterGlhDropdown();
+        miClinicalDataQualityPage.clickOnClinicalDqFilterGlhDropdown();
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
-        Wait.seconds(5);
+        Wait.seconds(3);
         for (int i=0; i < expectedDropDownValues.size(); i++){
             testResult = miClinicalDataQualityPage.selectClinicalDqFilterGlh(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);

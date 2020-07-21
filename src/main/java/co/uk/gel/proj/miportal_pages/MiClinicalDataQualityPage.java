@@ -108,12 +108,12 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-//    public void clickOnClinicalDqFilterGlhDropdown() {
-//        clinical_dq_filter_dropdown.click();
-//    }
+    public void clickOnClinicalDqFilterGlhDropdown() {
+        clinical_dq_filter_dropdown.click();
+    }
     public boolean selectClinicalDqFilterGlh(String value) {
         try {
-            Wait.seconds(10);
+            Wait.seconds(8);
             return seleniumLib.selectFromListByText(GlhDropDown, value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: " + exp);

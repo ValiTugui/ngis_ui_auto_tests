@@ -1,7 +1,7 @@
 @MIPORTAL
 @MIPORTAL_ST
 @SYSTEM_TEST
-@DQ_Report
+@DQ_Report_1
 Feature: MIPORTAL ST - Clinical Data Quality - 1
 
 
