@@ -39,10 +39,12 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
         }
         Wait.seconds(1);
+        Debugger.println("Refreshing the browser page before starting...");
         SeleniumLib.refreshPage();
         Wait.seconds(2);
         Actions.acceptAlert(driver);
-        Debugger.println("Refreshing the browser page before starting...");
+        Wait.seconds(1);
+        Actions.acceptAlert(driver);
     }
 
     @And("the user enters a date (.*) in the file-submission date field")
