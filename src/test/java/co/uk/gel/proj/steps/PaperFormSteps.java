@@ -90,6 +90,7 @@ public class PaperFormSteps extends Pages {
 
     @Then("the {string} page is properly displayed for chosen clinical indication")
     public void offlineOrderPageIsDisplayedForRareDiseaseClinicalIndication(String pageTitle) {
+        Wait.seconds(15);
         Wait.forElementToBeDisplayed(driver, paperFormPage.offlineOrderContainer);
         Wait.forElementToBeDisplayed(driver, paperFormPage.paperFormHeader);
         Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
@@ -182,5 +183,10 @@ public class PaperFormSteps extends Pages {
     public void theUseClicksTheLinkCancelOrder() {
         paperFormPage.clickCancelOrderLink();
         Actions.acceptAlert(driver);
+    }
+
+    @And("user clicks on the Sign in to the online service")
+    public void userClicksOnTheSignInToTheOnlineService() {
+        Assert.assertTrue(paperFormPage.signInToOnlineServiceButton.isEnabled());
     }
 }

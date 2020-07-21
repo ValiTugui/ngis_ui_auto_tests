@@ -51,6 +51,9 @@ public class DashBoardPage {
     @FindBy(xpath = "//div[@id='root']//a/child::div[contains(@class,'styles_card__title')]")
     public List<WebElement> nhsTabs;
 
+    @FindBy(xpath = "//div[contains(text(),'Manage samples')]")
+    public WebElement ManageSamplesTab;
+
     public void navigateToDashboardPage() {
         driver.get(AppConfig.getTo_dashboard_url());
         if (!(driver.getCurrentUrl().contains("patient-search"))) {
@@ -163,5 +166,32 @@ public class DashBoardPage {
             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
             return false;
         }
+    }
+
+    public boolean clickOnFindAGenomicTestTab() {
+        Wait.seconds(5);
+        testSelectionLocator.click();
+        return true;
+    }
+
+    public boolean directedToTestSelectionPage() {
+        Wait.seconds(5);
+        try {
+            if (driver.getCurrentUrl().contains("dashboard")) {
+                Wait.seconds(2);
+                String navigatedURL = driver.getCurrentUrl();
+                Debugger.println("Current URL AFTER dashboard page re-direction:" + navigatedURL);
+            } return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception form DashBoardPage, test selection page " + exp);
+            SeleniumLib.takeAScreenShot("TestSelection.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnManageSampleTab() {
+        Wait.seconds(10);
+        ManageSamplesTab.click();
+        return true;
     }
 }
