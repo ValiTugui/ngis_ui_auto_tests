@@ -415,7 +415,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsInTheSearchResultSection() {
         try {
-            Wait.seconds(1);
+            Wait.seconds(15);
             if(!Wait.isElementDisplayed(driver, searchResultTitle,60)){
                 Debugger.println("Search results are not displayed");
                 SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");

@@ -36,7 +36,6 @@ Feature: Start Test Selection - CI Details - Requesting Organisation - Test Pack
 #MI portal
     When the user clicks the Log out button
     And User should be able to see my Dashboard
-    And User clicks Manage Sample
     When a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     And the user click on "File Submissions" section select the filters and click on Add and Search buttons and verify the table loaded
@@ -46,7 +45,7 @@ Feature: Start Test Selection - CI Details - Requesting Organisation - Test Pack
     And the user click on "Picklists" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "Sequencer Samples" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "New Referrals" section select the filters and click on Add and Search buttons and verify the table loaded
-    And the user click on Clinical Data Qualty section select the filters East Mids and East of England and click on Add Filters button and verify the table loaded
+    And the user click on Clinical Data Quality section select the filters East Mids and East of England and click on Add Filters button and verify the table loaded
 
 
     Examples:

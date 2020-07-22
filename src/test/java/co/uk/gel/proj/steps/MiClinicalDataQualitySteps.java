@@ -109,20 +109,6 @@ public class MiClinicalDataQualitySteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Full Output tab")
-    public void theUserClickOnFullOutputTab() {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnFullOutputTab();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user click on Streamline Output tab")
-    public void theUserClickOnStreamlineOutputTab() {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnStreamlineOutputTab();
-        Assert.assertTrue(testResult);
-    }
-
     @And("the user sees Clinical DQ Report table column (.*) is displayed with data (.*)")
     public void theUserSeesClinicalDQReportTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
         boolean testResult = false;
@@ -134,20 +120,6 @@ public class MiClinicalDataQualitySteps extends Pages {
     public void theUserSeesTheStreamlineOutputTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderStreamlineOutputTab(ColName, ColValue);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user click on Genomic Identity Output tab")
-    public void theUserClickOnGenomicIdentityOutputTab() {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnGenomicIdentityOutputTab();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user click on Appendix - all rules tab")
-    public void theUserClickOnAppendixAllRulesTab() {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnAppendixAllRulesTab();
         Assert.assertTrue(testResult);
     }
 
@@ -179,13 +151,22 @@ public class MiClinicalDataQualitySteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Clinical Data Qualty section select the filters (.*) and click on Add Filters button and verify the table loaded")
-    public void theUserClickOnClinicalDataQualtySectionSelectTheFiltersAndClickOnAddFiltersButtonAndVerifyTheTableLoaded(String value) {
+    @And("the user click on Clinical Data Quality section select the filters (.*) and click on Add Filters button and verify the table loaded")
+    public void theUserClickOnClinicalDataQualitySectionSelectTheFiltersAndClickOnAddFiltersButtonAndVerifyTheTableLoaded(String value) {
         Assert.assertTrue(miClinicalDataQualityPage.navigateToClinicalDataQualityPage());
-        Wait.seconds(3);
+        Wait.seconds(4);
         Assert.assertTrue(miClinicalDataQualityPage.selectValueInGlhDropDown(value));
-        Wait.seconds(5);
+        Wait.seconds(2);
         Assert.assertTrue(miClinicalDataQualityPage.clickOnApplyFiltersButton());
         Wait.seconds(10);
+        Assert.assertTrue(miClinicalDataQualityPage.VerifyTheElementsPresentInApplyFiltersSection());
+        Wait.seconds(5);
+    }
+
+    @And("the user selects (.*) tab")
+    public void theUserSelectsTab(String expectedTabName) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnFullOutputTab(expectedTabName);
+        Assert.assertTrue(testResult);
     }
 }

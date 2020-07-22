@@ -1,6 +1,7 @@
 package co.uk.gel.proj.miportal_pages;
 
 
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -166,7 +167,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean VerifyTheElementsPresentInApplyFiltersSection() {
         try{
-            Wait.seconds(10);
+            Wait.seconds(8);
             if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
@@ -290,10 +291,29 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean clickOnFullOutputTab() {
-        FullOutputTitle.click();
-        Wait.seconds(10);
-        return true;
+//        FullOutputTitle.click();
+//        Wait.seconds(10);
+//        return true;
+
+    public boolean clickOnFullOutputTab(String expectedTabName) {
+        By tabName = null;
+        try{
+            tabName = By.xpath("//a[text()='"+ expectedTabName + "']");
+            if(!Wait.isElementDisplayed(driver, driver.findElement(tabName), 5)){
+                Debugger.println(expectedTabName + " is not displayed");
+                SeleniumLib.takeAScreenShot("NoAddButton.jpg");
+                return false;
+            }
+            Wait.forElementToBeClickable(driver, driver.findElement(tabName));
+            Click.element(driver, driver.findElement(tabName));
+            Wait.seconds(2);
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception from Clicking on addButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoAddButton.jpg");
+            return false;
+        }
+
     }
 
     public boolean verifyTheColumnValuesUnderFullOutputTab(String ColName, String expValue) {

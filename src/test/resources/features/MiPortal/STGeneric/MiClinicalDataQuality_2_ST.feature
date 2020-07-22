@@ -68,18 +68,19 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
     And the user selects Wessex & West Midlands as the Clinical Dq Filter Glh drop-down menu
     And the user click on Apply Filters button
     Then the filter results displays the elements - Summary, Full Output, Streamline Output, Genomic Identity Output, Appendix - all rules
+    And the user selects Summary tab
     And the user sees the Clinical DQ Report table column Rule ID is displayed with data non-empty-data
     And the user sees the Clinical DQ Report table column Rule Description is displayed with data non-empty-data
-    And the user click on Full Output tab
+    And the user selects Full Output tab
     And the user sees Clinical DQ Report table column Organisation is displayed with data non-empty-data
     And the user sees Clinical DQ Report table column Programme is displayed with data non-empty-data
-    And the user click on Streamline Output tab
+    And the user selects Streamline Output tab
     And the user sees the Streamline Output table column Patient's first name is displayed with data non-empty-data
     And the user sees the Streamline Output table column Failed rule ID is displayed with data non-empty-data
-    And the user click on Genomic Identity Output tab
-#    And the user sees the column Patient's gender is displayed with data non-empty-data
-#    And the user sees the column Failure description is displayed with data non-empty-data
-    And the user click on Appendix - all rules tab
+    And the user selects Genomic Identity Output tab
+    And the user sees the column Patient's gender is displayed with data non-empty-data
+    And the user sees the column Failure description is displayed with data non-empty-data
+    And the user selects Appendix - all rules tab
     And the user sees the Appendix - all table column Full output/Streamline Output is displayed with data non-empty-data
     And the user sees the Appendix - all table column Failed rule description is displayed with data non-empty-data
     And the user click on Reset Filters Button
