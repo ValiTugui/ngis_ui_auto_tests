@@ -166,7 +166,7 @@ public class MiClinicalDataQualitySteps extends Pages {
     @And("the user selects (.*) tab")
     public void theUserSelectsTab(String expectedTabName) {
         boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnFullOutputTab(expectedTabName);
+        testResult = miClinicalDataQualityPage.clickOnSpecifiedTab(expectedTabName);
         Assert.assertTrue(testResult);
     }
 }

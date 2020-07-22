@@ -295,7 +295,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 //        Wait.seconds(10);
 //        return true;
 
-    public boolean clickOnFullOutputTab(String expectedTabName) {
+    public boolean clickOnSpecifiedTab(String expectedTabName) {
         By tabName = null;
         try{
             tabName = By.xpath("//a[text()='"+ expectedTabName + "']");
