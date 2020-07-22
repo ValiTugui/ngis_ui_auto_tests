@@ -519,6 +519,14 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         ResetFiltersButton.click();
         return true;
     }
+    @FindBy(xpath = "//a[@data-value=\"clinical_dq_tab\"]")
+    public WebElement ClinicalDqTab;
+
+    public boolean navigateToClinicalDataQualityPage() {
+        Wait.seconds(5);
+        ClinicalDqTab.click();
+        return true;
+    }
 }
 
 

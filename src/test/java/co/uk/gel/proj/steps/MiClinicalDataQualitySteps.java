@@ -178,4 +178,14 @@ public class MiClinicalDataQualitySteps extends Pages {
         testResult = miClinicalDataQualityPage.verifyTheColumnValuesInClinicalDqReportTable(ColName, ColValue);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user click on Clinical Data Qualty section select the filters (.*) and click on Add Filters button and verify the table loaded")
+    public void theUserClickOnClinicalDataQualtySectionSelectTheFiltersAndClickOnAddFiltersButtonAndVerifyTheTableLoaded(String value) {
+        Assert.assertTrue(miClinicalDataQualityPage.navigateToClinicalDataQualityPage());
+        Wait.seconds(3);
+        Assert.assertTrue(miClinicalDataQualityPage.selectValueInGlhDropDown(value));
+        Wait.seconds(5);
+        Assert.assertTrue(miClinicalDataQualityPage.clickOnApplyFiltersButton());
+        Wait.seconds(10);
+    }
 }

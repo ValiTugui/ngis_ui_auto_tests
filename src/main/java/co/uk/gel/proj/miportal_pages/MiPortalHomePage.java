@@ -1240,6 +1240,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePresenceOfSectionHeader(String sectionHeader) {
         try {
+            Wait.seconds(10);
             boolean isPresent = false;
             if (!Wait.isElementDisplayed(driver, sampleProcessing2, 10)) {
                 Debugger.println("Sample processing section header field is not displayed.");

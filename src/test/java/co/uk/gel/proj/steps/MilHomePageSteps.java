@@ -438,6 +438,7 @@ public class MilHomePageSteps extends Pages {
     @Then("the user should be able to see the below header sections in Sample Processing")
     public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInSampleProcessing(DataTable inputSections) {
         try {
+            Wait.seconds(15);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
             for (int i = 1; i < linkDetails.size(); i++) {
@@ -562,5 +563,12 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testresult);
     }
 
-
+    @And("the user click on {string} section select the filters and click on Add and Search buttons and verify the table loaded")
+    public void theUserClickOnFileSubmissionSectionSelectTheFiltersAndClickOnAddButtonAndClickOnSearchButton(String miPage) {
+        Assert.assertTrue(miPortalHomePage.navigateToMiPage(miPage));
+        Wait.seconds(5);
+        Assert.assertTrue(miPortalHomePage.clickAddButton());
+        Assert.assertTrue(miPortalHomePage.clickSearchButton());
+        Wait.seconds(10);
+    }
 }
