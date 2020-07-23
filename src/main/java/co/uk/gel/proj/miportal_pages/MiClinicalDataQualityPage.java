@@ -5,8 +5,6 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import io.cucumber.java.hu.De;
-import org.apache.bcel.generic.ARETURN;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +12,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
@@ -129,10 +126,10 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(GlhDropDown,value)){
                 Wait.seconds(5);
-                Debugger.println("The " + value + "is present");
+                Debugger.println("The " + value + " is present");
                 return seleniumLib.selectFromListByText(GlhDropDown,value);
             }
-            Debugger.println("The " + value + "is selected");
+            Debugger.println("The " + value + " is selected");
             Wait.seconds(3);
             return true;
         }
@@ -285,7 +282,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ", Actual: " + cellValue);
                             SeleniumLib.takeAScreenShot("Clinical_Dq_Report_4");
                             return true;
                         }
@@ -311,7 +308,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeClickable(driver, driver.findElement(tabName));
             Click.element(driver, driver.findElement(tabName));
             Wait.seconds(2);
-            Debugger.println("The" + expectedTabName + "is clicked");
+            Debugger.println("The " + expectedTabName + " is clicked");
             return true;
         } catch (Exception exp){
             Debugger.println("Exception from Clicking on addButton:" + exp);
@@ -355,7 +352,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ", Actual: " + cellValue);
                             SeleniumLib.takeAScreenShot("FullOutputTab_4");
                             return true;
                         }
@@ -404,7 +401,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ", Actual: " + cellValue);
                             SeleniumLib.takeAScreenShot("StreamlineOutputTab_4");
                             return true;
                         }
@@ -456,7 +453,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ", Actual: " + cellValue);
                             SeleniumLib.takeAScreenShot("StreamlineOutputTab_4");
                             return true;
                         }
@@ -508,7 +505,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ",Actual: " + cellValue);
+                            Debugger.println("Column: " + ColName + " value, Expected: " + expValue + ", Actual: " + cellValue);
                             SeleniumLib.takeAScreenShot("StreamlineOutputTab_4");
                             return true;
                         }
@@ -539,7 +536,3 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         return true;
     }
 }
-
-
-
-
