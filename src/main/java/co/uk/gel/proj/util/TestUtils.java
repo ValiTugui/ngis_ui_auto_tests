@@ -493,7 +493,6 @@ public class TestUtils {
             List<LogEntry> entries = driver.manage().logs().get(LogType.PERFORMANCE).getAll();
             Debugger.println(entries.size() + " " + LogType.PERFORMANCE + " log entries found");
             File file = new File("APIStatus-" + NTStag + ".html");
-            FileWriter network = new FileWriter("NetworkTrafficLog-" + NTStag + ".txt", true);
             StringBuilder htmlBuilder = new StringBuilder();
             htmlBuilder.append(String.format("<h1 style=\"text-align:center\">NGIS API - URL Test Results</h1>" +
                     "<table>" +
@@ -506,7 +505,6 @@ public class TestUtils {
                     "<tbody>"));
 
             for (LogEntry entry : entries) {
-                network.write(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
                 Object document = Configuration.defaultConfiguration().jsonProvider().parse(entry.getMessage());
                 try {
                     JSONArray response = JsonPath.read(document, "$.*.method");
@@ -533,7 +531,6 @@ public class TestUtils {
 
             String html = htmlBuilder.toString();
             FileUtils.writeStringToFile(file, html, "UTF-8");
-            network.close();
         }catch(Exception exp){
 
         }
