@@ -567,12 +567,16 @@ public class MilHomePageSteps extends Pages {
     public void theUserClickOnFileSubmissionSectionSelectTheFiltersAndClickOnAddButtonAndClickOnSearchButton(String miPage) {
         Wait.seconds(2);
         Assert.assertTrue(miPortalHomePage.navigateToMiPage(miPage));
+        Debugger.println("Navigated to " + miPage);
         Wait.seconds(5);
         Assert.assertTrue(miPortalHomePage.clickAddButton());
+        Debugger.println("Add button is clicked");
         Wait.seconds(2);
         Assert.assertTrue(miPortalHomePage.clickSearchButton());
+        Debugger.println("Search button is clicked");
         Wait.seconds(15);
         Assert.assertTrue(miPortalHomePage.verifyTheElementsInTheSearchResultSection());
+        Debugger.println("The elements present in search results table are verified");
         Wait.seconds(5);
         Assert.assertTrue(miPortalHomePage.clickResetButton());
     }

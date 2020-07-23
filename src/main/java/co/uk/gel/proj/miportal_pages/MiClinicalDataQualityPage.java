@@ -87,6 +87,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Clinical_dq_Report is not present");
                 return false;
             }
+            Debugger.println("Clinical_dq_Report header is present");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from : verifyClinicalDataQualityReport :  " + exp);
@@ -98,10 +99,11 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             By Report_Guidance_Path = By.xpath("//a[text()='" + exp_value + "']");
             SeleniumLib.waitForElementVisible(Report_Guidance_Path);
-            if (!seleniumLib.getText(Report_Guidance_Path).equalsIgnoreCase(exp_value)) {
+            if (!seleniumLib.isElementClickable(Report_Guidance_Path)) {
                 Debugger.println("Report_Guidance is not present");
                 return false;
             }
+            Debugger.println("Report_Guidance link is present");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from : verifyReportGuidance :  " + exp);
@@ -127,8 +129,10 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!seleniumLib.selectFromListByText(GlhDropDown,value)){
                 Wait.seconds(5);
+                Debugger.println("The " + value + "is present");
                 return seleniumLib.selectFromListByText(GlhDropDown,value);
             }
+            Debugger.println("The " + value + "is selected");
             Wait.seconds(3);
             return true;
         }
@@ -149,18 +153,21 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean ClickOnDeselectAllButton() {
         Wait.seconds(3);
         clickOnDeselectAllButton.click();
+        Debugger.println("Deselected all the ordering entities");
         return true;
     }
 
     public boolean ClickOnSelectAllButton() {
         Wait.seconds(2);
         clickOnSelectAllButton.click();
+        Debugger.println("Selected all the ordering entities");
         return true;
     }
 
     public boolean clickOnApplyFiltersButton() {
         Wait.seconds(5);
         ClickOnApplyFiltersButton.click();
+        Debugger.println("Apply filters button clicked");
         Wait.seconds(15);
         return true;
     }
@@ -235,7 +242,8 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Check mark is present");
                 SeleniumLib.takeAScreenShot("CheckMark_2.jpg");
                 return true;
-            }return false;
+            }
+            return false;
         } catch (Exception exp){
             Debugger.println("Check mark is not present");
             return false;
@@ -291,10 +299,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-//        FullOutputTitle.click();
-//        Wait.seconds(10);
-//        return true;
-
     public boolean clickOnSpecifiedTab(String expectedTabName) {
         By tabName = null;
         try{
@@ -307,6 +311,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeClickable(driver, driver.findElement(tabName));
             Click.element(driver, driver.findElement(tabName));
             Wait.seconds(2);
+            Debugger.println("The" + expectedTabName + "is clicked");
             return true;
         } catch (Exception exp){
             Debugger.println("Exception from Clicking on addButton:" + exp);
@@ -364,12 +369,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean clickOnStreamlineOutputTab() {
-        StreamlineOutputTitle.click();
-        Wait.seconds(15);
-        return true;
-    }
-
     public boolean verifyTheColumnValuesUnderStreamlineOutputTab(String ColName, String expValue) {
         try{
             if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
@@ -417,12 +416,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("StreamlineOutputTabException.jpg");
             return false;
         }
-    }
-
-    public boolean clickOnGenomicIdentityOutputTab() {
-        Wait.seconds(10);
-        GenomicIdentityOutputTitle.click();
-        return true;
     }
 
     By GenomicIdentityOutputTabColumn = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[4]//table[@class='display dataTable no-footer']/thead/tr/th");
@@ -475,11 +468,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("StreamlineOutputTabException.jpg");
             return false;
         }
-    }
-    public boolean clickOnAppendixAllRulesTab() {
-        Wait.seconds(10);
-        AppendixAllRulesTitle.click();
-        return true;
     }
 
     By AppendixAllRulesTabColumn = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[5]//table[@class='display dataTable no-footer']/thead/tr/th");
@@ -537,14 +525,17 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean clickOnResetFiltersButton() {
         Wait.seconds(10);
         ResetFiltersButton.click();
+        Debugger.println("Reset filters button was clicked");
         return true;
     }
+
     @FindBy(xpath = "//a[@data-value=\"clinical_dq_tab\"]")
     public WebElement ClinicalDqTab;
 
     public boolean navigateToClinicalDataQualityPage() {
         Wait.seconds(5);
         ClinicalDqTab.click();
+        Debugger.println("Clinical Dq report button is is selected");
         return true;
     }
 }

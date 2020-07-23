@@ -171,6 +171,7 @@ public class DashBoardPage {
     public boolean clickOnFindAGenomicTestTab() {
         Wait.seconds(5);
         testSelectionLocator.click();
+        Debugger.println("Find a Genomic Test is selected");
         return true;
     }
 
