@@ -35,10 +35,10 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement clinical_dq_filter_dropdown;
 
     @FindBy(xpath = "//select[@id='clinical_dq-filter_glh']")
-    public WebElement GlhDropDown;
+    public WebElement glhDropDown;
 
     @FindBy(xpath = "(//div[@class='box']//span[@class='caret'])[2]")
-    public WebElement OrderingEntityDropdown;
+    public WebElement orderingEntityDropdown;
 
     @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
     public WebElement clickOnDeselectAllButton;
@@ -47,28 +47,28 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement clickOnSelectAllButton;
 
     @FindBy(xpath = "//button[@id='clinical_dq-apply_filters']")
-    public WebElement ClickOnApplyFiltersButton;
+    public WebElement clickOnApplyFiltersButton;
 
     @FindBy(xpath = "//a[contains(text(),'Summary')]")
-    public WebElement SummaryTitle;
+    public WebElement summaryTitle;
 
     @FindBy(xpath = "//a[text()='Full Output']")
-    public WebElement FullOutputTitle;
+    public WebElement fullOutputTitle;
 
     @FindBy(xpath = "//a[text()='Streamline Output']")
-    public WebElement StreamlineOutputTitle;
+    public WebElement streamlineOutputTitle;
 
     @FindBy(xpath = "//a[text()='Genomic Identity Output']")
-    public WebElement GenomicIdentityOutputTitle;
+    public WebElement genomicIdentityOutputTitle;
 
     @FindBy(xpath = "//a[text()='Appendix - all rules']")
-    public WebElement AppendixAllRulesTitle;
+    public WebElement appendixAllRulesTitle;
 
     @FindBy(xpath = "//a[@id='bs-select-16-0']//span[@class='glyphicon glyphicon-ok check-mark']")
     public WebElement checkMark;
 
     @FindBy(xpath = "//button[@id='clinical_dq-reset_filters']")
-    public WebElement ResetFiltersButton;
+    public WebElement resetFiltersButton;
 
     By ClinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String ClinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
@@ -117,7 +117,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectClinicalDqFilterGlh(String value) {
         try {
             Wait.seconds(8);
-            return seleniumLib.selectFromListByText(GlhDropDown, value);
+            return seleniumLib.selectFromListByText(glhDropDown, value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: " + exp);
             SeleniumLib.takeAScreenShot("GlhselectDropDownSearchValue.jpg");
@@ -127,10 +127,10 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectValueInGlhDropDown(String value) {
         try {
-            if(!seleniumLib.selectFromListByText(GlhDropDown,value)){
+            if(!seleniumLib.selectFromListByText(glhDropDown,value)){
                 Wait.seconds(5);
                 Debugger.println("The " + value + "is present");
-                return seleniumLib.selectFromListByText(GlhDropDown,value);
+                return seleniumLib.selectFromListByText(glhDropDown,value);
             }
             Debugger.println("The " + value + "is selected");
             Wait.seconds(3);
@@ -144,20 +144,20 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
-    public boolean ClickOnOrderingEntityDd(){
+    public boolean clickOnOrderingEntityDd(){
         Wait.seconds(5);
-        OrderingEntityDropdown.click();
+        orderingEntityDropdown.click();
         return true;
     }
 
-    public boolean ClickOnDeselectAllButton() {
+    public boolean clickOnDeselectAllButton() {
         Wait.seconds(3);
         clickOnDeselectAllButton.click();
         Debugger.println("Deselected all the ordering entities");
         return true;
     }
 
-    public boolean ClickOnSelectAllButton() {
+    public boolean clickOnSelectAllButton() {
         Wait.seconds(2);
         clickOnSelectAllButton.click();
         Debugger.println("Selected all the ordering entities");
@@ -166,46 +166,46 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickOnApplyFiltersButton() {
         Wait.seconds(5);
-        ClickOnApplyFiltersButton.click();
+        clickOnApplyFiltersButton.click();
         Debugger.println("Apply filters button clicked");
         Wait.seconds(15);
         return true;
     }
 
-    public boolean VerifyTheElementsPresentInApplyFiltersSection() {
+    public boolean verifyTheElementsPresentInApplyFiltersSection() {
         try{
             Wait.seconds(8);
-            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,FullOutputTitle,20)){
+            if(!Wait.isElementDisplayed(driver,fullOutputTitle,20)){
                 Debugger.println("Full Output Title is displayed");
                 SeleniumLib.takeAScreenShot("FullOutputTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,StreamlineOutputTitle,20)){
+            if(!Wait.isElementDisplayed(driver,streamlineOutputTitle,20)){
                 Debugger.println("Streamline Output Title is displayed");
                 SeleniumLib.takeAScreenShot("StreamlineOutputTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,GenomicIdentityOutputTitle,20)){
+            if(!Wait.isElementDisplayed(driver,genomicIdentityOutputTitle,20)){
                 Debugger.println("Genomic Identity Output Title is displayed");
                 SeleniumLib.takeAScreenShot("GenomicIdentityOutputTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,AppendixAllRulesTitle,20)){
+            if(!Wait.isElementDisplayed(driver,appendixAllRulesTitle,20)){
                 Debugger.println("Appendix All RulesTitle is displayed");
                 SeleniumLib.takeAScreenShot("AppendixAllRulesTitle.jpg");
                 return false;
             }
             List<WebElement> expectedElements = new ArrayList<WebElement>();
-            expectedElements.add(SummaryTitle);
-            expectedElements.add(FullOutputTitle);
-            expectedElements.add(StreamlineOutputTitle);
-            expectedElements.add(GenomicIdentityOutputTitle);
-            expectedElements.add(AppendixAllRulesTitle);
+            expectedElements.add(summaryTitle);
+            expectedElements.add(fullOutputTitle);
+            expectedElements.add(streamlineOutputTitle);
+            expectedElements.add(genomicIdentityOutputTitle);
+            expectedElements.add(appendixAllRulesTitle);
             for (int i=0; i < expectedElements.size(); i++){
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))){
                     Debugger.println("Summary result section element not displayed: "+expectedElements.get(i));
@@ -220,7 +220,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean OrderingEntitiesDeselect() {
+    public boolean orderingEntitiesDeselect() {
         try {
             Wait.seconds(5);
             if(!checkMark.isDisplayed()){
@@ -235,7 +235,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean OrderingEntitiesSelect() {
+    public boolean orderingEntitiesSelect() {
         try {
             Wait.seconds(5);
             if(checkMark.isDisplayed()){
@@ -253,7 +253,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheColumnValuesInClinicalDqReportTable(String ColName, String expValue) {
         try{
             Wait.seconds(10);
-            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
@@ -324,7 +324,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheColumnValuesUnderFullOutputTab(String ColName, String expValue) {
         try{
             Wait.seconds(10);
-            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
@@ -371,7 +371,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheColumnValuesUnderStreamlineOutputTab(String ColName, String expValue) {
         try{
-            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
@@ -423,7 +423,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheColumnValuesUnderGenomicIdentityOutputTab(String ColName, String expValue) {
         try{
-            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
@@ -475,7 +475,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheColumnValuesUnderAppendixAllRulesTab(String ColName, String expValue) {
         try{
-            if(!Wait.isElementDisplayed(driver,SummaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
@@ -524,7 +524,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickOnResetFiltersButton() {
         Wait.seconds(10);
-        ResetFiltersButton.click();
+        resetFiltersButton.click();
         Debugger.println("Reset filters button was clicked");
         return true;
     }
