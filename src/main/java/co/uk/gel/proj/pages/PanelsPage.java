@@ -42,7 +42,7 @@ public class PanelsPage {
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSearchResultsList;
 
-    @FindBy(xpath = "//h3[contains(text(),'Penetrance')]")
+    @FindBy(xpath = "//h3[contains(text(),'penetrance')]")
     public WebElement penetranceTitle;
 
     @FindBy(xpath = "//button[contains(text(),'Complete')]")
@@ -79,6 +79,13 @@ public class PanelsPage {
 
     @FindBy(xpath = "//h3[text()='No suggested panels found']")
     public WebElement noSuggestedPanels;
+
+    @FindBy(xpath = "//h2[contains(text(),'Add panels')]")
+    public WebElement addPanelsHeader;
+
+    @FindBy(xpath = "//p[contains(text(),'Only ticked panels ')]")
+    public WebElement addPanelDescription;
+
 
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
@@ -493,4 +500,26 @@ public class PanelsPage {
         }
     }
 
-}//end
+    public boolean verifyThePresenceOfAddPanelsSectionAndDescription(String header, String description) {
+        try{
+        if(Wait.isElementDisplayed(driver, addPanelsHeader, 60)){
+            if(addPanelsHeader.getText().contains(header)){
+                Debugger.println("AddPanelsHeader is displayed");
+                return true;
+            }
+            if(addPanelDescription.getText().contains(description)){
+                Debugger.println("AddPanelDescription is displayed");
+                return true;
+            }
+            return false;
+        }
+        return false;
+        }catch (Exception exp) {
+            Debugger.println("Exception from verifying verifyThePresenceOfAddPanelsSection:" + exp);
+            SeleniumLib.takeAScreenShot("NoAddPanels.jpg");
+            return false;
+        }
+    }
+}
+
+//end
