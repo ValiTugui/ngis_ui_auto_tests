@@ -102,27 +102,6 @@ public class MiClinicalDataQualitySteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the Clinical DQ Report table column (.*) is displayed with data (.*)")
-    public void theUserSeesTheClinicalDQReportTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.verifyTheColumnValuesInClinicalDqReportTable(ColName, ColValue);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user sees Clinical DQ Report table column (.*) is displayed with data (.*)")
-    public void theUserSeesClinicalDQReportTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderFullOutputTab(ColName, ColValue);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user sees the Streamline Output table column (.*) is displayed with data (.*)")
-    public void theUserSeesTheStreamlineOutputTableIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderStreamlineOutputTab(ColName, ColValue);
-        Assert.assertTrue(testResult);
-    }
-
     @And("the user click on Reset Filters Button")
     public void theUserClickOnResetFiltersButton() {
         boolean testResult = false;
@@ -134,20 +113,6 @@ public class MiClinicalDataQualitySteps extends Pages {
     public void theUserSeesTheColumnIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderGenomicIdentityOutputTab(ColName, ColValue);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user sees the Appendix - all table column (.*) is displayed with data (.*)")
-    public void theUserSeesTheAppendixAllTableColumnIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderAppendixAllRulesTab(ColName, ColValue);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user sees the Streamline_Output_table column (.*) is displayed with data (.*)")
-    public void theUserSeesTheStreamline_Output_tableColumnPatientSFirstNameIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.verifyTheColumnValuesInClinicalDqReportTable(ColName, ColValue);
         Assert.assertTrue(testResult);
     }
 
