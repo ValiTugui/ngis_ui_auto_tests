@@ -112,7 +112,7 @@ public class MiClinicalDataQualitySteps extends Pages {
     @And("the user sees the column (.*) is displayed with data (.*)")
     public void theUserSeesTheColumnIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
         boolean testResult = false;
-        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderGenomicIdentityOutputTab(ColName, ColValue);
+        testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderSpecifiedTab(ColName, ColValue);
         Assert.assertTrue(testResult);
     }
 

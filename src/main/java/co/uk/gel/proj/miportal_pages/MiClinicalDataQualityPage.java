@@ -70,12 +70,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
 
-    By fullOutputTabHead = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[2]//table[@class='display dataTable no-footer']/thead/tr/th") ;
-    String fullOutputTabHeadRows = "(//div[@class='dataTables_scrollBody'])[2]//table[@class='display dataTable no-footer']/tbody/tr";
-
-    By streamlineOutputTabColumn = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[3]//table[@class='display dataTable no-footer']/thead/tr/th") ;
-    String streamlineOutputTabRows = "(//div[@class='dataTables_scrollBody'])[3]//table[@class='display dataTable no-footer']/tbody/tr";
-
     public boolean verifyClinicalDataQualityReport(String expValue) {
         try {
             By clinicalDQReportPath = By.xpath("//h3[text()='" + expValue + "']");
@@ -247,55 +241,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean verifyTheColumnValuesInClinicalDqReportTable(String colName, String expValue) {
-        try{
-            Wait.seconds(10);
-            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
-                Debugger.println("Summary Title is displayed");
-                SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
-                return false;
-            }
-            int noOfFilteredRows = seleniumLib.getNoOfRows(clinicalDqReportTableRows);
-            if(noOfFilteredRows == 0){
-                Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("Clinical_Dq_Report_1.jpg");
-                return false;
-            }
-            Wait.seconds(5);
-            int colIndex = seleniumLib.getColumnIndex(clinicalDqReportTableHead,colName);
-            if(colIndex == -1){
-                Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("Clinical_Dq_Report_2.jpg");
-                return false;
-            }
-            Wait.seconds(15);
-            //Verify value in each column value as expected.
-            By cellPath = null;
-            String cellValue  = "";
-            for(int i=0; i<noOfFilteredRows; i++){
-                cellPath = By.xpath(clinicalDqReportTableRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellValue = seleniumLib.getText(cellPath);
-                if (expValue.equalsIgnoreCase("non-empty-data")){
-                    if (cellValue.isEmpty()){
-                        Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("Clinical_Dq_Report_3");
-                        return false;
-                    }else {
-                        if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
-                            SeleniumLib.takeAScreenShot("Clinical_Dq_Report_4");
-                            return true;
-                        }
-                    }
-                }
-            }return true;
-        }catch (Exception exp){
-            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable: " + exp);
-            SeleniumLib.takeAScreenShot("ClinicalDqReportException.jpg");
-            return false;
-        }
-    }
-
     public boolean clickOnSpecifiedTab(String expectedTabName) {
         By tabName = null;
         try{
@@ -318,55 +263,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
-    public boolean verifyTheColumnValuesUnderFullOutputTab(String colName, String expValue) {
-        try{
-            Wait.seconds(10);
-            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
-                Debugger.println("Summary Title is displayed");
-                SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
-                return false;
-            }
-            int noOfFilteredRows = seleniumLib.getNoOfRows(fullOutputTabHeadRows);
-            if(noOfFilteredRows == 0){
-                Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("FullOutputTab_1.jpg");
-                return false;
-            }
-            int colIndex = seleniumLib.getColumnIndex(fullOutputTabHead,colName);
-            if(colIndex == -1){
-                Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("FullOutputTab_2.jpg");
-                return false;
-            }
-            Wait.seconds(15);
-            //Verify value in each column value as expected.
-            By cellPath = null;
-            String cellValue  = "";
-            for(int i=0; i<noOfFilteredRows; i++){
-                cellPath = By.xpath(fullOutputTabHeadRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellValue = seleniumLib.getText(cellPath);
-                if (expValue.equalsIgnoreCase("non-empty-data")){
-                    if (cellValue.isEmpty()){
-                        Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("FullOutputTab_3");
-                        return false;
-                    }else {
-                        if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
-                            SeleniumLib.takeAScreenShot("FullOutputTab_4");
-                            return true;
-                        }
-                    }
-                }
-            }return true;
-        }catch (Exception exp){
-            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable:" + exp);
-            SeleniumLib.takeAScreenShot("FullOutputTabException.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyTheColumnValuesUnderStreamlineOutputTab(String colName, String expValue) {
+    public boolean verifyTheColumnValuesUnderSpecifiedTab(String colName, String expValue) {
         try{
             if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
                 Debugger.println("Summary Title is displayed");
@@ -374,14 +271,14 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             Wait.seconds(15);
-            int noOfFilteredRows = seleniumLib.getNoOfRows(streamlineOutputTabRows);
+            int noOfFilteredRows = seleniumLib.getNoOfRows(clinicalDqReportTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No Filter results found in Clinical Dq Report table");
                 SeleniumLib.takeAScreenShot("StreamlineOutputTab_1.jpg");
                 return false;
             }
             Wait.seconds(10);
-            int colIndex = seleniumLib.getColumnIndex(streamlineOutputTabColumn,colName);
+            int colIndex = seleniumLib.getColumnIndex(clinicalDqReportTableHead,colName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
                 SeleniumLib.takeAScreenShot("StreamlineOutputTab_2.jpg");
@@ -392,111 +289,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             By cellPath = null;
             String cellValue  = "";
             for(int i=0; i<noOfFilteredRows; i++){
-                cellPath = By.xpath(streamlineOutputTabRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellValue = seleniumLib.getText(cellPath);
-                if (expValue.equalsIgnoreCase("non-empty-data")){
-                    if (cellValue.isEmpty()){
-                        Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("StreamlineOutputTab_3");
-                        return false;
-                    }else {
-                        if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
-                            SeleniumLib.takeAScreenShot("StreamlineOutputTab_4");
-                            return true;
-                        }
-                    }
-                }
-            }return true;
-        }catch (Exception exp){
-            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable:" + exp);
-            SeleniumLib.takeAScreenShot("StreamlineOutputTabException.jpg");
-            return false;
-        }
-    }
-
-    By genomicIdentityOutputTabColumn = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[4]//table[@class='display dataTable no-footer']/thead/tr/th");
-    String genomicIdentityOutputTabRows = "(//div[@class='dataTables_scrollBody'])[4]//table[@class='display dataTable no-footer']/tbody/tr";
-
-    public boolean verifyTheColumnValuesUnderGenomicIdentityOutputTab(String colName, String expValue) {
-        try{
-            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
-                Debugger.println("Summary Title is displayed");
-                SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
-                return false;
-            }
-            Wait.seconds(15);
-            int noOfFilteredRows = seleniumLib.getNoOfRows(genomicIdentityOutputTabRows);
-            if(noOfFilteredRows == 0){
-                Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("StreamlineOutputTab_1.jpg");
-                return false;
-            }
-            Wait.seconds(10);
-            int colIndex = seleniumLib.getColumnIndex(genomicIdentityOutputTabColumn,colName);
-            if(colIndex == -1){
-                Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("StreamlineOutputTab_2.jpg");
-                return false;
-            }
-            Wait.seconds(15);
-            //Verify value in each column value as expected.
-            By cellPath = null;
-            String cellValue  = "";
-            for(int i=0; i<noOfFilteredRows; i++){
-                cellPath = By.xpath(genomicIdentityOutputTabRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellValue = seleniumLib.getText(cellPath);
-                if (expValue.equalsIgnoreCase("non-empty-data")){
-                    if (cellValue.isEmpty()){
-                        Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("StreamlineOutputTab_3");
-                        return false;
-                    }else {
-                        if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
-                            SeleniumLib.takeAScreenShot("StreamlineOutputTab_4");
-                            return true;
-                        }
-                    }
-                }
-            }return true;
-        }catch (Exception exp){
-            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable:" + exp);
-            SeleniumLib.takeAScreenShot("StreamlineOutputTabException.jpg");
-            return false;
-        }
-    }
-
-    By appendixAllRulesTabColumn = By.xpath("(//div[@class='dataTables_scrollHeadInner'])[5]//table[@class='display dataTable no-footer']/thead/tr/th");
-    String appendixAllRulesTabRows = "(//div[@class='dataTables_scrollBody'])[5]//table[@class='display dataTable no-footer']/tbody/tr";
-
-    public boolean verifyTheColumnValuesUnderAppendixAllRulesTab(String colName, String expValue) {
-        try{
-            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
-                Debugger.println("Summary Title is displayed");
-                SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
-                return false;
-            }
-            Wait.seconds(15);
-            int noOfFilteredRows = seleniumLib.getNoOfRows(appendixAllRulesTabRows);
-            if(noOfFilteredRows == 0){
-                Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("StreamlineOutputTab_1.jpg");
-                return false;
-            }
-            Wait.seconds(10);
-            int colIndex = seleniumLib.getColumnIndex(appendixAllRulesTabColumn,colName);
-            if(colIndex == -1){
-                Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("StreamlineOutputTab_2.jpg");
-                return false;
-            }
-            Wait.seconds(15);
-            //Verify value in each column value as expected.
-            By cellPath = null;
-            String cellValue  = "";
-            for(int i=0; i<noOfFilteredRows; i++){
-                cellPath = By.xpath(appendixAllRulesTabRows+"["+(i+1)+"]/td["+colIndex+"]");
+                cellPath = By.xpath(clinicalDqReportTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellValue = seleniumLib.getText(cellPath);
                 if (expValue.equalsIgnoreCase("non-empty-data")){
                     if (cellValue.isEmpty()){
