@@ -576,7 +576,7 @@ public class MilHomePageSteps extends Pages {
         Debugger.println("Search button is clicked");
         Wait.seconds(15);
         Assert.assertTrue(miPortalHomePage.verifyTheElementsInTheSearchResultSection());
-        Debugger.println("The elements present in search results table are verified");
+        Debugger.println("The elements present in " + miPage + " search results are verified");
         Wait.seconds(5);
         Assert.assertTrue(miPortalHomePage.clickResetButton());
     }
