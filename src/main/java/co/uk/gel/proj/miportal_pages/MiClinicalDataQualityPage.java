@@ -67,12 +67,16 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[@id='clinical_dq-reset_filters']")
     public WebElement resetFiltersButton;
 
+    @FindBy(xpath = "//a[@data-value=\"clinical_dq_tab\"]")
+    public WebElement clinicalDqTab;
+
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
 
     public boolean verifyClinicalDataQualityReport(String expValue) {
         try {
             By clinicalDQReportPath = By.xpath("//h3[text()='" + expValue + "']");
+            Debugger.println(clinicalDQReportPath.toString());
             SeleniumLib.waitForElementVisible(clinicalDQReportPath);
             if (!seleniumLib.getText(clinicalDQReportPath).equalsIgnoreCase(expValue)) {
                 Debugger.println("Clinical_dq_Report is not present");
@@ -88,9 +92,11 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyReportGuidance(String expValue) {
         try {
+            Wait.seconds(5);
             By reportGuidancePath = By.xpath("//a[text()='" + expValue + "']");
+            Debugger.println(reportGuidancePath.toString());
             SeleniumLib.waitForElementVisible(reportGuidancePath);
-            if (!seleniumLib.isElementClickable(reportGuidancePath)) {
+            if (!seleniumLib.getText(reportGuidancePath).equalsIgnoreCase(expValue)) {
                 Debugger.println("Report_Guidance is not present");
                 return false;
             }
@@ -119,12 +125,11 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectValueInGlhDropDown(String value) {
         try {
             if(!seleniumLib.selectFromListByText(glhDropDown,value)){
-                Wait.seconds(5);
                 Debugger.println("The " + value + " is present");
+                Wait.seconds(5);
                 return seleniumLib.selectFromListByText(glhDropDown,value);
             }
             Debugger.println("The " + value + " is selected");
-            Wait.seconds(3);
             return true;
         }
         catch (Exception exp) {
@@ -132,35 +137,77 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("GlhDropdownMenu.jpg");
             return false;
         }
-
     }
 
     public boolean clickOnOrderingEntityDd(){
-        Wait.seconds(5);
-        orderingEntityDropdown.click();
-        return true;
+        try{
+            if(!Wait.isElementDisplayed(driver, orderingEntityDropdown,30)){
+                Debugger.println("Ordering entity dropdown is not displayed");
+                SeleniumLib.takeAScreenShot("OrderingEntityDropdownMenu_1.jpg");
+                return false;
+            }
+            Wait.seconds(2);
+            orderingEntityDropdown.click();
+            Debugger.println("Ordering entity dropdown is clicked");
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnOrderingEntityDd: "+ exp);
+            SeleniumLib.takeAScreenShot("OrderingEntityDropdownMenu_2.jpg");
+            return false;
+        }
     }
 
     public boolean clickOnDeselectAllButton() {
-        Wait.seconds(3);
-        deselectAllButton.click();
-        Debugger.println("Deselected all the ordering entities");
-        return true;
+        try{
+            if(!Wait.isElementDisplayed(driver, deselectAllButton,30)){
+                Debugger.println("deselectAllButton is not displayed");
+                SeleniumLib.takeAScreenShot("deselectAllButton_1.jpg");
+                return false;
+            }
+            Wait.seconds(2);
+            deselectAllButton.click();
+            Debugger.println("Deselected all the ordering entities");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnDeselectAllButton: "+ exp);
+            SeleniumLib.takeAScreenShot("deselectAllButton_2.jpg");
+            return false;
+        }
     }
 
     public boolean clickOnSelectAllButton() {
-        Wait.seconds(2);
-        selectAllButton.click();
-        Debugger.println("Selected all the ordering entities");
-        return true;
+        try {
+            if(!Wait.isElementDisplayed(driver, selectAllButton, 30)){
+                Debugger.println("SelectAllButton is not displayed");
+                SeleniumLib.takeAScreenShot("SelectAllButton_1.jpg");
+                return false;
+            }
+            selectAllButton.click();
+            Debugger.println("Selected all the ordering entities");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnSelectAllButton: "+ exp);
+            SeleniumLib.takeAScreenShot("SelectAllButton_2.jpg");
+            return false;
+        }
     }
 
     public boolean clickOnApplyFiltersButton() {
-        Wait.seconds(5);
-        applyFiltersButton.click();
-        Debugger.println("Apply filters button clicked");
-        Wait.seconds(15);
-        return true;
+        try{
+            if(!Wait.isElementDisplayed(driver, applyFiltersButton, 30)){
+                Debugger.println("ApplyFiltersButton is not displayed");
+                SeleniumLib.takeAScreenShot("ApplyFiltersButton_1.jpg");
+                return false;
+            }
+            applyFiltersButton.click();
+            Debugger.println("Apply filters button clicked");
+            Wait.seconds(15);
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnApplyFiltersButton: "+ exp);
+            SeleniumLib.takeAScreenShot("SelectAllButton_2.jpg");
+            return false;
+        }
     }
 
     public boolean verifyTheElementsPresentInApplyFiltersSection() {
@@ -200,21 +247,20 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             for (int i=0; i < expectedElements.size(); i++){
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))){
                     Debugger.println("Summary result section element not displayed: "+expectedElements.get(i));
-                    SeleniumLib.takeAScreenShot("SummaryResultSectionNotFound.jpg");
+                    SeleniumLib.takeAScreenShot("SummaryResultSectionFound_1.jpg");
                     return false;
                 }
             } return true;
         } catch (Exception exp){
             Debugger.println("Summary result section is not properly loaded" + exp);
-            SeleniumLib.takeAScreenShot("SummaryResultSectionNotFound.jpg");
+            SeleniumLib.takeAScreenShot("SummaryResultSectionNotFound_1.jpg");
             return false;
         }
     }
 
     public boolean orderingEntitiesDeselect() {
         try {
-            Wait.seconds(5);
-            if(!checkMark.isDisplayed()){
+            if(!Wait.isElementDisplayed(driver, checkMark, 60)){
                 Debugger.println("Check mark is not present");
                 SeleniumLib.takeAScreenShot("CheckMark_1.jpg");
                 return true;
@@ -229,7 +275,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean orderingEntitiesSelect() {
         try {
             Wait.seconds(5);
-            if(checkMark.isDisplayed()){
+            if(Wait.isElementDisplayed(driver ,checkMark, 60)){
                 Debugger.println("Check mark is present");
                 SeleniumLib.takeAScreenShot("CheckMark_2.jpg");
                 return true;
@@ -313,20 +359,37 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean clickOnResetFiltersButton() {
-        Wait.seconds(10);
-        resetFiltersButton.click();
-        Debugger.println("Reset filters button was clicked");
-        return true;
+        try{
+            if(!Wait.isElementDisplayed(driver, resetFiltersButton,30)){
+                Debugger.println("ResetFiltersButton is not displayed");
+                SeleniumLib.takeAScreenShot("ResetFiltersButton_1.jpg");
+                return false;
+            }
+            resetFiltersButton.click();
+            Debugger.println("Reset filters button was clicked");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnResetFiltersButton: " + exp);
+            SeleniumLib.takeAScreenShot("ResetFiltersButton_2.jpg");
+            return false;
+        }
     }
 
-    @FindBy(xpath = "//a[@data-value=\"clinical_dq_tab\"]")
-    public WebElement clinicalDqTab;
-
     public boolean navigateToClinicalDataQualityPage() {
-        Wait.seconds(5);
-        clinicalDqTab.click();
-        Debugger.println("Clinical Dq report button is is selected");
-        return true;
+        try {
+            if (!Wait.isElementDisplayed(driver, clinicalDqTab, 30)){
+                Debugger.println("clinicalDqTab is not displayed");
+                SeleniumLib.takeAScreenShot("clinicalDqTab_1.jpg");
+                return false;
+            }
+            clinicalDqTab.click();
+            Debugger.println("Clinical Dq report tab is selected");
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception in MIPortalClinicalDataQuality:navigateToClinicalDataQualityPage: " + exp);
+            SeleniumLib.takeAScreenShot("clinicalDqTab_2.jpg");
+            return false;
+        }
     }
 }
 

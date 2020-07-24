@@ -10,8 +10,8 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
-    And the user sees a link "<report_guidance>" under the Clinical Data Quality Report header
-    And the user selects "<glh_name>" as the Clinical Dq Filter Glh drop-down menu
+    And the user sees a link <report_guidance> under the Clinical Data Quality Report header
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Deselect All button by default all the ordering entities should select
     And the user click on Select All button
@@ -26,7 +26,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | MI_PORTAL_URL | ngis.io |  |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
-    And the user selects "<glh_name>" as the Clinical Dq Filter Glh drop-down menu
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Deselect All button by default all the ordering entities should select
     Then the user able to see all the ordering entities should deselect
@@ -42,7 +42,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | MI_PORTAL_URL | ngis.io |  |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
-    And the user selects "<glh_name>" as the Clinical Dq Filter Glh drop-down menu
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Select All button
     And the user click on Apply Filters button
@@ -57,12 +57,12 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | MI_PORTAL_URL | ngis.io |  |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
-    And the user selects "<glh_name>" as the Clinical Dq Filter Glh drop-down menu
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user click on Apply Filters button
     Then the filter results displays the elements - Summary, Full Output, Streamline Output, Genomic Identity Output, Appendix - all rules
-    And the user selects "<tab_name>" tab
-    And the user sees the column "<column_1>" is displayed with data "<data_1>"
-    And the user sees the column "<column_2>" is displayed with data "<data_2>"
+    And the user selects <tab_name> tab
+    And the user sees the column <column_1> is displayed with data <data_1>
+    And the user sees the column <column_2> is displayed with data <data_2>
 
     Examples:
       | mi_stage              | header                       | glh_name     | tab_name                | column_1                      | data_1         | column_2                | data_2         |

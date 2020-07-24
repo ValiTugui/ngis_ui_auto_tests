@@ -45,7 +45,7 @@ Feature: Start Test Selection - CI Details - Requesting Organisation - Test Pack
     And the user click on "Picklists" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "Sequencer Samples" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "New Referrals" section select the filters and click on Add and Search buttons and verify the table loaded
-    And the user click on Clinical Data Quality section select the filters "<glh_name>" and click on Add Filters button and verify the table loaded
+    And the user click on Clinical Data Quality section select the filters <glh_name> and click on Add Filters button and verify the table loaded
 
 
     Examples:

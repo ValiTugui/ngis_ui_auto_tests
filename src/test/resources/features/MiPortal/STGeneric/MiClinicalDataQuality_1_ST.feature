@@ -20,7 +20,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
       | South West                    |
       | Wessex & West Midlands        |
       | Yorkshire & North East        |
-    And the user selects "<glh_name>" as the Clinical Dq Filter Glh drop-down menu
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
 
     Examples:
       | mi_stage              | header                       | report_guidance | glh_name     |

@@ -503,17 +503,13 @@ public class PanelsPage {
     public boolean verifyThePresenceOfAddPanelsSectionAndDescription(String header, String description) {
         try{
         if(Wait.isElementDisplayed(driver, addPanelsHeader, 60)){
-            if(addPanelsHeader.getText().contains(header)){
-                Debugger.println("AddPanelsHeader is displayed");
-                return true;
-            }
-            if(addPanelDescription.getText().contains(description)){
-                Debugger.println("AddPanelDescription is displayed");
+            if(addPanelsHeader.getText().contains(header) && addPanelDescription.getText().contains(description)) {
+                Debugger.println("AddPanelsHeader & AddPanelDescription are displayed");
                 return true;
             }
             return false;
         }
-        return false;
+        return true;
         }catch (Exception exp) {
             Debugger.println("Exception from verifying verifyThePresenceOfAddPanelsSection:" + exp);
             SeleniumLib.takeAScreenShot("NoAddPanels.jpg");
