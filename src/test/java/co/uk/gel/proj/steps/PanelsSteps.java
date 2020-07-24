@@ -73,8 +73,8 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyTheDeselectedPanels());
     }
 
-    @And("the user should be able to see a sub title (.*) on panels page")
-    public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
+    @And("the user should be able to see a label as (.*) on panels page")
+    public void theUserShouldBeAbleToSeeALabelAsOnPanelsPage(String subtitle) {
         boolean testResult = false;
         testResult = panelsPage.verifyPenetranceTitle(subtitle);
         Assert.assertTrue(testResult);
@@ -166,5 +166,22 @@ public class PanelsSteps extends Pages {
         Wait.seconds(10);
         testResult = panelsPage.verifyThePresenceOfAddPanelsSectionAndDescription(header, Description);
         Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see subtitle as {string}")
+    public void theUserShouldBeAbleToSeeSubtitleAs(String subtitle) {
+        boolean testResult = false;
+        testResult = panelsPage.verifyDiseasePenetranceSubTitle(subtitle);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see intro message as shown below")
+    public void theUserShouldBeAbleToSeeIntroMessageAsShownBelow(DataTable introMessage) {
+        boolean testResult = false;
+        List<List<String>> messages = introMessage.asLists();
+        for (int i = 0; i < messages.size(); i++) {
+            testResult = panelsPage.verifyTheConfirmDiseasePenetranceIntroMessage(messages.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
     }
 }//end

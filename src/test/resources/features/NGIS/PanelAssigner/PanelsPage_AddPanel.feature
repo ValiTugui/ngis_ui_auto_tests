@@ -21,8 +21,14 @@ Feature: PanelAssigner: Panels Page Add Panel
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
     ##@E2EUI-1906
-    And the user should be able to see a sub title Penetrance on panels page
+    And the user should be able to see subtitle as "<subtitle>"
+    And the user should be able to see a label as Mark penetrance as Complete or Incomplete on panels page
     Then the user should be able to see an additional line "<textLine>" underneath the penetrance title
+    And the user should be able to see intro message as shown below
+      | Change suggested penetrance if:                                              |
+      | there is a referral form that confirms a different penetrance                |
+      | local decision-making processes indicate a different penetrance is preferred |
+
     ##@E2EUI-1278
     And the user should be able to see Add another panel section with search field and search icon
     When the user search and add the "<searchPanels>" panels
@@ -37,8 +43,8 @@ Feature: PanelAssigner: Panels Page Add Panel
     Then the user should see the referral submit button as disabled
 
     Examples:
-      | Panels | searchPanels                                  | textLine                                                                                                      |
-      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
+      | Panels | searchPanels                                  | textLine                                                                                                      | subtitle                   |
+      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. | Confirm disease penetrance |
 
   @NTS-3381 @Z-LOGOUT
 #    @E2EUI-1045 @E2EUI-1484 @E2EUI-1158
