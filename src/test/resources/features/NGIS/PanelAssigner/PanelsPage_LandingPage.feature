@@ -28,8 +28,6 @@ Feature: PanelAssigner: Panels Page Landing Page
     And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
-    #Below line for E2EUI-3015
-    And the user able to see panel heading as "<header>" and description as "<description>"
     And the user should see the section with title Suggestions based on the clinical information
     And the user sees suggested panels under the section Suggestions based on the clinical information
     And the user sees link with title View On PanelApp attached to all the suggested panels
@@ -41,5 +39,5 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user clicks the Save and Continue button
 
     Examples:
-      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | searchPanels                                  | header     | description                                  |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Cardiac arrhythmias,Pigmentary skin disorders | Add panels | Only ticked panels will be sent for analysis |
+      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | searchPanels                                  |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Cardiac arrhythmias,Pigmentary skin disorders |

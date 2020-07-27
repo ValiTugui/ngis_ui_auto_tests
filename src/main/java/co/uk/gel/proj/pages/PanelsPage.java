@@ -42,7 +42,7 @@ public class PanelsPage {
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSearchResultsList;
 
-    @FindBy(xpath = "//h3[contains(text(),'penetrance')]")
+    @FindBy(xpath = "//h3[contains(text(),'Penetrance')]")
     public WebElement penetranceTitle;
 
     @FindBy(xpath = "//button[contains(text(),'Complete')]")
@@ -79,21 +79,6 @@ public class PanelsPage {
 
     @FindBy(xpath = "//h3[text()='No suggested panels found']")
     public WebElement noSuggestedPanels;
-
-    @FindBy(xpath = "//h2[contains(text(),'Add panels')]")
-    public WebElement addPanelsHeader;
-
-    @FindBy(xpath = "//p[contains(text(),'Only ticked panels ')]")
-    public WebElement addPanelDescription;
-
-    @FindBy(xpath = "//h2[contains(text(),'Confirm disease penetrance')]")
-    public WebElement diseasePenetranceSubTitle;
-
-    @FindBy(xpath = "((//div[contains(@class,'paragraph')])[2]//p|//div//ul)[3]|((//div[contains(@class,'paragraph')])[2]//p|//div//ul)[4]")
-    public List<WebElement> diseasePenetranceIntroMessage;
-
-    @FindBy(xpath = "((//div[contains(@class,'paragraph')])[2]//p|//div//ul)[4]")
-    public WebElement diseasePenetranceIntroMessage2;
 
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
@@ -508,68 +493,4 @@ public class PanelsPage {
         }
     }
 
-    public boolean verifyThePresenceOfAddPanelsSectionAndDescription(String header, String description) {
-        try{
-        if(Wait.isElementDisplayed(driver, addPanelsHeader, 60)){
-            if(addPanelsHeader.getText().contains(header) && addPanelDescription.getText().contains(description)) {
-                Debugger.println("AddPanelsHeader & AddPanelDescription are displayed");
-                return true;
-            }
-            return false;
-        }
-        return true;
-        }catch (Exception exp) {
-            Debugger.println("Exception from verifying verifyThePresenceOfAddPanelsSection:" + exp);
-            SeleniumLib.takeAScreenShot("NoAddPanels.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyDiseasePenetranceSubTitle(String subtitle) {
-        try{
-            if(!Wait.isElementDisplayed(driver,diseasePenetranceSubTitle,10)){
-                Debugger.println("Section "+subtitle+" not present in Panels Landing Page\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
-                return false;
-            }
-            String actualSubTitle = diseasePenetranceSubTitle.getText();
-            if(!actualSubTitle.equalsIgnoreCase(subtitle)){
-                Debugger.println("Section title mismatch Panels Landing Page:Actual:"+actualSubTitle+",Expected:"+subtitle);
-                SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
-                return false;
-            }
-            Debugger.println("Section title match Panels Landing Page:Actual:"+actualSubTitle+",Expected:"+subtitle);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in verifying verifyPenetranceTitle:" + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyTheConfirmDiseasePenetranceIntroMessage(String expMessage) {
-        try {
-            Wait.forElementToBeDisplayed(driver, diseasePenetranceIntroMessage2);
-            if(!Wait.isElementDisplayed(driver,diseasePenetranceIntroMessage2,10)){
-                Debugger.println("DiseasePenetranceIntroMessage Not displayed.");
-                SeleniumLib.takeAScreenShot("DiseasePenetranceIntroMessage_1.jpg");
-                return false;
-            }
-            for (int i = 0; i < diseasePenetranceIntroMessage.size(); i++) {
-                if (diseasePenetranceIntroMessage.get(i).getText().contains(expMessage)) {
-                    Debugger.println("Disease Penetrance Intro Message is displayed");
-                    return true;
-                }
-            }
-            return false;
-
-        } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheDiseasePenetranceIntroMessage:" + exp);
-            SeleniumLib.takeAScreenShot("DiseasePenetranceIntroMessage_2.jpg");
-            return false;
-        }
-    }
-
-}
-
-//end
+}//end
