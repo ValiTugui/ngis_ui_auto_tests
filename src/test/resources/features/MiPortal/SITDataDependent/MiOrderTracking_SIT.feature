@@ -126,27 +126,3 @@ Feature: MIPORTAL SIT - Order_Tracking
     Examples:
       | mi_stage       | operator  |
       | Order Tracking | is        |
-
-
-
-  @NTS-5647
-    #@E2EUI-2900
-  Scenario Outline: NTS-5052:E2EUI-2398: clinical_indication_test_type_id parameter on miportal Sample view support "in" operator.
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    And the user should be able to see sample processing menu is displayed
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a search box container section for "<mi_stage>" page
-    When the user selects Test Type as the order tracking search column dropdown
-    And the user selects <operator> as the order tracking search operator dropdown
-    And the user selects Cerebral malformations WGS, Hereditary ataxia - adult onset WGS as the order tracking search value dropdown
-    And the user clicks on Add criteria button
-    Then file submission search criteria badge information is displayed below drop-down buttons
-    And the user click on the Search button
-    And User should be able to see data under Test Name column filled based on selected options in third filter box is displayed with non-empty-data
-    And User should be able to see data under Clinical Indication Name column filled based on selected options in third filter box is displayed with non-empty-data
-    And the selected search option is reset after test
-
-    Examples:
-      | mi_stage       | operator |
-      | Order Tracking | is one of|

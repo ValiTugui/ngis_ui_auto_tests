@@ -25,7 +25,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
     Then the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
 
     Examples:
-      | mi_stage              | header                       | report_guidance | glh_name     |
-      | Clinical Data Quality | Clinical Data Quality Report | Report Guidance | London North |
+      | tab_name     | mi_stage              | header                       | report_guidance | glh_name     |
+      | Data Quality | Clinical Data Quality | Clinical Data Quality Report | Report Guidance | London North |
 
 

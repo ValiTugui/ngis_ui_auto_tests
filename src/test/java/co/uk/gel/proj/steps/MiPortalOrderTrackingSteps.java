@@ -136,11 +136,4 @@ public class MiPortalOrderTrackingSteps extends Pages {
         testResult = TestUtils.isFilePresent("order_tracking_filtered","");
         Assert.assertTrue(testResult);
     }
-
-    @And("User should be able to see data under (.*) column filled based on selected options in third filter box is displayed with (.*)")
-    public void userShouldBeAbleToSeeDataUnderAndColumnFilledBasedOnSelectedOptionInThirdFilterBox(String columnName, String columnValue) {
-        boolean testResult = false;
-        testResult = miOrderTrackingPage.verifyColumnValueInOrderTrackingSearchResultTable(columnName,columnValue);
-        Assert.assertTrue(testResult);
-    }
 }
