@@ -76,7 +76,6 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyClinicalDataQualityReport(String expValue) {
         try {
             By clinicalDQReportPath = By.xpath("//h3[text()='" + expValue + "']");
-            Debugger.println(clinicalDQReportPath.toString());
             SeleniumLib.waitForElementVisible(clinicalDQReportPath);
             if (!seleniumLib.getText(clinicalDQReportPath).equalsIgnoreCase(expValue)) {
                 Debugger.println("Clinical_dq_Report is not present");
@@ -92,9 +91,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyReportGuidance(String expValue) {
         try {
-            Wait.seconds(5);
             By reportGuidancePath = By.xpath("//a[text()='" + expValue + "']");
-            Debugger.println(reportGuidancePath.toString());
             SeleniumLib.waitForElementVisible(reportGuidancePath);
             if (!seleniumLib.getText(reportGuidancePath).equalsIgnoreCase(expValue)) {
                 Debugger.println("Report_Guidance is not present");
@@ -108,12 +105,11 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void clickOnClinicalDqFilterGlhDropdown() {
-        clinicalDQFilterDropdown.click();
-    }
+//    public void clickOnClinicalDqFilterGlhDropdown() {
+//        clinicalDQFilterDropdown.click();
+//    }
     public boolean selectClinicalDqFilterGlh(String value) {
         try {
-            Wait.seconds(8);
             return seleniumLib.selectFromListByText(glhDropDown, value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: " + exp);
@@ -124,9 +120,9 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectValueInGlhDropDown(String value) {
         try {
+            Wait.seconds(2);
             if(!seleniumLib.selectFromListByText(glhDropDown,value)){
                 Debugger.println("The " + value + " is present");
-                Wait.seconds(5);
                 return seleniumLib.selectFromListByText(glhDropDown,value);
             }
             Debugger.println("The " + value + " is selected");
@@ -143,16 +139,15 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try{
             if(!Wait.isElementDisplayed(driver, orderingEntityDropdown,30)){
                 Debugger.println("Ordering entity dropdown is not displayed");
-                SeleniumLib.takeAScreenShot("OrderingEntityDropdownMenu_1.jpg");
+                SeleniumLib.takeAScreenShot("OrderingEntityDropdownMenu.jpg");
                 return false;
             }
-            Wait.seconds(2);
             orderingEntityDropdown.click();
             Debugger.println("Ordering entity dropdown is clicked");
             return true;
         }catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnOrderingEntityDd: "+ exp);
-            SeleniumLib.takeAScreenShot("OrderingEntityDropdownMenu_2.jpg");
+            SeleniumLib.takeAScreenShot("OrderingEntityDropdownMenu.jpg");
             return false;
         }
     }
@@ -161,16 +156,15 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try{
             if(!Wait.isElementDisplayed(driver, deselectAllButton,30)){
                 Debugger.println("deselectAllButton is not displayed");
-                SeleniumLib.takeAScreenShot("deselectAllButton_1.jpg");
+                SeleniumLib.takeAScreenShot("deselectAllButton.jpg");
                 return false;
             }
-            Wait.seconds(2);
             deselectAllButton.click();
             Debugger.println("Deselected all the ordering entities");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnDeselectAllButton: "+ exp);
-            SeleniumLib.takeAScreenShot("deselectAllButton_2.jpg");
+            SeleniumLib.takeAScreenShot("deselectAllButton.jpg");
             return false;
         }
     }
@@ -179,7 +173,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!Wait.isElementDisplayed(driver, selectAllButton, 30)){
                 Debugger.println("SelectAllButton is not displayed");
-                SeleniumLib.takeAScreenShot("SelectAllButton_1.jpg");
+                SeleniumLib.takeAScreenShot("SelectAllButton.jpg");
                 return false;
             }
             selectAllButton.click();
@@ -187,7 +181,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnSelectAllButton: "+ exp);
-            SeleniumLib.takeAScreenShot("SelectAllButton_2.jpg");
+            SeleniumLib.takeAScreenShot("SelectAllButton.jpg");
             return false;
         }
     }
@@ -196,44 +190,43 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try{
             if(!Wait.isElementDisplayed(driver, applyFiltersButton, 30)){
                 Debugger.println("ApplyFiltersButton is not displayed");
-                SeleniumLib.takeAScreenShot("ApplyFiltersButton_1.jpg");
+                SeleniumLib.takeAScreenShot("ApplyFiltersButton.jpg");
                 return false;
             }
             applyFiltersButton.click();
             Debugger.println("Apply filters button clicked");
-            Wait.seconds(15);
+            Wait.seconds(8);
             return true;
         } catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnApplyFiltersButton: "+ exp);
-            SeleniumLib.takeAScreenShot("SelectAllButton_2.jpg");
+            SeleniumLib.takeAScreenShot("SelectAllButton.jpg");
             return false;
         }
     }
 
     public boolean verifyTheElementsPresentInApplyFiltersSection() {
         try{
-            Wait.seconds(8);
-            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,30)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,fullOutputTitle,20)){
+            if(!Wait.isElementDisplayed(driver,fullOutputTitle,30)){
                 Debugger.println("Full Output Title is displayed");
                 SeleniumLib.takeAScreenShot("FullOutputTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,streamlineOutputTitle,20)){
+            if(!Wait.isElementDisplayed(driver,streamlineOutputTitle,30)){
                 Debugger.println("Streamline Output Title is displayed");
                 SeleniumLib.takeAScreenShot("StreamlineOutputTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,genomicIdentityOutputTitle,20)){
+            if(!Wait.isElementDisplayed(driver,genomicIdentityOutputTitle,30)){
                 Debugger.println("Genomic Identity Output Title is displayed");
                 SeleniumLib.takeAScreenShot("GenomicIdentityOutputTitle.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,appendixAllRulesTitle,20)){
+            if(!Wait.isElementDisplayed(driver,appendixAllRulesTitle,30)){
                 Debugger.println("Appendix All RulesTitle is displayed");
                 SeleniumLib.takeAScreenShot("AppendixAllRulesTitle.jpg");
                 return false;
@@ -247,42 +240,44 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             for (int i=0; i < expectedElements.size(); i++){
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))){
                     Debugger.println("Summary result section element not displayed: "+expectedElements.get(i));
-                    SeleniumLib.takeAScreenShot("SummaryResultSectionFound_1.jpg");
+                    SeleniumLib.takeAScreenShot("SummaryResultSectionFound.jpg");
                     return false;
                 }
             } return true;
         } catch (Exception exp){
             Debugger.println("Summary result section is not properly loaded" + exp);
-            SeleniumLib.takeAScreenShot("SummaryResultSectionNotFound_1.jpg");
+            SeleniumLib.takeAScreenShot("SummaryResultSectionNotFound.jpg");
             return false;
         }
     }
-
+//After clicking on deselect all button all the ordering entities should deselect
     public boolean orderingEntitiesDeselect() {
         try {
             if(!Wait.isElementDisplayed(driver, checkMark, 60)){
                 Debugger.println("Check mark is not present");
-                SeleniumLib.takeAScreenShot("CheckMark_1.jpg");
+                SeleniumLib.takeAScreenShot("CheckMark.jpg");
                 return true;
             }
             return false;
         } catch (Exception exp){
             Debugger.println("Check mark is present");
+            SeleniumLib.takeAScreenShot("CheckMark.jpg");
             return false;
         }
     }
-
+//After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
         try {
             Wait.seconds(5);
-            if(Wait.isElementDisplayed(driver ,checkMark, 60)){
-                Debugger.println("Check mark is present");
-                SeleniumLib.takeAScreenShot("CheckMark_2.jpg");
+            if(Wait.isElementDisplayed(driver, checkMark, 60)){
+                Debugger.println("Tick mark is present");
+                SeleniumLib.takeAScreenShot("TickMark.jpg");
                 return true;
             }
             return false;
         } catch (Exception exp){
             Debugger.println("Check mark is not present");
+            SeleniumLib.takeAScreenShot("TickMark.jpg");
             return false;
         }
     }
@@ -291,9 +286,9 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         By tabName = null;
         try{
             tabName = By.xpath("//a[text()='"+ expectedTabName + "']");
-            if(!Wait.isElementDisplayed(driver, driver.findElement(tabName), 5)){
+            if(!Wait.isElementDisplayed(driver, driver.findElement(tabName), 30)){
                 Debugger.println(expectedTabName + " is not displayed");
-                SeleniumLib.takeAScreenShot("NoAddButton.jpg");
+                SeleniumLib.takeAScreenShot("NoExpectedTab.jpg");
                 return false;
             }
             Wait.forElementToBeClickable(driver, driver.findElement(tabName));
@@ -302,8 +297,8 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("The " + expectedTabName + " is clicked");
             return true;
         } catch (Exception exp){
-            Debugger.println("Exception from Clicking on addButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoAddButton.jpg");
+            Debugger.println("Exception from clickOnSpecifiedTab:" + exp);
+            SeleniumLib.takeAScreenShot("NoSpecifiedTab.jpg");
             return false;
         }
 
@@ -311,26 +306,24 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheColumnValuesUnderSpecifiedTab(String colName, String expValue) {
         try{
-            if(!Wait.isElementDisplayed(driver,summaryTitle,20)){
+            if(!Wait.isElementDisplayed(driver,summaryTitle,30)){
                 Debugger.println("Summary Title is displayed");
                 SeleniumLib.takeAScreenShot("SummaryTitle.jpg");
                 return false;
             }
-            Wait.seconds(15);
             int noOfFilteredRows = seleniumLib.getNoOfRows(clinicalDqReportTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("StreamlineOutputTab_1.jpg");
+                SeleniumLib.takeAScreenShot("SpecifiedRow.jpg");
                 return false;
             }
-            Wait.seconds(10);
             int colIndex = seleniumLib.getColumnIndex(clinicalDqReportTableHead,colName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("StreamlineOutputTab_2.jpg");
+                SeleniumLib.takeAScreenShot("SpecifiedColumn.jpg");
                 return false;
             }
-            Wait.seconds(15);
+            Wait.seconds(5);
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue  = "";
@@ -340,12 +333,12 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 if (expValue.equalsIgnoreCase("non-empty-data")){
                     if (cellValue.isEmpty()){
                         Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("StreamlineOutputTab_3");
+                        SeleniumLib.takeAScreenShot("SpecifiedColumn");
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
                             Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
-                            SeleniumLib.takeAScreenShot("StreamlineOutputTab_4");
+                            SeleniumLib.takeAScreenShot("SpecifiedColumn");
                             return true;
                         }
                     }
@@ -362,7 +355,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try{
             if(!Wait.isElementDisplayed(driver, resetFiltersButton,30)){
                 Debugger.println("ResetFiltersButton is not displayed");
-                SeleniumLib.takeAScreenShot("ResetFiltersButton_1.jpg");
+                SeleniumLib.takeAScreenShot("ResetFiltersButton.jpg");
                 return false;
             }
             resetFiltersButton.click();
@@ -370,7 +363,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnResetFiltersButton: " + exp);
-            SeleniumLib.takeAScreenShot("ResetFiltersButton_2.jpg");
+            SeleniumLib.takeAScreenShot("ResetFiltersButton.jpg");
             return false;
         }
     }
@@ -379,7 +372,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if (!Wait.isElementDisplayed(driver, clinicalDqTab, 30)){
                 Debugger.println("clinicalDqTab is not displayed");
-                SeleniumLib.takeAScreenShot("clinicalDqTab_1.jpg");
+                SeleniumLib.takeAScreenShot("clinicalDqTab.jpg");
                 return false;
             }
             clinicalDqTab.click();
@@ -387,7 +380,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:navigateToClinicalDataQualityPage: " + exp);
-            SeleniumLib.takeAScreenShot("clinicalDqTab_2.jpg");
+            SeleniumLib.takeAScreenShot("clinicalDqTab.jpg");
             return false;
         }
     }

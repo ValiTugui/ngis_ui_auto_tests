@@ -415,7 +415,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsInTheSearchResultSection() {
         try {
-            Wait.seconds(15);
             if(!Wait.isElementDisplayed(driver, searchResultTitle,60)){
                 Debugger.println("Search results are not displayed");
                 SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
@@ -1240,9 +1239,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePresenceOfSectionHeader(String sectionHeader) {
         try {
-            Wait.seconds(10);
             boolean isPresent = false;
-            if (!Wait.isElementDisplayed(driver, sampleProcessing2, 10)) {
+            if (!Wait.isElementDisplayed(driver, sampleProcessing2, 30)) {
                 Debugger.println("Sample processing section header field is not displayed.");
                 SeleniumLib.takeAScreenShot("SampleProcessingHeaderSection.jpg");
                 return isPresent;

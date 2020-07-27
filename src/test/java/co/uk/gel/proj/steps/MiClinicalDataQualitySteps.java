@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.miportal_pages.MiClinicalDataQualityPage;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -36,7 +37,7 @@ public class MiClinicalDataQualitySteps extends Pages {
 
     @Then("the user sees the below values in the GLH search column drop-down menu")
     public void theUserSeesTheBelowValuesInTheGLHSearchColumnDropDownMenu(DataTable dataTable) {
-        miClinicalDataQualityPage.clickOnClinicalDqFilterGlhDropdown();
+//        miClinicalDataQualityPage.clickOnClinicalDqFilterGlhDropdown();
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         Wait.seconds(3);
@@ -44,6 +45,7 @@ public class MiClinicalDataQualitySteps extends Pages {
             testResult = miClinicalDataQualityPage.selectClinicalDqFilterGlh(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);
          }
+        Debugger.println("The dropdown values are " +expectedDropDownValues);
     }
 
     @And("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
@@ -119,13 +121,10 @@ public class MiClinicalDataQualitySteps extends Pages {
     @And("the user click on Clinical Data Quality section select the filters (.*) and click on Add Filters button and verify the table loaded")
     public void theUserClickOnClinicalDataQualitySectionSelectTheFiltersAndClickOnAddFiltersButtonAndVerifyTheTableLoaded(String value) {
         Assert.assertTrue(miClinicalDataQualityPage.navigateToClinicalDataQualityPage());
-        Wait.seconds(4);
         Assert.assertTrue(miClinicalDataQualityPage.selectValueInGlhDropDown(value));
-        Wait.seconds(2);
         Assert.assertTrue(miClinicalDataQualityPage.clickOnApplyFiltersButton());
-        Wait.seconds(10);
         Assert.assertTrue(miClinicalDataQualityPage.verifyTheElementsPresentInApplyFiltersSection());
-        Wait.seconds(5);
+        Debugger.println("The Elements Present In Apply Filters Section are verified");
     }
 
     @And("the user selects (.*) tab")

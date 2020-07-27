@@ -5,6 +5,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.java.af.Wanneer;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -169,20 +170,31 @@ public class DashBoardPage {
     }
 
     public boolean clickOnFindAGenomicTestTab() {
-        Wait.seconds(5);
-        testSelectionLocator.click();
-        Debugger.println("Find a Genomic Test is selected");
-        return true;
+        try{
+            if(!Wait.isElementDisplayed(driver, testSelectionLocator, 60)){
+                Debugger.println("testSelectionLocator button is not displayed");
+                SeleniumLib.takeAScreenShot("testSelectionLocator.jpg");
+                return false;
+            }
+            testSelectionLocator.click();
+            Debugger.println("Find a Genomic Test is selected");
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception form DashBoardPage, clickOnFindAGenomicTestTab " + exp);
+            SeleniumLib.takeAScreenShot("testSelectionLocator.jpg");
+            return false;
+        }
     }
 
     public boolean directedToTestSelectionPage() {
-        Wait.seconds(5);
         try {
             if (driver.getCurrentUrl().contains("dashboard")) {
-                Wait.seconds(2);
-                String navigatedURL = driver.getCurrentUrl();
-                Debugger.println("Current URL AFTER dashboard page re-direction:" + navigatedURL);
-            } return true;
+                Debugger.println("Current URL does not contains dashboard");
+                SeleniumLib.takeAScreenShot("TestSelection.jpg");
+                return false;
+            }
+            Debugger.println("Current URL after dashboard page re-direction:" + driver.getCurrentUrl());
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception form DashBoardPage, test selection page " + exp);
             SeleniumLib.takeAScreenShot("TestSelection.jpg");
@@ -191,8 +203,19 @@ public class DashBoardPage {
     }
 
     public boolean clickOnManageSampleTab() {
-        Wait.seconds(10);
-        ManageSamplesTab.click();
-        return true;
+        try{
+            if(!Wait.isElementDisplayed(driver, ManageSamplesTab, 30)){
+                Debugger.println("ManageSamplesTab is not displayed");
+                SeleniumLib.takeAScreenShot("ManageSamples.jpg");
+                return false;
+            }
+            ManageSamplesTab.click();
+            Debugger.println("Manage Samples Tab is selected");
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception form DashBoardPage, clickOnManageSampleTab: " + exp);
+            SeleniumLib.takeAScreenShot("ManageSamples.jpg");
+            return false;
+        }
     }
 }

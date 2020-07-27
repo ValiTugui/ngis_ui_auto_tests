@@ -60,7 +60,6 @@ public class DashBoardSteps extends Pages {
 
     @And("User clicks Manage Sample")
     public void userClicksManageSample() {
-        Wait.seconds(5);
         boolean testResult = false;
         testResult = dashBoardPage.clickOnManageSampleTab();
         Assert.assertTrue(testResult);
