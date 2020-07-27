@@ -70,6 +70,9 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[@data-value=\"clinical_dq_tab\"]")
     public WebElement clinicalDqTab;
 
+    @FindBy(xpath = "//span[contains(text(),'Data Quality')]")
+    public WebElement dataQualityTab;
+
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
 
@@ -314,13 +317,13 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             int noOfFilteredRows = seleniumLib.getNoOfRows(clinicalDqReportTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("SpecifiedRow.jpg");
+                SeleniumLib.takeAScreenShot("rowName.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(clinicalDqReportTableHead,colName);
+            int colIndex = seleniumLib.getColumnIndex(clinicalDqReportTableHead, colName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("SpecifiedColumn.jpg");
+                SeleniumLib.takeAScreenShot("colName.jpg");
                 return false;
             }
             Wait.seconds(5);
@@ -333,20 +336,20 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 if (expValue.equalsIgnoreCase("non-empty-data")){
                     if (cellValue.isEmpty()){
                         Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("SpecifiedColumn");
+                        SeleniumLib.takeAScreenShot("colName.jpg");
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
                             Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
-                            SeleniumLib.takeAScreenShot("SpecifiedColumn");
+                            SeleniumLib.takeAScreenShot("colName.jpg");
                             return true;
                         }
                     }
                 }
             }return true;
         }catch (Exception exp){
-            Debugger.println("Exception from verifyColumnValueInClinicalDqReportResultTable:" + exp);
-            SeleniumLib.takeAScreenShot("StreamlineOutputTabException.jpg");
+            Debugger.println("Exception from verifyTheColumnValuesUnderSpecifiedTab:" + exp);
+            SeleniumLib.takeAScreenShot("SpecifiedTab.jpg");
             return false;
         }
     }
@@ -381,6 +384,23 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:navigateToClinicalDataQualityPage: " + exp);
             SeleniumLib.takeAScreenShot("clinicalDqTab.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnDqTab(String expValue) {
+        try{
+            if(!Wait.isElementDisplayed(driver, dataQualityTab, 30)){
+                Debugger.println("dataQuality Tab is not displayed");
+                SeleniumLib.takeAScreenShot("dataQualityTab.jpg");
+                return false;
+            }
+            dataQualityTab.click();
+            Debugger.println("Dat quality tab is selected");
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnDqTab: " + exp);
+            SeleniumLib.takeAScreenShot("dataQualityTab.jpg");
             return false;
         }
     }

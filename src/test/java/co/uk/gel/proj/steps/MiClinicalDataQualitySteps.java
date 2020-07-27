@@ -8,6 +8,7 @@ import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.apache.maven.wagon.Wagon;
 import org.junit.Assert;
 
@@ -131,6 +132,13 @@ public class MiClinicalDataQualitySteps extends Pages {
     public void theUserSelectsTab(String expectedTabName) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.clickOnSpecifiedTab(expectedTabName);
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user click on {string} tab")
+    public void theUserClickOnTab(String expValue) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.clickOnDqTab(expValue);
         Assert.assertTrue(testResult);
     }
 }

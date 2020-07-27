@@ -9,10 +9,12 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
   Scenario Outline: User is able to navigate to Clinical Data Quality page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
+    #This latest change is applied for Nana release only in e2elatest
+    When the user click on "<tab_name>" tab
+    And the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
     And the user sees a link <report_guidance> under the Clinical Data Quality Report header
-    Then the user sees the below values in the GLH search column drop-down menu
+    And the user sees the below values in the GLH search column drop-down menu
       | East Mids and East of England |
       | London North                  |
       | London South                  |
@@ -20,7 +22,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
       | South West                    |
       | Wessex & West Midlands        |
       | Yorkshire & North East        |
-    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
+    Then the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
 
     Examples:
       | mi_stage              | header                       | report_guidance | glh_name     |
