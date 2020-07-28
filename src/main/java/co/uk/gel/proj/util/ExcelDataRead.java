@@ -16,7 +16,7 @@ import java.util.*;
 
 public class ExcelDataRead {
     public static String fileName;
-    public static final String EXCELFILELOCATION = System.getProperty("user.dir") + File.separator + "\\testdata\\";
+    public static final String EXCELFILELOCATION = System.getProperty("user.dir") + File.separator + "/testdata/";
     private static FileInputStream fis;
     private static XSSFWorkbook workbook;
     private static XSSFSheet sheet;
