@@ -25,7 +25,6 @@ public class ExcelDataRead {
     SeleniumLib seleniumLib;
 
     public static void loadExcel(String fileName) throws Exception {
-        System.out.println("Loading excel data");
         String filePath = EXCELFILELOCATION + fileName;
         File file = new File(filePath);
         fis = new FileInputStream(file);
@@ -64,7 +63,7 @@ public class ExcelDataRead {
             return myMap;
         } catch (Exception exp) {
             Debugger.println("Exception from readAllData:" + exp);
-            SeleniumLib.takeAScreenShot("readAllData.jpg");
+            SeleniumLib.takeAScreenShot("readAllDataNotVerified.jpg");
             return null;
         }
     }
@@ -79,8 +78,6 @@ public class ExcelDataRead {
 
         List<String> listStr = getValue(glhName);
         listStr.sort(String.CASE_INSENSITIVE_ORDER);
-//        System.out.println("liststr is " + listStr.size());
-//        System.out.println("sorted liststr is " + listStr);
         return listStr;
     }
 }

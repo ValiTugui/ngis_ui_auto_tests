@@ -26,8 +26,6 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
-//    ExcelDataRead excelDataRead =new ExcelDataRead();
-
 
     public MiOrderTrackingPage(WebDriver driver) {
         this.driver = driver;
@@ -243,7 +241,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyColumnDropdownInOrderTrackingSearchOptions:" + exp);
-            SeleniumLib.takeAScreenShot("OrderTrackingSearchOptions.jpg");
+            SeleniumLib.takeAScreenShot("OrderTrackingOptionsNotFound.jpg");
             return false;
         }
     }
