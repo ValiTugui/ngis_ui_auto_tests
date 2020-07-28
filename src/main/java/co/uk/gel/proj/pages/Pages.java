@@ -6,6 +6,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.miportal_pages.*;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.ExcelDataRead;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -52,6 +53,7 @@ public class Pages implements Navigable {
     protected MiPickListsPage miPickListsPage;
     protected MiSequencerSamplesPage miSequencerSamplesPage;
     protected MiNewReferralsPage miNewReferralsPage;
+    protected ExcelDataRead excelDataRead;
 
 
     public Pages(SeleniumDriver driver) {
@@ -93,6 +95,8 @@ public class Pages implements Navigable {
         miPickListsPage = PageFactory.initElements(driver, MiPickListsPage.class);
         miSequencerSamplesPage = PageFactory.initElements(driver, MiSequencerSamplesPage.class);
         miNewReferralsPage = PageFactory.initElements(driver, MiNewReferralsPage.class);
+        excelDataRead = PageFactory.initElements(driver, ExcelDataRead.class);
+
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
