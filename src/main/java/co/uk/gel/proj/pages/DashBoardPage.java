@@ -206,7 +206,7 @@ public class DashBoardPage {
         try{
             if(!Wait.isElementDisplayed(driver, ManageSamplesTab, 30)){
                 Debugger.println("ManageSamplesTab is not displayed");
-                SeleniumLib.takeAScreenShot("ManageSamples.jpg");
+                SeleniumLib.takeAScreenShot("manageSamplesTabNotFound.jpg");
                 return false;
             }
             ManageSamplesTab.click();
@@ -214,7 +214,7 @@ public class DashBoardPage {
             return true;
         } catch (Exception exp){
             Debugger.println("Exception form DashBoardPage, clickOnManageSampleTab: " + exp);
-            SeleniumLib.takeAScreenShot("ManageSamples.jpg");
+            SeleniumLib.takeAScreenShot("manageSamplesTabNotFound.jpg");
             return false;
         }
     }
