@@ -56,3 +56,4 @@ Feature: MIPORTAL ST - Order_Tracking
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     Then the selected search option is reset after test
+
