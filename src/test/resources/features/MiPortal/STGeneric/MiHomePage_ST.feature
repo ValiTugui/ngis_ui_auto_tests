@@ -116,12 +116,13 @@ Feature:  MIPORTAL ST -  Home Page
   Scenario:NTS-4975:E2EUI-2704: Implement sql-performance recommendations for miportalsampleview
     When the user should be able to see sample processing menu is displayed
     Then the user should be able to see the below header sections in Sample Processing
-      | HeaderSection     |
-      | File Submissions  |
-      | Order Tracking    |
-      | GLH Samples       |
-      | Plater Samples    |
-      | Picklists         |
-      | Sequencer Samples |
-      | New Referrals     |
-      | Search LSIDs      |
+      | HeaderSection        |
+      | File Submissions     |
+      | Order Tracking       |
+      | GLH Samples          |
+      | Plater Samples       |
+      | Picklists            |
+      | Sequencer Samples    |
+      | New Referrals        |
+      | Search LSIDs         |
+      | Clinical Data Qualty |

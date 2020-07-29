@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
@@ -40,6 +41,27 @@ public class DashBoardSteps extends Pages {
     public void theUserShouldBeAbleToSeeClickableTabs() {
         boolean testResult = false;
         testResult = dashBoardPage.verifyTheDashboardTabs();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on Find a genomic test")
+    public void theUserClicksOnFindAGenomicTest() {
+        boolean testResult = false;
+        testResult = dashBoardPage.clickOnFindAGenomicTestTab();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be directed to Test selection url")
+    public void theUserShouldBeDirectedToTestSelectionUrl() {
+        boolean testResult = false;
+        testResult = dashBoardPage.directedToTestSelectionPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("User clicks Manage Sample")
+    public void userClicksManageSample() {
+        boolean testResult = false;
+        testResult = dashBoardPage.clickOnManageSampleTab();
         Assert.assertTrue(testResult);
     }
 }
