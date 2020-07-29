@@ -134,10 +134,10 @@ public class MiClinicalDataQualitySteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user click on {string} tab")
-    public void theUserClickOnTab(String expValue) {
+    @When("the user click on Data Quality tab")
+    public void theUserClickOnDataQualityTab() {
         boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnDqTab(expValue);
+        testResult = miClinicalDataQualityPage.clickOnDqTab();
         Assert.assertTrue(testResult);
     }
 }

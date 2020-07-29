@@ -1,6 +1,7 @@
 package co.uk.gel.proj.miportal_pages;
 
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -14,7 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
+public class MiClinicalDataQualityPage {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
@@ -34,7 +35,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='clinical_dq-filter_glh']")
     public WebElement glhDropDown;
 
-    @FindBy(xpath = "(//div[@class='box']//span[@class='caret'])[2]")
+    @FindBy(xpath = "//button[@data-id='clinical_dq-filter_ordering_entity']")
     public WebElement orderingEntityDropdown;
 
     @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
@@ -61,8 +62,8 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[text()='Appendix - all rules']")
     public WebElement appendixAllRulesTitle;
 
-    @FindBy(xpath = "//a[@id='bs-select-16-0']//span[@class='glyphicon glyphicon-ok check-mark']")
-    public WebElement checkMark;
+    @FindBy(xpath = "//div[@role='listbox']//a[@role='option'][@aria-selected='true']//span[@class='glyphicon glyphicon-ok check-mark']")
+    public List<WebElement> orderingEntitySelections;
 
     @FindBy(xpath = "//button[@id='clinical_dq-reset_filters']")
     public WebElement resetFiltersButton;
@@ -73,19 +74,25 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//span[contains(text(),'Data Quality')]")
     public WebElement dataQualityTab;
 
+    @FindBy(xpath = "//h3[text()='Clinical Data Quality Report']")
+    public WebElement clinicalDqHeader;
+
+    @FindBy(xpath = "//a[text()='Report Guidance']")
+    public WebElement reportGuidanceLink;
+
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
 
     public boolean verifyClinicalDataQualityReport(String expValue) {
         try {
-            By clinicalDQReportPath = By.xpath("//h3[text()='" + expValue + "']");
-            SeleniumLib.waitForElementVisible(clinicalDQReportPath);
-            if (!seleniumLib.getText(clinicalDQReportPath).equalsIgnoreCase(expValue)) {
-                Debugger.println("Clinical_dq_Report header is not present");
-                SeleniumLib.takeAScreenShot("clinicalDqReportHeaderIsNotPresent.jpg");
+            Wait.forElementToBeDisplayed(driver, clinicalDqHeader);
+            String clinicalDqHeaderText = clinicalDqHeader.getText();
+            if (!expValue.equalsIgnoreCase(clinicalDqHeaderText)) {
+                Debugger.println("Expected header text is: " +expValue+ "Actual header text is: " +clinicalDqHeaderText);
+                SeleniumLib.takeAScreenShot("clinicalDqReportHeaderIsNotMatched.jpg");
                 return false;
             }
-            Debugger.println("Clinical_dq_Report header is present");
+            Debugger.println("Clinical_dq_Report header is visible");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from : verifyClinicalDataQualityReport :  " + exp);
@@ -96,9 +103,9 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyReportGuidance(String expValue) {
         try {
-            By reportGuidancePath = By.xpath("//a[text()='" + expValue + "']");
-            SeleniumLib.waitForElementVisible(reportGuidancePath);
-            if (!seleniumLib.getText(reportGuidancePath).equalsIgnoreCase(expValue)) {
+            Wait.forElementToBeDisplayed(driver, reportGuidanceLink);
+            String reportGuidanceText = reportGuidanceLink.getText();
+            if (!expValue.equalsIgnoreCase(reportGuidanceText)) {
                 Debugger.println("Report_Guidance link is not present");
                 SeleniumLib.takeAScreenShot("reportGuidanceLinkNotPresent.jpg");
                 return false;
@@ -126,7 +133,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.seconds(2);
             if(!seleniumLib.selectFromListByText(glhDropDown,value)){
-                Debugger.println("The " + value + " is present");
+                Debugger.println("The " + value + " is not present");
                 return seleniumLib.selectFromListByText(glhDropDown,value);
             }
             Debugger.println("The " + value + " is selected");
@@ -134,7 +141,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
         catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:selectGlhDropdownMenu: "+ exp);
-            SeleniumLib.takeAScreenShot("notFoundGlhDropdownMenu" + value + ".jpg");
+            SeleniumLib.takeAScreenShot("notFoundGlhDropdown" + value + ".jpg");
             return false;
         }
     }
@@ -146,7 +153,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noOrderingEntityDropdown.jpg");
                 return false;
             }
-            orderingEntityDropdown.click();
+            Actions.clickElement(driver, orderingEntityDropdown);
             Debugger.println("Ordering entity dropdown is clicked");
             return true;
         }catch (Exception exp){
@@ -163,7 +170,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noDeselectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            deselectAllButton.click();
+            Actions.clickElement(driver, deselectAllButton);
             Debugger.println("Deselected all the ordering entities");
             return true;
         } catch (Exception exp) {
@@ -180,7 +187,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noSelectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            selectAllButton.click();
+            Actions.clickElement(driver, selectAllButton);
             Debugger.println("Selected all the ordering entities");
             return true;
         } catch (Exception exp) {
@@ -197,9 +204,9 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noApplyFiltersButton.jpg");
                 return false;
             }
-            applyFiltersButton.click();
+            Actions.clickElement(driver, applyFiltersButton);
             Debugger.println("Apply filters button clicked");
-            Wait.seconds(8);
+            Wait.seconds(8); //This wait is for to load the apply filters table
             return true;
         } catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnApplyFiltersButton: "+ exp);
@@ -211,27 +218,27 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsPresentInApplyFiltersSection() {
         try{
             if(!Wait.isElementDisplayed(driver,summaryTitle,30)){
-                Debugger.println("Summary Title is not displayed");
+                Debugger.println("Summary title is not displayed");
                 SeleniumLib.takeAScreenShot("noSummaryTitle.jpg");
                 return false;
             }
             if(!Wait.isElementDisplayed(driver,fullOutputTitle,30)){
-                Debugger.println("Full Output Title not is displayed");
+                Debugger.println("Full Output title is not displayed");
                 SeleniumLib.takeAScreenShot("noFullOutputTitle.jpg");
                 return false;
             }
             if(!Wait.isElementDisplayed(driver,streamlineOutputTitle,30)){
-                Debugger.println("Streamline Output Title not is displayed");
+                Debugger.println("Streamline Output title is not displayed");
                 SeleniumLib.takeAScreenShot("noStreamlineOutputTitle.jpg");
                 return false;
             }
             if(!Wait.isElementDisplayed(driver,genomicIdentityOutputTitle,30)){
-                Debugger.println("Genomic Identity Output Title not is displayed");
+                Debugger.println("Genomic Identity Output title is not displayed");
                 SeleniumLib.takeAScreenShot("noGenomicIdentityOutputTitle.jpg");
                 return false;
             }
             if(!Wait.isElementDisplayed(driver,appendixAllRulesTitle,30)){
-                Debugger.println("Appendix All Rules Title not is displayed");
+                Debugger.println("Appendix All Rules title is not displayed");
                 SeleniumLib.takeAScreenShot("noAppendixAllRulesTitle.jpg");
                 return false;
             }
@@ -243,44 +250,36 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             expectedElements.add(appendixAllRulesTitle);
             for (int i=0; i < expectedElements.size(); i++){
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))){
-                    Debugger.println("Summary result section element not displayed: "+expectedElements.get(i));
-                    SeleniumLib.takeAScreenShot("summaryResultSectionNotFound.jpg");
+                    Debugger.println("Summary result section not displayed: "+expectedElements.get(i));
+                    SeleniumLib.takeAScreenShot("applyFiltersResultSectionNotFound.jpg");
                     return false;
                 }
             } return true;
         } catch (Exception exp){
             Debugger.println("Summary result section is not properly loaded" + exp);
-            SeleniumLib.takeAScreenShot("summaryResultSectionNotFound.jpg");
+            SeleniumLib.takeAScreenShot("applyFiltersResultSectionNotFound.jpg");
             return false;
         }
     }
 //After clicking on deselect all button all the ordering entities should deselect
     public boolean orderingEntitiesDeselect() {
-        try {
-            if(!Wait.isElementDisplayed(driver, checkMark, 60)){
-                Debugger.println("Check mark is not present");
-                return true;
-            }
-            return false;
-        } catch (Exception exp){
-            Debugger.println("Check mark is present");
-            SeleniumLib.takeAScreenShot("OrderingEntityCheckMarkIsPresent.jpg");
+        //Check mark should not be present
+        if(orderingEntitySelections.size() > 1){
+            Debugger.println("Ordering entity is shown as selected, but not expected to be selected.");
+            SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
             return false;
         }
+        return true;
     }
 //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
-        try {
-            if(Wait.isElementDisplayed(driver, checkMark, 60)){
-                Debugger.println("Check mark is present");
-                return true;
-            }
-            return false;
-        } catch (Exception exp){
-            Debugger.println("Check mark is not present");
-            SeleniumLib.takeAScreenShot("OrderingEntityCheckMarkIsNotPresent.jpg");
+        //Check mark should be present
+        if(orderingEntitySelections.size() < 1){
+            Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
+            SeleniumLib.takeAScreenShot("OrderingEntityDeselected.jpg");
             return false;
         }
+        return true;
     }
 
     public boolean clickOnSpecifiedTab(String expectedTabName) {
@@ -294,7 +293,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             Wait.forElementToBeClickable(driver, driver.findElement(tabName));
             Click.element(driver, driver.findElement(tabName));
-            Wait.seconds(2);
+            Wait.seconds(2); // It is observed that particular tab is taking time to load
             Debugger.println("The " + expectedTabName + " is clicked");
             return true;
         } catch (Exception exp){
@@ -315,13 +314,13 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             int noOfFilteredRows = seleniumLib.getNoOfRows(clinicalDqReportTableRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No Filter results found in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("noRowName.jpg");
+                SeleniumLib.takeAScreenShot("noRowValue.jpg");
                 return false;
             }
             int colIndex = seleniumLib.getColumnIndex(clinicalDqReportTableHead, colName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+colName+" not present in Clinical Dq Report table");
-                SeleniumLib.takeAScreenShot("noColumnName"+colName+".jpg");
+                SeleniumLib.takeAScreenShot("noColumn"+colName+".jpg");
                 return false;
             }
             Wait.seconds(5);
@@ -334,7 +333,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 if (expValue.equalsIgnoreCase("non-empty-data")){
                     if (cellValue.isEmpty()){
                         Debugger.println("Column: "+ colName +" value supposed to be non-empty, but Actual is empty");
-                        SeleniumLib.takeAScreenShot("noColumnName"+colName+".jpg");
+                        SeleniumLib.takeAScreenShot("noCellValueUnder"+colName+".jpg");
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
@@ -346,7 +345,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
             }return true;
         }catch (Exception exp){
             Debugger.println("Exception from verifyTheColumnValuesUnderSpecifiedTab:" + exp);
-            SeleniumLib.takeAScreenShot("noSpecifiedTabPresent.jpg");
+            SeleniumLib.takeAScreenShot("noRowValueFor"+colName+".jpg");
             return false;
         }
     }
@@ -358,8 +357,8 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noResetFiltersButton.jpg");
                 return false;
             }
-            resetFiltersButton.click();
-            Debugger.println("Reset filters button was clicked");
+            Actions.clickElement(driver, resetFiltersButton);
+            Debugger.println("Reset filters button is clicked");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnResetFiltersButton: " + exp);
@@ -375,7 +374,7 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noClinicalDqTabIsPresent.jpg");
                 return false;
             }
-            clinicalDqTab.click();
+            Actions.clickElement(driver, clinicalDqTab);
             Debugger.println("Clinical Dq report tab is selected");
             return true;
         } catch (Exception exp){
@@ -385,14 +384,14 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean clickOnDqTab(String expValue) {
+    public boolean clickOnDqTab() {
         try{
             if(!Wait.isElementDisplayed(driver, dataQualityTab, 30)){
                 Debugger.println("dataQuality Tab is not displayed");
                 SeleniumLib.takeAScreenShot("noDataQualityTab.jpg");
                 return false;
             }
-            dataQualityTab.click();
+            Actions.clickElement(driver, dataQualityTab);
             Debugger.println("Dat quality tab is selected");
             return true;
         } catch (Exception exp){
