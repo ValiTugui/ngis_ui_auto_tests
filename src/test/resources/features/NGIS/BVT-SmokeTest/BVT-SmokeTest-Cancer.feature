@@ -103,9 +103,9 @@ Feature: NTS-3362: Create Cancer Referral by completing - Patient Details - Requ
     And the user is navigated to a page with title Print sample forms
     And the user is able to download print form for the proband
 
-    And the user submits the referral
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    And the referral status is set to "Submitted"
+#    And the user submits the referral
+#    And the submission confirmation message "Your referral has been submitted" is displayed
+#    And the referral status is set to "Submitted"
     Examples:
       | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
       | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |

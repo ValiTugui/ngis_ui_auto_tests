@@ -41,8 +41,8 @@ import static co.uk.gel.config.BrowserConfig.*;
 
 public class BrowserFactory {
     WebDriver driver;
-    public static final String USERNAME = "sornapriyapradee1";//""rexsureshthankas1";
-    public static final String AUTOMATE_KEY = "JL3a52RNUxQxpLTHKAGv";//"1uFqNqxkLFhYGRcVbVbQ";
+    public static final String USERNAME = "rexsureshthankas1";
+    public static final String AUTOMATE_KEY = "1uFqNqxkLFhYGRcVbVbQ";
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
@@ -78,8 +78,6 @@ public class BrowserFactory {
                     driver = getFirefoxDriverLocal(null, javascriptEnabled);
                     break;
                 case SAFARI:
-                  //  WebDriverManager..clearPreferences();
-                 //   WebDriverManager.firefoxdriver().setup();
                     driver = getSafariDriver(null, javascriptEnabled);
                     break;
                 case IE:
@@ -299,7 +297,7 @@ public class BrowserFactory {
     }
 
     private WebDriver getEdge(String userAgent, boolean javascriptEnabled) {
-        EdgeOptions edgeOptions = new EdgeOptions();
+        EdgeOptions edgeOptions = getEdgeLocalOptions(userAgent,javascriptEnabled);
         return driver = new EdgeDriver(edgeOptions);
 
     }
