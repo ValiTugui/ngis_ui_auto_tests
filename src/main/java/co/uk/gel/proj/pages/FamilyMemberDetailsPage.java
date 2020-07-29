@@ -509,7 +509,6 @@ public class FamilyMemberDetailsPage {
 
     public boolean fillFamilyMemberDiseaseStatusWithGivenParams(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Debugger.println("URL: "+driver.getCurrentUrl());
         //DiseaseStatus
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
@@ -527,11 +526,9 @@ public class FamilyMemberDetailsPage {
         parValue = paramNameValue.get("HpoPhenoType");
         if (parValue != null && !parValue.isEmpty()) {
             if (!(searchAndSelectRandomHPOPhenotype(parValue) > 0)) {
-                if(!isHPOAlreadyConsidered(parValue)) {
                     isHpoSelected = false;
                 }
             }
-       }
         //PhenotypicSex
         parValue = paramNameValue.get("PhenotypicSex");
         if (parValue != null && !parValue.isEmpty()) {
