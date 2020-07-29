@@ -153,6 +153,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("noOrderingEntityDropdown.jpg");
                 return false;
             }
+            Wait.seconds(5);//To load the dropdown elements
             Actions.clickElement(driver, orderingEntityDropdown);
             Debugger.println("Ordering entity dropdown is clicked");
             return true;
