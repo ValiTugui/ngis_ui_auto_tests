@@ -85,27 +85,27 @@ public class TumoursSteps extends Pages {
     @Then("the DateOfDiagnosis field displays given messages in specific color for the wrong values")
     public void theDateOfDiagnosisFieldGivesProperErrorMessages(DataTable inputDetails) {
         try {
-            boolean testResult = false;
+            String stepResult = "";
             tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
             List<List<String>> diagnosisDates = inputDetails.asLists();
             String dateOfDiagnosis = "";
             for(int i=1; i<diagnosisDates.size(); i++){
                 dateOfDiagnosis = diagnosisDates.get(i).get(0);
-                Debugger.println("DateOfDiagnosis: "+dateOfDiagnosis);
+               // Debugger.println("DateOfDiagnosis: "+dateOfDiagnosis);
                 if (dateOfDiagnosis.equalsIgnoreCase("14-0-1899")){
                     String[] value = dateOfDiagnosis.split("-");
-                    tumoursPage.fillInDateOfDiagnosisInDifferentOrder(value[0], value[1], value[2]);
+                    stepResult = tumoursPage.fillInDateOfDiagnosisInDifferentOrder(value[0], value[1], value[2]);
+                    Assert.assertEquals("Success",stepResult);
                 }else {
                     String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                     tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-                    //Actions.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
                 }
+                Wait.seconds(2);
                 patientSearchPage.checkTheErrorMessagesInDOB(diagnosisDates.get(i).get(1),diagnosisDates.get(i).get(2));
+                Wait.seconds(2);
                 tumoursPage.clearDateOfDiagnosisFields();
                 Wait.seconds(2);
-                Debugger.println("PASS");
-                //click on tumourTypeLabel label to move cursor away from dateYear field
-            }
+           }
         }catch(Exception exp){
             Debugger.println("Exception in validating theDateOfDiagnosisFieldGivesProperErrorMessages: "+exp);
         }

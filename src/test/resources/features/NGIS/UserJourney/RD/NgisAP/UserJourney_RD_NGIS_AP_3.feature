@@ -1,6 +1,5 @@
-#@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NGIS_AdditionalParticipant
+#@userJourneysRD_NgisAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_3 - UC18 - E2EUI-1210
 

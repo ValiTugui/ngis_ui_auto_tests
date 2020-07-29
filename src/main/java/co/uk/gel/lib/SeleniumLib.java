@@ -8,8 +8,6 @@ import co.uk.gel.proj.util.TestUtils;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
@@ -19,20 +17,11 @@ import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -45,7 +34,7 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "NGIS_UI_Snapshots" + File.separator;
     static String referralFileName = "Referrals.json";
     static String referralTextFileName = "ReferralID.txt";
 
@@ -128,11 +117,12 @@ public class SeleniumLib {
         WebElement webele = null;
         try {
             webele = getElement(element);
-            webele.click();
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", webele);
+
         } catch (Exception exp) {
             try {
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].click();", webele);
+                webele.click();
             } catch (Exception exp1) {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
@@ -141,40 +131,24 @@ public class SeleniumLib {
         }
     }
 
-    public boolean moveMouseAndClick(By element){
-        try {
-            Actions actions = new Actions(driver);
-            actions.moveToElement(driver.findElement(element)).click().build().perform();
-            return true;
-        }catch(Exception exp){
-            return false;
-        }
-    }
-
     public void clickOnWebElement(WebElement webEle) {
        try {
-          // Debugger.println("Clicking on : "+webEle);
            WebDriverWait wait = new WebDriverWait(driver, 30);//Default waiting
            wait.until(ExpectedConditions.visibilityOf(webEle));
-          // Debugger.println("Is Displayed..");
            if(!webEle.isDisplayed()){
                //Waiting for another 30 seconds
                sleepInSeconds(30);
            }
-           //Debugger.println("Highlighting..");
-           elementHighlight(webEle);
-          // Debugger.println("Final Click..");
            JavascriptExecutor executor = (JavascriptExecutor) driver;
            executor.executeScript("arguments[0].click();", webEle);
-           //webEle.click();
+
         } catch (Exception exp) {
             try {
-                Debugger.println("Clicking Via JavaScript....");
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].click();", webEle);
-
+                //Debugger.println("Clicking Via JavaScript....");
+                elementHighlight(webEle);
+                webEle.click();
             } catch (Exception exp1) {
-                Debugger.println("Clicking Via Action....");
+               // Debugger.println("Clicking Via Action....");
                 Actions actions = new Actions(driver);
                 actions.moveToElement(webEle).click();
             }
@@ -224,7 +198,7 @@ public class SeleniumLib {
             element.clear();
             element.sendKeys(value);
         } catch (Exception exp) {
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+            WebDriverWait wait = new WebDriverWait(driver, 20);
             element = wait.until(ExpectedConditions.elementToBeClickable(element));
             element.sendKeys(value);
         }
@@ -387,6 +361,7 @@ public class SeleniumLib {
 
     public boolean isElementPresent(WebElement element) {
         try {
+            sleepInSeconds(5);
             element.isDisplayed();
             return true;
         } catch (NoSuchElementException e) {
@@ -567,13 +542,14 @@ public class SeleniumLib {
     //File upload logic changed from using Robot script to Selenium option
     public static boolean upload(WebElement element, String path) {
         try {
-            File file = new File(path);
-            if (!file.exists()) {
-                Debugger.println("Specified File does not exist for upload:"+path);
-                return false;
-            }
+//            File file = new File(path);
+//            if (!file.exists()) {
+//                Debugger.println("Specified File does not exist for upload:"+path);
+//                return false;
+//            }
             Debugger.println("Uploading the file: "+path);
             element.sendKeys(path);
+            sleepInSeconds(5);
             Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
@@ -646,7 +622,11 @@ public class SeleniumLib {
                     filename = "T" + today[0] + today[1] + filename;
                 }
             }
-            Debugger.println("ScreenShotFile:"+filename);
+            File snapLocation = new File(defaultSnapshotLocation);
+            if(!snapLocation.exists()){
+                snapLocation.mkdirs();
+            }
+            //Debugger.println("ScreenShotFile:"+filename);
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
 
@@ -706,26 +686,17 @@ public class SeleniumLib {
             action.moveToElement(element).build().perform();
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
+            //Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
             return false;
         }
     }
-    public boolean moveMouseAndClickOnElement(By element) {
-        try {
-            Debugger.println("Moving Mouse and Clicking........."+element);
-            Actions action = new Actions(driver);
-            WebElement we = driver.findElement(element);
-            if (we == null) {
-                return false;
-            }
-            Debugger.println("Performing Move and Click Action..");
-            action.click(we).build().perform();
-            Wait.seconds(3);
-            return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from moveMouseAndClickOnElement:"+exp);
-          return false;
+    public void moveMouseAndClickOnElement(By element) {
+        Actions action = new Actions(driver);
+        WebElement we = driver.findElement(element);
+        if(we == null){
+            return;
         }
+        action.click(we).build().perform();
     }
 
 

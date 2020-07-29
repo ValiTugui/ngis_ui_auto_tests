@@ -4,7 +4,7 @@
 
 Feature:  MIPORTAL ST - Plater Samples
 
-  @NTS-5190
+  @NTS-5190 @MI-LOGOUT
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -38,9 +38,14 @@ Feature:  MIPORTAL ST - Plater Samples
       | Plater Samples |
 
 
-  @NTS-4978
+  @NTS-4978 @MI-LOGOUT
    ## @E2EUI-2706
   Scenario Outline:NTS-4978:E2EUI-2706: MIS - Datetime filters for "before or on" dates do not bring back all records for the specified date
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    And the user should be able to see sample processing menu is displayed
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
     When the user should be able to see "<NoOfSearchField>" search boxes in the "<section>" page
     Then the user sees the below values in the plater samples search column drop-down menu
       | GLH                                   |
@@ -61,12 +66,17 @@ Feature:  MIPORTAL ST - Plater Samples
     And the selected search option is reset after test
 
     Examples:
-      | section        | NoOfSearchField |
-      | plater_samples | 3               |
+      | section        | NoOfSearchField | mi_stage       |
+      | plater_samples | 3               | Plater Samples |
 
-  @NTS-5021
+  @NTS-5021 @MI-LOGOUT
    ## @E2EUI-2231 ##Drag and Drop  - need to recheck
-  Scenario: NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
+  Scenario Outline: NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    And the user should be able to see sample processing menu is displayed
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
     When the user selects GEL1005 Sample Received Datetime as the plater samples search column dropdown
     And the user selects before or on as the plater samples search operator dropdown
     And the user enters 5 days before today in the plater sample date field
@@ -80,3 +90,7 @@ Feature:  MIPORTAL ST - Plater Samples
     And the user clicks on save and close button
     When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
+
+    Examples:
+      | mi_stage       |
+      | Plater Samples |

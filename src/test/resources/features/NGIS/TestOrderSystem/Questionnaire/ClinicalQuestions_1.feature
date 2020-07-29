@@ -45,7 +45,7 @@ Feature: Clinical Question Page 1 - Family Members
     And the user should able to see the same family member DiseaseStatusDetails "<DiseaseStatusDetails>"
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                         | RareDiseaseValue |
+      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                             | RareDiseaseValue |
       | Family members | NHSNumber=9449303959:DOB=14-09-2005 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:KaryotypicSex=XY | WEAVER SYNDROME  |
 
   @NTS-4735 @Z-LOGOUT

@@ -1,4 +1,3 @@
-#@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 4
@@ -67,7 +66,7 @@ Feature: GenomicRecord: Patient details page 4
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
 #    fill in date of birth
-    And the user fills in the date of birth "01/03/2010"
+    And the user fills in the date of birth "01-03-2010"
     And the user clicks the Save and Continue button on Patient details page
     Then the patient is successfully created with a message "Patient details updated"
 
@@ -99,7 +98,7 @@ Feature: GenomicRecord: Patient details page 4
 
     Examples:
       | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient            | logout        |
+      | Patient details | 20-10-2010  | refresh       | may not be saved. | Dismiss            | patient            | logout        |
 
   @NTS-4055 @Z-LOGOUT
 #    @E2EUI-1904

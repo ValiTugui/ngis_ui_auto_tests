@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
@@ -514,9 +515,17 @@ public class PatientChoicePage {
     public boolean uploadRecordTypeDocument(String fileType, String fileName) {
         try {
             Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
-            if (!seleniumLib.upload(docUpload, uploadFilepath + fileName)) {
-                Debugger.println("Could not upload the file:" + fileName);
-                return false;
+            if(BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
+                if (!seleniumLib.upload(docUpload, uploadFilepath + fileName)) {
+                    Debugger.println("Could not upload the file:" + fileName);
+                    return false;
+                }
+            }else{
+                String filePath = "C:\\Users\\hello\\Desktop\\documents\\pdf-sample2.pdf";
+                if (!seleniumLib.upload(docUpload, filePath)) {
+                    Debugger.println("Could not upload the file from BS:" + filePath);
+                    return false;
+                }
             }
             Wait.seconds(5);//To ensure medium files are uploaded
             if (fileType == null || fileType.isEmpty()) {

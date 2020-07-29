@@ -16,6 +16,8 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.CapabilityType;
@@ -33,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import java.net.URL;
+import java.util.logging.Level;
 
 import static co.uk.gel.config.BrowserConfig.*;
 
@@ -242,6 +245,9 @@ public class BrowserFactory {
         if (!javascriptEnabled) {
             chromeLocalOptions.addArguments("disable-javascript");
         }
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
         return chromeLocalOptions;
     }
 

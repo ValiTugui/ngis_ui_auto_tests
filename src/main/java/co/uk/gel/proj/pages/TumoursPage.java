@@ -32,11 +32,11 @@ public class TumoursPage {
 
     @FindBy(xpath = "//input[@id='descriptiveName']")
     public WebElement descriptiveName;
-    @FindBy(xpath = "//input[@id='dateDay']")
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisDay']")
     public WebElement dateDay;
-    @FindBy(xpath = "//input[@id='dateMonth']")
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisMonth']")
     public WebElement dateMonth;
-    @FindBy(xpath = "//input[@id='dateYear']")
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisYear']")
     public WebElement dateYear;
     @FindBy(xpath = "//input[@id='pathologyReportId']")
     public WebElement pathologyReportId;
@@ -213,22 +213,32 @@ public class TumoursPage {
         }
     }
 
-    public void fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
-        dateYear.sendKeys(yearOfDiagnosis);
-        dateDay.sendKeys(dayOfDiagnosis);
-        dateMonth.sendKeys(monthOfDiagnosis);
+    public String fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+       try{
+           seleniumLib.sendValue(dateYear,yearOfDiagnosis);
+           seleniumLib.sendValue(dateDay,dayOfDiagnosis);
+           seleniumLib.sendValue(dateMonth,monthOfDiagnosis);
+           return "Success";
+        }catch(Exception exp){
+           Debugger.println("Exception in filling Diagnosis Date:"+exp+"\n"+driver.getCurrentUrl());
+           return "Exception in filling Diagnosis Date:"+exp;
+       }
     }
 
     public boolean fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
         try {
             if (dayOfDiagnosis != null && !dayOfDiagnosis.isEmpty()) {
-                dateDay.sendKeys(dayOfDiagnosis);
+                seleniumLib.sendValue(dateDay,dayOfDiagnosis);
+
             }
             if (monthOfDiagnosis != null && !monthOfDiagnosis.isEmpty()) {
-                dateMonth.sendKeys(monthOfDiagnosis);
+                seleniumLib.sendValue(dateMonth,monthOfDiagnosis);
             }
             if (yearOfDiagnosis != null && !yearOfDiagnosis.isEmpty()) {
-                dateYear.sendKeys(yearOfDiagnosis);
+                seleniumLib.sendValue(dateYear,yearOfDiagnosis);
+                if(yearOfDiagnosis.length() < 4){
+                    seleniumLib.clickOnWebElement(dateMonth);//To move out focus from year
+                }
             }
             return true;
         } catch (Exception exp) {
@@ -250,12 +260,13 @@ public class TumoursPage {
             tumourDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
             tumourDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
             tumourDetails.setYear(String.valueOf(faker.number().numberBetween(2018, 2019)));
-            Actions.fillInValue(dateDay, tumourDetails.getDay());
-            Actions.fillInValue(dateMonth, tumourDetails.getMonth());
-            Actions.fillInValue(dateYear, tumourDetails.getYear());
+
+            seleniumLib.sendValue(dateDay,tumourDetails.getDay());
+            seleniumLib.sendValue(dateMonth,tumourDetails.getMonth());
+            seleniumLib.sendValue(dateYear,tumourDetails.getYear());
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in fillInDateOfDiagnosis:" + exp);
+            Debugger.println("Exception in fillInDateOfDiagnosis:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fillInDateOfDiagnosis.jpg");
             return false;
         }
@@ -339,36 +350,36 @@ public class TumoursPage {
     }
 
     public void answerTumourDiagnosisQuestionsBasedOnTumourType(String tumourType, String diagnosis) {
-
+        Debugger.println("URL : "+driver.getCurrentUrl()+"\n"+tumourType+"\n"+diagnosis);
         switch (tumourType) {
             case "Solid tumour: metastatic": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: primary": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: unknown":
             case "Brain tumour": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
@@ -376,7 +387,7 @@ public class TumoursPage {
             case "Haematological malignancy: liquid sample":
             case "Haematological malignancy: solid sample": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(3);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
@@ -633,9 +644,9 @@ public class TumoursPage {
         List<String> actualTumourDetails = new ArrayList<>();
 
         actualTumourDetails.add(Actions.getValue(descriptiveName));
-        actualTumourDetails.add(Actions.getValue(dateDay));
-        actualTumourDetails.add(Actions.getValue(dateMonth));
-        actualTumourDetails.add(Actions.getValue(dateYear));
+//        actualTumourDetails.add(Actions.getValue(dateDay));
+//        actualTumourDetails.add(Actions.getValue(dateMonth));
+//        actualTumourDetails.add(Actions.getValue(dateYear));
         actualTumourDetails.add(Actions.getText(tumourType));
         actualTumourDetails.add(Actions.getValue(pathologyReportId));
 
@@ -648,9 +659,10 @@ public class TumoursPage {
         List<String> expectedTumourTestData = new ArrayList<>();
 
         expectedTumourTestData.add(tumourDetails.getTumourDescription());
-        expectedTumourTestData.add(tumourDetails.getDay());
-        expectedTumourTestData.add(tumourDetails.getMonth());
-        expectedTumourTestData.add(tumourDetails.getYear());
+        //Commented as need to handle the day/month with two digits
+//        expectedTumourTestData.add(tumourDetails.getDay());
+//        expectedTumourTestData.add(tumourDetails.getMonth());
+//        expectedTumourTestData.add(tumourDetails.getYear());
         expectedTumourTestData.add(tumourDetails.getTumourType());
         expectedTumourTestData.add(tumourDetails.getTumourSpecimenID());
 

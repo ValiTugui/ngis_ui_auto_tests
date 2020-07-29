@@ -37,13 +37,26 @@ public class PatientDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
+    @FindBy(xpath = "//input[@id='title']")
     public WebElement title;
+    @FindBy(xpath = "//input[@id='firstName']")
     public WebElement firstName;
+    @FindBy(xpath = "//input[@id='familyName']")
     public WebElement familyName;
-    public WebElement lastName;
+    @FindBy(xpath = "//input[@id='dateOfBirthDay']")
+    public WebElement dateOfBirthDay;
+    @FindBy(xpath = "//input[@id='dateOfBirthMonth']")
+    public WebElement dateOfBirthMonth;
+    @FindBy(xpath = "//input[@id='dateOfBirthYear']")
+    public WebElement dateOfBirthYear;
+
+   // public WebElement dateOfDeath;
     public WebElement nhsNumber;
+    @FindBy(xpath = "//input[@id='hospitalNumber']")
     public WebElement hospitalNumber;
+    @FindBy(xpath = "//input[@id='postcode']")
     public WebElement postcode;
+    @FindBy(xpath = "//textarea[@id='otherReasonExplanation']")
     public WebElement otherReasonExplanation;
 
     @FindBy(css = "h1[class*='page-title']")
@@ -51,15 +64,6 @@ public class PatientDetailsPage {
 
     @FindBy(css = "p[class*='sub-title']")
     public WebElement subPageTitle;
-
-    @FindBy(css = "label[for*='dateOfBirth']")
-    public WebElement dateOfBirthLabel;
-
-    @FindBy(xpath = "//input[@id='dateOfBirth']")
-    public WebElement dateOfBirth;
-
-    @FindBy(xpath = "//input[@id='dateOfDeath']")
-    public WebElement dateOfDeath;
 
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
@@ -84,16 +88,6 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
     public WebElement ethnicityButton;
-
-    @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'indicatorContainer')]")
-    public WebElement ethnicityIndicator;
-
-    @FindBy(css = "div[id*='react-select']")
-    public List<WebElement> dropdownValues;
-
-    @FindBy(xpath = "//label[contains(text(),'Ethnicity')]/..//input[@id='ethnicity']")
-    public WebElement ethnicityInputField;
-
 
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipButton;
@@ -130,7 +124,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement startNewReferralButton;
 
-    //@FindBy(css = "*[data-testid*='notification-success']")
     @FindBy(xpath = "//div[@data-testid='notification-success']//span")
     public WebElement successNotification;
 
@@ -210,9 +203,6 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//*[string()='Address']//following-sibling::span")
     public WebElement addressField;
-
-    @FindBy(css = "div[class*='error-message__text']")
-    public WebElement fieldErrorMessage;
 
     public boolean patientDetailsPageIsDisplayed() {
         try {
@@ -302,14 +292,15 @@ public class PatientDetailsPage {
             String yearOfBirth = PatientSearchPage.testData.getYear();
 
             // Date of Birth field will always be empty when accessing the New Patient "test-order/new-patient" directly
-            if (Actions.getValue(dateOfBirth).isEmpty()) {
-                Debugger.println("Before: Date of Birth field empty: " + Actions.getValue(dateOfBirth));
+            String dobDay = seleniumLib.getText(dateOfBirthDay);
+            if (dobDay == null || dobDay.isEmpty()) {
                 dayOfBirth = String.valueOf(faker.number().numberBetween(10, 31));
                 monthOfBirth = String.valueOf(faker.number().numberBetween(10, 12));
                 yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
-                Actions.fillInValue(dateOfBirth, dayOfBirth + "/" + monthOfBirth + "/" + yearOfBirth);
-                Debugger.println("After: Date of Birth field empty: " + Actions.getValue(dateOfBirth));
-            }
+                seleniumLib.sendValue(dateOfBirthDay,dayOfBirth);
+                seleniumLib.sendValue(dateOfBirthMonth,monthOfBirth);
+                seleniumLib.sendValue(dateOfBirthYear,yearOfBirth);
+             }
 
             newPatient.setDay(dayOfBirth);
             newPatient.setMonth(monthOfBirth);
@@ -378,7 +369,9 @@ public class PatientDetailsPage {
             newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
             Actions.fillInValue(firstName, newPatient.getFirstName());
             Actions.fillInValue(familyName, newPatient.getLastName());
-            Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+            seleniumLib.sendValue(dateOfBirthDay,newPatient.getDay());
+            seleniumLib.sendValue(dateOfBirthMonth,newPatient.getMonth());
+            seleniumLib.sendValue(dateOfBirthYear,newPatient.getYear());
             selectGender(administrativeGenderButton, "Male");
             editDropdownField(lifeStatusButton, "Alive");
             editDropdownField(ethnicityButton, "B - White - Irish");
@@ -398,71 +391,19 @@ public class PatientDetailsPage {
             //Click.element(driver, element);
             Wait.seconds(2);
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
-            Wait.seconds(3);
-            if(seleniumLib.isElementPresent(fieldErrorMessage)){
-                Debugger.println("Error Message present......."+seleniumLib.getText(fieldErrorMessage));
-                seleniumLib.clickOnWebElement(element);
-                Wait.seconds(3);
-                boolean isSelected = seleniumLib.moveMouseAndClickOnElement(By.xpath("//span[text()='" + value + "']"));
-                Debugger.println("Dropdown Selected by Move Mouse:"+isSelected);
-                Debugger.println("Error Message present1......."+seleniumLib.getText(fieldErrorMessage));
-            }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp);
-            SeleniumLib.takeAScreenShot("editDropdownField.jpg");
-            return false;
-        }
-    }
-    private void checkIfErrorPresent(){
-        Debugger.println("Checking Error Presence.......");
-        if(seleniumLib.isElementPresent(fieldErrorMessage)){
-            String errMsg = seleniumLib.getText(fieldErrorMessage);
-            Debugger.println("Error Message present......."+errMsg);
-            if(errMsg.contains("Ethnicity")) {
-                seleniumLib.clickOnWebElement(postcode);
-                seleniumLib.sendValue(ethnicityInputField, "British");
-                Wait.seconds(3);
-                Debugger.println("Second Time Size......."+dropdownValues.size());
-                Actions.selectByIndexFromDropDown(dropdownValues, dropdownValues.size()-1);
-                Wait.seconds(3);
-                Debugger.println("Error Message present1......." + seleniumLib.getText(fieldErrorMessage));
-            }
-        }
-    }
-    public boolean editEthnicity(String value) {
-        try {
-            Debugger.println("EDITING ETHNICITY........");
-            seleniumLib.sendValue(ethnicityInputField, value);
-            //seleniumLib.clickOnWebElement(ethnicityIndicator);
-            Wait.seconds(3);
             try {
-                Debugger.println("DDValues Size:"+dropdownValues.size());
-//                String strPath = "//label[contains(text(),'Ethnicity')]/..//div[contains(@class,'container')]/div[contains(@class,'-menu')]";
-//                By ddMenu = By.xpath(strPath);
-//                Debugger.println("IS Present Me:"+seleniumLib.isElementPresent(ddMenu));
-//                By ddMenu2 = By.xpath(strPath+"//div");
-//                Debugger.println("IS Present Me2:"+seleniumLib.isElementPresent(ddMenu2));
-//                By ddMenu3 = By.xpath(strPath+"//div//span");
-//                Debugger.println("IS Present Mee3"+seleniumLib.isElementPresent(ddMenu3));
-//                List<WebElement> list1 = driver.findElements(ddMenu3);
-//                Debugger.println("list1 Size: "+list1.size());
-                if(dropdownValues.size() > 0) {
-                    seleniumLib.JavaScriptClick(dropdownValues.get(0));
-                    //Actions.selectByIndexFromDropDown(dropdownValues, 0);
-                    // Actions.clickElement(driver, dropdownValues.get(0));
-                }
-           }catch(Exception exp2){
-
+                Debugger.println("editDropdownField trying with seleniumLib..");
+                seleniumLib.clickOnWebElement(element);
+                Wait.seconds(2);
+                seleniumLib.clickOnElement(By.xpath("//span[text()='" + value + "']"));
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp1);
+                SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+                return false;
             }
-           // By ddValue = By.xpath("//span[text()='" + value + "']");
-           // seleniumLib.clickOnWebElement(dropdownValue.findElement(ddValue));
-            Wait.seconds(3);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in editEthnicity:" + value + "\n" + exp);
-            SeleniumLib.takeAScreenShot("editEthnicity.jpg");
-            return false;
         }
     }
 
@@ -470,16 +411,24 @@ public class PatientDetailsPage {
     public boolean selectGender(WebElement element, String optionValue) {
         WebElement ddValue = null;
         try {
-            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            try {
+                Actions.clickElement(driver, element);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(element);
+            }
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(3);
             List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='administrativeGender']/..//div//span[text()='" + optionValue + "']"));
             //Debugger.println("Size of Gender DD elements: "+ddElements.size());
             if (ddElements.size() > 0) {
-                Wait.forElementToBeClickable(driver, ddElements.get(0));
-                Actions.clickElement(driver, ddElements.get(0));
-                Wait.seconds(2);
+                try {
+                    Wait.forElementToBeClickable(driver, ddElements.get(0));
+                    Actions.clickElement(driver, ddElements.get(0));
+                    Wait.seconds(2);
+                }catch(Exception exp1){
+                    seleniumLib.clickOnWebElement(ddElements.get(0));
+                }
             }
             return true;
         } catch (Exception exp) {
@@ -514,7 +463,6 @@ public class PatientDetailsPage {
     }
 
     public boolean clickOnCreateRecord() {
-        Debugger.println("Clicking on Create Record........");
         try {
             if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
                 Debugger.println("Create Record button not present in new patient creation page.");
@@ -523,12 +471,10 @@ public class PatientDetailsPage {
                 return false;
             }
             seleniumLib.clickOnWebElement(createRecord);
-            SeleniumLib.takeAScreenShot("Filling31.jpg");
             return true;
         } catch (Exception exp) {
             try{
                 Actions.clickElement(driver, createRecord);
-                SeleniumLib.takeAScreenShot("Filling32.jpg");
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
@@ -751,8 +697,8 @@ public class PatientDetailsPage {
 
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
         String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
-        Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
-        Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
+        String actualDOB = seleniumLib.getText(dateOfBirthDay)+"/"+seleniumLib.getText(dateOfBirthMonth)+"/"+seleniumLib.getText(dateOfBirthYear);
+        Assert.assertEquals(DOB, actualDOB);
     }
 
     public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
@@ -837,8 +783,7 @@ public class PatientDetailsPage {
 
     public boolean fillInAllFieldsNewPatientDetailsExceptNHSNumber(String reason) {
         try {
-            SeleniumLib.takeAScreenShot("Filling1.jpg");
-            Wait.forElementToBeDisplayed(driver, title);
+
             newPatient.setTitle("Mr");
             title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
             String firstNameValue = TestUtils.getRandomFirstName();
@@ -865,8 +810,9 @@ public class PatientDetailsPage {
             newPatient.setGender(gender);
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(ethnicityButton, "A - White - British");
             String hospitalId = faker.numerify("A#R##BB##");
-            //selectMissingNhsNumberReason(reason);
+            selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
                 Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
                 otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
@@ -881,10 +827,7 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
-            editEthnicity("A - White - British");
-            Wait.seconds(5);
-            //checkIfErrorPresent();
-            SeleniumLib.takeAScreenShot("Filling2.jpg");
+
             Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
@@ -897,14 +840,11 @@ public class PatientDetailsPage {
 
     public boolean fillInAllFieldsNewPatientDetailsWithNHSNumber(String patientNameWithSpecialCharacters) {
         try {
-            Wait.forElementToBeDisplayed(driver, title);
+            Debugger.println("Yes..here.......");
             String patientTitle = "Mr";
             newPatient.setTitle(patientTitle);
-            title.sendKeys(patientTitle);
-
             String firstNameValue;
             String lastNameValue;
-
             if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
                 firstNameValue = TestUtils.getRandomFirstName().replaceFirst("[a-z]", "é");
                 lastNameValue = TestUtils.getRandomLastName().concat("müller");
@@ -912,44 +852,42 @@ public class PatientDetailsPage {
                 firstNameValue = TestUtils.getRandomFirstName();
                 lastNameValue = TestUtils.getRandomLastName();
             }
-
             newPatient.setFirstName(firstNameValue);
-            Actions.fillInValue(firstName, newPatient.getFirstName());
             newPatient.setLastName(lastNameValue);
-            Actions.fillInValue(familyName, newPatient.getLastName());
-
             String dayOfBirth = PatientSearchPage.testData.getDay();
             String monthOfBirth = PatientSearchPage.testData.getMonth();
             String yearOfBirth = PatientSearchPage.testData.getYear();
             newPatient.setDay(dayOfBirth);
             newPatient.setMonth(monthOfBirth);
             newPatient.setYear(yearOfBirth);
-
             String gender = "Male";
             newPatient.setGender(gender);
-            selectGender(administrativeGenderButton, gender);
-            editDropdownField(lifeStatusButton, "Alive");
-            editEthnicity("A - White - British");
-
             String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(patientNhsNumber);
+            String hospitalId = faker.numerify("A#R##BB##");
+            newPatient.setPostCode(getRandomUKPostCode());
+            newPatient.setHospitalNumber(hospitalId);
+            String postcodeValue = newPatient.getPostCode();
+
+            title.sendKeys(patientTitle);
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            Actions.fillInValue(familyName, newPatient.getLastName());
+            selectGender(administrativeGenderButton, gender);
+            editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(ethnicityButton, "A - White - British");
             Actions.clickElement(driver, yesButton);
             Actions.clickElement(driver, nhsNumber);
             Actions.fillInValue(nhsNumber, patientNhsNumber);
             Actions.clickElement(driver, nhsNumberLabel);
 
-            String hospitalId = faker.numerify("A#R##BB##");
             Actions.fillInValue(hospitalNumber, hospitalId);
             Actions.fillInValue(addressLine0, faker.address().buildingNumber());
             Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
             Actions.fillInValue(addressLine2, faker.address().streetName());
             Actions.fillInValue(addressLine3, faker.address().cityName());
             Actions.fillInValue(addressLine4, faker.address().state());
-            newPatient.setPostCode(getRandomUKPostCode());
-            newPatient.setHospitalNumber(hospitalId);
-            String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
-            checkIfErrorPresent();
+
             Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
@@ -1413,6 +1351,70 @@ public class PatientDetailsPage {
             Debugger.println("Exception from checking the postcode format in address:"+exp);
             SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
             return false;
+        }
+    }
+
+    public String verifyPatientDetails_NGIS(){
+        try {
+            String actualPrefix = title.getAttribute("value");
+            String actualFirstName = firstName.getAttribute("value");
+            String actualLastName = familyName.getAttribute("value");
+            String actualFullDOB = dateOfBirthDay.getAttribute("value") + "/" + dateOfBirthMonth.getAttribute("value") + "/" + dateOfBirthYear.getAttribute("value");
+            String actualGender = administrativeGenderButton.getText().trim();
+            String actualNHSNumber = nhsNumber.getAttribute("value");
+
+            NewPatient newPatient = getNewlyCreatedPatientData();
+            String expectedDOB = newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear();
+            if(!newPatient.getTitle().equalsIgnoreCase(actualPrefix)){
+                return "Expected Prefix: "+newPatient.getTitle()+",But Actual:"+actualPrefix;
+            }
+            if(!newPatient.getFirstName().equalsIgnoreCase(actualFirstName)){
+                return "Expected FirstName: "+newPatient.getFirstName()+",But Actual:"+actualFirstName;
+            }
+            if(!newPatient.getLastName().equalsIgnoreCase(actualLastName)){
+                return "Expected LastName: "+newPatient.getLastName()+",But Actual:"+actualLastName;
+            }
+            if(!expectedDOB.equalsIgnoreCase(actualFullDOB)){
+                return "Expected DOB: "+actualFullDOB+",But Actual:"+actualFullDOB;
+            }
+            if(!newPatient.getGender().equalsIgnoreCase(actualGender)){
+                return "Expected Gender: "+newPatient.getGender()+",But Actual:"+actualGender;
+            }
+            if(actualNHSNumber != null && !actualNHSNumber.isEmpty()) {
+                if (!newPatient.getNhsNumber().equalsIgnoreCase(actualNHSNumber)) {
+                    return "Expected NHSNumber: " + newPatient.getGender() + ",But Actual:" + actualNHSNumber;
+                }
+            }
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not verify NGIS Patient Details:"+exp+"\n"+driver.getCurrentUrl());
+            return "Could not verify NGIS Patient details:"+exp;
+        }
+    }
+    public String fillDateOfBirth(String dateOfBirth){
+        try {
+            String[] dobSplit = dateOfBirth.split("-");
+            seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+            seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+            seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
+            return "Could not fill Date Of Birth: "+exp;
+        }
+    }
+    public String clearDateOfBirth(){
+        try {
+            if(!seleniumLib.isElementPresent(dateOfBirthDay)){
+                return "Date of birth fields not displayed.";
+            }
+            Actions.clearInputField(dateOfBirthDay);
+            Actions.clearInputField(dateOfBirthMonth);
+            Actions.clearInputField(dateOfBirthYear);
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not Clear Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
+            return "Could not Clear Date Of Birth: "+exp;
         }
     }
 }//end

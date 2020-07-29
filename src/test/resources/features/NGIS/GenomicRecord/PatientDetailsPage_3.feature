@@ -1,4 +1,3 @@
-#@patientDetails
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 3
@@ -313,4 +312,4 @@ Feature: GenomicRecord: Patient details page 3
 
     Examples:
       | stage           | dateOfBirth |
-      | Patient details | 20/10/2010  |
+      | Patient details | 20-10-2010  |

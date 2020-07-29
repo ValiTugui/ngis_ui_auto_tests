@@ -200,6 +200,7 @@ public class ReferralPage<check> {
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
+    String mandatoryFieldLegend = "//legend[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
 
@@ -591,8 +592,8 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if (Wait.isElementDisplayed(driver, pageTitle, 10)) {
-                return Actions.getText(pageTitle);
+            if (Wait.isElementDisplayed(driver, pageTitle, 30)) {
+                return seleniumLib.getText(pageTitle);
             }
             return null;
         } catch (Exception exp) {
@@ -696,7 +697,7 @@ public class ReferralPage<check> {
                 }
             }
             if (!isPresent) {
-                Debugger.println("ErrorMessage:" + errorMessage + ", not displayed in :" + expectedFontColor);
+                Debugger.println("ErrorMessage:" + errorMessage + ", not displayed in :" + expectedFontColor+",Actual:"+actColor);
                 SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
             }
             return isPresent;
@@ -712,13 +713,9 @@ public class ReferralPage<check> {
             Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
-            //Added extra below code, as it is observed that the page title path for each element in stage is not same
-            // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
             int titlesSize = titleElements.size();
             int count = 1;
-            //Debugger.println("Size.."+titlesSize);
             while(titlesSize == 0){
-                //Debugger.println("Loop.....");
                 Wait.seconds(15);
                 titlesSize = titleElements.size();
                 count++;
@@ -735,14 +732,11 @@ public class ReferralPage<check> {
                 }
             }
             for (WebElement element : titleElements) {
-                //Debugger.println("ACT TITLE:" + element.getText());
                 if (element.getText().contains(expTitle)) {
                     return true;
                 }
             }
-            //Debugger.println("CONTINUING...............TITLE." + titleElements.size()+"\nURL:"+driver.getCurrentUrl());
             String actualPageTitle = getTheCurrentPageTitle();
-            //Debugger.println("TITLE...:" + actualPageTitle);
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
@@ -793,7 +787,6 @@ public class ReferralPage<check> {
     }
 
     public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
         try {
             List<String> actualErrorMessages = new ArrayList<>();
             for (WebElement errorMessage : errorMessages) {
@@ -809,9 +802,7 @@ public class ReferralPage<check> {
     }
 
     public List<String> getTheFieldsLabelsOnCurrentPage() {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
         List<String> actualFieldLabels = new ArrayList<>();
-
         for (WebElement fieldLabel : genericFieldLabels) {
             actualFieldLabels.add(fieldLabel.getText().trim());
         }
@@ -1055,14 +1046,14 @@ public class ReferralPage<check> {
     public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
         try {
             List actualFieldsLabels = getTheFieldsLabelsOnCurrentPage();
-            Debugger.println("Actual fields labels on page :" + actualFieldsLabels);
+            //Debugger.println("Actual fields labels on page :" + actualFieldsLabels);
             for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
-                Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
+                //Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
                 Assert.assertTrue(actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader")));
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from getting field labels." + exp);
+            Debugger.println("Exception from getting field labels." + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("fields-labels.jpg");
             return false;
         }
@@ -1216,23 +1207,28 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
+    public String verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
         try {
             Wait.seconds(2);
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
-            String fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel", fieldLabel);
+            String fieldLabelPath = null;
+            if(fieldLabel.equalsIgnoreCase("Date of birth")){
+                fieldLabelPath = mandatoryFieldLegend.replaceAll("dummyLabel", fieldLabel);
+            }else {
+                fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel", fieldLabel);
+            }
             WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
             String actualColor = fieldElement.getCssValue("color");
             if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
                 Debugger.println("Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor);
                 SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
-                return false;
+                return "Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor;
             }
-            return true;
+            return "Success";
         } catch (Exception exp) {
             Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
             SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
-            return false;
+            return "Exception from validating verifyMandatoryFieldHighlightColor:" + exp;
         }
     }
 
@@ -1543,8 +1539,8 @@ public class ReferralPage<check> {
             }
             String actStatus = "";
             boolean isPresent = false;
-            for (int i = 0; i < referralCancelReasonOnCard.size(); i++) {
-                actStatus = referralCancelReasonOnCard.get(i).getText();
+            for (WebElement webElement : referralCancelReasonOnCard) {
+                actStatus = webElement.getText();
                 if (reason.equalsIgnoreCase(actStatus)) {
                     isPresent = true;
                     break;
@@ -1583,8 +1579,8 @@ public class ReferralPage<check> {
         boolean isPresent = false;
         try {
             Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
-            for (int i = 0; i < incompleteSection.size(); i++) {
-                if (incompleteSection.get(i).getText().equalsIgnoreCase(stageName)) {
+            for (WebElement webElement : incompleteSection) {
+                if (webElement.getText().equalsIgnoreCase(stageName)) {
                     isPresent = true;
                     break;
                 }
@@ -1987,7 +1983,7 @@ public class ReferralPage<check> {
                 } else {
                     Debugger.println("Email field or UseAnotherAccount option are not available. URL:" + driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
-                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
+                    Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
             } else {
                 Debugger.println("emailAddressField Displayed.... Proceeding with Login...via NHS Test user mail account.");
@@ -2000,7 +1996,7 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, nhsLogo, 20)) {
                 Debugger.println("NHS mail account login page is not displayed.");
                 SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
-                Assert.assertFalse("NHS Login Page is not displayed.", true);
+                Assert.fail("NHS Login Page is not displayed.");
             }
             Wait.forElementToBeClickable(driver, emailAddressFieldNHSPage);
             String mailIdPresent = emailAddressFieldNHSPage.getAttribute("value");

@@ -1,6 +1,5 @@
-#@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NGIS_AdditionalParticipant
+#@userJourneysRD_NgisAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_2 - UC16 - E2EUI-1077
 

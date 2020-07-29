@@ -76,6 +76,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[contains(@data-id,'file_submissions-search')]")
     public List<WebElement> searchFieldsForFileSubmission;
 
+    By tablePath = By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr");
+    String allHiddenCol = "//table[contains(@id,'DataTables_Table')]//tbody/tr/td[@style='display: none;']";
 
     public boolean fillInTheFileSubmissionDate(String date) {
         try {
@@ -414,38 +416,41 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public boolean verifyThePusIconAtTheStartOfEachRowAndClickToExpand() {
+    public String verifyThePusIconAtTheStartOfEachRowAndClickToExpand() {
         try {
-            List<WebElement> allRows = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr"));
-            String allHiddenCol = "//table[contains(@id,'DataTables_Table')]//tbody/tr/td[@style='display: none;']";
-            List<WebElement> allHiddenColEle = driver.findElements(By.xpath(allHiddenCol));
-
-            if (allHiddenColEle.size() > 0) {
-                int count = 1;
-                for (int i = 0; i < allRows.size(); i++) {
-                    String expandLoc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[" + (i + 1) + "]/td[1]";
-                    Actions.clickElement(driver, driver.findElement(By.xpath(expandLoc)));
-                    Wait.seconds(2);
-                    List<WebElement> allUnhiddenColumns = driver.findElements(By.xpath("//tbody/tr[position()= " + (i + 2) + "and @class='child']"));
-                    for (WebElement col : allUnhiddenColumns) {
-                        String value = col.getText();
-                        Assert.assertNotNull(value);
-                    }
-                    count++;
-                    if (count > 5) {
-                        break;
-                    }
+            if(!seleniumLib.isElementPresent(tablePath)){//30 seconds max
+                if(!seleniumLib.isElementPresent(tablePath)){//another 30 seconds
+                    SeleniumLib.takeAScreenShot("ResultTableNotPresent.jpg");
+                    return "Result table not loaded as expected.";
                 }
-                return true;
-            } else {
+            }
+            List<WebElement> allRows = driver.findElements(tablePath);
+            List<WebElement> allHiddenColEle = driver.findElements(By.xpath(allHiddenCol));
+            if(allHiddenColEle.size() == 0){
                 Debugger.println("No column is hidden");
                 SeleniumLib.takeAScreenShot("noColumnIsHidden.jpg");
-                return false;
+                return "Success";
             }
+            int count = 1;
+            for (int i = 0; i < allRows.size(); i++) {
+                String expandLoc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[" + (i + 1) + "]/td[1]";
+                 seleniumLib.clickOnElement(By.xpath(expandLoc));
+                 Wait.seconds(2);
+                 List<WebElement> allUnhiddenColumns = driver.findElements(By.xpath("//tbody/tr[position()= " + (i + 2) + "and @class='child']"));
+                 for (WebElement col : allUnhiddenColumns) {
+                    String value = col.getText();
+                    Assert.assertNotNull(value);
+                 }
+                 count++;
+                 if (count > 5) {
+                     break;
+                 }
+            }
+            return "Success";
         } catch (Exception exp) {
             Debugger.println("Exception due to ExpandCompactLocator element." + exp);
             SeleniumLib.takeAScreenShot("noExpandCompactLocatorExp.jpg");
-            return false;
+            return "Exception due to ExpandCompactLocator element." + exp;
         }
     }
 
@@ -544,6 +549,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectDropDownSearchValue(String value) {
         try {
+            Wait.seconds(3);
             if (!seleniumLib.selectFromListByText(fileSubmissionSearchValue, value)) {
                 Wait.seconds(8);
                 return seleniumLib.selectFromListByText(fileSubmissionSearchValue, value);

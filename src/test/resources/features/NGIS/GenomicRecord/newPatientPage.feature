@@ -1,7 +1,6 @@
-#@regression
-#@newPatientPage
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
+
 Feature: GenomicRecord: New Patient page
 
   @NTS-3072
@@ -54,7 +53,7 @@ Feature: GenomicRecord: New Patient page
       | create a new patient record | Other (please provide reason)                               |
       | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
 
-  @NTS-3456 @Z-LOGOUT
+   @NTS-3456 @Z-LOGOUT
 #    @E2EUI-1134 @E2EUI-1067
   Scenario Outline: NTS-3456:(E2EUI-1134,1067) Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page

@@ -4,7 +4,7 @@
 
 Feature: MIPORTAL ST - File Submission 2
 
-  @NTS-5190
+  @NTS-5190 @MI-LOGOUT
   Scenario Outline: NTS-5190:E2EUI-2770:When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -41,16 +41,26 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-4938
-  Scenario: NTS-4938:E2EUI-2703: Verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
+  @NTS-4938 @MI-LOGOUT
+  Scenario Outline: NTS-4938:E2EUI-2703: Verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     Then the user should not sees the below values in the file-submission search column drop-down menu
       | GLH             |
       | Ordering Entity |
 
-  @NTS-4938
-  Scenario: NTS-4938:E2EUI-2703: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
+  @NTS-4938 @MI-LOGOUT
+  Scenario Outline: NTS-4938:E2EUI-2703: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Created as the search column dropdown
-    And the user selects equals as the search operator dropdown
+    And the user selects before or on as the search operator dropdown
     And the user enters 7 days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -61,9 +71,16 @@ Feature: MIPORTAL ST - File Submission 2
       | gel1001-ordering entity ID |
     And the selected search option is reset after test
 
+    Examples:
+      | mi_stage         |
+      | File Submissions |
 
-  @NTS-4987
-  Scenario: NTS-4987:E2EUI-2693:Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
+
+  @NTS-4987 @MI-LOGOUT
+  Scenario Outline: NTS-4987:E2EUI-2693:Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
     And the user enters 5 days before today in the file-submission date field
@@ -109,8 +126,15 @@ Feature: MIPORTAL ST - File Submission 2
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 
-  @NTS-5020
-  Scenario: NTS-5020:E2EUI-2409: File Submissions - field_errors and field_warnings in search result table
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
+  @NTS-5020 @MI-LOGOUT
+  Scenario Outline: NTS-5020:E2EUI-2409: File Submissions - field_errors and field_warnings in search result table
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
     And the user enters 5 days before today in the file-submission date field
@@ -124,9 +148,16 @@ Feature: MIPORTAL ST - File Submission 2
       | Warning Msgs  |
     And the selected search option is reset after test
 
-  @NTS-5048
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
+  @NTS-5048 @MI-LOGOUT
     #@E2EUI-1634 ##To check as this involved drag and drop functionality
-  Scenario: NTS-5048 :As a user, I want to see the columns which are hidden by default in the File submissions section
+  Scenario Outline: NTS-5048 :As a user, I want to see the columns which are hidden by default in the File submissions section
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
     And the user enters 5 days before today in the file-submission date field
@@ -175,8 +206,15 @@ Feature: MIPORTAL ST - File Submission 2
       | Warning Msgs  |
     And the selected search option is reset after test
 
-  @NTS-5054
-  Scenario: NTS-5054:E2EUI-2471:Sort file submissions results by created date descending
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
+  @NTS-5054 @MI-LOGOUT
+  Scenario Outline: NTS-5054:E2EUI-2471:Sort file submissions results by created date descending
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects Created as the search column dropdown
     And the user selects before or on as the search operator dropdown
     And the user enters 5 days before today in the file-submission date field
@@ -186,9 +224,23 @@ Feature: MIPORTAL ST - File Submission 2
     Then search results are displayed in table format with display options button
     And the user see dates value in "Created" column of file-submission search result in descending order
 
-  @NTS-5027
+    Examples:
+      | mi_stage         |
+      | File Submissions |
+
+  @NTS-5027 @MI-LOGOUT
     #@E2EUI-1156
   Scenario Outline:NTS-5027:E2EUI-1156: As a user I want to arrange the column order the results displayed, so that I can analyse the data accordingly
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    When the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters 5 days before today in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
@@ -231,5 +283,5 @@ Feature: MIPORTAL ST - File Submission 2
     Then the selected search option is reset after test
 
     Examples:
-      | field-column                   |
-      | Filename,Field Warnings,Status |
+      | field-column                   | mi_stage         |
+      | Filename,Field Warnings,Status |File Submissions |
