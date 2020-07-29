@@ -64,6 +64,10 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[@id='bs-select-16-0']//span[@class='glyphicon glyphicon-ok check-mark']")
     public WebElement checkMark;
 
+    @FindBy(xpath = "//div[@role='listbox']//a[@role='option'][@aria-selected='true']//span[@class='glyphicon glyphicon-ok check-mark']")
+    public List<WebElement> orderingEntitySelections;
+
+
     @FindBy(xpath = "//button[@id='clinical_dq-reset_filters']")
     public WebElement resetFiltersButton;
 
@@ -256,17 +260,13 @@ public class MiClinicalDataQualityPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 //After clicking on deselect all button all the ordering entities should deselect
     public boolean orderingEntitiesDeselect() {
-        try {
-            if(!Wait.isElementDisplayed(driver, checkMark, 60)){
-                Debugger.println("Check mark is not present");
-                return true;
-            }
-            return false;
-        } catch (Exception exp){
-            Debugger.println("Check mark is present");
-            SeleniumLib.takeAScreenShot("OrderingEntityCheckMarkIsPresent.jpg");
+        //Check mark should not be present
+        if(orderingEntitySelections.size() > 1){
+            Debugger.println("Ordering entity is shown as selected, but not expected to be selected.");
+            SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
             return false;
         }
+        return true;
     }
 //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
