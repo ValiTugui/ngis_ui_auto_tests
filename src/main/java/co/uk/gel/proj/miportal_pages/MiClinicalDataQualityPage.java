@@ -65,10 +65,6 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//div[@role='listbox']//a[@role='option'][@aria-selected='true']//span[@class='glyphicon glyphicon-ok check-mark']")
     public List<WebElement> orderingEntitySelections;
 
-    @FindBy(xpath = "//div[@role='listbox']//a[@role='option'][@aria-selected='true']//span[@class='glyphicon glyphicon-ok check-mark']")
-    public List<WebElement> orderingEntitySelections;
-
-
     @FindBy(xpath = "//button[@id='clinical_dq-reset_filters']")
     public WebElement resetFiltersButton;
 
