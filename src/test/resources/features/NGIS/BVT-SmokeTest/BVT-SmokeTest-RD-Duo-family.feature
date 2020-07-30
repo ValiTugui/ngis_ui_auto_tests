@@ -89,9 +89,9 @@ Feature: NTS-3407: Create RD Duo Family by completing - Patient Details - Reques
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=14-05-1931 |
     ##Submit Referral
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    And the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
       | Patient details | Requesting organisation | Maidstone            | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
