@@ -71,7 +71,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean selectOrderTrackingDropDownSearchOperator(String value) {
-        try {
+       try {
             if (!seleniumLib.selectFromListByText(orderTrackSearchOperator, value)) {
                 Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchOperator, value);
@@ -86,7 +86,6 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         try {
-            Wait.seconds(3);
             if (!seleniumLib.selectFromListByText(orderTrackSearchValue, value)) {
                 Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchValue, value);
@@ -118,7 +117,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
+  
     public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName, String expValue) {
         Wait.seconds(3);
         try {
@@ -157,7 +156,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                     if (!cellValue.contains(expValue)) {
                         Debugger.println("Column:" + columnName + " value, Expected:" + expValue + ",Actual:" + cellValue);
                         SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
-                        return false;
+                        return true;
                     }
                 }
             }
