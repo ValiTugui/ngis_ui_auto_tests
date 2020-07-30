@@ -446,8 +446,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                         break;
                     }
                     case "Gender": {
-                        seleniumLib.clickOnWebElement(genderButton);
-                        seleniumLib.clickOnElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']"));
+                        if(!selectGender(genderButton,paramNameValue.get(key))){
+                            selectGender(administrativeGenderButton,paramNameValue.get(key));
+                        }
+//                        seleniumLib.clickOnWebElement(genderButton);
+//                        seleniumLib.clickOnElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']"));
                         break;
                     }
                     case "Postcode": {
@@ -693,8 +696,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                    break;
                 }
                 case "Gender": {
-                    Actions.retryClickAndIgnoreElementInterception(driver,genderButton);
-                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                    if(!selectGender(genderButton,paramNameValue.get(key))){
+                        selectGender(administrativeGenderButton,paramNameValue.get(key));
+                    }
                     break;
                 }
                 case "Postcode": {
@@ -996,8 +1000,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }catch(Exception exp1){
                 seleniumLib.sendValue(familyName, testData.getLastName());
             }
-            seleniumLib.clickOnWebElement(genderButton);
-            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
+            if(!selectGender(genderButton,"Male")){
+                selectGender(administrativeGenderButton,"Male");
+            }
+//            seleniumLib.clickOnWebElement(genderButton);
+//            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
             seleniumLib.sendValue(postcode,testData.getPostCode());
             return true;
         }catch(Exception exp){
@@ -1099,8 +1106,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }catch(Exception exp1){
                 seleniumLib.sendValue(familyName, newPatient.getLastName());
             }
-            seleniumLib.clickOnWebElement(genderButton);
-            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
+            if(!selectGender(genderButton,"Male")){
+                selectGender(administrativeGenderButton,"Male");
+            }
+//            seleniumLib.clickOnWebElement(genderButton);
+//            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
              return true;
         }catch(Exception exp){
             Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:"+exp+"\n"+driver.getCurrentUrl());
@@ -1121,9 +1131,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }catch(Exception exp1){
                 seleniumLib.sendValue(familyName, newPatient.getLastName());
             }
-
-            seleniumLib.clickOnWebElement(genderButton);
-            seleniumLib.clickOnElement(By.xpath("//span[text()='"+editedGender+"']"));
+            if(!selectGender(genderButton,editedGender)){
+                selectGender(administrativeGenderButton,editedGender);
+            }
+//            seleniumLib.clickOnWebElement(genderButton);
+//            seleniumLib.clickOnElement(By.xpath("//span[text()='"+editedGender+"']"));
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in fillInNewPatientDetailsInTheNoFieldsWithEditedGender:"+exp);
@@ -1236,8 +1248,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             firstName.sendKeys(searchPatient.getFIRST_NAME());
             familyName.sendKeys(searchPatient.getLAST_NAME());
-            Click.element(driver, genderButton);
-            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='"+searchPatient.getGENDER()+"']")));
+            if(!selectGender(genderButton,searchPatient.getGENDER())){
+                selectGender(administrativeGenderButton,searchPatient.getGENDER());
+            }
+           // selectGender(administrativeGenderButton,searchPatient.getGENDER());
+//            Click.element(driver, genderButton);
+//            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='"+searchPatient.getGENDER()+"']")));
             return true;
        }catch(Exception exp){
             Debugger.println("Exception in searching patient with No Option."+exp);
@@ -1245,10 +1261,45 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+    public boolean selectGender(WebElement element, String optionValue) {
+        try {
+            try {
+                Actions.clickElement(driver, element);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(element);
+            }
+            Wait.seconds(3);
+            List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='gender']/..//div//span[text()='" + optionValue + "']"));
+            //Debugger.println("Size of Gender DD elements: "+ddElements.size());
+            if(ddElements.size() == 0){
+                ddElements = driver.findElements(By.xpath("//label[@for='administrativeGender']/..//div//span[text()='" + optionValue + "']"));
+            }
+            if (ddElements.size() > 0) {
+                try {
+                    Wait.forElementToBeClickable(driver, ddElements.get(0));
+                    Actions.clickElement(driver, ddElements.get(0));
+                    Wait.seconds(2);
+                }catch(Exception exp1){
+                    seleniumLib.clickOnWebElement(ddElements.get(0));
+                }
+            }else{
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in selecting Gender for Family Member: " + exp);
+            SeleniumLib.takeAScreenShot("FMGenderDropDown.jpg");
+            return false;
+        }
+    }
 
     public List<String> getTheGenderDropDownValues() {
-        Wait.forElementToBeClickable(driver,genderButton);
-        Actions.clickElement(driver, genderButton);
+       try {
+            Actions.clickElement(driver, genderButton);
+        }catch(Exception exp){
+            Actions.clickElement(driver,administrativeGenderButton);
+        }
+        //selectGender(administrativeGenderButton,"Male");
         List<String> actualGenderValues = new ArrayList<String>();
         for (WebElement genderValue : genderValues) {
             actualGenderValues.add(genderValue.getText().trim());

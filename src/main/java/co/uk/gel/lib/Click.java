@@ -13,8 +13,8 @@ public class Click {
 	
 	public static void element(WebDriver driver, WebElement element) {
 
-		Wait.forElementToBeClickable(driver, element);
-		element.click();
+			Wait.forElementToBeClickable(driver, element);
+			element.click();
 
 	}
 

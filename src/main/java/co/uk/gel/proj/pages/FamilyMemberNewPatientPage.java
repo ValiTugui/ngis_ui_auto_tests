@@ -141,7 +141,7 @@ public class FamilyMemberNewPatientPage {
             String pathToElement = "";
             By xpathElement = null;
             for (int i = 0; i < expInputs.length; i++) {
-                pathToElement = "//label[text()='" + expInputs[i] + "']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
+                pathToElement = "//label[text()='" + expInputs[i] + "']/..//div[@class='css-16pqwjk-indicatorContainer'][1]";
                 xpathElement = By.xpath(pathToElement);
                 if (!seleniumLib.isElementPresent(xpathElement)) {
                     Debugger.println("Path :" + pathToElement + " Could not locate");

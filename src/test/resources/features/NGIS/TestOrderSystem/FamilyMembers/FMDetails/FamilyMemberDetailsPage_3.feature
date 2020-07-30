@@ -34,9 +34,10 @@ Feature: Family Members Details Page 3- Field Validation_3
       | First name              | #dd2509 |
       | Last name               | #dd2509 |
       | Date of birth           | #dd2509 |
-      | Gender                  | #dd2509 |
-      | Life status             | #dd2509 |
-      | Ethnicity               | #dd2509 |
+      ##Commented as Clearing DD field is giving some trouble. The same functionality has been covered without entering value to DD
+#      | Gender                  | #dd2509 |
+#      | Life status             | #dd2509 |
+#      | Ethnicity               | #dd2509 |
       | Relationship to proband | #dd2509 |
 
     Examples:
