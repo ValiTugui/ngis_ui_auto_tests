@@ -512,7 +512,10 @@ public class FamilyMemberDetailsPage {
         //DiseaseStatus
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
-            editFMDropdownField(diseaseStatusDropdown,parValue);
+            if(!editFMDropdownField(diseaseStatusDropdown,parValue)){
+                SeleniumLib.takeAScreenShot("DiseaseStatusNotSelected.jpg");
+                return false;
+            }
         }
         //Age Of Onset
         parValue = paramNameValue.get("AgeOfOnset");
@@ -525,21 +528,23 @@ public class FamilyMemberDetailsPage {
         boolean isHpoSelected = true;
         parValue = paramNameValue.get("HpoPhenoType");
         if (parValue != null && !parValue.isEmpty()) {
-            if (!(searchAndSelectRandomHPOPhenotype(parValue) > 0)) {
-                    isHpoSelected = false;
-                }
-            }
+           searchAndSelectRandomHPOPhenotype(parValue);
+        }
         //PhenotypicSex
         parValue = paramNameValue.get("PhenotypicSex");
         if (parValue != null && !parValue.isEmpty()) {
             SeleniumLib.scrollToElement(rareDiseaseDiagnosesInput);
-            editFMDropdownField(phenotypicSexDropdown,parValue);
+            if(!editFMDropdownField(phenotypicSexDropdown,parValue)){
+                SeleniumLib.takeAScreenShot("PhenotypicSexNotSelected.jpg");
+            }
         }
         seleniumLib.sleepInSeconds(2);
         //KaryotypicSex
         parValue = paramNameValue.get("KaryotypicSex");
         if (parValue != null && !parValue.isEmpty()) {
-            editFMDropdownField(karyotypicSexDropdown,parValue);
+            if(!editFMDropdownField(karyotypicSexDropdown,parValue)){
+                SeleniumLib.takeAScreenShot("KaryotypicSexNotSelected.jpg");
+            }
         }
         seleniumLib.sleepInSeconds(2);
         return isHpoSelected;
@@ -588,17 +593,16 @@ public class FamilyMemberDetailsPage {
             if (Wait.isElementDisplayed(driver, hpoSearchField, 30)) {
                 seleniumLib.sendValue(hpoSearchField, hpoTerm);
             }
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
-                return -1;
+            Wait.seconds(2);
+            if(dropdownValues.size() == 0){
+                int numberOfHPO = hpoTerms.size();
+                return numberOfHPO;
             }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             // determine the total number of HPO terms
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
             int numberOfHPO = hpoTerms.size();
-            //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
         } catch (ElementClickInterceptedException interExp) {
             //SeleniumLib click handles the javascript and Actions click also.
@@ -606,7 +610,8 @@ public class FamilyMemberDetailsPage {
             seleniumLib.clickOnWebElement(dropdownValues.get(0));
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
-            return hpoTerms.size();
+            int numberOfHPO = hpoTerms.size();
+            return numberOfHPO;
         } catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
             return 0;

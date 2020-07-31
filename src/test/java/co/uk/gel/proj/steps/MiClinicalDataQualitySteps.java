@@ -127,17 +127,4 @@ public class MiClinicalDataQualitySteps extends Pages {
         Debugger.println("The Elements Present In Apply Filters Section are verified");
     }
 
-    @And("the user selects (.*) tab")
-    public void theUserSelectsTab(String expectedTabName) {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnSpecifiedTab(expectedTabName);
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user click on Data Quality tab")
-    public void theUserClickOnDataQualityTab() {
-        boolean testResult = false;
-        testResult = miClinicalDataQualityPage.clickOnDqTab();
-        Assert.assertTrue(testResult);
-    }
 }

@@ -26,12 +26,6 @@ public class MiClinicalDataQualityPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(xpath = "//select[@id='clinical_dq-filter_glh']/child::*")
-    public List<WebElement> clinicalDQFilterGLH;
-
-    @FindBy(xpath = "(//div[@class='box']//span[@class='caret'])[1]")
-    public WebElement clinicalDQFilterDropdown;
-
     @FindBy(xpath = "//select[@id='clinical_dq-filter_glh']")
     public WebElement glhDropDown;
 
@@ -70,9 +64,6 @@ public class MiClinicalDataQualityPage {
 
     @FindBy(xpath = "//a[@data-value=\"clinical_dq_tab\"]")
     public WebElement clinicalDqTab;
-
-    @FindBy(xpath = "//span[contains(text(),'Data Quality')]")
-    public WebElement dataQualityTab;
 
     @FindBy(xpath = "//h3[text()='Clinical Data Quality Report']")
     public WebElement clinicalDqHeader;
@@ -381,23 +372,6 @@ public class MiClinicalDataQualityPage {
         } catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:navigateToClinicalDataQualityPage: " + exp);
             SeleniumLib.takeAScreenShot("noClinicalDqTabIsPresent.jpg");
-            return false;
-        }
-    }
-
-    public boolean clickOnDqTab() {
-        try{
-            if(!Wait.isElementDisplayed(driver, dataQualityTab, 30)){
-                Debugger.println("dataQuality Tab is not displayed");
-                SeleniumLib.takeAScreenShot("noDataQualityTab.jpg");
-                return false;
-            }
-            Actions.clickElement(driver, dataQualityTab);
-            Debugger.println("Dat quality tab is selected");
-            return true;
-        } catch (Exception exp){
-            Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnDqTab: " + exp);
-            SeleniumLib.takeAScreenShot("noDataQualityTab.jpg");
             return false;
         }
     }

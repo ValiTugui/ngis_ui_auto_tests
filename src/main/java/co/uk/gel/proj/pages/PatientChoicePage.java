@@ -362,12 +362,14 @@ public class PatientChoicePage {
             if (optionName == null || optionName.isEmpty()) {//Not selecting any option
                 return true;
             }
+
             String options = sectionOptions.replaceAll("dummySection", sectionName);
             List<WebElement> optionsList = driver.findElements(By.xpath(options));
             if (optionsList == null || optionsList.size() == 0) {
                 Debugger.println("Could not find any options under the section :" + sectionName);
                 return false;
             }
+            Wait.seconds(2);
             boolean isFound = false;
             for (int i = 0; i < optionsList.size(); i++) {
                 if (optionsList.get(i).getText().equalsIgnoreCase(optionName)) {
@@ -375,6 +377,7 @@ public class PatientChoicePage {
                     Actions.clickElement(driver, optionsList.get(i));
                     break;
                 }
+                Wait.seconds(2);
             }
             if (!isFound) {
                 Debugger.println("Option :" + optionName + " could not found under the section :" + sectionName);

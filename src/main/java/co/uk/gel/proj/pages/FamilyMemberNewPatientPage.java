@@ -141,18 +141,19 @@ public class FamilyMemberNewPatientPage {
             String pathToElement = "";
             By xpathElement = null;
             for (int i = 0; i < expInputs.length; i++) {
+                Debugger.println("Label: "+expInputs[i]);
                 pathToElement = "//label[text()='" + expInputs[i] + "']/..//div[@class='css-16pqwjk-indicatorContainer'][1]";
+                Debugger.println("Path: "+pathToElement);
                 xpathElement = By.xpath(pathToElement);
-                if (!seleniumLib.isElementPresent(xpathElement)) {
-                    Debugger.println("Path :" + pathToElement + " Could not locate");
-                    return "Path :" + pathToElement + " Could not locate";
-               }
                 try {
-                    seleniumLib.clickOnElement(xpathElement);
-                } catch (Exception exp) {
+                    Wait.forElementToBeClickable(driver,driver.findElement(xpathElement));
+                    seleniumLib.clickOnWebElement(driver.findElement(xpathElement));
+               } catch (Exception exp) {
                     //seleniumLib.moveMouseAndClickOnElement(xpathElement);
-                }
+               }
+               seleniumLib.sleepInSeconds(2);
             }
+            Debugger.println("URL: "+driver.getCurrentUrl());
             return "Success";
         }catch(Exception exp1){
             Debugger.println("Exception in Clearing input fields:"+exp1);
