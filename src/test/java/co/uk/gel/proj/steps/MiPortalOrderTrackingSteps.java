@@ -47,12 +47,14 @@ public class MiPortalOrderTrackingSteps extends Pages {
             searchValue = mipData.getTest_type();
         } else if (searchValue.indexOf(",") != -1) {
             String[] values = searchValue.split(",");
+            Wait.seconds(3);
             for (int i = 0; i < values.length; i++) {
                 testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(values[i]);
                 if (!testResult) {
                     Debugger.println("URL:" + driver.getCurrentUrl());
                     Assert.fail(values[i] + " not found in Order Tracking Search Value DropDown.");
                 }
+                Wait.seconds(3);
             }
             return;
         }

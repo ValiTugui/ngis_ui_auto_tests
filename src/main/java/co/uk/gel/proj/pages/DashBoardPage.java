@@ -118,43 +118,38 @@ public class DashBoardPage {
         try {
             Actions.isTabClickable(driver, 5, nhsTabs);
             for (int i = 0; i < nhsTabs.size(); i++) {
-                if (!nhsTabs.get(i).isDisplayed()) {
-                    Debugger.println("Dashboard tab is not present.");
-                    SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
-                    return false;
-                }
                 switch (i) {
                     case 0:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Find a genomic test")) {
-                            Debugger.println(i + " Actual tab is " + nhsTabs.get(i).getText());
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Find a genomic test");
                             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 1:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Order a genomic test")) {
-                            Debugger.println(i + " Actual tab is " + nhsTabs.get(i).getText());
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Order a genomic test");
                             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 2:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Manage samples")) {
-                            Debugger.println(i + " Actual tab is " + nhsTabs.get(i).getText());
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Manage samples");
                             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 3:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Enter the Interpretation Portal")) {
-                            Debugger.println(i + " Actual tab is " + nhsTabs.get(i).getText());
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Enter the Interpretation Portal");
                             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 4:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Open PanelApp")) {
-                            Debugger.println(i + " Actual tab is " + nhsTabs.get(i).getText());
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Open PanelApp");
                             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
@@ -163,7 +158,7 @@ public class DashBoardPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception form DashBoardPage, verifyTheDashboardTabs " + exp);
+            Debugger.println("Exception form verifyTheDashboardTabs :" + exp);
             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
             return false;
         }
@@ -177,7 +172,6 @@ public class DashBoardPage {
                 return false;
             }
             testSelectionLocator.click();
-            Debugger.println("Find a Genomic Test is selected");
             return true;
         } catch (Exception exp){
             Debugger.println("Exception form DashBoardPage, clickOnFindAGenomicTestTab " + exp);
@@ -189,15 +183,14 @@ public class DashBoardPage {
     public boolean directedToTestSelectionPage() {
         try {
             if (driver.getCurrentUrl().contains("dashboard")) {
-                Debugger.println("Current URL does not contains dashboard");
-                SeleniumLib.takeAScreenShot("TestSelection.jpg");
+                Debugger.println("Current URL still contains dashboard, which is not expected after re-direction.");
+                SeleniumLib.takeAScreenShot("TestSelectionRedirection.jpg");
                 return false;
             }
-            Debugger.println("Current URL after dashboard page re-direction:" + driver.getCurrentUrl());
-            return true;
+           return true;
         } catch (Exception exp) {
             Debugger.println("Exception form DashBoardPage, test selection page " + exp);
-            SeleniumLib.takeAScreenShot("TestSelection.jpg");
+            SeleniumLib.takeAScreenShot("TestSelectionRedirection.jpg");
             return false;
         }
     }

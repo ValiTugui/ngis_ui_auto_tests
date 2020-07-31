@@ -435,23 +435,50 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user should be able to see data quality menu is displayed")
+    public void theUserShouldBeAbleToSeeDataQualityMenuIsDisplayed() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyThePresenceOfDataQualityMenu();
+        Assert.assertTrue(testResult);
+    }
+
     @Then("the user should be able to see the below header sections in Sample Processing")
     public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInSampleProcessing(DataTable inputSections) {
         try {
-            Wait.seconds(15);
+            Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
             for (int i = 1; i < linkDetails.size(); i++) {
                 testResult = miPortalHomePage.verifyThePresenceOfSectionHeader(linkDetails.get(i).get(0));
                 if (!testResult) {
                     Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Sample Processing Section.");
-                    Assert.assertTrue(testResult);
+                    Assert.fail(linkDetails.get(i).get(0)+" Could not verify in Sample Processing Section");
                 }
+                Wait.seconds(2);
             }
-            Assert.assertTrue(testResult);
         } catch (Exception exp) {
             Debugger.println("Exception from Sample Processing Section Header " + exp);
             Assert.assertFalse("MilHomePageSteps: Exception from Sample Processing Section Header " + exp, true);
+        }
+    }
+
+    @Then("the user should be able to see the below header sections in Data Quality")
+    public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInDataQuality(DataTable inputSections) {
+        try {
+            Wait.seconds(10);
+            boolean testResult = false;
+            List<List<String>> linkDetails = inputSections.asLists();
+            for (int i = 1; i < linkDetails.size(); i++) {
+                testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderDataQuality(linkDetails.get(i).get(0));
+                if (!testResult) {
+                    Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Data Quality Section.");
+                    Assert.fail(linkDetails.get(i).get(0)+" Could not verify in Data Quality Section");
+                }
+                Wait.seconds(2);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from Data Quality Section Header " + exp);
+            Assert.assertFalse("MilHomePageSteps: Exception from Data Quality Section Header " + exp, true);
         }
     }
 

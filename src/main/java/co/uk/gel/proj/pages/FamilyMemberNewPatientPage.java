@@ -143,15 +143,13 @@ public class FamilyMemberNewPatientPage {
             for (int i = 0; i < expInputs.length; i++) {
                 pathToElement = "//label[text()='" + expInputs[i] + "']/..//div[@class='css-16pqwjk-indicatorContainer'][1]";
                 xpathElement = By.xpath(pathToElement);
-                if (!seleniumLib.isElementPresent(xpathElement)) {
-                    Debugger.println("Path :" + pathToElement + " Could not locate");
-                    return "Path :" + pathToElement + " Could not locate";
-               }
                 try {
-                    seleniumLib.clickOnElement(xpathElement);
-                } catch (Exception exp) {
+                    Wait.forElementToBeClickable(driver,driver.findElement(xpathElement));
+                    seleniumLib.clickOnWebElement(driver.findElement(xpathElement));
+               } catch (Exception exp) {
                     //seleniumLib.moveMouseAndClickOnElement(xpathElement);
-                }
+               }
+               seleniumLib.sleepInSeconds(2);
             }
             return "Success";
         }catch(Exception exp1){

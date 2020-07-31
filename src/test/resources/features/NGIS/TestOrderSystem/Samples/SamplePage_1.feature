@@ -1,6 +1,6 @@
 @samplesPage
 @03-TEST_ORDER
-@SYSTEM_TEST
+@SYSTEM_TEST1
 Feature: Samples Page -1
 
   @NTS-3287 @Z-LOGOUT
@@ -23,7 +23,6 @@ Feature: Samples Page -1
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      #| Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<stage>" stage is marked as Completed
 
@@ -52,7 +51,6 @@ Feature: Samples Page -1
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
 
@@ -85,7 +83,6 @@ Feature: Samples Page -1
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<stage2>" stage is marked as Completed
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
@@ -120,7 +117,6 @@ Feature: Samples Page -1
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter

@@ -4,16 +4,15 @@
 @DQ_Report
 Feature: MIPORTAL ST - Clinical Data Quality - 2
 
-  @MiPortalClinicalDataQuality_2
+  @MiPortalClinicalDataQuality_2 @MI-LOGOUT
   Scenario Outline: Select All and Deselect All button functionality validation in Ordering Entity dropdown
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    #This latest change is applied for Nana release only in e2e latest
-#    When the user click on Data Quality tab
+    When the user should be able to see data quality menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
-    And the user sees a header as Clinical Data Quality Report on "<header>" stage
+    Then the user sees a header as Clinical Data Quality Report on "<header>" stage
     And the user sees a link <report_guidance> under the Clinical Data Quality Report header
-    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
+    When the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Deselect All button by default all the ordering entities should select
     Then the user click on Select All button
@@ -22,12 +21,12 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | mi_stage              | header                       | report_guidance | glh_name   |
       | Clinical Data Quality | Clinical Data Quality Report | Report Guidance | South West |
 
-  @MiPortalClinicalDataQuality_3
+  @MiPortalClinicalDataQuality_3 @MI-LOGOUT
   Scenario Outline: Validating Ordering entities deselect and select actions
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io |  |
     #This latest change is applied for Nana release only in e2e latest
-#    When the user click on Data Quality tab
+    When the user should be able to see data quality menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
     And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
@@ -40,12 +39,12 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | mi_stage              | header                       | glh_name                      |
       | Clinical Data Quality | Clinical Data Quality Report | East Mids and East of England |
 
-  @MiPortalClinicalDataQuality_4
+  @MiPortalClinicalDataQuality_4 @MI-LOGOUT
   Scenario Outline: Tabs displayed in search result table in Clinical Data Quality page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io |  |
     #This latest change is applied for Nana release only in e2e latest
-#    When the user click on Data Quality tab
+    When the user should be able to see data quality menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a header as Clinical Data Quality Report on "<header>" stage
     And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
@@ -62,7 +61,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
 #    Given a web browser is at the mi-portal home page
 #      | MI_PORTAL_URL | ngis.io |  |
 #    #This latest change is applied for Nana release only in e2e latest
-##    When the user click on Data Quality tab
+#    When the user should be able to see data quality menu is displayed
 #    And the user navigates to the mi-portal "<mi_stage>" stage
 #    And the user sees a header as Clinical Data Quality Report on "<header>" stage
 #    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
