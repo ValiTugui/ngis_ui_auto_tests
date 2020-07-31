@@ -362,7 +362,6 @@ public class PatientChoicePage {
             if (optionName == null || optionName.isEmpty()) {//Not selecting any option
                 return true;
             }
-
             String options = sectionOptions.replaceAll("dummySection", sectionName);
             List<WebElement> optionsList = driver.findElements(By.xpath(options));
             if (optionsList == null || optionsList.size() == 0) {

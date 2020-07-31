@@ -141,9 +141,7 @@ public class FamilyMemberNewPatientPage {
             String pathToElement = "";
             By xpathElement = null;
             for (int i = 0; i < expInputs.length; i++) {
-                Debugger.println("Label: "+expInputs[i]);
                 pathToElement = "//label[text()='" + expInputs[i] + "']/..//div[@class='css-16pqwjk-indicatorContainer'][1]";
-                Debugger.println("Path: "+pathToElement);
                 xpathElement = By.xpath(pathToElement);
                 try {
                     Wait.forElementToBeClickable(driver,driver.findElement(xpathElement));
@@ -153,7 +151,6 @@ public class FamilyMemberNewPatientPage {
                }
                seleniumLib.sleepInSeconds(2);
             }
-            Debugger.println("URL: "+driver.getCurrentUrl());
             return "Success";
         }catch(Exception exp1){
             Debugger.println("Exception in Clearing input fields:"+exp1);
