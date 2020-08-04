@@ -45,7 +45,7 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     And the user click on "Picklists" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "Sequencer Samples" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "New Referrals" section select the filters and click on Add and Search buttons and verify the table loaded
-    When the user should be able to see data quality menu is displayed
+    #When the user should be able to see data quality menu is displayed
     Then the user click on Clinical Data Quality section select the filters Yorkshire & North East and click on Add Filters button and verify the table loaded
     When the user clicks the MIPortal Log out button
     And User should be able to see my Dashboard
