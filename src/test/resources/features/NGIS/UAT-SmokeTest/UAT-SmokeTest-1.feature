@@ -11,7 +11,7 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     When the user should be able to see clickable tabs
   #Test Order from Dashboard
     When the user clicks on "Order a genomic test" Tab
-    And the user logs in to the "Test Order" system
+    #And the user logs in to the "Test Order" system
     And the user is navigated to a page with title Find your patient
     When the user clicks the Log out button
     And User should be able to see my Dashboard
