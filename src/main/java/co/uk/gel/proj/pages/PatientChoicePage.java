@@ -2060,14 +2060,14 @@ public class PatientChoicePage {
         try {
             if (!Wait.isElementDisplayed(driver, completedRefCard, 10)) {
                 Debugger.println("The completed referral card is not displayed");
-                SeleniumLib.takeAScreenShot("selectCompletedReferral.jpg");
+                SeleniumLib.takeAScreenShot("CompletedReferralCardNotPresent.jpg");
                 return false;
             }
             Actions.clickElement(driver, completedRefCard);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectCompletedReferral:" + exp);
-            SeleniumLib.takeAScreenShot("selectCompletedReferral.jpg");
+            SeleniumLib.takeAScreenShot("CompletedReferralCardNotPresent.jpg");
             return false;
         }
     }
@@ -2077,7 +2077,7 @@ public class PatientChoicePage {
             WebElement removeDocButton = driver.findElement(By.xpath(removeButton.replace("dummyText", buttonText)));
             if (!Wait.isElementDisplayed(driver, removeDocButton, 20)) {
                 Debugger.println("The remove document button is not displayed");
-                SeleniumLib.takeAScreenShot("RemoveDocument.jpg");
+                SeleniumLib.takeAScreenShot("RemoveDocumentButtonError.jpg");
                 return false;
             }
             Wait.seconds(2);//Waiting for the document to load
@@ -2086,7 +2086,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clickOnRemoveDocument:" + exp);
-            SeleniumLib.takeAScreenShot("RemoveDocument.jpg");
+            SeleniumLib.takeAScreenShot("RemoveDocumentButtonError.jpg");
             return false;
         }
     }

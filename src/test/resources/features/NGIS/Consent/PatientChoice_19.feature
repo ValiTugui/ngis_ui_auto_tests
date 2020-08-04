@@ -1,3 +1,4 @@
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-19 - Remove file uploaded
 
