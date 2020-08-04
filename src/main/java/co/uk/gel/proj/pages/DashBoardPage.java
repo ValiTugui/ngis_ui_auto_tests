@@ -63,11 +63,21 @@ public class DashBoardPage {
     }
 
      public void waitUntilDashboardPageResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
+        try {
+            Wait.forElementToBeDisplayed(driver, resultsPanel);
+        }catch(Exception exp){
+            Debugger.println("Dashboard page not loaded."+exp);
+            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
+        }
     }
 
     public void dashboardPageResultsIsLoaded() {
-        Wait.forElementToBeClickable(driver, resultsPanel);
+        try {
+            Wait.forElementToBeClickable(driver, resultsPanel);
+        }catch(Exception exp){
+            Debugger.println("Dashboard page not loaded."+exp);
+            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
+        }
     }
 
     public boolean pageTitleValidation(String titleText) {
