@@ -2,6 +2,7 @@
 
 Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Interpretation Portal with Basic Checks from Dashboard
 
+  @NTS-6426
   Scenario: Navigation to Test Selection, Test Order, Mi Portal, Panel App and Interpretation Portal with Basic Checks from Dashboard
   #Dashboard Page
     Given a web browser is at the dashboard page

@@ -1,21 +1,23 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.miportal_pages.MiClinicalDataQualityPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.apache.maven.wagon.Wagon;
 import org.junit.Assert;
 
 import java.util.List;
 
 public class MiClinicalDataQualitySteps extends Pages {
     MiClinicalDataQualityPage miClinicalDataQualityPage = new MiClinicalDataQualityPage(driver);
+
     public MiClinicalDataQualitySteps(SeleniumDriver driver) {
         super(driver);
     }
@@ -41,11 +43,11 @@ public class MiClinicalDataQualitySteps extends Pages {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         Wait.seconds(3);
-        for (int i=0; i < expectedDropDownValues.size(); i++){
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miClinicalDataQualityPage.selectClinicalDqFilterGlh(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);
-         }
-        Debugger.println("The dropdown values are " +expectedDropDownValues);
+        }
+        Debugger.println("The dropdown values are " + expectedDropDownValues);
     }
 
     @And("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
@@ -85,9 +87,9 @@ public class MiClinicalDataQualitySteps extends Pages {
 
     @Then("the filter results displays the elements - Summary, Full Output, Streamline Output, Genomic Identity Output, Appendix - all rules")
     public void theFilterResultsDisplaysTheElementsSummaryFullOutputStreamlineOutputGenomicIdentityOutputAppendixAllRules() {
-       boolean testResult = false;
-       testResult = miClinicalDataQualityPage.verifyTheElementsPresentInApplyFiltersSection();
-       Assert.assertTrue(testResult);
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheElementsPresentInApplyFiltersSection();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user able to see all the ordering entities should deselect")
@@ -123,6 +125,9 @@ public class MiClinicalDataQualitySteps extends Pages {
         Assert.assertTrue(miClinicalDataQualityPage.navigateToClinicalDataQualityPage());
         Assert.assertTrue(miClinicalDataQualityPage.selectValueInGlhDropDown(value));
         Assert.assertTrue(miClinicalDataQualityPage.clickOnApplyFiltersButton());
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIPortal_ClinicalDataQuality.jpg");
+        }
         Assert.assertTrue(miClinicalDataQualityPage.verifyTheElementsPresentInApplyFiltersSection());
         Debugger.println("The Elements Present In Apply Filters Section are verified");
     }

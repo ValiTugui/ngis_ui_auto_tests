@@ -512,6 +512,9 @@ public class ReferralSteps extends Pages {
     public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(title);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(title," ")+".jpg");
+        }
         Assert.assertTrue(testResult);
     }
 

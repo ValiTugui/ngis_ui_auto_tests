@@ -9,6 +9,7 @@ import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.MIPortalTestData;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -596,10 +597,16 @@ public class MilHomePageSteps extends Pages {
         Debugger.println("Navigated to " + miPage);
         Assert.assertTrue(miPortalHomePage.clickAddButton());
         Debugger.println("Add button is clicked");
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIPortal_"+TestUtils.removeAWord(miPage," ")+".jpg");
+        }
         Assert.assertTrue(miPortalHomePage.clickSearchButton());
         Debugger.println("Search button is clicked");
         Assert.assertTrue(miPortalHomePage.verifyTheElementsInTheSearchResultSection());
         Debugger.println("The elements present in " + miPage + " search results are verified");
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIPortal_"+TestUtils.removeAWord(miPage," ")+"_Result.jpg");
+        }
         Assert.assertTrue(miPortalHomePage.clickResetButton());
     }
 
