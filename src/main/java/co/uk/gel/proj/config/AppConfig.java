@@ -38,7 +38,7 @@ public class AppConfig {
         String configFileName = "%s-appconfig.properties";
         String current_environment = System.getProperty("TestEnvironment");
         System.out.println("TestEnvironment: " + current_environment);
-        if(current_environment.equalsIgnoreCase("UAT") || current_environment.equalsIgnoreCase("e2elatest") ||
+        if(current_environment.equalsIgnoreCase("UAT") ||
         current_environment.equalsIgnoreCase("Beta")){
             snapshotRequired = true;
         }
