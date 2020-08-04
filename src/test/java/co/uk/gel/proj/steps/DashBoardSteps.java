@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
 
@@ -44,10 +45,10 @@ public class DashBoardSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user clicks on Find a genomic test")
-    public void theUserClicksOnFindAGenomicTest() {
+    @When("the user clicks on {string} Tab")
+    public void theUserClicksOnTab(String tabName) {
         boolean testResult = false;
-        testResult = dashBoardPage.clickOnFindAGenomicTestTab();
+        testResult = dashBoardPage.clickOnTab(tabName);
         Assert.assertTrue(testResult);
     }
 
@@ -63,5 +64,21 @@ public class DashBoardSteps extends Pages {
         boolean testResult = false;
         testResult = dashBoardPage.clickOnManageSampleTab();
         Assert.assertTrue(testResult);
+    }
+
+    @And("the user logs in to the Interpretation Portal system")
+    public void theUserLogsInToTheInterpretationPortalSystem() {
+        interpretationPortalHomePage.loginToInterpretationPortalWithADCredentials("user5.test@nhs.net", "G3nomics123");
+    }
+
+    @And("the user logs in to the {string} system")
+    public void theUserLogsInToTheSystem(String portalName) {
+        patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+        Debugger.println("The user is logged in to " + portalName);
+    }
+
+    @And("User Navigates back to Dashboard")
+    public void userNavigatesBackToDashboard() {
+        driver.navigate().back();
     }
 }

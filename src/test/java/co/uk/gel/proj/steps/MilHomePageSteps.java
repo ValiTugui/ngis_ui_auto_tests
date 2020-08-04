@@ -602,4 +602,9 @@ public class MilHomePageSteps extends Pages {
         Debugger.println("The elements present in " + miPage + " search results are verified");
         Assert.assertTrue(miPortalHomePage.clickResetButton());
     }
+
+    @When("the user clicks the MIPortal Log out button")
+    public void theUserClicksTheMIPortalLogOutButton() {
+        miPortalHomePage.logOutFromMIPortal();
+    }
 }
