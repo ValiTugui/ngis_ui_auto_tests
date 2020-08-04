@@ -293,6 +293,11 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button/span[contains(text(),'Try again')]")
     public WebElement tryAgain;
 
+    @FindBy(xpath = "//div[contains(@class,'completed-consent-tile')]")
+    WebElement completedRefCard;
+
+    String removeButton = "//button[contains(text(),'dummyText')]";
+
 
     public boolean editPatientChoice() {
         try {
@@ -2049,6 +2054,41 @@ public class PatientChoicePage {
             return false;
         }
 
+    }
+
+    public boolean selectCompletedReferral() {
+        try {
+            if (!Wait.isElementDisplayed(driver, completedRefCard, 10)) {
+                Debugger.println("The completed referral card is not displayed");
+                SeleniumLib.takeAScreenShot("selectCompletedReferral.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, completedRefCard);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selectCompletedReferral:" + exp);
+            SeleniumLib.takeAScreenShot("selectCompletedReferral.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnRemoveDocument(String buttonText) {
+        try {
+            WebElement removeDocButton = driver.findElement(By.xpath(removeButton.replace("dummyText", buttonText)));
+            if (!Wait.isElementDisplayed(driver, removeDocButton, 20)) {
+                Debugger.println("The remove document button is not displayed");
+                SeleniumLib.takeAScreenShot("RemoveDocument.jpg");
+                return false;
+            }
+            Wait.seconds(2);//Waiting for the document to load
+            seleniumLib.highLightWebElement(removeDocButton);
+            seleniumLib.clickOnWebElement(removeDocButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickOnRemoveDocument:" + exp);
+            SeleniumLib.takeAScreenShot("RemoveDocument.jpg");
+            return false;
+        }
     }
 
 }//end

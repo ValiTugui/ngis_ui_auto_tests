@@ -748,4 +748,18 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user clicks on the current completed referral")
+    public void theUserClicksOnTheCurrentCompletedReferral() {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectCompletedReferral();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the {string} button")
+    public void theUserClicksOnTheRemoveDocumentButton(String buttonText) {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnRemoveDocument(buttonText);
+        Assert.assertTrue(testResult);
+    }
+
 }//end
