@@ -21,7 +21,11 @@ public class DashBoardSteps extends Pages {
     public void aWebBrowserIsAtTheDashBoardPage() {
         dashBoardPage.navigateToDashboardPage();
         dashBoardPage.waitUntilDashboardPageResultsContainerIsLoaded();
-        Assert.assertEquals(driver.getTitle(), dashBoardPage.tabTitle);
+        if(!driver.getTitle().equalsIgnoreCase(dashBoardPage.tabTitle)) {
+            Debugger.println("Dashboard Page title is not as expected.");
+            SeleniumLib.takeAScreenShot("DBTitleMismatch.jpg");
+            Assert.fail("Expected DB PageTitle:"+dashBoardPage.tabTitle+", Actual:"+driver.getTitle());
+        }
     }
 
     @And("User should be able to see my Dashboard")
