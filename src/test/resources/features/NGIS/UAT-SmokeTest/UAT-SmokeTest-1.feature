@@ -1,14 +1,15 @@
 @UAT_UI_SmokeTest_Pack
 
-Feature: Start Test Selection - CI Details - Requesting Organisation - Test Package - PDF Forms - patient search page - log out - MI portal
+Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Interpretation Portal with Basic Checks from Dashboard
 
-  @UATSmokeTest_1
-  Scenario Outline: Start Test selection and go to PDF Forms - Patient search page - logout - MI Portal
+  @NTS-6426
+  Scenario: Navigation to Test Selection, Test Order, Mi Portal, Panel App and Interpretation Portal with Basic Checks from Dashboard
+  #Dashboard Page
     Given a web browser is at the dashboard page
     And User should be able to see my Dashboard
-    And The user should see the Page title as "<Title>"
+    And The user should see the Page title as "Welcome to the National Genomic Informatics System"
     When the user should be able to see clickable tabs
-    And the user clicks on Find a genomic test
+    And the user clicks on "Find a genomic test" Tab
     Then the user should be directed to Test selection url
   #Search CI
     When the user types in the CI term  in the search field and selects the first result from the results list
@@ -32,12 +33,11 @@ Feature: Start Test Selection - CI Details - Requesting Organisation - Test Pack
     And the user logs in to the Test Order system successfully
       | Find your patient |
     Then the user should be able to see NHS logo image
-
   ##MI portal
     When the user clicks the Log out button
     And User should be able to see my Dashboard
-    When a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    And the user clicks on "Manage samples" Tab
+    And the user logs in to the "MI Portal" system
     And the user click on "File Submissions" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "Order Tracking" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "GLH Samples" section select the filters and click on Add and Search buttons and verify the table loaded
@@ -46,8 +46,23 @@ Feature: Start Test Selection - CI Details - Requesting Organisation - Test Pack
     And the user click on "Sequencer Samples" section select the filters and click on Add and Search buttons and verify the table loaded
     And the user click on "New Referrals" section select the filters and click on Add and Search buttons and verify the table loaded
     When the user should be able to see data quality menu is displayed
-    Then the user click on Clinical Data Quality section select the filters <glh_name> and click on Add Filters button and verify the table loaded
-
-    Examples:
-      | Title                                              | glh_name               |
-      | Welcome to the National Genomic Informatics System | Yorkshire & North East |
+    Then the user click on Clinical Data Quality section select the filters Yorkshire & North East and click on Add Filters button and verify the table loaded
+    When the user clicks the MIPortal Log out button
+    When a web browser is at the dashboard page
+    And User should be able to see my Dashboard
+  #Test Order from Dashboard
+    When the user clicks on "Order a genomic test" Tab
+    And the user logs in to the "Test Order" system
+    And the user is navigated to a page with title Find your patient
+    When the user clicks the Log out button
+    And User should be able to see my Dashboard
+  #PanelApp from Dashboard
+    And the user clicks on "Open PanelApp" Tab
+    And the user is navigated to a page with title Genomics England PanelApp
+    And User Navigates back to Dashboard
+    And User should be able to see my Dashboard
+  #Interpretation Portal from Dashboard
+    And the user clicks on "Enter the Interpretation Portal" Tab
+    And the user logs in to the Interpretation Portal system
+    And the user is navigated to a page with title GMS: Interpretation Portal
+    When the user clicks the Log out button

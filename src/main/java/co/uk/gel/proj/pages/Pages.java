@@ -55,6 +55,8 @@ public class Pages implements Navigable {
     protected MiNewReferralsPage miNewReferralsPage;
     protected ExcelDataRead excelDataRead;
 
+    protected InterpretationPortalHomePage interpretationPortalHomePage;
+
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -96,6 +98,7 @@ public class Pages implements Navigable {
         miSequencerSamplesPage = PageFactory.initElements(driver, MiSequencerSamplesPage.class);
         miNewReferralsPage = PageFactory.initElements(driver, MiNewReferralsPage.class);
         excelDataRead = PageFactory.initElements(driver, ExcelDataRead.class);
+        interpretationPortalHomePage = PageFactory.initElements(driver, InterpretationPortalHomePage.class);
 
     }
 
