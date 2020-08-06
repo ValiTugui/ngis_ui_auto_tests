@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import sun.security.ssl.Debug;
+//import sun.security.ssl.Debug;
 
 import java.io.*;
 import java.net.URL;

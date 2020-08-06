@@ -14,6 +14,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import co.uk.gel.lib.SeleniumLib;
 
 import java.io.IOException;
 import java.util.List;
@@ -482,7 +483,7 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals("Success",stepResult);
     }
 
-    @And("the user fills in the birthday {string}")
+  /*  @And("the user fills in the birthday {string}")
     public void theUserFillsInTheDateOfBirthString(String  Birthday) {
         String stepResult = patientDetailsPage.fillBirthday(Birthday);
         Assert.assertEquals("Success",stepResult);
@@ -492,7 +493,7 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInTheYearOfBirthString(String  BirthYear) {
         String stepResult = patientDetailsPage.fillBirthYear(BirthYear);
         Assert.assertEquals("Success",stepResult);
-    }
+    }*/
 
     @And("the date of death input field is displayed")
     public void theDateOfDeathInputFieldIsDisplayed() {
