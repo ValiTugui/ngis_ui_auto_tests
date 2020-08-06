@@ -1,13 +1,13 @@
 @PANEL_E2E_RT
-@Panel_UJ_4
+@Panel_UJ_6
 
-Feature: User visits the panels stage but not saved
+Feature: NTS-5799: The user won't know that there are suggested panels (the system will)
 
-
-  @E2EUI-2973
-  Scenario Outline:E2EUI-2973: User visits the panels stage but not saved
+  @NTS-5799
+#   @E2EUI-2972
+  Scenario Outline:NTS-5799:E2EUI-2972 the user won't know that there are suggested panels (the system will)
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-11-1973:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R98 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1981:Gender=Male |
      ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -58,12 +58,10 @@ Feature: User visits the panels stage but not saved
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    ##Panels    user visits the panels stage but not saved
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage panels
-    And the user sees suggested panels under the section Suggestions based on the clinical information
        ##Pedigree
     When the user navigates to the "<Pedigree>" stage
+    ##Panels stage is not visited and default suggested panels added
+    Then the "<Panels>" stage is marked "NotMandatoryToDo"
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed

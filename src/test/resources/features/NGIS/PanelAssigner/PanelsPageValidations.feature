@@ -3,7 +3,7 @@
 @SYSTEM_TEST
 
 
-Feature: PanelAssigner:  Dev - Panels -introduce panels heading and info text
+Feature: PanelAssigner:  Validation for Panels heading and info texts
 
   @NTS-5818
 #    @E2EUI-3015
@@ -51,7 +51,7 @@ Feature: PanelAssigner:  Dev - Panels -introduce panels heading and info text
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,02:HpoPhenoType=Phenotypic abnormality | Panels | Cardiac arrhythmias |
 
   @E2EUI-2979
-  Scenario Outline:NTS-TODO:E2EUI-2979 User visits the panel,navigates away without saving the changes
+  Scenario Outline:E2EUI-2979 User visits the panel,navigates away without saving the changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1978:Gender=Male |
     ##Patient Details Page

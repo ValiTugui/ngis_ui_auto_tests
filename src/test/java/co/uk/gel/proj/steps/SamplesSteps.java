@@ -512,7 +512,7 @@ public class SamplesSteps extends Pages {
                 break;
             }
             case "NotMandatoryToDo": {
-                //Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
+                //verifying asterisk is not present
                 Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
                 break;
             }
