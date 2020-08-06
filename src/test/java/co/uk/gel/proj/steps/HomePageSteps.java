@@ -2,10 +2,12 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -33,17 +35,20 @@ public class HomePageSteps extends Pages {
 
     @And("the user types in the CI term  in the search field and selects the first result from the results list")
     public void theUserTypesInTheCITermInTheSearchFieldAndSelectsTheFirstResultFromTheResultsList(List<String> searchTerms) {
-       boolean testResult = false;
-       testResult =  homePage.typeInSearchField(searchTerms.get(0));
-       Assert.assertTrue(testResult);
-       AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
-       testResult = homePage.clickSearchIconFromSearchField();
-       Assert.assertTrue(testResult);
+        boolean testResult = false;
+        testResult = homePage.typeInSearchField(searchTerms.get(0));
+        Assert.assertTrue(testResult);
+        AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
+        testResult = homePage.clickSearchIconFromSearchField();
+        Assert.assertTrue(testResult);
         testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
         Assert.assertTrue(testResult);
         homePage.closeCookiesBannerFromFooter();
         testResult = homePage.selectFirstEntityFromResultList();
         Assert.assertTrue(testResult);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
+        }
         Wait.seconds(3);
     }
 
@@ -70,13 +75,13 @@ public class HomePageSteps extends Pages {
     @And("^the number of results shown in each filters & total results should match$")
     public void validateFilterResultCountToTotalResult() throws InterruptedException {
         long totalSearchResult = homePage.totalSearchResult();
-        if(totalSearchResult == 0){
+        if (totalSearchResult == 0) {
             Debugger.println("Total Search Result Zero.. Something wrong.");
             Assert.assertTrue(false);
         }
         long inheritedDisease = homePage.rareAndInheritedDiseasesSearchResult();
         long tumours = homePage.tumorSearchResult();
-        if(totalSearchResult != (inheritedDisease+tumours)){
+        if (totalSearchResult != (inheritedDisease + tumours)) {
             Debugger.println("Total search result not equals the inherited and tumor search results as expected.");
             Assert.assertTrue(false);
         }
@@ -88,7 +93,7 @@ public class HomePageSteps extends Pages {
         Wait.seconds(2);
         homePage.testsTab.click();
         Wait.seconds(2);
-        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+        if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
             Assert.assertTrue(false);
         }
         homePage.closeCookiesBannerFromFooter();

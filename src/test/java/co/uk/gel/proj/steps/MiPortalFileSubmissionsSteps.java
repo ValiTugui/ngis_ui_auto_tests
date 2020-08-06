@@ -353,4 +353,4 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         testResult = miPortalFileSubmissionPage.verifyColumnHeaderInFileSubmissionSearchResultTable(expectedListOfColumnHeaders);
         Assert.assertTrue(testResult);
     }
-}
+    }

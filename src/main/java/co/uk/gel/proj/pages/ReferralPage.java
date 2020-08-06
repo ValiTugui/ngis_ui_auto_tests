@@ -1,16 +1,21 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import javax.swing.text.Style;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

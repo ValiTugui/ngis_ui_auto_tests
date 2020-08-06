@@ -77,6 +77,9 @@ public class PatientDetailsSteps extends Pages {
     public void theUserClicksTheCISerachStartReferralButton() {
         boolean testResult;
         testResult = patientDetailsPage.clickCISearchStartReferralButton();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
+        }
         Assert.assertTrue(testResult);
     }
 

@@ -1,8 +1,10 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
