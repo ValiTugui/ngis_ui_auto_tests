@@ -2,16 +2,16 @@
 @Panel_UJ_3
 Feature: PanelAssigner: Selection operations in Panels in E2E user journey-3
 
-  @NTS-5795 @Z-LOGOUT
-  Scenario Outline: NTS-5795: Create and submit a referral with suggested panels without saving panels stage, and verify the Payload.
+  @NTS-5800 @Z-LOGOUT
+  Scenario Outline:NTS-5800: Create and submit a referral with no suggested panels and then add a new panel and verify the Payload.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R89 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-1998:Gender=Male |
      ###Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
      ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Leeds Teaching Hospitals NHS Trust" in the search field
+    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -62,11 +62,21 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-3
      ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
-     ###Submit the referral without saving the panels page
+    And the user search and add the "<SearchPanels>" panels
+    Then the user sees the selected "<SearchPanels>" panels under added panels
+    And the user clicks the Save and Continue button
+    Then the "<Panels>" stage is marked as Completed
+     ###Pedigree
+    When the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
+    Then the "<Pedigree>" stage is marked as Completed
+     ###Print forms
+    When the user is navigated to a page with title Print sample forms
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | SearchPanels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Cataracts    | Pedigree |
+

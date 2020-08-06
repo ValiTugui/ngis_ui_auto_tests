@@ -1,11 +1,11 @@
 @PANEL_E2E_RT
-@Panel_UJ_2
-Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
+@Panel_UJ_4
+Feature: PanelAssigner: Selection operations in Panels in E2E user journey-4
 
-  @NTS-5803 @Z-LOGOUT
-  Scenario Outline: NTS-5803: Create and submit a referral with suggested panels and a new panel then verify the payload.
+  @NTS-5797 @Z-LOGOUT
+  Scenario Outline: NTS-5797: Create and submit a referral with no suggested panels, and verify the Payload.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-1988:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R89 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-1998:Gender=Male |
      ###Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -58,10 +58,22 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-     ###Panels suggested and new addition
+    And the user clicks the Save and Continue button
+     ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
+    And the user clicks the Save and Continue button
+     ###No Submission without any panels
+    When the user submits the referral
+    Then the user should see a new popup dialog with title "There is missing information"
+    Then the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral
+      | MandatoryStagesToComplete |
+      | Panels                    |
+     ### Adding a new panel to complete submission
+    And the user should be able to click on incomplete "<Panels>" section
+    Then the user is navigated to a page with title Manage panels
     And the user search and add the "<SearchPanels>" panels
+    Then the user sees the selected "<SearchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
      ###Pedigree
@@ -77,3 +89,4 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | SearchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Cataracts    | Pedigree |
+
