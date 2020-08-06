@@ -39,7 +39,7 @@ Feature: MIPORTAL ST - Order_Tracking
 
   @NTS-5052
     #@E2EUI-2398
-  Scenario: NTS-5052:E2EUI-2398: clinical_indication_test_type_id parameter on miportal Sample view support "in" operator.
+  Scenario Outline: NTS-5052:E2EUI-2398: clinical_indication_test_type_id parameter on miportal Sample view support "in" operator.
     When the user selects Test Type as the order tracking search column dropdown
     And the user selects is one of as the order tracking search operator dropdown
     And the user selects Cerebral malformations WGS,Hereditary ataxia - adult onset WGS as the order tracking search value dropdown
@@ -47,7 +47,11 @@ Feature: MIPORTAL ST - Order_Tracking
     Then file submission search criteria badge information is displayed below drop-down buttons
     Then the selected search option is reset after test
 
-  @NTS-5052
+    Examples:
+      | mi_stage       |
+      | Order Tracking |
+
+  @NTS-5052 @MI-LOGOUT
     #@E2EUI-2398
   Scenario: NTS-5052:E2EUI-2398: clinical_indication_test_type_id parameter on miportal Sample view support "in" operator.
     And the user selects Test Type as the order tracking search column dropdown

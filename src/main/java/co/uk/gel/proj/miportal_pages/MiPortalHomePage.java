@@ -64,6 +64,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//ul[contains(string(),'Sample Processing')]//ul/li/a")
     public List<WebElement> subMenusOfSimpleProcessing;
 
+    @FindBy(xpath = "//ul[contains(string(),'Data Quality')]")
+    public WebElement dataQuality;
+
+    @FindBy(xpath = "//span[contains(string(),'Data Quality')]/../..//a[@href='#']")
+    public WebElement dataQuality2;
+
+    @FindBy(xpath = "//ul[contains(string(),'Data Quality')]//ul/li/a")
+    public List<WebElement> subMenusOfDataQuality;
+
     @FindBy(xpath = "//a[@class='sidebar-toggle']")
     public WebElement sideBarToggle;
 
@@ -153,6 +162,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
     public WebElement errorMessageElement;
+
+    @FindBy(xpath = "//*[text()='Log out']")
+    public WebElement logOutLink;
+
+    @FindBy(id = "tilesHolder")
+    public WebElement logOutEmail;
 
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
@@ -1237,6 +1252,22 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+    public boolean verifyThePresenceOfDataQualityMenu() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dataQuality, 60)) {
+                Debugger.println("Data Quality section header is not displayed even after 60 seconds.");
+                SeleniumLib.takeAScreenShot("DataQualityMenu.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(dataQuality2);
+            seleniumLib.sleepInSeconds(3);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfDataQualityMenu:" + exp);
+            SeleniumLib.takeAScreenShot("DataQualityMenu.jpg");
+            return false;
+        }
+    }
 
     public boolean verifyThePresenceOfSectionHeader(String sectionHeader) {
         try {
@@ -1261,6 +1292,27 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyThePresenceOfSectionHeader:" + exp);
             SeleniumLib.takeAScreenShot("SampleProcessingHeaderNotPresent.jpg");
+            return false;
+        }
+    }
+    public boolean verifyThePresenceOfSectionHeaderUnderDataQuality(String sectionHeader) {
+        try {
+            boolean isPresent = false;
+             for (int i = 0; i < subMenusOfDataQuality.size(); i++) {
+                String actualMenuItems = subMenusOfDataQuality.get(i).getText();
+                if (actualMenuItems.equalsIgnoreCase(sectionHeader)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Section header " + sectionHeader + " not present under the data quality section.");
+                SeleniumLib.takeAScreenShot("DQSectionHeaderNotPresent.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfSectionHeaderDQ:" + exp);
+            SeleniumLib.takeAScreenShot("DQHeaderNotPresent.jpg");
             return false;
         }
     }
@@ -1674,9 +1726,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    @FindBy(xpath = "//*[text()='Log out']")
-    public WebElement logOutLink;
-
     public void logOutFromMIPortal(){
         try {
             Debugger.println("Logging Out from MIPortal..");
@@ -1690,8 +1739,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             if(Actions.isAlertPresent(driver)){
                 Actions.acceptAlert(driver);
             }
-            Actions.deleteCookies(driver);
-            Wait.seconds(15);
+            Actions.clickElement(driver,logOutEmail);
+            Wait.seconds(2);
         } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().defaultContent();

@@ -50,7 +50,7 @@ Feature: MIPORTAL SIT - Order_Tracking
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     When the user drag the column header "GEL1001 Clinical Indication Test Type ID" from the section "Hide" to "Show" section
     And the user sees the displayed fields-columns under "Show" section
-      | HeaderColumnOrderingList                 |
+      | HeaderColumnOrderingList                  |
       | GEL1001 Clinical Indication Test Type ID |
     And the user clicks on save and close button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
@@ -58,8 +58,8 @@ Feature: MIPORTAL SIT - Order_Tracking
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage       | operator  | value                                                        |
-      | Order Tracking | is        | Epilepsy - early onset or syndromic WGS                      |
+      | mi_stage       | operator  | value                                                                                              |
+      | Order Tracking | is        | Epilepsy - early onset or syndromic WGS                  |
       | Order Tracking | is one of | Craniosynostosis WGS,Epilepsy - early onset or syndromic WGS |
 
   @NTS-5029
@@ -124,11 +124,11 @@ Feature: MIPORTAL SIT - Order_Tracking
     Then the selected search option is reset after test
 
     Examples:
-      | mi_stage       | operator |
-      | Order Tracking | is       |
+      | mi_stage       | operator  |
+      | Order Tracking | is        |
 
 
-  @NTS-5647
+  @NTS-5647 @MI-LOGOUT
     #@E2EUI-2900
   Scenario Outline: Verifying the data under the Test Name and Clinical Indication Name columns In Mi portal Order tracking section when select Test type as search operator
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -147,4 +147,5 @@ Feature: MIPORTAL SIT - Order_Tracking
       | mi_stage       | operator | column_1  | column_2                 | data           | Test_type_name                                                  |
       | Order Tracking | isoneof  | Test Name | Clinical Indication Name | non-empty-data | Cerebral malformations WGS, Hereditary ataxia - adult onset WGS |
       | Order Tracking | is       | Test Name | Clinical Indication Name | non-empty-data | Hereditary ataxia - adult onset WGS                             |
+
 

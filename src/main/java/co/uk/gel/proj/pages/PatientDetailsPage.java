@@ -529,7 +529,6 @@ public class PatientDetailsPage {
 
     public boolean clickCISearchStartReferralButton() {
         try {
-
             if (!Wait.isElementDisplayed(driver, CISearchStartReferral, 10)) {
                 Debugger.println("Start Referral Button not displayed.");
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");
