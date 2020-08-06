@@ -5,10 +5,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
@@ -20,10 +18,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
-
-import java.awt.*;
 import java.util.Map;
 
 public class PatientSearchSteps extends Pages {
@@ -393,6 +390,8 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
     }
 
+
+
     @Then("^the non mandatory field \"([^\"]*)\" shouldn't be highlighted with a red mark$")
     public void theNonMandatoryFieldShouldnTBeHighlightedWithARedMark(String postcodeLabel) throws Throwable {
         patientSearchPage.checkThatPostcode(postcodeLabel);
@@ -601,6 +600,20 @@ public class PatientSearchSteps extends Pages {
     @Then("the NHS number field remains empty as invalid characters are not accepted")
     public void theNHSNumberFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
         Assert.assertTrue(Actions.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
+    }
+
+    @Then("the birthday field remains empty as invalid characters are not accepted")
+    public void thebirthdayFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthDay).isEmpty()); //BIRTHDAY field is empty
+
+    }
+    @Then("the birthmonth field remains empty as invalid characters are not accepted")
+    public void thebirthmonthFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthMonth).isEmpty()); //BIRTH MONTH field is empty
+    }
+    @Then("the birthyear field remains empty as invalid characters are not accepted")
+    public void thebirthyearFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthYear).isEmpty()); //BIRTH YEAR field is empty
     }
 
     @And("the user sees placeholder texts displayed in the fields - Date of birth {string}, First name {string}, Last name {string} and Postcode {string}")

@@ -4,7 +4,7 @@
 
 Feature: MIPORTAL ST - Order_Tracking
 
-  @NTS-5190
+  @NTS-5190 @MI-LOGOUT
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -37,7 +37,7 @@ Feature: MIPORTAL ST - Order_Tracking
       | Order Tracking |
 
 
-  @NTS-5052
+  @NTS-5052 @MI-LOGOUT
     #@E2EUI-2398
   Scenario Outline: NTS-5052:E2EUI-2398: clinical_indication_test_type_id parameter on miportal Sample view support "in" operator.
     Given a web browser is at the mi-portal home page

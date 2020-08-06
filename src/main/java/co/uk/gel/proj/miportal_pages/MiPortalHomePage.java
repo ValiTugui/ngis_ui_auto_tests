@@ -163,6 +163,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
     public WebElement errorMessageElement;
 
+    @FindBy(xpath = "//*[text()='Log out']")
+    public WebElement logOutLink;
+
+    @FindBy(id = "tilesHolder")
+    public WebElement logOutEmail;
+
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
         try {
@@ -1720,9 +1726,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    @FindBy(xpath = "//*[text()='Log out']")
-    public WebElement logOutLink;
-
     public void logOutFromMIPortal(){
         try {
             Debugger.println("Logging Out from MIPortal..");
@@ -1736,8 +1739,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             if(Actions.isAlertPresent(driver)){
                 Actions.acceptAlert(driver);
             }
-            Actions.deleteCookies(driver);
-            Wait.seconds(15);
+            Actions.clickElement(driver,logOutEmail);
+            Wait.seconds(2);
         } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().defaultContent();

@@ -5,7 +5,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import io.cucumber.java.af.Wanneer;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -63,11 +62,21 @@ public class DashBoardPage {
     }
 
      public void waitUntilDashboardPageResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
+        try {
+            Wait.forElementToBeDisplayed(driver, resultsPanel);
+        }catch(Exception exp){
+            Debugger.println("Dashboard page not loaded."+exp);
+            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
+        }
     }
 
     public void dashboardPageResultsIsLoaded() {
-        Wait.forElementToBeClickable(driver, resultsPanel);
+        try {
+            Wait.forElementToBeClickable(driver, resultsPanel);
+        }catch(Exception exp){
+            Debugger.println("Dashboard page not loaded."+exp);
+            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
+        }
     }
 
     public boolean pageTitleValidation(String titleText) {
@@ -164,18 +173,34 @@ public class DashBoardPage {
         }
     }
 
-    public boolean clickOnFindAGenomicTestTab() {
+    public boolean clickOnTab(String tabName) {
         try{
-            if(!Wait.isElementDisplayed(driver, testSelectionLocator, 60)){
-                Debugger.println("testSelectionLocator button is not displayed");
-                SeleniumLib.takeAScreenShot("testSelectionLocator.jpg");
-                return false;
-            }
-            testSelectionLocator.click();
+            switch (tabName) {
+                    case "Find a genomic test" :
+                        Wait.isElementDisplayed(driver, nhsTabs.get(0), 60);
+                        nhsTabs.get(0).click();
+                        break;
+                    case "Order a genomic test" :
+                        Wait.isElementDisplayed(driver, nhsTabs.get(1), 60);
+                        nhsTabs.get(1).click();
+                        break;
+                    case "Manage samples" :
+                        Wait.isElementDisplayed(driver, nhsTabs.get(2), 60);
+                        nhsTabs.get(2).click();
+                        break;
+                    case "Enter the Interpretation Portal" :
+                        Wait.isElementDisplayed(driver, nhsTabs.get(3), 60);
+                        nhsTabs.get(3).click();
+                        break;
+                    case "Open PanelApp" :
+                        Wait.isElementDisplayed(driver, nhsTabs.get(4), 60);
+                        nhsTabs.get(4).click();
+                        break;
+                }
             return true;
         } catch (Exception exp){
-            Debugger.println("Exception form DashBoardPage, clickOnFindAGenomicTestTab " + exp);
-            SeleniumLib.takeAScreenShot("testSelectionLocator.jpg");
+            Debugger.println("Exception form DashBoardPage, Click on Tab " + tabName + " " + exp);
+            SeleniumLib.takeAScreenShot(tabName + ".jpg");
             return false;
         }
     }
