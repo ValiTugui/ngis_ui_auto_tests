@@ -4,7 +4,7 @@
 @DQ_Report
 Feature: MIPORTAL ST - Clinical Data Quality - 2
 
-  @MiPortalClinicalDataQuality_2 @MI-LOGOUT
+  @NTS-6097 @MI-LOGOUT
   Scenario Outline: Select All and Deselect All button functionality validation in Ordering Entity dropdown
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

@@ -284,8 +284,7 @@ Feature: Patient search page_SPINE
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
   @NTS-2819
-#    @E2EUI-1991dob
-
+#    @E2EUI-1991
   Scenario Outline: NTS-2819: A validation Error should not be triggered while entering DOB as 01-01-1970
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     Then no validation error red mark highlighted on the DOB field

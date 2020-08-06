@@ -3,7 +3,7 @@
 @SYSTEM_TEST
 Feature: Family Members Details Page 7- Post Code validation_1
 
-  @NTS-5810_1 @Z-LOGOUT
+  @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- update a family member by Postcode.
     Given a new patient referral is created with associated tests in Test Order System online service
