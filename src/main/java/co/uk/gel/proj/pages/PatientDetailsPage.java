@@ -6,21 +6,21 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
@@ -1400,28 +1400,6 @@ public class PatientDetailsPage {
         }catch(Exception exp){
             Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
             return "Could not fill Date Of Birth: "+exp;
-        }
-    }
-
-    public String fillBirthday(String Birthday){
-        try {
-//            String[] dobSplit = dateOfBirth.split("-");
-            seleniumLib.sendValue(dateOfBirthDay, Birthday);
-            return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not fill Date Of Birthday: "+exp;
-        }
-    }
-
-    public String fillBirthYear(String BirthYear){
-        try {
-//            String[] dobSplit = dateOfBirth.split("-");
-            seleniumLib.sendValue(dateOfBirthYear, BirthYear);
-            return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not fill month Of Birthyear: "+exp;
         }
     }
     public String clearDateOfBirth(){
