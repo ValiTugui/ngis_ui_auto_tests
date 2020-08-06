@@ -415,8 +415,16 @@ public class TestPackagePage {
 
     public boolean selectTheDeselectedTestPackage() {
         try {
-            Wait.forElementToBeDisplayed(driver, testPackageCheckBox);
-            testPackageCheckBox.click();
+            if (!Wait.isElementDisplayed(driver, testPackageCheckBox, 20)) {
+                Debugger.println("testPackageCheckBox not found");
+                SeleniumLib.takeAScreenShot("TestPackageError.jpg");
+                return false;
+            }
+            try {
+                Actions.clickElement(driver, testPackageCheckBox);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(testPackageCheckBox);
+            }
             return true;
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("testSelect.jpg");

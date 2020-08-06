@@ -7,7 +7,6 @@ import com.github.javafaker.Faker;
 import com.google.common.base.Splitter;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
-import io.cucumber.java.hu.De;
 import net.minidev.json.JSONArray;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
