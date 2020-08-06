@@ -2,22 +2,33 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
 
@@ -37,24 +48,24 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
-        if (!patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink)) {
+        if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink)){
             Assert.fail("patientSearchPage.checkCreateNewPatientLinkDisplayed");
         }
-        if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
+        if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
             Assert.fail("patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage");
         }
-        if (!patientDetailsPage.newPatientPageIsDisplayed()) {
+        if(!patientDetailsPage.newPatientPageIsDisplayed()){
             Assert.fail("patientDetailsPage.newPatientPageIsDisplayed");
         }
-        if (!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason)) {
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason)){
             Assert.fail("patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber");
         }
-        if (!patientDetailsPage.clickOnCreateRecord()) {
+        if(!patientDetailsPage.clickOnCreateRecord()){
             Assert.fail("patientDetailsPage.clickOnCreateRecord");
         }
-        if (!patientDetailsPage.patientIsCreated()) {
-            Assert.fail("patientDetailsPage.patientIsCreated");
-        }
+       if(!patientDetailsPage.patientIsCreated()) {
+           Assert.fail("patientDetailsPage.patientIsCreated");
+       }
     }
 
     @And("the user clicks the Start a new Referral button")
@@ -139,13 +150,13 @@ public class PatientDetailsSteps extends Pages {
 
     @Given("a web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")
     public void aWebBrowserIsLoggedInAsAUserAtThePatientDetailsPageOfAWithValidDetailsOfNHSNumberAndDOB(String userType, String patientType) throws IOException {
-        if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType)) {
+        if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType)){
             Assert.fail("patientSearchPage.fillInNHSNumberAndDateOfBirth");
         }
-        if (!patientSearchPage.clickSearchButtonByXpath()) {
+        if(!patientSearchPage.clickSearchButtonByXpath()){
             Assert.fail("patientSearchPage.clickSearchButtonByXpath");
         }
-        if (!patientSearchPage.clickPatientCard()) {
+        if(!patientSearchPage.clickPatientCard()){
             Assert.fail("patientSearchPage.clickPatientCard");
         }
     }
@@ -187,9 +198,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the new patient page displays expected input-fields and a {string} submit button")
     public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
-        if (labelOnSubmitButton.equalsIgnoreCase("Create record")) {
+        if(labelOnSubmitButton.equalsIgnoreCase("Create record")){
             Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.createRecord.getText());
-        } else {
+        }else {
             Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
         }
     }
@@ -235,7 +246,6 @@ public class PatientDetailsSteps extends Pages {
         testResult = patientDetailsPage.clickUpdateNGISRecordButton();
         Assert.assertTrue(testResult);
     }
-
     @And("the user clicks the Save and Continue button on Patient details page")
     public void theUserClicksSaveAndContinue() {
         boolean testResult;
@@ -248,8 +258,8 @@ public class PatientDetailsSteps extends Pages {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
-        if (actualNotification == null) {
-            Assert.fail("Expected Notification not present:" + expectedNotification);
+        if(actualNotification == null){
+            Assert.fail("Expected Notification not present:"+expectedNotification);
         }
         Assert.assertEquals(expectedNotification, actualNotification);
     }
@@ -305,13 +315,13 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
-        if (!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo)) {
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo)){
             Assert.assertTrue(false);
         }
-        if (!patientDetailsPage.clickOnCreateRecord()) {
+        if(!patientDetailsPage.clickOnCreateRecord()){
             Assert.assertTrue(false);
         }
-        if (!patientDetailsPage.patientIsCreated()) {
+        if(!patientDetailsPage.patientIsCreated()) {
             Assert.assertTrue(false);
         }
     }
@@ -342,8 +352,8 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
-        String stepResult = patientDetailsPage.clearDateOfBirth();
-        Assert.assertEquals("Success", stepResult);
+       String stepResult = patientDetailsPage.clearDateOfBirth();
+       Assert.assertEquals("Success",stepResult);
     }
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
@@ -354,38 +364,17 @@ public class PatientDetailsSteps extends Pages {
         List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
         //Checking Labels
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
-            if (!actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0))) {
-                Assert.fail("Expected Mandatory Label:" + expectedLabelsAndErrorMessagesList.get(i).get(0) + " not present in the page.");
+            if(!actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0))) {
+                Assert.fail("Expected Mandatory Label:"+expectedLabelsAndErrorMessagesList.get(i).get(0)+" not present in the page.");
             }
         }
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
-            if (!actualFieldErrorMessages.contains(expectedLabelsAndErrorMessagesList.get(i).get(1))) {
-                Assert.fail("Expected Error message for Label not displayed:" + expectedLabelsAndErrorMessagesList.get(i).get(1));
+            if(!actualFieldErrorMessages.contains(expectedLabelsAndErrorMessagesList.get(i).get(1))){
+                Assert.fail("Expected Error message for Label not displayed:"+expectedLabelsAndErrorMessagesList.get(i).get(1) );
             }
 
         }
     }
-
-//
-//    @Then("the error messages for entered dob is displayed as follows")
-//    public void theErrorMessagesForDOBDisplayedAsFollows(DataTable dataTable) {
-//
-//        List<List<String>> expectedErrorMessagesList = dataTable.asLists(String.class);
-////        List actualFieldsLabels_1 = referralPage.getTheFieldsLabelsOnCurrentPage();
-//        List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
-//
-//        for (int i = 1; i < expectedErrorMessagesList .size(); i++) { //i starts from 1 because i=0 represents the header
-//            patientDetailsPage.fillDateOfBirth(dateOfBirth);
-//
-//            if (!actualFieldErrorMessages.contains(expectedErrorMessagesList.get(i).get(1))) {
-//                Assert.fail("Expected Error message for Label not displayed:" + expectedErrorMessagesList.get(i).get(1));
-//            }
-//
-//        }
-
-
-  //  }
-
 
     @And("the user fill in the last name field")
     public void theUserFillInTheLastNameField() {
@@ -479,18 +468,6 @@ public class PatientDetailsSteps extends Pages {
     @And("the user fills in the date of birth {string}")
     public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
         String stepResult = patientDetailsPage.fillDateOfBirth(dateOfBirth);
-        Assert.assertEquals("Success",stepResult);
-    }
-
-    @And("the user fills in the birthday {string}")
-    public void theUserFillsInTheDateOfBirthString(String  Birthday) {
-        String stepResult = patientDetailsPage.fillBirthday(Birthday);
-        Assert.assertEquals("Success",stepResult);
-    }
-
-    @And("the user fills in the birthyear {string}")
-    public void theUserFillsInTheYearOfBirthString(String  BirthYear) {
-        String stepResult = patientDetailsPage.fillBirthYear(BirthYear);
         Assert.assertEquals("Success",stepResult);
     }
 
