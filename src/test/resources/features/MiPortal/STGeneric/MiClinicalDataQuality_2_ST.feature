@@ -4,7 +4,7 @@
 @DQ_Report
 Feature: MIPORTAL ST - Clinical Data Quality - 2
 
-  @MiPortalClinicalDataQuality_2 @MI-LOGOUT
+  @NTS-6097 @MI-LOGOUT
   Scenario Outline: Select All and Deselect All button functionality validation in Ordering Entity dropdown
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -21,7 +21,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | mi_stage              | header                       | report_guidance | glh_name   |
       | Clinical Data Quality | Clinical Data Quality Report | Report Guidance | South West |
 
-  @MiPortalClinicalDataQuality_3 @MI-LOGOUT
+  @NTS-6097 @MI-LOGOUT
   Scenario Outline: Validating Ordering entities deselect and select actions
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io |  |
@@ -39,7 +39,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | mi_stage              | header                       | glh_name                      |
       | Clinical Data Quality | Clinical Data Quality Report | East Mids and East of England |
 
-  @MiPortalClinicalDataQuality_4 @MI-LOGOUT
+  @NTS-6097 @MI-LOGOUT
   Scenario Outline: Tabs displayed in search result table in Clinical Data Quality page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io |  |
@@ -56,7 +56,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | mi_stage              | header                       | glh_name               |
       | Clinical Data Quality | Clinical Data Quality Report | Yorkshire & North East |
 
-#  @MiPortalClinicalDataQuality_5
+#  @NTS-6097  ##Commented as the required data is not available on the MI Portal
 #  Scenario Outline: Validate the values displayed in table column
 #    Given a web browser is at the mi-portal home page
 #      | MI_PORTAL_URL | ngis.io |  |

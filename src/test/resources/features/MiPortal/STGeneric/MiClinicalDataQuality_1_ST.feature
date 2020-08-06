@@ -4,8 +4,7 @@
 @DQ_Report
 Feature: MIPORTAL ST - Clinical Data Quality - 1
 
-
-  @MiPortalClinicalDataQuality_1 @MI-LOGOUT
+  @NTS-6097 @MI-LOGOUT
   Scenario Outline: User is able to navigate to Clinical Data Quality page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

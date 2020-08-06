@@ -5,6 +5,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -414,9 +415,7 @@ public class TestPackagePage {
 
     public boolean selectTheDeselectedTestPackage() {
         try {
-//            Wait.forElementToBeDisplayed(driver, testPackageCheckBox);
             if (!Wait.isElementDisplayed(driver, testPackageCheckBox, 20)) {
-//            testPackageCheckBox.click();
                 Debugger.println("testPackageCheckBox not found");
                 SeleniumLib.takeAScreenShot("TestPackageError.jpg");
                 return false;
