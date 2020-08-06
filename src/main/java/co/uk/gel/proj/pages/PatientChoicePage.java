@@ -293,11 +293,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button/span[contains(text(),'Try again')]")
     public WebElement tryAgain;
 
-    @FindBy(xpath = "//div[contains(@class,'completed-consent-tile')]")
-    WebElement completedRefCard;
-
-    String removeButton = "//button[contains(text(),'dummyText')]";
-
 
     public boolean editPatientChoice() {
         try {
