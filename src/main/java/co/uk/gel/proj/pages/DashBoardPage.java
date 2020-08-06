@@ -5,7 +5,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import io.cucumber.java.af.Wanneer;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -64,7 +63,7 @@ public class DashBoardPage {
 
      public void waitUntilDashboardPageResultsContainerIsLoaded() {
         try {
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
+            Wait.forElementToBeDisplayed(driver, resultsPanel);
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
             SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
@@ -73,7 +72,7 @@ public class DashBoardPage {
 
     public void dashboardPageResultsIsLoaded() {
         try {
-        Wait.forElementToBeClickable(driver, resultsPanel);
+            Wait.forElementToBeClickable(driver, resultsPanel);
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
             SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
@@ -197,7 +196,7 @@ public class DashBoardPage {
                         Wait.isElementDisplayed(driver, nhsTabs.get(4), 60);
                         nhsTabs.get(4).click();
                         break;
-            }
+                }
             return true;
         } catch (Exception exp){
             Debugger.println("Exception form DashBoardPage, Click on Tab " + tabName + " " + exp);
