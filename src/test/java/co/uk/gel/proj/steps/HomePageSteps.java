@@ -35,12 +35,12 @@ public class HomePageSteps extends Pages {
 
     @And("the user types in the CI term  in the search field and selects the first result from the results list")
     public void theUserTypesInTheCITermInTheSearchFieldAndSelectsTheFirstResultFromTheResultsList(List<String> searchTerms) {
-       boolean testResult = false;
-       testResult =  homePage.typeInSearchField(searchTerms.get(0));
-       Assert.assertTrue(testResult);
-       AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
-       testResult = homePage.clickSearchIconFromSearchField();
-       Assert.assertTrue(testResult);
+        boolean testResult = false;
+        testResult = homePage.typeInSearchField(searchTerms.get(0));
+        Assert.assertTrue(testResult);
+        AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
+        testResult = homePage.clickSearchIconFromSearchField();
+        Assert.assertTrue(testResult);
         testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
         Assert.assertTrue(testResult);
         homePage.closeCookiesBannerFromFooter();
@@ -75,13 +75,13 @@ public class HomePageSteps extends Pages {
     @And("^the number of results shown in each filters & total results should match$")
     public void validateFilterResultCountToTotalResult() throws InterruptedException {
         long totalSearchResult = homePage.totalSearchResult();
-        if(totalSearchResult == 0){
+        if (totalSearchResult == 0) {
             Debugger.println("Total Search Result Zero.. Something wrong.");
             Assert.assertTrue(false);
         }
         long inheritedDisease = homePage.rareAndInheritedDiseasesSearchResult();
         long tumours = homePage.tumorSearchResult();
-        if(totalSearchResult != (inheritedDisease+tumours)){
+        if (totalSearchResult != (inheritedDisease + tumours)) {
             Debugger.println("Total search result not equals the inherited and tumor search results as expected.");
             Assert.assertTrue(false);
         }
@@ -93,7 +93,7 @@ public class HomePageSteps extends Pages {
         Wait.seconds(2);
         homePage.testsTab.click();
         Wait.seconds(2);
-        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+        if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
             Assert.assertTrue(false);
         }
         homePage.closeCookiesBannerFromFooter();

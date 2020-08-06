@@ -43,11 +43,11 @@ public class MiClinicalDataQualitySteps extends Pages {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         Wait.seconds(3);
-        for (int i=0; i < expectedDropDownValues.size(); i++){
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miClinicalDataQualityPage.selectClinicalDqFilterGlh(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);
-         }
-        Debugger.println("The dropdown values are " +expectedDropDownValues);
+        }
+        Debugger.println("The dropdown values are " + expectedDropDownValues);
     }
 
     @And("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
@@ -87,9 +87,9 @@ public class MiClinicalDataQualitySteps extends Pages {
 
     @Then("the filter results displays the elements - Summary, Full Output, Streamline Output, Genomic Identity Output, Appendix - all rules")
     public void theFilterResultsDisplaysTheElementsSummaryFullOutputStreamlineOutputGenomicIdentityOutputAppendixAllRules() {
-       boolean testResult = false;
-       testResult = miClinicalDataQualityPage.verifyTheElementsPresentInApplyFiltersSection();
-       Assert.assertTrue(testResult);
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.verifyTheElementsPresentInApplyFiltersSection();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user able to see all the ordering entities should deselect")
