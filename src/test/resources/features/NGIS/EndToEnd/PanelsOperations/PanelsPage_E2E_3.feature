@@ -3,7 +3,7 @@
 Feature: PanelAssigner: Selection operations in Panels in E2E user journey-3
 
   @NTS-5800 @Z-LOGOUT
-  Scenario Outline:NTS-5800: Create and submit a referral with no suggested panels and then add a new panel and verify the Payload.
+  Scenario Outline:NTS-5800:E2EUI-2980: Create and submit a referral with no suggested panels and then add a new panel and verify the Payload.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R89 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-1998:Gender=Male |
      ###Patient Details
