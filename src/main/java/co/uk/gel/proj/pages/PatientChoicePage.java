@@ -378,7 +378,7 @@ public class PatientChoicePage {
                     Actions.clickElement(driver, optionsList.get(i));
                     break;
                 }
-                Wait.forElementToBeClickable(driver,optionsList.get(i));
+                Wait.seconds(2);
             }
             if (!isFound) {
                 Debugger.println("Option :" + optionName + " could not found under the section :" + sectionName);

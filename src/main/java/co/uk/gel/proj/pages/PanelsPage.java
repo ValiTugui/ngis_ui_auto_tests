@@ -80,6 +80,12 @@ public class PanelsPage {
     @FindBy(xpath = "//h3[text()='No suggested panels found']")
     public WebElement noSuggestedPanels;
 
+    @FindBy(xpath = "//h2[contains(text(),'Add panels')]")
+    public WebElement addPanelsHeader;
+
+    @FindBy(xpath = "//h2[contains(text(),'Add panels')]/parent::div/following-sibling::p")
+    public WebElement addPanelsMessage;
+
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
@@ -489,6 +495,27 @@ public class PanelsPage {
         } catch (Exception exp) {
             Debugger.println("Exception from verifying verifyNoSuggestedPanels:" + exp);
             SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean verifyMessageInAddPanels(String message) {
+        try {
+            if (!seleniumLib.isElementPresent(addPanelsHeader)) {
+                Debugger.println("Add Panels header is not displayed.");
+                SeleniumLib.takeAScreenShot("AddPanelHeaderNotPresent.jpg");
+                return false;
+            }
+            if(!addPanelsMessage.getText().equalsIgnoreCase(message)){
+                Debugger.println("Add Panels actual message "+addPanelsMessage.getText()+" but expected "+message);
+                SeleniumLib.takeAScreenShot("PanelMessageNotPresent.jpg");
+                return false;
+            }
+            return  true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyAddPanelsSection:" + exp);
+            SeleniumLib.takeAScreenShot("PanelMessageNotPresent.jpg");
             return false;
         }
     }
