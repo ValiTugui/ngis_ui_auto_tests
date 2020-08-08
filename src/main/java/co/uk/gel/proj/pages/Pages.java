@@ -18,6 +18,8 @@ public class Pages implements Navigable {
     public final String testOrderURL = "test-order";
     protected String normalUser = "GEL_NORMAL_USER";
     protected String superUser = "GEL_SUPER_USER";
+    protected String concurrentUser1 = "CONCURRENT_USER1";
+    protected String concurrentUser2 = "CONCURRENT_USER2";
 
     protected WebDriver driver;
 
@@ -269,6 +271,8 @@ public class Pages implements Navigable {
                         Debugger.println("Login to TOMS as SUPER_USER");
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
+                }else if(userType.equalsIgnoreCase(concurrentUser1) || userType.equalsIgnoreCase(concurrentUser2)){
+                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to

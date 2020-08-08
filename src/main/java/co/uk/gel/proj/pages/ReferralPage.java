@@ -27,6 +27,8 @@ public class ReferralPage<check> {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
+    protected String concurrentUser1 = "CONCURRENT_USER1";
+    protected String concurrentUser2 = "CONCURRENT_USER2";
 
     public ReferralPage(WebDriver driver) {
         this.driver = driver;
@@ -1966,11 +1968,20 @@ public class ReferralPage<check> {
         }
     }
 
-
     public void loginToTestOrderingSystemAsNHSUser(WebDriver driver, String userType) {
         Actions.deleteCookies(driver);
-        String nhsMail = AppConfig.getApp_username();
-        String nhsPassword = AppConfig.getApp_password();
+        String nhsMail = "";
+        String nhsPassword = "";
+        if(userType.equalsIgnoreCase(concurrentUser1)){
+            nhsMail = AppConfig.getConcurrent_user1_username();
+            nhsPassword = AppConfig.getConcurrent_user1_password();
+        }else if(userType.equalsIgnoreCase(concurrentUser2)){
+            nhsMail = AppConfig.getConcurrent_user2_username();
+            nhsPassword = AppConfig.getConcurrent_user2_password();
+        }else{
+            nhsMail = AppConfig.getApp_username();
+            nhsPassword = AppConfig.getApp_password();
+        }
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser....");
         try {
             Wait.seconds(5);

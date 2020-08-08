@@ -15,6 +15,10 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    static String concurrent_user1_username;
+    static String concurrent_user1_password;
+    static String concurrent_user2_username;
+    static String concurrent_user2_password;
     private static String app_superUsername;
     private static String app_superPassword;
     private static String to_patient_search_url;
@@ -58,6 +62,10 @@ public class AppConfig {
         app_password = properties.getProperty("APP_PASSWORD");
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
+        concurrent_user1_username = properties.getProperty("CONCURRENT_USER1_NAME");
+        concurrent_user1_password = properties.getProperty("CONCURRENT_USER1_PASSWORD");
+        concurrent_user2_username = properties.getProperty("CONCURRENT_USER2_NAME");
+        concurrent_user2_password = properties.getProperty("CONCURRENT_USER2_PASSWORD");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
         td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_dashboard_url = properties.getProperty("DASHBOARD_PRIVATE_URL");
@@ -176,5 +184,21 @@ public class AppConfig {
             loadAppConfig();
         }
         return panel_app_url;
+    }
+
+    public static String getConcurrent_user1_username() {
+        return concurrent_user1_username;
+    }
+
+    public static String getConcurrent_user1_password() {
+        return concurrent_user1_password;
+    }
+
+    public static String getConcurrent_user2_username() {
+        return concurrent_user2_username;
+    }
+
+    public static String getConcurrent_user2_password() {
+        return concurrent_user2_password;
     }
 }//end
