@@ -44,8 +44,8 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='glh_samples-search-col']")
     public WebElement glhSearchColumn;
 
-    By glhSamplesTableHead = By.xpath("//div[@id='glh_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String glhSamplesTableRows = "//div[@id='glh_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By glhSamplesTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String glhSamplesTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
 
     public boolean fillInTheSampleConsignmentNumber(String number) {
@@ -100,12 +100,14 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         try {
             int noOfFilteredRows = seleniumLib.getNoOfRows(glhSamplesTableRows);
+            Debugger.println("No Of Rows: "+noOfFilteredRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in GLH Samples Search Result Table");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");
                 return false;
             }
             int colIndex = seleniumLib.getColumnIndex(glhSamplesTableHead,columnName);
+            Debugger.println("ColIndex: "+noOfFilteredRows);
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the GLH Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");

@@ -764,11 +764,13 @@ public class SeleniumLib {
     public int getColumnIndex(By TableHeading, String column_name) {
         List<WebElement> Headings =  getHeadingElements(TableHeading);
         if(Headings == null || Headings.size() == 0){
+            Debugger.println("Headings NULL...");
             return -1;
         }
         String heading_name = "";
         for (int index = 0; index < Headings.size(); index++) {
             heading_name = Headings.get(index).getText();
+            Debugger.println("Heading: "+heading_name);
             if(column_name.equalsIgnoreCase(heading_name)) {
                 return index + 1;
             }

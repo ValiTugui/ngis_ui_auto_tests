@@ -29,8 +29,8 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='picklists-search-col']")
     public WebElement pickListsSearchColumn;
 
-    By pickListsTableHead = By.xpath("//div[@id='picklists-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String pickListsTableRows = "//div[@id='picklists-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By pickListsTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String pickListsTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     public MiPickListsPage(WebDriver driver) {
         this.driver = driver;

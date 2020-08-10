@@ -24,8 +24,8 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='new_referrals-search-col']")
     public WebElement newReferralsSearchColumn;
 
-    By newReferralsTableHead = By.xpath("//div[@id='new_referrals-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String newReferralsTableRows = "//div[@id='new_referrals-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By newReferralsTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String newReferralsTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
 
     public MiNewReferralsPage(WebDriver driver) {

@@ -35,8 +35,8 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
 
-    By platerSamplesTableHead = By.xpath("//div[@id='plater_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String platerSamplesTableRows = "//div[@id='plater_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By platerSamplesTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String platerSamplesTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     public MiPlaterSamplesPage(WebDriver driver) {
         this.driver = driver;

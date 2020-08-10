@@ -25,8 +25,8 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='sequencer_samples-search-col']")
     public WebElement sequencerSamplesSearchColumn;
 
-    By sequencerSampleTableHead = By.xpath("//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String sequencerSampleTableRows = "//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By sequencerSampleTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String sequencerSampleTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     public MiSequencerSamplesPage(WebDriver driver) {
         this.driver = driver;

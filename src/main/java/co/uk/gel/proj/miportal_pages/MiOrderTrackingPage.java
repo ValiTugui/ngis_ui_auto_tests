@@ -49,8 +49,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
 
-    By orderTrackingTableHead = By.xpath("//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String orderTrackingTableRows = "//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By orderTrackingTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String orderTrackingTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     @FindBy(xpath = "//select[@id='order_tracking-search-value']//option")
     List<WebElement> optionsList;

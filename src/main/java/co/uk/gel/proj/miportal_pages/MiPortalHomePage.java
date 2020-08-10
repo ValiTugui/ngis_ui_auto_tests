@@ -67,7 +67,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//ul[contains(string(),'Data Quality')]")
     public WebElement dataQuality;
 
-    @FindBy(xpath = "//span[contains(string(),'Data Quality')]/../..//a[@href='#']")
+    @FindBy(xpath = "//span[contains(string(),'Data Quality')]/../..//a")
     public WebElement dataQuality2;
 
     @FindBy(xpath = "//ul[contains(string(),'Data Quality')]//ul/li/a")
@@ -1300,6 +1300,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             boolean isPresent = false;
              for (int i = 0; i < subMenusOfDataQuality.size(); i++) {
                 String actualMenuItems = subMenusOfDataQuality.get(i).getText();
+                Debugger.println("actualMenuItems: "+actualMenuItems);
                 if (actualMenuItems.equalsIgnoreCase(sectionHeader)) {
                     isPresent = true;
                     break;
