@@ -433,19 +433,6 @@ public class TestPackagePage {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public boolean verifyTrioFamilyIcon() {
         try {
             if (!Wait.isElementDisplayed(driver, trioFamilyIcon, 30)) {
