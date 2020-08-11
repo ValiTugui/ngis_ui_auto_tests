@@ -370,7 +370,7 @@ public class PatientChoicePage {
                 Debugger.println("Could not find any options under the section :" + sectionName);
                 return false;
             }
-            Wait.seconds(20);
+            Wait.seconds(2);
             boolean isFound = false;
             for (int i = 0; i < optionsList.size(); i++) {
                 if (optionsList.get(i).getText().equalsIgnoreCase(optionName)) {
@@ -378,7 +378,7 @@ public class PatientChoicePage {
                     Actions.clickElement(driver, optionsList.get(i));
                     break;
                 }
-                Wait.seconds(20);
+                Wait.seconds(2);
             }
             if (!isFound) {
                 Debugger.println("Option :" + optionName + " could not found under the section :" + sectionName);
