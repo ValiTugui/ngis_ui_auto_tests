@@ -337,8 +337,12 @@ public class MilHomePageSteps extends Pages {
     @When("the user drag the column header {string} from the section {string} to {string} section")
     public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
         boolean testResult = false;
-        testResult = miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
-         Assert.assertTrue(testResult);
+        if(toSection.equalsIgnoreCase("Hide")) {
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToHideSection(columnHeader);
+        }else{
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToShowSection(columnHeader);
+        }
+        Assert.assertTrue(testResult);
     }
 
     @And("the Save and Close button under Show All and Hide All button becomes disabled")
@@ -461,6 +465,12 @@ public class MilHomePageSteps extends Pages {
             Debugger.println("Exception from Sample Processing Section Header " + exp);
             Assert.assertFalse("MilHomePageSteps: Exception from Sample Processing Section Header " + exp, true);
         }
+    }
+    @And("the user should be able to see Participant NHS Spine Data menu is displayed")
+    public void theUserShouldBeAbleToSeeNHSSpineDataMenuIsDisplayed() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyThePresenceOfParticipantNHSSpineDataMenu();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see the below header sections in Data Quality")

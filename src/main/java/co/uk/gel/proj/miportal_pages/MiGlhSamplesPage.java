@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -44,8 +46,8 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='glh_samples-search-col']")
     public WebElement glhSearchColumn;
 
-    By glhSamplesTableHead = By.xpath("//div[@id='glh_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String glhSamplesTableRows = "//div[@id='glh_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By glhSamplesTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String glhSamplesTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
 
 
     public boolean fillInTheSampleConsignmentNumber(String number) {
@@ -105,7 +107,8 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(glhSamplesTableHead,columnName);
+            List<WebElement> colHeads = driver.findElements(glhSamplesTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the GLH Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");

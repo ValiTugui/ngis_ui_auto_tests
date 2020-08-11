@@ -131,3 +131,4 @@ Feature:  MIPORTAL ST -  Home Page
     Then the user should be able to see the below header sections in Data Quality
       | HeaderSection         |
       | Clinical Data Quality |
+    And the user should be able to see Participant NHS Spine Data menu is displayed

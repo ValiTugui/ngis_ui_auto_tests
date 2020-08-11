@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -35,8 +37,8 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
 
-    By platerSamplesTableHead = By.xpath("//div[@id='plater_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String platerSamplesTableRows = "//div[@id='plater_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By platerSamplesTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String platerSamplesTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     public MiPlaterSamplesPage(WebDriver driver) {
         this.driver = driver;
@@ -158,7 +160,8 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(platerSamplesTableHead,columnName);
+            List<WebElement> colHeads = driver.findElements(platerSamplesTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the Plater Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
