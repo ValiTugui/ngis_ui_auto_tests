@@ -62,6 +62,7 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-5
      ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
+    And the user sees suggested panels under the section Suggestions based on the clinical information
      ###Submit the referral without saving the panels page
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
