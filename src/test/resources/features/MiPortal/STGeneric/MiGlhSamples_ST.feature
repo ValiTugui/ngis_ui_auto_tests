@@ -63,7 +63,6 @@ Feature: MIPORTAL ST -  Glh Samples
     Examples:
       | mi_stage    |
       | GLH Samples |
-
   @NTS-5178
     #@E2EUI-2771
   Scenario Outline: NTS-5178:E2EUI-2771: In GLH Samples section the Batch Import Filename now correctly filters results

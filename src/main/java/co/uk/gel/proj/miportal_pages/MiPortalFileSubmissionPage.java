@@ -310,7 +310,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             By cellPath = null;
             String cellValue = "";
             for (int i = 0; i < noOfFilteredRows; i++) {
-                Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+               // Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellPath = By.xpath(fileSubmissionTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
                 cellValue = seleniumLib.getText(cellPath);
                 if (expValue.equalsIgnoreCase("non-empty-data")) {

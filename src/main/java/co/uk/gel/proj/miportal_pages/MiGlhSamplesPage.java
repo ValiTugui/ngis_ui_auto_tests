@@ -102,7 +102,6 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         try {
             int noOfFilteredRows = seleniumLib.getNoOfRows(glhSamplesTableRows);
-            Debugger.println("No Of Rows: "+noOfFilteredRows);
             if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in GLH Samples Search Result Table");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");

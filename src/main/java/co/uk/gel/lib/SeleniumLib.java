@@ -608,20 +608,6 @@ public class SeleniumLib {
 
         }
     }
-    public static void scrollToElementHorizontal(WebElement element) {
-        try {
-            if(element == null){
-                return;
-            }
-            Point location = element.getLocation();
-            String script = "scroll(" + (location.x+10) + "," + (location.y) + ")";
-            JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript(script);
-        } catch (Exception e) {
-
-        }
-    }
-
     public static void takeAScreenShot(String filename){
         try{
             if(filename == null || filename.isEmpty()){
@@ -778,7 +764,6 @@ public class SeleniumLib {
     public int getColumnIndex(By TableHeading, String column_name) {
         List<WebElement> Headings =  getHeadingElements(TableHeading);
         if(Headings == null || Headings.size() == 0){
-            Debugger.println("Headings NULL...");
             return -1;
         }
         int colindex = -1;
