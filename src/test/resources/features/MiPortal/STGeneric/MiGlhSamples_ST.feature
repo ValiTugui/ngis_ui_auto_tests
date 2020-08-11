@@ -63,6 +63,7 @@ Feature: MIPORTAL ST -  Glh Samples
     Examples:
       | mi_stage    |
       | GLH Samples |
+
   @NTS-5178
     #@E2EUI-2771
   Scenario Outline: NTS-5178:E2EUI-2771: In GLH Samples section the Batch Import Filename now correctly filters results
@@ -76,7 +77,7 @@ Feature: MIPORTAL ST -  Glh Samples
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
     Then search results are displayed in table format with display options button
-    And the glh search result table column gel1001 Filename is displayed with data gel
+    And the glh search result table column GEL1001 Filename is displayed with data gel
 
     Examples:
       | mi_stage    |

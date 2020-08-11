@@ -55,9 +55,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement hideColumnSpace;
 
     By fileSubmissionTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
-    //By fileSubmissionTableHead = By.xpath("//*[@id=\"DataTables_Table_1_wrapper\"]/div[2]/div[1]/div/table/thead/tr/th");
-
-    String fileSubmissionTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
+    String fileSubmissionTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
     @FindBy(xpath = "//select[contains(@id,'-search-value')]")
     public WebElement fileSubmissionSearchValue;
 
@@ -300,17 +298,19 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");
                 SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
                 return false;
             }
+            //Debugger.println("Index of Column:"+columnName+" is "+colIndex+", No of Rows:"+noOfFilteredRows);
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
             for (int i = 0; i < noOfFilteredRows; i++) {
-                //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+                Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellPath = By.xpath(fileSubmissionTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
                 cellValue = seleniumLib.getText(cellPath);
                 if (expValue.equalsIgnoreCase("non-empty-data")) {
@@ -344,7 +344,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("UnableToRetrieveColumnData.jpg");
                 return null;
             }
-            int colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");
                 SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");

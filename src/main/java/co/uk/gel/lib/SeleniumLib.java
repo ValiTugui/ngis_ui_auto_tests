@@ -813,8 +813,27 @@ public class SeleniumLib {
         }
         for (int index = 0; index < Headings.size(); index++) {
             heading_name = Headings.get(index).getText();
+            if(heading_name == null || heading_name.isEmpty()){
+                try{
+                    highLightWebElement(Headings.get(0));
+                    sleepInSeconds(2);
+                    heading_name = Headings.get(index).getText();
+                }catch(Exception exp){
+
+                }
+            }
+            if(heading_name == null || heading_name.isEmpty()){
+                try{
+                    highLightWebElement(Headings.get(Headings.size()-1));
+                    sleepInSeconds(2);
+                    heading_name = Headings.get(index).getText();
+                }catch(Exception exp){
+
+                }
+            }
+            //Debugger.println("ColumnHead: "+heading_name);
             if(column_name.equalsIgnoreCase(heading_name)) {
-                 colindex = index + 1;
+                colindex = index + 1;
                 break;
             }
         }
