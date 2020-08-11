@@ -701,10 +701,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 }
             }
             boolean isPresent = false;
-            Debugger.println("Size : "+actualHeaderValueList.size());
+            //Debugger.println("Size : "+actualHeaderValueList.size());
             for (int i = 1; i < expValues.size(); i++) {//Starts from index 1 to exclude heading
                 for (int j = 0; j < actualHeaderValueList.size(); j++) {
-                    Debugger.println("Value: "+actualHeaderValueList.get(j));
+                    //Debugger.println("Value: "+actualHeaderValueList.get(j));
                     if (expValues.get(i).get(0).equalsIgnoreCase(actualHeaderValueList.get(j))) {
                         isPresent = true;
                         break;

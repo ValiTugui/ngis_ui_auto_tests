@@ -337,8 +337,12 @@ public class MilHomePageSteps extends Pages {
     @When("the user drag the column header {string} from the section {string} to {string} section")
     public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
         boolean testResult = false;
-        testResult = miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
-         Assert.assertTrue(testResult);
+        if(toSection.equalsIgnoreCase("Hide")) {
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToHideSection(columnHeader);
+        }else{
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToShowSection(columnHeader);
+        }
+        Assert.assertTrue(testResult);
     }
 
     @And("the Save and Close button under Show All and Hide All button becomes disabled")
