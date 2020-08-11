@@ -67,7 +67,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//ul[contains(string(),'Data Quality')]")
     public WebElement dataQuality;
 
-    @FindBy(xpath = "//span[contains(string(),'Data Quality')]/../..//a[@href='#']")
+    @FindBy(xpath = "//ul[contains(string(),'Participant NHS Spine Data')]")
+    public WebElement nhsSpineData;
+    @FindBy(xpath = "//span[contains(string(),'Data Quality')]/../..//a")
     public WebElement dataQuality2;
 
     @FindBy(xpath = "//ul[contains(string(),'Data Quality')]//ul/li/a")
@@ -1265,6 +1267,21 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyThePresenceOfDataQualityMenu:" + exp);
             SeleniumLib.takeAScreenShot("DataQualityMenu.jpg");
+            return false;
+        }
+    }
+    public boolean verifyThePresenceOfParticipantNHSSpineDataMenu() {
+        try {
+            if (!Wait.isElementDisplayed(driver, nhsSpineData, 60)) {
+                Debugger.println("Participant NHS Spine Data header is not displayed even after 60 seconds.");
+                SeleniumLib.takeAScreenShot("NhsSpineDataMenu.jpg");
+                return false;
+            }
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfDataQualityMenu:" + exp);
+            SeleniumLib.takeAScreenShot("NhsSpineDataMenuu.jpg");
             return false;
         }
     }
