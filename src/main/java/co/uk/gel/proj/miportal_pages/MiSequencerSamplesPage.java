@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,8 +27,8 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='sequencer_samples-search-col']")
     public WebElement sequencerSamplesSearchColumn;
 
-    By sequencerSampleTableHead = By.xpath("//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String sequencerSampleTableRows = "//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By sequencerSampleTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String sequencerSampleTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     public MiSequencerSamplesPage(WebDriver driver) {
         this.driver = driver;
@@ -82,8 +84,9 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             int colIndex = -1;
+            List<WebElement> colHeads = driver.findElements(sequencerSampleTableHead);
             try {
-                colIndex = seleniumLib.getColumnIndex(sequencerSampleTableHead, columnName);
+                colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             }catch(Exception StaleElementReferenceException){
                 //Re-initializing on StaleElementReferenceException
                 sequencerSampleTableHead = By.xpath("//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");

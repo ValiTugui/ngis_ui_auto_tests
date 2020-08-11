@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST
+@MIPORTAL_ST1
 @SYSTEM_TEST
 
 Feature: MIPORTAL ST - File Submission 2
@@ -130,7 +130,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5020 @MI-LOGOUT
+  @test @NTS-5020 @MI-LOGOUT
   Scenario Outline: NTS-5020:E2EUI-2409: File Submissions - field_errors and field_warnings in search result table
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -24,8 +26,8 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='new_referrals-search-col']")
     public WebElement newReferralsSearchColumn;
 
-    By newReferralsTableHead = By.xpath("//div[@id='new_referrals-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String newReferralsTableRows = "//div[@id='new_referrals-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By newReferralsTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String newReferralsTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
 
     public MiNewReferralsPage(WebDriver driver) {
@@ -74,7 +76,8 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("newReferralTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(newReferralsTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(newReferralsTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the New Referrals Search Result Table.");
                 SeleniumLib.takeAScreenShot("newReferralTable.jpg");

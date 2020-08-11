@@ -608,6 +608,20 @@ public class SeleniumLib {
 
         }
     }
+    public static void scrollToElementHorizontal(WebElement element) {
+        try {
+            if(element == null){
+                return;
+            }
+            Point location = element.getLocation();
+            String script = "scroll(" + (location.x+10) + "," + (location.y) + ")";
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript(script);
+        } catch (Exception e) {
+
+        }
+    }
+
     public static void takeAScreenShot(String filename){
         try{
             if(filename == null || filename.isEmpty()){
@@ -764,16 +778,47 @@ public class SeleniumLib {
     public int getColumnIndex(By TableHeading, String column_name) {
         List<WebElement> Headings =  getHeadingElements(TableHeading);
         if(Headings == null || Headings.size() == 0){
+            Debugger.println("Headings NULL...");
             return -1;
         }
+        int colindex = -1;
         String heading_name = "";
+        try{
+            highLightWebElement(Headings.get(Headings.size()-1));
+            sleepInSeconds(2);
+        }catch(Exception exp){
+
+        }
         for (int index = 0; index < Headings.size(); index++) {
             heading_name = Headings.get(index).getText();
             if(column_name.equalsIgnoreCase(heading_name)) {
-                return index + 1;
+                colindex = index + 1;
+                break;
             }
         }
-        return -1;
+        return colindex;
+    }
+    public int getColumnIndex(List<WebElement> Headings, String column_name) {
+        if(Headings == null || Headings.size() == 0){
+            Debugger.println("Headings NULL...");
+            return -1;
+        }
+        int colindex = -1;
+        String heading_name = "";
+        try{
+            highLightWebElement(Headings.get(Headings.size()-1));
+            sleepInSeconds(2);
+        }catch(Exception exp){
+
+        }
+        for (int index = 0; index < Headings.size(); index++) {
+            heading_name = Headings.get(index).getText();
+            if(column_name.equalsIgnoreCase(heading_name)) {
+                 colindex = index + 1;
+                break;
+            }
+        }
+        return colindex;
     }
     public List<WebElement> getHeadingElements(By element) {
         try {
