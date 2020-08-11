@@ -462,6 +462,12 @@ public class MilHomePageSteps extends Pages {
             Assert.assertFalse("MilHomePageSteps: Exception from Sample Processing Section Header " + exp, true);
         }
     }
+    @And("the user should be able to see Participant NHS Spine Data menu is displayed")
+    public void theUserShouldBeAbleToSeeNHSSpineDataMenuIsDisplayed() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyThePresenceOfParticipantNHSSpineDataMenu();
+        Assert.assertTrue(testResult);
+    }
 
     @Then("the user should be able to see the below header sections in Data Quality")
     public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInDataQuality(DataTable inputSections) {
