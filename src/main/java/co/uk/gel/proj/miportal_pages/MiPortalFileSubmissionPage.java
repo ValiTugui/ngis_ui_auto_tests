@@ -55,6 +55,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement hideColumnSpace;
 
     By fileSubmissionTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    //By fileSubmissionTableHead = By.xpath("//*[@id=\"DataTables_Table_1_wrapper\"]/div[2]/div[1]/div/table/thead/tr/th");
+
     String fileSubmissionTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
     @FindBy(xpath = "//select[contains(@id,'-search-value')]")
     public WebElement fileSubmissionSearchValue;
@@ -375,13 +377,15 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         try {
             int colIndex = -1;
+            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
             for (int i = 1; i < expColumns.size(); i++) {
-                colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead, expColumns.get(i).get(0));
+                colIndex = seleniumLib.getColumnIndex(colHeads, expColumns.get(i).get(0));
                 if (colIndex == -1) {
                     Debugger.println("Specified column " + expColumns.get(i).get(0) + " not present in the FileSubmission Search Result Table.");
                     SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
                     return false;
                 }
+                seleniumLib.sleepInSeconds(2);
             }
             return true;
         } catch (Exception exp) {
@@ -399,7 +403,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
                 return null;
             }
-            List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
+            List<WebElement> allHeaders = driver.findElements(fileSubmissionTableHead);
             //Retrieve the column headers
             List<String> headers = new ArrayList<>();
             for (WebElement elementHeader : allHeaders) {

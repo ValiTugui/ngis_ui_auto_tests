@@ -137,7 +137,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(orderTrackingTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(orderTrackingTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the Order Tracking Search Result Table.");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
@@ -187,13 +188,14 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
-            int colIndex1 = seleniumLib.getColumnIndex(orderTrackingTableHead, columnName1);
+            List<WebElement> colHeads = driver.findElements(orderTrackingTableHead);
+            int colIndex1 = seleniumLib.getColumnIndex(colHeads, columnName1);
             if (colIndex1 == -1) {
                 Debugger.println("Specified column " + columnName1 + " not present in the Order Tracking Search Result Table.");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
-            int colIndex2 = seleniumLib.getColumnIndex(orderTrackingTableHead, columnName2);
+            int colIndex2 = seleniumLib.getColumnIndex(colHeads, columnName2);
             if (colIndex2 == -1) {
                 Debugger.println("Specified column " + columnName2 + " not present in the Order Tracking Search Result Table.");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");

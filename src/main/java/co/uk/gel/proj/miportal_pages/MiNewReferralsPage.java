@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -74,7 +76,8 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("newReferralTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(newReferralsTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(newReferralsTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the New Referrals Search Result Table.");
                 SeleniumLib.takeAScreenShot("newReferralTable.jpg");

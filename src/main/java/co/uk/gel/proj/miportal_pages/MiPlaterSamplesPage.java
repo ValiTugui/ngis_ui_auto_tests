@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -158,7 +160,8 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(platerSamplesTableHead,columnName);
+            List<WebElement> colHeads = driver.findElements(platerSamplesTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the Plater Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");

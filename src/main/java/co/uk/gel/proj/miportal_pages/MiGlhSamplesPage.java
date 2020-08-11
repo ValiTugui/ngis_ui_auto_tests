@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -106,8 +108,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(glhSamplesTableHead,columnName);
-            Debugger.println("ColIndex: "+noOfFilteredRows);
+            List<WebElement> colHeads = driver.findElements(glhSamplesTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
+
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the GLH Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");
