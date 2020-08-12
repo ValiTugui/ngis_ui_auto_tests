@@ -1,48 +1,49 @@
 @PANEL_E2E_RT
 @Panel_UJ_7
 
-Feature: User visits the panels stage but not saved
+Feature: NTS-5801: User visits the clinical details section but not panels stage and saved
 
-
-  @E2EUI-2973
-  Scenario Outline:E2EUI-2973: User visits the panels stage but not saved
+  @NTS-5801
+#  @E2EUI-2983
+  Scenario Outline:NTS-5801:E2EUI-2983: User visits the clinical details but skips panels stage and saved
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-11-1973:Gender=Male |
      ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
+    And the user enters the keyword "Leeds Teaching Hospitals NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package
+     ##Test Package
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
-    ##Responsible Clinician
+     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
     And the "<ResponsibleClinician>" stage is marked as Completed
-    ##Clinical Question
+     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-    ##Notes
+     ### System assigns suggested panels automatically so the stage won't be mandatory or completed
+    Then the "<Panels>" stage is marked "NotMandatoryToDo"
+     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members
+     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
-    ##Patient Choice
+     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
@@ -58,18 +59,14 @@ Feature: User visits the panels stage but not saved
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    ##Panels    user visits the panels stage but not saved
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage panels
-    And the user sees suggested panels under the section Suggestions based on the clinical information
-       ##Pedigree
+      ##Pedigree
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    ##Print forms
+      ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    ##Submitting Referral
+     ##Submitting Referral
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
