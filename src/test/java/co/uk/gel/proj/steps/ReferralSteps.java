@@ -9,6 +9,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
+import co.uk.gel.proj.util.ConcurrencyTest;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
@@ -26,11 +27,9 @@ import java.util.*;
 
 public class ReferralSteps extends Pages {
 
-
     public ReferralSteps(SeleniumDriver driver) {
         super(driver);
     }
-
 
     @Then("^the referral page is displayed$")
     public void referralPageIsDisplayed() {
@@ -50,9 +49,6 @@ public class ReferralSteps extends Pages {
         if(!testResult){
             Assert.fail("Could not navigate to stage:"+stage);
         }
-//        if(AppConfig.snapshotRequired){
-//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
-//        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -210,6 +206,7 @@ public class ReferralSteps extends Pages {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(stage," ")+"Stage.jpg");
             }
             Assert.assertTrue(testResult);
+            Wait.seconds(120);
         } catch (Exception exp) {
             Debugger.println("Exception in verifying the stage completed status for :" + stage + ":" + exp);
             Assert.fail("Exception in verifying the stage completed status for :" + stage + ":" + exp);
@@ -780,6 +777,10 @@ public class ReferralSteps extends Pages {
         String userType = attributeOfURL.get(3);
         String referralDetails = attributeOfURL.get(4);
 
+        if(loginWithAnExistingReferral(userType)){
+            return;
+        }
+
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
         if(AppConfig.snapshotRequired){
@@ -892,7 +893,44 @@ public class ReferralSteps extends Pages {
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
+        Debugger.println("Referral Created.....by "+userType);
     }
+    //Added for Concurrency Test
+    @Given("the second user is logged into the system and accessed the same referral created by the user one")
+    public void secondUserLoggedInAndAccessedSameReferralCreatedByUserOne(List<String> attributeOfURL) throws IOException {
+
+        String userType = attributeOfURL.get(0);
+        loginWithAnExistingReferral(userType);
+    }
+    private boolean loginWithAnExistingReferral(String userType){
+        if(!(userType.startsWith(concurrentUser1) || userType.startsWith(concurrentUser2))){
+            return false;//Normal and Super Users
+        }
+        String baseURL = ConcurrencyTest.getReferral_base_url();
+        boolean isReferralExists = false;
+        if(baseURL != null && !baseURL.isEmpty()){
+            isReferralExists = true;
+        }else{
+            if(userType.startsWith(concurrentUser1)){//If file not exists, and the user is first user, proceed with new referral
+                return false;
+            }
+           //Wait for 60 seconds to create new referral by the user 1
+           SeleniumLib.sleepInSeconds(60);
+        }
+        while(!isReferralExists){//Check every 15 seconds, the presence of referral creation by first user
+            SeleniumLib.sleepInSeconds(15);
+            baseURL = ConcurrencyTest.getReferral_base_url();
+            if(baseURL != null && !baseURL.isEmpty()){
+                isReferralExists = true;
+            }
+        }
+        if (userType == null || userType.isEmpty()) {
+            userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
+        }
+        switchToURL(baseURL, userType);
+        SeleniumLib.sleepInSeconds(10);
+        return true;
+   }
 
     @And("^the mandatory fields shown with the symbol in red color$")
     public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {
@@ -1311,4 +1349,28 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
         Assert.assertTrue(testResult);
     }
+    //Concurrency
+    @When("the user updates the properties file about the completion of mandatory stages")
+    public void theUserOneNotifiesUser2AboutCompletionOfMandatoryStages() {
+        //Write to the Concurrency.properties file like MandatoryStages:Completed by User1
+    }
+    @And("the user submits the referral after the second user edits the stage (.*)")
+    public void theUserSubmitsTheReferralAfterStageEditByUser2(String stage) {
+         //Waiting for the message in Concurrency.properties file - Notes:Updated by User2
+        //After getting the message, then go for Submitting the referral
+        // referralPage.submitReferral();
+    }
+
+    @When("^the user waits for the completion of all mandatory stages for the given referral$")
+    public void waitToCompleteAllMandatoryStages(String stage) {
+        //Waiting for the message in Concurrency.properties file - MandatoryStages:Completed by User1
+        //Wait.for
+    }
+
+    @When("the user updates the properties file about the update of Stage (.*)")
+    public void theUserOneNotifiesUser2AboutCompletionOfMandatoryStages(String stage) {
+        //Write to the Concurrency.properties file like Notes:Updated by User2
+    }
+
+
 }

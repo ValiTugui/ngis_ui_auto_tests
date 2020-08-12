@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.util.ConcurrencyTest;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
@@ -1237,8 +1238,10 @@ public class ReferralPage<check> {
     //To log the ReferralId in the Log file.
     public void logTheReferralId() {
         String referralID = getPatientReferralId();
-        Debugger.println("ReferralID: " + referralID);
-        Debugger.println(driver.getCurrentUrl());
+        ConcurrencyTest.writeToPropertyFile("BASE_URL="+driver.getCurrentUrl());
+        //ConcurrencyTest.setReferral_base_url(driver.getCurrentUrl());
+        Debugger.println("ReferralID: "+ referralID);
+        Debugger.println("ReferralURL: "+driver.getCurrentUrl());
     }
 
     public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
@@ -1972,17 +1975,19 @@ public class ReferralPage<check> {
         Actions.deleteCookies(driver);
         String nhsMail = "";
         String nhsPassword = "";
-        if(userType.equalsIgnoreCase(concurrentUser1)){
+        if(userType.startsWith(concurrentUser1)){
+            Debugger.println("Logging to TOMS as1 "+userType);
             nhsMail = AppConfig.getConcurrent_user1_username();
             nhsPassword = AppConfig.getConcurrent_user1_password();
-        }else if(userType.equalsIgnoreCase(concurrentUser2)){
+        }else if(userType.startsWith(concurrentUser2)){
+            Debugger.println("Logging to TOMS as2 "+userType);
             nhsMail = AppConfig.getConcurrent_user2_username();
             nhsPassword = AppConfig.getConcurrent_user2_password();
         }else{
             nhsMail = AppConfig.getApp_username();
             nhsPassword = AppConfig.getApp_password();
         }
-        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser....");
+        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser...."+nhsMail+","+nhsPassword);
         try {
             Wait.seconds(5);
             if (!Wait.isElementDisplayed(driver, emailAddressField, 120)) {//If the element is not displayed, even after the waiting time

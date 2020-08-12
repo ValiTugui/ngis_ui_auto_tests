@@ -38,6 +38,7 @@ public class SeleniumLib {
     static String referralFileName = "Referrals.json";
     static String referralTextFileName = "ReferralID.txt";
 
+
     public SeleniumLib(WebDriver driver) {
         SeleniumLib.driver = driver;
     }

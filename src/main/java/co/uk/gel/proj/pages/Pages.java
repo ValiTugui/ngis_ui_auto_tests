@@ -246,7 +246,7 @@ public class Pages implements Navigable {
     }
     @Override
     public void switchToURL(String currentURL, String userType) {
-        Debugger.println("Switching URL...");
+        Debugger.println("Switching URL..for user: "+userType+",TO URL:"+currentURL);
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
@@ -271,7 +271,14 @@ public class Pages implements Navigable {
                         Debugger.println("Login to TOMS as SUPER_USER");
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
-                }else if(userType.equalsIgnoreCase(concurrentUser1) || userType.equalsIgnoreCase(concurrentUser2)){
+                }else if(userType.startsWith(concurrentUser1) || userType.startsWith(concurrentUser2)){
+                    Debugger.println("Concurrent User... Logging to TestOrder");
+                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                }
+            }else{
+                Debugger.println("Switching here to new referral..");
+                if(userType.startsWith(concurrentUser1) || userType.startsWith(concurrentUser2)){
+                    driver.get(currentURL);
                     referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
             }

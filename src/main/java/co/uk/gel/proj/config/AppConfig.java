@@ -187,6 +187,9 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user1_username() {
+        if(concurrent_user1_username == null || concurrent_user1_username.isEmpty()){
+            loadAppConfig();
+        }
         return concurrent_user1_username;
     }
 
@@ -195,6 +198,9 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user2_username() {
+        if(concurrent_user2_username == null || concurrent_user2_username.isEmpty()){
+            loadAppConfig();
+        }
         return concurrent_user2_username;
     }
 
