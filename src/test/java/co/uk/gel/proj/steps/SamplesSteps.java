@@ -514,7 +514,7 @@ public class SamplesSteps extends Pages {
             case "NotMandatoryToDo": {
                 //verifying asterisk and tick mark are not present.
                 if (referralPage.stageIsMandatoryToDo(stage) || referralPage.stageIsCompleted(stage)) {
-                    Assert.fail();
+                    Assert.fail("The Panels stage is still mandatory to do or is completed.");
                 }
                 break;
             }
