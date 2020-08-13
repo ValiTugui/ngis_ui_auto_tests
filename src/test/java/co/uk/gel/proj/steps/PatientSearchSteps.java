@@ -5,10 +5,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
@@ -20,10 +18,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
-
-import java.awt.*;
 import java.util.Map;
 
 public class PatientSearchSteps extends Pages {
@@ -601,6 +598,16 @@ public class PatientSearchSteps extends Pages {
     @Then("the NHS number field remains empty as invalid characters are not accepted")
     public void theNHSNumberFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
         Assert.assertTrue(Actions.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
+    }
+
+    @Then("the Day field remains empty as invalid characters are not accepted")
+    public void theDayFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthDay).isEmpty());
+    }
+
+    @Then("the year field remains empty as invalid characters are not accepted")
+    public void theyearFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthYear).isEmpty());
     }
 
     @And("the user sees placeholder texts displayed in the fields - Date of birth {string}, First name {string}, Last name {string} and Postcode {string}")

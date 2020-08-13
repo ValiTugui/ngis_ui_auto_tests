@@ -54,10 +54,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@id,'column_order_hidden')]")
     public WebElement hideColumnSpace;
 
-    By fileSubmissionTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
-    //By fileSubmissionTableHead = By.xpath("//*[@id=\"DataTables_Table_1_wrapper\"]/div[2]/div[1]/div/table/thead/tr/th");
+    @FindBy(xpath = "//div[contains(@id,'column_order_visible')]")
+    public WebElement showColumnSpace;
 
-    String fileSubmissionTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
+    By fileSubmissionTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String fileSubmissionTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
     @FindBy(xpath = "//select[contains(@id,'-search-value')]")
     public WebElement fileSubmissionSearchValue;
 
@@ -300,17 +301,19 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");
                 SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
                 return false;
             }
+            //Debugger.println("Index of Column:"+columnName+" is "+colIndex+", No of Rows:"+noOfFilteredRows);
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
             for (int i = 0; i < noOfFilteredRows; i++) {
-                //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+               // Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellPath = By.xpath(fileSubmissionTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
                 cellValue = seleniumLib.getText(cellPath);
                 if (expValue.equalsIgnoreCase("non-empty-data")) {
@@ -344,7 +347,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("UnableToRetrieveColumnData.jpg");
                 return null;
             }
-            int colIndex = seleniumLib.getColumnIndex(fileSubmissionTableHead, columnName);
+            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
                 Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");
                 SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
@@ -507,17 +511,47 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean addColumnHeadersToHideSection(String fieldColumn) {
         try {
             String culumn_value = "//div[text()='" + fieldColumn + "']";
-            WebElement columnToHide = driver.findElement(By.xpath(culumn_value));
-            org.openqa.selenium.interactions.Actions act = new org.openqa.selenium.interactions.Actions(driver);
-            if (!columnToHide.isDisplayed()) {
-                Debugger.println("The column" + fieldColumn + " is not available");
+            List<WebElement> columnToHides = driver.findElements(By.xpath(culumn_value));
+
+            if (columnToHides.size() == 0) {
+                Debugger.println("The column: " + fieldColumn + " is not available");
                 SeleniumLib.takeAScreenShot("selectedColumn.jpg");
                 return false;
             }
-            act.dragAndDrop(columnToHide, hideColumnSpace).build().perform();
+            for(WebElement columnToHide:columnToHides) {
+                if(columnToHide.isDisplayed()) {
+                    org.openqa.selenium.interactions.Actions act = new org.openqa.selenium.interactions.Actions(driver);
+                    act.dragAndDrop(columnToHide, hideColumnSpace).build().perform();
+                    break;
+                }
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("MiPortalFileSubmissionPage :addColumnHeadersToHideSection :" + exp);
+            SeleniumLib.takeAScreenShot("selectedColumn.jpg");
+            return false;
+        }
+    }
+    public boolean addColumnHeadersToShowSection(String fieldColumn) {
+        try {
+            String culumn_value = "//div[text()='" + fieldColumn + "']";
+            List<WebElement> columnToHides = driver.findElements(By.xpath(culumn_value));
+
+            if (columnToHides.size() == 0) {
+                Debugger.println("The column: " + fieldColumn + " is not available");
+                SeleniumLib.takeAScreenShot("selectedColumn.jpg");
+                return false;
+            }
+            for(WebElement columnToHide:columnToHides) {
+                if(columnToHide.isDisplayed()) {
+                    org.openqa.selenium.interactions.Actions act = new org.openqa.selenium.interactions.Actions(driver);
+                    act.dragAndDrop(columnToHide, showColumnSpace).build().perform();
+                    break;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("MiPortalFileSubmissionPage :addColumnHeadersToShowSection :" + exp);
             SeleniumLib.takeAScreenShot("selectedColumn.jpg");
             return false;
         }

@@ -28,7 +28,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement sequencerSamplesSearchColumn;
 
     By sequencerSampleTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
-    String sequencerSampleTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
+    String sequencerSampleTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
 
     public MiSequencerSamplesPage(WebDriver driver) {
         this.driver = driver;
@@ -88,9 +88,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             try {
                 colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             }catch(Exception StaleElementReferenceException){
-                //Re-initializing on StaleElementReferenceException
-                sequencerSampleTableHead = By.xpath("//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-                colIndex = seleniumLib.getColumnIndex(sequencerSampleTableHead, columnName);
+
             }
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the Sequencer Sample Search Result Table.");
