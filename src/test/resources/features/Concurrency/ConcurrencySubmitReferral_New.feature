@@ -30,7 +30,7 @@ Feature: Submit the New Referral - User One create new referral:User Two Updates
     Then the "<responsibleClinician>" stage is marked as Completed
 
     When the user navigates to the "<tumours>" stage
-    When the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
+    And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "Recurrence"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "test" result drop list
@@ -41,7 +41,6 @@ Feature: Submit the New Referral - User One create new referral:User Two Updates
     And the success notification is displayed "Tumour added"
     #Samples 1 - Sample Type - Solid tumour sample and Sample State - tumour_freshFrozen
     When the user navigates to the "<samples>" stage
-    And the "<samples>" stage is selected
     Then the user is navigated to a page with title Manage samples
     When the user clicks the Add sample button
     Then the user is navigated to a page with title Add a sample
@@ -60,7 +59,6 @@ Feature: Submit the New Referral - User One create new referral:User Two Updates
     And the "<samples>" stage is marked as Completed
     #Samples 2 - Sample Type - Add Normal or Germline Sample and Sample State - tissue_freshFrozen
     When the user navigates to the "<samples>" stage
-    And the "<samples>" stage is selected
     Then the "Manage samples" page is displayed
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed

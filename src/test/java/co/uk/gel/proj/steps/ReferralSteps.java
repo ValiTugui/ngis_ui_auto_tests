@@ -190,7 +190,7 @@ public class ReferralSteps extends Pages {
     public void theStageIsMarkedAsCompleted(String stage) {
         // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
         // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
-        Debugger.println("Verifying completion of Package:" + stage);
+        //Debugger.println("Verifying completion of Package:" + stage);
         Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
@@ -946,7 +946,8 @@ public class ReferralSteps extends Pages {
         }
         //Write to Concurrency File.
         String referralId = referralPage.getPatientReferralId();
-        referralPage.updateConcurrencyController("ReferralId="+referralId);
+        ConcurrencyTest.setReferral_id(referralId);
+        ConcurrencyTest.writeToControllerFile("ReferralId="+referralId);
     }
     @Given("The user is login to the Test Order Service and access the given referral")
     public void userIsLoginToTheTestOrderServiceAndAccessGivenReferral(List<String> attributeOfURL) throws IOException {
@@ -956,6 +957,7 @@ public class ReferralSteps extends Pages {
         if(referralId.equalsIgnoreCase("New Referral")){
             baseURL = ConcurrencyTest.getReferral_base_url();
         }else{
+            ConcurrencyTest.setReferral_id(referralId);
             baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/"+referralId;
         }
         boolean isReferralExists = false;
@@ -980,6 +982,7 @@ public class ReferralSteps extends Pages {
         if(!isReferralExists){
             Assert.fail("Referral is not exists/not created by another user even after 4 minutes...exiting.");
         }
+        Debugger.println(userType+"- SWITCHING TO URL :"+baseURL);
         switchToURL(baseURL, userType);
         SeleniumLib.sleepInSeconds(10);
    }

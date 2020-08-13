@@ -8,7 +8,7 @@ public class ConcurrencyTest {
 
     public static String referral_id;
     public static String referral_base_url;
-    static String concurrencyController = "ConcurrencyController.txt";
+    static String concurrencyController = "ConcurrencyController";
 
     public static String getReferral_base_url() {
        if(referral_base_url == null){
@@ -19,9 +19,21 @@ public class ConcurrencyTest {
        }
         return referral_base_url;
     }
+    public static void setReferral_id(String referralId){
+        referral_id = referralId;
+        try{
+            File file = new File(concurrencyController+"_"+referral_id+".txt");
+            if(!file.exists()){
+                file.createNewFile();
+                Debugger.println("File: "+concurrencyController+"_"+referral_id+".txt created.");
+            }
+        }catch(Exception exp){
+
+        }
+    }
     public static void checkReferralId () {
         try {
-            File file = new File(concurrencyController);
+            File file = new File(concurrencyController+"_"+referral_id+".txt");
             Scanner scanner = new Scanner(file);
             String line = "";
             while(scanner.hasNextLine()){
@@ -38,7 +50,7 @@ public class ConcurrencyTest {
     public static boolean verifyTextPresence (String dataToVerify) {
         try {
             boolean isPresent = false;
-            File file = new File(concurrencyController);
+            File file = new File(concurrencyController+"_"+referral_id+".txt");
             Scanner scanner = new Scanner(file);
             String line = "";
             while(scanner.hasNextLine()){
@@ -56,7 +68,8 @@ public class ConcurrencyTest {
     }
     public static boolean writeToControllerFile (String dataToWrite) {
         try {
-            FileWriter file = new FileWriter(concurrencyController, true);
+
+            FileWriter file = new FileWriter(concurrencyController+"_"+referral_id+".txt", true);
             file.write(dataToWrite);
             file.write("\n");
             file.close();
