@@ -23,9 +23,9 @@
         <forkCount>5</forkCount>
         <reportName>test</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
-        <browser>Edge</browser>
-        <browserVersion>44.18362.449.0</browserVersion>
-        <serverType>BROWSERSTACK</serverType>
+        <browser>Chrome</browser>
+        <browserVersion>70</browserVersion>
+        <serverType>LOCAL</serverType>
         <osName>Windows</osName>
         <osVersion>10</osVersion>
         <features></features>
@@ -67,11 +67,11 @@
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
                             <featuresDirectory>src/test/resources/features/${features}</featuresDirectory>
-                            <tags>@BVT_UI_SMOKE_TEST_PACK</tags>
+                            <tags>@Concurrency</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
-                            <parallelScheme>FEATURE</parallelScheme>
+                            <parallelScheme>SCENARIO</parallelScheme>
                             <format>json,rerun</format>
                         </configuration>
                     </execution>

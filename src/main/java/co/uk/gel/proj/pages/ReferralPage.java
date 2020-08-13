@@ -713,7 +713,7 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Wait.forPageToBeLoaded(driver);
-            Debugger.println("EXP TITLE: " + expTitle);
+            //Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             int titlesSize = titleElements.size();
@@ -1238,11 +1238,10 @@ public class ReferralPage<check> {
     //To log the ReferralId in the Log file.
     public void logTheReferralId() {
         String referralID = getPatientReferralId();
-        ConcurrencyTest.writeToPropertyFile("BASE_URL="+driver.getCurrentUrl());
-        //ConcurrencyTest.setReferral_base_url(driver.getCurrentUrl());
         Debugger.println("ReferralID: "+ referralID);
         Debugger.println("ReferralURL: "+driver.getCurrentUrl());
     }
+
 
     public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
         Wait.forURLToContainSpecificText(driver, directoryPath);
