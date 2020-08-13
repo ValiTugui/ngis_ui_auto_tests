@@ -1,12 +1,12 @@
 @Concurrency
-@Concurrency_Stage
-Feature: Concurrency Stage Update Validation
+@Concurrency_existing_referral
+Feature: Submit Existing Referral
 
-  @user_one @Z-LOGOUT
-  Scenario Outline: User One Login and Updates all the Mandatory Stages, Submit after User Two changes the Notes stage
-    ##Create referral with new patient without providing NHS number
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | CONCURRENT_USER1_NAME | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
+  @new_referral @Z-LOGOUT
+  Scenario Outline: User One Login and Updates Some Stages, Submits Referral after User Two changes Same Stages
+    ##Create New Referral
+    Given The user is login to the Test Order Service and access the given referral
+      | R100 | CONCURRENT_USER1_NAME | r20746508541 |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -80,13 +80,13 @@ Feature: Concurrency Stage Update Validation
 #      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
 #    And the "<samples>" stage is marked as Completed
 #
-#    When the user navigates to the "<notes>" stage
-#    Then the user is navigated to a page with title Add clinical notes
-#    And the "<notes>" stage is selected
-#    When the user fills in the Add Notes field
-#    And the user clicks the Save and Continue button
-#    Then the "<notes>" stage is marked as Completed
-#
+    When the user navigates to the "<notes>" stage
+    Then the user is navigated to a page with title Add clinical notes
+    And the "<notes>" stage is selected
+    When the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    Then the "<notes>" stage is marked as Completed
+
 #    When the user navigates to the "<patientChoice>" stage
 #    Then the user is navigated to a page with title Patient choice
 #    When the user selects the proband
@@ -101,30 +101,31 @@ Feature: Concurrency Stage Update Validation
 #    When the user navigates to the "<PrintForms>" stage
 #    And the user is navigated to a page with title Print sample forms
 #
-    When the user updates the properties file about the completion of mandatory stages
-    And the user submits the referral after the second user edits the stage Notes
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    And the referral status is set to "Submitted"
+    When the user updates the concurrency controller file with Mandatory Stages Completed by User1
+    And the user waits for the update Notes Updated by User2 in the concurrency controller file
+    And the user submits the referral
+#    Then the submission confirmation message "Your referral has been submitted" is displayed
+#    And the referral status is set to "Submitted"
     Examples:
       | PatientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
       | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
 
-  @user_two @Z-LOGOUT
+  @new_referral @Z-LOGOUT
   Scenario Outline: Update the Notes Stage after User One completes all mandatory stages
-    ##Create referral with new patient without providing NHS number
-    Given the second user is logged into the system and accessed the same referral created by the user one
-      | CONCURRENT_USER2_NAME |
+
+    Given The user is login to the Test Order Service and access the given referral
+      | CONCURRENT_USER2_NAME |r20746508541|
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Notes Section
-#    When the user waits for the completion of all mandatory stages for the given referral
-#    And the user navigates to the "<notes>" stage
-#    Then the user is navigated to a page with title Add clinical notes
-#    And the "<notes>" stage is selected
-#    When the user fills in the Add Notes field
-#    And the user clicks the Save and Continue button
-#    Then the "<notes>" stage is marked as Completed
-#    And the user updates the properties file about the update of Stage Notes
+    When the user waits for the update Mandatory Stages Completed by User1 in the concurrency controller file
+    And the user navigates to the "<notes>" stage
+    Then the user is navigated to a page with title Add clinical notes
+    And the "<notes>" stage is selected
+    When the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    Then the "<notes>" stage is marked as Completed
+    And the user updates the concurrency controller file with Notes Updated by User2
 
     Examples:
       | PatientDetails  | notes |

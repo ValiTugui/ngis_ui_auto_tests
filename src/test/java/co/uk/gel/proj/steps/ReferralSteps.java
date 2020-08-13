@@ -519,6 +519,7 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
+        SeleniumLib.takeAScreenShot("ReferalSubmit.jpg");
     }
 
     @When("the user clicks the Cancel referral link")
@@ -777,10 +778,6 @@ public class ReferralSteps extends Pages {
         String userType = attributeOfURL.get(3);
         String referralDetails = attributeOfURL.get(4);
 
-        if(loginWithAnExistingReferral(userType)){
-            return;
-        }
-
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
         if(AppConfig.snapshotRequired){
@@ -895,41 +892,96 @@ public class ReferralSteps extends Pages {
         referralPage.logTheReferralId();
         Debugger.println("Referral Created.....by "+userType);
     }
-    //Added for Concurrency Test
-    @Given("the second user is logged into the system and accessed the same referral created by the user one")
-    public void secondUserLoggedInAndAccessedSameReferralCreatedByUserOne(List<String> attributeOfURL) throws IOException {
 
-        String userType = attributeOfURL.get(0);
-        loginWithAnExistingReferral(userType);
-    }
-    private boolean loginWithAnExistingReferral(String userType){
-        if(!(userType.startsWith(concurrentUser1) || userType.startsWith(concurrentUser2))){
-            return false;//Normal and Super Users
+    //Added for Concurrency Test
+    @Given("The user is login to the Test Order Service and create a new referral")
+    public void theFirstUserLoginToTestOrderAndCreateNewReferral(List<String> attributeOfURL) throws IOException {
+        String baseURL = "TEST_DIRECTORY_PRIVATE_URL";
+        String confirmationPage = "test-selection/clinical-tests";
+        String searchTerm = attributeOfURL.get(0);
+        String userType = attributeOfURL.get(1);
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        Assert.assertTrue(homePage.searchForTheTest(searchTerm));
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
         }
-        String baseURL = ConcurrencyTest.getReferral_base_url();
+        boolean stepResult = false;
+        stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        Assert.assertTrue(stepResult);
+        if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
+            Assert.assertTrue(false);
+        }
+        Debugger.println("User Type : " + userType);
+        if (userType == null || userType.isEmpty()) {
+            Debugger.println("User Type Cannot be null");
+            return;
+        }
+        switchToURL(driver.getCurrentUrl(), userType);
+        stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
+        Assert.assertTrue(stepResult);
+        //Create New NGIS Patient
+        NGISPatientModel searchPatient = new NGISPatientModel();
+        searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+        searchPatient.setNO_NHS_REASON("Patient not eligible for NHS number (e.g. foreign national)");
+        searchPatient.setDATE_OF_BIRTH("25-10-1998");
+        searchPatient.setGENDER("Male");
+        String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
+        if (searchResult.equalsIgnoreCase("No patient found")) {
+            //Create New Patient and Add as Referral
+            if (!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")) {
+                Assert.fail("create a new patient record link not displayed");
+            }
+            if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
+                Assert.fail("Could not click on create a new patient record link");
+            }
+            if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
+                Assert.fail("Could not create new Patient Referral");
+            }
+            if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
+                Assert.fail("Referral successfully created message not displayed.");
+            }
+            if (!referralPage.saveAndContinueButtonIsDisplayed()) {
+                Assert.fail("SaveAndContinue button not displayed after referral creation.");
+            }
+        }
+        //Write to Concurrency File.
+        String referralId = referralPage.getPatientReferralId();
+        referralPage.updateConcurrencyController("ReferralId="+referralId);
+    }
+    @Given("The user is login to the Test Order Service and access the given referral")
+    public void userIsLoginToTheTestOrderServiceAndAccessGivenReferral(List<String> attributeOfURL) throws IOException {
+        String userType = attributeOfURL.get(0);
+        String referralId = attributeOfURL.get(1);
+        String baseURL = "";
+        if(referralId.equalsIgnoreCase("New Referral")){
+            baseURL = ConcurrencyTest.getReferral_base_url();
+        }else{
+            baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/"+referralId;
+        }
         boolean isReferralExists = false;
         if(baseURL != null && !baseURL.isEmpty()){
             isReferralExists = true;
         }else{
-            if(userType.startsWith(concurrentUser1)){//If file not exists, and the user is first user, proceed with new referral
-                return false;
-            }
-           //Wait for 60 seconds to create new referral by the user 1
+            //Wait for 60 seconds to create new referral by another user
            SeleniumLib.sleepInSeconds(60);
         }
+        int count = 1;
         while(!isReferralExists){//Check every 15 seconds, the presence of referral creation by first user
+            count++;
             SeleniumLib.sleepInSeconds(15);
             baseURL = ConcurrencyTest.getReferral_base_url();
             if(baseURL != null && !baseURL.isEmpty()){
                 isReferralExists = true;
             }
+            if(count > 11){
+                break;
+            }
         }
-        if (userType == null || userType.isEmpty()) {
-            userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
+        if(!isReferralExists){
+            Assert.fail("Referral is not exists/not created by another user even after 4 minutes...exiting.");
         }
         switchToURL(baseURL, userType);
         SeleniumLib.sleepInSeconds(10);
-        return true;
    }
 
     @And("^the mandatory fields shown with the symbol in red color$")
@@ -1350,27 +1402,31 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
     }
     //Concurrency
-    @When("the user updates the properties file about the completion of mandatory stages")
-    public void theUserOneNotifiesUser2AboutCompletionOfMandatoryStages() {
-        //Write to the Concurrency.properties file like MandatoryStages:Completed by User1
+    @When("the user updates the concurrency controller file with (.*)")
+    public void theUserUpdateConcurrencyControllerFileWith(String stringToUpdate) {
+        Debugger.println("Writing to File: "+stringToUpdate);
+        boolean testResult = ConcurrencyTest.writeToControllerFile(stringToUpdate);
+        if(!testResult){
+            Assert.fail("Could not write the update:"+stringToUpdate+" to the file.");
+        }
+        Debugger.println("Written to File: "+stringToUpdate);
     }
-    @And("the user submits the referral after the second user edits the stage (.*)")
-    public void theUserSubmitsTheReferralAfterStageEditByUser2(String stage) {
-         //Waiting for the message in Concurrency.properties file - Notes:Updated by User2
-        //After getting the message, then go for Submitting the referral
-        // referralPage.submitReferral();
+    @When("^the user waits for the update (.*) in the concurrency controller file$")
+    public void waitForTheUpdateInConcurrencyControllerFile(String expectedUpdate) {
+        Debugger.println("Reading from File: "+expectedUpdate);
+        try {
+            boolean isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate);;
+            while(!isUpdatePresent){//Check every 30 seconds, the presence of expected update
+                SeleniumLib.sleepInSeconds(30);
+                isUpdatePresent =ConcurrencyTest.verifyTextPresence(expectedUpdate);
+            }
+            if(!isUpdatePresent){
+                Assert.fail("Expected update:"+expectedUpdate+" not updated by any users even after 3 minutes, failing.");
+            }
+            Debugger.println("READ from File: "+expectedUpdate);
+        }catch(Exception exp){
+            Debugger.println("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
+            Assert.fail("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
+        }
     }
-
-    @When("^the user waits for the completion of all mandatory stages for the given referral$")
-    public void waitToCompleteAllMandatoryStages(String stage) {
-        //Waiting for the message in Concurrency.properties file - MandatoryStages:Completed by User1
-        //Wait.for
-    }
-
-    @When("the user updates the properties file about the update of Stage (.*)")
-    public void theUserOneNotifiesUser2AboutCompletionOfMandatoryStages(String stage) {
-        //Write to the Concurrency.properties file like Notes:Updated by User2
-    }
-
-
 }

@@ -1238,10 +1238,12 @@ public class ReferralPage<check> {
     //To log the ReferralId in the Log file.
     public void logTheReferralId() {
         String referralID = getPatientReferralId();
-        ConcurrencyTest.writeToPropertyFile("BASE_URL="+driver.getCurrentUrl());
-        //ConcurrencyTest.setReferral_base_url(driver.getCurrentUrl());
         Debugger.println("ReferralID: "+ referralID);
         Debugger.println("ReferralURL: "+driver.getCurrentUrl());
+    }
+    public void updateConcurrencyController(String dataToWrite) {
+        String referralID = getPatientReferralId();
+        ConcurrencyTest.writeToControllerFile(dataToWrite);
     }
 
     public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
