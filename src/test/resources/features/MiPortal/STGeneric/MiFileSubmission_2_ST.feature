@@ -54,7 +54,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-4938 @MI-LOGOUT
+  @test @NTS-4938 @MI-LOGOUT
   Scenario Outline: NTS-4938:E2EUI-2703: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

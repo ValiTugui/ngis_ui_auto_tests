@@ -158,4 +158,73 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    @FindBy(xpath = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr")
+    public WebElement searchResultRowHeader;
+
+    public boolean doubleClickDataRow() {
+        try {
+            if (!Wait.isElementDisplayed(driver, searchResultRowHeader, 20)) {
+                Debugger.println("Table Header is not display." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TableHeaderNotPresent.jpg");
+                return false;
+            }
+           List <WebElement> tableRows = driver.findElements(By.xpath(glhSamplesTableRows));
+            if (!Wait.isElementDisplayed(driver, tableRows, 20)) {
+                Debugger.println("Table rows are not displayed." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TableRowNotPresent.jpg");
+                return false;
+            }
+
+            seleniumLib.doubleClickOperation(tableRow);
+            Wait.seconds(10);
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+            return false;
+        }
+    }
+
+    @FindBy(xpath = "//div[@id=\"pop-up\"]")
+    public WebElement popUpBox;
+
+//    @FindBy(xpath = "//div[@id=\"pop-up\"]/p")
+//    public WebElement popUpRow;
+    public boolean verifyPopUpBox() {
+
+            try {
+                if (!Wait.isElementDisplayed(driver, popUpBox, 20)) {
+                    Debugger.println("Pop up box is not displayed." + driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("PopUpBoxNotPresent.jpg");
+                    return false;
+                }
+
+                return true;
+            } catch (Exception exp) {
+                Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+                return false;
+            }
+        }
+
+    @FindBy(xpath = "//div[@id=\"pop-up-close-button\"]")
+    public WebElement closePopUp;
+
+    public boolean closePopUpBox() {
+        try {
+            if (!Wait.isElementDisplayed(driver, closePopUp, 20)) {
+                Debugger.println("Pop up close icon is not displayed." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("closeIconNotPresent.jpg");
+                return false;
+            }
+seleniumLib.clickOnWebElement(closePopUp);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+            return false;
+        }
+    }
 }

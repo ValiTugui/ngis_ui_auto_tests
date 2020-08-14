@@ -172,8 +172,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "tilesHolder")
     public WebElement logOutEmail;
 
-    @FindBy(xpath = "//ul[contains(string(),'Participant NHS Spine Data')]")
-    public WebElement nhsSpineData;
+
 
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
@@ -210,20 +209,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }//end
-    public boolean verifyThePresenceOfParticipantNHSSpineDataMenu() {
-        try {
-            if (!Wait.isElementDisplayed(driver, nhsSpineData, 60)) {
-                Debugger.println("Participant NHS Spine Data header is not displayed even after 60 seconds.");
-                SeleniumLib.takeAScreenShot("NhsSpineDataMenu.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from verifyThePresenceOfDataQualityMenu:" + exp);
-            SeleniumLib.takeAScreenShot("NhsSpineDataMenuu.jpg");
-            return false;
-        }
-    }
 
     public boolean searchBoxContainerIsDisplayed() {
         try {
@@ -1792,5 +1777,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Exception from Logging out from MI...."+exp);
         }
     }
+
 }
 

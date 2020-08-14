@@ -446,12 +446,7 @@ public class MilHomePageSteps extends Pages {
         testResult = miPortalHomePage.verifyThePresenceOfDataQualityMenu();
         Assert.assertTrue(testResult);
     }
-    @And("the user should be able to see Participant NHS Spine Data menu is displayed")
-    public void theUserShouldBeAbleToSeeNHSSpineDataMenuIsDisplayed() {
-        boolean testResult = false;
-        testResult = miPortalHomePage.verifyThePresenceOfParticipantNHSSpineDataMenu();
-        Assert.assertTrue(testResult);
-    }
+
 
     @Then("the user should be able to see the below header sections in Sample Processing")
     public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInSampleProcessing(DataTable inputSections) {
@@ -630,4 +625,7 @@ public class MilHomePageSteps extends Pages {
     public void theUserClicksTheMIPortalLogOutButton() {
         miPortalHomePage.logOutFromMIPortal();
     }
+
+
 }
+
