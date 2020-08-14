@@ -100,8 +100,6 @@ Feature: MIPORTAL ST -  Glh Samples
     And the row values displayed in the pop up window is matches with the selected row
     And the user clicks on the pop up close icon
 
-
-
     Examples:
       | mi_stage   | any          |
       | GLH Samples| London South |

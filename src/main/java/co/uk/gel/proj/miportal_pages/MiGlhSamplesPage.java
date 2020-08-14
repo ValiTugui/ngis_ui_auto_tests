@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -170,13 +171,18 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
            List <WebElement> tableRows = driver.findElements(By.xpath(glhSamplesTableRows));
-            if (!Wait.isElementDisplayed(driver, tableRows, 20)) {
-                Debugger.println("Table rows are not displayed." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("TableRowNotPresent.jpg");
-                return false;
+            if(tableRows.size() < 1){
+                //Return with proper message
             }
+            WebElement firstRow = tableRows.get(0);
+            List<WebElement> rowColumns = driver.findElements(By.xpath(glhSamplesTableRows+"[1]/td"));
+            String[] rowValues = new String[rowColumns.size()];
+            for(int i=1; i<rowColumns.size(); i++){
+                rowValues[i-1] = rowColumns.get(i).getText();
+            }
+            seleniumLib.doubleClickOperation(firstRow);
 
-            seleniumLib.doubleClickOperation(tableRow);
+            //verifyPopUpBox(rowValues);
             Wait.seconds(10);
 
             return true;
@@ -192,21 +198,34 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
 //    @FindBy(xpath = "//div[@id=\"pop-up\"]/p")
 //    public WebElement popUpRow;
-    public boolean verifyPopUpBox() {
-
-            try {
-                if (!Wait.isElementDisplayed(driver, popUpBox, 20)) {
-                    Debugger.println("Pop up box is not displayed." + driver.getCurrentUrl());
-                    SeleniumLib.takeAScreenShot("PopUpBoxNotPresent.jpg");
-                    return false;
+    public boolean verifyPopUpBox(String[] rowValues) {
+            //List of WebElements
+        List<WebElement> popupList = driver.findElements(By.xpath(glhSamplesTableRows+"[1]/td"));
+        boolean isPresent = false;
+        for(int i=0; i<rowValues.length; i++){
+            for(int j=1; j<popupList.size();j++){
+                if(rowValues[i].equalsIgnoreCase(popupList.get(j).getText())){
+                    isPresent = true;
+                    break;
                 }
-
-                return true;
-            } catch (Exception exp) {
-                Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
-                return false;
             }
+            if(!isPresent){
+                Assert.fail("Expected Value: "+rowValues[i]+" Not present in the popup.");
+            }
+        }
+//            try {
+//                if (!Wait.isElementDisplayed(driver, popUpBox, 20)) {
+//                    Debugger.println("Pop up box is not displayed." + driver.getCurrentUrl());
+//                    SeleniumLib.takeAScreenShot("PopUpBoxNotPresent.jpg");
+//                    return false;
+//                }
+//
+//                return true;
+//            } catch (Exception exp) {
+//                Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
+//                SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+//                return false;
+//            }
         }
 
     @FindBy(xpath = "//div[@id=\"pop-up-close-button\"]")
