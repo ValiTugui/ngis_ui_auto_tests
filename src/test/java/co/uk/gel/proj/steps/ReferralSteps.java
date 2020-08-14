@@ -909,7 +909,7 @@ public class ReferralSteps extends Pages {
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
         String testResult = "";
         List<List<String>> fieldDetails = fields.asLists();
-         for (int i = 1; i < fieldDetails.size(); i++) {
+        for (int i = 1; i < fieldDetails.size(); i++) {
             testResult = referralPage.verifyBlankMandatoryFieldLabelColor(fieldDetails.get(i).get(0), fieldDetails.get(i).get(1));
             Assert.assertEquals("Success",testResult);
             Wait.seconds(2);
