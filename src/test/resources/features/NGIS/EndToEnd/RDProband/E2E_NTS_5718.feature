@@ -2,7 +2,7 @@ Feature: RD Duo Family : NTS-5718: Submit a referral by creating a new patient a
 
   @NTS-5718 @Z-LOGOUT
     #E2EUI-2777
-  Scenario Outline: NTS-5718: User should see the valid message generated in the GEL 1001 file if Age of mother is less than 12 when child was born and process GEL 1001
+  Scenario Outline: NTS-5718: Submit a referral by creating a new patient and provide any other valid NHS number in the GEL 1001 CSV
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -18,23 +18,23 @@ Feature: RD Duo Family : NTS-5718: Submit a referral by creating a new patient a
     And the user clicks the Search button
     Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
-    And the "<pageTitle>" page is displayed
+    And the "Create a record for this patient" page is displayed
     When the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber "Patient not eligible for NHS number (e.g. foreign national)"
     And the user clicks the Save patient details to NGIS button
     Then the patient is successfully created with a message "NGIS patient record created"
     Then the user clicks the Start Referral button to display the referral page
- ##Patient Details
+    ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-     ##Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Greater Manchester Mental Health" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     When the user clicks the Save and Continue button
     Then the "<RequestingOrganisation>" stage is marked as Completed
- ##Test Package - proband only
+    ##Test Package - proband only
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
@@ -57,7 +57,7 @@ Feature: RD Duo Family : NTS-5718: Submit a referral by creating a new patient a
     ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
-     ##Patient Choice
+    ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
@@ -92,5 +92,5 @@ Feature: RD Duo Family : NTS-5718: Submit a referral by creating a new patient a
     Then the referral status is set to "Submitted"
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                        | PatientDetails  | RequestingOrganisation  |TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
-      | No patient found | create a new patient record | Create a record for this patient | Patient details | Requesting organisation |Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | message          | hyperlinkText               | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | No patient found | create a new patient record | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
