@@ -156,7 +156,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                     if (!cellValue.contains(expValue)) {
                         Debugger.println("Column:" + columnName + " value, Expected:" + expValue + ",Actual:" + cellValue);
                         SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
-                        return true;
+                        return false;
                     }
                 }
             }

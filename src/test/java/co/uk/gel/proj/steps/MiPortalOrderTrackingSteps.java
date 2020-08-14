@@ -47,11 +47,11 @@ public class MiPortalOrderTrackingSteps extends Pages {
         }else if(searchValue.indexOf(",") != -1){
             String[] values = searchValue.split(",");
             Wait.seconds(3);
-            for (int i = 0; i < values.length; i++) {
+            for(int i=0; i<values.length; i++){
                 testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(values[i]);
-                if (!testResult) {
-                    Debugger.println("URL:" + driver.getCurrentUrl());
-                    Assert.fail(values[i] + " not found in Order Tracking Search Value DropDown.");
+                if(!testResult){
+                    Debugger.println("URL:"+driver.getCurrentUrl());
+                    Assert.fail(values[i]+" not found in Order Tracking Search Value DropDown.");
                 }
                 Wait.seconds(3);
             }
@@ -115,14 +115,14 @@ public class MiPortalOrderTrackingSteps extends Pages {
         }
     }
     @Then("the order tracking search result table column (.*) is displayed with data (.*)")
-    public void theOrderTrackingSearchResultIsDisplayedWithData(String columnName, String columnValue) {
+    public void theOrderTrackingSearchResultIsDisplayedWithData(String columnName,String columnValue) {
         boolean testResult = false;
-        testResult = miOrderTrackingPage.verifyColumnValueInOrderTrackingSearchResultTable(columnName, columnValue);
+        testResult = miOrderTrackingPage.verifyColumnValueInOrderTrackingSearchResultTable(columnName,columnValue);
         Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see the different values between columns (.*) and (.*)")
-    public void theUserShouldBeAbleToSeeDifferentValuesBtweenColumns(String columnName1, String columnName2) {
+    public void theUserShouldBeAbleToSeeDifferentValuesBtweenColumns(String columnName1,String columnName2) {
         boolean testresult = false;
         testresult = miOrderTrackingPage.verifyOrderTrackingResultColumnValuesDifference(columnName1, columnName2);
         Assert.assertTrue(testresult);

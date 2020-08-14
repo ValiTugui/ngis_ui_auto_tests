@@ -162,7 +162,7 @@ public class DashBoardPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception form verifyTheDashboardTabs :" + exp);
+            Debugger.println("Exception from DashBoardPage, verifyTheDashboardTabs " + exp);
             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
             return false;
         }
