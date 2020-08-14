@@ -151,20 +151,12 @@ public class MiPortalGlhSamplesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user double clicks on any data table row")
+    @When("the user double clicks on any data table row and a pop up box is displayed with the row values")
     public void theUserDoubleClicksOnAnyDataTableRow() {
         boolean testresult = false;
         testresult = miGlhSamplesPage.doubleClickDataRow();
         Assert.assertTrue(testresult);
-
-    }
-
-    @Then("the user sees a pop up box")
-    public void theUserSeesAPopUpBox() {
-        boolean testresult = false;
-        testresult = miGlhSamplesPage.verifyPopUpBox();
-        Assert.assertTrue(testresult);
-    }
+        }
 
     @And("the user clicks on the pop up close icon")
     public void theUserClicksOnThePopUpCloseIcon() {
@@ -172,4 +164,6 @@ public class MiPortalGlhSamplesSteps extends Pages {
         testresult = miGlhSamplesPage.closePopUpBox();
         Assert.assertTrue(testresult);
     }
+
+
 }

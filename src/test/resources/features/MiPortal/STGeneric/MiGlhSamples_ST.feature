@@ -95,9 +95,7 @@ Feature: MIPORTAL ST -  Glh Samples
     When the user click on the Search button
     Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the glh search result table column GEL1001 Filename is displayed with data gel
-    When the user double clicks on any data table row
-    Then the user sees a pop up box
-    And the row values displayed in the pop up window is matches with the selected row
+    Then the user double clicks on any data table row and a pop up box is displayed with the row values
     And the user clicks on the pop up close icon
 
     Examples:
