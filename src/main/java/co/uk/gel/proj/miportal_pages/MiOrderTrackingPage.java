@@ -57,12 +57,12 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectOrderTrackingDropDownSearchColumn(String value) {
         try {
             if(!seleniumLib.selectFromListByText(orderTrackSearchColumn,value)){
-                Wait.seconds(3);
+                Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchColumn: " + exp);
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchColumn: "+ exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchColumn.jpg");
             return false;
         }
@@ -76,7 +76,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: " + exp);
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: "+ exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchOperator.jpg");
             return false;
         }
@@ -86,7 +86,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(3);
             if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
                 Wait.seconds(5);
-                if(!seleniumLib.selectFromListByText(orderTrackSearchValue, value)){
+                if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
                     By optionPath = By.xpath("//ul//li/a/span[contains(text(),'"+value+"')]");
                     seleniumLib.clickOnElement(optionPath);
                 }
@@ -96,7 +96,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             By searchValue = By.xpath("//select[@id='order_tracking-search-value']");
             return seleniumLib.optionFromListByText(searchValue,value);
         }catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: " + exp);
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
@@ -113,7 +113,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             seleniumLib.sendValue(orderTrackSearchInput,value);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:enterOrderTrackingTextSearchValue: " + exp);
+            Debugger.println("Exception in MIPortalOrderTracking:enterOrderTrackingTextSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("enterOrderTrackingTextSearchValue.jpg");
             return false;
         }
