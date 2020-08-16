@@ -249,7 +249,7 @@ public class BrowserFactory {
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
         chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
-        chromeLocalOptions.setHeadless(true);
+        //chromeLocalOptions.setHeadless(true);
         return chromeLocalOptions;
     }
 
