@@ -199,6 +199,9 @@ public class BrowserFactory {
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir", downloadFilepath());
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", applicationType);
+        profile.setPreference("network.proxy.type", 1);
+        profile.setPreference("network.proxy.http", "proxy-dmz.gel.zone");
+        profile.setPreference("network.proxy.http_port", "80");
         if (null != userAgent) {
             profile.setPreference("general.useragent.override", userAgent);
         }
