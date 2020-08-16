@@ -239,8 +239,6 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
-        chromeLocalOptions.addArguments("--headless");
-        chromeLocalOptions.addArguments("--whitelisted-ips");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
