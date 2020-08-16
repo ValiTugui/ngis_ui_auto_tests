@@ -243,13 +243,13 @@ public class BrowserFactory {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
         chromeLocalOptions.setExperimentalOption("prefs", downloadPathsetup());
+        chromeLocalOptions.addArguments("--headless");
         if (!javascriptEnabled) {
             chromeLocalOptions.addArguments("disable-javascript");
         }
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
         chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
-        //chromeLocalOptions.setHeadless(true);
         return chromeLocalOptions;
     }
 
