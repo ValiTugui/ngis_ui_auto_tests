@@ -243,7 +243,6 @@ public class BrowserFactory {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
         chromeLocalOptions.setExperimentalOption("prefs", downloadPathsetup());
-        chromeLocalOptions.addArguments("--headless");
         if (!javascriptEnabled) {
             chromeLocalOptions.addArguments("disable-javascript");
         }
