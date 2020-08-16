@@ -396,6 +396,10 @@ public class BrowserFactory {
         } catch (Exception exp) {
             System.out.println("Exception in creating download directory..." + exp);
         }
+        profile.setPreference("browser.cache.disk.enable", false);
+        profile.setPreference("browser.cache.memory.enable", false);
+        profile.setPreference("browser.cache.offline.enable", false);
+        profile.setPreference("network.http.use-cache", false);
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir", downloadFilepath);
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
