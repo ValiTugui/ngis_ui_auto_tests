@@ -225,7 +225,7 @@ public class MilHomePageSteps extends Pages {
         List <List<String>> expectedListOfColumnHeaders = dataTable.asLists();
         boolean testResult = false;
         testResult = miPortalHomePage.verifyListOfColumnsInHeaderShowOrHidden(expColumnHeaderStatus,expectedListOfColumnHeaders);
-        Assert.assertFalse(testResult);
+        Assert.assertTrue(testResult);
     }
     @And("the user sees the displayed fields-columns under {string} section as empty")
     public void theUserSeesTheDisplayedFieldsColumnsUnderSectionAsEmpty(String expColumnHeaderStatus) {
