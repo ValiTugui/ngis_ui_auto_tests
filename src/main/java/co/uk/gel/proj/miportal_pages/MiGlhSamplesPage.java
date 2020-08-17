@@ -186,11 +186,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             List<WebElement> rowColumns = driver.findElements(By.xpath(glhSamplesTableRows + "[1]/td"));
             String[] rowValues = new String[rowColumns.size()];
             for (int i = 0; i < rowColumns.size(); i++) {
-                Debugger.println("Setting RowValue: "+(i+1)+"."+tableHeads.get(i).getText()+": "+rowColumns.get(i).getText());
                 rowValues[i] = tableHeads.get(i).getText()+": "+rowColumns.get(i).getText();
             }
             seleniumLib.doubleClickOperation(firstRow);
-            Debugger.println("Double Clicked on First Row....");
             boolean result =verifyPopUpBox(rowValues);
             Wait.seconds(10);
 
@@ -210,7 +208,6 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 if(rowValues[i] == null){
                     continue;
                 }
-                Debugger.println("Verifying RowValue: "+(i+1)+"."+rowValues[i]);
                 for (int j = 0; j < popupList.size(); j++) {
                     if(popupList.get(j).getText() == null){
                         continue;
