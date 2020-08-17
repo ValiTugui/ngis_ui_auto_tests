@@ -239,8 +239,8 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
-        chromeLocalOptions.addArguments("--disable-gpu");
-        chromeLocalOptions.addArguments("--no-sandbox");
+        //chromeLocalOptions.addArguments("--disable-gpu");
+        //chromeLocalOptions.addArguments("--no-sandbox");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
