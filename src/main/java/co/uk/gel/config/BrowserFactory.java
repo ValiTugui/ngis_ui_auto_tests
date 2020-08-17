@@ -242,6 +242,7 @@ public class BrowserFactory {
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
         chromeLocalOptions.addArguments("--headless");
+        chromeLocalOptions.AddArgument("--whitelisted-ips");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
