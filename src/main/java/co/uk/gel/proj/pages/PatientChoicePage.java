@@ -386,6 +386,7 @@ public class PatientChoicePage {
             return isFound;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
+            Debugger.println("Url for the failure "+ driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("patientChoice.jpg");
             return false;
         }
