@@ -1,23 +1,23 @@
 @PANEL_E2E_RT
-@Panel_UJ_2
-Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
+@Panel_UJ_8
+Feature: E2E with PanelAssigner: Selection of Panels for a referral which has more than 10 additional panels
 
-  @NTS-5803 @Z-LOGOUT
-  Scenario Outline: NTS-5803:E2EUI-2975: Create and submit a referral with suggested panels and a new panel then verify the payload.
+  @NTS-5770 @Z-LOGOUT
+  Scenario Outline: NTS-5802:E2EUI-2686: Create and submit a referral with suggested panels and 10 plus additional panels and process CSVs and check the DDF payload.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-1988:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=12-08-1988:Gender=Male |
      ###Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
      ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
+    And the user enters the keyword "Central and North West London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
      ###Test Package - proband only
-    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
@@ -58,11 +58,12 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-     ###Panels suggested and new addition
+     ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     And the user sees suggested panels under the section Suggestions based on the clinical information
     And the user search and add the "<SearchPanels>" panels
+    And the user sees the selected "<SearchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
      ###Pedigree
@@ -76,5 +77,5 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | SearchPanels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Cataracts    | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | SearchPanels                                                                                                                                                                                                                                                                                                                      | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Amyloidosis,Arthrogryposis,Hereditary ataxia - adult onset,Atypical haemolytic uraemic syndrome,Cardiac arrhythmias,Cardiomyopathies - including childhood onset,Cataracts,Cerebral malformations,Cerebral vascular malformations,Childhood onset dystonia or chorea or related movement disorder,Lipodystrophy - childhood onset | Pedigree |

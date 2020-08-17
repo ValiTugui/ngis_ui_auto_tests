@@ -84,4 +84,12 @@ public class MiPortalSequencerSamplesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user sees the fields are not displayed under the {string} section")
+    public void theUserSeesTheFieldsAreNotDisplayedUnderTheSection(String expColumnHeaderStatus, DataTable dataTable) {
+        Wait.seconds(2);
+        List <List<String>> expectedListOfColumnHeaders = dataTable.asLists();
+        boolean testResult = false;
+        testResult = miSequencerSamplesPage.verifyListOfColumnsInHeaderShowOrHidden(expColumnHeaderStatus,expectedListOfColumnHeaders);
+        Assert.assertFalse(testResult);
+    }
 }

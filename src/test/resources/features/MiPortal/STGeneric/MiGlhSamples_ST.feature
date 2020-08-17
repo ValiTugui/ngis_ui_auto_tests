@@ -81,3 +81,23 @@ Feature: MIPORTAL ST -  Glh Samples
     Examples:
       | mi_stage    |
       | GLH Samples |
+
+  @NTS-6446
+  Scenario Outline: A pop-up containing all the rows values on double-clicking on a particular table row should be displayed
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    When the user selects GLH as the glh search column dropdown
+    And the user selects is as the glh search operator dropdown
+    And the user selects <any> as the glh search value dropdown
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
+    And the glh search result table column GEL1001 Filename is displayed with data gel
+    Then the user double clicks on any data table row and a pop up box is displayed with the row values
+    And the user clicks on the pop up close icon
+
+    Examples:
+      | mi_stage   | any          |
+      | GLH Samples| London North |

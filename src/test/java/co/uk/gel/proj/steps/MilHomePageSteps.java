@@ -447,6 +447,7 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+
     @Then("the user should be able to see the below header sections in Sample Processing")
     public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInSampleProcessing(DataTable inputSections) {
         try {
@@ -624,4 +625,7 @@ public class MilHomePageSteps extends Pages {
     public void theUserClicksTheMIPortalLogOutButton() {
         miPortalHomePage.logOutFromMIPortal();
     }
+
+
 }
+

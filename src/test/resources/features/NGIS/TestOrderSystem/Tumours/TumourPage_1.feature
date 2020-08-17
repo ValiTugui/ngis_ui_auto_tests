@@ -16,7 +16,7 @@ Feature: TestOrder - Tumours Page - 1
       | Tumours |
 
   @NTS-3165 @Z-LOGOUT
-#    @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @E2EUI-1515
+#    @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @E2EUI-1515 @NTS-6342
   Scenario Outline: NTS-3165:E2EUI-823,1120,1026,1515: Text information for user on Tumour referral page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
@@ -105,3 +105,5 @@ Feature: TestOrder - Tumours Page - 1
 #    Examples:
 #      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
 #      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
+
+

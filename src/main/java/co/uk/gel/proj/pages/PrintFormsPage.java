@@ -10,6 +10,7 @@ import co.uk.gel.proj.util.TestUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -102,6 +103,8 @@ public class PrintFormsPage {
     @FindBy(xpath = "//span[contains(.,'Proband')]/ancestor::div[contains(@class,'participant-list')]/div[2]//span[@class='child-element']")
     WebElement relationshipToProbandField;
 
+    String familyFormDownloadButtonPath = "//span[text()='dummyDob']/../../../following-sibling::button";
+
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
         try {
@@ -117,6 +120,29 @@ public class PrintFormsPage {
             TestUtils.moveDownloadedFileTo("SampleForm", folder, ".pdf");
         } catch (Exception exp) {
             Debugger.println("Exception from  downloading Print form :" + exp);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean downloadSpecificPrintFormForDOB(NGISPatientModel familyMember, String folder) {
+        try {
+            String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
+            Debugger.println("Family Member DOB to download form: " + dob);
+            String downloadButtonPath=familyFormDownloadButtonPath.replace("dummyDob",dob);
+            WebElement familyFormDownloadButton= driver.findElement(By.xpath(downloadButtonPath));
+            //Delete if File already present
+            //Debugger.println("Deleting Files if Present...");
+            TestUtils.deleteIfFilePresent("SampleForm", folder);
+            Wait.forElementToBeDisplayed(driver, landingPageList);
+            String urlToDownload = familyFormDownloadButton.getAttribute("href");
+            TestUtils.downloadFile(urlToDownload, "SampleForm.pdf", folder);
+            Click.element(driver, familyFormDownloadButton);
+            Wait.seconds(10);
+            ///Move file to RD folder
+            TestUtils.moveDownloadedFileTo("SampleForm", folder, ".pdf");
+        } catch (Exception exp) {
+            Debugger.println("Exception from  downloading Family member Print form :" + exp);
             return false;
         }
         return true;

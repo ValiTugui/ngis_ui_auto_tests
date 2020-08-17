@@ -835,5 +835,14 @@ public class SeleniumLib {
         }
     }
 
+    public void doubleClickOperation(WebElement element) {
+        try {
+            Actions action = new Actions(driver);
+            action.doubleClick(element).perform();
+        } catch (NoSuchElementException exp) {
+            exp.printStackTrace();
+        }
+    }
+
 }//end
 
