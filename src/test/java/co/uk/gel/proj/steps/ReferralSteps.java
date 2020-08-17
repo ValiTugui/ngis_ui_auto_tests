@@ -900,6 +900,8 @@ public class ReferralSteps extends Pages {
         String confirmationPage = "test-selection/clinical-tests";
         String searchTerm = attributeOfURL.get(0);
         String userType = attributeOfURL.get(1);
+        String referralType = attributeOfURL.get(2);
+        String filePrefix = attributeOfURL.get(3);
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
         if(AppConfig.snapshotRequired){
@@ -946,18 +948,23 @@ public class ReferralSteps extends Pages {
         }
         //Write to Concurrency File.
         String referralId = referralPage.getPatientReferralId();
-        ConcurrencyTest.setReferral_id(referralId);
-        ConcurrencyTest.writeToControllerFile("ReferralId="+referralId);
+        ConcurrencyTest.setReferral_id(referralId,filePrefix);
+        SeleniumLib.sleepInSeconds(5);
+        ConcurrencyTest.writeToControllerFile(filePrefix,"ReferralId="+referralId);
     }
     @Given("The user is login to the Test Order Service and access the given referral")
     public void userIsLoginToTheTestOrderServiceAndAccessGivenReferral(List<String> attributeOfURL) throws IOException {
         String userType = attributeOfURL.get(0);
         String referralId = attributeOfURL.get(1);
+        String filePrefix = attributeOfURL.get(2);
         String baseURL = "";
         if(referralId.equalsIgnoreCase("New Referral")){
-            baseURL = ConcurrencyTest.getReferral_base_url();
+            Debugger.println("New Referral: Getting BaseURL...");
+            baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
+            Debugger.println("BaseURL...is..."+baseURL);
         }else{
-            ConcurrencyTest.setReferral_id(referralId);
+            ConcurrencyTest.setReferral_id(referralId,filePrefix);
+            ConcurrencyTest.writeToControllerFile(filePrefix,"ReferralId="+referralId);
             baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/"+referralId;
         }
         boolean isReferralExists = false;
@@ -971,7 +978,7 @@ public class ReferralSteps extends Pages {
         while(!isReferralExists){//Check every 15 seconds, the presence of referral creation by first user
             count++;
             SeleniumLib.sleepInSeconds(15);
-            baseURL = ConcurrencyTest.getReferral_base_url();
+            baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
             if(baseURL != null && !baseURL.isEmpty()){
                 isReferralExists = true;
             }
@@ -1405,31 +1412,50 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
     }
     //Concurrency
-    @When("the user updates the concurrency controller file with (.*)")
-    public void theUserUpdateConcurrencyControllerFileWith(String stringToUpdate) {
+    @When("the user updates the file (.*) with (.*)")
+    public void theUserUpdateConcurrencyControllerFileWith(String filePrefix,String stringToUpdate) {
         Debugger.println("Writing to File: "+stringToUpdate);
-        boolean testResult = ConcurrencyTest.writeToControllerFile(stringToUpdate);
+        boolean testResult = ConcurrencyTest.writeToControllerFile(filePrefix,stringToUpdate);
         if(!testResult){
             Assert.fail("Could not write the update:"+stringToUpdate+" to the file.");
         }
         Debugger.println("Written to File: "+stringToUpdate);
     }
-    @When("^the user waits for the update (.*) in the concurrency controller file$")
-    public void waitForTheUpdateInConcurrencyControllerFile(String expectedUpdate) {
+    @When("^the user waits max (\\d+) minutes for the update (.*) in the file (.*)$")
+    public void waitForTheUpdateInConcurrencyControllerFile(int waitTime,String expectedUpdate,String filePrefix) {
         Debugger.println("Reading from File: "+expectedUpdate);
         try {
-            boolean isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate);;
+            boolean isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate,filePrefix);
+            int actWaitTime=0;
+            Debugger.println("Waiting max for (mins): "+waitTime);
             while(!isUpdatePresent){//Check every 30 seconds, the presence of expected update
                 SeleniumLib.sleepInSeconds(30);
-                isUpdatePresent =ConcurrencyTest.verifyTextPresence(expectedUpdate);
+                isUpdatePresent =ConcurrencyTest.verifyTextPresence(expectedUpdate,filePrefix);
+                actWaitTime = actWaitTime+30;
+                if(actWaitTime > (waitTime*60)){
+                    break;
+                }
             }
             if(!isUpdatePresent){
-                Assert.fail("Expected update:"+expectedUpdate+" not updated by any users even after 3 minutes, failing.");
+                Assert.fail("Expected update:"+expectedUpdate+" not updated by any users even after "+waitTime+" minutes, failing.");
             }
             Debugger.println("READ from File: "+expectedUpdate);
         }catch(Exception exp){
             Debugger.println("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
             Assert.fail("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
+        }
+    }
+    //Notification popup
+    @Then("the user sees a prompt alert {string} after clicking {string} button and click on {string} to validate the data")
+    public void theuserseesapromptalerafterclickingonReferralbuttonandclickonReloadReferral(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
+        String actualAlertMessage;
+        if (browserInteraction.equals("Submit")) {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopup_ReferralSubmit(acknowledgeAlertPopup);
+            Debugger.println("User is able to click on Referral Reload by clicking on Submit button");
+            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+        }  else {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
         }
     }
 }

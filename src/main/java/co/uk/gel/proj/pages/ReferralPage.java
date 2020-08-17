@@ -1,23 +1,17 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.proj.util.ConcurrencyTest;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
-import javax.swing.text.Style;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +24,9 @@ public class ReferralPage<check> {
     SeleniumLib seleniumLib;
     protected String concurrentUser1 = "CONCURRENT_USER1";
     protected String concurrentUser2 = "CONCURRENT_USER2";
+    protected String concurrentUser3 = "CONCURRENT_USER3";
+    protected String concurrentUser4 = "CONCURRENT_USER4";
+    protected String concurrentUser5 = "CONCURRENT_USER5";
 
     public ReferralPage(WebDriver driver) {
         this.driver = driver;
@@ -571,6 +568,26 @@ public class ReferralPage<check> {
         return actualAlertText;
     }
 
+    public String acknowledgeThePromptAlertPopup_ReferralSubmit(String acknowledgeMessage) {
+        String actualAlertText = null;
+        if (acknowledgeMessage.equalsIgnoreCase("Reload referral")) {
+            //Wait.forAlertToBePresent(driver);//Some times alert not present, handled with an exception
+            Wait.seconds(2);
+            try {
+                actualAlertText = driver.switchTo().alert().getText();
+                Actions.acceptAlert(driver);
+            } catch (NoAlertPresentException ex) {
+                Debugger.println("Expected alert message, but not present.");
+                SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
+            }
+            Debugger.println("Accepted the alert message :: " + actualAlertText);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        }
+        return actualAlertText;
+    }
+
+
+
     public boolean clickLogoutButton() {
         try {
             Actions.clickElement(driver, logoutButton);
@@ -824,9 +841,10 @@ public class ReferralPage<check> {
     public void submitReferral() {
         try {
             if (Wait.isElementDisplayed(driver, submitReferralButton, 100)) {
-                Actions.clickElement(driver, submitReferralButton);
+                seleniumLib.clickOnWebElement(submitReferralButton);
                 Debugger.println("Referral submitted...");
             }
+            return ;
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Referral " + exp);
             SeleniumLib.takeAScreenShot("submitReferral.jpg");
@@ -1974,14 +1992,22 @@ public class ReferralPage<check> {
         Actions.deleteCookies(driver);
         String nhsMail = "";
         String nhsPassword = "";
+        Debugger.println("Logging to TOMS as2 "+userType);
         if(userType.startsWith(concurrentUser1)){
-            Debugger.println("Logging to TOMS as1 "+userType);
             nhsMail = AppConfig.getConcurrent_user1_username();
             nhsPassword = AppConfig.getConcurrent_user1_password();
         }else if(userType.startsWith(concurrentUser2)){
-            Debugger.println("Logging to TOMS as2 "+userType);
             nhsMail = AppConfig.getConcurrent_user2_username();
             nhsPassword = AppConfig.getConcurrent_user2_password();
+        }else if(userType.startsWith(concurrentUser3)){
+            nhsMail = AppConfig.getConcurrent_user3_username();
+            nhsPassword = AppConfig.getConcurrent_user3_password();
+        }else if(userType.startsWith(concurrentUser4)){
+            nhsMail = AppConfig.getConcurrent_user4_username();
+            nhsPassword = AppConfig.getConcurrent_user4_password();
+        }else if(userType.startsWith(concurrentUser5)){
+            nhsMail = AppConfig.getConcurrent_user5_username();
+            nhsPassword = AppConfig.getConcurrent_user5_password();
         }else{
             nhsMail = AppConfig.getApp_username();
             nhsPassword = AppConfig.getApp_password();

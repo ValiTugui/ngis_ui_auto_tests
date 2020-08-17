@@ -1,39 +1,44 @@
 package co.uk.gel.proj.util;
 
 import java.io.*;
-import java.util.Properties;
 import java.util.Scanner;
 
 public class ConcurrencyTest {
 
     public static String referral_id;
     public static String referral_base_url;
-    static String concurrencyController = "ConcurrencyController";
+    static String fileLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "Concurrency"+ File.separator;
 
-    public static String getReferral_base_url() {
+    public static String getReferral_base_url(String filePrefix) {
        if(referral_base_url == null){
-           checkReferralId();
+           checkReferralId(filePrefix);
            if(referral_id != null && !referral_id.isEmpty()){
                referral_base_url = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/"+referral_id;
            }
        }
         return referral_base_url;
     }
-    public static void setReferral_id(String referralId){
+    public static void setReferral_id(String referralId,String filePrefix){
+        Debugger.println("Setting ReferralID at: "+referralId);
         referral_id = referralId;
-        try{
-            File file = new File(concurrencyController+"_"+referral_id+".txt");
+         try{
+            File dirPath = new File(fileLocation);
+            if(!dirPath.exists()){
+                dirPath.mkdirs();
+            }
+            File file = new File(fileLocation+filePrefix+".txt");
             if(!file.exists()){
                 file.createNewFile();
-                Debugger.println("File: "+concurrencyController+"_"+referral_id+".txt created.");
+                Debugger.println("File: "+fileLocation+filePrefix+".txt created.");
             }
         }catch(Exception exp){
 
         }
     }
-    public static void checkReferralId () {
+    public static void checkReferralId (String filePrefix) {
         try {
-            File file = new File(concurrencyController+"_"+referral_id+".txt");
+            Debugger.println("Checking ReferralId IN:"+fileLocation+filePrefix+".txt");
+            File file = new File(fileLocation+filePrefix+".txt");
             Scanner scanner = new Scanner(file);
             String line = "";
             while(scanner.hasNextLine()){
@@ -44,13 +49,13 @@ public class ConcurrencyTest {
                 }
             }
         }catch (Exception exp) {
-            Debugger.println("Exception in getReferralId:"+exp);
+            Debugger.println("Exception in getReferralId:Yet to be created.");
         }
     }
-    public static boolean verifyTextPresence (String dataToVerify) {
+    public static boolean verifyTextPresence (String dataToVerify,String filePrefix) {
         try {
             boolean isPresent = false;
-            File file = new File(concurrencyController+"_"+referral_id+".txt");
+            File file = new File(fileLocation+filePrefix+".txt");
             Scanner scanner = new Scanner(file);
             String line = "";
             while(scanner.hasNextLine()){
@@ -66,10 +71,9 @@ public class ConcurrencyTest {
             return false;
         }
     }
-    public static boolean writeToControllerFile (String dataToWrite) {
+    public static boolean writeToControllerFile (String filePrefix,String dataToWrite) {
         try {
-
-            FileWriter file = new FileWriter(concurrencyController+"_"+referral_id+".txt", true);
+            FileWriter file = new FileWriter(fileLocation+filePrefix+".txt", true);
             file.write(dataToWrite);
             file.write("\n");
             file.close();
