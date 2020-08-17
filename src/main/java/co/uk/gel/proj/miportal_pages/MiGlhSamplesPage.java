@@ -181,14 +181,16 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("TableRowNotPresent.jpg");
                 return false;
             }
-
+            List<WebElement> tableHeads = driver.findElements(By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th"));
             WebElement firstRow = tableRows.get(0);
             List<WebElement> rowColumns = driver.findElements(By.xpath(glhSamplesTableRows + "[1]/td"));
             String[] rowValues = new String[rowColumns.size()];
-            for (int i = 1; i < rowColumns.size(); i++) {
-                rowValues[i - 1] = rowColumns.get(i).getText();
+            for (int i = 0; i < rowColumns.size(); i++) {
+                Debugger.println("Setting RowValue: "+(i+1)+"."+tableHeads.get(i).getText()+": "+rowColumns.get(i).getText());
+                rowValues[i] = tableHeads.get(i).getText()+": "+rowColumns.get(i).getText();
             }
             seleniumLib.doubleClickOperation(firstRow);
+            Debugger.println("Double Clicked on First Row....");
             boolean result =verifyPopUpBox(rowValues);
             Wait.seconds(10);
 
@@ -202,16 +204,22 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyPopUpBox(String[] rowValues) {
         try {
             List<WebElement> popupList = driver.findElements(By.xpath("//div[@id='pop-up']/p"));
+            Debugger.println("Popup Values Size: "+popupList.size()+", RowValues Size:"+rowValues.length);
             boolean isPresent = false;
             for (int i = 0; i < rowValues.length; i++) {
+                if(rowValues[i] == null){
+                    continue;
+                }
+                Debugger.println("Verifying RowValue: "+(i+1)+"."+rowValues[i]);
                 for (int j = 0; j < popupList.size(); j++) {
+                    if(popupList.get(j).getText() == null){
+                        continue;
+                    }
                     if ((popupList.get(j).getText()).contains(rowValues[i])) {
-                        Debugger.println("Display the pop up value " + popupList.get(j).getText());
                         isPresent = true;
                         break;
                     }
                 }
-                Debugger.println("Display the values" + rowValues[i]);
                 if (!isPresent) {
                     Debugger.println("Expected Value: " + rowValues[i] + " Not present in the popup.");
                     SeleniumLib.takeAScreenShot("mismatchInValue.jpg");
