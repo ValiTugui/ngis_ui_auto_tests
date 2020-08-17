@@ -241,6 +241,7 @@ public class BrowserFactory {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
+        chromeLocalOptions.addArguments("--headless");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
