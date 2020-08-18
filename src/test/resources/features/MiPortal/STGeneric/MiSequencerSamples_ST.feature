@@ -84,7 +84,7 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | mi_stage          |
       | Sequencer Samples |
 
-  @NTS-5669
+  @NTS-5669 @MI-LOGOUT
   Scenario Outline: Remove unused fields in Sequencer Samples Report
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

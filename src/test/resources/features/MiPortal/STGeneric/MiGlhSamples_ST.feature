@@ -82,7 +82,7 @@ Feature: MIPORTAL ST -  Glh Samples
       | mi_stage    |
       | GLH Samples |
 
-  @NTS-6446
+  @NTS-6446 @MI-LOGOUT
   Scenario Outline: A pop-up containing all the rows values on double-clicking on a particular table row should be displayed
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
