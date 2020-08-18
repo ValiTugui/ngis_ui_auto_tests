@@ -241,6 +241,8 @@ public class BrowserFactory {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
+        chromeLocalOptions.setHeadless(true);
+        chromeLocalOptions.addArguments("--whitelisted-ips");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
