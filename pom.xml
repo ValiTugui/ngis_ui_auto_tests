@@ -20,12 +20,12 @@
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
-        <forkCount>1</forkCount>
+        <forkCount>5</forkCount>
         <reportName>test</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
-        <browser>Chrome</browser>
-        <browserVersion>70</browserVersion>
-        <serverType>Local</serverType>
+        <browser>Edge</browser>
+        <browserVersion>44.18362.449.0</browserVersion>
+        <serverType>BROWSERSTACK</serverType>
         <osName>Windows</osName>
         <osVersion>10</osVersion>
         <features></features>
