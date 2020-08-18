@@ -79,7 +79,6 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
     public boolean selectGlhDropDownSearchOperator(String value) {
         try {
             Wait.seconds(2);
@@ -90,7 +89,6 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
     public boolean selectGlhDropDownSearchValue(String value) {
         try {
             Wait.seconds(2);
@@ -101,8 +99,7 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
-    public boolean verifyColumnValueInGlhSamplesSearchResultTable(String columnName, String expValue) {
+    public boolean verifyColumnValueInGlhSamplesSearchResultTable(String columnName,String expValue) {
         Wait.seconds(3);
         try {
             int noOfFilteredRows = seleniumLib.getNoOfRows(glhSamplesTableRows);
@@ -146,7 +143,6 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
     public boolean fillValueInGLHSamplesSearchInputField(String searchValue) {
         try {
             Wait.seconds(2);
