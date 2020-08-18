@@ -1435,7 +1435,8 @@ public class PatientChoicePage {
     public boolean clickOnAmendPatientChoice() {
         Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
-            Wait.seconds(10);
+            Actions.scrollToTop(driver);
+            Wait.seconds(5);
             Actions.clickElement(driver, amendPatientChoice);
             Wait.seconds(5);//Observed some delay here while running from jenkins
             return true;
