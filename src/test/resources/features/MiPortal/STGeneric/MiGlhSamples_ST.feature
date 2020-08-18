@@ -100,4 +100,4 @@ Feature: MIPORTAL ST -  Glh Samples
 
     Examples:
       | mi_stage   | any          |
-      | GLH Samples| London North |
+      | GLH Samples| London South |
