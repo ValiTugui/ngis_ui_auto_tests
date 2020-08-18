@@ -73,6 +73,7 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//div[@class='m-signature-pad--body']//canvas")
     WebElement signaturePad;
+
     @FindBy(xpath = "//*[contains(@id,'signature-pad')]//child::canvas")
     public WebElement signatureSection;
 
@@ -1133,7 +1134,7 @@ public class PatientChoicePage {
                 }
             }
             org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
-            Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
+            Action drawAction = builder.moveToElement(signaturePad, 135, 15) //start points x axis and y axis.
                     .clickAndHold()
                     .moveByOffset(80, 80)
                     .moveByOffset(50, 20)
