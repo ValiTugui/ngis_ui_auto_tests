@@ -75,6 +75,7 @@ public class PrintFormSteps extends Pages {
 //                        testResult = false;
 //                        continue;
 //                    }
+                    //The file is downloading by checking DOB, rather than checking via index
                     //Debugger.println("Downloaded...Verifying content....");
                     NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
                     if (familyMember == null) {
