@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,12 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='sequencer_samples-search-col']")
     public WebElement sequencerSamplesSearchColumn;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'visible')]/div")
+    public List<WebElement> visibleColumnReorderingList;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'hidden')]/div")
+    public List<WebElement> hiddenColumnReorderingList;
 
     By sequencerSampleTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
     String sequencerSampleTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
@@ -121,4 +128,44 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    public boolean verifyListOfColumnsInHeaderShowOrHidden(String headerColumnStatus, List<List<String>> expValues) {
+        try {
+            List<String> actualHeaderValueList = new ArrayList<>();
+            Wait.seconds(5);
+            if (headerColumnStatus.equalsIgnoreCase("Show")) {
+                for (WebElement headerValue : visibleColumnReorderingList) {
+                    actualHeaderValueList.add(headerValue.getText().trim());
+                }
+            } else if (headerColumnStatus.equalsIgnoreCase("Hide")) {
+                for (WebElement headerValue : hiddenColumnReorderingList) {
+                    actualHeaderValueList.add(headerValue.getText().trim());
+                }
+            }
+            boolean isPresent = false;
+            //Debugger.println("Size : "+actualHeaderValueList.size());
+            for (int i = 1; i < expValues.size(); i++) {//Starts from index 1 to exclude heading
+                for (int j = 0; j < actualHeaderValueList.size(); j++) {
+                    //Debugger.println("Value: "+actualHeaderValueList.get(j));
+                    if (expValues.get(i).get(0).equalsIgnoreCase(actualHeaderValueList.get(j))) {
+                        isPresent = true;
+                        break;
+                    }
+                }
+                if (!isPresent) {
+                    Debugger.println("Expected value :" + expValues.get(i).get(0) + " Not present under section:" + headerColumnStatus);
+                    SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
+                    return isPresent;
+                }
+                isPresent = false;//For next value verification
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from:getListOfColumnsInHeaderShowOrHidden:" + exp);
+            SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
+            return false;
+        }
+    }
+
+
 }

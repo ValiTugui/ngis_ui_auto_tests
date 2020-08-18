@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -158,4 +159,90 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    @FindBy(xpath = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr")
+    public WebElement searchResultRowHeader;
+
+    public boolean doubleClickDataRow() {
+        try {
+            if (!Wait.isElementDisplayed(driver, searchResultRowHeader, 20)) {
+                Debugger.println("Table Header is not display." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TableHeaderNotPresent.jpg");
+                return false;
+            }
+            List<WebElement> tableRows = driver.findElements(By.xpath(glhSamplesTableRows));
+            if (tableRows.size() < 1) {
+                //Return with proper message
+                Debugger.println("Table data rows are not loaded." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TableRowNotPresent.jpg");
+                return false;
+            }
+            List<WebElement> tableHeads = driver.findElements(By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th"));
+            WebElement firstRow = tableRows.get(0);
+            List<WebElement> rowColumns = driver.findElements(By.xpath(glhSamplesTableRows + "[1]/td"));
+            String[] rowValues = new String[rowColumns.size()];
+            for (int i = 0; i < rowColumns.size(); i++) {
+                rowValues[i] = tableHeads.get(i).getText()+": "+rowColumns.get(i).getText();
+            }
+            seleniumLib.doubleClickOperation(firstRow);
+            boolean result =verifyPopUpBox(rowValues);
+            Wait.seconds(10);
+
+            return result;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+            return false;
+        }
+    }
+    public boolean verifyPopUpBox(String[] rowValues) {
+        try {
+            List<WebElement> popupList = driver.findElements(By.xpath("//div[@id='pop-up']/p"));
+            Debugger.println("Popup Values Size: "+popupList.size()+", RowValues Size:"+rowValues.length);
+            boolean isPresent = false;
+            for (int i = 0; i < rowValues.length; i++) {
+                if(rowValues[i] == null){
+                    continue;
+                }
+                for (int j = 0; j < popupList.size(); j++) {
+                    if(popupList.get(j).getText() == null){
+                        continue;
+                    }
+                    if ((popupList.get(j).getText()).contains(rowValues[i])) {
+                        isPresent = true;
+                        break;
+                    }
+                }
+                if (!isPresent) {
+                    Debugger.println("Expected Value: " + rowValues[i] + " Not present in the popup.");
+                    SeleniumLib.takeAScreenShot("mismatchInValue.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyPopUpBox : " + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PopUpBoxError.jpg");
+            return false;
+        }
+    }
+    @FindBy(xpath = "//div[@id=\"pop-up-close-button\"]")
+    public WebElement closePopUp;
+
+    public boolean closePopUpBox() {
+        try {
+            if (!Wait.isElementDisplayed(driver, closePopUp, 20)) {
+                Debugger.println("Pop up close icon is not displayed." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("closeIconNotPresent.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(closePopUp);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyErrorMessage : " + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+            return false;
+        }
+    }
+
 }

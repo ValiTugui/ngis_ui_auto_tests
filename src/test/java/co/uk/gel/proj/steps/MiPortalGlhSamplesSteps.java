@@ -150,4 +150,12 @@ public class MiPortalGlhSamplesSteps extends Pages {
         testResult = TestUtils.isFilePresent("glh_samples_filtered","");
         Assert.assertTrue(testResult);
     }
+
+    @And("the user clicks on the pop up close icon")
+    public void theUserClicksOnThePopUpCloseIcon() {
+        boolean testresult = false;
+        testresult = miGlhSamplesPage.closePopUpBox();
+        Assert.assertTrue(testresult);
+    }
+
 }
