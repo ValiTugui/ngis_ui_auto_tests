@@ -28,8 +28,8 @@ Feature: TestOrder - Tumours Page - 1
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
   @NTS-3241 @Z-LOGOUT
-#    @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699
-  Scenario Outline: NTS-3241:E2EUI-1576,1410,1356,1699: Labels and help hint texts are displayed in Add a Tumour page
+#    @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699 @NTS-6342
+  Scenario Outline: NTS-3241,NTS-6342:E2EUI-1576,1410,1356,1699: Labels and help hint texts are displayed in Add a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
@@ -37,7 +37,7 @@ Feature: TestOrder - Tumours Page - 1
       | labelHeader                       | HintTextHeader                                                                                                                 |
       | Description                       | Describe in a way that distinguishes this tumour from others the patient may have                                              |
       | Date of diagnosis ✱               | Year is required. Enter day and month if known.                                                                                |
-      #| Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
+#      | Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
       | Histopathology or SIHMDS Lab ID ✱ | For solid tumours, enter the "Histopathology Lab ID". For haemato-oncology liquid tumours, enter the "SIHMDS Lab ID" |
       | The tumour is... ✱                | None                                                                                                                           |
 
