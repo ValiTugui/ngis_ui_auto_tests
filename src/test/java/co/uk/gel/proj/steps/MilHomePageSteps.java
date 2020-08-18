@@ -625,7 +625,4 @@ public class MilHomePageSteps extends Pages {
     public void theUserClicksTheMIPortalLogOutButton() {
         miPortalHomePage.logOutFromMIPortal();
     }
-
-
 }
-

@@ -72,9 +72,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectGlhDropDownSearchColumn(String value) {
         try {
             Wait.seconds(2);
-            return seleniumLib.selectFromListByText(glhSearchColumn, value);
+            return seleniumLib.selectFromListByText(glhSearchColumn,value);
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchColumn: " + exp);
+            Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchColumn: "+ exp);
             SeleniumLib.takeAScreenShot("GlhselectDropDownSearchColumn.jpg");
             return false;
         }
@@ -83,9 +83,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectGlhDropDownSearchOperator(String value) {
         try {
             Wait.seconds(2);
-            return seleniumLib.selectFromListByText(glhSearchOperator, value);
+            return seleniumLib.selectFromListByText(glhSearchOperator,value);
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchOperator: " + exp);
+            Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchOperator: "+ exp);
             SeleniumLib.takeAScreenShot("GlhselectDropDownSearchOperator.jpg");
             return false;
         }
@@ -94,9 +94,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectGlhDropDownSearchValue(String value) {
         try {
             Wait.seconds(2);
-            return seleniumLib.selectFromListByText(glhSearchValue, value);
+            return seleniumLib.selectFromListByText(glhSearchValue,value);
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: " + exp);
+            Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("GlhselectDropDownSearchValue.jpg");
             return false;
         }
@@ -106,32 +106,32 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         try {
             int noOfFilteredRows = seleniumLib.getNoOfRows(glhSamplesTableRows);
-            if (noOfFilteredRows == 0) {
+            if(noOfFilteredRows == 0){
                 Debugger.println("No search result found in GLH Samples Search Result Table");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");
                 return false;
             }
             List<WebElement> colHeads = driver.findElements(glhSamplesTableHead);
-            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
-            if (colIndex == -1) {
-                Debugger.println("Specified column " + columnName + " not present in the GLH Samples Search Result Table.");
+            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
+            if(colIndex == -1){
+                Debugger.println("Specified column "+columnName+" not present in the GLH Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("glhSampleTable.jpg");
                 return false;
             }
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
-            for (int i = 0; i < noOfFilteredRows; i++) {
+            for(int i=0; i<noOfFilteredRows;i++){
                 //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellPath = By.xpath(glhSamplesTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
+                cellPath = By.xpath(glhSamplesTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellValue = seleniumLib.getText(cellPath);
-                if (expValue.equalsIgnoreCase("non-empty-data")) {
-                    if (cellValue.isEmpty()) {
+                if(expValue.equalsIgnoreCase("non-empty-data")){
+                    if(cellValue.isEmpty()){
                         Debugger.println("Column:" + columnName + " value supposed to be non-empty, but Actual is empty");
                         SeleniumLib.takeAScreenShot("GLHSamplesResult.jpg");
                         return false;
                     }
-                } else {
+                }else {
                     if (!cellValue.contains(expValue)) {
                         Debugger.println("Column:" + columnName + " value, Expected:" + expValue + ",Actual:" + cellValue);
                         SeleniumLib.takeAScreenShot("GLHSamplesResult.jpg");
@@ -155,7 +155,7 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("GLHSamplesTextSearchBox.jpg");
                 return false;
             }
-            seleniumLib.sendValue(glhSearchValueInputField, searchValue);
+            seleniumLib.sendValue(glhSearchValueInputField,searchValue);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillValueInGLHSamplesSearchInputField:" + exp);
