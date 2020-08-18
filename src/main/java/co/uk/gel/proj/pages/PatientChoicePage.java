@@ -1434,7 +1434,6 @@ public class PatientChoicePage {
     }
 
     public boolean clickOnAmendPatientChoice() {
-//        Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
             if (!Wait.isElementDisplayed(driver,amendPatientChoice,30)) {
                 Debugger.println("Patient Choice Page: Amend button not displayed");
@@ -1442,7 +1441,7 @@ public class PatientChoicePage {
                 return false;
             }
             Actions.clickElement(driver, amendPatientChoice);
-//            Wait.seconds(5);//Observed some delay here while running from jenkins
+            Wait.seconds(5);//Observed some delay here while running from jenkins
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page: click on amend patient choice: " + exp);
