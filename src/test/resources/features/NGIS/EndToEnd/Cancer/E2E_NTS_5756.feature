@@ -4,7 +4,7 @@ Feature:Process a referral with tumour content more than 30% and less than 30% a
 
   @NTS-5756 @Z-LOGOUT
     # E2EUI-2764
-  Scenario Outline:NTS-5756:Scenario-1:Cancer referral with tumour content less than 30% process and check CSV status in MI and DDF
+  Scenario Outline:NTS-5756:E2EUI-2764:Scenario-1:Cancer referral with tumour content less than 30% process and check CSV status in MI and DDF
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=23-01-2007:Gender=Male |
       ##Patient Details
