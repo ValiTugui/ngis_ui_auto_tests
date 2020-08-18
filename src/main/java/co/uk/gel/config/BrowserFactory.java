@@ -162,6 +162,7 @@ public class BrowserFactory {
         driver.manage().window().maximize();
         return driver;
     }
+
     private WebDriver getSafariDriver(String userAgent,
                                       boolean javascriptEnabled) {
         return new SafariDriver(getSafariLocalOptions(userAgent, javascriptEnabled));
@@ -188,7 +189,7 @@ public class BrowserFactory {
     }
 
     private WebDriver getFirefoxDriverLocal(String userAgent,
-                                       boolean javascriptEnabled) {
+                                            boolean javascriptEnabled) {
         return new FirefoxDriver(getFirefoxLocalOptions(userAgent, javascriptEnabled));
 
     }
@@ -231,6 +232,7 @@ public class BrowserFactory {
         firefoxOptions.setProfile(profile);
         return firefoxOptions;
     }
+
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
     private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
         return new ChromeDriver(getChromeLocalOptions(userAgent, javascriptEnabled));
@@ -240,9 +242,9 @@ public class BrowserFactory {
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
 //        chromeLocalOptions.addArguments("--disable-gpu");
-//        chromeLocalOptions.addArguments("--no-sandbox");
+        chromeLocalOptions.addArguments("--no-sandbox");
 //        chromeLocalOptions.setHeadless(true);
-//        chromeLocalOptions.addArguments("--whitelisted-ips");
+        chromeLocalOptions.addArguments("--whitelisted-ips");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
@@ -304,7 +306,7 @@ public class BrowserFactory {
     }
 
     private WebDriver getEdge(String userAgent, boolean javascriptEnabled) {
-        EdgeOptions edgeOptions = getEdgeLocalOptions(userAgent,javascriptEnabled);
+        EdgeOptions edgeOptions = getEdgeLocalOptions(userAgent, javascriptEnabled);
         return driver = new EdgeDriver(edgeOptions);
 
     }
@@ -359,7 +361,7 @@ public class BrowserFactory {
         if (!location.exists()) {
             location.mkdirs();
         }
-        Debugger.println("BROWSER FACTORY:DEFAULT DOWNLOAD PATH:"+downloadFilePath);
+        Debugger.println("BROWSER FACTORY:DEFAULT DOWNLOAD PATH:" + downloadFilePath);
         HashMap<String, Object> pathPrefs = new HashMap<String, Object>();
         pathPrefs.put("profile.default_content_settings.popups", 0);
         pathPrefs.put("download.default_directory", downloadFilePath);
@@ -382,7 +384,7 @@ public class BrowserFactory {
 
 
     private FirefoxOptions getFirefoxSecurityOptions(String userAgent,
-                                             boolean javascriptEnabled) {
+                                                     boolean javascriptEnabled) {
         FirefoxProfile profile = new FirefoxProfile();
         profile.setAcceptUntrustedCertificates(true);
 //			profile.setEnableNativeEvents(true);
@@ -398,10 +400,10 @@ public class BrowserFactory {
         } catch (Exception exp) {
             System.out.println("Exception in creating download directory..." + exp);
         }
-//        profile.setPreference("browser.cache.disk.enable", false);
-//        profile.setPreference("browser.cache.memory.enable", false);
-//        profile.setPreference("browser.cache.offline.enable", false);
-//        profile.setPreference("network.http.use-cache", false);
+        profile.setPreference("browser.cache.disk.enable", false);
+        profile.setPreference("browser.cache.memory.enable", false);
+        profile.setPreference("browser.cache.offline.enable", false);
+        profile.setPreference("network.http.use-cache", false);
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir", downloadFilepath);
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
@@ -422,16 +424,16 @@ public class BrowserFactory {
         Debugger.println("createProxyDriver............");
         if (typeOfOS != null) {
             System.out.println("Calling typeOfOS = linux");
-            if (type.equalsIgnoreCase("Chrome")){
+            if (type.equalsIgnoreCase("Chrome")) {
                 return createChromeDriver(createProxyCapabilities(proxy), path, "linux");
-            }else{//FireFox
+            } else {//FireFox
                 return createFirefoxDriver(createProxyCapabilities(proxy));
             }
         } else {
             Debugger.println("Calling typeOfOS = non-linux");
             if (type.equalsIgnoreCase("Chrome")) {
                 return createChromeDriver(createProxyCapabilities(proxy), path);
-            }else{//FireFox
+            } else {//FireFox
                 return createFirefoxDriver(createProxyCapabilities(proxy));
             }
         }
@@ -511,10 +513,9 @@ public class BrowserFactory {
     }
 
     private WebDriver getFirefoxDriver(String userAgent,
-                                      boolean javascriptEnabled) {
+                                       boolean javascriptEnabled) {
         return new FirefoxDriver(getFirefoxOptions(userAgent, javascriptEnabled));
     }
-
 
 
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
@@ -525,7 +526,7 @@ public class BrowserFactory {
 
 
     private ChromeOptions getChromeOptionsSecurity(String userAgent,
-                                           boolean javascriptEnabled) {
+                                                   boolean javascriptEnabled) {
         Debugger.println("getChromeOptions.........");
         //Setting default download path for chrome browser
         String downloadFilePath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
