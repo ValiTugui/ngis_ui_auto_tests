@@ -8,7 +8,6 @@ import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
 import java.util.HashMap;
 import java.util.List;
