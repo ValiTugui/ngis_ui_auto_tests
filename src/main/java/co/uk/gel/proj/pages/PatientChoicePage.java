@@ -1434,7 +1434,7 @@ public class PatientChoicePage {
     }
 
     public boolean clickOnAmendPatientChoice() {
-        Wait.forElementToBeDisplayed(driver, amendPatientChoice);
+        Wait.forElementToBeDisplayed(driver, amendPatientChoice,10);
         try {
             Actions.scrollToTop(driver);
             Wait.seconds(5);
