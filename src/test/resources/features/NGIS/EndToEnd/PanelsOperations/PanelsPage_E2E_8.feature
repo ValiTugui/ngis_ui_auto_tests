@@ -3,7 +3,7 @@
 Feature: E2E with PanelAssigner: Selection of Panels for a referral which has more than 10 additional panels
 
   @NTS-5770 @Z-LOGOUT
-  Scenario Outline: NTS-5802:E2EUI-2686: Create and submit a referral with suggested panels and 10 plus additional panels and process CSVs and check the DDF payload.
+  Scenario Outline: NTS-5770:E2EUI-2686: Create and submit a referral with suggested panels and 10 plus additional panels and process CSVs and check the DDF payload.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=12-08-1988:Gender=Male |
      ###Patient Details

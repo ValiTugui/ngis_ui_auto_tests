@@ -16,7 +16,7 @@ Feature: TestOrder - Tumours Page - 1
       | Tumours |
 
   @NTS-3165 @Z-LOGOUT
-#    @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @E2EUI-1515 @NTS-6342
+#    @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @E2EUI-1515
   Scenario Outline: NTS-3165:E2EUI-823,1120,1026,1515: Text information for user on Tumour referral page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
@@ -27,7 +27,7 @@ Feature: TestOrder - Tumours Page - 1
       | stage   | information                                                                                              |
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
-  @NTS-3241 @Z-LOGOUT
+  @NTS-3241 @NTS-6342 @Z-LOGOUT
 #    @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699
   Scenario Outline: NTS-3241:E2EUI-1576,1410,1356,1699: Labels and help hint texts are displayed in Add a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
