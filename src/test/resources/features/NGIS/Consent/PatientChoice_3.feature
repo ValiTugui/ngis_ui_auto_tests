@@ -155,7 +155,9 @@ Feature: Patient Choice -3 Navigation
     Then the user should be able to see the patient choice form with success message
     And the user selects the Preferences tab in patient choice page
     And the user will see a warning message "<WarningMessage2>"
-    And the user selects the New patient choice tab in patient choice page
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user clicks on the amend patient choice button
     When the user selects the option Adult (With Capacity) in patient choice category

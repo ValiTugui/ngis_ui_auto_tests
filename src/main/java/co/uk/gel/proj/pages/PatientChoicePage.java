@@ -387,7 +387,6 @@ public class PatientChoicePage {
             return isFound;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
-            Debugger.println("Url for the failure "+ driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("patientChoice.jpg");
             return false;
         }
@@ -1435,9 +1434,10 @@ public class PatientChoicePage {
     }
 
     public boolean clickOnAmendPatientChoice() {
+//        Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
-            if (!Wait.isElementDisplayed(driver, amendPatientChoice,30)){
-                Debugger.println("Patient Choice Page: amendment button not displayed");
+            if (!Wait.isElementDisplayed(driver,amendPatientChoice,30)) {
+                Debugger.println("Patient Choice Page: Amend button not displayed");
                 SeleniumLib.takeAScreenShot("PatientChoiceAmendOption.jpg");
                 return false;
             }
