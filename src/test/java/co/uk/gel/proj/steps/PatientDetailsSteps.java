@@ -863,4 +863,12 @@ public class PatientDetailsSteps extends Pages {
         testResult=patientDetailsPage.verifyPostcodeFormatInPD(formattedPostcode);
         Assert.assertTrue(testResult);
     }
+
+
+    @And("the user provides the first name {string} and last name {string}")
+    public void theUserProvidesTheFirstNameAndLastName(String fName,String lName) {
+        boolean testResult=false;
+        testResult=patientDetailsPage.fillInFirstNameAndLastName(fName,lName);
+        Assert.assertTrue(testResult);
+    }
 }
