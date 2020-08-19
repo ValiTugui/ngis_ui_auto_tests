@@ -864,14 +864,6 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
-    @And("the user provides the first name {string} and last name {string}")
-    public void theUserProvidesTheFirstNameAndLastName(String fName,String lName) {
-        boolean testResult=false;
-        testResult=patientDetailsPage.fillInFirstNameAndLastName(fName,lName);
-        Assert.assertTrue(testResult);
-    }
-
     @And("the user updates the patient details stage with {string}")
     public void theUserUpdatesPatientDetailsStageWith(String patientDetails) {
         boolean testResult = false;
