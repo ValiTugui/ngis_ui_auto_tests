@@ -936,10 +936,8 @@ public class PatientDetailsPage {
 
     public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
         try {
-            Wait.seconds(10);
-            if (Wait.isElementDisplayed(driver, administrativeGenderButton, 20)) {
+            if (Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
                //Actions.retryClickAndIgnoreElementInterception(driver, clearGenderDropDownValue);
-                Wait.seconds(10);
                 selectGender(administrativeGenderButton, gender);
                 editDropdownField(lifeStatusButton, lifeStatus);
                 editDropdownField(ethnicityButton, ethnicity);
