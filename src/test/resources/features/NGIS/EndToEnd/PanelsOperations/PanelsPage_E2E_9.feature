@@ -81,15 +81,13 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | SearchPanels               | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Amyloidosis,Arthrogryposis | Pedigree |
 
-
   @NTS-5747 @Z-LOGOUT
-    ##Scenario-2  NGIS Patient
+    ##Scenario-2  referral for existing NGIS Patient
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-2: CSV-Verify the payload by adding additional panel to suggested panels
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
      ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -166,10 +164,9 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
     ##Scenario-3  SPINE Patient
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-3: CSV-Verify the payload by adding additional panel to suggested panels
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
      ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
