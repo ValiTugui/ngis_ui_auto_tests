@@ -80,7 +80,7 @@ Feature: Submit Referral for RD
     And the user waits max 3 minutes for the update Patient Details Updated by User3 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the patient date of birth entered by user3
+#    Then the user reads & validate the patient date of birth entered by user3
     Then the user updates the file NRF1 with Patient details validated by User1
     And the user waits max 3 minutes for the update Patient details validated by User2 in the file NRF1
     # Finally User1 submit Referral Successfully
@@ -108,7 +108,7 @@ Feature: Submit Referral for RD
     And the user waits max 3 minutes for the update Patient details validated by User1 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the patient date of birth entered by user3
+#    Then the user reads & validate the patient date of birth entered by user3
     Then the user updates the file NRF1 with Patient details validated by User2
 
     Examples:

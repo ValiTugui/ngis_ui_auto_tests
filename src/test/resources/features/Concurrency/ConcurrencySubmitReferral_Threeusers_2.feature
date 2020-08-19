@@ -80,13 +80,13 @@ Feature: Submit Referral for RD
     And the user waits max 3 minutes for the update Patient Details Updated by User3 in the file NRF1
    And the user submits the referral
    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-   Then the user reads & validate the patient date of birth entered by user3
+#   Then the user reads & validate the patient date of birth entered by user3
     Then the user updates the file NRF1 with Patient details validated by User1
 ## Referral Submission by User1 after Notes updated by user2
     And the user waits max 2 minutes for the update Notes Updated by User2 in the file NRF1
    And the user submits the referral
    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-   Then the user reads & validate the Notes updated by user3
+#   Then the user reads & validate the Notes updated by user3
     When the user updates the file NRF1 with Notes validated by User1
 ## Finally User1 submit Referral Successfully
     And the user submits the referral
@@ -123,7 +123,7 @@ Feature: Submit Referral for RD
 ## Referral Submission by User2 after Patient Details updated by user 3
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the patient stage with updated data
+#    Then the user reads & validate the patient stage with updated data
     Then the user updates the file NRF1 with Patient details validated by User2
 
     Examples:
@@ -154,10 +154,10 @@ Feature: Submit Referral for RD
     And the user waits max 2 minutes for the update Notes Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the patient Notes Stage with updated data
+#    Then the user reads & validate the patient Notes Stage with updated data
     And the user waits max 3 minutes for the update Patient details validated by User2 in the file NRF1
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the patient Notes Stage with updated data
+#    Then the user reads & validate the patient Notes Stage with updated data
     When the user updates the file NRF1 with Notes validated by User3
 
 ## Finally User1 submit Referral Successfully

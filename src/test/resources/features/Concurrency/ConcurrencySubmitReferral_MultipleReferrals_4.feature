@@ -64,7 +64,7 @@ Feature: Submit New Referral for RD flow
     And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the familymember gender & HPO Phenotypes updated
+#    Then the user reads & validate the familymember gender & HPO Phenotypes updated
     Then the user updates the file NRF1 with Patient details validated by User1
     # Finally User1 submit Referral Successfully
     And the user submits the referral

@@ -467,16 +467,16 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
     }
 
-    @Then("the user reads & validate the familymembers details data {String} and {String}")
-    public void theUserReadsAndValidateTheFamilyMembersDetails(String UpdatedFamilyMembersDetails,String UpdatedFamilyMemberClinicalQuestionsDetails) {
-        boolean testResult = false;
-        testResult= familyMemberDetailsPage.readAndValidateFamilyMembersDetailsvalues(UpdatedFamilyMembersDetails);
-        Assert.assertTrue(testResult);
-        referralPage.clickSaveAndContinueButton();
-        referralPage.clickSaveAndContinueButton();
-        testResult= familyMemberDetailsPage.readAndValidateFamilyMembersClinicalQuestions(UpdatedFamilyMemberClinicalQuestionsDetails);
-        Assert.assertTrue(testResult);
-    }
+//    @Then("the user reads & validate the familymembers details data {String} and {String}")
+//    public void theUserReadsAndValidateTheFamilyMembersDetails(String UpdatedFamilyMembersDetails,String UpdatedFamilyMemberClinicalQuestionsDetails) {
+//        boolean testResult = false;
+//        testResult= familyMemberDetailsPage.readAndValidateFamilyMembersDetailsvalues(UpdatedFamilyMembersDetails);
+//        Assert.assertTrue(testResult);
+//        referralPage.clickSaveAndContinueButton();
+//        referralPage.clickSaveAndContinueButton();
+//        testResult= familyMemberDetailsPage.readAndValidateFamilyMembersClinicalQuestions(UpdatedFamilyMemberClinicalQuestionsDetails);
+//        Assert.assertTrue(testResult);
+//    }
 
 
     @Then("the user should {string} participant error message as {string}")

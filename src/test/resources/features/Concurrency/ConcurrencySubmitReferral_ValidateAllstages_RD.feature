@@ -96,7 +96,7 @@ Feature: Submit New Referral for RD flow
     And the user waits max 8 minutes for the update Family Members details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then the user reads & validate the familymembers details data "<UpdatedFamilyMembersDetails>" and "<UpdatedFamilyMemberClinicalQuestionsDetails>"
+#    Then the user reads & validate the familymembers details data "<UpdatedFamilyMembersDetails>" and "<UpdatedFamilyMemberClinicalQuestionsDetails>"
     Then the user updates the file NRF1 with Family Members details validated by User1
       ####Referral Submission by User1 after Patient choice details updated by user2
     And the user waits max 10 minutes for the update Patient Choice details Updated by User2 in the file NRF1

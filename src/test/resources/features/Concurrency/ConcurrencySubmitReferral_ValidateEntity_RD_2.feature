@@ -76,7 +76,7 @@ Feature: Submit Referral for RD
     And the user waits max 10 minutes for the update Family Members details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then  Then the user reads & validate an entity updated in FamilyMembers details
+#    Then  Then the user reads & validate an entity updated in FamilyMembers details
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
     When the user updates the file NRF1 with Family Members details validated by User1
@@ -84,7 +84,7 @@ Feature: Submit Referral for RD
     And the user waits max 4 minutes for the update Responsible Clinician details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then Then the user reads & validate the Responsible Clinician details with an entity updated
+#    Then Then the user reads & validate the Responsible Clinician details with an entity updated
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
     When the user updates the file NRF1 with Responsible Clinician details validated by User1
@@ -92,7 +92,7 @@ Feature: Submit Referral for RD
     And the user waits max 4 minutes for the update Clinicalquestions details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then  Then the user reads & validate the Clinical details for an entity updated
+#    Then  Then the user reads & validate the Clinical details for an entity updated
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
     When the user updates the file NRF1 with Clinicalquestions details validated by User1

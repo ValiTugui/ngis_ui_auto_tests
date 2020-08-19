@@ -461,10 +461,19 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals("Success",stepResult);
     }
 
-    @And("the user reads & validate the patient details data {string}")
-    public void theUserreadandvalidatePatientDetailsvalues(String Patientdetails) {
+    @And("the user verifies the patient details stage with {string}")
+    public void theUserVerifiesPatientDetailsStageWith(String patientDetails) {
         boolean testResult = false;
-        testResult= patientDetailsPage.readAndValidatePatientDetailsvalues(Patientdetails);
+        testResult= patientDetailsPage.verifyPatientDetails(patientDetails);
+        Assert.assertTrue(testResult);
+    }
+
+
+
+    @And("the user updates the patient details stage with {string}")
+    public void theUserUpdatesPatientDetailsStageWith(String patientDetails) {
+        boolean testResult = false;
+        testResult= patientDetailsPage.updatePatientDetails(patientDetails);
         Assert.assertTrue(testResult);
     }
 
@@ -645,15 +654,13 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user fill in the first name field")
     public void theUserFillInTheFirstNameField() {
-
         patientDetailsPage.fillInFirstName();
     }
 
     @And("the user stores the first name & last name values")
     public void theUserStoresTheFirstNameLastNameValues() {
         patientDetailsPage.verifyName();
-            }
-
+    }
 
     @And("the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode")
     public void theUserDeletesThePrePopulatedFieldsFirstNameLastNameDateOfBirthGenderAndPostCode() {

@@ -20,7 +20,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
@@ -1170,6 +1172,70 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
+    public boolean updatePatientDetails(String patientDetails){
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    seleniumLib.sendValue(firstName, paramNameValue.get(key));
+                    break;
+                }
+                case "LastName": {
+                    seleniumLib.sendValue(familyName, paramNameValue.get(key));
+                    break;
+                }
+                case "DOB": {
+                    String dobValue = paramNameValue.get(key);
+                    if (dobValue != null && !dobValue.isEmpty()) {
+                        String[] dobSplit = dobValue.split("-");
+                        seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+                        seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+                        seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+                    }
+                    break;
+                }
+                case "Gender": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectGender(administrativeGenderButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "LifeStatus": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
+
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean verifyPatientDetails(String patientDetails){
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    actValue = seleniumLib.getText(firstName);
+                    if(!actValue.equalsIgnoreCase(paramNameValue.get(key))){
+                        Debugger.println("Expected :"+key+": "+paramNameValue.get(key)+", Actual:"+actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
     public boolean verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(String expValue) {
         String actValue = null;
         try {
@@ -1403,10 +1469,9 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean readAndValidatePatientDetailsvalues(String Patientdetails) {
+    public boolean readAndValidatePatientDetailsValues(String patientDetails) {
         try {
-
-            String[] expectedPatientdetails =Patientdetails.split(":");
+            String[] expectedPatientdetails = patientDetails.split(":");
             String actualFullDOB = dateOfBirthDay.getAttribute("value") + "/" + dateOfBirthMonth.getAttribute("value") + "/" + dateOfBirthYear.getAttribute("value");
             String actualGender = administrativeGenderButton.getText().trim();
             String actualEthnicity = ethnicityButton.getText();

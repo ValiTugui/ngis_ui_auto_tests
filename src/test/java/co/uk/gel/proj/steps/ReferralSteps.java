@@ -902,6 +902,11 @@ public class ReferralSteps extends Pages {
         String userType = attributeOfURL.get(1);
         String referralType = attributeOfURL.get(2);
         String filePrefix = attributeOfURL.get(3);
+
+        if(!referralType.equalsIgnoreCase("New Referral")){
+            loginForExistingReferral(userType,referralType,filePrefix);
+            return;
+        }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
         if(AppConfig.snapshotRequired){
@@ -957,41 +962,48 @@ public class ReferralSteps extends Pages {
         String userType = attributeOfURL.get(0);
         String referralId = attributeOfURL.get(1);
         String filePrefix = attributeOfURL.get(2);
-        String baseURL = "";
-        if(referralId.equalsIgnoreCase("New Referral")){
-            Debugger.println("New Referral: Getting BaseURL...");
-            baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
-            Debugger.println("BaseURL...is..."+baseURL);
-        }else{
-            ConcurrencyTest.setReferral_id(referralId,filePrefix);
-            ConcurrencyTest.writeToControllerFile(filePrefix,"ReferralId="+referralId);
-            baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/"+referralId;
-        }
-        boolean isReferralExists = false;
-        if(baseURL != null && !baseURL.isEmpty()){
-            isReferralExists = true;
-        }else{
-            //Wait for 60 seconds to create new referral by another user
+        loginForExistingReferral(userType,referralId,filePrefix);
+
+   }
+   private void loginForExistingReferral(String userType,String referralId,String filePrefix){
+       String baseURL = "";
+       if(referralId.equalsIgnoreCase("New Referral")){
+           baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
+       }else{
+           ConcurrencyTest.setReferral_id(referralId,filePrefix);
+           ConcurrencyTest.writeToControllerFile(filePrefix,"ReferralId="+referralId);
+           if(System.getProperty("TestEnvironment").equalsIgnoreCase("qa")) {
+               baseURL = "https://qa.build.ngis.io/test-order/referral/" + referralId;
+           }else{
+               baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/" + referralId;
+           }
+       }
+       Debugger.println("BASEURL: "+baseURL);
+       boolean isReferralExists = false;
+       if(baseURL != null && !baseURL.isEmpty()){
+           isReferralExists = true;
+       }else{
+           //Wait for 60 seconds to create new referral by another user
            SeleniumLib.sleepInSeconds(60);
-        }
-        int count = 1;
-        while(!isReferralExists){//Check every 15 seconds, the presence of referral creation by first user
-            count++;
-            SeleniumLib.sleepInSeconds(15);
-            baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
-            if(baseURL != null && !baseURL.isEmpty()){
-                isReferralExists = true;
-            }
-            if(count > 11){
-                break;
-            }
-        }
-        if(!isReferralExists){
-            Assert.fail("Referral is not exists/not created by another user even after 4 minutes...exiting.");
-        }
-        Debugger.println(userType+"- SWITCHING TO URL :"+baseURL);
-        switchToURL(baseURL, userType);
-        SeleniumLib.sleepInSeconds(10);
+       }
+       int count = 1;
+       while(!isReferralExists){//Check every 15 seconds, the presence of referral creation by first user
+           count++;
+           SeleniumLib.sleepInSeconds(15);
+           baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
+           if(baseURL != null && !baseURL.isEmpty()){
+               isReferralExists = true;
+           }
+           if(count > 11){
+               break;
+           }
+       }
+       if(!isReferralExists){
+           Assert.fail("Referral is not exists/not created by another user even after 4 minutes...exiting.");
+       }
+       Debugger.println(userType+"- SWITCHING TO URL :"+baseURL);
+       switchToURL(baseURL, userType);
+       SeleniumLib.sleepInSeconds(10);
    }
 
     @And("^the mandatory fields shown with the symbol in red color$")

@@ -288,7 +288,33 @@ public class Pages implements Navigable {
                         userType.startsWith(concurrentUser4) ||
                         userType.startsWith(concurrentUser5)){
                     driver.get(currentURL);
-                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                    String userEmail = "";
+                    String userPwd = "";
+                    Debugger.println("Logging to TOMS as2 "+userType);
+                    if(userType.startsWith(concurrentUser1)){
+                        userEmail = AppConfig.getConcurrent_user1_username();
+                        userPwd = AppConfig.getConcurrent_user1_password();
+                    }else if(userType.startsWith(concurrentUser2)){
+                        userEmail = AppConfig.getConcurrent_user2_username();
+                        userPwd = AppConfig.getConcurrent_user2_password();
+                    }else if(userType.startsWith(concurrentUser3)){
+                        userEmail = AppConfig.getConcurrent_user3_username();
+                        userPwd = AppConfig.getConcurrent_user3_password();
+                    }else if(userType.startsWith(concurrentUser4)){
+                        userEmail = AppConfig.getConcurrent_user4_username();
+                        userPwd = AppConfig.getConcurrent_user4_password();
+                    }else if(userType.startsWith(concurrentUser5)){
+                        userEmail = AppConfig.getConcurrent_user5_username();
+                        userPwd = AppConfig.getConcurrent_user5_password();
+                    }else{
+                        userEmail = AppConfig.getApp_username();
+                        userPwd = AppConfig.getApp_password();
+                    }
+                    if(userEmail.contains("microsoft")){
+                        patientSearchPage.loginToTestOrderingSystemAsStandardConcurrentUser(userEmail,userPwd);
+                    }else {
+                        referralPage.loginToTestOrderingSystemAsNHSUser(driver, userType);
+                    }
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to

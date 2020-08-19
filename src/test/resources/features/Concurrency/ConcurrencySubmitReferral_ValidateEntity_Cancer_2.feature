@@ -75,7 +75,7 @@ Feature: Submit New Referral for Cancer
     And the user waits max 5 minutes for the update Tumour details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then Then the user reads & validate tumour data updated by user2
+#    Then Then the user reads & validate tumour data updated by user2
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Urgent"
     When the user updates the file NRF1 with Tumour details validated by User1
@@ -83,7 +83,7 @@ Feature: Submit New Referral for Cancer
     And the user waits max 3 minutes for the update Tumour question details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then Then the user reads & validate samples data updated by user2
+#    Then Then the user reads & validate samples data updated by user2
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
     When the user updates the file NRF1 with Tumour question details validated by User1
@@ -91,13 +91,13 @@ Feature: Submit New Referral for Cancer
     And the user waits max 3 minutes for the update Sample details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    Then Then the user reads & validate samples data updated by user2
+#    Then Then the user reads & validate samples data updated by user2
     When the user updates the file NRF1 with Sample details validated by User1
 ##Referral Submission by User1 after Sample details updated by user2
     And the user waits max 3 minutes for the update Sample questions details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-  Then Then the user reads & validate samples data updated by user2
+#  Then Then the user reads & validate samples data updated by user2
     When the user navigates to the "<testPackage>" stage
     And the user selects the "Urgent"
     When the user updates the file NRF1 with Sample questions details validated by User1
