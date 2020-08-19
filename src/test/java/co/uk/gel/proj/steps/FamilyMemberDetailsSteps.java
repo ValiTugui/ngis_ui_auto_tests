@@ -7,7 +7,6 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.pages.ReferralPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
@@ -20,7 +19,6 @@ import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class FamilyMemberDetailsSteps extends Pages {
 
@@ -468,6 +466,18 @@ public class FamilyMemberDetailsSteps extends Pages {
             Assert.fail("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ");
         }
     }
+
+    @Then("the user reads & validate the familymembers details data {String} and {String}")
+    public void theUserReadsAndValidateTheFamilyMembersDetails(String UpdatedFamilyMembersDetails,String UpdatedFamilyMemberClinicalQuestionsDetails) {
+        boolean testResult = false;
+        testResult= familyMemberDetailsPage.readAndValidateFamilyMembersDetailsvalues(UpdatedFamilyMembersDetails);
+        Assert.assertTrue(testResult);
+        referralPage.clickSaveAndContinueButton();
+        referralPage.clickSaveAndContinueButton();
+        testResult= familyMemberDetailsPage.readAndValidateFamilyMembersClinicalQuestions(UpdatedFamilyMemberClinicalQuestionsDetails);
+        Assert.assertTrue(testResult);
+    }
+
 
     @Then("the user should {string} participant error message as {string}")
     public void theUserShouldParticipantErrorMessageAs(String expStatus, String errorMessage) {

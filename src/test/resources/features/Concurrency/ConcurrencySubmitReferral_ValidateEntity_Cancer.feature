@@ -2,19 +2,14 @@
 @Concurrency_newReferral_Cancer_entity
 Feature: Submit New Referral for Cancer
 
-  @newreferral_Cancer @Z-LOGOUT
-  @NTS-6469
-
+  @Newreferral_Cancer @Z-LOGOUT
+    @NTS-6469
   Scenario Outline: Login as User A, Create a New Referral, Complete all stages and do not submit referral, and validate the data updated, when B is updating an entity on every stage upon referral submission by A.
 
 #Login as User A, Complete all stages  and do not submit referral,
 
     Given The user is login to the Test Order Service and create a new referral
       | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | New Referral | NRF1 |
-    ##Patient Details
-#    When the user is navigated to a page with title Check your patient's details
-#    And the user clicks the Save and Continue button
-#    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Portsmouth Hospitals NHS Trust" in the search field
@@ -72,105 +67,63 @@ Feature: Submit New Referral for Cancer
     Then the user is navigated to a page with title Patient choice
     When the user clicks on Continue Button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-
     ##print Forms
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-
-
-## Referral Submission by User1 after Patient Details updated by user 2
+# Referral Submission by User1 after Patient Details updated by user 2
     And the user waits max 3 minutes for the update PatientDetails Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view patient details stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Urgent"
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate an entity in patient details data "<Patientdetailsupdated>"
     Then the user updates the file NRF1 with Patient details validated by User1
-
-## Referral Submission by User1 after Requesting Organisation details updated by user 2
+# Referral Submission by User1 after Requesting Organisation details updated by user 2
     And the user waits max 3 minutes for the update Requesting Organisation details Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view requesting organisation  section with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Routine"
-    When the user updates the file NRF1 with Requesting organisation details validated by User1
-
-##Referral Submission by User1 after Test package details updated by user2
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate the requesting organisation value "Sandwell and West Birmingham Hospitals NHS Trust"
+    Then the user updates the file NRF1 with Requesting organisation details validated by User1
+#Referral Submission by User1 after Test package details updated by user2
     And the user waits max 3 minutes for the update Test Package details Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view requesting organisation  section with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Urgent"
-    When the user updates the file NRF1 with Test Package details validated by User1
-
-##Referral Submission by User1 after Responsible Clinician details updated by user2
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user updates the file NRF1 with Test Package details validated by User1
+  #Referral Submission by User1 after Responsible Clinician details updated by user2
     And the user waits max 3 minutes for the update Responsible Clinician details Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view Responsible clinician stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Routine"
-    When the user updates the file NRF1 with Responsible Clinician details validated by User1
-
-
-##Referral Submission by User1 after Tumour details updated by user2
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate the Responsible Clinician details
+    Then the user updates the file NRF1 with Responsible Clinician details validated by User1
+#Referral Submission by User1 after Tumour details updated by user2
     And the user waits max 3 minutes for the update Tumour details Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view Tumours stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Urgent"
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate an entity in Tumours stage
     When the user updates the file NRF1 with Tumour details validated by User1
-
-
-    ##Referral Submission by User1 after Sample details updated by user2
+  # #Referral Submission by User1 after Sample details updated by user2
     And the user waits max 3 minutes for the update Sample details Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view Tumours stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Routine"
-    When the user updates the file NRF1 with Sample details validated by User1
-
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate an entity in Samples Stage
+    Then the user updates the file NRF1 with Sample details validated by User1
     ##Referral Submission by User1 after Notes updated by user2
     And the user waits max 2 minutes for the update Notes Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view Notes Stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Urgent"
-    When the user updates the file NRF1 with Notes validated by User1
-
-
-##Referral Submission by User1 after Patient choice details updated by user2
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate the notes details data "<Notesupdated>"
+    Then the user updates the file NRF1 with Notes validated by User1
+   ##Referral Submission by User1 after Patient choice details updated by user2
     And the user waits max 2 minutes for the update Patient Choice details Updated by User2 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view Patient Choice stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Routine"
-    When the user updates the file NRF1 with Patient Choice details validated by User1
-
-
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads and validate an entity in Patient Choice stage
+    Then the user updates the file NRF1 with Patient Choice details validated by User1
 ## Finally User1 submit Referral Successfully
     And the user submits the referral
     Then the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-
-
     Examples:
-      | RequestingOrganisation  | testPackage  | tumour_type           | presentationType | sampleType           | sampleState         | RecordedBy                            | PatientChoiceStage |
-      | Requesting organisation | Test package | Solid tumour: primary | Recurrence       | Liquid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 | Patient choice     |
+      | RequestingOrganisation  | testPackage  | tumour_type           | presentationType | sampleType           | sampleState         | RecordedBy                            | PatientChoiceStage | Notesupdated         | Patientdetailsupdated                   |
+      | Requesting organisation | Test package | Solid tumour: primary | Recurrence       | Liquid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 | Patient choice     | User2updatedthenotes | 01-03-2010:Unknown:R - Chinese:Deceased |
 
 
   @newreferral_Cancer @Z-LOGOUT
@@ -179,15 +132,16 @@ Feature: Submit New Referral for Cancer
 
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+    When the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     And the "<PatientDetails>" stage is marked as Completed
-    When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-#    When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient's details
-#    And the user modify the all the mandatory fields available in Check your "<update_patient's_details>" page
+    And the user fill in the first name field
+    And the user fill in the last name field
+    And the user stores the first name & last name values
+    And the user fills in the date of birth "<dateOfBirth>"
+    And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Save and Continue button
-#    And the "<PatientDetails>" stage is marked as Completed
     And the user updates the file NRF1 with PatientDetails Updated by User2
-
 ##Requesting Organisation updated by User2
     When the user waits max 3 minutes for the update Patient details validated by User1 in the file NRF1
     Then the user is navigated to a page with title Add a requesting organisation
@@ -197,7 +151,6 @@ Feature: Submit New Referral for Cancer
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     And the user updates the file NRF1 with Requesting Organisation details Updated by User2
-
 ##Test Package - change the priority
     And the user waits max 3 minutes for the update Requesting organisation details validated by User1 in the file NRF1
     When the user navigates to the "<TestPackage>" stage
@@ -206,7 +159,6 @@ Feature: Submit New Referral for Cancer
     When the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     And the user updates the file NRF1 with Test Package details Updated by User2
-
 ##Responsible Clinician updated by User2
     And the user waits max 3 minutes for the update Test Package details validated by User1 in the file NRF1
     Then the user is navigated to a page with title Add clinician information
@@ -214,7 +166,6 @@ Feature: Submit New Referral for Cancer
     And the user clicks the Save and Continue button
     And the "<ResponsibleClinician>" stage is marked as Completed
     And the user updates the file NRF1 with Responsible Clinician details Updated by User2
-
 ##Tumour details updated by User2
     And the user waits max 3 minutes for the update Responsible Clinician details validated by User1 in the file NRF1
     Then the user is navigated to a page with title Select or edit a tumour
@@ -231,7 +182,6 @@ Feature: Submit New Referral for Cancer
     And the user clicks the Save and Continue button
     And the "<Tumours>" stage is marked as Completed
     And the user updates the file NRF1 with Tumour details Updated by User2
-
 ##Samples details updated by User2
     And the user waits max 3 minutes for the update Tumour details validated by User1 in the file NRF1
     Then the user is navigated to a page with title Manage samples
@@ -246,7 +196,6 @@ Feature: Submit New Referral for Cancer
     When the user clicks the Save and Continue button
     And the "<Samples>" stage is marked as Completed
     And the user updates the file NRF1 with Sample details Updated by User2
-
 ##Notes details updated by User2
     And the user waits max 2 minutes for the update Sample details validated by User1 in the file NRF1
     Then the user is navigated to a page with title Add clinical notes
@@ -254,7 +203,6 @@ Feature: Submit New Referral for Cancer
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
     And the user updates the file NRF1 with Notes Updated by user2
-
 ##Patient Choice details updated by User2
     And the user waits max 2 minutes for the update Notes validated by User1 in the file NRF1
     Then the user is navigated to a page with title Patient choice
@@ -276,16 +224,6 @@ Feature: Submit New Referral for Cancer
     When the user clicks on Continue Button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     And the user updates the file NRF1 with Patient choice details Updated by user2
-
-
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ResponsibleClinicianDetails2 | ResponsibleClinician  | tumour_type              | Tumours | presentationType   | sampleType                | sampleState | Samples | RecordedBy          | Notes | PatientChoiceStage |
-      | Patient details | Requesting organisation | Test package | LastName=thomas              | Responsible clinician | Solid tumour: metastatic | Tumours | First presentation | Normal or germline sample | Fibroblasts | Samples | ClinicianName=Smith | Notes | Patient choice     |
-
-#    And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
-#    Examples:
-#      | gender  | lifeStatus | ethnicity   |
-#      | Unknown | Deceased   | R - Chinese |
-
-#    And the user fills in the date of birth "01-03-2010"
-#    And the user clicks the Save and Continue button on Patient details page
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ResponsibleClinicianDetails2 | ResponsibleClinician  | tumour_type              | Tumours | presentationType   | sampleType                | sampleState | Samples | RecordedBy          | Notes                | PatientChoiceStage | dateOfBirth | gender  | lifeStatus | ethnicity   |
+      | Patient details | Requesting organisation | Test package | LastName=thomas              | Responsible clinician | Solid tumour: metastatic | Tumours | First presentation | Normal or germline sample | Fibroblasts | Samples | ClinicianName=Smith | User2updatedthenotes | Patient choice     | 01-03-2010  | Unknown | Deceased   | R - Chinese

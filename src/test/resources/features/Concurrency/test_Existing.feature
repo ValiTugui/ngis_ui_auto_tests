@@ -10,7 +10,7 @@ Feature: Submit Existing Referral
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     When the user updates the concurrency controller file with Mandatory Stages Completed by User1
-    And the user waits for the update Notes Updated by User2 in the concurrency controller file
+    And the user waits max 2 minutes for the update Notes Updated by User2 in the concurrency controller file
     And the user submits the referral
 #    Then the submission confirmation message "Your referral has been submitted" is displayed
 #    And the referral status is set to "Submitted"
@@ -26,7 +26,7 @@ Feature: Submit Existing Referral
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Notes Section
-    When the user waits for the update Mandatory Stages Completed by User1 in the concurrency controller file
+    When the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the concurrency controller file
     And the user navigates to the "<notes>" stage
     Then the user is navigated to a page with title Add clinical notes
     And the "<notes>" stage is selected

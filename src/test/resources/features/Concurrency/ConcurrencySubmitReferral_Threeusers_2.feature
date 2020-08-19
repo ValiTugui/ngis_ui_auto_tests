@@ -1,11 +1,11 @@
 @Concurrency
 @Concurrency_RDReferral_ThreeUsers
+
 Feature: Submit Referral for RD
 
-
-  @newreferral_RD @Z-LOGOUT
-  @NTS-6466_1
-  Scenario Outline:User A and User B are unable to submit referral, where User C  has updated the same referral, until it has been checked.
+ @Newreferral_RD @Z-LOGOUT
+ @NTS-6466_2
+  Scenario Outline: Login as User A, Create a New Referral, Complete all stages and do not submit referral and validate the data updated, when B is updating every stage upon referral submission by A.
 
 #Login as User A, Complete all stages and do not submit referral
 
@@ -23,10 +23,10 @@ Feature: Submit Referral for RD
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only
-    When the user navigates to the "<TestPackage>" stage
+    When the user navigates to the "<testPackage>" stage
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+    And the "<testPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
@@ -76,30 +76,29 @@ Feature: Submit Referral for RD
     ##Print forms
     And  the user is navigated to a page with title Print sample forms
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-
-    # Referral Submission by User1 after Patient Details updated by user 3
+## Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 3 minutes for the update Patient Details Updated by User3 in the file NRF1
-#    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view patient details stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Routine"
+   And the user submits the referral
+   Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+   Then the user reads & validate the patient date of birth entered by user3
     Then the user updates the file NRF1 with Patient details validated by User1
-    And the user waits max 3 minutes for the update Patient details validated by User2 in the file NRF1
-
-    ## Finally User1 submit Referral Successfully
-#    And the user submits the referral
-#    Then the submission confirmation message "Your referral has been submitted" is displayed
-#    And the referral status is set to "Submitted"
-
+## Referral Submission by User1 after Notes updated by user2
+    And the user waits max 2 minutes for the update Notes Updated by User2 in the file NRF1
+   And the user submits the referral
+   Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+   Then the user reads & validate the Notes updated by user3
+    When the user updates the file NRF1 with Notes validated by User1
+## Finally User1 submit Referral Successfully
+    And the user submits the referral
+    Then the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
 
-#Login as User B,
+#Login as User B
 
   @newreferral_RD @Z-LOGOUT
 
@@ -111,24 +110,25 @@ Feature: Submit Referral for RD
     And the "<PatientDetails>" stage is marked as Completed
     ##Notes Section
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-## Referral Submission by User2 after Patient Details updated by user 3
     And the user waits max 3 minutes for the update Patient Details Updated by User3 in the file NRF1
     And the user waits max 3 minutes for the update Patient details validated by User1 in the file NRF1
-    #    And the user submits the referral
-#    Then the user should be able to view notification which has Reload & Review Popup with contact details of User2
-#    Then the user should click on Reload & Review popup
-#    Then the user should be able to view patient details stage with updated data
-    When the user navigates to the "<testPackage>" stage
-    And the user selects the "Routine"
+    And the user navigates to the "<notes>" stage
+    Then the user is navigated to a page with title Add clinical notes
+    And the "<notes>" stage is selected
+    When the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    Then the "<notes>" stage is marked as Completed
+    And the user updates the file NRF1 with Notes Updated by User2
+    And the user waits max 3 minutes for the update Notes validated by User3 in the file NRF1
+## Referral Submission by User2 after Patient Details updated by user 3
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate the patient stage with updated data
     Then the user updates the file NRF1 with Patient details validated by User2
-
-
 
     Examples:
       | PatientDetails  | notes | testPackage  |
       | Patient details | Notes | Test package |
-
-
 
 #Login as User C,
 
@@ -142,17 +142,33 @@ Feature: Submit Referral for RD
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+
     And the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient's details
-    And the user fills in the date of birth "01-03-2002"
+    And the user fills in the Postcode field box with "<Postcode1>"
     And the user clicks the Save and Continue button on Patient details page
     And the "<PatientDetails>" stage is marked as Completed
     Then the user updates the file NRF1 with Patient Details Updated by User3
     And the user waits max 3 minutes for the update Patient details validated by User1 in the file NRF1
+    ## Referral Submission by User1 after Notes updated by user2
+    And the user waits max 2 minutes for the update Notes Updated by User2 in the file NRF1
+    And the user submits the referral
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate the patient Notes Stage with updated data
     And the user waits max 3 minutes for the update Patient details validated by User2 in the file NRF1
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+    Then the user reads & validate the patient Notes Stage with updated data
+    When the user updates the file NRF1 with Notes validated by User3
+
+## Finally User1 submit Referral Successfully
+    And the user submits the referral
+    Then the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
+
+
     Examples:
-      | PatientDetails  |
-      | Patient details |
+      | PatientDetails  | Postcode1 | testPackage  |
+      | Patient details | AB1 2CD   | Test package |
 
 
 

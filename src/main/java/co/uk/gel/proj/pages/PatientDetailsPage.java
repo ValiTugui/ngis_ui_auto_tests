@@ -6,21 +6,21 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
@@ -1304,8 +1304,8 @@ public class PatientDetailsPage {
             postcodeField.clear();
             postcodeField.sendKeys(postcode);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in filling the postcode: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in filling the postcode: " + exp);
             SeleniumLib.takeAScreenShot("fillPostcode.jpg");
             return false;
         }
@@ -1402,6 +1402,49 @@ public class PatientDetailsPage {
             return "Could not fill Date Of Birth: "+exp;
         }
     }
+
+    public boolean readAndValidatePatientDetailsvalues(String Patientdetails) {
+        try {
+
+            String[] expectedPatientdetails =Patientdetails.split(":");
+            String actualFullDOB = dateOfBirthDay.getAttribute("value") + "/" + dateOfBirthMonth.getAttribute("value") + "/" + dateOfBirthYear.getAttribute("value");
+            String actualGender = administrativeGenderButton.getText().trim();
+            String actualEthnicity = ethnicityButton.getText();
+            String actualLifestatus = lifeStatusButton.getText();
+
+            if(!updatedfirstname.equalsIgnoreCase(firstName.getText())){
+                Debugger.println( "Expected DOB: " + updatedfirstname + ",But Actual:" + firstName.getText());
+                return false;
+            }
+
+            if(!updatedlastname.equalsIgnoreCase(firstName.getText())){
+                Debugger.println( "Expected DOB: " + updatedfirstname + ",But Actual:" + firstName.getText());
+                return false;
+            }
+
+            if (!actualFullDOB.equalsIgnoreCase(expectedPatientdetails[0])) {
+             Debugger.println( "Expected DOB: " + expectedPatientdetails[0] + ",But Actual:" + actualFullDOB);
+             return false;
+            }
+            if (!actualGender.equalsIgnoreCase(expectedPatientdetails[1])) {
+             Debugger.println("Expected Gender: " + expectedPatientdetails[1] + ",But Actual:" + actualGender);
+             return false;
+            }
+            if (!actualEthnicity.equalsIgnoreCase(expectedPatientdetails[2])) {
+                Debugger.println("Expected Ethnicity: " + expectedPatientdetails[2] + ",But Actual:" + actualEthnicity) ;
+                return false;
+            }
+            if (!actualLifestatus.equalsIgnoreCase(expectedPatientdetails[3])) {
+                Debugger.println("Expected LifeStatus: " +expectedPatientdetails[3] + ",But Actual:" + actualLifestatus);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not verify  Patient Details:" + exp + "\n" + driver.getCurrentUrl());
+            return false;
+        }
+    }
+
     public String clearDateOfBirth(){
         try {
             if(!seleniumLib.isElementPresent(dateOfBirthDay)){
@@ -1416,4 +1459,11 @@ public class PatientDetailsPage {
             return "Could not Clear Date Of Birth: "+exp;
         }
     }
-}//end
+    public static String updatedfirstname;
+    public static String updatedlastname;
+    public void verifyName() {
+
+        updatedfirstname=firstName.getText();
+        updatedlastname=familyName.getText();
+    }
+    }//end

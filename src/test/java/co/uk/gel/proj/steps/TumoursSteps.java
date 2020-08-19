@@ -16,11 +16,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import static co.uk.gel.lib.Actions.getText;
 
@@ -599,5 +599,18 @@ public class TumoursSteps extends Pages {
         testResult = tumoursPage.clicksOnAddAnotherLinkForWorkingDiagnosisMorphology();
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user reads & validate the Tumours stage with updated data {string} on Edit a tumour page and {string}")
+    public void theUserReadsValidateTheTumoursStageWithUpdatedDataOnEditATumourPage(String updatedTumour, String updatedRecurrence) {
+        Assert.assertTrue(tumoursPage.viewTheUpdatedTumourValues(updatedTumour));
+        referralPage.saveAndContinueButton.click();
+        Assert.assertTrue(tumoursPage.viewTheUpdatedTumourDetails(updatedRecurrence));
+    }
+
+    @And("the user stores the tumour details")
+    public void theUserStoresTheTumourDetails() {
+        tumoursPage.verifyDescriptionAndReportId();
+    }
+
 
 }

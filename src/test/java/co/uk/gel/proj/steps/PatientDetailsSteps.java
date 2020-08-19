@@ -7,28 +7,18 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.RandomDataCreator;
-import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.hu.De;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
 
@@ -471,6 +461,14 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals("Success",stepResult);
     }
 
+    @And("the user reads & validate the patient details data {string}")
+    public void theUserreadandvalidatePatientDetailsvalues(String Patientdetails) {
+        boolean testResult = false;
+        testResult= patientDetailsPage.readAndValidatePatientDetailsvalues(Patientdetails);
+        Assert.assertTrue(testResult);
+    }
+
+
     @And("the date of death input field is displayed")
     public void theDateOfDeathInputFieldIsDisplayed() {
         boolean inputFieldStatus;
@@ -650,6 +648,12 @@ public class PatientDetailsSteps extends Pages {
 
         patientDetailsPage.fillInFirstName();
     }
+
+    @And("the user stores the first name & last name values")
+    public void theUserStoresTheFirstNameLastNameValues() {
+        patientDetailsPage.verifyName();
+            }
+
 
     @And("the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode")
     public void theUserDeletesThePrePopulatedFieldsFirstNameLastNameDateOfBirthGenderAndPostCode() {

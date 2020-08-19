@@ -20,6 +20,10 @@ public class Pages implements Navigable {
     protected String superUser = "GEL_SUPER_USER";
     protected String concurrentUser1 = "CONCURRENT_USER1";
     protected String concurrentUser2 = "CONCURRENT_USER2";
+    protected String concurrentUser3 = "CONCURRENT_USER3";
+    protected String concurrentUser4 = "CONCURRENT_USER4";
+    protected String concurrentUser5 = "CONCURRENT_USER5";
+
 
     protected WebDriver driver;
 
@@ -271,13 +275,18 @@ public class Pages implements Navigable {
                         Debugger.println("Login to TOMS as SUPER_USER");
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
-                }else if(userType.startsWith(concurrentUser1) || userType.startsWith(concurrentUser2)){
+                }else if(userType.startsWith(concurrentUser1) ||
+                        userType.startsWith(concurrentUser2)){
                     Debugger.println("Concurrent User... Logging to TestOrder");
                     referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
             }else{
                 Debugger.println("Switching here to new referral..");
-                if(userType.startsWith(concurrentUser1) || userType.startsWith(concurrentUser2)){
+                if(userType.startsWith(concurrentUser1) ||
+                        userType.startsWith(concurrentUser2) ||
+                        userType.startsWith(concurrentUser3) ||
+                        userType.startsWith(concurrentUser4) ||
+                        userType.startsWith(concurrentUser5)){
                     driver.get(currentURL);
                     referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
@@ -296,6 +305,6 @@ public class Pages implements Navigable {
             SeleniumLib.takeAScreenShot("SwitchURLException.jpg");
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
-    }
+     }
 
 }//end class

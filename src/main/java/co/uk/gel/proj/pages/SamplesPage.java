@@ -5,7 +5,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -15,7 +14,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SamplesPage {
@@ -674,4 +672,85 @@ public class SamplesPage {
             return false;
         }
     }
+
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public WebElement updatedSampleTable;
+
+    @FindBy(xpath = "//label[@for='sampleType']/..//div[contains(@class,'singleValue')]/span")
+    public WebElement selectedSampleTypeValue;
+
+    @FindBy(xpath = "//input[@id='labId']")
+    public WebElement sampleId;
+
+    public boolean viewUpdatedSamplesDetails(String updatedSample) {
+        try{
+            String[] expectedSampleDetails = updatedSample.split(":");
+            String expectedSampleType = selectedSampleTypeValue.getText();
+            String expectedSampleState = selectedSampleStateValue.getText();
+
+
+            if(!Wait.isElementDisplayed(driver, updatedSampleTable, 30)) {
+                Debugger.println("The sample value is: " + updatedSample + " not updated");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(editSampleButton);
+            if(!selectedSampleTypeValue.getText().equalsIgnoreCase(expectedSampleType)){
+                Debugger.println("Expected sample type value is: " +expectedSampleType+ ", but actual sample is: " +selectedSampleTypeValue.getText());
+                return false;
+            }
+
+            if(!selectedSampleStateValue.getText().equalsIgnoreCase(expectedSampleState)){
+                Debugger.println("Expected sample state value is: " +expectedSampleState+ ", but actual sample state is: " +selectedSampleStateValue.getText());
+                return false;
+            }
+
+            if(!updatedSampleId.equalsIgnoreCase(sampleId.getText())){
+                Debugger.println("Expected sample id is: " +updatedSampleId+ ", but actualsample id is: "+sampleId.getText());
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from viewUpdatedSamplesDetails: " +exp);
+            SeleniumLib.takeAScreenShot("noSampleDetails.jpg");
+            return false;
+        }
+    }
+    public static String updatedSampleId;
+    public boolean viewUpdatedSampleQuestions(String updatedSampleDetails) {
+        try{
+            String[] expectedSampleQuestionDetails = updatedSampleDetails.split(":");
+            String expectedSampleTopography = sampleTopographyField.getText();
+            String expectedSampleMorphology = sampleMorphologyField.getText();
+            String expectedTumourContent = percentageOfMalignantNucleiField.getAttribute("value");
+            String expectedNumberOfSlides = numberOfSlidesField.getAttribute("value");
+            String expectedSampleCollectionDate = sampleCollectionDay.getAttribute("value") + "/" + sampleCollectionMonth.getAttribute("value") + "/" + sampleCollectionYear.getAttribute("value");
+
+            if (!expectedSampleTopography.equalsIgnoreCase(expectedSampleQuestionDetails[0])){
+                Debugger.println("Expected topography is: " +expectedSampleQuestionDetails[0]+ ", but actual topography is: " + expectedSampleTopography);
+                return false;
+            }
+            if (!expectedSampleMorphology.equalsIgnoreCase(expectedSampleQuestionDetails[1])){
+                Debugger.println("Expected Morphology is: " +expectedSampleQuestionDetails[1]+ ", but actual Morphology is: " + expectedSampleMorphology);
+                return false;
+            }
+            if (!expectedTumourContent.equalsIgnoreCase(expectedSampleQuestionDetails[2])){
+                Debugger.println("Expected Morphology is: " +expectedSampleQuestionDetails[2]+ ", but actual Morphology is: " + expectedTumourContent);
+                return false;
+            }
+            if (!expectedNumberOfSlides.equalsIgnoreCase(expectedSampleQuestionDetails[3])){
+                Debugger.println("Expected Morphology is: " +expectedSampleQuestionDetails[3]+ ", but actual Morphology is: " + expectedNumberOfSlides);
+                return false;
+            }
+            if (!expectedSampleCollectionDate.equalsIgnoreCase(expectedSampleQuestionDetails[4])){
+                Debugger.println("Expected Morphology is: " +expectedSampleQuestionDetails[4]+ ", but actual Morphology is: " + expectedSampleCollectionDate);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from viewUpdatedSampleQuestions: " +exp);
+            SeleniumLib.takeAScreenShot("noSampleQuestions.jpg");
+            return false;
+        }
+    }
+
 }//

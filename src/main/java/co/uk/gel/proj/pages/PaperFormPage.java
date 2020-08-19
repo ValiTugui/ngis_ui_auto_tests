@@ -6,8 +6,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.Debugger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -332,5 +330,20 @@ public class PaperFormPage {
         Actions.clickElement(driver,usePDFOrderFormButton);
     }
 
+    public boolean verifyRequestingOrgnaisation(String OrganisatioName) {
+
+        try {
+            String actualOrgName = orderEntitySearchField.getText();
+            if (!OrganisatioName.equalsIgnoreCase(actualOrgName)) {
+                Debugger.println("Expected OrgName: " + OrganisatioName + ",But Actual:" + actualOrgName);
+                return false;
+            }
+            return true;
+            }
+            catch (Exception exp){
+            Debugger.println("Exception from reading requesting organisation value"+exp+"\n"+driver.getCurrentUrl());
+            return false;
+        }
+    }
 }
 

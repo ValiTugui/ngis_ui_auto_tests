@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -16,10 +15,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static co.uk.gel.lib.Actions.getText;
-import static co.uk.gel.lib.Actions.getValue;
 
 public class SamplesSteps extends Pages {
 
@@ -569,4 +570,12 @@ public class SamplesSteps extends Pages {
         testResult = samplesPage.editSpecificSample(sampleNo);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user reads & validate the Sample stage with updated data {string} on Edit a sample page {string}")
+    public void theUserReadsValidateTheSampleStageWithUpdatedDataOnEditASamplePage(String updatedSample, String updatedSampleDetails) {
+        Assert.assertTrue(samplesPage.viewUpdatedSamplesDetails(updatedSample));
+        referralPage.saveAndContinueButton.click();
+        Assert.assertTrue(samplesPage.viewUpdatedSampleQuestions(updatedSampleDetails));
+    }
+
 }

@@ -2,17 +2,16 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import co.uk.gel.lib.SeleniumLib;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -901,5 +900,77 @@ public class TumoursPage {
             return false;
          }
         return true;
+    }
+
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public WebElement updatedTumourTable;
+
+    @FindBy(xpath = "(//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!=''])[4]")
+    public WebElement updatedTumourValue;
+
+    public boolean viewTheUpdatedTumourValues(String updatedTumour) {
+        try{
+
+            String[] expectedTumourDetails = updatedTumour.split(":");
+            String actualDateOfDiagnosis = dateDay.getAttribute("value") + "/" + dateMonth.getAttribute("value") + "/" + dateYear.getAttribute("value");
+
+            if(!Wait.isElementDisplayed(driver, updatedTumourTable, 30)) {
+                Debugger.println("The tumour value is: " + updatedTumour + " not updated");
+                return false;
+            }
+
+            if(!checkedRadioButton.isDisplayed()){
+                Debugger.println("Radio button is not displayed for: " +updatedTumour);
+                return false;
+            }
+
+            seleniumLib.clickOnWebElement(editTumourArrow);
+
+            if(!updatedTumourDescription.equalsIgnoreCase(descriptiveName.getText())){
+                Debugger.println("Expected Tumour description is: " +updatedTumourDescription + ", But actual tumour description is: " +descriptiveName.getText());
+                return false;
+            }
+
+            if(!actualDateOfDiagnosis.equalsIgnoreCase(expectedTumourDetails[0])){
+                Debugger.println("Expected date of diagnosis is: " +expectedTumourDetails[0] + ", but actual date of diagnosis is: " +actualDateOfDiagnosis);
+                return false;
+            }
+
+            if(!tumourType.getText().equalsIgnoreCase(expectedTumourDetails[1])){
+                Debugger.println("Expected tumour type is: " +expectedTumourDetails[1]+ ", but actual tumour type is: " +tumourType.getText());
+                return false;
+            }
+
+            if(!updatedPathologyReportId.equalsIgnoreCase(pathologyReportId.getText())){
+                Debugger.println("Expected Pathology Report Id is: " +updatedPathologyReportId + ", But actual Pathology Report Id is: " +pathologyReportId.getText());
+                return false;
+            }
+
+            return true;
+
+        } catch (Exception exp){
+            Debugger.println("Exception from viewTheUpdatedTumourValues: " +exp);
+            SeleniumLib.takeAScreenShot("tumourNotUpdated.jpg");
+            return false;
+        }
+    }
+    public static String updatedTumourDescription;
+    public static String updatedPathologyReportId;
+    public void verifyDescriptionAndReportId (){
+        updatedTumourDescription = descriptiveName.getText();
+        updatedPathologyReportId = pathologyReportId.getText();
+    }
+    public boolean viewTheUpdatedTumourDetails(String updatedRecurrence) {
+        try{
+            String expectedRecurrence = tumourCoreDataDropdown.getText();
+            if(!expectedRecurrence.equalsIgnoreCase(updatedRecurrence)){
+                Debugger.println("Expected recurrence is: " +expectedRecurrence+ ", but actual recurrence is: " +updatedRecurrence);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from viewTheUpdatedTumourDetails: " +exp);
+            return false;
+        }
     }
 }

@@ -199,4 +199,11 @@ public class PaperFormSteps extends Pages {
         paperFormPage.clickCancelOrderLink();
         Actions.acceptAlert(driver);
     }
-}
+
+    @And("the user reads & validate the requesting organisation value {string}")
+    public void theUserReadsValidateTheRequestingOrganisationValue(String Organisationame) {
+        boolean testResult=false;
+        testResult= paperFormPage.verifyRequestingOrgnaisation(Organisationame);
+        Assert.assertTrue(testResult);
+    }
+    }

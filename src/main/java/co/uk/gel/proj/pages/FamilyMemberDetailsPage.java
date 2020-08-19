@@ -284,7 +284,67 @@ public class FamilyMemberDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
+    public boolean readAndValidateFamilyMembersDetailsvalues(String expectedFamilyMembersDetails) {
+        try {
+            String[] expectedFamilyMemberDetail =expectedFamilyMembersDetails.split(":");
+
+            String actualGender = gender.getText().trim();
+            String actualFullDOB = dateOfBirthDayFM.getAttribute("value") + "-" + dateOfBirthMonthFM.getAttribute("value") + "-" + dateOfBirthYearFM.getAttribute("value");
+            String actualRelationtoProband=relationshipToProband.getText();
+
+
+            if (!expectedFamilyMemberDetail[0].equalsIgnoreCase(actualGender)) {
+                Debugger.println("Expected Gender: " + expectedFamilyMemberDetail[0] + ",But Actual:" + actualGender);
+                return false;
+            }
+            if (!expectedFamilyMemberDetail[1].equalsIgnoreCase(actualFullDOB)) {
+                Debugger.println("Expected DOB: " + expectedFamilyMemberDetail[1] + ",But Actual:" + actualFullDOB);
+                return false;
+            }
+            if (!expectedFamilyMemberDetail[2].equalsIgnoreCase(actualRelationtoProband)) {
+                Debugger.println("Expected Relationtoproband: " + expectedFamilyMemberDetail[2] + ",But Actual:" + actualRelationtoProband);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not verify  Family Member Details:" + exp + "\n" + driver.getCurrentUrl());
+            return false;
+        }
+    }
+
+    public boolean readAndValidateFamilyMembersClinicalQuestions(String UpdatedFamilyMemberClinicalQuestionsDetails) {
+        try {
+            String[] expectedClinicalQuestions =UpdatedFamilyMemberClinicalQuestionsDetails.split(":");
+            String actualDiseaseStatus = diseaseStatusDropdown.getText();
+            String actualAgeofOnsetYear=ageOfOnsetYearsField.getText();
+            String actualAgeofOnsetMonth=ageOfOnsetMonthsField.getText();
+            String actualHPOType=hpoSearchField.getText().trim();
+
+            if(!expectedClinicalQuestions[0].equalsIgnoreCase(actualDiseaseStatus)){
+                Debugger.println("Expected FirstName: " + expectedClinicalQuestions[0] + ",But Actual:" + actualDiseaseStatus);
+                return false;
+            }
+            if(!expectedClinicalQuestions[1].equalsIgnoreCase(actualAgeofOnsetYear)){
+                Debugger.println("Expected LastName: " + expectedClinicalQuestions[1] + ",But Actual:" +actualAgeofOnsetYear);
+                return false;
+            }
+            if (!expectedClinicalQuestions[2].equalsIgnoreCase(actualAgeofOnsetMonth)) {
+                Debugger.println("Expected Gender: " +expectedClinicalQuestions[2] + ",But Actual:" + actualAgeofOnsetMonth);
+                return false;
+            }
+            if (!expectedClinicalQuestions[3].equalsIgnoreCase(actualHPOType)) {
+                Debugger.println("Expected Ethnicity: " + expectedClinicalQuestions[3]+ ",But Actual:" + actualHPOType);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not verify  clinical questions details for family members:" + exp + "\n" + driver.getCurrentUrl());
+            return false;
+        }
+    }
+
+
+   public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
         if (!Wait.isElementDisplayed(driver, patientCardName, 100)) {
