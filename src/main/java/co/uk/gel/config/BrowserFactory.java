@@ -444,7 +444,6 @@ public class BrowserFactory {
         chromeOptions.addArguments("--ignore-certificate-errors");
         System.setProperty("webdriver.chrome.driver", path);
         if (OS.equalsIgnoreCase("linux")) {
-          //  chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("window-size=1920,1080");
             // 1920x1080x24
             chromeOptions.addArguments("disable-infobars"); // disabling infobars

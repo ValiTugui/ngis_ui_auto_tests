@@ -871,4 +871,11 @@ public class PatientDetailsSteps extends Pages {
         testResult=patientDetailsPage.fillInFirstNameAndLastName(fName,lName);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user updates the patient details stage with {string}")
+    public void theUserUpdatesPatientDetailsStageWith(String patientDetails) {
+        boolean testResult = false;
+        testResult= patientDetailsPage.updatePatientDetails(patientDetails);
+        Assert.assertTrue(testResult);
+    }
 }

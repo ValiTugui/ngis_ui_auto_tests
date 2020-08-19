@@ -19,8 +19,7 @@ Feature: NTS-5705 Patient demographics are unclear - missing NHS number and typo
     Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "Create a record for this patient" page is displayed
-    And the user provides the first name "$12%#@" and last name "$#@"
-    And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
+    When the user updates the patient details stage with "<PatientDetailsUpdated>"
     And the user fills in the HospitalNo field
     And the user select a reason for "<reason_for_no_nhsNumber>"
     And the user clicks the Save patient details to NGIS button
@@ -97,5 +96,5 @@ Feature: NTS-5705 Patient demographics are unclear - missing NHS number and typo
 
 
     Examples:
-      | message          | hyperlinkText               | gender | lifeStatus | ethnicity         | reason_for_no_nhsNumber                                     | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
-      | No patient found | create a new patient record | Female | Alive      | B - White - Irish | Patient not eligible for NHS number (e.g. foreign national) | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | message          | hyperlinkText               | PatientDetailsUpdated                                                                                     | reason_for_no_nhsNumber                                     | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | No patient found | create a new patient record | FirstName=$#212%:LastName=#@(6#:Gender=Male:LifeStatus=Alive:Ethnicity=B - White - Irish | Patient not eligible for NHS number (e.g. foreign national) | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
