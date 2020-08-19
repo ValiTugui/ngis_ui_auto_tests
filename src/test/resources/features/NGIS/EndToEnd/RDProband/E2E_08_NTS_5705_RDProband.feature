@@ -93,8 +93,6 @@ Feature: NTS-5705 Patient demographics are unclear - missing NHS number and typo
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
-
-
     Examples:
-      | message          | hyperlinkText               | PatientDetailsUpdated                                                                                     | reason_for_no_nhsNumber                                     | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | message          | hyperlinkText               | PatientDetailsUpdated                                                                    | reason_for_no_nhsNumber                                     | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
       | No patient found | create a new patient record | FirstName=$#212%:LastName=#@(6#:Gender=Male:LifeStatus=Alive:Ethnicity=B - White - Irish | Patient not eligible for NHS number (e.g. foreign national) | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
