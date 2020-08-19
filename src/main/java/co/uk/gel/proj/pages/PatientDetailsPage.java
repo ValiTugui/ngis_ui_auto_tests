@@ -1901,24 +1901,6 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean fillInFirstNameAndLastName(String fName,String lName) {
-        try {
-            if (!Wait.isElementDisplayed(driver, firstName, 5)) {
-                Debugger.println("The first name and last name is not displayed." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("fillFirstNameAndLastName.jpg");
-                return false;
-            }
-            firstName.sendKeys(fName);
-            familyName.sendKeys(lName);
-
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PatientDetailsPage: fillInFirstNameAndLastName. Exception:" + exp);
-            SeleniumLib.takeAScreenShot("FirstNameAndLastName.jpg");
-            return false;
-        }
-    }
-
     public boolean updatePatientDetails(String patientDetails){
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
         Set<String> paramsKey = paramNameValue.keySet();
