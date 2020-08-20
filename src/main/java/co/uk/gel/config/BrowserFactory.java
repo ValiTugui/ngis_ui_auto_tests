@@ -240,9 +240,9 @@ public class BrowserFactory {
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
 //        chromeLocalOptions.addArguments("--disable-gpu");
-        chromeLocalOptions.addArguments("--no-sandbox");
+//        chromeLocalOptions.addArguments("--no-sandbox");
 //        chromeLocalOptions.setHeadless(true);
-        chromeLocalOptions.addArguments("--whitelisted-ips");
+//        chromeLocalOptions.addArguments("--whitelisted-ips");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
@@ -398,10 +398,10 @@ public class BrowserFactory {
         } catch (Exception exp) {
             System.out.println("Exception in creating download directory..." + exp);
         }
-        profile.setPreference("browser.cache.disk.enable", false);
-        profile.setPreference("browser.cache.memory.enable", false);
-        profile.setPreference("browser.cache.offline.enable", false);
-        profile.setPreference("network.http.use-cache", false);
+//        profile.setPreference("browser.cache.disk.enable", false);
+//        profile.setPreference("browser.cache.memory.enable", false);
+//        profile.setPreference("browser.cache.offline.enable", false);
+//        profile.setPreference("network.http.use-cache", false);
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir", downloadFilepath);
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
@@ -444,7 +444,6 @@ public class BrowserFactory {
         chromeOptions.addArguments("--ignore-certificate-errors");
         System.setProperty("webdriver.chrome.driver", path);
         if (OS.equalsIgnoreCase("linux")) {
-            chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("window-size=1920,1080");
             // 1920x1080x24
             chromeOptions.addArguments("disable-infobars"); // disabling infobars

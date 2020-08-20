@@ -73,7 +73,6 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//div[@class='m-signature-pad--body']//canvas")
     WebElement signaturePad;
-
     @FindBy(xpath = "//*[contains(@id,'signature-pad')]//child::canvas")
     public WebElement signatureSection;
 

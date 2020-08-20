@@ -37,7 +37,7 @@ Feature: TestOrder - Tumours Page - 1
       | labelHeader                       | HintTextHeader                                                                                                                 |
       | Description                       | Describe in a way that distinguishes this tumour from others the patient may have                                              |
       | Date of diagnosis ✱               | Year is required. Enter day and month if known.                                                                                |
-#      | Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
+      #| Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
       | Histopathology or SIHMDS Lab ID ✱ | For solid tumours, enter the "Histopathology Lab ID". For haemato-oncology liquid tumours, enter the "SIHMDS Lab ID" |
       | The tumour is... ✱                | None                                                                                                                           |
 

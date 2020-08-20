@@ -59,6 +59,7 @@ Feature: RDReferral:NTS-4964:Submit+cancel referral and check ddf payload
     And the user fills PatientSignature details in patient signature
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button on the patient choice
     Then the "<PatientChoiceStage>" page is displayed
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
