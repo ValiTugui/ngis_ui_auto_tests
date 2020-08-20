@@ -497,7 +497,7 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user clicks on the amend patient choice button")
     public void theUserClicksOnTheAmendPatientChoiceButton() {
-        patientChoicePage.clickOnAmendPatientChoice();
+        Assert.assertTrue(patientChoicePage.clickOnAmendPatientChoice());
     }
 
     @And("the user should be able to see patient choice in history tab")

@@ -47,6 +47,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='glh_samples-search-col']")
     public WebElement glhSearchColumn;
 
+    @FindBy(xpath = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr")
+    public WebElement searchResultRowHeader;
+
     By glhSamplesTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
     String glhSamplesTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
 
@@ -159,9 +162,6 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
-    @FindBy(xpath = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr")
-    public WebElement searchResultRowHeader;
 
     public boolean doubleClickDataRow() {
         try {
