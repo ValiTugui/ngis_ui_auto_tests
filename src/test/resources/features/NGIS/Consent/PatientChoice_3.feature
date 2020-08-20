@@ -132,7 +132,7 @@ Feature: Patient Choice -3 Navigation
     #@E2EUI-1702
   Scenario Outline: NTS-3418:Research change messages displayed in Patient choice section
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2006:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=15-10-2005:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -155,7 +155,9 @@ Feature: Patient Choice -3 Navigation
     Then the user should be able to see the patient choice form with success message
     And the user selects the Preferences tab in patient choice page
     And the user will see a warning message "<WarningMessage2>"
-    And the user selects the New patient choice tab in patient choice page
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user clicks on the amend patient choice button
     When the user selects the option Adult (With Capacity) in patient choice category
