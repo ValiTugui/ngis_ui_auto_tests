@@ -71,8 +71,30 @@ Feature: Submit Existing Referral for RD flow
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user updates the file NRF1 with Requesting Organisation validated by User1
+     #Test Package - Update
+    And the user waits max 3 minutes for the update Clinical Questions details Updated by User2 in the file NRF1
+    When the user navigates to the "<TestPackage>" stage
+    And the user updates the stage "<TestPackage>" with "<TestPackageUpdated>"
+    And the user updates the file NRF1 with Clinical Questions details validated by User1
+    ##Responsible Clinician - Verify
+    And the user waits max 3 minutes for the update Responsible Clinician details Updated by User2 in the file NRF1
+    When the user navigates to the "<ResponsibleClinician>" stage
+    Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
+    Then the user updates the file NRF1 with Responsible Clinician details validated by User1
+     ##ClinicalQuestions - Verify
+    And the user waits max 3 minutes for the update Clinicalquestions details Updated by User2 in the file NRF1
+    When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user verifies the stage "<ClinicalQuestions>" with "<ClinicalQuestionsDetailsUpdated>"
+    Then the user updates the file NRF1 with Responsible Clinician details validated by User1
+    ##FamilyMembers - Verify
+    And the user waits max 3 minutes for the update Family Member details Updated by User2 in the file NRF1
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user Verifies "<TwoParticipants>" family member record with below details
+      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                           |
+      | NHSNumber=9449306141:DOB=08-04-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
+    Then the user updates the file NRF1 with Family Member details validated by User1
 
-#    When the user navigates to the "<RequestingOrganisation>" stage
+  #    When the user navigates to the "<RequestingOrganisation>" stage
 #    Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
 #    And the user updates the file NRF1 with Requesting Organisation validated by User1
     # Referral Submission by User1 after Requesting Organisation details updated by user 2
@@ -144,8 +166,8 @@ Feature: Submit Existing Referral for RD flow
 #    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated|testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Sandwell and West Birmingham Hospitals NHS Trust                             |Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       |  RequestingOrganisation  | RequestingOrganisationUpdated                    | TestPackage  | TestPackageUpdated |ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestion  | ClinicalQuestionDetailsUpdated                                                   | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish |  Requesting organisation | Sandwell and West Birmingham Hospitals NHS Trust | Test package | 2                  | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk  |  Clinical questions |DiseaseStatus=Affected:HpoPhenoType=Scrotal hypoplasia:AgeOfOnset:01,01 | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
 
   #User2
   @RD_existing_referral_all_stages @Z-LOGOUT
@@ -164,6 +186,30 @@ Feature: Submit Existing Referral for RD flow
     And the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Requesting Organisation Updated by User2
+    #Test Package - Update
+    When the user navigates to the "<TestPackage>" stage
+    And the user updates the stage "<TestPackage>" with "<TestPackageUpdated>"
+    And the user clicks the Save and Continue button
+    And the user updates the file NRF1 with Test Package details Updated by User2
+    #Responsible Clinician- Update
+    When the user navigates to the "<ResponsibleClinician>" stage
+    Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
+    And the user clicks the Save and Continue button
+    And Then the user updates the file NRF1 with Responsible Clinician details Updated by User2
+    #ClinicalQuestions - Update
+    When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user updates the stage "<ClinicalQuestions>" with "<ClinicalQuestionsDetailsUpdated>"
+    And the user clicks the Save and Continue button
+    And Then the user updates the file NRF1 with Clinical Questions details Updated by User2
+#FamilyMembers - Update
+    When the user navigates to the "<FamilyMembers>" stage
+  Then the user Verifies "<TwoParticipants>" family member record with below details
+      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                           |
+      | NHSNumber=9449306141:DOB=08-04-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
+    And the user clicks the Save and Continue button
+    And Then the user updates the file NRF1 with Family Member details Updated by User2
+
+
 
 #    # When the user waits max 10 minutes for the update Patient details validated by User1 in the file NRF1
 #    And the user navigates to the "<RequestingOrganisation>" stage
@@ -176,7 +222,7 @@ Feature: Submit Existing Referral for RD flow
 #    #Test Package - Two participants updated by User2
 #    And the user waits max 5 minutes for the update Requesting organisation details validated by User1 in the file NRF1
 #    When the user navigates to the "<TestPackage>" stage
-#    And the user selects the number of participants as "<TwoParticipants>"
+  # And the user selects the number of participants as "<TwoParticipants>"
 #    And the user clicks the Save and Continue button
 #    And the "<TestPackage>" stage is marked as Completed
 #    And the user updates the file NRF1 with Test Package details Updated by User2
@@ -205,9 +251,9 @@ Feature: Submit Existing Referral for RD flow
 #    And the user waits max 5 minutes for the update Notes validated by User1 in the file NRF1
 #    When the user navigates to the "<FamilyMembers>" stage
 #    Then the user is navigated to a page with title Add a family member to this referral
-#    When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
-#      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                           |
-#      | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
+   When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                           |
+      | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
 #    Then the "<FamilyMembers>" stage is marked as Completed
 #    And the user updates the file NRF1 with Family Members details Updated by User2
 #   ##Patient Choice updated by User2
@@ -249,5 +295,5 @@ Feature: Submit Existing Referral for RD flow
 #    Then the "<Pedigree>" stage is marked as Completed
 #    And the user updates the file NRF1 with Pedigree details Updated by User2
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                    | TwoParticipants | ResponsibleClinicianDetails2                             | ClinicalQuestionDetails2                                                | ClinicianName2      | searchPanels     | Notes                | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | Notes | Panels | Pedigree | PatientChoice  | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Sandwell and West Birmingham Hospitals NHS Trust | 2               | FirstName=edward:LastName=thomas:Department=woodspark,uk | DiseaseStatus=Affected:HpoPhenoType=Scrotal hypoplasia:AgeOfOnset:01,01 | ClinicianName=Smith | Optic neuropathy | User2updatedthenotes | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes | Panels | Pedigree | Patient choice | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                    | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       |ClinicalQuestion  | ClinicalQuestionDetailsUpdated                                             | ClinicianName2      | searchPanels     | Notes                | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | Notes | Panels | Pedigree | PatientChoice  | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Sandwell and West Birmingham Hospitals NHS Trust | Test package | 2                  | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk |  Clinical questions |DiseaseStatus=Affected:HpoPhenoType=Scrotal hypoplasia:AgeOfOnset:01,01 | ClinicianName=Smith | Optic neuropathy | User2updatedthenotes | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes | Panels | Pedigree | Patient choice | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |

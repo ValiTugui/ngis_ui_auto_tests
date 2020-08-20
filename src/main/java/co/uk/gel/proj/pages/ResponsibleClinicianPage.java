@@ -658,4 +658,43 @@ public class ResponsibleClinicianPage {
             return false;
         }
     }
+
+    public boolean verifyResponsibleClinicianDetails(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    actValue = seleniumLib.getText(clinicianFirstNameField);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+            switch (key) {
+                case "LastName": {
+                    actValue = seleniumLib.getText(clinicianLastNameField);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+            switch (key) {
+                case "Department": {
+                    actValue = seleniumLib.getText(clinicianDepartmentAddressField);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
 }

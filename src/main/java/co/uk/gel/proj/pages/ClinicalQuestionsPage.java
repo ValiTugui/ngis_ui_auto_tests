@@ -6,16 +6,16 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
-import java.sql.Driver;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
@@ -269,7 +269,7 @@ public class ClinicalQuestionsPage {
                 diagnosisValue.clear();
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
                 if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                    Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
+                    Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n" + driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
                     return null;
                 }
@@ -509,6 +509,49 @@ public class ClinicalQuestionsPage {
             return true;
         }
     }//method
+
+
+    public boolean verifyClinicalQuestionsDetails(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DiseaseStatus": {
+                    actValue = seleniumLib.getText(diseaseStatusDropdown);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+            switch (key) {
+                case "AgeOfOnset": {
+                    String[] age_of_onset = key.split(",");
+                    String actValueMonth = ageOfOnsetYearsField.getAttribute("value");
+                    String actValueYear = ageOfOnsetMonthsField.getAttribute("value");
+                     actValue =  actValueMonth+","+actValueYear;
+                    if (!(actValue).equalsIgnoreCase(paramNameValue.get(key)) )
+                    {
+                        Debugger.println("Expected :" + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                          }
+            }
+            switch (key) {
+                case "HpoPhenoType": {
+                    if (!isHPOAlreadyConsidered(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
 
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
         try {

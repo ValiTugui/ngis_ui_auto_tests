@@ -52,9 +52,22 @@ public class ConcurrencyStepDefs extends Pages {
                 Assert.fail("Could not search for Order entity.");
             }
             testResult = paperFormPage.checkThatEntitySuggestionsAreDisplayed();
+        }else if(stageName.equalsIgnoreCase("Test package")) {
+            testResult =testPackagePage.selectNumberOfParticipants(Integer.parseInt(updateDetails));
+          }
+        else if(stageName.equalsIgnoreCase("Responsible clinician")) {
+            testResult = responsibleClinicianPage.fillResponsibleClinicianDetails(updateDetails);
+            if(!testResult){
+                Assert.fail("Responsible Clinician Details could not enter.");
+            }
         }
-        Assert.assertTrue(testResult);
-    }
+        else if(stageName.equalsIgnoreCase("Clinical questions")) {
+            testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(updateDetails);;
+            if(!testResult){
+                Assert.fail("Clinical Questions Details could not be enter.");
+            }
+        }
+        }
 
     @When("the user updates the file (.*) with (.*)")
     public void theUserUpdateConcurrencyControllerFileWith(String filePrefix,String stringToUpdate) {
@@ -73,7 +86,16 @@ public class ConcurrencyStepDefs extends Pages {
         }else if(stageName.equalsIgnoreCase("Requesting Organisation")) {
             testResult = requestingOrganisationPage.verifyOrganisationDetails(verifyDetails);
         }
-        Assert.assertTrue(testResult);
+        else if(stageName.equalsIgnoreCase("Test package")) {
+            testResult = testPackagePage.VerifyNumberOfParticipants(verifyDetails);
+        }
+        else if(stageName.equalsIgnoreCase("Responsible clinician")) {
+            testResult = responsibleClinicianPage.verifyResponsibleClinicianDetails(verifyDetails);
+        }
+        else if(stageName.equalsIgnoreCase("Clinical questions")) {
+            testResult = clinicalQuestionsPage.verifyClinicalQuestionsDetails(verifyDetails);
+        }
+             Assert.assertTrue(testResult);
     }
 }//end
 
