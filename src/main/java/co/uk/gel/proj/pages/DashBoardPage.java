@@ -5,7 +5,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import io.cucumber.java.af.Wanneer;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -128,6 +127,11 @@ public class DashBoardPage {
         try {
             Actions.isTabClickable(driver, 5, nhsTabs);
             for (int i = 0; i < nhsTabs.size(); i++) {
+                if (!nhsTabs.get(i).isDisplayed()) {
+                    Debugger.println("Dashboard tab is not present.");
+                    SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
+                    return false;
+                }
                 switch (i) {
                     case 0:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Find a genomic test")) {
@@ -168,7 +172,7 @@ public class DashBoardPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception form verifyTheDashboardTabs :" + exp);
+            Debugger.println("Exception from DashBoardPage, verifyTheDashboardTabs " + exp);
             SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
             return false;
         }
