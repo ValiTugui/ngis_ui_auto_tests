@@ -20,7 +20,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
@@ -937,7 +939,7 @@ public class PatientDetailsPage {
     public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
         try {
             if (Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
-                Actions.retryClickAndIgnoreElementInterception(driver, clearGenderDropDownValue);
+               Actions.retryClickAndIgnoreElementInterception(driver, clearGenderDropDownValue);
                 selectGender(administrativeGenderButton, gender);
                 editDropdownField(lifeStatusButton, lifeStatus);
                 editDropdownField(ethnicityButton, ethnicity);
@@ -1897,6 +1899,52 @@ public class PatientDetailsPage {
                 return false;
             }
         }
+    }
+
+    public boolean updatePatientDetails(String patientDetails){
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    seleniumLib.sendValue(firstName, paramNameValue.get(key));
+                    break;
+                }
+                case "LastName": {
+                    seleniumLib.sendValue(familyName, paramNameValue.get(key));
+                    break;
+                }
+                case "DOB": {
+                    String dobValue = paramNameValue.get(key);
+                    if (dobValue != null && !dobValue.isEmpty()) {
+                        String[] dobSplit = dobValue.split("-");
+                        seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+                        seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+                        seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+                    }
+                    break;
+                }
+                case "Gender": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectGender(administrativeGenderButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "LifeStatus": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
     }
 
 }//end
