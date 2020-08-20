@@ -1,5 +1,5 @@
 @PANEL_E2E_RT
-@Panel_UJ_8
+@Panel_UJ_9
 Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional panel to suggested panels
 
   @NTS-5747 @Z-LOGOUT
@@ -160,8 +160,8 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | SearchPanels               | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Amyloidosis,Arthrogryposis | Pedigree |
 
-  @NTS-5747 @Z-LOGOUT
-    ##Scenario-3  SPINE Patient
+#  @NTS-5747 @Z-LOGOUT
+    ##Scenario-3  SPINE Patient Note: on running once the SPINE patient will get converted to NGIS patient
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-3: CSV-Verify the payload by adding additional panel to suggested panels
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
