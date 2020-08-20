@@ -978,7 +978,7 @@ public class ReferralSteps extends Pages {
                baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/" + referralId;
            }
        }
-       Debugger.println("BASEURL: "+baseURL);
+       Debugger.println("BASE_URL: "+baseURL);
        boolean isReferralExists = false;
        if(baseURL != null && !baseURL.isEmpty()){
            isReferralExists = true;
@@ -1001,7 +1001,6 @@ public class ReferralSteps extends Pages {
        if(!isReferralExists){
            Assert.fail("Referral is not exists/not created by another user even after 4 minutes...exiting.");
        }
-       Debugger.println(userType+"- SWITCHING TO URL :"+baseURL);
        switchToURL(baseURL, userType);
        SeleniumLib.sleepInSeconds(10);
    }
@@ -1423,40 +1422,7 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
         Assert.assertTrue(testResult);
     }
-    //Concurrency
-    @When("the user updates the file (.*) with (.*)")
-    public void theUserUpdateConcurrencyControllerFileWith(String filePrefix,String stringToUpdate) {
-        Debugger.println("Writing to File: "+stringToUpdate);
-        boolean testResult = ConcurrencyTest.writeToControllerFile(filePrefix,stringToUpdate);
-        if(!testResult){
-            Assert.fail("Could not write the update:"+stringToUpdate+" to the file.");
-        }
-        Debugger.println("Written to File: "+stringToUpdate);
-    }
-    @When("^the user waits max (\\d+) minutes for the update (.*) in the file (.*)$")
-    public void waitForTheUpdateInConcurrencyControllerFile(int waitTime,String expectedUpdate,String filePrefix) {
-        Debugger.println("Reading from File: "+expectedUpdate);
-        try {
-            boolean isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate,filePrefix);
-            int actWaitTime=0;
-            Debugger.println("Waiting max for (mins): "+waitTime);
-            while(!isUpdatePresent){//Check every 30 seconds, the presence of expected update
-                SeleniumLib.sleepInSeconds(30);
-                isUpdatePresent =ConcurrencyTest.verifyTextPresence(expectedUpdate,filePrefix);
-                actWaitTime = actWaitTime+30;
-                if(actWaitTime > (waitTime*60)){
-                    break;
-                }
-            }
-            if(!isUpdatePresent){
-                Assert.fail("Expected update:"+expectedUpdate+" not updated by any users even after "+waitTime+" minutes, failing.");
-            }
-            Debugger.println("READ from File: "+expectedUpdate);
-        }catch(Exception exp){
-            Debugger.println("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
-            Assert.fail("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
-        }
-    }
+
     //Notification popup
     @Then("the user sees a prompt alert {string} after clicking {string} button and click on {string} to validate the data")
     public void theuserseesapromptalerafterclickingonReferralbuttonandclickonReloadReferral(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {

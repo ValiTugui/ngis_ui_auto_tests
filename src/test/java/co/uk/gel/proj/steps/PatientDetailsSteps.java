@@ -461,23 +461,6 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals("Success",stepResult);
     }
 
-    @And("the user verifies the patient details stage with {string}")
-    public void theUserVerifiesPatientDetailsStageWith(String patientDetails) {
-        boolean testResult = false;
-        testResult= patientDetailsPage.verifyPatientDetails(patientDetails);
-        Assert.assertTrue(testResult);
-    }
-
-
-
-    @And("the user updates the patient details stage with {string}")
-    public void theUserUpdatesPatientDetailsStageWith(String patientDetails) {
-        boolean testResult = false;
-        testResult= patientDetailsPage.updatePatientDetails(patientDetails);
-        Assert.assertTrue(testResult);
-    }
-
-
     @And("the date of death input field is displayed")
     public void theDateOfDeathInputFieldIsDisplayed() {
         boolean inputFieldStatus;

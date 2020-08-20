@@ -1222,12 +1222,59 @@ public class PatientDetailsPage {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
         Set<String> paramsKey = paramNameValue.keySet();
         String actValue = "";
+        String expValue = "";
         for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
             switch (key) {
                 case "FirstName": {
-                    actValue = seleniumLib.getText(firstName);
-                    if(!actValue.equalsIgnoreCase(paramNameValue.get(key))){
-                        Debugger.println("Expected :"+key+": "+paramNameValue.get(key)+", Actual:"+actValue);
+                    actValue = firstName.getAttribute("value");
+                    if(!actValue.equalsIgnoreCase(expValue)){
+                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "LastName": {
+                    actValue = familyName.getAttribute("value");
+                    if(!actValue.equalsIgnoreCase(expValue)){
+                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "DOB": {
+                   actValue = dateOfBirthDay.getAttribute("value")+"-";
+                   actValue += dateOfBirthMonth.getAttribute("value")+"-";
+                   actValue += dateOfBirthYear.getAttribute("value");
+                   if(!actValue.equalsIgnoreCase(expValue)){
+                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                        return false;
+                   }
+                   break;
+                }
+                case "Gender": {
+                    By genderPath = By.xpath("//input[@id='administrativeGender']/../div/span/span");
+                    actValue = seleniumLib.getText(genderPath);
+                    if(!actValue.equalsIgnoreCase(expValue)){
+                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "LifeStatus": {
+                    By lifeStatusPath = By.xpath("//input[@id='lifeStatus']/../div/span/span");
+                    actValue = seleniumLib.getText(lifeStatusPath);
+                    if(!actValue.equalsIgnoreCase(expValue)){
+                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    By ethnicityPath = By.xpath("//input[@name='ethnicity']/..//span/span");
+                    actValue = seleniumLib.getText(ethnicityPath);
+                    if(!actValue.equalsIgnoreCase(expValue)){
+                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
                         return false;
                     }
                     break;

@@ -2,15 +2,15 @@
 @Concurrency_newReferral_RD
 Feature: Submit Existing Referral for RD flow
 
+  #User1
   @RD_existing_referral_all_stages @Z-LOGOUT
-
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20966182488 | NRF1 |
-    ##Requesting Organisation
-    Then the user is navigated to a page with title Add a requesting organisation
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20016926992 | NRF1 |
+
+#    Then the user is navigated to a page with title Add a requesting organisation
 #    And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field
 #    And the user selects a random entity from the suggestions list
 #    Then the details of the new organisation are displayed
@@ -57,13 +57,24 @@ Feature: Submit Existing Referral for RD flow
 #    Then the "<PatientChoiceStage>" stage is marked as Completed
 
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-    # Referral Submission by User1 after Patient Details updated by user 2
-    When the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
-    And the user submits the referral
-    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
-    And the user verifies the patient details stage with "<PatientDetailsUpdated>"
-    And the user updates the file NRF1 with Patient details validated by User1
 
+#    And the user submits the referral
+#    Then the user sees a prompt alert "<partOfMessage>" after clicking "submit" button and click on "ReloadReferral" to validate the data
+
+    ##Patient Details - Verify
+    And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
+    And the user updates the file NRF1 with Patient details validated by User1
+    ##Requesting Organization - Verify
+    And the user waits max 10 minutes for the update Requesting Organisation Updated by User2 in the file NRF1
+    When the user navigates to the "<RequestingOrganisation>" stage
+    Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
+    And the user updates the file NRF1 with Requesting Organisation validated by User1
+
+#    When the user navigates to the "<RequestingOrganisation>" stage
+#    Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
+#    And the user updates the file NRF1 with Requesting Organisation validated by User1
     # Referral Submission by User1 after Requesting Organisation details updated by user 2
 #    And the user waits max 5 minutes for the update Requesting Organisation details Updated by User2 in the file NRF1
 #    And the user submits the referral
@@ -133,22 +144,26 @@ Feature: Submit Existing Referral for RD flow
 #    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetailsUpdated                                                                                     | RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
-      | FirstName=Jhon:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated|testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Sandwell and West Birmingham Hospitals NHS Trust                             |Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
 
-
+  #User2
   @RD_existing_referral_all_stages @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20966182488 | NRF1 |
-    And the "<PatientDetails>" stage is marked as Completed
-    
-    # Requesting Organisation updated by User2
-    When the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-    Then the user is navigated to a page with title Check your patient's details
-    When the user updates the patient details stage with "<PatientDetailsUpdated>"
+      | CONCURRENT_USER2_NAME | r20016926992 | NRF1 |
+    ##Below step is for new referrals
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    # Patient Details - Update
+    When the user navigates to the "<PatientDetails>" stage
+    And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with PatientDetails Updated by User2
+     # Requesting Organisation - Update
+    When the user navigates to the "<RequestingOrganisation>" stage
+    And the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
+    And the user clicks the Save and Continue button
+    Then the user updates the file NRF1 with Requesting Organisation Updated by User2
 
 #    # When the user waits max 10 minutes for the update Patient details validated by User1 in the file NRF1
 #    And the user navigates to the "<RequestingOrganisation>" stage
@@ -234,5 +249,5 @@ Feature: Submit Existing Referral for RD flow
 #    Then the "<Pedigree>" stage is marked as Completed
 #    And the user updates the file NRF1 with Pedigree details Updated by User2
     Examples:
-      | PatientDetailsUpdated                                                                                     | TwoParticipants | ResponsibleClinicianDetails2                             | ClinicalQuestionDetails2                                                | ClinicianName2      | searchPanels     | Notes                | PatientDetails  | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | Notes | Panels | Pedigree | PatientChoice  | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
-      | FirstName=Jhon:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | 2               | FirstName=edward:LastName=thomas:Department=woodspark,uk | DiseaseStatus=Affected:HpoPhenoType=Scrotal hypoplasia:AgeOfOnset:01,01 | ClinicianName=Smith | Optic neuropathy | User2updatedthenotes | Patient details | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes | Panels | Pedigree | Patient choice | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                    | TwoParticipants | ResponsibleClinicianDetails2                             | ClinicalQuestionDetails2                                                | ClinicianName2      | searchPanels     | Notes                | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | Notes | Panels | Pedigree | PatientChoice  | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Sandwell and West Birmingham Hospitals NHS Trust | 2               | FirstName=edward:LastName=thomas:Department=woodspark,uk | DiseaseStatus=Affected:HpoPhenoType=Scrotal hypoplasia:AgeOfOnset:01,01 | ClinicianName=Smith | Optic neuropathy | User2updatedthenotes | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes | Panels | Pedigree | Patient choice | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |

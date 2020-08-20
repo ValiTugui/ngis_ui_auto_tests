@@ -7,6 +7,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.miportal_pages.*;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.ExcelDataRead;
+import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -24,9 +25,7 @@ public class Pages implements Navigable {
     protected String concurrentUser4 = "CONCURRENT_USER4";
     protected String concurrentUser5 = "CONCURRENT_USER5";
 
-
     protected WebDriver driver;
-
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
     protected HomePage homePage;
     protected ClinicalIndicationsTestSelectPage clinicalIndicationsTestSelect;
@@ -250,7 +249,7 @@ public class Pages implements Navigable {
     }
     @Override
     public void switchToURL(String currentURL, String userType) {
-        Debugger.println("Switching URL..for user: "+userType+",TO URL:"+currentURL);
+        Debugger.println("Switching URL..USER: "+userType+",URL:"+currentURL);
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
@@ -281,7 +280,6 @@ public class Pages implements Navigable {
                     referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
             }else{
-                Debugger.println("Switching here to new referral..");
                 if(userType.startsWith(concurrentUser1) ||
                         userType.startsWith(concurrentUser2) ||
                         userType.startsWith(concurrentUser3) ||
@@ -290,7 +288,6 @@ public class Pages implements Navigable {
                     driver.get(currentURL);
                     String userEmail = "";
                     String userPwd = "";
-                    Debugger.println("Logging to TOMS as2 "+userType);
                     if(userType.startsWith(concurrentUser1)){
                         userEmail = AppConfig.getConcurrent_user1_username();
                         userPwd = AppConfig.getConcurrent_user1_password();
@@ -310,6 +307,7 @@ public class Pages implements Navigable {
                         userEmail = AppConfig.getApp_username();
                         userPwd = AppConfig.getApp_password();
                     }
+                    TestUtils.currentUser = userEmail;
                     if(userEmail.contains("microsoft")){
                         patientSearchPage.loginToTestOrderingSystemAsStandardConcurrentUser(userEmail,userPwd);
                     }else {

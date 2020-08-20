@@ -94,6 +94,21 @@ public class RequestingOrganisationPage {
         return true;
     }
 
+    public boolean verifyOrganisationDetails(String organisationName) {
+        if (!Wait.isElementDisplayed(driver, organisationDetailsContainer, 30)) {
+            Debugger.println("organisationDetailsContainer not displayed.");
+            SeleniumLib.takeAScreenShot("organisationDetailsContainer.jpg");
+            return false;
+        }
+        String containerText = organisationDetailsContainer.getText();
+        if (!containerText.contains(organisationName)) {
+            Debugger.println("Organization Details not selected."+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("organisationDetailText.jpg");
+            return false;
+        }
+        return true;
+    }
+
     public boolean checkTheContinueButtonIsClickable() {
         Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
         return saveAndContinueButton.isEnabled();
