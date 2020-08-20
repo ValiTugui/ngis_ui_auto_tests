@@ -3,9 +3,11 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -28,6 +30,9 @@ public class PaperFormSteps extends Pages {
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
         Assert.assertTrue(referralPage.getTheCurrentPageTitle().matches(pageTitleText.get(0)));
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FindYourPatient.jpg");
+        }
     }
 
     @When("the user clicks the PDF order form button")
@@ -52,6 +57,9 @@ public class PaperFormSteps extends Pages {
     public void theUserSelectsARandomEntityFromTheSuggestionsList() {
         boolean testResult = false;
         testResult = paperFormPage.selectRandomEntityFromSuggestionsList();
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
+        }
         Assert.assertTrue(testResult);
     }
 
@@ -67,6 +75,9 @@ public class PaperFormSteps extends Pages {
 
     @And("the user clicks the Sign in hyperlink")
     public void theUserClicksTheSignInHyperlink(List<String> hyperLinks) {
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OnlineService.jpg");
+        }
         paperFormPage.clickSignInToTheOnlineServiceButton();
     }
 
@@ -77,6 +88,9 @@ public class PaperFormSteps extends Pages {
 
     @Then("the {string} page is properly opened and by default a test is selected")
     public void checkThatReviewTestSelectionPageIsProperlyOpened(String pageTitle) {
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(pageTitle," ")+".jpg");
+        }
         Assert.assertTrue(paperFormPage.checkThatReviewTestSelectionIsOpened());
         Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
         Assert.assertTrue("First Test is NOT selected by Default", paperFormPage.checkThatTestIsSelected());
@@ -90,6 +104,9 @@ public class PaperFormSteps extends Pages {
 
     @Then("the {string} page is properly displayed for chosen clinical indication")
     public void offlineOrderPageIsDisplayedForRareDiseaseClinicalIndication(String pageTitle) {
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(pageTitle," ")+".jpg");
+        }
         Wait.forElementToBeDisplayed(driver, paperFormPage.offlineOrderContainer);
         Wait.forElementToBeDisplayed(driver, paperFormPage.paperFormHeader);
         Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));

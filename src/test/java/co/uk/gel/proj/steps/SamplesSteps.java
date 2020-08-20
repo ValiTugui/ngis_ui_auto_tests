@@ -511,6 +511,13 @@ public class SamplesSteps extends Pages {
                 Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
                 break;
             }
+            case "NotMandatoryToDo": {
+                //verifying asterisk and tick mark are not present.
+                if (referralPage.stageIsMandatoryToDo(stage) || referralPage.stageIsCompleted(stage)) {
+                    Assert.fail("The Panels stage is still mandatory to do or is completed.");
+                }
+                break;
+            }
             case "Completed": {
                // Debugger.println(stage + " status stage for Liquid tumour Sample is : " + stageStatus);
                 Assert.assertTrue(referralPage.stageIsCompleted(stage));

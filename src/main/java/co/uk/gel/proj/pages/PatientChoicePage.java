@@ -2017,6 +2017,7 @@ public class PatientChoicePage {
             clickOnContinue();
             Wait.seconds(3);
             verifyTheSectionTitle("Patient choice");
+            Actions.scrollToTop(driver);
             Actions.clickElement(driver, agreeTestChoice);
             Actions.clickElement(driver, agreeResearchParticipation);
             Actions.clickElement(driver, agreeSampleUsage);
@@ -2024,6 +2025,7 @@ public class PatientChoicePage {
             clickOnContinue();
             Wait.seconds(2);
             if (category.equalsIgnoreCase("Child")) {
+                Actions.scrollToTop(driver);
                 verifyTheSectionTitle("Child assent");
                 Actions.scrollToTop(driver);
                 Actions.clickElement(driver, childAssentYes);

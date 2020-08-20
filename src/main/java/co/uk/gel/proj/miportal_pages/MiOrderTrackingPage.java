@@ -82,6 +82,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
+        Wait.seconds(3); // To load the dropdown values
         try {
             Wait.seconds(3);
             if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
@@ -118,8 +119,9 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-    public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName,String expValue) {
-        Wait.seconds(3);
+ 
+    public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName, String expValue) {
+        Wait.seconds(5);// To load the table elements
         try {
             if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
                 Debugger.println("Search results are not displayed");

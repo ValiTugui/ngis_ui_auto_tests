@@ -159,4 +159,11 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user should see the Add Panels section with the (.*)")
+    public void theUserShouldSeeTheAddPanelsSectionWithThe(String message) {
+        boolean testResult = false;
+        testResult =  panelsPage.verifyMessageInAddPanels(message);
+        Assert.assertTrue(testResult);
+    }
+
 }//end
