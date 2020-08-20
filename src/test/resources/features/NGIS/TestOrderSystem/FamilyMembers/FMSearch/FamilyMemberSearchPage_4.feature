@@ -2,7 +2,7 @@
 #@FamilyMemberSearchPage_Josephine
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Family Members Test Package Page - Test Checkbox Validation_1
+Feature: TestOrder - Family Members Search Page 4- Test Checkbox Validation_1
 
   @NTS-5916
 # @NTOS-4912 @NTOS-4911

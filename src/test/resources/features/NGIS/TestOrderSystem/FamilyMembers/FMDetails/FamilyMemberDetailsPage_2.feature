@@ -36,7 +36,6 @@ Feature: Family Members Details Page 2- Field Validation_2
       | First name                   | #dd2509 |
       | Last name                    | #dd2509 |
       | Date of birth                | #dd2509 |
-#      | Gender                       | #dd2509 |
       | Life status                  | #dd2509 |
       | Reason NHS Number is missing | #dd2509 |
       | Hospital number              | #dd2509 |

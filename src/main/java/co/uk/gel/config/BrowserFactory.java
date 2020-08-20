@@ -297,7 +297,7 @@ public class BrowserFactory {
     }
 
     private WebDriver getEdge(String userAgent, boolean javascriptEnabled) {
-        EdgeOptions edgeOptions = new EdgeOptions();
+        EdgeOptions edgeOptions = getEdgeLocalOptions(userAgent,javascriptEnabled);
         return driver = new EdgeDriver(edgeOptions);
 
     }

@@ -5,13 +5,22 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.ExcelDataRead;
+import co.uk.gel.proj.util.MIPortalTestData;
 import co.uk.gel.proj.util.TestUtils;
+import org.apache.tools.ant.taskdefs.Echo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static co.uk.gel.proj.util.ExcelDataRead.readAllData;
+import static co.uk.gel.proj.util.ExcelDataRead.retrieveData;
 
 public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
@@ -42,6 +51,9 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     By orderTrackingTableHead = By.xpath("//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String orderTrackingTableRows = "//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
+    @FindBy(xpath = "//select[@id='order_tracking-search-value']//option")
+    List<WebElement> optionsList;
+
     public boolean selectOrderTrackingDropDownSearchColumn(String value) {
         try {
             if(!seleniumLib.selectFromListByText(orderTrackSearchColumn,value)){
@@ -56,8 +68,9 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
     public boolean selectOrderTrackingDropDownSearchOperator(String value) {
-        try {
-            if(!seleniumLib.selectFromListByText(orderTrackSearchOperator,value)){
+       try {
+           Wait.seconds(3);
+           if(!seleniumLib.selectFromListByText(orderTrackSearchOperator,value)){
                 Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
             }
@@ -73,7 +86,10 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(3);
             if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
                 Wait.seconds(5);
-                return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
+                if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'"+value+"')]");
+                    seleniumLib.clickOnElement(optionPath);
+                }
             }
             return true;
         } catch (StaleElementReferenceException exp) {
@@ -196,6 +212,33 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyOrderTrackingResultColumnValuesDifference:" + exp);
             SeleniumLib.takeAScreenShot("GLHSamplesResultException.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyColumnDropdownInOrderTrackingSearchOptions(String glhName, String fileName) {
+        try {
+            List<String> allOptions = new ArrayList<>();
+            if (!seleniumLib.isElementPresent(orderTrackSearchColumn)) {
+                Debugger.println("Order tracking search Options are not displayed");
+                SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
+                return false;
+            }
+            int actualNumOfOptions = optionsList.size();
+            for (WebElement optionElement : optionsList) {
+                allOptions.add(optionElement.getText());
+            }
+            readAllData(fileName);
+            for (int i = 0; i < allOptions.size(); i++) {
+                if (!allOptions.get(i).equalsIgnoreCase(retrieveData(glhName).get(i))) {
+                    Debugger.println("The Actual options names are: " + allOptions + ",But Expected " + retrieveData(glhName));
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyColumnDropdownInOrderTrackingSearchOptions:" + exp);
+            SeleniumLib.takeAScreenShot("OrderTrackingOptionsNotFound.jpg");
             return false;
         }
     }

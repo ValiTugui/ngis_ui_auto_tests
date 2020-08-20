@@ -143,7 +143,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
 
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | PatientDetails  | DiseaseStatusDetails     |
-      | Family members | Test package | 2                | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          | Patient details | DiseaseStatus=Unaffected |
+      | Family members | Test package | 2                | NHSNumber=9449310327:DOB=16-12-1970 | Full Sibling          | Patient details | DiseaseStatus=Unaffected |
 
   @NTS-3503 @Z-LOGOUT
 #    @E2EUI-1898

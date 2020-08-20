@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -38,7 +39,7 @@ public class GlobalBehaviourSteps extends Pages {
     public void thePageShouldBeOpenedInTheNextTab(String pageTitle) {
         Assert.assertTrue(driver.getCurrentUrl().contains("privacy-policy"));
         Assert.assertTrue(globalBehaviourPage.checkPrivacyPolicyLinkPage(pageTitle));
-        Actions.switchTab(driver);
+        SeleniumLib.closeCurrentWindow();
     }
 
     @Then("the user should be able to see continue button on landing page")

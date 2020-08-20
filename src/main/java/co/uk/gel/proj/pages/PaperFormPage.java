@@ -328,5 +328,9 @@ public class PaperFormPage {
         Wait.forElementToBeClickable(driver, continueButton.get(0));
     }
 
+    public void clickOnUsePDFOrderFormButton(){
+        Actions.clickElement(driver,usePDFOrderFormButton);
+    }
+
 }
 

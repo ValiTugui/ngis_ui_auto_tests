@@ -32,7 +32,7 @@ public class PaperFormSteps extends Pages {
 
     @When("the user clicks the PDF order form button")
     public void clickPDFOrderFormButton() {
-        Actions.clickElement(driver, paperFormPage.usePDFOrderFormButton);
+        paperFormPage.clickOnUsePDFOrderFormButton();
     }
 
     @And("the user enters the keyword {string} in the search field")

@@ -3,10 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.util.CSVFileReader;
-import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.MIPortalTestData;
-import co.uk.gel.proj.util.TestUtils;
+import co.uk.gel.proj.util.*;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -49,12 +46,14 @@ public class MiPortalOrderTrackingSteps extends Pages {
             searchValue = mipData.getTest_type();
         }else if(searchValue.indexOf(",") != -1){
             String[] values = searchValue.split(",");
+            Wait.seconds(3);
             for(int i=0; i<values.length; i++){
                 testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(values[i]);
                 if(!testResult){
                     Debugger.println("URL:"+driver.getCurrentUrl());
                     Assert.fail(values[i]+" not found in Order Tracking Search Value DropDown.");
                 }
+                Wait.seconds(3);
             }
             return;
         }
@@ -134,6 +133,20 @@ public class MiPortalOrderTrackingSteps extends Pages {
         testResult = miPortalHomePage.downloadMiCSVFile("order_tracking_filtered");
         Assert.assertTrue(testResult);
         testResult = TestUtils.isFilePresent("order_tracking_filtered","");
+        Assert.assertTrue(testResult);
+    }
+
+    @And("User should be able to see data under (.*) column filled based on selected options in third filter box is displayed with (.*)")
+    public void userShouldBeAbleToSeeDataUnderAndColumnFilledBasedOnSelectedOptionInThirdFilterBox(String columnName, String columnValue) {
+        boolean testResult = false;
+        testResult = miOrderTrackingPage.verifyColumnValueInOrderTrackingSearchResultTable(columnName, columnValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("User should be able to see data under given {string} and matches excel data {string} with the Ordering Entity options")
+    public void userShouldBeAbleToSeeDataUnderGivenAndMatchesExcelDataWithTheOrderingEntityOptions(String glhName, String fileName) {
+        boolean testResult = false;
+        testResult = miOrderTrackingPage.verifyColumnDropdownInOrderTrackingSearchOptions(glhName, fileName);
         Assert.assertTrue(testResult);
     }
 }

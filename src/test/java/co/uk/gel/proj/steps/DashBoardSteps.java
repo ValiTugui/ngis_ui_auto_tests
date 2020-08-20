@@ -42,4 +42,25 @@ public class DashBoardSteps extends Pages {
         testResult = dashBoardPage.verifyTheDashboardTabs();
         Assert.assertTrue(testResult);
     }
+
+    @When("the user clicks on Find a genomic test")
+    public void theUserClicksOnFindAGenomicTest() {
+        boolean testResult = false;
+        testResult = dashBoardPage.clickOnFindAGenomicTestTab();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be directed to Test selection url")
+    public void theUserShouldBeDirectedToTestSelectionUrl() {
+        boolean testResult = false;
+        testResult = dashBoardPage.directedToTestSelectionPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("User clicks Manage Sample")
+    public void userClicksManageSample() {
+        boolean testResult = false;
+        testResult = dashBoardPage.clickOnManageSampleTab();
+        Assert.assertTrue(testResult);
+    }
 }

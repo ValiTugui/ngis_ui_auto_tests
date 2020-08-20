@@ -51,7 +51,7 @@ Feature:  MIPORTAL ST -  Home Page
       | mi_stage1        | mi_stage2      | mi_stage3   | mi_stage4      | mi_stage5 | mi_stage6         | mi_stage7     |
       | File Submissions | Order Tracking | GLH Samples | Plater Samples | Picklists | Sequencer Samples | New Referrals |
 
-  @NTS-5038
+  @NTS-5038 @MI-LOGOUT
    # @E2EUI-2355
   Scenario Outline:NTS-5038:E2EUI-2355: Fields Referral ID and Patient NGIS ID appear below the GLH and Ordering Entity filters followed by report specific filters across all reports
     When the user navigates to the mi-portal "<order_tracking>" stage
@@ -65,12 +65,12 @@ Feature:  MIPORTAL ST -  Home Page
     When the user navigates to the mi-portal "<glh_samples>" stage
     And the user sees a search box container section for "<glh_samples>" page
     And the user sees the below values in the glh samples search column drop-down menu
-      | GLH                                   |
-      | Ordering Entity                       |
-      | Referral ID                           |
-      | Patient NGIS ID                       |
-      | Batch Import Filename                 |
-      | Dispatched Sample Type                |
+      | GLH                           |
+      | Ordering Entity               |
+      | Referral ID                   |
+      | Patient NGIS ID               |
+      | Batch Import Filename         |
+      | Dispatched Sample Type        |
       | GLH Sample Consignment Number |
     When the user navigates to the mi-portal "<plater_samples>" stage
     And the user sees a search box container section for "<plater_samples>" page
@@ -114,14 +114,20 @@ Feature:  MIPORTAL ST -  Home Page
   @NTS-4975
   #@E2EUI-2704
   Scenario:NTS-4975:E2EUI-2704: Implement sql-performance recommendations for miportalsampleview
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user should be able to see sample processing menu is displayed
     Then the user should be able to see the below header sections in Sample Processing
-      | HeaderSection     |
-      | File Submissions  |
-      | Order Tracking    |
-      | GLH Samples       |
-      | Plater Samples    |
-      | Picklists         |
-      | Sequencer Samples |
-      | New Referrals     |
-      | Search LSIDs      |
+      | HeaderSection         |
+      | File Submissions      |
+      | Order Tracking        |
+      | GLH Samples           |
+      | Plater Samples        |
+      | Picklists             |
+      | Sequencer Samples     |
+      | New Referrals         |
+      | Search LSIDs          |
+    When the user should be able to see data quality menu is displayed
+    Then the user should be able to see the below header sections in Data Quality
+      | HeaderSection         |
+      | Clinical Data Quality |
