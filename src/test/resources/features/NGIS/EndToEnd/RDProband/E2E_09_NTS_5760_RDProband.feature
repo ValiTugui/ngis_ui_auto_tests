@@ -1,5 +1,6 @@
 @E2E_TEST
 @NTS-5760 @Z-LOGOUT
+# @E2EUI-2748
 Feature: NTS-5760 Gender issues - phenotypic sex does not match gender as recorded on form
 
   Scenario Outline: NTS-5760 Gender issues - phenotypic sex does not match gender as recorded on form

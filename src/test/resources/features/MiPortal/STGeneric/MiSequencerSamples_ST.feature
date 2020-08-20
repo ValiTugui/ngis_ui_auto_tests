@@ -4,7 +4,7 @@
 
 Feature:  MIPORTAL ST -  Sequencer Samples
 
-   @NTS-5190
+  @NTS-5190
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -22,16 +22,16 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | Wessex & West Midlands        |
       | Yorkshire & North East        |
 
-     And the user selects is one of as the sequencer samples search operator dropdown
-     And the user sees the below values in the sequencer samples search value drop-down menu
-       | East Mids and East of England |
-       | London North                  |
-       | London South                  |
-       | North West                    |
-       | South West                    |
-       | Wessex & West Midlands        |
-       | Yorkshire & North East        |
-     And the selected search option is reset after test
+    And the user selects is one of as the sequencer samples search operator dropdown
+    And the user sees the below values in the sequencer samples search value drop-down menu
+      | East Mids and East of England |
+      | London North                  |
+      | London South                  |
+      | North West                    |
+      | South West                    |
+      | Wessex & West Midlands        |
+      | Yorkshire & North East        |
+    And the selected search option is reset after test
 
     Examples:
       | mi_stage          |
@@ -85,6 +85,7 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | Sequencer Samples |
 
   @NTS-5669 @MI-LOGOUT
+    # @E2EUI-2887
   Scenario Outline: Remove unused fields in Sequencer Samples Report
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -102,11 +103,11 @@ Feature:  MIPORTAL ST -  Sequencer Samples
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     When the user clicks on the button "Show all"
     And the user sees the fields are not displayed under the "Show" section
-      | HeaderColumnOrderingList |
-      | gel1008_gel1009_id      |
+      | HeaderColumnOrderingList   |
+      | gel1008_gel1009_id         |
       | gel1008_gel1010_error_msgs |
     And the user closes the modal content by clicking on the reset-button
     Examples:
-      | mi_stage |
-      |Sequencer Samples|
+      | mi_stage          |
+      | Sequencer Samples |
 

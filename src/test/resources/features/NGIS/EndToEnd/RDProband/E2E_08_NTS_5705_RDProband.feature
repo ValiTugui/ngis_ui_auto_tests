@@ -1,5 +1,6 @@
 @E2E_TEST
 @NTS-5705 @Z-LOGOUT
+#@E2EUI-2757
 Feature: NTS-5705 Patient demographics are unclear - missing NHS number and typo on name
 
   Scenario Outline: NTS-5705 Patient demographics are unclear - missing NHS number and typo on name
