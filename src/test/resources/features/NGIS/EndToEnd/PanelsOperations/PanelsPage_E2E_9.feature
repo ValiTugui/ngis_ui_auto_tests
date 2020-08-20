@@ -4,7 +4,7 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
 
   @NTS-5747 @Z-LOGOUT
     ##Scenario-1 Create New patient
-  Scenario Outline: NTS-5747:E2EUI-2963:Scenario-1: CSV-Verify the payload by adding additional panel to suggested panels
+  Scenario Outline: NTS-5747:E2EUI-2963:Scenario-1: CSV-Verify the payload by adding additional panel to suggested panels for New patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=12-08-1988:Gender=Male |
      ###Patient Details
@@ -83,7 +83,7 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
 
   @NTS-5747 @Z-LOGOUT
     ##Scenario-2  referral for existing NGIS Patient
-  Scenario Outline: NTS-5747:E2EUI-2963:Scenario-2: CSV-Verify the payload by adding additional panel to suggested panels
+  Scenario Outline: NTS-5747:E2EUI-2963:Scenario-2: CSV-Verify the payload by adding additional panel to suggested panels for existing NGIS patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
     ##Patient Details
@@ -162,7 +162,7 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
 
 #  @NTS-5747 @Z-LOGOUT
     ##Scenario-3  SPINE Patient Note: on running once the SPINE patient will get converted to NGIS patient
-  Scenario Outline: NTS-5747:E2EUI-2963:Scenario-3: CSV-Verify the payload by adding additional panel to suggested panels
+  Scenario Outline: NTS-5747:E2EUI-2963:Scenario-3: CSV-Verify the payload by adding additional panel to suggested panels for SPINE patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
     ##Patient Details
