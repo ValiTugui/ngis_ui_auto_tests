@@ -1146,7 +1146,7 @@ public class PatientChoicePage {
                 }
             }
             org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
-            Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
+            Action drawAction = builder.moveToElement(signaturePad, 135, 15) //start points x axis and y axis.
                     .clickAndHold()
                     .moveByOffset(80, 80)
                     .moveByOffset(50, 20)
@@ -1448,7 +1448,7 @@ public class PatientChoicePage {
 
     public boolean clickOnAmendPatientChoice() {
         try {
-            if (!Wait.isElementDisplayed(driver, amendPatientChoice, 30)) {
+            if (!Wait.isElementDisplayed(driver,amendPatientChoice,30)) {
                 Debugger.println("Patient Choice Page: Amend button not displayed");
                 SeleniumLib.takeAScreenShot("PatientChoiceAmendOption.jpg");
                 return false;
