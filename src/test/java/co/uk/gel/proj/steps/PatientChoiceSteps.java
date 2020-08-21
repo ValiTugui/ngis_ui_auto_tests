@@ -617,23 +617,63 @@ public class PatientChoiceSteps extends Pages {
     public void theFileTypeDropdownOptions(DataTable inputDetails) {
         boolean testResult = false;
         List<String> fileTypes = inputDetails.asList();
-        testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes);
+        testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes,0);
         Assert.assertTrue(testResult);
     }
+
+    @And("the file type dropdown options loaded with below details for {string} form type")
+    public void theFileTypeDropdownOptionsLoadedWithBelowDetailsForFormType(String formNum,DataTable inputDetails) {
+        boolean testResult = false;
+        List<String> fileTypes = inputDetails.asList();
+        if (formNum.equalsIgnoreCase("2nd")) { //to verify dropdown for 2nd form category
+            testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes,1);
+        } else if(formNum.equalsIgnoreCase("3rd")) { //to verify dropdown for 3rd form category
+            testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes,2);
+        }
+        Assert.assertTrue(testResult);
+    }
+
     @And("the Date of Signature fields are displayed as (.*)")
     public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
         boolean testResult = false;
-        testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection();
+        testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection(0);
         if (expStatus.equals("enabled")) {
             Assert.assertTrue(testResult);
         } else {
             Assert.assertFalse(testResult);
         }
     }
+
+    @And("the Date of Signature fields for the {string} form type are displayed as {string}")
+    public void theDateOfSignatureFieldsAreDisplayedAsForTheFormType(String formNum,String expStatus) {
+        boolean testResult = false;
+        if (formNum.equalsIgnoreCase("2nd")) { //to fill date of signature for 2nd form category
+            testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection(1);
+        } else if(formNum.equalsIgnoreCase("3rd")) { //to fill date of signature for 3rd form category
+            testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection(2);
+        }
+        if (expStatus.equals("enabled")) {
+            Assert.assertTrue(testResult);
+        } else {
+            Assert.assertFalse(testResult);
+        }
+    }
+
     @And("the user selects (.*) from dropdown option in recorded by")
     public void theUserSelectsFromDropdownOptionInRecordedBy(String dropdownValue) {
         boolean testResult = false;
         testResult = patientChoicePage.selectUploadFormType(dropdownValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user selects {string} from the {string} form type dropdown option in recorded by")
+    public void theUserSelectsFromTheFormTypeDropdownOptionInRecordedBy(String dropdownValue,String formNum) {
+        boolean testResult = false;
+        if (formNum.equalsIgnoreCase("2nd")) { //to select dropdown for 2nd form category
+            testResult = patientChoicePage.selectUploadFormTypeForFormNumber(dropdownValue,1);
+        } else if(formNum.equalsIgnoreCase("3rd")) { //to select dropdown for 3rd form category
+            testResult = patientChoicePage.selectUploadFormTypeForFormNumber(dropdownValue,2);
+        }
         Assert.assertTrue(testResult);
     }
     @And("the user fills current date as Date of Signature")
@@ -642,12 +682,36 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
         Assert.assertTrue(testResult);
     }
+
+    @And("the user fills current date as Date of Signature in the {string} form type")
+    public void theUserFillsTheValidDateInTheFormType(String formNum) {
+        boolean testResult = false;
+        if (formNum.equalsIgnoreCase("2nd")) { //to fill date for 2nd form category
+            testResult = patientChoicePage.fillTheDateOfSignatureInRecordedByForFormNum(1);
+        } else if(formNum.equalsIgnoreCase("3rd")) { //to fill date for 3rd form category
+            testResult = patientChoicePage.fillTheDateOfSignatureInRecordedByForFormNum(2);
+        }
+        Assert.assertTrue(testResult);
+    }
+
     @Then("the user sees a success message after form upload in recorded by as (.*)")
     public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user sees a success message for {string} form type upload in recorded by as {string}")
+    public void theUserSeesASuccessMessageForFormTypeUploadInRecordedByAsSuccessfullyUploaded(String formNumber, String expMessage) {
+        boolean testResult = false;
+        if (formNumber.equalsIgnoreCase("2nd")) { //to verify message for 2nd form category
+            testResult = patientChoicePage.verifyFormUploadSuccessMessageForFormNum(expMessage, 1);
+        } else if(formNumber.equalsIgnoreCase("3rd")) { //to verify message for 3rd form category
+            testResult = patientChoicePage.verifyFormUploadSuccessMessageForFormNum(expMessage, 2);
+        }
+        Assert.assertTrue(testResult);
+    }
+
     @And("the user will see a {string} message on upload section")
     public void theUserWillSeeAMessageOnUploadSection(String message) {
         boolean testResult = false;
@@ -745,6 +809,20 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldNotSeeAnyUploadedFiles() {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadedFileName("");
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the current completed referral")
+    public void theUserClicksOnTheCurrentCompletedReferral() {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectCompletedReferral();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the {string} button")
+    public void theUserClicksOnTheRemoveDocumentButton(String buttonText) {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnRemoveDocument(buttonText);
         Assert.assertTrue(testResult);
     }
 
