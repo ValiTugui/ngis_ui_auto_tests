@@ -1,10 +1,10 @@
 @Concurrency
 @Concurrency_newReferral_RD
-Feature: Submit Existing Referral to validate a stage
+Feature: Submit Existing Referral to validate a entity
 
-  #User1
-  @NTS-6462 @NTS-6465
-  @RD_existing_referral_all_stages @Z-LOGOUT
+
+  @NTS-6463 @NTS-6467_RD
+    @RD_existing_referral_all_stages_entity @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
 
     #Login as User A, Complete all stages and do not submit referral
@@ -69,7 +69,7 @@ Feature: Submit Existing Referral to validate a stage
     Then the user updates the file NRF1 with Family Member clinical details validated by User1
       ##PatientChoice- Verify
     And the user waits max 15 minutes for the update Patient Choice details Updated by User1 in the file NRF1
-      And the user submits the referral
+    And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
@@ -87,11 +87,11 @@ Feature: Submit Existing Referral to validate a stage
 #    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated                                 | Notes | NotesUpdated        | FamilyMembers  |FamilyMembers_1| TwoParticipants |FamilyMemberDetailsUpdated                                      |FamilyMemberClinicalDetailsUpdated    | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | 2                  | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset  | Notes | NotesupdatedbyUser2 | Family members |Family members | 2               | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | Notes | NotesUpdated        | FamilyMembers  | FamilyMembers_1 | TwoParticipants | FamilyMemberDetailsUpdated | FamilyMemberClinicalDetailsUpdated | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
+      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | 2                  | Responsible clinician | Department=woodspark,uk            | Clinical questions | AgeOfOnset=1,1                 | Notes | NotesupdatedbyUser2 | Family members | Family members  | 2               | LifeStatus=Alive           | DiseaseStatus=Affected             | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
 
   #User2
-  @RD_existing_referral_all_stages @Z-LOGOUT
+  @RD_existing_referral_all_stages_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | r20369361623 | NRF1 |
@@ -136,11 +136,11 @@ Feature: Submit Existing Referral to validate a stage
     And the user waits max 15 minutes for the update Notes details validated by User1 in the file NRF1
     When the user navigates to the "<FamilyMembers>" stage
     Then the user updates the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdate>"
-     And the user clicks the Save and Continue button
+    And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Family Member details Updated by User2
     #    #FamilyMembersclinicalquestions - Update
     And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NRF1
-      Then the user updates the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    Then the user updates the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Family Member clinical details Updated by User2
   ##PatientChoice- update
@@ -156,5 +156,5 @@ Feature: Submit Existing Referral to validate a stage
     Then the user updates the file NRF1 with Panels details Updated by User2
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | TestPackageUpdated1 | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated                                 | TwoParticipants | FamilyMembers_1|FamilyMemberDetailsUpdate                                                 | FamilyMemberClinicalDetailsUpdated      | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | searchPanels     | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | NotesUpdated  | Panels | PanelsDetailsUpdated                             | Pedigree | PatientChoice  | PatientChoiceDetailsUpdated | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | 2                  | 2                   | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset | 2               |Family members  | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=01,02 | Notes | NotesupdatedbyUser2 | Smith                       | Optic neuropathy | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Pedigree | Patient choice | Authorised by clinician     | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | TestPackageUpdated1 | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | TwoParticipants | FamilyMembers_1 | FamilyMemberDetailsUpdate | FamilyMemberClinicalDetailsUpdated | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | searchPanels     | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | NotesUpdated  | Panels | PanelsDetailsUpdated                             | Pedigree | PatientChoice  | PatientChoiceDetailsUpdated | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
+      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | 2                  | 2                   | Responsible clinician | Department=woodspark,uk            | Clinical questions | AgeOfOnset=1,1                 | 2               | Family members  | LifeStatus=Alive          | DiseaseStatus=Affected             | Notes | NotesupdatedbyUser2 | Smith                       | Optic neuropathy | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Pedigree | Patient choice | Authorised by clinician     | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |

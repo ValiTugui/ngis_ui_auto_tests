@@ -415,10 +415,10 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
                 return false;
             }
-            Actions.clickElement(driver,patientCard);
+            Actions.clickElement(driver, patientCard);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from clickPatientCard:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickPatientCard:" + exp);
             SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
             return false;
         }
@@ -1664,82 +1664,6 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
-
-    public boolean verifyFamilyMemberDetails(String familyMemberDetails) {
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
-        Set<String> paramsKey = paramNameValue.keySet();
-        String actValue = "";
-        String expValue = "";
-        for (String key : paramsKey) {
-            expValue = paramNameValue.get(key);
-            switch (key) {
-                case "FirstName": {
-                    actValue = firstName.getAttribute("value");
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-                case "LastName": {
-                    actValue = lastName.getAttribute("value");
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-                case "DOB": {
-                    actValue = dateOfBirthDayFM.getAttribute("value") + "-";
-                    actValue += dateOfBirthMonthFM.getAttribute("value") + "-";
-                    actValue += dateOfBirthYearFM.getAttribute("value");
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-                case "Gender": {
-                    By genderPath = By.xpath("//input[@id='administrativeGender']/../div/span/span");
-                    actValue = seleniumLib.getText(genderPath);
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-                case "LifeStatus": {
-                    By lifeStatusPath = By.xpath("//input[@id='lifeStatus']/../div/span/span");
-                    actValue = seleniumLib.getText(lifeStatusPath);
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-                case "Ethnicity": {
-                    By ethnicityPath = By.xpath("//input[@name='ethnicity']/..//span/span");
-                    actValue = seleniumLib.getText(ethnicityPath);
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-                case "RelationshipToProband": {
-                    By RelationshipToProband = By.xpath("xpath = \"//label[text()='Relationship to proband']//following::div[1]");
-                    actValue = seleniumLib.getText(RelationshipToProband);
-                    if (!actValue.equalsIgnoreCase(expValue)) {
-                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-            }
-        }
-        return true;
-    }
-
     public boolean verifyDiseaseStatusDetails(String diseaseStatusDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(diseaseStatusDetails);
         Set<String> paramsKey = paramNameValue.keySet();

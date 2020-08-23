@@ -467,53 +467,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
     }
 
-    @When("the user Verifies {string} family member record with below details")
-    public void theUserVerifiesFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
-        try {
-            List<List<String>> memberDetails = inputDetails.asLists();
-            for (int i = 1; i < memberDetails.size(); i++) {
-                Debugger.println("\nAdding Family Member: " + i);
-                if (!referralPage.navigateToFamilyMemberSearchPage()) {
-                    Assert.fail("Could not click on Add Family Member Button.");
-                }
-                if (!familyMemberDetailsPage.verifyFamilyMemberDetails(memberDetails.get(i).get(0))) {
-                    Debugger.println("Patient verified..Continuing next");
-                    continue;
-                }
-                if (!referralPage.clickSaveAndContinueButton()) {
-                    Assert.assertTrue(false);
-                }
-                Wait.seconds(5);
-                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
-                if (familyMember == null) {
-                    Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
-                    Assert.fail("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
-                }
-                if (!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
-                    Debugger.println("Patient verified..Continuing next");
-                    continue;
-                }
-                Wait.seconds(5);
-                if (memberDetails.get(i).size() < 3) {
-                    continue;//Some times the Disease status not passing
-                }
-                if (!referralPage.clickSaveAndContinueButton()) {
-                    Assert.assertTrue(false);
-                }
-                if (!familyMemberDetailsPage.verifyDiseaseStatusDetails(memberDetails.get(i).get(2))) {
-                    Debugger.println("Family Member Details verified..Continuing next");
-                    continue;
-                }
-                if (!referralPage.clickSaveAndContinueButton()) {
-                    Assert.fail("FM:" + memberDetails.get(i).get(2) + "clickSaveAndContinueButton Failed");
-                }
-            }
-        } catch (Exception exp) {
-            Debugger.println("FamilyMemberDetailsSteps: Exception in Verifying the Family Member Details: " + exp);
-            Assert.fail("FamilyMemberDetailsSteps: Exception in Verifying the Family Member Details: ");
-        }
-    }
-
     @Then("the user should {string} participant error message as {string}")
     public void theUserShouldParticipantErrorMessageAs(String expStatus, String errorMessage) {
         boolean testResult = false;

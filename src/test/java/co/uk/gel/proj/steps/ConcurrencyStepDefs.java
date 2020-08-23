@@ -17,29 +17,30 @@ public class ConcurrencyStepDefs extends Pages {
     }
 
     @When("^the user waits max (\\d+) minutes for the update (.*) in the file (.*)$")
-    public void waitForTheUpdateInConcurrencyControllerFile(int waitTime,String expectedUpdate,String filePrefix) {
-        Debugger.println(TestUtils.currentUser+": Reading from File: "+expectedUpdate);
+    public void waitForTheUpdateInConcurrencyControllerFile(int waitTime, String expectedUpdate, String filePrefix) {
+        Debugger.println(TestUtils.currentUser + ": Reading from File: " + expectedUpdate);
         try {
-            boolean isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate,filePrefix);
-            int actWaitTime=0;
-            Debugger.println(TestUtils.currentUser+",Waiting max for (mins): "+waitTime+" for the update: "+expectedUpdate);
-            while(!isUpdatePresent){//Check every 15 seconds, the presence of expected update
+            boolean isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate, filePrefix);
+            int actWaitTime = 0;
+            Debugger.println(TestUtils.currentUser + ",Waiting max for (mins): " + waitTime + " for the update: " + expectedUpdate);
+            while (!isUpdatePresent) {//Check every 15 seconds, the presence of expected update
                 SeleniumLib.sleepInSeconds(30);
-                isUpdatePresent =ConcurrencyTest.verifyTextPresence(expectedUpdate,filePrefix);
-                actWaitTime = actWaitTime+30;
-                if(actWaitTime > (waitTime*60)){
+                isUpdatePresent = ConcurrencyTest.verifyTextPresence(expectedUpdate, filePrefix);
+                actWaitTime = actWaitTime + 30;
+                if (actWaitTime > (waitTime * 60)) {
                     break;
                 }
             }
-            if(!isUpdatePresent){
-                Debugger.println(TestUtils.currentUser+",Could not read : "+expectedUpdate+" even after "+waitTime+" minutes.");
-                Assert.fail("Expected update:"+expectedUpdate+" not updated by any users even after "+waitTime+" minutes, failing.");
+            if (!isUpdatePresent) {
+                Debugger.println(TestUtils.currentUser + ",Could not read : " + expectedUpdate + " even after " + waitTime + " minutes.");
+                Assert.fail("Expected update:" + expectedUpdate + " not updated by any users even after " + waitTime + " minutes, failing.");
             }
-        }catch(Exception exp){
-            Debugger.println("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
-            Assert.fail("Exception in waitForTheUpdateInConcurrencyControllerFile:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in waitForTheUpdateInConcurrencyControllerFile:" + exp);
+            Assert.fail("Exception in waitForTheUpdateInConcurrencyControllerFile:" + exp);
         }
     }
+
     @And("the user updates the stage {string} with {string}")
     public void theUserUpdatesPatientDetailsStageWith(String stageName,String updateDetails) {
         Debugger.println(TestUtils.currentUser+" : Updating "+stageName+" with "+updateDetails);
@@ -69,13 +70,13 @@ public class ConcurrencyStepDefs extends Pages {
             if (!testResult) {
                 Assert.fail("Notes Details could not be enter.");
             }
-//        } else if (stageName.equalsIgnoreCase("Family members")) {
-//            familyMemberDetailsPage.editFamilyMember();
-//            familyMemberDetailsPage.editPatientDetails();
-//            testResult = patientDetailsPage.updateFamilyMemberDetails(updateDetails);
-//            if (!testResult) {
-//                Assert.fail("Family member details could not be enter.");
-//            }
+        } else if (stageName.equalsIgnoreCase("Family members")) {
+            familyMemberDetailsPage.editFamilyMember();
+            familyMemberDetailsPage.editPatientDetails();
+            testResult = patientDetailsPage.updateFamilyMemberDetails(updateDetails);
+            if (!testResult) {
+                Assert.fail("Family member details could not be enter.");
+            }
         }  else if (stageName.equalsIgnoreCase("Patient choice")) {
             testResult = patientChoicePage.theUserAnswersThePatientChoiceQuestionswithPatientChoiceNotrequiredForRD(updateDetails);
             referralPage.clickSaveAndContinueButton();
@@ -147,13 +148,13 @@ public class ConcurrencyStepDefs extends Pages {
                 testResult = clinicalQuestionsPage.verifyClinicalQuestionsDetails(verifyDetails);
             } else if (stageName.equalsIgnoreCase("Notes")) {
                 testResult = notesPage.verifyNotesDetails(verifyDetails);
-//            }  else if (stageName.equalsIgnoreCase("Family members")) {
-//                familyMemberDetailsPage.editFamilyMember();
-//                familyMemberDetailsPage.editPatientDetails();
-//                testResult = patientDetailsPage.verifyFamilyMemberDetails(verifyDetails);
-//                if (!testResult) {
-//                    Assert.fail("Family member details could not be enter.");
-//                }
+            }  else if (stageName.equalsIgnoreCase("Family members")) {
+                familyMemberDetailsPage.editFamilyMember();
+                familyMemberDetailsPage.editPatientDetails();
+                testResult = patientDetailsPage.verifyFamilyMemberDetails(verifyDetails);
+                if (!testResult) {
+                    Assert.fail("Family member details could not be enter.");
+                }
             } else if (stageName.equalsIgnoreCase("Patient choice")) {
                 testResult = patientChoicePage.statusUpdatedCorrectlyforproband(verifyDetails);
             } else if (stageName.equalsIgnoreCase("Panels")) {

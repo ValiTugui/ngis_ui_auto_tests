@@ -1,9 +1,9 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
@@ -21,7 +21,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -1424,16 +1423,10 @@ public class ReferralSteps extends Pages {
     }
 
     //Notification popup
-    @Then("the user sees a prompt alert {string} after clicking {string} button and click on {string} to validate the data")
-    public void theuserseesapromptalerafterclickingonReferralbuttonandclickonReloadReferral(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
-        String actualAlertMessage;
-        if (browserInteraction.equals("Submit")) {
-            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopup_ReferralSubmit(acknowledgeAlertPopup);
-            Debugger.println("User is able to click on Referral Reload by clicking on Submit button");
-            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
-        }  else {
-            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
-            Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
-        }
+    @Then("the user click on Reload referral button to validate the data")
+    public void theuserclickonReloadReferral() {
+        boolean testResult = false;
+        testResult = referralPage.acknowledgeThePromptPopup_ReferralSubmit();
+        Assert.assertTrue(testResult);
     }
 }
