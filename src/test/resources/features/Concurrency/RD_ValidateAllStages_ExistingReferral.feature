@@ -7,9 +7,9 @@ Feature: Submit Existing Referral to validate a stage
   @RD_existing_referral_all_stages @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
 
-    #Login as User A, Complete all stages and do not submit referral
+      #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20369361623 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20860318598 | NRF1 |
 
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 #    Patient Details - Verify
@@ -27,7 +27,7 @@ Feature: Submit Existing Referral to validate a stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user updates the file NRF1 with Requesting Organisation validated by User1
      #Test Package - Verify
-    And the user waits max 8 minutes for the update Test Package details Updated by User2 in the file NRF1
+    And the user waits max 12 minutes for the update Test Package details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<TestPackage>" stage
@@ -68,8 +68,8 @@ Feature: Submit Existing Referral to validate a stage
     Then the user verifies the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     Then the user updates the file NRF1 with Family Member clinical details validated by User1
       ##PatientChoice- Verify
-    And the user waits max 15 minutes for the update Patient Choice details Updated by User1 in the file NRF1
-      And the user submits the referral
+    And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NRF1
+    And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
@@ -88,13 +88,13 @@ Feature: Submit Existing Referral to validate a stage
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated                                 | Notes | NotesUpdated        | FamilyMembers  |FamilyMembers_1| TwoParticipants |FamilyMemberDetailsUpdated                                      |FamilyMemberClinicalDetailsUpdated    | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated | ClinicianName      | partOfMessage                        | Notesupdated         | UpdatedFamilyMembersDetails | UpdatedFamilyMemberClinicalQuestionsDetails |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | 2                  | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset  | Notes | NotesupdatedbyUser2 | Family members |Family members | 2               | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust  | Test package | 2                  | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset  | Notes | NotesupdatedbyUser2 | Family members |Family members | 2               | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
 
-  #User2
-  @RD_existing_referral_all_stages @Z-LOGOUT
+   #User2
+  @RD_existing_referral_all_stages_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20369361623 | NRF1 |
+      | CONCURRENT_USER2_NAME | r20860318598 | NRF1 |
     #Below step is for new referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 #     Patient Details - Update
@@ -115,7 +115,7 @@ Feature: Submit Existing Referral to validate a stage
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Test Package details Updated by User2
 #    Responsible Clinician- Update
-    And the user waits max 8 minutes for the update Test Package details validated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Test Package details validated by User1 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
@@ -136,20 +136,20 @@ Feature: Submit Existing Referral to validate a stage
     And the user waits max 15 minutes for the update Notes details validated by User1 in the file NRF1
     When the user navigates to the "<FamilyMembers>" stage
     Then the user updates the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdate>"
-     And the user clicks the Save and Continue button
+    And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Family Member details Updated by User2
     #    #FamilyMembersclinicalquestions - Update
     And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NRF1
-      Then the user updates the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    Then the user updates the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Family Member clinical details Updated by User2
   ##PatientChoice- update
-    And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Family Member clinical details validated by User1 in the file NRF1
     When the user navigates to the "<PatientChoice>" stage
     Then the user updates the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
-    Then the user updates the file NRF1 with Patient Choice details Updated by User1
+    Then the user updates the file NRF1 with Patient Choice details Updated by User2
       ##Panels- update
-    And the user waits max 8 minutes for the update Family Member details validated by User1 in the file NRF1
+    And the user waits max 8 minutes for the update Patient Choice details validated by User1 in the file NRF1
     When the user navigates to the "<Panels>" stage
     Then the user updates the stage "<Panels>" with "<PanelsDetailsUpdated>"
     And the user clicks the Save and Continue button
@@ -157,4 +157,4 @@ Feature: Submit Existing Referral to validate a stage
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | TestPackageUpdated1 | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated                                 | TwoParticipants | FamilyMembers_1|FamilyMemberDetailsUpdate                                                 | FamilyMemberClinicalDetailsUpdated      | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | searchPanels     | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | NotesUpdated  | Panels | PanelsDetailsUpdated                             | Pedigree | PatientChoice  | PatientChoiceDetailsUpdated | FamilyMembers  | gender | lifeStatus | ethnicity         | AgeOfOnset | dateOfBirth |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | 2                  | 2                   | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset | 2               |Family members  | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=01,02 | Notes | NotesupdatedbyUser2 | Smith                       | Optic neuropathy | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Pedigree | Patient choice | Authorised by clinician     | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust  | Test package | 2                  | 2                   | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset | 2               |Family members  | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=01,02 | Notes | NotesupdatedbyUser2 | Smith                       | Optic neuropathy | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Pedigree | Patient choice | Authorised by clinician     | Family members | Other  | Deceased   | B - White - Irish | 02,03      | 20-10-2010  |

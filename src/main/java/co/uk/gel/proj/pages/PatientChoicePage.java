@@ -1059,7 +1059,7 @@ public class PatientChoicePage {
         Click.element(driver, adultWithCapacityCategory);
     }
 
-    public boolean enterRecordedDetails() {
+    public boolean enterRecordedByDetails() {
         try {
 
             Wait.forElementToBeDisplayed(driver, recordedByField);

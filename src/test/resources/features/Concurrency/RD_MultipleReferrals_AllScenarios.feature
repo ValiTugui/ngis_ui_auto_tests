@@ -7,7 +7,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage in different referral, upon referral submission by A.
 #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20494701042 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20624169793| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 ##FamilyMembers - Verify
     And the user waits max 10 minutes for the update Family Member details Updated by User2 in the file NRF1
@@ -25,8 +25,8 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   @RD_existing_referral_multipleReferral_scenario_1 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20966998645 | NRF1 |
-##Below step is for new referrals
+      | CONCURRENT_USER2_NAME | r20388020995 | NRF1 |
+
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 ##FamilyMembers - Update
     When the user navigates to the "<FamilyMembers>" stage
@@ -49,7 +49,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated,when B is updating a stage in different referral, upon referral submission by A.
 #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20022403446 | NRF2 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20860318598 | NRF2 |
 ##Patient Details - Update
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User2 in the file NRF2
     When the user navigates to the "<PatientDetails>" stage
@@ -64,7 +64,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   @RD_existing_referral_multipleReferral_scenario_2 @Z-LOGOUT
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated,when B is updating a stage in different referral, upon referral submission by A.
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20258552247 | NRF2 |
+      | CONCURRENT_USER2_NAME | r20624169793 | NRF2 |
     Then the user updates the file NRF2 with Mandatory Stages Completed by User2
 ##Patient Details - Verify
     And the user waits max 10 minutes for the update PatientDetails Updated by User1 in the file NRF1
@@ -85,7 +85,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   Scenario Outline:Login as User A,Complete all stages and do not submit referral,and validate the data updated,when B is updating a stage in different referral, upon referral submission by A.
 #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20258552247 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |  r20624169793| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 ##Patient Details - Verify
     And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
@@ -102,7 +102,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   @RD_existing_referral_multipleReferral_scenario_3 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20022403446 | NRF1 |
+      | CONCURRENT_USER2_NAME | r20860318598| NRF1 |
 ##Patient Details - Update
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
@@ -123,7 +123,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
 #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20786254530 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20860318598 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 ##FamilyMembers - Verify
     And the user waits max 10 minutes for the update Family Member details Updated by User2 in the file NRF1
@@ -140,7 +140,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   @RD_existing_referral_multipleReferral_scenario_4 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20550105736 | NRF1 |
+      | CONCURRENT_USER2_NAME | r20624169793 | NRF1 |
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 ##FamilyMembers - Update
     When the user navigates to the "<FamilyMembers>" stage
