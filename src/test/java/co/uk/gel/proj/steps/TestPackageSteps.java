@@ -77,15 +77,7 @@ public class TestPackageSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
-    @And("the user reads & validate the Test Package with {string}")
-    public void theUserReadsValidateTheTestPackageDetails(String numberOfParticipants) {
-        boolean testResult = false;
-               testResult = testPackagePage.VerifyNumberOfParticipants(numberOfParticipants);
-            if (AppConfig.snapshotRequired) {
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
-            }
-            Assert.assertTrue(testResult);
-        }
+
     @When("the user attempts to navigate away by clicking {string}")
     public void theUserAttemptsToNavigateAwayByClicking(String browserInteraction) {
         switch (browserInteraction) {

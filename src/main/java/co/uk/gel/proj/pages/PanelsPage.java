@@ -520,4 +520,42 @@ public class PanelsPage {
         }
     }
 
+    public boolean verifyPanelDetails(String panelDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(panelDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+                      expValue = paramNameValue.get(key);
+            switch (key) {
+                case "AdditionalPanels": {
+                    verifyInAddedPanelsList(expValue);
+                    break;
+                }
+                case "SuggestedPanels":{
+                    verifySuggestedPanels();
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean updatePanelDetails(String panelDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(panelDetails);
+        String actValue = "";
+        String expValue = "";
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "AdditionalPanels": {
+                    searchAndAddPanel(paramNameValue.get(key));
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
 }//end

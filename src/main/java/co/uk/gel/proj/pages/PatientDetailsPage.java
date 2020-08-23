@@ -1214,6 +1214,12 @@ public class PatientDetailsPage {
                     }
                     break;
                 }
+                case "Postcode": {
+                    seleniumLib.sendValue(postcodeField, paramNameValue.get(key));
+                    break;
+
+                }
+
             }
         }
         return true;
@@ -1228,35 +1234,35 @@ public class PatientDetailsPage {
             switch (key) {
                 case "FirstName": {
                     actValue = firstName.getAttribute("value");
-                    if(!actValue.equalsIgnoreCase(expValue)){
-                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
                     }
                     break;
                 }
                 case "LastName": {
                     actValue = familyName.getAttribute("value");
-                    if(!actValue.equalsIgnoreCase(expValue)){
-                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
                     }
                     break;
                 }
                 case "DOB": {
-                   actValue = dateOfBirthDay.getAttribute("value")+"-";
-                   actValue += dateOfBirthMonth.getAttribute("value")+"-";
-                   actValue += dateOfBirthYear.getAttribute("value");
-                   if(!actValue.equalsIgnoreCase(expValue)){
-                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                    actValue = dateOfBirthDay.getAttribute("value") + "-";
+                    actValue += dateOfBirthMonth.getAttribute("value") + "-";
+                    actValue += dateOfBirthYear.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
-                   }
-                   break;
+                    }
+                    break;
                 }
                 case "Gender": {
                     By genderPath = By.xpath("//input[@id='administrativeGender']/../div/span/span");
                     actValue = seleniumLib.getText(genderPath);
-                    if(!actValue.equalsIgnoreCase(expValue)){
-                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
                     }
                     break;
@@ -1264,8 +1270,8 @@ public class PatientDetailsPage {
                 case "LifeStatus": {
                     By lifeStatusPath = By.xpath("//input[@id='lifeStatus']/../div/span/span");
                     actValue = seleniumLib.getText(lifeStatusPath);
-                    if(!actValue.equalsIgnoreCase(expValue)){
-                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
                     }
                     break;
@@ -1273,8 +1279,16 @@ public class PatientDetailsPage {
                 case "Ethnicity": {
                     By ethnicityPath = By.xpath("//input[@name='ethnicity']/..//span/span");
                     actValue = seleniumLib.getText(ethnicityPath);
-                    if(!actValue.equalsIgnoreCase(expValue)){
-                        Debugger.println("Expected :"+key+": "+expValue+", Actual:"+actValue);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Postcode": {
+                    actValue = postcodeField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
                     }
                     break;
@@ -1283,6 +1297,7 @@ public class PatientDetailsPage {
         }
         return true;
     }
+
     public boolean verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(String expValue) {
         String actValue = null;
         try {
@@ -1516,66 +1531,96 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean readAndValidatePatientDetailsValues(String patientDetails) {
+    public String clearDateOfBirth() {
         try {
-            String[] expectedPatientdetails = patientDetails.split(":");
-            String actualFullDOB = dateOfBirthDay.getAttribute("value") + "/" + dateOfBirthMonth.getAttribute("value") + "/" + dateOfBirthYear.getAttribute("value");
-            String actualGender = administrativeGenderButton.getText().trim();
-            String actualEthnicity = ethnicityButton.getText();
-            String actualLifestatus = lifeStatusButton.getText();
-
-            if(!updatedfirstname.equalsIgnoreCase(firstName.getText())){
-                Debugger.println( "Expected DOB: " + updatedfirstname + ",But Actual:" + firstName.getText());
-                return false;
-            }
-
-            if(!updatedlastname.equalsIgnoreCase(firstName.getText())){
-                Debugger.println( "Expected DOB: " + updatedfirstname + ",But Actual:" + firstName.getText());
-                return false;
-            }
-
-            if (!actualFullDOB.equalsIgnoreCase(expectedPatientdetails[0])) {
-             Debugger.println( "Expected DOB: " + expectedPatientdetails[0] + ",But Actual:" + actualFullDOB);
-             return false;
-            }
-            if (!actualGender.equalsIgnoreCase(expectedPatientdetails[1])) {
-             Debugger.println("Expected Gender: " + expectedPatientdetails[1] + ",But Actual:" + actualGender);
-             return false;
-            }
-            if (!actualEthnicity.equalsIgnoreCase(expectedPatientdetails[2])) {
-                Debugger.println("Expected Ethnicity: " + expectedPatientdetails[2] + ",But Actual:" + actualEthnicity) ;
-                return false;
-            }
-            if (!actualLifestatus.equalsIgnoreCase(expectedPatientdetails[3])) {
-                Debugger.println("Expected LifeStatus: " +expectedPatientdetails[3] + ",But Actual:" + actualLifestatus);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Could not verify  Patient Details:" + exp + "\n" + driver.getCurrentUrl());
-            return false;
-        }
-    }
-
-    public String clearDateOfBirth(){
-        try {
-            if(!seleniumLib.isElementPresent(dateOfBirthDay)){
+            if (!seleniumLib.isElementPresent(dateOfBirthDay)) {
                 return "Date of birth fields not displayed.";
             }
             Actions.clearInputField(dateOfBirthDay);
             Actions.clearInputField(dateOfBirthMonth);
             Actions.clearInputField(dateOfBirthYear);
             return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not Clear Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not Clear Date Of Birth: "+exp;
+        } catch (Exception exp) {
+            Debugger.println("Could not Clear Date Of Birth: " + exp + "\n" + driver.getCurrentUrl());
+            return "Could not Clear Date Of Birth: " + exp;
         }
     }
+
     public static String updatedfirstname;
     public static String updatedlastname;
+
     public void verifyName() {
 
-        updatedfirstname=firstName.getText();
-        updatedlastname=familyName.getText();
+        updatedfirstname = firstName.getText();
+        updatedlastname = familyName.getText();
     }
-    }//end
+
+    public boolean updateFamilyMemberDetails(String familyMemberDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+
+                case "LifeStatus": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
+
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "RelationShipToProband": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(relationshipButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean verifyFamilyMemberDetails(String familyMemberDetails) {
+
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                        case "LifeStatus": {
+                    actValue = seleniumLib.getText(lifeStatusButton);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    actValue = seleniumLib.getText(ethnicityButton);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "RelationShipToProband": {
+                    actValue = seleniumLib.getText(relationshipButton);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+
+        }
+        return true;
+    }
+}

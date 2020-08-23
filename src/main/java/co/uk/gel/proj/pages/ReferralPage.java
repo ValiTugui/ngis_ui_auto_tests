@@ -259,6 +259,10 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//body")
     public WebElement pageBodyElement;
 
+    @FindBy(xpath = "//span[@class='css-19vaq6o']//button[@class='css-1spiz15-sharedByAllButtons']")
+    public WebElement reloadReferral;
+
+
     private String incompleteStageInDialogBox = "//*[contains(@class,'referral-header__stage-list')]//a[contains(text(),'" + "dummyValue" + "')]";
 
     static int referralBannerXLocation, referralBannerYLocation;
@@ -2120,6 +2124,32 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("Stage :" + stage + " has Status Indicator." + exp);
             SeleniumLib.takeAScreenShot("verifyStageHasNoStatusIndicator.jpg");
+            return false;
+        }
+    }
+
+    public boolean acknowledgeThePromptPopup_ReferralSubmit() {
+        try {
+            if (!Wait.isElementDisplayed(driver, reloadReferral, 30)) {
+                Actions.scrollToBottom(driver);
+            }
+            if (!Wait.isElementDisplayed(driver, reloadReferral, 60)) {
+                Debugger.println("Save and Continue not visible even after 60 minutes.");
+                return false;
+            }
+            try {
+                seleniumLib.clickOnWebElement(reloadReferral);
+            } catch (Exception exp1) {
+                Actions.clickElement(driver, reloadReferral);
+            }
+               return true;
+        } catch (UnhandledAlertException exp) {
+            Debugger.println("UnhandledAlertException from ReferralPage:Reload referral: " + exp);
+            SeleniumLib.dismissAllert();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from ReferralPage:ReloadReferral: " + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("refPagereReloadReferral.jpg");
             return false;
         }
     }

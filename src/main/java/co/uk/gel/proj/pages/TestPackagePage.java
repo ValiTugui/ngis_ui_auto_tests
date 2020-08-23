@@ -5,7 +5,6 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -200,9 +199,10 @@ public class TestPackagePage {
 
     public boolean VerifyNumberOfParticipants(String Expectedparticipants) {
         try {
-            String actualParticipants = numberOfParticipants.getText();
-            if (!Expectedparticipants.equalsIgnoreCase(actualParticipants)) {
-                Debugger.println("Expected Participants: " + Expectedparticipants + ",But Actual:" + actualParticipants);
+            By actValue = By.xpath("//div[@id='numberOfParticipants']");
+            String actValu = seleniumLib.getText(actValue);
+            if (! expectedParticipants.equalsIgnoreCase(actValu)) {
+                Debugger.println("Expected Participants: " + expectedParticipants + ",But Actual:" + actValu);
                 return false;
             }
             return true;

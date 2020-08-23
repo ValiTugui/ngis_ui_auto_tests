@@ -653,10 +653,33 @@ public class ResponsibleClinicianPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp+"\n"+driver.getCurrentUrl());
+            Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ResponsibleClinician.jpg");
             return false;
         }
+    }
+
+    public boolean fillResponsibleClinicianFields(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    seleniumLib.sendValue(clinicianFirstNameField, paramNameValue.get(key));
+                    break;
+                }
+                case "LastName": {
+                    seleniumLib.sendValue(clinicianLastNameField, paramNameValue.get(key));
+                    break;
+                }
+                case "Department": {
+                    seleniumLib.sendValue(clinicianDepartmentAddressField, paramNameValue.get(key));
+                    break;
+                }
+
+            }
+        }
+        return true;
     }
 
     public boolean verifyResponsibleClinicianDetails(String clinicalInfo) {
@@ -666,27 +689,27 @@ public class ResponsibleClinicianPage {
         for (String key : paramsKey) {
             switch (key) {
                 case "FirstName": {
-                    actValue = seleniumLib.getText(clinicianFirstNameField);
+                    actValue = clinicianFirstNameField.getAttribute("value");
+
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
                         Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
                     }
                     break;
                 }
-            }
-            switch (key) {
+
                 case "LastName": {
-                    actValue = seleniumLib.getText(clinicianLastNameField);
+                    actValue = clinicianLastNameField.getAttribute("value");
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
                         Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
                     }
                     break;
                 }
-            }
-            switch (key) {
+
+
                 case "Department": {
-                    actValue = seleniumLib.getText(clinicianDepartmentAddressField);
+                    actValue = clinicianDepartmentAddressField.getAttribute("value");
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
                         Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
@@ -694,6 +717,8 @@ public class ResponsibleClinicianPage {
                     break;
                 }
             }
+
+
         }
         return true;
     }

@@ -10,15 +10,17 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class PatientChoicePage {
 
@@ -583,14 +585,14 @@ public class PatientChoicePage {
                 }
             }
             if (!isFound) {
-                Debugger.println("Option: " + option + " not present for the question:" + question+"\n"+driver.getCurrentUrl());
+                Debugger.println("Option: " + option + " not present for the question:" + question + "\n" + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
                 Actions.scrollToBottom(driver);
                 SeleniumLib.takeAScreenShot("PCOptionNotPresent.jpg");
             }
             return isFound;
         } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp+"\n"+driver.getCurrentUrl());
+            Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
             return false;
         }
@@ -1256,6 +1258,33 @@ public class PatientChoicePage {
             return false;
         }
     }
+
+    public boolean statusUpdatedCorrectlyforproband(String status) {
+        try {
+            if (!Wait.isElementDisplayed(driver, landingPageList, 30)) {
+                Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+                return false;
+            }
+            if (statuses.size() < 1) {
+                Debugger.println("Patient Choice Test Status not loaded." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
+                return false;
+            }
+            String actualStatus = statuses.get(0).getText();
+            if (!actualStatus.equalsIgnoreCase(status)) {
+                Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
+                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from statusUpdatedCorrectly:" + exp);
+            SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");
+            return false;
+        }
+    }
+
 
     public boolean verifyHelpTextLabelIsVisible() {
         try {
@@ -2049,6 +2078,38 @@ public class PatientChoicePage {
             return false;
         }
 
+    }
+
+    public boolean theUserAnswersThePatientChoiceQuestionswithPatientChoiceNotrequiredForRD(String recordedByName) {
+        boolean testResult = false;
+        try {
+//            Wait.seconds(20);
+            selectMember(0);
+            clickOnAmendPatientChoice();
+            selectPatientChoiceCategory();
+            Wait.seconds(2);
+            selectTestType("Rare & inherited diseases – WGS");
+            Wait.seconds(2);
+            testResult = enterRecordedDetails(recordedByName);
+            if (!testResult) {
+                return testResult;
+            }
+            Wait.seconds(2);
+            selectChoicesWithPatientChoiceNotRequired();
+
+            Wait.seconds(2);
+            drawSignature();
+
+            Wait.seconds(2);
+            submitPatientChoice();
+            Wait.seconds(30);
+
+            return testResult;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Submitting Patient Choice for :" +  "\n" + exp);
+            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
+            return false;
+        }
     }
 
 }//end
