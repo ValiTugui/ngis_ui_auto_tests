@@ -5,13 +5,17 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class TestPackagePage {
 
@@ -199,10 +203,9 @@ public class TestPackagePage {
 
     public boolean VerifyNumberOfParticipants(String Expectedparticipants) {
         try {
-            By actValue = By.xpath("//div[@id='numberOfParticipants']");
-            String actValu = seleniumLib.getText(actValue);
-            if (! expectedParticipants.equalsIgnoreCase(actValu)) {
-                Debugger.println("Expected Participants: " + expectedParticipants + ",But Actual:" + actValu);
+            String actualParticipants = numberOfParticipants.getText();
+            if (!Expectedparticipants.equalsIgnoreCase(actualParticipants)) {
+                Debugger.println("Expected Participants: " + Expectedparticipants + ",But Actual:" + actualParticipants);
                 return false;
             }
             return true;
@@ -477,4 +480,55 @@ public class TestPackagePage {
         }
     }
 
+    public boolean updateTestPackageDetails(String testPackageDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(testPackageDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "NoOfParticipants": {
+                    selectNumberOfParticipants(Integer.parseInt(paramNameValue.get(key)));
+                    break;
+                }
+                case "Priority": {
+                    String selectedPriorityButton = chosenPriorityButton.getText();
+                    if (selectedPriorityButton.equalsIgnoreCase(paramNameValue.get(key))) {
+                        clickRoutinePriority();
+                    } else {
+                        clickUrgentPriority();
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean verifyTestPackageDetails(String testPackageDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(testPackageDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "NoOfParticipants": {
+                    actValue = numberOfParticipants.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Priority": {
+                    actValue = chosenPriorityButton.getText();
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+
+            }
+        }
+        return true;
+    }
 }//end
