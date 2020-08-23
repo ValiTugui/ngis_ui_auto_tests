@@ -1059,7 +1059,7 @@ public class PatientChoicePage {
         Click.element(driver, adultWithCapacityCategory);
     }
 
-    public boolean enterRecordedByDetails() {
+    public boolean enterRecordedDetails() {
         try {
 
             Wait.forElementToBeDisplayed(driver, recordedByField);
@@ -1077,6 +1077,25 @@ public class PatientChoicePage {
             }
          }
     }
+    public boolean enterRecordedDetails(String recordedByName) {
+        try {
+
+            Wait.forElementToBeDisplayed(driver, recordedByField);
+            co.uk.gel.lib.Actions.fillInValue(recordedByField, recordedByName);
+            Click.element(driver, recordedByContinueButton);
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(recordedByContinueButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in enterRecordedByDetails:" + exp1);
+                SeleniumLib.takeAScreenShot("enterRecordedByDetails.jpg");
+                return false;
+            }
+        }
+    }
+
 
     public boolean selectChoicesWithPatientChoiceNotRequired() {
         try {
