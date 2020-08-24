@@ -2,15 +2,15 @@
 @Concurrency_existingReferral_Cancer
 Feature: Submit Existing Referral for Cancer flow
   #User1
-  @NTS-6468 @NTS-6467
-    @Cancer_existing_referral_all_stages @Z-LOGOUT
+  @NTS-6469
+    @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | r20279927085 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-      #Patient Details - Verify
+    #Patient Details - Verify
     And the user waits max 20 minutes for the update PatientDetails Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
@@ -68,7 +68,7 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     Then the user updates the file NRF1 with Notes details validated by User1
     ##PatientChoice- Verify
-    And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NRF1
+    And the user waits max 15 minutes for the update Patient Choice details Updated by User1 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientChoice>" stage
@@ -76,11 +76,11 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user updates the file NRF1 with Patient Choice details validated by User1
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                        | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                     | Tumours | TumoursUpdated                               | pageTitle1                         | TumoursQuestionnaireUpdated  | Samples | SamplesUpdated                                                                  | pageTitle2         | SamplesQuestionnaireUpdated                                     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=James123:LastName=Peter123:DOB=20-10-1997:Gender=Male:LifeStatus=Alive:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | Priority=Urgent    | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=Unknown   | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
 
   #User2
-  @Cancer_existing_referral_all_stages @Z-LOGOUT
+  @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | r20279927085 | NRF1 |
@@ -138,10 +138,10 @@ Feature: Submit Existing Referral for Cancer flow
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Notes details Updated by User2
     ##PatientChoice- Update
-    And the user waits max 8 minutes for the update Notes details validated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Notes details validated by User1 in the file NRF1
     When the user navigates to the "<PatientChoice>" stage
     Then the user updates the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     Then the user updates the file NRF1 with Patient Choice details Updated by User2
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                        | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                     | Tumours | TumoursUpdated                               | pageTitle1                         | TumoursQuestionnaireUpdated  | Samples | SamplesUpdated                                                                  | pageTitle2         | SamplesQuestionnaireUpdated                                     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=James123:LastName=Peter123:DOB=20-10-1997:Gender=Male:LifeStatus=Alive:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | Priority=Urgent   | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=Unknown   | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |

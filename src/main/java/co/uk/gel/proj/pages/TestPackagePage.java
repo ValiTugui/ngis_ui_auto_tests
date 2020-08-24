@@ -491,10 +491,12 @@ public class TestPackagePage {
                 }
                 case "Priority": {
                     String selectedPriorityButton = chosenPriorityButton.getText();
-                    if (selectedPriorityButton.equalsIgnoreCase(paramNameValue.get(key))) {
-                        clickRoutinePriority();
-                    } else {
-                        clickUrgentPriority();
+                    if (!selectedPriorityButton.equalsIgnoreCase(paramNameValue.get(key))) {
+                        if (paramNameValue.get(key).equalsIgnoreCase("Urgent")){
+                            clickUrgentPriority();
+                        }else{
+                            clickRoutinePriority();
+                        }
                     }
                     break;
                 }
