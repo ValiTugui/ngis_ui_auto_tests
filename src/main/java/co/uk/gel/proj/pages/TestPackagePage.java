@@ -491,10 +491,12 @@ public class TestPackagePage {
                 }
                 case "Priority": {
                     String selectedPriorityButton = chosenPriorityButton.getText();
-                    if (selectedPriorityButton.equalsIgnoreCase(paramNameValue.get(key))) {
-                        clickRoutinePriority();
-                    } else {
-                        clickUrgentPriority();
+                    if (!selectedPriorityButton.equalsIgnoreCase(paramNameValue.get(key))) {
+                        if (paramNameValue.get(key).equalsIgnoreCase("Urgent")){
+                            clickUrgentPriority();
+                        }else{
+                            clickRoutinePriority();
+                        }
                     }
                     break;
                 }
@@ -510,8 +512,9 @@ public class TestPackagePage {
         for (String key : paramsKey) {
             expValue = paramNameValue.get(key);
             switch (key) {
-                case "NoOfParticipants": {
-                    actValue = numberOfParticipants.getAttribute("value");
+                case "NoOfParticipants":{
+                    By noOfParticipantsPath=By.xpath("//div[@id='numberOfParticipants']");
+                    actValue = seleniumLib.getText(noOfParticipantsPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
