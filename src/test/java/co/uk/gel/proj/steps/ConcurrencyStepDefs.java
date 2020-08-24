@@ -100,7 +100,7 @@ public class ConcurrencyStepDefs extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-    @And("the user updates the page {string} with {string}")
+    @And("the user update the page {string} with {string}")
     public void theUserUpdatesFamilyMemberClinicalDetails(String pageName, String updateDetails){
         Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + updateDetails);
         boolean testResult = false;
@@ -111,7 +111,7 @@ public class ConcurrencyStepDefs extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-    @And("the user verifies the page {string} with {string}")
+    @And("the user verify the page {string} with {string}")
     public void theUserVerifiesFamilyMemberClinicalDetails(String pageName, String verifyDetails){
         Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + verifyDetails);
         boolean testResult = false;

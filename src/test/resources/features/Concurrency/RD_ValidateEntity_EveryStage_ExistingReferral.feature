@@ -65,7 +65,7 @@ Feature: Submit Existing Referral to validate a entity
     And the user waits max 8 minutes for the update Family Member clinical details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
-    Then the user verifies the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    Then the user verify the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     Then the user updates the file NRF1 with Family Member clinical details validated by User1
       ##PatientChoice- Verify
     And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NRF1
@@ -140,7 +140,7 @@ Feature: Submit Existing Referral to validate a entity
     Then the user updates the file NRF1 with Family Member details Updated by User2
     #    #FamilyMembersclinicalquestions - Update
     And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NRF1
-    Then the user updates the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    Then the user update the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Family Member clinical details Updated by User2
   ##PatientChoice- update

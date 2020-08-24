@@ -65,7 +65,7 @@ Feature: Submit Existing Referral to validate a stage
     And the user waits max 8 minutes for the update Family Member clinical details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
-    Then the user verifies the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    Then the user verify the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     Then the user updates the file NRF1 with Family Member clinical details validated by User1
       ##PatientChoice- Verify
     And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NRF1
@@ -91,7 +91,7 @@ Feature: Submit Existing Referral to validate a stage
       | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust  | Test package | 2                  | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1:HPOPhenoType=Adult onset  | Notes | NotesupdatedbyUser2 | Family members |Family members | 2               | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     | ClinicianName=John | This Referral has not been Submitted | User2updatedthenotes | Male:11-03-1978:Father      | Affected:01:01:Scrotal hypoplasia           |
 
    #User2
-  @RD_existing_referral_all_stages_entity @Z-LOGOUT
+  @RD_existing_referral_all_stages @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | r20860318598 | NRF1 |
@@ -140,7 +140,7 @@ Feature: Submit Existing Referral to validate a stage
     Then the user updates the file NRF1 with Family Member details Updated by User2
     #    #FamilyMembersclinicalquestions - Update
     And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NRF1
-    Then the user updates the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    Then the user update the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Family Member clinical details Updated by User2
   ##PatientChoice- update
