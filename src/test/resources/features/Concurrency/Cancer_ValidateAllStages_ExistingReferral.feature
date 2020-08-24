@@ -1,13 +1,15 @@
 @Concurrency
 @Concurrency_existingReferral_Cancer
+  @test
 Feature: Submit Existing Referral for Cancer flow
   #User1
+  @NTS-6469 @NTS-6467
   @Cancer_existing_referral_all_stages @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Fibro-Osseous Tumour of Bone Differential| CONCURRENT_USER1_NAME | r20279927085| NRF1 |
+      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | r20841659225 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
       #Patient Details - Verify
     And the user waits max 20 minutes for the update PatientDetails Updated by User2 in the file NRF1
@@ -37,7 +39,7 @@ Feature: Submit Existing Referral for Cancer flow
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user updates the file NRF1 with Responsible Clinician details validated by User1
-#    ## Tumours - Verify
+    ## Tumours - Verify
     And the user waits max 8 minutes for the update Tumours details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
@@ -59,16 +61,30 @@ Feature: Submit Existing Referral for Cancer flow
     Then the "<pageTitle2>" page is displayed
     And the user verifies the page "<pageTitle2>" with "<SamplesQuestionnaireUpdated>"
     And the user updates the file NRF1 with Samples details validated by User1
+    ##Notes - verify
+    And the user waits max 8 minutes for the update Notes details Updated by User2 in the file NRF1
+    And the user submits the referral
+    Then the user click on Reload referral button to validate the data
+    When the user navigates to the "<Notes>" stage
+    Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
+    Then the user updates the file NRF1 with Notes details validated by User1
+    ##PatientChoice- Verify
+    And the user waits max 15 minutes for the update Patient Choice details Updated by User1 in the file NRF1
+    And the user submits the referral
+    Then the user click on Reload referral button to validate the data
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
+    Then the user updates the file NRF1 with Patient Choice details validated by User1
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                   | RequestingOrganisation  | RequestingOrganisationUpdated                    | TestPackage  |TestPackageUpdated| ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                  | Tumours | TumoursUpdated                                                                              | pageTitle1                         | TumoursQuestionnaireUpdated          | Samples | SamplesUpdated                                                                  | pageTitle2         | SamplesQuestionnaireUpdated                                                                                                   |
-      | Patient details | FirstName=Test:LastName=Cancer:DOB=29-08-1998:Gender=Male:LifeStatus=Alive:Ethnicity=C - White - Any other White background| Requesting organisation | York Teaching Hospital NHS Foundation Trust | Test package |    Priority=Urgent            |Responsible clinician | FirstName=Test:LastName=Cancer:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                     | Tumours | TumoursUpdated                               | pageTitle1                         | TumoursQuestionnaireUpdated  | Samples | SamplesUpdated                                                                  | pageTitle2         | SamplesQuestionnaireUpdated                                     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
+      | Patient details | FirstName=James123    | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | Priority=Urgent    | Responsible clinician | FirstName=Test:LastName=Cancer:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
 
   #User2
   @Cancer_existing_referral_all_stages @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20279927085| NRF1 |
+      | CONCURRENT_USER2_NAME | r20841659225 | NRF1 |
     #Below step is for existing referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     # Patient Details - Update
@@ -94,7 +110,7 @@ Feature: Submit Existing Referral for Cancer flow
     And the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Responsible Clinician details Updated by User2
-#    # Tumours Update
+#    # Tumours - Update
     And the user waits max 8 minutes for the update Responsible Clinician details validated by User1 in the file NRF1
     When the user navigates to the "<Tumours>" stage
     And the user selects the existing tumour on the landing page by clicking on the chevron right arrow icon
@@ -105,7 +121,7 @@ Feature: Submit Existing Referral for Cancer flow
     And the user clicks the Save and Continue button
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Tumours details Updated by User2
-    ## Samples Update
+    ## Samples - Update
     And the user waits max 8 minutes for the update Tumours details validated by User1 in the file NRF1
     When the user navigates to the "<Samples>" stage
     And the user selects the existing sample on the landing page by clicking on the chevron right arrow icon
@@ -116,6 +132,17 @@ Feature: Submit Existing Referral for Cancer flow
     And the user clicks the Save and Continue button
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with Samples details Updated by User2
+    ##Notes - Update
+    And the user waits max 8 minutes for the update Clinical Questions details validated by User1 in the file NRF1
+    When the user navigates to the "<Notes>" stage
+    Then the user updates the stage "<Notes>" with "<NotesUpdated>"
+    And the user clicks the Save and Continue button
+    Then the user updates the file NRF1 with Notes details Updated by User2
+    ##PatientChoice- Update
+    And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NRF1
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user updates the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
+    Then the user updates the file NRF1 with Patient Choice details Updated by User1
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                   | RequestingOrganisation  | RequestingOrganisationUpdated                    | TestPackage  |TestPackageUpdated| ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                  | Tumours | TumoursUpdated                                                                               | pageTitle1                         | TumoursQuestionnaireUpdated          | Samples | SamplesUpdated                                                                  | pageTitle2         | SamplesQuestionnaireUpdated                                                                                                   |
-      | Patient details | FirstName=Test:LastName=Cancer:DOB=29-08-1998:Gender=Male:LifeStatus=Alive:Ethnicity=C - White - Any other White background| Requesting organisation | York Teaching Hospital NHS Foundation Trust | Test package |    Priority=Routine            |Responsible clinician | FirstName=Test:LastName=Cancer:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                         | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                     | Tumours | TumoursUpdated                               | pageTitle1                         | TumoursQuestionnaireUpdated  | Samples | SamplesUpdated                                                                  | pageTitle2         | SamplesQuestionnaireUpdated                                     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
+      | Patient details | FirstName=James123    | Requesting organisation | South London and Maudsley NHS Foundation Trust ESTEST | Test package | Priority=Routine   | Responsible clinician | FirstName=Test:LastName=Cancer:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
