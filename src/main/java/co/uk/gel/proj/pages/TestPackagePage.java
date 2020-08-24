@@ -510,8 +510,9 @@ public class TestPackagePage {
         for (String key : paramsKey) {
             expValue = paramNameValue.get(key);
             switch (key) {
-                case "NoOfParticipants": {
-                    actValue = numberOfParticipants.getAttribute("value");
+                case "NoOfParticipants":{
+                    By noOfParticipantsPath=By.xpath("//div[@id='numberOfParticipants']");
+                    actValue = seleniumLib.getText(noOfParticipantsPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;

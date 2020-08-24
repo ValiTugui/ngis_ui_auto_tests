@@ -9,7 +9,7 @@ Feature:Submit Existing Referral for three users
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20860318598 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |  r20487968498 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     # Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NRF1
@@ -34,7 +34,7 @@ Feature:Submit Existing Referral for three users
 
   Scenario Outline: Update the stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20860318598 | NRF1 |
+      | CONCURRENT_USER2_NAME |  r20487968498 | NRF1 |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Notes Section
@@ -59,7 +59,7 @@ Feature:Submit Existing Referral for three users
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER3_NAME | r20860318598 | NRF1 |
+      | CONCURRENT_USER3_NAME | r20487968498 | NRF1 |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
@@ -83,7 +83,7 @@ Feature:Submit Existing Referral for three users
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20860318598| NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20487968498| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 ## Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NRF1
@@ -125,7 +125,7 @@ Feature:Submit Existing Referral for three users
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME |r20860318598 | NRF1 |
+      | CONCURRENT_USER2_NAME |  r20487968498 | NRF1 |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Notes Section
@@ -165,7 +165,7 @@ Feature:Submit Existing Referral for three users
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER3_NAME | r20860318598| NRF1 |
+      | CONCURRENT_USER3_NAME |  r20487968498| NRF1 |
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"

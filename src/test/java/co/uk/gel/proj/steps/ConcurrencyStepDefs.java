@@ -48,7 +48,7 @@ public class ConcurrencyStepDefs extends Pages {
         if(stageName.equalsIgnoreCase("Patient details")) {
             testResult = patientDetailsPage.updatePatientDetails(updateDetails);
         }else if(stageName.equalsIgnoreCase("Requesting Organisation")) {
-            testResult = paperFormPage.fillInSpecificKeywordInSearchField(updateDetails);
+            testResult = paperFormPage.fillInSpecificValueInSearchField(updateDetails);
             if(!testResult){
                 Assert.fail("Could not search for Order entity.");
             }
@@ -56,7 +56,7 @@ public class ConcurrencyStepDefs extends Pages {
         }else if(stageName.equalsIgnoreCase("Test package")) {
             testResult =testPackagePage.updateTestPackageDetails(updateDetails);
         } else if(stageName.equalsIgnoreCase("Responsible clinician")) {
-            testResult = responsibleClinicianPage.fillResponsibleClinicianDetails(updateDetails);
+            testResult = responsibleClinicianPage.fillResponsibleClinicianFields(updateDetails);
             if(!testResult){
                 Assert.fail("Responsible Clinician Details could not enter.");
             }
