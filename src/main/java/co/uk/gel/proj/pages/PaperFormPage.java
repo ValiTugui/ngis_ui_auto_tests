@@ -151,7 +151,7 @@ public class PaperFormPage {
                 return false;
             }
             orderEntitySearchField.clear();
-            seleniumLib.sendValue(orderEntitySearchField, keyword);
+            orderEntitySearchField.sendKeys(keyword);
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             Wait.seconds(2);
             return true;
