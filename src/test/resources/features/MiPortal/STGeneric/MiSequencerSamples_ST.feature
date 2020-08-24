@@ -4,7 +4,7 @@
 
 Feature:  MIPORTAL ST -  Sequencer Samples
 
-   @NTS-5190
+  @NTS-5190
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -85,6 +85,7 @@ Feature:  MIPORTAL ST -  Sequencer Samples
       | Sequencer Samples |
 
   @NTS-5669 @MI-LOGOUT
+    # @E2EUI-2887
   Scenario Outline: Remove unused fields in Sequencer Samples Report
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
