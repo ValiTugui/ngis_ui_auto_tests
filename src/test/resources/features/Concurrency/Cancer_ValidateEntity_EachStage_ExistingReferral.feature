@@ -69,7 +69,7 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     Then the user updates the file NRF1 with Notes details validated by User1
     ##PatientChoice- Verify
-    And the user waits max 15 minutes for the update Patient Choice details Updated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientChoice>" stage
