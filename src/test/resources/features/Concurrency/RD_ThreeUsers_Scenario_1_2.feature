@@ -1,4 +1,5 @@
 @Concurrency
+@Concurrency_test
 @Concurrency_newReferral_RD
 
 Feature:Submit Existing Referral for three users
@@ -9,7 +10,7 @@ Feature:Submit Existing Referral for three users
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20448046535 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20609782352 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     # Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NRF1
@@ -24,8 +25,8 @@ Feature:Submit Existing Referral for three users
 #    Then the submission confirmation message "Your referral has been submitted" is displayed
 #    And the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
-      | Patient details | DOB=20-10-2010        | Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | PatientDetails  | PatientDetailsUpdated |
+      | Patient details | DOB=20-10-2010        |
 
 
 #Login as User B,
@@ -34,10 +35,7 @@ Feature:Submit Existing Referral for three users
 
   Scenario Outline: Update the stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME |  r20448046535| NRF1 |
-    ##Patient Details
-    And the "<PatientDetails>" stage is marked as Completed
-    ##Notes Section
+      | CONCURRENT_USER2_NAME |r20609782352| NRF1 |
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 ## Referral Submission by User2 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NRF1
@@ -59,9 +57,8 @@ Feature:Submit Existing Referral for three users
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER3_NAME |r20448046535 | NRF1 |
-    ##Patient Details
-    And the "<PatientDetails>" stage is marked as Completed
+      | CONCURRENT_USER3_NAME |r20609782352| NRF1 |
+
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
@@ -83,7 +80,7 @@ Feature:Submit Existing Referral for three users
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20448046535| NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20609782352| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 ## Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NRF1
@@ -125,7 +122,7 @@ Feature:Submit Existing Referral for three users
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME |  r20448046535 | NRF1 |
+      | CONCURRENT_USER2_NAME |  r20609782352 | NRF1 |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Notes Section
@@ -165,7 +162,7 @@ Feature:Submit Existing Referral for three users
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER3_NAME | r20448046535| NRF1 |
+      | CONCURRENT_USER3_NAME | r20609782352| NRF1 |
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"

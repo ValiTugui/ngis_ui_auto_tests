@@ -1280,7 +1280,7 @@ public class PatientChoicePage {
 
     public boolean statusUpdatedCorrectlyforproband(String status) {
         try {
-            if (!Wait.isElementDisplayed(driver, landingPageList, 30)) {
+            if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
                 Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
                 return false;
