@@ -26,7 +26,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
   @RD_existing_referral_multipleReferral_scenario_1 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20487968498 | NRF1 |
+      | CONCURRENT_USER2_NAME |r20448046535| NRF1 |
 
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 ##FamilyMembers - Update

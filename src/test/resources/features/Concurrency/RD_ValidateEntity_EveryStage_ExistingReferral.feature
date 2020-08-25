@@ -10,7 +10,7 @@ Feature: Submit Existing Referral to validate a entity
 
       #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20487968498 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20448046535| NRF1 |
 
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 #    Patient Details - Verify
@@ -95,7 +95,7 @@ Feature: Submit Existing Referral to validate a entity
   @RD_existing_referral_all_stages_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20487968498 | NRF1 |
+      | CONCURRENT_USER2_NAME |r20448046535| NRF1 |
     #Below step is for new referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 #     Patient Details - Update

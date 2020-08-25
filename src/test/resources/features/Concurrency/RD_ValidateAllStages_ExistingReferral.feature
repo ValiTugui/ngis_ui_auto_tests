@@ -10,7 +10,7 @@ Feature: Submit Existing Referral to validate a stage
 
       #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20487968498 | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20448046535 | NRF1 |
 
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 #    Patient Details - Verify
@@ -95,11 +95,11 @@ Feature: Submit Existing Referral to validate a stage
   @RD_existing_referral_all_stages @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20487968498 | NRF1 |
+      | CONCURRENT_USER2_NAME |r20448046535 | NRF1 |
     #Below step is for new referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
 #     Patient Details - Update
-    When the user navigates to the "<PatientDetails>" stage
+     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
     Then the user updates the file NRF1 with PatientDetails Updated by User2
@@ -115,7 +115,7 @@ Feature: Submit Existing Referral to validate a stage
     And the user updates the stage "<TestPackage>" with "<TestPackageUpdated>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Test Package details Updated by User2
-#    Responsible Clinician- Update
+##    Responsible Clinician- Update
     And the user waits max 10 minutes for the update Test Package details validated by User1 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
