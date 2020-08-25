@@ -9,7 +9,7 @@ Feature: Submit Existing Referral for Cancer flow
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | r20279927085 | NRF1 |
+      | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | r20478059307 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     #Patient Details - Verify
     And the user waits max 20 minutes for the update PatientDetails Updated by User2 in the file NRF1
@@ -84,7 +84,7 @@ Feature: Submit Existing Referral for Cancer flow
   @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20279927085 | NRF1 |
+      | CONCURRENT_USER2_NAME | r20478059307| NRF1 |
     #Below step is for existing referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     # Patient Details - Update
