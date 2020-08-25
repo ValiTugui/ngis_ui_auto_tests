@@ -1,4 +1,5 @@
 @Concurrency
+@Concurrency_test
 @Concurrency_newReferral_RD
 Feature: Submit Existing Multiple Referrals to validate every stage
 
