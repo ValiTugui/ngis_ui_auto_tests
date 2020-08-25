@@ -1149,4 +1149,32 @@ public class ClinicalQuestionsPage {
         }
     }
 
+    public static String genderValue;
+    public boolean selectSpecificPhenotypicSexDropdownValue(String value) {
+        try {
+            if (!Wait.isElementDisplayed(driver, phenotypicSexDropdown, 15)) {
+                Actions.scrollToTop(driver);
+            }
+            Actions.clickElement(driver, phenotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Wait.seconds(5);//Explicitly waiting here as below element is dynamically created
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
+            Debugger.println("selectValueFromDropdown values."+value);
+            String selectedValue=Actions.getText(phenotypicSexDropdown.findElement(By.xpath("//span[text()='" + value + "']")));
+            if (selectedValue != null && selectedValue.equalsIgnoreCase(value)) {
+                return true;//Already Selected the Specified Value
+            }
+            if(!value.equalsIgnoreCase(selectedValue)){
+                Debugger.println("Expected value is "+value+" selectedValue is "+selectedValue);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Clinical Questions Page : Exception from selecting phenotypic Sex : " + exp);
+            SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
+            return false;
+        }
+    }
+
+
 }

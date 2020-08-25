@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.pages.ClinicalQuestionsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -870,4 +871,25 @@ public class PatientDetailsSteps extends Pages {
         testResult= patientDetailsPage.updatePatientDetails(patientDetails);
         Assert.assertTrue(testResult);
     }
+
+   @When("the user modifies the gender value")
+    public void theUserModifiesTheGender() {
+        boolean testResult = false;
+        String gender;
+        String genderValue= patientDetailsPage.readGenderValue();
+        if(genderValue==null||genderValue.isEmpty()){
+            Assert.fail("No value read from gender field");
+        }
+        if(genderValue.equalsIgnoreCase("Male")){
+            gender="Female";
+        }
+        else{
+            gender="Male";;
+        }
+        ClinicalQuestionsPage.genderValue=gender;
+        Debugger.println("Gender "+gender);
+        testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+        Assert.assertTrue(testResult);
+    }
+
 }

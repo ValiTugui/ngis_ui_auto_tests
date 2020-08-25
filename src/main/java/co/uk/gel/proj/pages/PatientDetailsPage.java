@@ -1947,4 +1947,24 @@ public class PatientDetailsPage {
         return true;
     }
 
+    public String readGenderValue() {
+        try {
+            if (!Wait.isElementDisplayed(driver, administrativeGenderButton, 5)) {
+                Debugger.println("GenderButton is not loaded.");
+                SeleniumLib.takeAScreenShot("readGenderValue.jpg");
+                return null;
+            }
+            return addDetailsToNGISButton.getText();
+        }
+        catch (Exception exp){
+            try {
+                return seleniumLib.getText(administrativeGenderButton);
+            }catch (Exception exp1){
+                Debugger.println("Exception from readGenderValue:" + exp);
+                SeleniumLib.takeAScreenShot("readGenderValue.jpg");
+                return null;
+            }
+        }
+    }
+
 }//end
