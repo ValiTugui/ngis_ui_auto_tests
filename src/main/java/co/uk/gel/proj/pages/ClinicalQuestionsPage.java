@@ -145,6 +145,8 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//h2[contains(@class,'group__heading')]")
     public List<WebElement> fieldHeaders;
 
+    public static String genderValue;
+
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
         int actualNumberOfHPOTerms = hpoTerms.size();
@@ -1149,8 +1151,7 @@ public class ClinicalQuestionsPage {
         }
     }
 
-    public static String genderValue;
-    public boolean selectSpecificPhenotypicSexDropdownValue(String value) {
+        public boolean selectSpecificPhenotypicSexDropdownValue(String value) {
         try {
             if (!Wait.isElementDisplayed(driver, phenotypicSexDropdown, 15)) {
                 Actions.scrollToTop(driver);
@@ -1166,6 +1167,7 @@ public class ClinicalQuestionsPage {
             }
             if(!value.equalsIgnoreCase(selectedValue)){
                 Debugger.println("Expected value is "+value+" selectedValue is "+selectedValue);
+                SeleniumLib.takeAScreenShot("mismatchInPhenotypicSexValue.jpg");
                 return false;
             }
             return true;

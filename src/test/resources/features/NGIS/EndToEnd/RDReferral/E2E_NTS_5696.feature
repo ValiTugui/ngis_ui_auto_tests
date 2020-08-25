@@ -1,9 +1,8 @@
 @E2E_TEST
 
 Feature:NTS-5696:CSV-Verify the final payload by changing the penetrance at GEL 1010 stage
-#Create New Patient
 
-  @NTS-5696 @Z-LOGOUT @Scenario1
+  @NTS-5696 @Z-LOGOUT
     #@E2EUI-2967
     #Create New Patient for NGIS
   Scenario Outline:NTS-5696:2EUI-2967:Scenario1: CSV-Verify the final payload by changing the penetrance at GEL 1010 stage

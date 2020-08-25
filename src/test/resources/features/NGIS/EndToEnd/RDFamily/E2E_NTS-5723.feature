@@ -7,7 +7,6 @@ Feature: RD Duo Family : Genetic sex does not match sex as reported
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-10-1985:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    When the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     #Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
