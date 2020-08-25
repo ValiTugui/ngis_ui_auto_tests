@@ -1,4 +1,5 @@
 @Concurrency
+@Concurrency_test
 @Concurrency_existingReferral_Cancer
 Feature: Submit Existing Referral for Cancer flow
   #User1
@@ -8,7 +9,7 @@ Feature: Submit Existing Referral for Cancer flow
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | r20279927085 | NRF1 |
+      | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | r20478059307 | NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     #Patient Details - Verify
     And the user waits max 20 minutes for the update PatientDetails Updated by User2 in the file NRF1
@@ -38,7 +39,7 @@ Feature: Submit Existing Referral for Cancer flow
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user updates the file NRF1 with Responsible Clinician details validated by User1
-    ## Tumours - Verify
+    # Tumours - Verify
     And the user waits max 8 minutes for the update Tumours details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
@@ -68,7 +69,7 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     Then the user updates the file NRF1 with Notes details validated by User1
     ##PatientChoice- Verify
-    And the user waits max 15 minutes for the update Patient Choice details Updated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientChoice>" stage
@@ -77,13 +78,13 @@ Feature: Submit Existing Referral for Cancer flow
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=Unknown   | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation| Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
 
   #User2
   @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20279927085 | NRF1 |
+      | CONCURRENT_USER2_NAME | r20478059307| NRF1 |
     #Below step is for existing referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     # Patient Details - Update
@@ -144,4 +145,4 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user updates the file NRF1 with Patient Choice details Updated by User2
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=Unknown   | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation| Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |

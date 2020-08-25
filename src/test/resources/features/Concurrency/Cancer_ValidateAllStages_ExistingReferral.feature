@@ -1,4 +1,5 @@
 @Concurrency
+@Concurrency_test
 @Concurrency_existingReferral_Cancer
 Feature: Submit Existing Referral for Cancer flow
   #User1
