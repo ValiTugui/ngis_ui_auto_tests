@@ -39,7 +39,7 @@ Feature: Submit Existing Referral for Cancer flow
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user updates the file NRF1 with Responsible Clinician details validated by User1
-    ## Tumours - Verify
+    # Tumours - Verify
     And the user waits max 8 minutes for the update Tumours details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
@@ -78,7 +78,7 @@ Feature: Submit Existing Referral for Cancer flow
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=Unknown   | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation| Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
 
   #User2
   @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
@@ -145,4 +145,4 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user updates the file NRF1 with Patient Choice details Updated by User2
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=Unknown   | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation| Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
