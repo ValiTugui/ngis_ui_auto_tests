@@ -877,6 +877,7 @@ public class PatientDetailsSteps extends Pages {
         boolean testResult = false;
         String gender;
         String genderValue= patientDetailsPage.readGenderValue();
+        Debugger.println("The Existing gender value "+genderValue);
         if(genderValue==null||genderValue.isEmpty()){
             Assert.fail("No value read from gender field");
         }
@@ -887,7 +888,7 @@ public class PatientDetailsSteps extends Pages {
             gender="Male";;
         }
         ClinicalQuestionsPage.genderValue=gender;
-        Debugger.println("Gender "+gender);
+        Debugger.println("The new gender value to be selected "+gender);
         testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
         Assert.assertTrue(testResult);
     }

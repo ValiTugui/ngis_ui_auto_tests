@@ -1954,17 +1954,14 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("readGenderValue.jpg");
                 return null;
             }
-            return addDetailsToNGISButton.getText();
+            return administrativeGenderButton.getText();
         }
-        catch (Exception exp){
-            try {
-                return seleniumLib.getText(administrativeGenderButton);
-            }catch (Exception exp1){
+       catch (Exception exp){
                 Debugger.println("Exception from readGenderValue:" + exp);
                 SeleniumLib.takeAScreenShot("readGenderValue.jpg");
                 return null;
             }
         }
-    }
+
 
 }//end

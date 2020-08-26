@@ -439,8 +439,7 @@ public class ClinicalQuestionsSteps extends Pages {
     @And("the user answers the phenotypic sex based on gender of the family member")
     public void theUserAnswersThePhenotypicSex() {
         boolean testResult = false;
-        String gender = ClinicalQuestionsPage.genderValue;
-        testResult = clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue(gender);
+        testResult = clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue();
         Assert.assertTrue(testResult);
     }
 }

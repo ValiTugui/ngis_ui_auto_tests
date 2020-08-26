@@ -1151,22 +1151,25 @@ public class ClinicalQuestionsPage {
         }
     }
 
-        public boolean selectSpecificPhenotypicSexDropdownValue(String value) {
+        public boolean selectSpecificPhenotypicSexDropdownValue() {
         try {
+            if(genderValue==null||genderValue.isEmpty()){
+                Debugger.println("No Gender value to select phenotypic sex drop down");
+                return false;
+            }
             if (!Wait.isElementDisplayed(driver, phenotypicSexDropdown, 15)) {
                 Actions.scrollToTop(driver);
             }
             Actions.clickElement(driver, phenotypicSexDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Wait.seconds(5);//Explicitly waiting here as below element is dynamically created
-            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
-            Debugger.println("selectValueFromDropdown values."+value);
-            String selectedValue=Actions.getText(phenotypicSexDropdown.findElement(By.xpath("//span[text()='" + value + "']")));
-            if (selectedValue != null && selectedValue.equalsIgnoreCase(value)) {
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + genderValue + "']")));
+            String selectedValue=Actions.getText(phenotypicSexDropdown.findElement(By.xpath("//span[text()='" + genderValue + "']")));
+            if (selectedValue != null && selectedValue.equalsIgnoreCase(genderValue)) {
                 return true;//Already Selected the Specified Value
             }
-            if(!value.equalsIgnoreCase(selectedValue)){
-                Debugger.println("Expected value is "+value+" selectedValue is "+selectedValue);
+            if(!genderValue.equalsIgnoreCase(selectedValue)){
+                Debugger.println("Expected value is "+genderValue+" selectedValue is "+selectedValue);
                 SeleniumLib.takeAScreenShot("mismatchInPhenotypicSexValue.jpg");
                 return false;
             }
