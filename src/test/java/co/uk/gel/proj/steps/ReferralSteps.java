@@ -872,7 +872,6 @@ public class ReferralSteps extends Pages {
             if (!patientSearchPage.clickPatientCard()) {
                 Assert.fail("Could not click on Patient Card");
             }
-
             if (!patientDetailsPage.clickStartNewReferralButton()) {
                 Assert.fail("Could not click on StartNewReferral Button");
             }
