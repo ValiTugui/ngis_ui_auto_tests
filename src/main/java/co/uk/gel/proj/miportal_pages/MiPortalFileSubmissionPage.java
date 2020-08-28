@@ -400,6 +400,30 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean verifyColumnHeadPresence(String columnName) {
+        Wait.seconds(3);
+        try {
+            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
+                Debugger.println("Search results are not displayed");
+                SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
+                return false;
+            }
+            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
+            if (colIndex == -1) {
+                Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");
+                SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
+                return false;
+            }
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getAllHeadersInSearchResultTable. " + exp);
+            SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
+            return false;
+        }
+    }
+
     public List<String> getAllHeadersInSearchResultTable() {
         Wait.seconds(3);
         try {
