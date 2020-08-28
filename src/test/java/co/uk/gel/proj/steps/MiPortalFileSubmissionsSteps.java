@@ -188,7 +188,6 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the columns fields are not displayed in the list of columns headers of the search result table")
     public void theColumnsFieldsAreNotDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
-
         List<List<String>> expectedListOfColumnHeaders = dataTable.asLists();
         boolean testResult = false;
         for(int i=1; i<expectedListOfColumnHeaders.size(); i++) {
