@@ -8,6 +8,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -407,7 +408,16 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
                 return null;
             }
-            List<WebElement> allHeaders = driver.findElements(fileSubmissionTableHead);
+            List<WebElement> allHeaders = null;
+           try {
+               allHeaders = driver.findElements(fileSubmissionTableHead);
+           }
+           catch(StaleElementReferenceException exp1){
+              Debugger.println("Stale element exception trying again"+ exp1);
+               Wait.seconds(3);
+                allHeaders = driver.findElements(fileSubmissionTableHead);
+            }
+
             //Retrieve the column headers
             List<String> headers = new ArrayList<>();
             for (WebElement elementHeader : allHeaders) {
