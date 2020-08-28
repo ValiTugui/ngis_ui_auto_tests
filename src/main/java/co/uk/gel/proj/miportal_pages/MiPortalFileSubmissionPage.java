@@ -417,11 +417,12 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                     String header = elementHeader.getText();
                     headers.add(header);
                 }
-            } catch (Exception exp1) {
+            } catch (StaleElementReferenceException exp1) {
                 Debugger.println("Stale element exception trying again.." + exp1);
                 Wait.seconds(3);
                 allHeaders = driver.findElements(By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th"));
-                //Retrieve the column headers
+                //Retrieve the column headers again after clearing the earlier values
+                headers.clear();
                 for (WebElement elementHeader : allHeaders) {
                     String header = elementHeader.getText();
                     headers.add(header);
