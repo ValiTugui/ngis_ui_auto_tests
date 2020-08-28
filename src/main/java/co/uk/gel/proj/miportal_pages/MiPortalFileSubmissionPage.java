@@ -409,18 +409,23 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 return null;
             }
             List<WebElement> allHeaders = null;
+            List<String> headers = new ArrayList<>();
             try {
                 allHeaders = driver.findElements(fileSubmissionTableHead);
-            } catch (StaleElementReferenceException exp1) {
+                //Retrieve the column headers
+                for (WebElement elementHeader : allHeaders) {
+                    String header = elementHeader.getText();
+                    headers.add(header);
+                }
+            } catch (Exception exp1) {
                 Debugger.println("Stale element exception trying again.." + exp1);
                 Wait.seconds(3);
                 allHeaders = driver.findElements(By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th"));
-            }
-            //Retrieve the column headers
-            List<String> headers = new ArrayList<>();
-            for (WebElement elementHeader : allHeaders) {
-                String header = elementHeader.getText();
-                headers.add(header);
+                //Retrieve the column headers
+                for (WebElement elementHeader : allHeaders) {
+                    String header = elementHeader.getText();
+                    headers.add(header);
+                }
             }
             Debugger.println("All headers" + headers);
             return headers;
