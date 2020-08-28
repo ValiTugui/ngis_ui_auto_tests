@@ -408,24 +408,19 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
                 return null;
             }
-            List<WebElement> allHeaders = null;
+            List<WebElement> allHeaders = driver.findElements(fileSubmissionTableHead);
             List<String> headers = new ArrayList<>();
-            try {
-                allHeaders = driver.findElements(fileSubmissionTableHead);
-                //Retrieve the column headers
-                for (WebElement elementHeader : allHeaders) {
-                    String header = elementHeader.getText();
-                    headers.add(header);
+            //Retrieve the column headers
+            for (WebElement elementHeader : allHeaders) {
+                String header = null;
+                try {
+                    header = elementHeader.getText();
+                } catch (StaleElementReferenceException exp1) {
+                    Debugger.println("Stale element exception trying again.." + exp1);
+                    Wait.seconds(3);
+                    header = elementHeader.getText();
                 }
-            } catch (Exception exp1) {
-                Debugger.println("Stale element exception trying again.." + exp1);
-                Wait.seconds(3);
-                allHeaders = driver.findElements(By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th"));
-                //Retrieve the column headers
-                for (WebElement elementHeader : allHeaders) {
-                    String header = elementHeader.getText();
-                    headers.add(header);
-                }
+                headers.add(header);
             }
             Debugger.println("All headers" + headers);
             return headers;
