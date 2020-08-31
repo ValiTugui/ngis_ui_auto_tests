@@ -1127,6 +1127,9 @@ public class PatientDetailsPage {
             if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
                 referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             }
+            if (referralDetails.getLIFE_STATUS() == null || referralDetails.getLIFE_STATUS().isEmpty()) {
+                referralDetails.setLIFE_STATUS("Alive");
+            }
             if (referralDetails.getETHNICITY() == null || referralDetails.getETHNICITY().isEmpty()) {
                 referralDetails.setETHNICITY("A - White - British");
             }
@@ -1144,7 +1147,8 @@ public class PatientDetailsPage {
             Actions.fillInValue(firstName, referralDetails.getFIRST_NAME());
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
             selectGender(administrativeGenderButton, referralDetails.getGENDER());
-            editDropdownField(lifeStatusButton, "Alive");
+//            editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(lifeStatusButton,referralDetails.getLIFE_STATUS());
             editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
             //Address
