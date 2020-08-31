@@ -1,7 +1,7 @@
 @E2E_Test
 Feature: NTS-5766:CSV-E2E-Submit a RD Referral for a proband and 4 family members and verify the payload.
 
-  @NTS-5766
+  @NTS-5766 @Z-LOGOUT
 #@E2EUI-2577
   Scenario Outline:NTS-5766:E2EUI-2577:Submit a RD Referral for a proband and 4 family members and verify the payload.
     Given a new patient referral is created with associated tests in Test Order System online service
