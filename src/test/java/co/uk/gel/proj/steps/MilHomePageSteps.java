@@ -605,6 +605,9 @@ public class MilHomePageSteps extends Pages {
     public void theUserClickOnFileSubmissionSectionSelectTheFiltersAndClickOnAddButtonAndClickOnSearchButton(String miPage) {
         Assert.assertTrue(miPortalHomePage.navigateToMiPage(miPage));
         Debugger.println("Navigated to " + miPage);
+        Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchColumn("Status"));
+        Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchOperator("is"));
+        Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchValue("Valid"));
         Assert.assertTrue(miPortalHomePage.clickAddButton());
         Debugger.println("Add button is clicked");
         if(AppConfig.snapshotRequired){
