@@ -847,6 +847,10 @@ public class ReferralSteps extends Pages {
                     searchPatient.setETHNICITY(paramValue);
                     break;
                 }
+                case "Life status": {
+                    searchPatient.setLIFE_STATUS(paramValue);
+                    break;
+                }
             }//switch
         }//for
         String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
