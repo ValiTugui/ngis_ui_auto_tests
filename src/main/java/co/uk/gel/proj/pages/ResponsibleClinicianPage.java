@@ -676,6 +676,9 @@ public class ResponsibleClinicianPage {
                     seleniumLib.sendValue(clinicianDepartmentAddressField, paramNameValue.get(key));
                     break;
                 }
+                case "EmailAddress":{
+                    seleniumLib.sendValue(clinicianEmailField, paramNameValue.get(key));
+                }
 
             }
         }
@@ -715,6 +718,12 @@ public class ResponsibleClinicianPage {
                         return false;
                     }
                     break;
+                }
+                case "EmailAddress":{
+                    actValue = clinicianEmailField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))){
+                        Debugger.println("Expected :" +  ": "+ paramNameValue.get(key) + ", Actual:" + actValue);
+                    }
                 }
             }
 
