@@ -69,8 +69,8 @@ Feature: Create New Referral for RD flow
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Responsible Clinician details Updated by User1
     Examples:
-      | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     |ClinicianName      | Panels |
-      | Responsible clinician | EmailAddress=john.smith@nhs.net    | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality |ClinicianName=John | Panels |
+      | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | TestPackage  | OneParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     |ClinicianName      | Panels |
+      | Responsible clinician | EmailAddress=john.smith@nhs.net    | Test package | 1              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality |ClinicianName=John | Panels |
 
   #User2
   #Login as User B, Verified Responsible clinician stage and do not submit referral
