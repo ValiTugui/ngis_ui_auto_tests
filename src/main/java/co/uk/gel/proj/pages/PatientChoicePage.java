@@ -1278,7 +1278,7 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean statusUpdatedCorrectlyforParticipants(String status) {
+    public boolean statusUpdatedCorrectlyforproband(String status) {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
                 Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
@@ -1290,13 +1290,11 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
                 return false;
             }
-            for (int i=0;i<statuses.size();i++) {
-                String actualStatus = statuses.get(i).getText();
-                if (!actualStatus.equalsIgnoreCase(status)) {
-                    Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
-                    SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
-                    return false;
-                }
+            String actualStatus = statuses.get(0).getText();
+            if (!actualStatus.equalsIgnoreCase(status)) {
+                Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
+                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
+                return false;
             }
             return true;
         } catch (Exception exp) {
@@ -2132,7 +2130,7 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean statusUpdatedCorrectlyforFamilyMember(String status) {
+    public boolean statusUpdatedCorrectlyforParticipants(String status) {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
                 Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
@@ -2144,11 +2142,13 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
                 return false;
             }
-            String actualStatus = statuses.get(1).getText();
-            if (!actualStatus.equalsIgnoreCase(status)) {
-                Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
-                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
-                return false;
+            for (int i=0;i<statuses.size();i++) {
+                String actualStatus = statuses.get(i).getText();
+                if (!actualStatus.equalsIgnoreCase(status)) {
+                    Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
+                    SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
