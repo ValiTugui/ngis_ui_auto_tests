@@ -313,7 +313,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//label[contains(text(),'Admin')]")
     public WebElement adminOrClinicianNameHeader;
 
-    @FindBy(xpath = "//input[@placeholder='e.g. John Doe']")
+    @FindBy(xpath = "//div[@class='text-input']//input")
     WebElement adminOrClinicianName;
 
     @FindBy(xpath = "//button[@class='link btn submit-button']")
