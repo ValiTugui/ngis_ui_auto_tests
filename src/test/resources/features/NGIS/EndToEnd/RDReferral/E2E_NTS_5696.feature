@@ -61,6 +61,8 @@ Feature:NTS-5696:CSV-Verify the final payload by changing the penetrance at GEL 
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
+    And Penetrance section with options Complete and Incomplete
+    And the user clicks on Incomplete button and button will show tick marked
     And the user sees suggested panels under the section Suggestions based on the clinical information
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
@@ -141,6 +143,7 @@ Feature:NTS-5696:CSV-Verify the final payload by changing the penetrance at GEL 
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
+    And the user should see the default status of penetrance button as Complete
     And the user sees suggested panels under the section Suggestions based on the clinical information
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
