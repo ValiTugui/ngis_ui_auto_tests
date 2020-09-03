@@ -79,4 +79,4 @@ Feature: NTS-5714 CSV Processing-Tumour as Heamatological Malignancy
      ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
     Examples:
       | PatientDetails  | tumour_type                              | presentationType   | searchTerm | sampleType1               | sampleState1 | RecordedBy                              | sampleType2         | sampleState2        |
-      | Patient details | Haematological malignancy: liquid sample | First presentation | Gas        | Normal or germline sample | Bone marrow  | ClinicianName=Seaun:HospitalNumber=5607 | Liquid tumour sample | Fresh frozen tumour |
+      | Patient details | Haematological malignancy: liquid sample | First presentation | Gas        | Normal or germline sample | Bone marrow  | ClinicianName=Seaun:HospitalNumber=5607 | Liquid tumour sample | Tumour fresh fluid |
