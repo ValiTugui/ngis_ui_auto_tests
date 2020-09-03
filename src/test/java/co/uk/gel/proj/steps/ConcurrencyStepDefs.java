@@ -156,7 +156,7 @@ public class ConcurrencyStepDefs extends Pages {
                     Assert.fail("Family member details could not be enter.");
                 }
             } else if (stageName.equalsIgnoreCase("Patient choice")) {
-                testResult = patientChoicePage.statusUpdatedCorrectlyforproband(verifyDetails);
+                testResult = patientChoicePage.statusUpdatedCorrectlyforParticipants(verifyDetails);
             } else if (stageName.equalsIgnoreCase("Panels")) {
                 testResult = panelsPage.verifyPanelDetails(verifyDetails);
             }
