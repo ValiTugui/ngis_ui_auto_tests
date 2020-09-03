@@ -65,6 +65,7 @@ Feature: Create New Referral for RD flow
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     #Family Members - Updated by User1
+    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NRF1
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
@@ -86,6 +87,7 @@ Feature: Create New Referral for RD flow
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
     #Family members - Verified by User2
     And the user navigates to the "<Notes>" stage
+    And the user updates the file NRF1 with Notes details Updated by User2
     And the user waits max 20 minutes for the update Family member details Updated by User1 in the file NRF1
     When the user navigates to the "<FamilyMembers>" stage
     And the user should "get" participant error message as "<ErrorMessage>"

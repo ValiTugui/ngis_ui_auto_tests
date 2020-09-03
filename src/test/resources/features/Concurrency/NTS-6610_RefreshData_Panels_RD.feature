@@ -3,8 +3,8 @@
 Feature: Create New Referral for RD flow
   #User1
   @NTS-6557
-    @RD_new_referral_refresh_data_notes @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Notes stage, when B accessed same referral then verified data updated by A.
+    @RD_new_referral_refresh_data_panels @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Panels stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
       | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NRF1 |
@@ -64,31 +64,31 @@ Feature: Create New Referral for RD flow
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-    #Notes - Updated by User1
-    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NRF1
-    When the user navigates to the "<Notes>" stage
-    Then the user updates the stage "<Notes>" with "<NotesUpdated>"
+    #Panels - Updated by User1
+    And the user waits max 10 minutes for the update Patient choice details Updated by User2 in the file NRF1
+    When the user navigates to the "<Panels>" stage
+    Then the user updates the stage "<Panels>" with "<PanelsUpdated>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Notes details Updated by User1
+    And the user updates the file NRF1 with Panels details Updated by User1
     Examples:
-      | Notes | NotesUpdated           | TestPackage | OneParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | ClinicianName      | Panels |
-      | Notes | Notes updated by user1 |Test package | 1              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John | Panels |
+      | Panels | PanelsUpdated       | TestPackage  | OneParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | ClinicianName      | Panels |
+      | Panels | Penetrance=Complete | Test package | 1              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John | Panels |
 
   #User2
-  #Login as User B, Verified Notes stage and do not submit referral
-  @RD_new_referral_refresh_data_notes @Z-LOGOUT
-  Scenario Outline: Verified Notes stage of new referral updated by another user
+  #Login as User B, Verified Panels stage and do not submit referral
+  @RD_new_referral_refresh_data_panels @Z-LOGOUT
+  Scenario Outline: Verified Panels stage of new referral updated by another user
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-    #Notes - Verified by User2
-    And the user navigates to the "<PatientDetails>" stage
-    And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 20 minutes for the update Notes details Updated by User1 in the file NRF1
-    When the user navigates to the "<Notes>" stage
-    Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
-    And the user updates the file NRF1 with Notes details validated by User2
+    #Panels - Verified by User2
+    And the user navigates to the "<PatientChoice>" stage
+    And the user updates the file NRF1 with Patient choice details Updated by User2
+    And the user waits max 20 minutes for the update Panels details Updated by User1 in the file NRF1
+    When the user navigates to the "<Panels>" stage
+    Then the user verifies the stage "<Panels>" with "<PanelsUpdated>"
+    And the user updates the file NRF1 with Panels details validated by User2
 
     Examples:
-      | PatientDetails  | Notes | NotesUpdated           |
-      | Patient details | Notes | Notes updated by user1 |
+      | PatientChoice  | Panels | PanelsUpdated       |
+      | Patient choice | Panels | Penetrance=Complete |

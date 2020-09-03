@@ -69,7 +69,9 @@ Feature: Create New Referral for Cancer flow
     When the user clicks on Continue Button
     ##Print Forms
     Then the user is navigated to a page with title Print sample forms
+    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     #Requesting Organisation - Updated by User1
+    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NRF1
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user clicks the Save and Continue button
@@ -82,10 +84,12 @@ Feature: Create New Referral for Cancer flow
   #Login as User B, Verified Requesting organisation and Print forms stage and do not submit referral
   @Cancer_new_referral_refresh_data_requesting_organisation @Z-LOGOUT
   Scenario Outline: Verified Requesting Organisation stage of new referral updated by another user
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |New Referral| NRF1 |
    #Requesting Organisation - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
+    And the user updates the file NRF1 with Patient details Updated by User2
     And the user waits max 20 minutes for the update Requesting Organisation Updated by User1 in the file NRF1
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"

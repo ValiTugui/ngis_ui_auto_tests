@@ -91,6 +91,8 @@ public class PanelsPage {
     @FindBy(xpath = "//h2[contains(text(),'Add panels')]/parent::div/following-sibling::p")
     public WebElement addPanelsMessage;
 
+    @FindBy (css = "[class*='button--selected']")
+    public WebElement selectedPentrance;
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
@@ -542,6 +544,14 @@ public class PanelsPage {
                     verifySuggestedPanels();
                     break;
                 }
+                case "Penetrance": {
+                    actValue = selectedPentrance.getText();
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
             }
         }
         return true;
@@ -556,6 +566,19 @@ public class PanelsPage {
             switch (key) {
                 case "AdditionalPanels": {
                     searchAndAddPanel(paramNameValue.get(key));
+                    break;
+                }
+                case "Penetrance":{
+                    String selectedPenetranceText = selectedPentrance.getText();
+                    if (!selectedPenetranceText.equalsIgnoreCase(paramNameValue.get(key))) {
+                        if (paramNameValue.get(key).equalsIgnoreCase("Incomplete (suggested)")){
+                            seleniumLib.clickOnWebElement(incompleteButton);
+                        }else{
+                            seleniumLib.clickOnWebElement(completeButton);
+                        }
+                    }else{
+                        Debugger.println("The Penetrance value selected and passed are same, Please pass a different value");
+                    }
                     break;
                 }
             }
