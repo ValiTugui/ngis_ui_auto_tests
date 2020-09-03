@@ -204,5 +204,11 @@ public class ConcurrencyStepDefs extends Pages {
         boolean testResult = samplesPage.clickEditSampleArrow();
         Assert.assertTrue(testResult);
     }
+    @And("the user verifies the referral header with {string}")
+    public void theUserVerifiesReferralHeaderWith(String verifyDetails) {
+        boolean testResult = referralPage.verifyPatientTitleInUrl(verifyDetails);
+        Assert.assertTrue(testResult);
+    }
+
 }//end
 

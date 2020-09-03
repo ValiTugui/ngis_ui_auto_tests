@@ -1180,6 +1180,10 @@ public class PatientDetailsPage {
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
             switch (key) {
+                case "Title": {
+                    seleniumLib.sendValue(title, paramNameValue.get(key));
+                    break;
+                }
                 case "FirstName": {
                     seleniumLib.sendValue(firstName, paramNameValue.get(key));
                     break;

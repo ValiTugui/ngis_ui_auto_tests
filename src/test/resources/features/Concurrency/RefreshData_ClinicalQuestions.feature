@@ -1,0 +1,97 @@
+@Concurrency
+@Concurrency_test
+@Concurrency_newReferral_RD_ClinicalQuestions
+Feature: Verify New Referral to validate the refresh data
+
+  @NTS-6558
+    @RD_newReferral_ClinicalQuestions @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the patient details when User B navigates to different stages
+
+#Login as User A, Complete all stages and do not submit referral
+    Given The user is login to the Test Order Service and create a new referral
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+    ##Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+#    ##Test Package - proband only
+    When the user navigates to the "<testPackage>" stage
+    And the user selects the number of participants as "<OneParticipant>"
+    And the user clicks the Save and Continue button
+    And the "<testPackage>" stage is marked as Completed
+    ##Responsible Clinician
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    ##Clinical Question
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    ##Notes
+    And the user clicks the Save and Continue button
+    ##Family Members
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks the Save and Continue button
+    ##Patient Choice
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    When the user selects the option Adult (With Capacity) in patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    When the user fills "<ClinicianName>" details in recorded by
+    And the user clicks on Continue Button
+    When the user is in the section Patient choices
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
+    Then the "<PatientChoiceStage>" stage is marked as Completed
+    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+ #### verify patient details after changes done by B
+    And the user waits max 10 minutes for the update Responsible Clinical details Updated by User2 in the file NRF1
+    When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user updates the stage "<ClinicalQuestions>" with "<ClinicalQuestionsUpdated>"
+    And the user clicks the Save and Continue button
+    And the user updates the file NRF1 with Clinical details Updated by User1
+
+
+    Examples:
+      | ClinicalQuestions  | ClinicalQuestionsUpdated |  RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      |
+      | Clinical questions | HPOPhenoType=Adult onset |  Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John |
+
+
+  @RD_newReferral_ClinicalQuestions @Z-LOGOUT
+  Scenario Outline: Verify Referral Banner by navigating to different stages when User A update clinical questions
+    Given The user is login to the Test Order Service and access the given referral
+      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+    #Below step is for new referrals
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    When the user navigates to the "<ResponsibleClinician>" stage
+    And the user updates the file NRF1 with Responsible Clinical details Updated by User2
+##verify clinicalQuestions & Pedigree
+    And the user waits max 15 minutes for the update Clinical details Updated by User1 in the file NRF1
+    When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user verifies the stage "<ClinicalQuestions>" with "<ClinicalQuestionsDetails>"
+    When the user navigates to the "<Pedigree>" stage
+    Then the user is navigated to a page with title Build a pedigree
+    And the user clicks on the proband node on the pedigree diagram for "<PatientType>" and "<Gender>"
+    And the user select the pedigree tab Phenotype
+    Then the user should see the hpo phenotypes "<HPOPhenoType>" displayed
+    And the user updates the file NRF1 with Clinical details Validated by User2
+
+
+    Examples:
+      | ResponsibleClinician  | ClinicalQuestions  | ClinicalQuestionsDetails | Pedigree | HPOPhenoType | NGISID     | PatientType | Gender |
+      | Responsible clinician | Clinical questions | HPOPhenoType=Adult onset | Pedigree | Adult onset  | 9449306087 | NGIS        | Male |
+
+

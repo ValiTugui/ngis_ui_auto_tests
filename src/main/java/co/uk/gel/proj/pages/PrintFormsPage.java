@@ -102,6 +102,9 @@ public class PrintFormsPage {
     @FindBy(xpath = "//span[contains(.,'Proband')]/ancestor::div[contains(@class,'participant-list')]/div[2]//span[@class='child-element']")
     WebElement relationshipToProbandField;
 
+    @FindBy(xpath = "//h3[contains(@class,'lab-name')]")
+    WebElement labNameField;
+
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
         try {
@@ -612,6 +615,27 @@ public class PrintFormsPage {
         } catch (Exception exp) {
             Debugger.println("Referral page: verifyRelationshipToProband : " + exp);
             SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
+            return false;
+        }
+    }
+
+    public boolean getLabName(String labName){
+        try {
+            if (!Wait.isElementDisplayed(driver, labNameField,10)){
+                Debugger.println("Lab Name not found");
+                SeleniumLib.takeAScreenShot("LabNameFieldError.jpg");
+                return false;
+            }
+            String labNameInPrintFormsStage = labNameField.getText();
+            if (!labName.equals(labNameInPrintFormsStage)) {
+                Debugger.println("Expected lab name is:" +labName + "but actual present:"+labNameInPrintFormsStage);
+                SeleniumLib.takeAScreenShot("LabNameMismatch.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage getLabName: " + exp);
+            SeleniumLib.takeAScreenShot("LabNameFieldError.jpg");
             return false;
         }
     }

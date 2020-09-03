@@ -2153,5 +2153,27 @@ public class ReferralPage<check> {
             return false;
         }
     }
+    public boolean verifyPatientTitleInUrl(String title) {
+        try {
+            if(!Wait.isElementDisplayed(driver,referralHeaderPatientName,30)){
+                Debugger.println("referralHeaderPatientTitle not displayed at top bar."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("referralHeaderPatientTitle.jpg");
+                return false;
+            }
+            String refPatientName =referralHeaderPatientName.getText();
+            System.out.println(refPatientName);
+            if (refPatientName.contains(title)) {
+                Debugger.println(refPatientName+ " not contains the title : " + title);
+                SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralBanner:PatientTitle:Exception " + exp);
+            SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");
+            return false;
+        }
+    }
+
 }
 
