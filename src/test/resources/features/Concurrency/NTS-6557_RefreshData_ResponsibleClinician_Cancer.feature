@@ -90,7 +90,7 @@ Feature: Create New Referral for Cancer flow
    #Responsible Clinician - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 5 minutes for the update Responsible Clinician details Updated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Responsible Clinician details Updated by User1 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user updates the file NRF1 with Responsible Clinician details validated by User2
