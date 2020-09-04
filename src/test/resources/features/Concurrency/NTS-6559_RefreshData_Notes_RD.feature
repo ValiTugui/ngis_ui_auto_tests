@@ -2,7 +2,7 @@
 @Concurrency_newReferral_RD
 Feature: Create New Referral for RD flow
   #User1
-  @NTS-6557
+  @NTS-6559
     @RD_new_referral_refresh_data_notes @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Notes stage, when B accessed same referral then verified data updated by A.
 
