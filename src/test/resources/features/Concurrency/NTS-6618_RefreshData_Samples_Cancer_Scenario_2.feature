@@ -41,6 +41,8 @@ Feature: Create New Referral for Cancer flow
     Then the user is navigated to a page with title Add sample details
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
     And the user clicks the Save and Continue button
+    When the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinical notes
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     #Samples - Updated by User1
     And the user waits max 10 minutes for the update Tumours details Updated by User2 in the file NRF1
