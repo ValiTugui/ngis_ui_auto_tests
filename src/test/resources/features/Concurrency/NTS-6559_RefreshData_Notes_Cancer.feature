@@ -90,7 +90,7 @@ Feature: Create New Referral for Cancer flow
    #Notes - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 5 minutes for the update Notes details Updated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Notes details Updated by User1 in the file NRF1
     When the user navigates to the "<Notes>" stage
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     And the user updates the file NRF1 with Notes details validated by User2
