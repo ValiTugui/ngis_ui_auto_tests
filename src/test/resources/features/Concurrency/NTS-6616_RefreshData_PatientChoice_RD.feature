@@ -63,7 +63,7 @@ Feature: Create New Referral for RD flow
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<TwoParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
+      | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
     And the user updates the file NRF1 with Patient choice details Updated by User1
     Examples:
       | FamilyMembers  | PatientChoice  | TestPackage  | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | ClinicianName      |
@@ -79,7 +79,7 @@ Feature: Create New Referral for RD flow
    #Patient Choice - Verified by User2
     And the user navigates to the "<FamilyMembers>" stage
     And the user updates the file NRF1 with Family members details Updated by User2
-    And the user waits max 15 minutes for the update Patient choice details Updated by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Patient choice details Updated by User1 in the file NRF1
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     And the user updates the file NRF1 with Patient choice details validated by User2

@@ -2142,8 +2142,8 @@ public class PatientChoicePage {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(status);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey){
-            Debugger.println("The key is"+key);
-            Debugger.println("The key value is"+paramNameValue.get(key));
+            Debugger.println("The key is "+key);
+            Debugger.println("The key value is "+paramNameValue.get(key));
             String actualPCStatusPath = pcStatusPath.replace("dummyParticipant",key);
             WebElement pcStatus = driver.findElement(By.xpath(actualPCStatusPath));
             String pcStatusText = pcStatus.getText();
