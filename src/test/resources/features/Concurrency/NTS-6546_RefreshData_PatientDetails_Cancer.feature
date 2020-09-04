@@ -1,5 +1,4 @@
 @Concurrency
-@Concurrency_test
 @Concurrency_newReferral_Cancer_PatientDetails
 Feature: Verify Existing Referral to validate the refresh data
 

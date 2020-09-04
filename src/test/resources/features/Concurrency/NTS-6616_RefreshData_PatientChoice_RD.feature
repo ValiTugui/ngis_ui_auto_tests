@@ -66,8 +66,8 @@ Feature: Create New Referral for RD flow
       | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
     And the user updates the file NRF1 with Patient choice details Updated by User1
     Examples:
-      | FamilyMembers  | PatientChoice  | TestPackage  | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     |ClinicianName      |
-      | Family members | Patient choice | Test package | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality |ClinicianName=John |
+      | FamilyMembers  | PatientChoice  | TestPackage  | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | ClinicianName      |
+      | Family members | Patient choice | Test package | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John |
 
   #User2
   #Login as User B, Verified Patient choice stage and do not submit referral
@@ -82,10 +82,8 @@ Feature: Create New Referral for RD flow
     And the user waits max 15 minutes for the update Patient choice details Updated by User1 in the file NRF1
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     And the user updates the file NRF1 with Patient choice details validated by User2
 
     Examples:
-      | FamilyMembers  | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Family members | Patient choice | Agreed to testing           |
+      | FamilyMembers  | PatientChoice  | PatientChoiceDetailsUpdated                       |
+      | Family members | Patient choice | Proband=Declined testing:Father=Agreed to testing |

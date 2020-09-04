@@ -1,5 +1,4 @@
 @Concurrency
-@Concurrency_test
 @Concurrency_existingReferral_Cancer
 Feature: Submit Existing Referral for Cancer flow
   #User1
@@ -77,14 +76,14 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user updates the file NRF1 with Patient Choice details validated by User1
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation| Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated          | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated     |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Proband=Authorised by clinician |
 
   #User2
   @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r20478059307| NRF1 |
+      | CONCURRENT_USER2_NAME | r20478059307 | NRF1 |
     #Below step is for existing referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     # Patient Details - Update
@@ -144,5 +143,5 @@ Feature: Submit Existing Referral for Cancer flow
     Then the user updates the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     Then the user updates the file NRF1 with Patient Choice details Updated by User2
     Examples:
-      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation| Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated          | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
+      | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |

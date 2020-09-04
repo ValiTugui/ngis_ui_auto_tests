@@ -1,5 +1,4 @@
 @Concurrency
-@Concurrency_test
 @Concurrency_newReferral_RD
 Feature: Submit New Referral to validate a stage
 
@@ -91,5 +90,5 @@ Feature: Submit New Referral to validate a stage
 
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | TestPackageUpdated1 | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated        | TwoParticipants | FamilyMembers_1 | FamilyMemberDetailsUpdate                                              | FamilyMemberClinicalDetailsUpdated      | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | ClinicalQuestion   | NotesUpdated  | Panels | PanelsDetailsUpdated                             | PatientChoice  | FamilyMembers  |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | 2                   | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1 | 2               | Family members  | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=01,02 | Notes | NotesupdatedbyUser2 | Authorised by clinician     | Requesting organisation | Test package | Responsible clinician | Clinical questions | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Family members |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish |

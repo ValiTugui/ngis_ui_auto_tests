@@ -1,5 +1,4 @@
 @Concurrency
-@Concurrency_test
 @Concurrency_newReferral_RD_ClinicalQuestions
 Feature: Verify New Referral to validate the refresh data
 

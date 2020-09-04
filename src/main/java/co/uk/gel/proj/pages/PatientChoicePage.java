@@ -2130,27 +2130,30 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean statusUpdatedCorrectlyforParticipants(String status) {
+
+    String pcStatusPath = "//span[text()='dummyParticipant']//following::li/span[contains(text(),'Patient choice status')]/following-sibling::span/span";
+    public boolean statusVerifiedCorrectlyforParticipants(String status) {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
                 Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
                 return false;
             }
-            if (statuses.size() < 1) {
-                Debugger.println("Patient Choice Test Status not loaded." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(status);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey){
+            Debugger.println("The key is"+key);
+            Debugger.println("The key value is"+paramNameValue.get(key));
+            String actualPCStatusPath = pcStatusPath.replace("dummyParticipant",key);
+            WebElement pcStatus = driver.findElement(By.xpath(actualPCStatusPath));
+            String pcStatusText = pcStatus.getText();
+            if (!pcStatusText.equalsIgnoreCase(paramNameValue.get(key))){
+                Debugger.println("Patient Choice Landing Page Status, Actual:" + pcStatusText + ",Expected:" + paramNameValue.get(key));
+                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
                 return false;
             }
-            for (int i=0;i<statuses.size();i++) {
-                String actualStatus = statuses.get(i).getText();
-                if (!actualStatus.equalsIgnoreCase(status)) {
-                    Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
-                    SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
-                    return false;
-                }
-            }
-            return true;
+        }
+           return true;
         } catch (Exception exp) {
             Debugger.println("Exception from statusUpdatedCorrectly:" + exp);
             SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");

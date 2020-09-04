@@ -108,5 +108,5 @@ Feature: Create New Referral for Cancer flow
     And the user updates the file NRF1 with Patient choice details validated by User2
 
     Examples:
-      | Notes  | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Notes  | Patient choice | Declined testing            |
+      | Notes | PatientChoice  | PatientChoiceDetailsUpdated |
+      | Notes | Patient choice | Proband=Declined testing    |

@@ -1,5 +1,4 @@
 @Concurrency
-@Concurrency_test
 @Concurrency_newReferral_RD
 Feature: Submit Existing Referral to validate a entity
 
@@ -10,7 +9,7 @@ Feature: Submit Existing Referral to validate a entity
 
       #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20204704011| NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20204704011 | NRF1 |
 
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     And the user waits max 4 minutes for the update PatientDetails Updated by User2 in the file NRF1
@@ -87,8 +86,8 @@ Feature: Submit Existing Referral to validate a entity
 #    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | Notes | NotesUpdated        | FamilyMembers  | FamilyMemberDetailsUpdated | FamilyMemberClinicalDetailsUpdated | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward                   | Clinical questions | AgeOfOnset=1,1                 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Alive           | DiseaseStatus=Affected             | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     |
+      | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | Notes | NotesUpdated        | FamilyMembers  | FamilyMemberDetailsUpdated | FamilyMemberClinicalDetailsUpdated | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated     |
+      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward                   | Clinical questions | AgeOfOnset=1,1                 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Alive           | DiseaseStatus=Affected             | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Proband=Authorised by clinician |
 
    #User2
   @RD_existing_referral_all_stages_entity @Z-LOGOUT
