@@ -2,7 +2,7 @@
 @Concurrency_newReferral_Cancer
 Feature: Create New Referral for Cancer flow
   #User1
-  @NTS-6556
+  @NTS-6557
     @Cancer_new_referral_refresh_data_responsibleClinician @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Responsible clinician stage, when B accessed same referral then verified data updated by A.
 
