@@ -79,6 +79,7 @@ Feature: Create New Referral for Cancer flow
     And the user clicks the Save and Continue button
     Then the "<pageTitle1>" page is displayed
     And the user verifies the page "<pageTitle1>" with "<SamplesQuestionnaireUpdated>"
+    And the "<Samples>" stage is marked as Completed
     And the user updates the file NRF1 with Samples details validated by User2
 
     Examples:
