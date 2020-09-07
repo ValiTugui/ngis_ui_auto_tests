@@ -1,12 +1,14 @@
 @Concurrency
-@Concurrency_newReferral_Cancer_PatientDetails
-Feature: Verify Existing Referral to validate the refresh data
+@Cancer_new_referral_PatientDetails
+Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the changes on Patient details stage done by another user
+  ###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Patient details stage for the referral
+  #User2 Navigated and verify the changes done by user1 in Patient details stage
 
-  @NTS-6546
-    @Cancer_newReferral_PatientDetails @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and validate the data updated, when B is updating every stage
-
-  login as User A, Complete all stages  and do not submit referral,
+    @NTS-6546_Cancer @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the Patient details stage ,Login as user B and navigates to Patient details and verify the changes done by User A.
     Given The user is login to the Test Order Service and create a new referral
       | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | New Referral | NRF1 |
     ##Requesting Organisation
@@ -67,8 +69,8 @@ Feature: Verify Existing Referral to validate the refresh data
     When the user clicks on Continue Button
     ##print Forms
     Then the user is navigated to a page with title Print sample forms
-
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    #Patient details stage updated by user1
     And the user waits max 10 minutes for the update Requsting Organisation details Updated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
@@ -94,13 +96,13 @@ Feature: Verify Existing Referral to validate the refresh data
       | PatientDetails  | PatientDetailsUpdated | PatientDetailsUpdated_1 | PatientDetailsUpdated_2 | PatientDetailsUpdated_3 | RequestingOrganisation  | testPackage  | tumour_type           | presentationType | sampleType           | sampleState         | RecordedBy                            |
       | Patient details | Title=Ms              | Title=Mr                | Title=Mrs               | Title=Mrss              | Requesting organisation | Test package | Solid tumour: primary | Recurrence       | Liquid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
 
-  @Cancer_newReferral_PatientDetails @Z-LOGOUT
+  @NTS-6546_Cancer @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
 
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-##          Requesting Organisation
+    ##Patient Details verified by User2
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the file NRF1 with Requsting Organisation details Updated by User2
     And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1

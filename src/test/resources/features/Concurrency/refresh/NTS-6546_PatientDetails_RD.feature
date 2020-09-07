@@ -1,12 +1,15 @@
 @Concurrency
-@Concurrency_newReferral_RD_PatientDetails
-Feature: Verify New Referral to validate the refresh data
+@RD_new_referral_PatientDetails
+Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the changes on Patient details stage done by another user
+###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Patient details stage for the referral
+  #User2 Navigated and verify the changes done by user1 in Patient details stage
 
-  @NTS-6546
-    @RD_newReferral_PatientDetails @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the patient details when User B navigates to different stages
-
-#Login as User A, Complete all stages and do not submit referral
+   @NTS-6546_RD @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the patient details stage ,Login as user B and navigates to patient details satge and verify the changes done by User A.
+   #Login as User 1, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
     ##Requesting Organisation
@@ -57,7 +60,7 @@ Feature: Verify New Referral to validate the refresh data
     Then the "<PatientChoiceStage>" stage is marked as Completed
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     And the user waits max 5 minutes for the update Requesting Organisation details Updated by User2 in the file NRF1
-    #user1 updates patient details stage
+    #Patient details stage updated by user1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
@@ -78,20 +81,16 @@ Feature: Verify New Referral to validate the refresh data
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
 
-
     Examples:
       | PatientDetails  | PatientDetailsUpdated | PatientDetailsUpdated_1 | PatientDetailsUpdated_2 | PatientDetailsUpdated_3 |  RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      |
       | Patient details | Title=Ms              | Title=Mr                | Title=Mrs               | Title=Mrss              |  Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John |
 
-
-
-  @RD_newReferral_PatientDetails @Z-LOGOUT
+  @NTS-6546_RD @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-    #Below step is for new referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-##          Requesting Organisation
+    ##Patient Details verified by User2
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the file NRF1 with Requesting Organisation details Updated by User2
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
