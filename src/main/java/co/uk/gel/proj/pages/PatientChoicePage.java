@@ -2214,12 +2214,14 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, patientChoiceResultTab);
             if (!seleniumLib.isElementPresent(confirmationID)) {
                 Debugger.println("Confirmation ID is not found...");
+                SeleniumLib.takeAScreenShot("RecordOfDiscussionForm.jpg");
                 return false;
             }
             Actions.clickElement(driver, patientChoiceResultTab);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from: recordOfDiscussionForm: " +exp);
+            SeleniumLib.takeAScreenShot("RecordOfDiscussionForm.jpg");
             return false;
         }
     }
@@ -2373,5 +2375,20 @@ public class PatientChoicePage {
             return false;
         }
     }
+
+    public boolean verifyUploadButtonStatus() {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            if (!(uploadDocumentButton.isEnabled())){
+                Debugger.println("Upload button is not enabled");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying upload button Status:" + exp);
+            return false;
+        }
+    }
+
 
 }//end

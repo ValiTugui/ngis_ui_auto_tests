@@ -902,4 +902,10 @@ public class PatientChoiceSteps extends Pages {
     }
 
 
+    @Then("the user should able to see upload button is enable by default in Record by section")
+    public void theUserShouldAbleToSeeUploadButtonIsEnableByDefaultInRecordBySection() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadButtonStatus();
+        Assert.assertTrue(testResult);
+    }
 }//end
