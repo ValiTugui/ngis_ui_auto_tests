@@ -310,6 +310,33 @@ public class PatientChoicePage {
 
     String removeButton = "//button[contains(text(),'dummyText')]";
 
+    @FindBy(xpath = "//label[contains(text(),'Admin')]")
+    public WebElement adminOrClinicianNameHeader;
+
+    @FindBy(xpath = "//div[@class='text-input']//input")
+    WebElement adminOrClinicianName;
+
+    @FindBy(xpath = "//button[@class='link btn submit-button']")
+    public WebElement submitWithdrawalButton;
+
+    @FindBy(xpath = "//button[contains(text(),' Withdraw from research')]")
+    public WebElement withdrawFromResearchButton;
+
+    @FindBy(xpath = "//div[contains(text(),'Withdrawal received')]")
+    public WebElement WithdrawalReceivedSectionHeader;
+
+    @FindBy(xpath = "//div[@class='tile']//div[@class='completed-consent-tile']")
+    WebElement withdrawalForm;
+
+    @FindBy(xpath = "//div[@class='tile']//p[@class='d-inline-flex tile-subtitle'][contains(text(),'Confirmation ID:')]")
+    WebElement confirmationIdOnWithdrawalForm;
+
+    @FindBy(xpath = "(//p[@class='summary-section-value'])[2]")
+    public WebElement patientTypeOnWithdrawalForm;
+
+    @FindBy(xpath = "//button[@class='finish-button btn ld-ext-left']")
+    public WebElement continueButtonOnWithdrawalForm;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -2181,5 +2208,188 @@ public class PatientChoicePage {
             return false;
         }
     }
+
+    public boolean clickOnRecordOfDiscussionForm() {
+        try {
+            Wait.forElementToBeDisplayed(driver, patientChoiceResultTab);
+            if (!seleniumLib.isElementPresent(confirmationID)) {
+                Debugger.println("Confirmation ID is not found...");
+                SeleniumLib.takeAScreenShot("ClickOnRecordOfDiscussionForm.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, patientChoiceResultTab);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: clickOnRecordOfDiscussionForm: " +exp);
+            SeleniumLib.takeAScreenShot("ClickOnRecordOfDiscussionForm.jpg");
+            return false;
+        }
+    }
+
+     public boolean viewWithdrawButton() {
+        try{
+            if(!Wait.isElementDisplayed(driver,withdrawFromResearchButton,10)){
+                Debugger.println("Withdraw from research button is not displayed");
+                SeleniumLib.takeAScreenShot("NoWithdrawButton.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from: viewWithdrawButton: " +exp);
+            SeleniumLib.takeAScreenShot("WithdrawButtonNotFound.jpg");
+            return false;
+        }
+    }
+    public boolean clickOnWithdrawButton() {
+        Wait.seconds(5);//To load the record of discussion form
+        try {
+            Actions.scrollToTop(driver);
+            if(!seleniumLib.isElementPresent(withdrawFromResearchButton)){
+                Debugger.println("Withdraw from research button is not displayed");
+                SeleniumLib.takeAScreenShot("NoWithdrawButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, withdrawFromResearchButton);
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception from: clickOnWithdrawButton: " +exp);
+            SeleniumLib.takeAScreenShot("WithdrawButtonNotFound.jpg");
+            return false;
+        }
+    }
+    public boolean viewWithdrawalReceivedSection() {
+        try{
+            if(!Wait.isElementDisplayed(driver, WithdrawalReceivedSectionHeader, 30)){
+                Debugger.println("Withdrawal Received Section is not present");
+                SeleniumLib.takeAScreenShot("NoWithdrawalReceivedSection.jpg");
+                return false;
+            }
+            Debugger.println("Withdrawal Received Section Header is present");
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception from: viewWithdrawalReceivedSection " +exp);
+            SeleniumLib.takeAScreenShot("NoWithdrawalReceivedSection.jpg");
+            return false;
+        }
+    }
+    public boolean selectWithdrawalDetails(String expButton) {
+        Wait.seconds(5);// To load the Withdrawal Received details
+        try{
+            String  withdrawalOptions = "//button[text() = ' "+ expButton +" ']";
+            if(!Wait.isElementDisplayed(driver, driver.findElement(By.xpath(withdrawalOptions)),30)){
+                Debugger.println("Withdrawal Details: " + expButton + " is not found");
+                SeleniumLib.takeAScreenShot("NoWithdrawalDetails.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, driver.findElement(By.xpath(withdrawalOptions)));
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: selectWithdrawalDetails " +exp);
+            SeleniumLib.takeAScreenShot("NoWithdrawalDetails.jpg");
+            return false;
+        }
+    }
+
+    public boolean fillAdminOrClinicianName(String adminName) {
+        try{
+            if(!Wait.isElementDisplayed(driver, adminOrClinicianNameHeader, 30)){
+                Debugger.println("Admin or clinician name header is not displayed");
+                SeleniumLib.takeAScreenShot("NoAdminOrClinicianName.jpg");
+                return false;
+            }
+            adminOrClinicianName.sendKeys(adminName);
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from: fillAdminOrClinicianName " +exp);
+            SeleniumLib.takeAScreenShot("NoAdminOrClinicianName.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnSubmitWithdrawalButton() {
+        try{
+            Wait.forElementToBeDisplayed(driver, submitWithdrawalButton,20);
+            seleniumLib.clickOnWebElement(submitWithdrawalButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice: clickOnSubmitWithdrawalButton" + exp);
+            SeleniumLib.takeAScreenShot("NoSubmitWithdrawalButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnWithdrawalForm() {
+        try {
+            Actions.scrollToTop(driver);
+            Wait.forElementToBeDisplayed(driver, withdrawalForm);
+            if (!seleniumLib.isElementPresent(confirmationIdOnWithdrawalForm)) {
+                Debugger.println("Confirmation ID is not found on withdrawal form");
+                SeleniumLib.takeAScreenShot("NoConfirmationID.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, withdrawalForm);
+            Wait.seconds(5); //To load the Withdrawal Form
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: clickOnWithdrawalForm: " +exp);
+            SeleniumLib.takeAScreenShot("WithdrawalFormNotFound.jpg");
+            return false;
+        }
+    }
+
+     public boolean verifyThePatientCategory(String inputData) {
+        try{
+            if(!Wait.isElementDisplayed(driver, patientTypeOnWithdrawalForm, 30)){
+                Debugger.println("patient Category" +inputData+ "On Withdrawal Form is not displayed");
+                SeleniumLib.takeAScreenShot("NoPatientCategory");
+                return false;
+            }
+            if(!patientTypeOnWithdrawalForm.getText().equalsIgnoreCase(inputData)){
+                Debugger.println("Expected value is: "+inputData+ "Actual value is: " +patientTypeOnWithdrawalForm.getText()+ " are not match");
+                SeleniumLib.takeAScreenShot("NoPatientCategory");
+                return false;
+            }
+            Wait.seconds(5);// To load the form
+            Debugger.println("Expected value is: "+inputData+ " Actual value is: " +patientTypeOnWithdrawalForm.getText());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: verifyThePatientCategory " +exp);
+            SeleniumLib.takeAScreenShot("PatientCategoryNotDisplayed.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnContinueButton() {
+        try{
+            if(!Wait.isElementDisplayed(driver, continueButtonOnWithdrawalForm, 30)){
+                Debugger.println("Continue Button On Withdrawal Form is not displayed");
+                SeleniumLib.takeAScreenShot("NoContinueButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, continueButtonOnWithdrawalForm);
+            return true;
+        }catch (Exception exp) {
+            Debugger.println("Exception from: clickOnContinueButton " +exp);
+            SeleniumLib.takeAScreenShot("NoContinueButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyUploadButtonStatus() {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            if (!(uploadDocumentButton.isEnabled())){
+                Debugger.println("Upload button is not enabled");
+                SeleniumLib.takeAScreenShot("VerifyUploadButtonStatus.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyUploadButtonStatus " + exp);
+            SeleniumLib.takeAScreenShot("VerifyUploadButtonStatus.jpg");
+            return false;
+        }
+    }
+
 
 }//end
