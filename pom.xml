@@ -72,7 +72,7 @@
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
-                            <parallelScheme>{parallelScheme}</parallelScheme>
+                            <parallelScheme>${parallelScheme}</parallelScheme>
                             <format>json,rerun</format>
                         </configuration>
                     </execution>
