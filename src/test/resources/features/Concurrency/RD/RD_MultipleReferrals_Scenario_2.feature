@@ -2,6 +2,12 @@
 @Concurrency_newReferral_RD
 Feature: Submit Existing Multiple Referrals to validate every stage
 
+  ###FLOW
+  #User1 Login to an existing Referral - Proband
+  #User2 Login to the another referral - Proband in first referral is the Family member on the current referral
+  #User2 Updates patient details of family member (proband of first referral)
+  #User1 Submit and verify the changes done by user2
+
   @NTS-6470
   @RD_existing_referral_multipleReferral_scenario_2 @Z-LOGOUT
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage in different referral, upon referral submission by A.

@@ -1,13 +1,14 @@
 @Concurrency
-@Cancer_new_referral_PatientDetails
+@Refresh
+@Cancer
 Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the changes on Patient details stage done by another user
   ###FLOW
   #User1 Login to new Referral
   #User2 Login to the same referral
   #User1 Updated Patient details stage for the referral
-  #User2 Navigated and verify the changes done by user1 in Patient details stage
+  #User2 Navigate and verify the changes done by user1 in Patient details stage
 
-    @NTS-6546_Cancer @Z-LOGOUT
+   @NTS-6546 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the Patient details stage ,Login as user B and navigates to Patient details and verify the changes done by User A.
     Given The user is login to the Test Order Service and create a new referral
       | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | New Referral | NRF1 |
@@ -96,7 +97,7 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
       | PatientDetails  | PatientDetailsUpdated | PatientDetailsUpdated_1 | PatientDetailsUpdated_2 | PatientDetailsUpdated_3 | RequestingOrganisation  | testPackage  | tumour_type           | presentationType | sampleType           | sampleState         | RecordedBy                            |
       | Patient details | Title=Ms              | Title=Mr                | Title=Mrs               | Title=Mrss              | Requesting organisation | Test package | Solid tumour: primary | Recurrence       | Liquid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-6546_Cancer @Z-LOGOUT
+  @NTS-6546 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
 
     Given The user is login to the Test Order Service and access the given referral

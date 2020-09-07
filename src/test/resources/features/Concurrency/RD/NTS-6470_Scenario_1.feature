@@ -1,9 +1,14 @@
 @Concurrency
-@Concurrency_newReferral_RD
-Feature: Submit Existing Multiple Referrals to validate every stage
+@Concurrency_RD
+Feature: Proband details updated as family member in another referral, submit and verify the changes
 
-@NTS-6470
-  @RD_existing_referral_multipleReferral_scenario_1 @Z-LOGOUT
+  ###FLOW
+  #User1 Login to an existing Referral - Proband
+  #User2 Login to the another referral - Proband in first referral is the Family member on the current referral
+  #User2 Updates patient details of family member (proband of first referral)
+  #User1 Submit and verify the changes done by user2
+
+@NTS-6470 @Scenario1 @Z-LOGOUT
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage in different referral, upon referral submission by A.
 #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
@@ -22,7 +27,7 @@ Feature: Submit Existing Multiple Referrals to validate every stage
       | Patient details | DOB=18-05-2004        |
 
 
-  @RD_existing_referral_multipleReferral_scenario_1 @Z-LOGOUT
+  @NTS-6470 @Scenario1 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |r20539847623| NRF1 |
@@ -40,7 +45,3 @@ Feature: Submit Existing Multiple Referrals to validate every stage
     Examples:
       | FamilyMemberDetailsUpdate | FamilyMembers  |
       | DOB=18-05-2004            | Family members |
-
-
-
-
