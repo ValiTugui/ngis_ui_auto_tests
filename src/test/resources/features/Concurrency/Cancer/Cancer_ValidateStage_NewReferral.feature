@@ -1,9 +1,13 @@
 @Concurrency
-@Concurrency_newReferral_Cancer
-Feature: Create New Referral for Cancer flow
-  #User1
-  @NTS-6556
-    @Cancer_new_referral_Verify_data_responsibleClinician @Z-LOGOUT
+@Concurrency_Cancer
+Feature: Create New Referral for Cancer flow and verify the stage update messages
+  ###FLOW
+  #User1 creates new referral and entered all mandatory stages
+  #User2 Login to the same referral
+  #User1 updated the Responsible Clinician (Single Stage)
+  #User2 Submits the referral and observe for Responsible Clinician change made by user1
+
+  ch @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Responsible clinician stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -82,9 +86,8 @@ Feature: Create New Referral for Cancer flow
 
   #User2
   #Login as User B, Verified Responsible Clinician stage and do not submit referral
-  @Cancer_new_referral_Verify_data_responsibleClinician @Z-LOGOUT
+  @Cancer_new_referral_single_stage @Z-LOGOUT
   Scenario Outline: Verified Responsible Clinician stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
    #Responsible Clinician - Verified by User2
@@ -100,4 +103,3 @@ Feature: Create New Referral for Cancer flow
     Examples:
       | PatientDetails  | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated |
       | Patient details | Responsible clinician | EmailAddress=john.smith@nhs.net    |
-
