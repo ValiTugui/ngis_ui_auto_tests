@@ -855,7 +855,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectOptionForQuestion(option,question);
         Assert.assertTrue(testResult);
-        Wait.seconds(3);
     }
     @And("the user should see the Withdrawal Received section")
     public void theUserShouldSeeTheWithdrawalReceivedSection() {
@@ -880,7 +879,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnSubmitWithdrawalButton();
         Assert.assertTrue(testResult);
-        Wait.seconds(10);
     }
     @And("the user has to click on Withdrawal form.")
     public void theUserHasToClickOnWithdrawalForm() {

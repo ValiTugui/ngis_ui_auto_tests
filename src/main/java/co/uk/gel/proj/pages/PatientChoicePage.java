@@ -2228,8 +2228,7 @@ public class PatientChoicePage {
 
      public boolean viewWithdrawButton() {
         try{
-            Wait.forElementToBeDisplayed(driver, withdrawFromResearchButton);
-            if(!seleniumLib.isElementPresent(withdrawFromResearchButton)){
+            if(!Wait.isElementDisplayed(driver,withdrawFromResearchButton,10)){
                 Debugger.println("Withdraw from research button is not displayed");
                 SeleniumLib.takeAScreenShot("NoWithdrawButton.jpg");
                 return false;
@@ -2309,7 +2308,7 @@ public class PatientChoicePage {
 
     public boolean clickOnSubmitWithdrawalButton() {
         try{
-            Wait.forElementToBeDisplayed(driver, submitWithdrawalButton);
+            Wait.forElementToBeDisplayed(driver, submitWithdrawalButton,20);
             seleniumLib.clickOnWebElement(submitWithdrawalButton);
             return true;
         } catch (Exception exp) {
