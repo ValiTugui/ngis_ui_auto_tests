@@ -2214,14 +2214,14 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, patientChoiceResultTab);
             if (!seleniumLib.isElementPresent(confirmationID)) {
                 Debugger.println("Confirmation ID is not found...");
-                SeleniumLib.takeAScreenShot("RecordOfDiscussionForm.jpg");
+                SeleniumLib.takeAScreenShot("ClickOnRecordOfDiscussionForm.jpg");
                 return false;
             }
             Actions.clickElement(driver, patientChoiceResultTab);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from: recordOfDiscussionForm: " +exp);
-            SeleniumLib.takeAScreenShot("RecordOfDiscussionForm.jpg");
+            Debugger.println("Exception from: clickOnRecordOfDiscussionForm: " +exp);
+            SeleniumLib.takeAScreenShot("ClickOnRecordOfDiscussionForm.jpg");
             return false;
         }
     }
@@ -2381,11 +2381,13 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
             if (!(uploadDocumentButton.isEnabled())){
                 Debugger.println("Upload button is not enabled");
+                SeleniumLib.takeAScreenShot("VerifyUploadButtonStatus.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifying upload button Status:" + exp);
+            Debugger.println("Exception from verifyUploadButtonStatus " + exp);
+            SeleniumLib.takeAScreenShot("VerifyUploadButtonStatus.jpg");
             return false;
         }
     }
