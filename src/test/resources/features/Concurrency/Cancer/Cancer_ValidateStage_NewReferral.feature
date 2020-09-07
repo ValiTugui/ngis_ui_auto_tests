@@ -7,7 +7,7 @@ Feature: Create New Referral for Cancer flow and verify the stage update message
   #User1 updated the Responsible Clinician (Single Stage)
   #User2 Submits the referral and observe for Responsible Clinician change made by user1
 
-  ch @Z-LOGOUT
+  @Cancer_new_referral_single_stage @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Responsible clinician stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
