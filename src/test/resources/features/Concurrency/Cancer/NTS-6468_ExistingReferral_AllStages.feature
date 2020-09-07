@@ -1,12 +1,12 @@
 @Concurrency
-@Cancer_existing_referral_all_stages
+@Concurrency_Cancer
 Feature: NTS-6468:Cancer_existing_referral_all_stages: Submit and verify the changes on each stages done by another user
 
   ###FLOW
   #User1 Login to an existing Referral
   #User2 Login to the same referral
   #User2 updated each stage for the referral
-  #User1 Submit and verify the changes dne by user2 in each stages
+  #User1 Submit and verify the changes done by user2 in each stages
 
   @NTS-6468 @Z-LOGOUT
   Scenario Outline: Login as User A and B,Access Existing Same Referral, User B updates each stages, User A verify the message by submitting the referral

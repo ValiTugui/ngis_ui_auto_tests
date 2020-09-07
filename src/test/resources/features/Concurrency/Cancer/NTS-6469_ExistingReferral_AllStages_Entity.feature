@@ -1,10 +1,15 @@
 @Concurrency
-@Concurrency_existingReferral_Cancer
-Feature: Submit Existing Referral for Cancer flow
-  #User1
-  @NTS-6469
-    @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
+@Concurrency_Cancer
+Feature: NTS-6469:Cancer_existing_referral_all_stages_entity
+
+  ###FLOW
+  #User1 Login to an existing Referral
+  #User2 Login to the same referral
+  #User2 updated single entity in each stage for the referral
+  #User1 Submit and verify the changes done by user2 in each stages
+
+  @NTS-6469 @Z-LOGOUT
+  Scenario Outline: Login as User A and B,Access Existing Same Referral, User B updates entity in each stages, User A verify the message by submitting the referral
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
@@ -80,7 +85,7 @@ Feature: Submit Existing Referral for Cancer flow
       | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Proband=Authorised by clinician |
 
   #User2
-  @Cancer_existing_referral_all_stages_validate_entity @Z-LOGOUT
+  @NTS-6469 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | r20478059307 | NRF1 |
@@ -142,6 +147,7 @@ Feature: Submit Existing Referral for Cancer flow
     When the user navigates to the "<PatientChoice>" stage
     Then the user updates the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     Then the user updates the file NRF1 with Patient Choice details Updated by User2
+
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                      | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | Tumours | TumoursUpdated       | pageTitle1                         | TumoursQuestionnaireUpdated          | Samples | SamplesUpdated   | pageTitle2         | SamplesQuestionnaireUpdated     | Notes | NotesUpdated           | PatientChoice  | PatientChoiceDetailsUpdated |
       | Patient details | FirstName=Jhonny      | Requesting organisation | Epsom and St Helier University Hospitals NHS Trust | Test package | Priority=Urgent    | Responsible clinician | Department=Ireland,UK              | Tumours | SIHMDSLabID=N7846509 | Answer questions about this tumour | FirstPresentation=First presentation | Samples | SampleID=J098078 | Add sample details | SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Authorised by clinician     |

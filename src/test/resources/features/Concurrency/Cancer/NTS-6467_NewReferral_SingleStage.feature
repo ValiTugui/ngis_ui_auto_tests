@@ -1,5 +1,5 @@
 @Concurrency
-@Cancer_new_referral_single_stage
+@Concurrency_Cancer
 Feature: NTS-6467:Cancer_new_referral_single_stage:Create New Referral for Cancer flow and verify the stage update messages
   ###FLOW
   #User1 creates new referral and entered all mandatory stages
@@ -75,7 +75,7 @@ Feature: NTS-6467:Cancer_new_referral_single_stage:Create New Referral for Cance
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     #Responsible Clinician - Updated by User1
-    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NRF1
+    And the user waits max 15 minutes for the update Patient details Updated by User2 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
