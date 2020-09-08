@@ -53,7 +53,7 @@ Feature: Proband patient details updated by user3, and user1 and user2 submit an
 
    #Login as User C,
 
-  @NTS-6466 @Scenario1 @Z-LOGOUT @Z-LOGOUT
+  @NTS-6466 @Scenario1 @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER3_NAME |r20609782352| NRF1 |
