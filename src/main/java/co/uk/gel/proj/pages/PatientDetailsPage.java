@@ -238,6 +238,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//*[string()='Address']//following-sibling::span")
     public WebElement addressField;
 
+    @FindBy(xpath = "//input[@id='administrativeGender']/../div/span/span")
+    public WebElement genderPath;
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -2041,5 +2044,102 @@ public class PatientDetailsPage {
             }
         }
 
-
+    public boolean updateFamilyMemberDetails(String familyMemberDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DOB": {
+                    String dobValue = paramNameValue.get(key);
+                    if (dobValue != null && !dobValue.isEmpty()) {
+                        String[] dobSplit = dobValue.split("-");
+                        seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+                        seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+                        seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+                    }
+                    break;
+                }
+                case "Gender": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectGender(genderPath, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "LifeStatus": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "RelationShipToProband": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(relationshipButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean verifyFamilyMemberDetails(String familyMemberDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "DOB": {
+                    actValue = dateOfBirthDay.getAttribute("value") + "-";
+                    actValue += dateOfBirthMonth.getAttribute("value") + "-";
+                    actValue += dateOfBirthYear.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Gender": {
+                    By genderPath = By.xpath("//input[@id='administrativeGender']/../div/span/span");
+                    actValue = seleniumLib.getText(genderPath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "LifeStatus": {
+                    actValue = seleniumLib.getText(lifeStatusButton);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    actValue = seleniumLib.getText(ethnicityButton);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "RelationShipToProband": {
+                    actValue = seleniumLib.getText(relationshipButton);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
 }//end
