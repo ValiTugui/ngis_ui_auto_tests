@@ -342,7 +342,7 @@ public class MilHomePageSteps extends Pages {
         }else{
             testResult = miPortalFileSubmissionPage.addColumnHeadersToShowSection(columnHeader);
         }
-         Assert.assertTrue(testResult);
+        Assert.assertTrue(testResult);
     }
 
     @And("the Save and Close button under Show All and Hide All button becomes disabled")

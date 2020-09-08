@@ -104,7 +104,6 @@ public class PrintFormsPage {
     WebElement relationshipToProbandField;
 
     String familyFormDownloadButtonPath = "//span[text()='dummyDob']/../../../following-sibling::button";
-
     @FindBy(xpath = "//h3[contains(@class,'lab-name')]")
     WebElement labNameField;
 

@@ -313,7 +313,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             By cellPath = null;
             String cellValue = "";
             for (int i = 0; i < noOfFilteredRows; i++) {
-                //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+               // Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellPath = By.xpath(fileSubmissionTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
                 cellValue = seleniumLib.getText(cellPath);
                 if (expValue.equalsIgnoreCase("non-empty-data")) {
@@ -521,7 +521,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             for(WebElement columnToHide:columnToHides) {
                 if(columnToHide.isDisplayed()) {
                     org.openqa.selenium.interactions.Actions act = new org.openqa.selenium.interactions.Actions(driver);
-            act.dragAndDrop(columnToHide, hideColumnSpace).build().perform();
+                    act.dragAndDrop(columnToHide, hideColumnSpace).build().perform();
                     break;
                 }
             }

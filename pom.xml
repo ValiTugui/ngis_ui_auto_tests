@@ -25,7 +25,7 @@
         <jsonFolder>target/cucumber-parallel</jsonFolder>
         <browser>Chrome</browser>
         <browserVersion>70</browserVersion>
-        <serverType>LOCAL</serverType>
+        <serverType>Local</serverType>
         <osName>Windows</osName>
         <osVersion>10</osVersion>
         <features></features>
@@ -68,7 +68,7 @@
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
                             <featuresDirectory>src/test/resources/features/${features}</featuresDirectory>
-                            <tags>@Concurrency</tags>
+                            <tags>@BVT_UI_SMOKE_TEST_PACK</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>

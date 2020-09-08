@@ -18,32 +18,32 @@ Feature: NTS-5801: User visits the clinical details section but not panels stage
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package
+     ##Test Package
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
-    ##Responsible Clinician
+     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
     And the "<ResponsibleClinician>" stage is marked as Completed
-    ##Clinical Question
+     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
      ### System assigns suggested panels automatically so the stage won't be mandatory or completed
     Then the "<Panels>" stage is marked "NotMandatoryToDo"
-    ##Notes
+     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members
+     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
-    ##Patient Choice
+     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
@@ -59,14 +59,14 @@ Feature: NTS-5801: User visits the clinical details section but not panels stage
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-       ##Pedigree
+      ##Pedigree
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    ##Print forms
+      ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    ##Submitting Referral
+     ##Submitting Referral
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"

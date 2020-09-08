@@ -271,7 +271,7 @@ public class ClinicalQuestionsPage {
                 diagnosisValue.clear();
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
                 if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                    Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n" + driver.getCurrentUrl());
+                    Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
                     return null;
                 }
@@ -496,8 +496,8 @@ public class ClinicalQuestionsPage {
                 try{
                     seleniumLib.clickOnWebElement(karyotypicSexDropdown);
                     Wait.seconds(2);
-                    seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + paramValue + "']")));
-                } catch (Exception exp1) {
+                    seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + paramValue+ "']")));
+                }catch(Exception exp1) {
                     Debugger.println("Exception from selecting karyotypicSexDropdown...:" + exp1);
                     SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
                     return false;
@@ -778,13 +778,13 @@ public class ClinicalQuestionsPage {
         try {
             Wait.seconds(3);
             String actual = ageOfOnsetYearsField.getAttribute("value");
-            if (!actual.equalsIgnoreCase(years)) {
-                Debugger.println("Expected AgeOfOnset Year:" + years + ", But Actual:" + actual + "\n" + driver.getCurrentUrl());
+            if(!actual.equalsIgnoreCase(years)){
+                Debugger.println("Expected AgeOfOnset Year:"+years+", But Actual:"+actual+"\n"+driver.getCurrentUrl());
                 return false;
             }
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from Validating Age Of onset Year:" + exp + "\n" + driver.getCurrentUrl());
+        }catch(Exception exp){
+            Debugger.println("Exception from Validating Age Of onset Year:"+exp+"\n"+driver.getCurrentUrl());
             return false;
         }
     }
@@ -792,19 +792,19 @@ public class ClinicalQuestionsPage {
     public boolean verifySpecificAgeOnSetMonthValue(String month) {
         try {
             String actual = ageOfOnsetMonthsField.getAttribute("value");
-            if (!actual.equalsIgnoreCase(month)) {
-                Debugger.println("Expected AgeOfOnset Month:" + month + ", But Actual:" + actual + "\n" + driver.getCurrentUrl());
+            if(!actual.equalsIgnoreCase(month)){
+                Debugger.println("Expected AgeOfOnset Month:"+month+", But Actual:"+actual+"\n"+driver.getCurrentUrl());
                 return false;
             }
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from Validating Age Of onset Month:" + exp + "\n" + driver.getCurrentUrl());
+        }catch(Exception exp){
+            Debugger.println("Exception from Validating Age Of onset Month:"+exp+"\n"+driver.getCurrentUrl());
             return false;
         }
     }
 
     public boolean verifySpecificDiseaseStatusValue(String expectedDiseaseStatus) {
-        if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 30)) {
+        if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,30)){
             Debugger.println("Expected diseaseStatusDropdown not loaded ");
             return false;
         }
@@ -814,7 +814,7 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificRareDiseaseValue(String expectedRareDisease) {
-        if (!Wait.isElementDisplayed(driver, diagnosisField, 30)) {
+        if(!Wait.isElementDisplayed(driver, diagnosisField,30)){
             Debugger.println("Expected diagnosisField not loaded ");
             return false;
         }
@@ -823,7 +823,7 @@ public class ClinicalQuestionsPage {
     }
 
     public String getPhenotypicSexDropdownValue() {
-        if (!Wait.isElementDisplayed(driver, phenotypicSexDropdown, 30)) {
+        if(!Wait.isElementDisplayed(driver, phenotypicSexDropdown,30)){
             Debugger.println("Expected phenotypicSexDropdown not loaded ");
             return "";
         }
@@ -855,7 +855,7 @@ public class ClinicalQuestionsPage {
         try {
             boolean elementFound = false;
             Wait.seconds(2);
-            if (!Wait.isElementDisplayed(driver, hpoTable, 30)) {
+            if(!Wait.isElementDisplayed(driver, hpoTable,30)){
                 Debugger.println("hpoTable not displayed");
                 SeleniumLib.takeAScreenShot("hpoTable.jpg");
                 return false;
@@ -889,14 +889,14 @@ public class ClinicalQuestionsPage {
                     diagnosisType = Actions.getText(element);
                 }
             }
-            if (diagnosisType != null && diagnosisType.contains(expectedDiseaseDiagnosisType)) {
+            if(diagnosisType != null && diagnosisType.contains(expectedDiseaseDiagnosisType)){
                 return true;
             }
-            Debugger.println("Expected RareDiseaseDiagnosisType:" + expectedDiseaseDiagnosisType + ", Actual:" + diagnosisType);
+            Debugger.println("Expected RareDiseaseDiagnosisType:"+expectedDiseaseDiagnosisType+", Actual:"+diagnosisType);
             SeleniumLib.takeAScreenShot("selectRareDiseaseDiagnosisType.jpg");
             return false;
-        } catch (Exception exp) {
-            Debugger.println("Exception in selectRareDiseaseDiagnosisType:" + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception in selectRareDiseaseDiagnosisType:"+exp);
             SeleniumLib.takeAScreenShot("selectRareDiseaseDiagnosisType.jpg");
             return false;
         }
@@ -928,7 +928,7 @@ public class ClinicalQuestionsPage {
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, value);
             String actual = Actions.getText(rareDiseaseDiagnosisStatusDropdown.findElement(By.cssSelector(selectSingleValue)));
-            if (actual.contains(value)) {
+            if(actual.contains(value)){
                 return true;
             }
             return false;
@@ -1009,8 +1009,8 @@ public class ClinicalQuestionsPage {
             Actions.selectRandomValueFromDropdown(dropdownValues);
             Wait.seconds(1);
             return values;
-        } catch (Exception exp) {
-            Debugger.println("Exception from getValuesFromPhenotypicSexDropDown: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from getValuesFromPhenotypicSexDropDown: "+exp);
             SeleniumLib.takeAScreenShot("getValuesFromPhenotypicSexDropDown.jpg");
             return null;
         }
@@ -1023,28 +1023,28 @@ public class ClinicalQuestionsPage {
             List<String> values = Actions.getValuesFromDropdown(dropdownValues);
             Wait.seconds(1);
             return values;
-        } catch (Exception exp) {
-            Debugger.println("Exception from getValuesFromKaryotypicSexDropDown: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from getValuesFromKaryotypicSexDropDown: "+exp);
             SeleniumLib.takeAScreenShot("getValuesFromKaryotypicSexDropDown.jpg");
             return null;
         }
     }
 
     public boolean clickAddAnotherLink() {
-        if (!Wait.isElementDisplayed(driver, addAnotherRareDiseaseLink, 30)) {
-            Debugger.println("Add Another link not present in Tumour page." + driver.getCurrentUrl());
+        if(!Wait.isElementDisplayed(driver,addAnotherRareDiseaseLink,30)){
+            Debugger.println("Add Another link not present in Tumour page."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("AddAnotherLink.jpg");
             return false;
         }
         try {
             Actions.clickElement(driver, addAnotherRareDiseaseLink);
             return true;
-        } catch (Exception exp) {
-            try {
+        }catch (Exception exp){
+            try{
                 seleniumLib.clickOnWebElement(addAnotherRareDiseaseLink);
                 return true;
-            } catch (Exception exp1) {
-                Debugger.println("Exception from clickAddAnotherLink." + exp + "\n" + driver.getCurrentUrl());
+            }catch(Exception exp1){
+                Debugger.println("Exception from clickAddAnotherLink."+exp+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("AddAnotherLink.jpg");
                 return false;
             }
@@ -1102,7 +1102,7 @@ public class ClinicalQuestionsPage {
         paramValue = paramNameValue.get("PhenotypicSex");
         if (paramValue != null && !paramValue.isEmpty()) {
             if (!phenotypicSexDropdown.getText().equalsIgnoreCase(paramValue)) {
-                Debugger.println("Expected PhenoTypeSex " + paramValue + ", Actual:" + phenotypicSexDropdown.getText());
+                Debugger.println("Expected PhenoTypeSex " + paramValue+ ", Actual:" + phenotypicSexDropdown.getText());
                 SeleniumLib.takeAScreenShot("PhenoTypeSexDropDown.jpg");
                 return false;
             }
@@ -1124,7 +1124,7 @@ public class ClinicalQuestionsPage {
             List actualFieldsLabels = getTheOptionalFieldsLabelsOnCurrentPage();
             for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
                 if (!actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader"))) {
-                    Debugger.println("Expected Label " + expectedLabelList.get(i).get("labelHeader") + " Not present in Clinical Page.\n" + driver.getCurrentUrl());
+                    Debugger.println("Expected Label " + expectedLabelList.get(i).get("labelHeader") + " Not present in Clinical Page.\n"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
                     return false;
                 }
@@ -1301,4 +1301,6 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
+
+
 }

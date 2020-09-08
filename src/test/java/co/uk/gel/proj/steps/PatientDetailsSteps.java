@@ -578,7 +578,7 @@ public class PatientDetailsSteps extends Pages {
     }
 
 
-    @And("the user fills in the date of birth {string}")
+ @And("the user fills in the date of birth {string}")
     public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
         String stepResult = patientDetailsPage.fillDateOfBirth(dateOfBirth);
         Assert.assertEquals("Success",stepResult);

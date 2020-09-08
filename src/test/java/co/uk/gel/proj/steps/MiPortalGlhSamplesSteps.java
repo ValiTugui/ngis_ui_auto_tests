@@ -163,6 +163,6 @@ public class MiPortalGlhSamplesSteps extends Pages {
         boolean testResult = false;
         testResult = miGlhSamplesPage.closePopUpBox();
         Assert.assertTrue(testResult);
-}
+    }
 
 }
