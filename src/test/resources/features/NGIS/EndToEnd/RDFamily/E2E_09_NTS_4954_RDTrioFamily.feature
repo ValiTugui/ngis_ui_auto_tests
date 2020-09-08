@@ -78,8 +78,9 @@ Feature: RDFamily:NTS-4954: #09: Create Referral for Trio Family + Edit Data + A
     And the user is able to download print form for the proband
     And the user is able to download print forms for "<TwoFamilyMember>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=11-03-1978 |
       | NHSNumber=NA:DOB=12-02-1979 |
+      | NHSNumber=NA:DOB=11-03-1978 |
+
     ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed

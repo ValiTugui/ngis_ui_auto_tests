@@ -1,16 +1,24 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.List;
 
 public class NotesPage {
 
@@ -58,28 +66,6 @@ public class NotesPage {
         } catch (Exception exp) {
             try {
                 seleniumLib.sendValue(addNoteField, faker.chuckNorris().fact());
-                return true;
-            } catch (Exception exp1) {
-                Debugger.println("Exception from fillInAddNotesField." + exp + "\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
-                return false;
-            }
-        }
-    }
-
-    public boolean fillInAddNotesField(String updateNotes) {
-        try {
-            if (!Wait.isElementDisplayed(driver, addNoteField, 30)) {
-                Debugger.println("AddNoteField not displayed.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
-                return false;
-            }
-            addNoteField.clear();
-            addNoteField.sendKeys(updateNotes);
-            return true;
-        } catch (Exception exp) {
-            try {
-                seleniumLib.sendValue(addNoteField, updateNotes);
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from fillInAddNotesField." + exp + "\n" + driver.getCurrentUrl());

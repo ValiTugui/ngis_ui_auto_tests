@@ -8,6 +8,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -111,6 +112,7 @@ public class TumoursPage {
 
     //@FindBy(css = "*[class*='checkbox-row__arrow']")
     @FindBy(xpath = "//button[@aria-label='Edit a tumour']")
+
     public WebElement editTumourArrow;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")

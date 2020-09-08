@@ -150,4 +150,19 @@ public class MiPortalGlhSamplesSteps extends Pages {
         testResult = TestUtils.isFilePresent("glh_samples_filtered","");
         Assert.assertTrue(testResult);
     }
+
+    @When("the user double clicks on any data table row and a pop up box is displayed with the row values")
+    public void theUserDoubleClicksOnAnyDataTableRow() {
+        boolean testResult = false;
+        testResult = miGlhSamplesPage.doubleClickDataRow();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the pop up close icon")
+    public void theUserClicksOnThePopUpCloseIcon() {
+        boolean testResult = false;
+        testResult = miGlhSamplesPage.closePopUpBox();
+        Assert.assertTrue(testResult);
+}
+
 }

@@ -104,3 +104,4 @@ Feature: MIPORTAL ST - File Submission 1
       | value   | columnHeader | fieldValue |mi_stage         |
       | Valid   | Status       | valid      |File Submissions |
       | Invalid | Status       | invalid    |File Submissions |
+

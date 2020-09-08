@@ -51,9 +51,9 @@ Feature: MIPORTAL ST - File Submission 3
     And the user clicks on Add criteria button
     When the user click on the Search button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-    Then the table column Status is displayed with data valid_with_warnings
-    And the table column Field Warnings is displayed with data non-empty-data
 
+    And the table column Field Warnings is displayed with data non-empty-data
+    Then the table column Status is displayed with data valid_with_warnings
     Examples:
       | mi_stage         |
       | File Submissions |

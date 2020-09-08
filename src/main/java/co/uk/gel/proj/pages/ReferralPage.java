@@ -1,12 +1,15 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -109,7 +112,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[contains(@data-testid,'notification-success')]")
     public WebElement cancelReferralNotification;
 
-    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'actionButtonCss')]//button")
+    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'css-lcbn88-actionButton')]//button")
     public List<WebElement> cancelReferralButtons;
 
     @FindBy(css = "*[class*='error-message']")
@@ -734,7 +737,7 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Wait.forPageToBeLoaded(driver);
-            //Debugger.println("EXP TITLE: " + expTitle);
+            Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             int titlesSize = titleElements.size();
@@ -845,10 +848,9 @@ public class ReferralPage<check> {
     public void submitReferral() {
         try {
             if (Wait.isElementDisplayed(driver, submitReferralButton, 100)) {
-                seleniumLib.clickOnWebElement(submitReferralButton);
+                Actions.clickElement(driver, submitReferralButton);
                 Debugger.println("Referral submitted...");
             }
-            return ;
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Referral " + exp);
             SeleniumLib.takeAScreenShot("submitReferral.jpg");
@@ -1261,9 +1263,8 @@ public class ReferralPage<check> {
     public void logTheReferralId() {
         String referralID = getPatientReferralId();
         Debugger.println("ReferralID: "+ referralID);
-        Debugger.println("ReferralURL: "+driver.getCurrentUrl());
+        Debugger.println(driver.getCurrentUrl());
     }
-
 
     public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
         Wait.forURLToContainSpecificText(driver, directoryPath);
@@ -1991,6 +1992,7 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
 
     public void loginToTestOrderingSystemAsNHSUser(WebDriver driver, String userType) {
         Actions.deleteCookies(driver);

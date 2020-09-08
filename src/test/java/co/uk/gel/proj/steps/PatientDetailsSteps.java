@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.pages.ClinicalQuestionsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -455,11 +456,147 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user view the day field")
+    public void theUserViewDayField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.dayfield();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user clicks in the birthday field")
+    public void theuserclicksinthebirthday() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickDayinputfield();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user clicks in the birthday field in patient details page")
+    public void theuserclicksinthebirthdayfieldinpatientdetailspage() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickDayinputfield_1();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user view the month field")
+    public void theUserViewMonthField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.monthfield();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user clicks in the birthmonth in patient details page")
+    public void theuserclicksinthebirthmonthinpatientdetailspage() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickMonthinputfield_1();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user clicks in the birthmonth")
+    public void theuserclicksinthebirthmonth() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickMonthinputfield();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user view the year field")
+    public void theUserViewYearField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.yearfield();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user clicks in the birthyear in patient details page")
+    public void theuserclicksinthebirthyearinpatientdetailspage() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickYearinputfield_1();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user clicks in the birthyear")
+    public void theuserclicksinthebirthyear() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickYearinputfield();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then ("the user clicks in the dateOfDiagnosis day field")
+    public void theUserClicksInTheDateOfDiagnosisDayField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickDayInputFieldDateOfDiagnosis();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then ("the user clicks in the dateOfDiagnosis month field")
+    public void theUserClicksInTheDateOfDiagnosisMonthField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickMonthInputFieldDateOfDiagnosis();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then ("the user clicks in the dateOfDiagnosis year field")
+    public void theUserClicksInTheDateOfDiagnosisYearField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickYearInputFieldDateOfDiagnosis();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then ("the user clicks in the Sample Details day field")
+    public void theUserClicksInTheSampleDetailsDayField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickDayInputFieldSampleDetails();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then ("the user clicks in the Sample Details month field")
+    public void theUserClicksInTheSampleDetailsMonthField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickMonthInputFieldSampleDetails();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then ("the user clicks in the Sample Details year field")
+    public void theUserClicksInTheSampleDetailsYearField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickYearInputFieldSampleDetails();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks in the Date of Signature day field")
+    public void theUserClicksInTheDateOfSignatureDayField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickDayInputFieldDateOfSignature();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks in the Date of Signature month field")
+    public void theUserClicksInTheDateOfSignatureMonthField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickMonthInputFieldDateOfSignature();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks in the Date of Signature year field")
+    public void theUserClicksInTheDateOfSignatureYearField() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickYearInputFieldDateOfSignature();
+        Assert.assertTrue(testResult);
+    }
+
+
     @And("the user fills in the date of birth {string}")
     public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
         String stepResult = patientDetailsPage.fillDateOfBirth(dateOfBirth);
         Assert.assertEquals("Success",stepResult);
     }
+
+       @And("the user fills in the birthday {string}")
+    public void theUserFillsInTheDateOfBirthString(String  Birthday) {
+        String stepResult = patientDetailsPage.fillBirthday(Birthday);
+        Assert.assertEquals("Success",stepResult);
+    }
+
+    @And("the user fills in the birthyear {string}")
+    public void theUserFillsInTheYearOfBirthString(String  BirthYear) {
+        String stepResult = patientDetailsPage.fillBirthYear(BirthYear);
+        Assert.assertEquals("Success", stepResult);
+    }
+
+
 
     @And("the date of death input field is displayed")
     public void theDateOfDeathInputFieldIsDisplayed() {
@@ -637,12 +774,8 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user fill in the first name field")
     public void theUserFillInTheFirstNameField() {
-        patientDetailsPage.fillInFirstName();
-    }
 
-    @And("the user stores the first name & last name values")
-    public void theUserStoresTheFirstNameLastNameValues() {
-        patientDetailsPage.verifyName();
+        patientDetailsPage.fillInFirstName();
     }
 
     @And("the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode")
@@ -731,4 +864,33 @@ public class PatientDetailsSteps extends Pages {
         testResult=patientDetailsPage.verifyPostcodeFormatInPD(formattedPostcode);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user updates the patient details stage with {string}")
+    public void theUserUpdatesPatientDetailsStageWith(String patientDetails) {
+        boolean testResult = false;
+        testResult= patientDetailsPage.updatePatientDetails(patientDetails);
+        Assert.assertTrue(testResult);
+    }
+
+   @When("the user modifies the gender value")
+    public void theUserModifiesTheGender() {
+        boolean testResult = false;
+        String gender;
+        String genderValue= patientDetailsPage.readGenderValue();
+        Debugger.println("The Existing gender value "+genderValue);
+        if(genderValue==null||genderValue.isEmpty()){
+            Assert.fail("No value read from gender field");
+        }
+        if(genderValue.equalsIgnoreCase("Male")){
+            gender="Female";
+        }
+        else{
+            gender="Male";;
+        }
+        ClinicalQuestionsPage.genderValue=gender;
+        Debugger.println("The new gender value to be selected "+gender);
+        testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+        Assert.assertTrue(testResult);
+    }
+
 }

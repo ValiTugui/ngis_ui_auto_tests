@@ -6,16 +6,16 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
-import java.util.List;
+import java.sql.Driver;
 import java.util.*;
+import java.util.List;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
@@ -144,6 +144,8 @@ public class ClinicalQuestionsPage {
     String dropDownPlaceHolderText = "//label[text()='dummyValue']//following::div[contains(@id,'answers.question-id')][1]";
     @FindBy(xpath = "//h2[contains(@class,'group__heading')]")
     public List<WebElement> fieldHeaders;
+
+    public static String genderValue;
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -768,23 +770,6 @@ public class ClinicalQuestionsPage {
 
         }
     }
-    public boolean deleteHPOTerminfirstrow() {
-        Wait.seconds(2);
-        Wait.forElementToBeDisplayed(driver, hpoTable);
-        Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
-        String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
-       if (actualHPOTermDisplayedInTheFirstRow!=null) {
-            Wait.forElementToBeDisplayed(driver, hpoTermsDeleteIcons.get(0));
-            Actions.clickElement(driver, hpoTermsDeleteIcons.get(0));
-            return true;
-        } else {
-            Debugger.println("unable to locate delete icon for the HPO terms");
-            SeleniumLib.takeAScreenShot("HPOTermsTable.jpg");
-            return false;
-
-        }
-    }
-
 
     public boolean selectTermPresence(String presence) {
         boolean testResult = false;

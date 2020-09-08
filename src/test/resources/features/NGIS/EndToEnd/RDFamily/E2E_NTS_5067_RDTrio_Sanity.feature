@@ -78,8 +78,9 @@ Feature: RDFamily:NTS-5067:Create end to end Referrals for NEW Patient - Trio Fa
     And the user is able to download print form for the proband
     And the user is able to download print forms for "<TwoFamilyMember>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=13-06-1980 |
       | NHSNumber=NA:DOB=12-02-1981 |
+      | NHSNumber=NA:DOB=13-06-1980 |
+
     ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed

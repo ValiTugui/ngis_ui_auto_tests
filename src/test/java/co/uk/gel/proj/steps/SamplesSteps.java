@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -15,12 +16,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static co.uk.gel.lib.Actions.getText;
+import static co.uk.gel.lib.Actions.getValue;
 
 public class SamplesSteps extends Pages {
 
@@ -136,6 +135,26 @@ public class SamplesSteps extends Pages {
         samplesPage.selectSampleCollectionDate();
         samplesPage.fillInSampleComments();
 
+    }
+
+    @When("the user answers the Samples dynamic questions with tumour content less than 30 percentage {string}")
+    public void theUserAnswersTheSamplesDynamicQuestionsByProvidingTumourContentLessThan30Percentage(String sampleTopoMorphyGraphy) {
+        samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
+        samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
+        samplesPage.fillInPercentageOfMalignantNucleiBelow30();
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
+
+    @When("the user answers the Samples dynamic questions by providing tumour content more than 30 percentage {string}")
+    public void theUserAnswersTheSamplesDynamicQuestionsByProvidingTumourContentMoreThan30Percentage(String sampleTopoMorphyGraphy) {
+        samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
+        samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
+        samplesPage.fillInPercentageOfMalignantNucleiAbove30();
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
     }
 
     @And("the user adds a tumour sample by providing sample type {string}")
@@ -513,8 +532,10 @@ public class SamplesSteps extends Pages {
                 break;
             }
             case "NotMandatoryToDo": {
-                //verifying asterisk is not present
-                Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
+                //verifying asterisk and tick mark are not present.
+                if (referralPage.stageIsMandatoryToDo(stage) || referralPage.stageIsCompleted(stage)) {
+                    Assert.fail("The Panels stage is still mandatory to do or is completed.");
+                }
                 break;
             }
             case "Completed": {

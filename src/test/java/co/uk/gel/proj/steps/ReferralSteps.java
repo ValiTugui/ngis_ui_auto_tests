@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
@@ -21,14 +22,17 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 
 public class ReferralSteps extends Pages {
 
+
     public ReferralSteps(SeleniumDriver driver) {
         super(driver);
     }
+
 
     @Then("^the referral page is displayed$")
     public void referralPageIsDisplayed() {
@@ -48,6 +52,9 @@ public class ReferralSteps extends Pages {
         if(!testResult){
             Assert.fail("Could not navigate to stage:"+stage);
         }
+//        if(AppConfig.snapshotRequired){
+//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
+//        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -189,7 +196,7 @@ public class ReferralSteps extends Pages {
     public void theStageIsMarkedAsCompleted(String stage) {
         // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
         // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
-        //Debugger.println("Verifying completion of Package:" + stage);
+        Debugger.println("Verifying completion of Package:" + stage);
         Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
@@ -205,7 +212,6 @@ public class ReferralSteps extends Pages {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(stage," ")+"Stage.jpg");
             }
             Assert.assertTrue(testResult);
-            Wait.seconds(120);
         } catch (Exception exp) {
             Debugger.println("Exception in verifying the stage completed status for :" + stage + ":" + exp);
             Assert.fail("Exception in verifying the stage completed status for :" + stage + ":" + exp);
@@ -518,7 +524,6 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
-        SeleniumLib.takeAScreenShot("ReferalSubmit.jpg");
     }
 
     @When("the user clicks the Cancel referral link")
@@ -844,6 +849,10 @@ public class ReferralSteps extends Pages {
                     searchPatient.setETHNICITY(paramValue);
                     break;
                 }
+                case "Life status": {
+                    searchPatient.setLIFE_STATUS(paramValue);
+                    break;
+                }
             }//switch
         }//for
         String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
@@ -869,7 +878,6 @@ public class ReferralSteps extends Pages {
             if (!patientSearchPage.clickPatientCard()) {
                 Assert.fail("Could not click on Patient Card");
             }
-
             if (!patientDetailsPage.clickStartNewReferralButton()) {
                 Assert.fail("Could not click on StartNewReferral Button");
             }
@@ -889,7 +897,6 @@ public class ReferralSteps extends Pages {
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
-        Debugger.println("Referral Created.....by "+userType);
     }
 
     //Added for Concurrency Test

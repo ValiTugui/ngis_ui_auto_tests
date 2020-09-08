@@ -15,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -294,6 +295,20 @@ public class SamplesPage {
     public int fillInPercentageOfMalignantNuclei() {
         Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
         int percentage = faker.number().numberBetween(2, 99);
+        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+        return percentage;
+    }
+
+    public int fillInPercentageOfMalignantNucleiBelow30() {
+        Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+        int percentage = faker.number().numberBetween(2, 30);
+        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+        return percentage;
+    }
+
+    public int fillInPercentageOfMalignantNucleiAbove30() {
+        Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+        int percentage = faker.number().numberBetween(31, 99);
         Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
         return percentage;
     }

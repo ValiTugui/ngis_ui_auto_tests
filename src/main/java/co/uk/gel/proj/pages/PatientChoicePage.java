@@ -101,6 +101,8 @@ public class PatientChoicePage {
     WebElement docUpload;
     @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle')]")
     WebElement fileTypeDropDown;
+    @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle')]")
+    List<WebElement> fileTypeDropDownList;
 
     @FindBy(xpath = "//input[@placeholder='DD']")
     WebElement uploadDay;
@@ -108,6 +110,12 @@ public class PatientChoicePage {
     WebElement uploadMonth;
     @FindBy(xpath = "//input[@placeholder='YYYY']")
     WebElement uploadYear;
+    @FindBy(xpath = "//input[@placeholder='DD']")
+    List<WebElement> uploadDayList;
+    @FindBy(xpath = "//input[@placeholder='MM']")
+    List<WebElement> uploadMonthList;
+    @FindBy(xpath = "//input[@placeholder='YYYY']")
+    List<WebElement> uploadYearList;
 
     @FindBy(css = "*[class*='participant-list__']")
     public WebElement landingPageList;
@@ -276,6 +284,8 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
     public WebElement fileUploadSuccessMsg;
+    @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
+    public List<WebElement> fileUploadSuccessMsgList;
 
     @FindBy(xpath = "//p[contains(@class,'uploaded-filename')]")
     public WebElement uploadedFileName;
@@ -295,6 +305,37 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button/span[contains(text(),'Try again')]")
     public WebElement tryAgain;
 
+    @FindBy(xpath = "//div[contains(@class,'completed-consent-tile')]")
+    WebElement completedRefCard;
+
+    String removeButton = "//button[contains(text(),'dummyText')]";
+
+    @FindBy(xpath = "//label[contains(text(),'Admin')]")
+    public WebElement adminOrClinicianNameHeader;
+
+    @FindBy(xpath = "//div[@class='text-input']//input")
+    WebElement adminOrClinicianName;
+
+    @FindBy(xpath = "//button[@class='link btn submit-button']")
+    public WebElement submitWithdrawalButton;
+
+    @FindBy(xpath = "//button[contains(text(),' Withdraw from research')]")
+    public WebElement withdrawFromResearchButton;
+
+    @FindBy(xpath = "//div[contains(text(),'Withdrawal received')]")
+    public WebElement WithdrawalReceivedSectionHeader;
+
+    @FindBy(xpath = "//div[@class='tile']//div[@class='completed-consent-tile']")
+    WebElement withdrawalForm;
+
+    @FindBy(xpath = "//div[@class='tile']//p[@class='d-inline-flex tile-subtitle'][contains(text(),'Confirmation ID:')]")
+    WebElement confirmationIdOnWithdrawalForm;
+
+    @FindBy(xpath = "(//p[@class='summary-section-value'])[2]")
+    public WebElement patientTypeOnWithdrawalForm;
+
+    @FindBy(xpath = "//button[@class='finish-button btn ld-ext-left']")
+    public WebElement continueButtonOnWithdrawalForm;
 
     public boolean editPatientChoice() {
         try {
@@ -1151,7 +1192,7 @@ public class PatientChoicePage {
                 }
             }
             org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
-            Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
+            Action drawAction = builder.moveToElement(signaturePad, 135, 15) //start points x axis and y axis.
                     .clickAndHold()
                     .moveByOffset(80, 80)
                     .moveByOffset(50, 20)
@@ -1479,8 +1520,12 @@ public class PatientChoicePage {
     }
 
     public boolean clickOnAmendPatientChoice() {
-        Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
+            if (!Wait.isElementDisplayed(driver,amendPatientChoice,30)) {
+                Debugger.println("Patient Choice Page: Amend button not displayed");
+                SeleniumLib.takeAScreenShot("PatientChoiceAmendOption.jpg");
+                return false;
+            }
             Actions.clickElement(driver, amendPatientChoice);
             Wait.seconds(5);//Observed some delay here while running from jenkins
             return true;
@@ -1709,11 +1754,12 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifyFileTypeDropdownValues(List<String> expectedOptions) {
+    public boolean verifyFileTypeDropdownValues(List<String> expectedOptions,int formNum) {
         try {
-            Wait.forElementToBeDisplayed(driver, fileTypeDropDown, 30);
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDownList.get(formNum), 30);
             String[] expValues = expectedOptions.toArray(new String[0]);
-            Actions.clickElement(driver, fileTypeDropDown);
+            SeleniumLib.scrollToElement(uploadDocumentButton);
+            Actions.clickElement(driver, fileTypeDropDownList.get(formNum));
             Wait.seconds(2);
             boolean isPresent = false;
             //Check the size of the drop down fields - to ensure no extra values present
@@ -1731,11 +1777,11 @@ public class PatientChoicePage {
                     }
                 }//for actual
                 if (!isPresent) {
-                    Debugger.println("Expected drop down value:" + expValues[i] + " not present in File type dropdown in RecordType.");
+                    Debugger.println("Expected drop down value:" + expValues[i] + " not present in File type dropdown for form number:"+formNum+ " in RecordType.");
                     SeleniumLib.takeAScreenShot("FileTypeDD.jpg");
                 }
-                Actions.clickElement(driver, fileTypeDropDown);//Click again to collapse
             }//for expValues
+            Actions.clickElement(driver, fileTypeDropDownList.get(formNum));//Click again to collapse
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying file type dropdown options  : " + exp);
@@ -1744,10 +1790,10 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean dateOfSignatureStatusInRecordedBYSection() {
+    public boolean dateOfSignatureStatusInRecordedBYSection(int formNum) {
         try {
             Wait.forElementToBeDisplayed(driver, uploadDay);
-            if (uploadDay.isEnabled() && uploadMonth.isEnabled() && uploadYear.isEnabled()) {
+            if (uploadDayList.get(formNum).isEnabled() && uploadMonthList.get(formNum).isEnabled() && uploadYearList.get(formNum).isEnabled()) {
                 return true;
             }
             SeleniumLib.takeAScreenShot("PCDateofSignatureStatus.jpg");
@@ -1788,6 +1834,35 @@ public class PatientChoicePage {
         }
     }
 
+    public boolean selectUploadFormTypeForFormNumber(String dropdownValue,int formNum) {
+        try {
+            if (!Wait.isElementDisplayed(driver, fileTypeDropDownList.get(formNum), 30)) {
+                Debugger.println("Could not locate fileTypeDropdown for form number "+formNum+" in PC.");
+                SeleniumLib.takeAScreenShot("PCFileTypeDropdown.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, fileTypeDropDownList.get(formNum));
+            Wait.seconds(2);
+            boolean isSelected = false;
+            for (int j = 0; j < dropDownValues.size(); j++) {//For the actual dropdown values
+                if (dropdownValue.equalsIgnoreCase(dropDownValues.get(j).getText())) {
+                    dropDownValues.get(j).click();
+                    isSelected = true;
+                    break;
+                }
+            }
+            if (!isSelected) {
+                Debugger.println("Could not select the dropdown value:" + dropdownValue + " for form number "+formNum+" from PC Filetype drop down.");
+                SeleniumLib.takeAScreenShot("PCRecordedByDropDown.jpg");
+            }
+            return isSelected;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selecting dropdown in recorded by" + exp);
+            SeleniumLib.takeAScreenShot("PCRecordedByDropDown.jpg");
+            return false;
+        }
+    }
+
     public boolean fillTheDateOfSignatureInRecordedBy() {
         String today[] = TestUtils.getCurrentDay();
         try {
@@ -1803,6 +1878,30 @@ public class PatientChoicePage {
                 seleniumLib.sendValue(uploadMonth, today[1]);
                 seleniumLib.sendValue(uploadYear, today[2]);
                 seleniumLib.sendValue(uploadDay, today[0]);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
+                SeleniumLib.takeAScreenShot("PCDateofSignatureFilling.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean fillTheDateOfSignatureInRecordedByForFormNum(int formNum) {
+        String today[] = TestUtils.getCurrentDay();
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDayList.get(formNum), 5);
+            uploadDayList.get(formNum).sendKeys(today[0]);
+            uploadMonthList.get(formNum).sendKeys(today[1]);
+            uploadYearList.get(formNum).sendKeys(today[2]);
+            uploadDayList.get(formNum).sendKeys(today[0]);//Purposefully entering again to ensure the continue button enabled
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.sendValue(uploadDayList.get(formNum), today[0]);
+                seleniumLib.sendValue(uploadMonthList.get(formNum), today[1]);
+                seleniumLib.sendValue(uploadYearList.get(formNum), today[2]);
+                seleniumLib.sendValue(uploadDayList.get(formNum), today[0]);
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
@@ -1828,6 +1927,27 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Verifying verifyFormUploadSuccessMessage:" + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyFormUploadSuccessMessageForFormNum(String expMessage,int elementNum) {
+        try {
+            if(!Wait.isElementDisplayed(driver, fileUploadSuccessMsgList.get(elementNum),30)){
+                Debugger.println("Upload success message:" + expMessage + " not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
+                return false;
+            }
+            String actualMessage = fileUploadSuccessMsgList.get(elementNum).getText();
+            if (!expMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Upload success message:EXP" + expMessage + ".Actual:"+actualMessage+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Verifying verifyFormUploadSuccessMessage for form number:" +elementNum+"; exception:"+ exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
             return false;
         }
@@ -2065,6 +2185,7 @@ public class PatientChoicePage {
             clickOnContinue();
             Wait.seconds(3);
             verifyTheSectionTitle("Patient choice");
+            Actions.scrollToTop(driver);
             Actions.clickElement(driver, agreeTestChoice);
             Actions.clickElement(driver, agreeResearchParticipation);
             Actions.clickElement(driver, agreeSampleUsage);
@@ -2072,6 +2193,7 @@ public class PatientChoicePage {
             clickOnContinue();
             Wait.seconds(2);
             if (category.equalsIgnoreCase("Child")) {
+                Actions.scrollToTop(driver);
                 verifyTheSectionTitle("Child assent");
                 Actions.scrollToTop(driver);
                 Actions.clickElement(driver, childAssentYes);
@@ -2096,69 +2218,224 @@ public class PatientChoicePage {
             SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
             return false;
         }
-
     }
 
-    public boolean theUserAnswersThePatientChoiceQuestionswithPatientChoiceNotrequiredForRD(String recordedByName) {
-        boolean testResult = false;
+    public boolean selectCompletedReferral() {
         try {
-//            Wait.seconds(20);
-            selectMember(0);
-            clickOnAmendPatientChoice();
-            selectPatientChoiceCategory();
-            Wait.seconds(2);
-            selectTestType("Rare & inherited diseases – WGS");
-            Wait.seconds(2);
-            testResult = enterRecordedDetails(recordedByName);
-            if (!testResult) {
-                return testResult;
+            if (!Wait.isElementDisplayed(driver, completedRefCard, 10)) {
+                Debugger.println("The completed referral card is not displayed");
+                SeleniumLib.takeAScreenShot("CompletedReferralCardNotPresent.jpg");
+                return false;
             }
-            Wait.seconds(2);
-            selectChoicesWithPatientChoiceNotRequired();
-
-            Wait.seconds(2);
-            drawSignature();
-
-            Wait.seconds(2);
-            submitPatientChoice();
-            Wait.seconds(30);
-
-            return testResult;
+            Actions.clickElement(driver, completedRefCard);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Submitting Patient Choice for :" +  "\n" + exp);
-            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
+            Debugger.println("Exception from selectCompletedReferral:" + exp);
+            SeleniumLib.takeAScreenShot("CompletedReferralCardNotPresent.jpg");
             return false;
         }
     }
 
-    String pcStatusPath = "//span[text()='dummyParticipant']//following::li/span[contains(text(),'Patient choice status')]/following-sibling::span/span";
-    public boolean statusVerifiedCorrectlyforParticipants(String status) {
+    public boolean clickOnRemoveDocument(String buttonText) {
         try {
-            if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
-                Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+            WebElement removeDocButton = driver.findElement(By.xpath(removeButton.replace("dummyText", buttonText)));
+            if (!Wait.isElementDisplayed(driver, removeDocButton, 20)) {
+                Debugger.println("The remove document button is not displayed");
+                SeleniumLib.takeAScreenShot("RemoveDocumentButtonError.jpg");
                 return false;
             }
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(status);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey){
-            Debugger.println("The key is "+key);
-            Debugger.println("The key value is "+paramNameValue.get(key));
-            String actualPCStatusPath = pcStatusPath.replace("dummyParticipant",key);
-            WebElement pcStatus = driver.findElement(By.xpath(actualPCStatusPath));
-            String pcStatusText = pcStatus.getText();
-            if (!pcStatusText.equalsIgnoreCase(paramNameValue.get(key))){
-                Debugger.println("Patient Choice Landing Page Status, Actual:" + pcStatusText + ",Expected:" + paramNameValue.get(key));
-                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
-                return false;
-            }
+            Wait.seconds(2);//Waiting for the document to load
+            seleniumLib.highLightWebElement(removeDocButton);
+            seleniumLib.clickOnWebElement(removeDocButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickOnRemoveDocument:" + exp);
+            SeleniumLib.takeAScreenShot("RemoveDocumentButtonError.jpg");
+            return false;
         }
+    }
+
+    public boolean clickOnRecordOfDiscussionForm() {
+        try {
+            Wait.forElementToBeDisplayed(driver, patientChoiceResultTab);
+            if (!seleniumLib.isElementPresent(confirmationID)) {
+                Debugger.println("Confirmation ID is not found...");
+                SeleniumLib.takeAScreenShot("ClickOnRecordOfDiscussionForm.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, patientChoiceResultTab);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: clickOnRecordOfDiscussionForm: " +exp);
+            SeleniumLib.takeAScreenShot("ClickOnRecordOfDiscussionForm.jpg");
+            return false;
+        }
+    }
+
+     public boolean viewWithdrawButton() {
+        try{
+            if(!Wait.isElementDisplayed(driver,withdrawFromResearchButton,10)){
+                Debugger.println("Withdraw from research button is not displayed");
+                SeleniumLib.takeAScreenShot("NoWithdrawButton.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from: viewWithdrawButton: " +exp);
+            SeleniumLib.takeAScreenShot("WithdrawButtonNotFound.jpg");
+            return false;
+        }
+    }
+    public boolean clickOnWithdrawButton() {
+        Wait.seconds(5);//To load the record of discussion form
+        try {
+            Actions.scrollToTop(driver);
+            if(!seleniumLib.isElementPresent(withdrawFromResearchButton)){
+                Debugger.println("Withdraw from research button is not displayed");
+                SeleniumLib.takeAScreenShot("NoWithdrawButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, withdrawFromResearchButton);
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Exception from: clickOnWithdrawButton: " +exp);
+            SeleniumLib.takeAScreenShot("WithdrawButtonNotFound.jpg");
+            return false;
+        }
+    }
+    public boolean viewWithdrawalReceivedSection() {
+        try{
+            if(!Wait.isElementDisplayed(driver, WithdrawalReceivedSectionHeader, 30)){
+                Debugger.println("Withdrawal Received Section is not present");
+                SeleniumLib.takeAScreenShot("NoWithdrawalReceivedSection.jpg");
+                return false;
+            }
+            Debugger.println("Withdrawal Received Section Header is present");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: viewWithdrawalReceivedSection " +exp);
+            SeleniumLib.takeAScreenShot("NoWithdrawalReceivedSection.jpg");
+            return false;
+        }
+    }
+    public boolean selectWithdrawalDetails(String expButton) {
+        Wait.seconds(5);// To load the Withdrawal Received details
+        try {
+            String  withdrawalOptions = "//button[text() = ' "+ expButton +" ']";
+            if(!Wait.isElementDisplayed(driver, driver.findElement(By.xpath(withdrawalOptions)),30)){
+                Debugger.println("Withdrawal Details: " + expButton + " is not found");
+                SeleniumLib.takeAScreenShot("NoWithdrawalDetails.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, driver.findElement(By.xpath(withdrawalOptions)));
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: selectWithdrawalDetails " +exp);
+            SeleniumLib.takeAScreenShot("NoWithdrawalDetails.jpg");
+            return false;
+        }
+    }
+
+    public boolean fillAdminOrClinicianName(String adminName) {
+        try{
+            if(!Wait.isElementDisplayed(driver, adminOrClinicianNameHeader, 30)){
+                Debugger.println("Admin or clinician name header is not displayed");
+                SeleniumLib.takeAScreenShot("NoAdminOrClinicianName.jpg");
+                return false;
+            }
+            adminOrClinicianName.sendKeys(adminName);
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from: fillAdminOrClinicianName " +exp);
+            SeleniumLib.takeAScreenShot("NoAdminOrClinicianName.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnSubmitWithdrawalButton() {
+        try{
+            Wait.forElementToBeDisplayed(driver, submitWithdrawalButton,20);
+            seleniumLib.clickOnWebElement(submitWithdrawalButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice: clickOnSubmitWithdrawalButton" + exp);
+            SeleniumLib.takeAScreenShot("NoSubmitWithdrawalButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnWithdrawalForm() {
+        try {
+            Actions.scrollToTop(driver);
+            Wait.forElementToBeDisplayed(driver, withdrawalForm);
+            if (!seleniumLib.isElementPresent(confirmationIdOnWithdrawalForm)) {
+                Debugger.println("Confirmation ID is not found on withdrawal form");
+                SeleniumLib.takeAScreenShot("NoConfirmationID.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, withdrawalForm);
+            Wait.seconds(5); //To load the Withdrawal Form
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: clickOnWithdrawalForm: " +exp);
+            SeleniumLib.takeAScreenShot("WithdrawalFormNotFound.jpg");
+            return false;
+        }
+    }
+
+     public boolean verifyThePatientCategory(String inputData) {
+        try{
+            if(!Wait.isElementDisplayed(driver, patientTypeOnWithdrawalForm, 30)){
+                Debugger.println("patient Category" +inputData+ "On Withdrawal Form is not displayed");
+                SeleniumLib.takeAScreenShot("NoPatientCategory");
+                return false;
+            }
+            if(!patientTypeOnWithdrawalForm.getText().equalsIgnoreCase(inputData)){
+                Debugger.println("Expected value is: "+inputData+ "Actual value is: " +patientTypeOnWithdrawalForm.getText()+ " are not match");
+                SeleniumLib.takeAScreenShot("NoPatientCategory");
+                return false;
+            }
+            Wait.seconds(5);// To load the form
+            Debugger.println("Expected value is: "+inputData+ " Actual value is: " +patientTypeOnWithdrawalForm.getText());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from: verifyThePatientCategory " +exp);
+            SeleniumLib.takeAScreenShot("PatientCategoryNotDisplayed.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnContinueButton() {
+        try{
+            if(!Wait.isElementDisplayed(driver, continueButtonOnWithdrawalForm, 30)){
+                Debugger.println("Continue Button On Withdrawal Form is not displayed");
+                SeleniumLib.takeAScreenShot("NoContinueButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, continueButtonOnWithdrawalForm);
            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from statusUpdatedCorrectly:" + exp);
-            SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");
+            Debugger.println("Exception from: clickOnContinueButton " +exp);
+            SeleniumLib.takeAScreenShot("NoContinueButton.jpg");
             return false;
         }
     }
+
+    public boolean verifyUploadButtonStatus() {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            if (!(uploadDocumentButton.isEnabled())){
+                Debugger.println("Upload button is not enabled");
+                SeleniumLib.takeAScreenShot("VerifyUploadButtonStatus.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyUploadButtonStatus " + exp);
+            SeleniumLib.takeAScreenShot("VerifyUploadButtonStatus.jpg");
+            return false;
+        }
+    }
+
 
 }//end

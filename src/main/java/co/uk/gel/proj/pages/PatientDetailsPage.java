@@ -52,6 +52,38 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@id='dateOfBirthYear']")
     public WebElement dateOfBirthYear;
 
+    @FindBy(xpath = "//input[@id='birthDateDay']")
+    public WebElement dateOfBirthDay_patientsearch;
+    @FindBy(xpath = "//input[@id='birthDateMonth']")
+    public WebElement dateOfBirthMonth_patientsearch;
+    @FindBy(xpath = "//input[@id='birthDateYear']")
+    public WebElement dateOfBirthYear_patientsearch;
+
+    @FindBy(xpath = "//div[contains(text(),'Day')]")
+    public WebElement dayfield;
+    @FindBy(xpath = "//div[contains(text(),'Month')]")
+    public WebElement monthfield;
+    @FindBy(xpath = "//div[contains(text(),'Year')]")
+    public WebElement yearfield;
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisDay']")
+    public WebElement dateOfDay_dateOfDiagnosis;
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisMonth']")
+    public WebElement dateOfMonth_dateOfDiagnosis;
+    @FindBy(xpath = "//input[@id='dateOfDiagnosisYear']")
+    public WebElement dateOfYear_dateOfDiagnosis;
+    @FindBy(xpath = "//input[@id='unit-id-samples-normal_or_germline_sample-37.answers.question-id-q328Day']")
+    public WebElement dateOfDay_SampleDetails;
+    @FindBy(xpath = "//input[@id='unit-id-samples-normal_or_germline_sample-37.answers.question-id-q328Month']")
+    public WebElement dateOfMonth_SampleDetails;
+    @FindBy(xpath = "//input[@id='unit-id-samples-normal_or_germline_sample-37.answers.question-id-q328Year']")
+    public WebElement dateOfYear_SampleDetails;
+    @FindBy(xpath = "//input[@placeholder='DD']")
+    public WebElement dateOfDay_dateOfSignature;
+    @FindBy(xpath = "//input[@placeholder='MM']")
+    public WebElement dateOfMonth_dateOfSignature;
+    @FindBy(xpath = "//input[@placeholder='YYYY']")
+    public WebElement dateOfYear_dateOfSignature;
+
    // public WebElement dateOfDeath;
     public WebElement nhsNumber;
     @FindBy(xpath = "//input[@id='hospitalNumber']")
@@ -1098,6 +1130,9 @@ public class PatientDetailsPage {
             if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
                 referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             }
+            if (referralDetails.getLIFE_STATUS() == null || referralDetails.getLIFE_STATUS().isEmpty()) {
+                referralDetails.setLIFE_STATUS("Alive");
+            }
             if (referralDetails.getETHNICITY() == null || referralDetails.getETHNICITY().isEmpty()) {
                 referralDetails.setETHNICITY("A - White - British");
             }
@@ -1115,7 +1150,8 @@ public class PatientDetailsPage {
             Actions.fillInValue(firstName, referralDetails.getFIRST_NAME());
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
             selectGender(administrativeGenderButton, referralDetails.getGENDER());
-            editDropdownField(lifeStatusButton, "Alive");
+//            editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(lifeStatusButton,referralDetails.getLIFE_STATUS());
             editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
             //Address
@@ -1175,62 +1211,62 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
-    public boolean updatePatientDetails(String patientDetails){
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey) {
-            switch (key) {
-                case "Title": {
-                    seleniumLib.sendValue(title, paramNameValue.get(key));
-                    break;
-                }
-                case "FirstName": {
-                    seleniumLib.sendValue(firstName, paramNameValue.get(key));
-                    break;
-                }
-                case "LastName": {
-                    seleniumLib.sendValue(familyName, paramNameValue.get(key));
-                    break;
-                }
-                case "DOB": {
-                    String dobValue = paramNameValue.get(key);
-                    if (dobValue != null && !dobValue.isEmpty()) {
-                        String[] dobSplit = dobValue.split("-");
-                        seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
-                        seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
-                        seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
-                    }
-                    break;
-                }
-                case "Gender": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        selectGender(administrativeGenderButton, paramNameValue.get(key));
-                    }
-                    break;
-                }
-                case "LifeStatus": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
-
-                    }
-                    break;
-                }
-                case "Ethnicity": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        editDropdownField(ethnicityButton, paramNameValue.get(key));
-                    }
-                    break;
-                }
-                case "Postcode": {
-                    seleniumLib.sendValue(postcodeField, paramNameValue.get(key));
-                    break;
-
-                }
-
-            }
-        }
-        return true;
-    }
+//    public boolean updatePatientDetails(String patientDetails){
+//        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
+//        Set<String> paramsKey = paramNameValue.keySet();
+//        for (String key : paramsKey) {
+//            switch (key) {
+//                case "Title": {
+//                    seleniumLib.sendValue(title, paramNameValue.get(key));
+//                    break;
+//                }
+//                case "FirstName": {
+//                    seleniumLib.sendValue(firstName, paramNameValue.get(key));
+//                    break;
+//                }
+//                case "LastName": {
+//                    seleniumLib.sendValue(familyName, paramNameValue.get(key));
+//                    break;
+//                }
+//                case "DOB": {
+//                    String dobValue = paramNameValue.get(key);
+//                    if (dobValue != null && !dobValue.isEmpty()) {
+//                        String[] dobSplit = dobValue.split("-");
+//                        seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+//                        seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+//                        seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+//                    }
+//                    break;
+//                }
+//                case "Gender": {
+//                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+//                        selectGender(administrativeGenderButton, paramNameValue.get(key));
+//                    }
+//                    break;
+//                }
+//                case "LifeStatus": {
+//                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+//                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
+//
+//                    }
+//                    break;
+//                }
+//                case "Ethnicity": {
+//                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+//                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+//                    }
+//                    break;
+//                }
+//                case "Postcode": {
+//                    seleniumLib.sendValue(postcodeField, paramNameValue.get(key));
+//                    break;
+//
+//                }
+//
+//            }
+//        }
+//        return true;
+//    }
     public boolean verifyPatientDetails(String patientDetails){
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
         Set<String> paramsKey = paramNameValue.keySet();
@@ -1537,7 +1573,6 @@ public class PatientDetailsPage {
             return "Could not fill Date Of Birth: "+exp;
         }
     }
-
     public String clearDateOfBirth() {
         try {
             if (!seleniumLib.isElementPresent(dateOfBirthDay)) {
@@ -1553,21 +1588,469 @@ public class PatientDetailsPage {
         }
     }
 
-    public static String updatedfirstname;
-    public static String updatedlastname;
 
-    public void verifyName() {
-
-        updatedfirstname = firstName.getText();
-        updatedlastname = familyName.getText();
+    public String fillBirthday(String Birthday){
+        try {
+            seleniumLib.sendValue(dateOfBirthDay, Birthday);
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
+            return "Could not fill Date Of Birthday: "+exp;
+        }
     }
 
-    public boolean updateFamilyMemberDetails(String familyMemberDetails) {
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+    public String fillBirthYear(String BirthYear){
+        try {
+            seleniumLib.sendValue(dateOfBirthYear, BirthYear);
+            return "Success";
+        }catch(Exception exp){
+            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
+            return "Could not fill month Of Birthyear: "+exp;
+        }
+    }
+
+
+    public boolean dayfield() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dayfield, 10)) {
+                Debugger.println("dayfield not displayed.");
+                SeleniumLib.takeAScreenShot("dayfield.jpg");
+                return false;
+            }
+            return true;
+        }  catch (Exception exp1) {
+            Debugger.println("Exception from checking dayfield:" + exp1);
+            SeleniumLib.takeAScreenShot("subPageTitle.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean clickDayinputfield() {
+        try {
+            if (!Wait.isElementDisplayed(driver,dateOfBirthDay_patientsearch, 30)) {
+                Debugger.println("day of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfBirthDay_patientsearch.isEnabled());
+            if (!dateOfBirthDay_patientsearch.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfBirthDay_patientsearch);
+
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfBirthDay);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickDayinputfield_1() {
+        try {
+            if (!Wait.isElementDisplayed(driver,dateOfBirthDay, 30)) {
+                Debugger.println("day of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfBirthDay.isEnabled());
+            if (!dateOfBirthDay.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfBirthDay);
+
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfBirthDay);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+        }
+    }
+    public boolean monthfield() {
+        try {
+            if (!Wait.isElementDisplayed(driver, monthfield, 10)) {
+                Debugger.println("monthfield not displayed.");
+                SeleniumLib.takeAScreenShot("monthfield.jpg");
+                return false;
+            }
+            return true;
+        }  catch (Exception exp1) {
+            Debugger.println("Exception from checking monthfield:" + exp1);
+            SeleniumLib.takeAScreenShot("monthTitle.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean clickMonthinputfield() {
+        try {
+            if (!Wait.isElementDisplayed(driver,dateOfBirthMonth_patientsearch, 30)) {
+                Debugger.println("Month of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfBirthMonth_patientsearch.isEnabled());
+            if (!dateOfBirthMonth_patientsearch.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfBirthMonth_patientsearch);
+
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfBirthMonth_patientsearch);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickMonthinputfield_1() {
+        try {
+            if (!Wait.isElementDisplayed(driver,dateOfBirthMonth, 30)) {
+                Debugger.println("Month of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfBirthMonth.isEnabled());
+            if (!dateOfBirthMonth.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfBirthMonth);
+
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfBirthMonth);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+        }
+    }
+    public boolean yearfield() {
+        try {
+            if (!Wait.isElementDisplayed(driver, yearfield, 10)) {
+                Debugger.println("yearfield not displayed.");
+                SeleniumLib.takeAScreenShot("yearfield.jpg");
+                return false;
+            }
+            return true;
+        }
+        catch (Exception exp1) {
+            Debugger.println("Exception from checking yearfield:" + exp1);
+            SeleniumLib.takeAScreenShot("yearTitle.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean clickYearinputfield() {
+        try {
+            if (!Wait.isElementDisplayed(driver,dateOfBirthYear_patientsearch, 30)) {
+                Debugger.println("Year of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfBirthYear_patientsearch.isEnabled());
+            if (!dateOfBirthYear_patientsearch.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfBirthYear_patientsearch);
+
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfBirthYear_patientsearch);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickYearinputfield_1() {
+        try {
+            if (!Wait.isElementDisplayed(driver,dateOfBirthYear, 30)) {
+                Debugger.println("Year of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfBirthYear.isEnabled());
+            if (!dateOfBirthYear.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfBirthYear);
+
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfBirthYear);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickDayInputFieldDateOfDiagnosis() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfDay_dateOfDiagnosis, 30)) {
+                Debugger.println("day of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfDay_dateOfDiagnosis.isEnabled());
+            if (!dateOfDay_dateOfDiagnosis.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfDay_dateOfDiagnosis);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfDay_dateOfDiagnosis);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickMonthInputFieldDateOfDiagnosis() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfMonth_dateOfDiagnosis, 30)) {
+                Debugger.println("Month of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfMonth_dateOfDiagnosis.isEnabled());
+            if (!dateOfMonth_dateOfDiagnosis.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfMonth_dateOfDiagnosis);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfMonth_dateOfDiagnosis);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickYearInputFieldDateOfDiagnosis() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfYear_dateOfDiagnosis, 30)) {
+                Debugger.println("Year of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " +dateOfYear_dateOfDiagnosis.isEnabled());
+            if (!dateOfYear_dateOfDiagnosis.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfYear_dateOfDiagnosis);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfYear_dateOfDiagnosis);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickDayInputFieldSampleDetails() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfDay_SampleDetails, 30)) {
+                Debugger.println("day of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfDay_SampleDetails.isEnabled());
+            if (!dateOfDay_SampleDetails.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfDay_SampleDetails);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfDay_SampleDetails);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickMonthInputFieldSampleDetails() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfMonth_SampleDetails, 30)) {
+                Debugger.println("Month of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfMonth_SampleDetails.isEnabled());
+            if (!dateOfMonth_SampleDetails.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfMonth_SampleDetails);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfMonth_SampleDetails);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickYearInputFieldSampleDetails() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfYear_SampleDetails, 30)) {
+                Debugger.println("Year of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " +dateOfYear_SampleDetails.isEnabled());
+            if (!dateOfYear_SampleDetails.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfYear_SampleDetails);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfYear_SampleDetails);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickDayInputFieldDateOfSignature() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfDay_dateOfSignature, 30)) {
+                Debugger.println("day of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " +dateOfDay_dateOfSignature.isEnabled());
+            if (!dateOfDay_SampleDetails.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfDay_dateOfSignature);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfDay_dateOfSignature);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickMonthInputFieldDateOfSignature() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfMonth_dateOfSignature, 30)) {
+                Debugger.println("Month of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " + dateOfMonth_dateOfSignature.isEnabled());
+            if (!dateOfMonth_dateOfSignature.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfMonth_dateOfSignature);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfMonth_dateOfSignature);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean clickYearInputFieldDateOfSignature() {
+        try {
+            if (!Wait.isElementDisplayed(driver, dateOfYear_dateOfSignature, 30)) {
+                Debugger.println("Year of Birthday field not displayed.");
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+            Debugger.println("Status: " +dateOfYear_dateOfSignature.isEnabled());
+            if (!dateOfYear_dateOfSignature.isEnabled()) {
+                Wait.seconds(3);
+            }
+            Actions.clickElement(driver, dateOfYear_dateOfSignature);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(dateOfYear_dateOfSignature);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean updatePatientDetails(String patientDetails){
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
             switch (key) {
-
+                case "FirstName": {
+                    seleniumLib.sendValue(firstName, paramNameValue.get(key));
+                    break;
+                }
+                case "LastName": {
+                    seleniumLib.sendValue(familyName, paramNameValue.get(key));
+                    break;
+                }
                 case "DOB": {
                     String dobValue = paramNameValue.get(key);
                     if (dobValue != null && !dobValue.isEmpty()) {
@@ -1578,19 +2061,15 @@ public class PatientDetailsPage {
                     }
                     break;
                 }
-
                 case "Gender": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        selectGender(genderPath, paramNameValue.get(key));
+                        selectGender(administrativeGenderButton, paramNameValue.get(key));
                     }
                     break;
                 }
-
-
                 case "LifeStatus": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         editDropdownField(lifeStatusButton, paramNameValue.get(key));
-
                     }
                     break;
                 }
@@ -1609,6 +2088,22 @@ public class PatientDetailsPage {
             }
         }
         return true;
+    }
+
+    public String readGenderValue() {
+        try {
+            if (!Wait.isElementDisplayed(driver, administrativeGenderButton, 5)) {
+                Debugger.println("GenderButton is not loaded.");
+                SeleniumLib.takeAScreenShot("readGenderValue.jpg");
+                return null;
+            }
+            return administrativeGenderButton.getText();
+        }
+        catch (Exception exp){
+            Debugger.println("Exception from readGenderValue:" + exp);
+            SeleniumLib.takeAScreenShot("readGenderValue.jpg");
+            return null;
+        }
     }
 
     public boolean verifyFamilyMemberDetails(String familyMemberDetails) {

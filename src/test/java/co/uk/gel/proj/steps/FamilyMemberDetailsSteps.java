@@ -7,6 +7,7 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.ReferralPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
@@ -19,6 +20,7 @@ import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class FamilyMemberDetailsSteps extends Pages {
 
@@ -367,6 +369,11 @@ public class FamilyMemberDetailsSteps extends Pages {
                         familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
                     } else {
                         familyMember.setETHNICITY("A - White - British");
+                    }
+                    if (paramNameValue.get("Life status")!=null) {
+                        familyMember.setLIFE_STATUS(paramNameValue.get("Life status"));
+                    } else {
+                        familyMember.setLIFE_STATUS("Alive");
                     }
                     if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": fillInNHSNumberAndDateOfBirth Failed");

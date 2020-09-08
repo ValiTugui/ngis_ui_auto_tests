@@ -337,7 +337,11 @@ public class MilHomePageSteps extends Pages {
     @When("the user drag the column header {string} from the section {string} to {string} section")
     public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
         boolean testResult = false;
-        testResult = miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
+        if(toSection.equalsIgnoreCase("Hide")) {
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToHideSection(columnHeader);
+        }else{
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToShowSection(columnHeader);
+        }
          Assert.assertTrue(testResult);
     }
 
@@ -442,6 +446,7 @@ public class MilHomePageSteps extends Pages {
         testResult = miPortalHomePage.verifyThePresenceOfDataQualityMenu();
         Assert.assertTrue(testResult);
     }
+
     @Then("the user should be able to see the below header sections in Sample Processing")
     public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInSampleProcessing(DataTable inputSections) {
         try {
@@ -460,6 +465,12 @@ public class MilHomePageSteps extends Pages {
             Debugger.println("Exception from Sample Processing Section Header " + exp);
             Assert.assertFalse("MilHomePageSteps: Exception from Sample Processing Section Header " + exp, true);
         }
+    }
+    @And("the user should be able to see Participant NHS Spine Data menu is displayed")
+    public void theUserShouldBeAbleToSeeNHSSpineDataMenuIsDisplayed() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyThePresenceOfParticipantNHSSpineDataMenu();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see the below header sections in Data Quality")
@@ -594,6 +605,12 @@ public class MilHomePageSteps extends Pages {
     public void theUserClickOnFileSubmissionSectionSelectTheFiltersAndClickOnAddButtonAndClickOnSearchButton(String miPage) {
         Assert.assertTrue(miPortalHomePage.navigateToMiPage(miPage));
         Debugger.println("Navigated to " + miPage);
+        if (miPage.equals("File Submissions"))
+        {
+            Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchColumn("Status"));
+            Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchOperator("is"));
+            Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchValue("Valid"));
+        }
         Assert.assertTrue(miPortalHomePage.clickAddButton());
         Debugger.println("Add button is clicked");
         if(AppConfig.snapshotRequired){
