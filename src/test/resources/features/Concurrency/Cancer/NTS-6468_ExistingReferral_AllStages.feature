@@ -85,7 +85,7 @@ Feature: NTS-6468:Cancer_existing_referral_all_stages: Submit and verify the cha
       | Patient details | FirstName=James123:LastName=Peter123:DOB=20-10-1997:Gender=Male:LifeStatus=Alive:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | Priority=Urgent    | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Edinburgh,UK | Tumours | TumourType=Brain tumour:SIHMDSLabID=VBN89756 | Answer questions about this tumour | FirstPresentation=Recurrence | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected | Notes | Notes updated by user2 | Patient choice | Proband=Authorised by clinician |
 
   #User2
-  @Cancer_existing_referral_all_stages @Z-LOGOUT
+  @NTS-6468 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | r20279927085 | NRF1 |
