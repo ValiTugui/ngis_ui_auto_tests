@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6616:Cancer_new_referral_patientChoice: Navigate and verify the changes on Patient choice stage done by another user
   ###FLOW
   #User1 Login to new Referral

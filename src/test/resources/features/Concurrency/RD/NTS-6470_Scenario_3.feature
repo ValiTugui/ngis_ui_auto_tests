@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_RD
-Feature: Proband details updated and same proband patient verified in another referral.
+Feature: NTS-6470: Proband details updated and same proband patient verified in another referral.
 
   ###FLOW
   #User1 Login to an existing Referral - Proband

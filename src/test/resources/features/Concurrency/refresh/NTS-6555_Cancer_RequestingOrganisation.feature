@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6555:Cancer_new_referral_RequestingOrganisation: Navigate and verify the changes on Requesting organisation and print forms stage done by another user
 ###FLOW
   #User1 Login to new Referral

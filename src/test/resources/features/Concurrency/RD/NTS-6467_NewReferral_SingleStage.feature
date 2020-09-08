@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_RD
-Feature: NTS-6467:RD_new_referral_single_stage:Create New Referral for RD flow and verify the stage update messages
+Feature: NTS-6467:Create New Referral for RD flow and verify the stage update messages
   ###FLOW
   #User1 creates new referral and entered all mandatory stages
   #User2 Login to the same referral

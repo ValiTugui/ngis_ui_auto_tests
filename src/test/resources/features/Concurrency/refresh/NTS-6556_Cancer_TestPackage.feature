@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6556:Cancer_new_referral_TestPackage: Navigate and verify the changes on Test Package stage done by another user
 ###FLOW
   #User1 Login to new Referral

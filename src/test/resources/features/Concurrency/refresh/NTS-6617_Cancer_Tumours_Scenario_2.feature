@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6617:Cancer_new_referral_Tumours_edit: Navigate and verify the changes on Tumours stage done by another user
   ###FLOW
   #This is for editing the added tumour

@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6610:RD_new_referral_Panels: Navigate and verify the changes on Panels stage done by another user
 ###FLOW
   #User1 Login to new Referral

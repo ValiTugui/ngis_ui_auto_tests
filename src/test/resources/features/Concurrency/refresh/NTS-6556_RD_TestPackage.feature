@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6556:RD_new_referral_TestPackage: Navigate and verify the changes on Test Package and its related stage done by another user
 ###FLOW
   #User1 Login to new Referral

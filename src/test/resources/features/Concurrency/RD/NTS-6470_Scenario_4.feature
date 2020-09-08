@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_RD
-Feature: Family member details updated and same Family member patient verified in another referral.
+Feature: NTS-6470: Family member details updated and same Family member patient verified in another referral.
 
   ###FLOW
   #User1 Login to an existing Referral - Proband and family member

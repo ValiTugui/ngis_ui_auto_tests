@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6618:Cancer_new_referral_Samples: Navigate and verify the changes on Samples stage done by another user
   ###FLOW
   #User1 Login to new Referral

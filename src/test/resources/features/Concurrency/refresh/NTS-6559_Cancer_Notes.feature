@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6559:Cancer_new_referral_Notes: Navigate and verify the changes on Notes stage done by another user
   ###FLOW
   #User1 Login to new Referral

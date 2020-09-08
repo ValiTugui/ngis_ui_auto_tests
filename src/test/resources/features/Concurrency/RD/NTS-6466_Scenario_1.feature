@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_RD
-Feature: Proband patient details updated by user3, and user1 and user2 submit and verify the changes
+Feature: NTS-6466: Proband patient details updated by user3, and user1 and user2 submit and verify the changes
 
   ###FLOW
   #User1 Login to an existing Referral

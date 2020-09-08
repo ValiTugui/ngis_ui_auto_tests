@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the changes on Clinical Questions stage done by another user
 ###FLOW
   #User1 Login to new Referral

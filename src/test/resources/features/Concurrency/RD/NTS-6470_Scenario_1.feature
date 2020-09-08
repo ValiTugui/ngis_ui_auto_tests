@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_RD
-Feature: Proband details updated as family member in another referral, submit and verify the changes
+Feature: NTS-6470: Proband details updated as family member in another referral, submit and verify the changes
 
   ###FLOW
   #User1 Login to an existing Referral - Proband

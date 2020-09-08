@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6616:RD_new_referral_PatientChoice: Navigate and verify the changes on Patient Choice stage done by another user
 ###FLOW
   #User1 Login to new Referral

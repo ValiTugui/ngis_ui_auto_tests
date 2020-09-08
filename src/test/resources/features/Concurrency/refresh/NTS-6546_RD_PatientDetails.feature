@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the changes on Patient details stage done by another user
 ###FLOW
   #User1 Login to new Referral

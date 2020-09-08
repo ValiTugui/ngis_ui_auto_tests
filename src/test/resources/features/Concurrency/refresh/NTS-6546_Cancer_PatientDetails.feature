@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@Cancer
+@Refresh_Cancer
 Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the changes on Patient details stage done by another user
   ###FLOW
   #User1 Login to new Referral

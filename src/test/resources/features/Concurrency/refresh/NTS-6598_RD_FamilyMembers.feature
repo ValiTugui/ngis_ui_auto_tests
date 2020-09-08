@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes on Family Members stage done by another user
 ###FLOW
   #User1 Login to new Referral

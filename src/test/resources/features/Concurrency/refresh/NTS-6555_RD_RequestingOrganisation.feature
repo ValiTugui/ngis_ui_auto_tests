@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify the changes on Requesting organisation and print forms stage done by another user
   ###FLOW
   #User1 Login to new Referral

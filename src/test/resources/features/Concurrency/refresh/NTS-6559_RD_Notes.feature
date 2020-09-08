@@ -1,6 +1,6 @@
 @Concurrency
 @Refresh
-@RD
+@Refresh_RD
 Feature: NTS-6559:RD_new_referral_Notes: Navigate and verify the changes on Notes stage done by another user
 ###FLOW
   #User1 Login to new Referral
