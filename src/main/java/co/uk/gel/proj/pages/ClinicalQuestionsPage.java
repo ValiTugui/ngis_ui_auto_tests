@@ -512,14 +512,12 @@ public class ClinicalQuestionsPage {
         }
     }//method
 
-    //Method added by @Stag for filling the ClinicalQuestionsPage
     public boolean fillDiseaseStatusAgeOfOnset(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
-        String actValue = "";
         for (String key : paramsKey) {
             switch (key) {
-                case "DiseaseStatus": {
+                case "DiseaseStatus":
                     //DiseaseStatus
                     String paramValue = paramNameValue.get(key);
                     if (paramValue != null && !paramValue.isEmpty()) {
@@ -527,38 +525,22 @@ public class ClinicalQuestionsPage {
                             return false;
                         }
                     }
-                    break;
-                }
-            }
-            //AgeOfOnset
-            switch (key) {
-                case "AgeOfOnset": {
+                break;
+                case "AgeOfOnset":
                     String dOBValue = paramNameValue.get(key);
                     if (dOBValue != null && !dOBValue.isEmpty()) {
                         String[] age_of_onsets = dOBValue.split(",");
                         seleniumLib.sendValue(ageOfOnsetYearsField, age_of_onsets[0]);
                         seleniumLib.sendValue(ageOfOnsetMonthsField, age_of_onsets[1]);
                     }
-                    break;
-                }
-            }
-            //add HPOterm
-            switch (key) {
-                case "HPOPhenoType": {
-                    boolean isFilled = false;
-                    boolean isPhenotypePresent = false;
+                break;
+                case "HPOPhenoType":
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        isPhenotypePresent = true;
                         if (!(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key)) > 0)) {
-                            isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
-                        } else {
-                            isFilled = true;
+                            isHPOAlreadyConsidered(paramNameValue.get(key));
                         }
-
                     }
-                    break;
-
-                }
+                break;
             }
         }
         return true;
@@ -578,7 +560,6 @@ public class ClinicalQuestionsPage {
         paramValue = paramNameValue.get("AgeOfOnset");
         if (paramValue != null && !paramValue.isEmpty()) {
             String[] age_of_onsets = paramValue.split(",");
-
             seleniumLib.sendValue(ageOfOnsetYearsField, age_of_onsets[0]);
             seleniumLib.sendValue(ageOfOnsetMonthsField, age_of_onsets[1]);
         }
@@ -591,32 +572,23 @@ public class ClinicalQuestionsPage {
         String actValue = "";
         for (String key : paramsKey) {
             switch (key) {
-                case "DiseaseStatus": {
+                case "DiseaseStatus":
                     actValue = seleniumLib.getText(diseaseStatusDropdown);
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
                         Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
                     }
-                    break;
-                }
-            }
-            switch (key) {
-                case "AgeOfOnset": {
-                    String[] age_of_onset = key.split(",");
+                break;
+                case "AgeOfOnset":
                     String actValueMonth = ageOfOnsetYearsField.getAttribute("value");
                     String actValueYear = ageOfOnsetMonthsField.getAttribute("value");
-                     actValue =  actValueMonth+","+actValueYear;
-                    if (!(actValue).equalsIgnoreCase(paramNameValue.get(key)) )
-                    {
+                    actValue = actValueMonth + "," + actValueYear;
+                    if (!(actValue).equalsIgnoreCase(paramNameValue.get(key))) {
                         Debugger.println("Expected :" + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
                     }
-                    break;
-                          }
-            }
-            switch (key) {
-                case "HPOPhenoType": {
-
+                break;
+                case "HPOPhenoType":
                     Wait.seconds(2);
                     if (!Wait.isElementDisplayed(driver, hpoTable, 30)) {
                         Debugger.println("hpoTable not displayed");
@@ -628,11 +600,9 @@ public class ClinicalQuestionsPage {
                             return true;
                         }
                     }
-                    break;
-                }
-
-            }
-        }
+                break;
+            }//switch
+        }//for
         return true;
     }
     public boolean verifyFamilyMemberClinicalQuestions(String clinicalInfo) {
@@ -641,18 +611,14 @@ public class ClinicalQuestionsPage {
         String actValue = "";
         for (String key : paramsKey) {
             switch (key) {
-                case "DiseaseStatus": {
+                case "DiseaseStatus":
                     actValue = seleniumLib.getText(diseaseStatusDropdown);
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
                         Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
                     }
-                    break;
-                }
-            }
-            switch (key) {
-                case "AgeOfOnset": {
-                    String[] age_of_onset = key.split(",");
+                break;
+                case "AgeOfOnset":
                     String actValueMonth = ageOfOnsetYearsField.getAttribute("value");
                     String actValueYear = ageOfOnsetMonthsField.getAttribute("value");
                     actValue = actValueMonth + "," + actValueYear;
@@ -660,9 +626,8 @@ public class ClinicalQuestionsPage {
                         Debugger.println("Expected :" + paramNameValue.get(key) + ", Actual:" + actValue);
                         return false;
                     }
-                    break;
-                }
-            }
+                break;
+             }
         }
         return true;
     }

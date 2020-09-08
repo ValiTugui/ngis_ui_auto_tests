@@ -1603,50 +1603,5 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
-    public boolean verifyDiseaseStatusDetails(String diseaseStatusDetails) {
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(diseaseStatusDetails);
-        Set<String> paramsKey = paramNameValue.keySet();
-        String actValue = "";
-        String expValue = "";
-        for (String key : paramsKey) {
-            expValue = paramNameValue.get(key);
-            switch (key) {
-                case "DiseaseStatus": {
-                    actValue = seleniumLib.getText(diseaseStatusDropdown);
-                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
-                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-            }
-            switch (key) {
-                case "AgeOfOnset": {
-                    String[] age_of_onset = key.split(",");
-                    String actValueMonth = ageOfOnsetYearsField.getAttribute("value");
-                    String actValueYear = ageOfOnsetMonthsField.getAttribute("value");
-                    actValue = actValueMonth + "," + actValueYear;
-                    if (!(actValue).equalsIgnoreCase(paramNameValue.get(key))) {
-                        Debugger.println("Expected :" + paramNameValue.get(key) + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-            }
-            switch (key) {
-                case "HpoPhenoType": {
-                    if (!isHPOAlreadyConsidered(paramNameValue.get(key))) {
-                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
-                        return false;
-                    }
-                    break;
-                }
-            }
-        }
-        return true;
-    }
-
-
-
 
 }//ends

@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -19,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class NotesPage {
 
@@ -85,14 +88,14 @@ public class NotesPage {
             addNoteField.clear();
             seleniumLib.sendValue(addNoteField, updateNotes);
             return true;
+        } catch (Exception exp1) {
+            Debugger.println("Exception from fillInAddNotesField." + exp1 + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
+            return false;
         }
-      catch (Exception exp1) {
-                Debugger.println("Exception from fillInAddNotesField." + exp1 + "\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
-                return false;
-            }
-        }
-        public boolean verifyNotesDetails(String expectedValue) {
+    }
+
+    public boolean verifyNotesDetails(String expectedValue) {
         try {
             if (!Wait.isElementDisplayed(driver, addNoteField, 30)) {
                 Debugger.println("AddNoteField not displayed.\n" + driver.getCurrentUrl());
@@ -111,66 +114,66 @@ public class NotesPage {
             return false;
         }
     }
-public void fillInAddNotesFieldWithOverThreeThousandCharacters(int dataSize){
-        fillInValue(addNoteField,faker.number().digits(dataSize));
+
+    public void fillInAddNotesFieldWithOverThreeThousandCharacters(int dataSize) {
+        fillInValue(addNoteField, faker.number().digits(dataSize));
         Wait.seconds(2);
-        }
+    }
 
-public boolean verifyNotesPageWarningMessage(String message){
-        try{
-        boolean isPresent=false;
-        for(int i=0;i<warningMessages.size();i++){
-        if(warningMessages.get(i).getText().equalsIgnoreCase(message)){
-        isPresent=true;
-        break;
+    public boolean verifyNotesPageWarningMessage(String message) {
+        try {
+            boolean isPresent = false;
+            for (int i = 0; i < warningMessages.size(); i++) {
+                if (warningMessages.get(i).getText().equalsIgnoreCase(message)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Expected Warning Message not displayed in Notes Page." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NotesPageWarning.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyNotesPageWarningMessage ." + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("NotesPageWarning.jpg");
+            return false;
         }
-        }
-        if(!isPresent){
-        Debugger.println("Expected Warning Message not displayed in Notes Page."+driver.getCurrentUrl());
-        SeleniumLib.takeAScreenShot("NotesPageWarning.jpg");
-        }
-        return isPresent;
-        }catch(Exception exp){
-        Debugger.println("Exception from verifyNotesPageWarningMessage ."+driver.getCurrentUrl());
-        SeleniumLib.takeAScreenShot("NotesPageWarning.jpg");
-        return false;
-        }
-        }
+    }
 
-public boolean verifyInfoMessageOnNotesPage(String infoMessage){
-        try{
-        boolean isPresent=false;
-        for(int i=0;i<infoMessages.size();i++){
-        if(infoMessages.get(i).getText().equalsIgnoreCase(infoMessage)){
-        isPresent=true;
-        break;
+    public boolean verifyInfoMessageOnNotesPage(String infoMessage) {
+        try {
+            boolean isPresent = false;
+            for (int i = 0; i < infoMessages.size(); i++) {
+                if (infoMessages.get(i).getText().equalsIgnoreCase(infoMessage)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Expected Info Message not displayed in Notes Page." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyInfoMessageOnNotesPage ." + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
+            return false;
         }
-        }
-        if(!isPresent){
-        Debugger.println("Expected Info Message not displayed in Notes Page."+driver.getCurrentUrl());
-        SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
-        }
-        return isPresent;
-        }catch(Exception exp){
-        Debugger.println("Exception from verifyInfoMessageOnNotesPage ."+driver.getCurrentUrl());
-        SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
-        return false;
-        }
-        }
+    }
 
-public boolean verifyNotesmessage(String Notesmessage){
+    public boolean verifyNotesmessage(String Notesmessage) {
 
-        try{
-        String actualNotesMessage=addNoteField.getText();
-        if(!Notesmessage.equalsIgnoreCase(actualNotesMessage)){
-        Debugger.println("Expected Notesmessage: "+Notesmessage+",But Actual:"+actualNotesMessage);
-        return false;
+        try {
+            String actualNotesMessage = addNoteField.getText();
+            if (!Notesmessage.equalsIgnoreCase(actualNotesMessage)) {
+                Debugger.println("Expected Notesmessage: " + Notesmessage + ",But Actual:" + actualNotesMessage);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not verify  Notesdetails:" + exp + "\n" + driver.getCurrentUrl());
+            return false;
         }
-        return true;
-        }
-        catch(Exception exp){
-        Debugger.println("Could not verify  Notesdetails:"+exp+"\n"+driver.getCurrentUrl());
-        return false;
-        }
-        }
-        }
+    }
+}

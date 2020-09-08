@@ -201,20 +201,6 @@ public class TestPackagePage {
         }
     }
 
-    public boolean VerifyNumberOfParticipants(String Expectedparticipants) {
-        try {
-            String actualParticipants = numberOfParticipants.getText();
-            if (!Expectedparticipants.equalsIgnoreCase(actualParticipants)) {
-                Debugger.println("Expected Participants: " + Expectedparticipants + ",But Actual:" + actualParticipants);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from reading Test Package Value" + exp + "\n" + driver.getCurrentUrl());
-            return false;
-        }
-    }
-
     public boolean testIsSelected() {
         Wait.forElementToBeDisplayed(driver, routinePriorityButton);
         Wait.forElementToBeDisplayed(driver, testCardBody);

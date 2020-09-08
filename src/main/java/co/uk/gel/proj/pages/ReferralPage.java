@@ -575,26 +575,6 @@ public class ReferralPage<check> {
         return actualAlertText;
     }
 
-    public String acknowledgeThePromptAlertPopup_ReferralSubmit(String acknowledgeMessage) {
-        String actualAlertText = null;
-        if (acknowledgeMessage.equalsIgnoreCase("Reload referral")) {
-            //Wait.forAlertToBePresent(driver);//Some times alert not present, handled with an exception
-            Wait.seconds(2);
-            try {
-                actualAlertText = driver.switchTo().alert().getText();
-                Actions.acceptAlert(driver);
-            } catch (NoAlertPresentException ex) {
-                Debugger.println("Expected alert message, but not present.");
-                SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
-            }
-            Debugger.println("Accepted the alert message :: " + actualAlertText);
-            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
-        }
-        return actualAlertText;
-    }
-
-
-
     public boolean clickLogoutButton() {
         try {
             Actions.clickElement(driver, logoutButton);
@@ -2163,7 +2143,6 @@ public class ReferralPage<check> {
                 return false;
             }
             String refPatientName =referralHeaderPatientName.getText();
-            System.out.println(refPatientName);
             if (refPatientName.contains(title)) {
                 Debugger.println(refPatientName+ " not contains the title : " + title);
                 SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");

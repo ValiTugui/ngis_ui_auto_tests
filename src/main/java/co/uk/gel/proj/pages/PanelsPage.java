@@ -88,9 +88,9 @@ public class PanelsPage {
 
     @FindBy(xpath = "//h2[contains(text(),'Add panels')]/parent::div/following-sibling::p")
     public WebElement addPanelsMessage;
-
     @FindBy (css = "[class*='button--selected']")
     public WebElement selectedPentrance;
+
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
@@ -532,24 +532,20 @@ public class PanelsPage {
         String expValue = "";
         for (String key : paramsKey) {
             expValue = paramNameValue.get(key);
-                      expValue = paramNameValue.get(key);
             switch (key) {
-                case "AdditionalPanels": {
+                case "AdditionalPanels":
                     verifyInAddedPanelsList(expValue);
                     break;
-                }
-                case "SuggestedPanels":{
+                case "SuggestedPanels":
                     verifySuggestedPanels();
                     break;
-                }
-                case "Penetrance": {
+                case "Penetrance":
                     actValue = selectedPentrance.getText();
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
                     }
                     break;
-                }
             }
         }
         return true;
@@ -557,16 +553,13 @@ public class PanelsPage {
 
     public boolean updatePanelDetails(String panelDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(panelDetails);
-        String actValue = "";
-        String expValue = "";
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
             switch (key) {
-                case "AdditionalPanels": {
+                case "AdditionalPanels":
                     searchAndAddPanel(paramNameValue.get(key));
                     break;
-                }
-                case "Penetrance":{
+                case "Penetrance":
                     String selectedPenetranceText = selectedPentrance.getText();
                     if (!selectedPenetranceText.equalsIgnoreCase(paramNameValue.get(key))) {
                         if (paramNameValue.get(key).equalsIgnoreCase("Incomplete (suggested)")){
@@ -578,7 +571,6 @@ public class PanelsPage {
                         Debugger.println("The Penetrance value selected and passed are same, Please pass a different value");
                     }
                     break;
-                }
             }
         }
         return true;

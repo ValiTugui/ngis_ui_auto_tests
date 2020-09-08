@@ -188,6 +188,16 @@ public class SamplesPage {
     @FindBy(xpath = "//a[contains(@class,'styles_sample-detail__edit-link')]")
     List<WebElement> sampleEditButtons;
 
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public WebElement updatedSampleTable;
+    @FindBy(xpath = "//label[@for='sampleType']/..//div[contains(@class,'singleValue')]/span")
+    public WebElement selectedSampleTypeValue;
+    @FindBy(xpath = "//input[@id='labId']")
+    public WebElement sampleId;
+    public static String updatedSampleId;
+    By sampleTypePath = By.xpath("//label[contains(@for,'sampleType')]//following::div[5]/../div/span/span");
+    By sampleStatePath = By.xpath("//label[contains(@for,'sampleState')]//following::div[5]/../div/span/span");
+
     public boolean isErrorPresent(){
         int noOfErrors = errorMessages.size();
         if(noOfErrors > 0){
@@ -709,22 +719,10 @@ public class SamplesPage {
         }
     }
 
-    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
-    public WebElement updatedSampleTable;
-
-    @FindBy(xpath = "//label[@for='sampleType']/..//div[contains(@class,'singleValue')]/span")
-    public WebElement selectedSampleTypeValue;
-
-    @FindBy(xpath = "//input[@id='labId']")
-    public WebElement sampleId;
-
     public boolean viewUpdatedSamplesDetails(String updatedSample) {
         try{
-            String[] expectedSampleDetails = updatedSample.split(":");
             String expectedSampleType = selectedSampleTypeValue.getText();
             String expectedSampleState = selectedSampleStateValue.getText();
-
-
             if(!Wait.isElementDisplayed(driver, updatedSampleTable, 30)) {
                 Debugger.println("The sample value is: " + updatedSample + " not updated");
                 return false;
@@ -751,7 +749,7 @@ public class SamplesPage {
             return false;
         }
     }
-    public static String updatedSampleId;
+
     public boolean viewUpdatedSampleQuestions(String updatedSampleDetails) {
         try{
             String[] expectedSampleQuestionDetails = updatedSampleDetails.split(":");
@@ -864,7 +862,7 @@ public class SamplesPage {
             expValue = paramNameValue.get(key);
             switch (key) {
                 case "SampleType": {
-                    By sampleTypePath = By.xpath("//label[contains(@for,'sampleType')]//following::div[5]/../div/span/span");
+
                     actValue = seleniumLib.getText(sampleTypePath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -873,8 +871,7 @@ public class SamplesPage {
                     break;
                 }
                 case "SampleState": {
-                    By sampleTypePath = By.xpath("//label[contains(@for,'sampleState')]//following::div[5]/../div/span/span");
-                    actValue = seleniumLib.getText(sampleTypePath);
+                   actValue = seleniumLib.getText(sampleStatePath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;

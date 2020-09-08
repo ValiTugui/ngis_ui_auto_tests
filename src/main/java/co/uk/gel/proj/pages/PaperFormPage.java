@@ -142,6 +142,7 @@ public class PaperFormPage {
             }
         }
     }
+
     public boolean fillInSpecificValueInSearchField(String keyword) {
         try {
             if (!Wait.isElementDisplayed(driver, orderEntitySearchField, 30)) {
@@ -155,13 +156,12 @@ public class PaperFormPage {
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             Wait.seconds(2);
             return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception1 from orderEntitySearchField.." + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("OrderEntity.jpg");
+            return false;
         }
-            catch(Exception exp){
-                Debugger.println("Exception1 from orderEntitySearchField.."+exp+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("OrderEntity.jpg");
-                return false;
-            }
-        }
+    }
     public boolean checkThatEntitySuggestionsAreDisplayed() {
         try {
             Wait.seconds(2);
@@ -349,18 +349,17 @@ public class PaperFormPage {
         Actions.clickElement(driver,usePDFOrderFormButton);
     }
 
-    public boolean verifyRequestingOrgnaisation(String OrganisatioName) {
+    public boolean verifyRequestingOrganisation(String organisationName) {
 
         try {
             String actualOrgName = orderEntitySearchField.getText();
-            if (!OrganisatioName.equalsIgnoreCase(actualOrgName)) {
-                Debugger.println("Expected OrgName: " + OrganisatioName + ",But Actual:" + actualOrgName);
+            if (!organisationName.equalsIgnoreCase(actualOrgName)) {
+                Debugger.println("Expected OrgName: " + organisationName + ",But Actual:" + actualOrgName);
                 return false;
             }
             return true;
-            }
-            catch (Exception exp){
-            Debugger.println("Exception from reading requesting organisation value"+exp+"\n"+driver.getCurrentUrl());
+        } catch (Exception exp) {
+            Debugger.println("Exception from reading requesting organisation value" + exp + "\n" + driver.getCurrentUrl());
             return false;
         }
     }

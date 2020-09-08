@@ -337,6 +337,8 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='finish-button btn ld-ext-left']")
     public WebElement continueButtonOnWithdrawalForm;
 
+    String pcStatusPath = "//span[text()='dummyParticipant']//following::li/span[contains(text(),'Patient choice status')]/following-sibling::span/span";
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1318,33 +1320,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    public boolean statusUpdatedCorrectlyforproband(String status) {
-        try {
-            if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
-                Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
-                return false;
-            }
-            if (statuses.size() < 1) {
-                Debugger.println("Patient Choice Test Status not loaded." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
-                return false;
-            }
-            String actualStatus = statuses.get(0).getText();
-            if (!actualStatus.equalsIgnoreCase(status)) {
-                Debugger.println("Patient Choice Landing Page Status, Actual:" + actualStatus + ",Expected:" + status);
-                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from statusUpdatedCorrectly:" + exp);
-            SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");
-            return false;
-        }
-    }
-
 
     public boolean verifyHelpTextLabelIsVisible() {
         try {
@@ -2337,16 +2312,16 @@ public class PatientChoicePage {
     }
 
     public boolean fillAdminOrClinicianName(String adminName) {
-        try{
-            if(!Wait.isElementDisplayed(driver, adminOrClinicianNameHeader, 30)){
+        try {
+            if (!Wait.isElementDisplayed(driver, adminOrClinicianNameHeader, 30)) {
                 Debugger.println("Admin or clinician name header is not displayed");
                 SeleniumLib.takeAScreenShot("NoAdminOrClinicianName.jpg");
                 return false;
             }
             adminOrClinicianName.sendKeys(adminName);
             return true;
-        }catch (Exception exp){
-            Debugger.println("Exception from: fillAdminOrClinicianName " +exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from: fillAdminOrClinicianName " + exp);
             SeleniumLib.takeAScreenShot("NoAdminOrClinicianName.jpg");
             return false;
         }
@@ -2436,10 +2411,9 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean theUserAnswersThePatientChoiceQuestionswithPatientChoiceNotrequiredForRD(String recordedByName) {
+    public boolean theUserAnswersThePatientChoiceQuestionsWithPatientChoiceNotRequiredForRD(String recordedByName) {
         boolean testResult = false;
         try {
-//            Wait.seconds(20);
             selectMember(0);
             clickOnAmendPatientChoice();
             selectPatientChoiceCategory();
@@ -2457,15 +2431,15 @@ public class PatientChoicePage {
             Wait.seconds(2);
             submitPatientChoice();
             Wait.seconds(30);
-            return testResult;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Submitting Patient Choice for :" +  "\n" + exp);
             SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
             return false;
         }
     }
-    String pcStatusPath = "//span[text()='dummyParticipant']//following::li/span[contains(text(),'Patient choice status')]/following-sibling::span/span";
-    public boolean statusVerifiedCorrectlyforParticipants(String status) {
+
+    public boolean statusVerifiedCorrectlyForParticipants(String status) {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
                 Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
@@ -2475,8 +2449,6 @@ public class PatientChoicePage {
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(status);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey){
-                Debugger.println("The key is "+key);
-                Debugger.println("The key value is "+paramNameValue.get(key));
                 String actualPCStatusPath = pcStatusPath.replace("dummyParticipant",key);
                 WebElement pcStatus = driver.findElement(By.xpath(actualPCStatusPath));
                 String pcStatusText = pcStatus.getText();

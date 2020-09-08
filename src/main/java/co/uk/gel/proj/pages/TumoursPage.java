@@ -185,6 +185,9 @@ public class TumoursPage {
     @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
 
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public WebElement updatedTumourTable;
+
     public boolean navigateToAddTumourPageIfOnEditTumourPage() {
 
         if (descriptiveNameList.size() > 0) {
@@ -906,12 +909,6 @@ public class TumoursPage {
          }
         return true;
     }
-
-    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
-    public WebElement updatedTumourTable;
-
-    @FindBy(xpath = "(//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!=''])[4]")
-    public WebElement updatedTumourValue;
 
     public boolean viewTheUpdatedTumourValues(String updatedTumour) {
         try{

@@ -1,14 +1,14 @@
 package co.uk.gel.proj.pages;
 
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.util.StylesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -700,7 +700,6 @@ public class ResponsibleClinicianPage {
                     }
                     break;
                 }
-
                 case "LastName": {
                     actValue = clinicianLastNameField.getAttribute("value");
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
@@ -709,8 +708,6 @@ public class ResponsibleClinicianPage {
                     }
                     break;
                 }
-
-
                 case "Department": {
                     actValue = clinicianDepartmentAddressField.getAttribute("value");
                     if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
@@ -719,10 +716,10 @@ public class ResponsibleClinicianPage {
                     }
                     break;
                 }
-                case "EmailAddress":{
+                case "EmailAddress": {
                     actValue = clinicianEmailField.getAttribute("value");
-                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))){
-                        Debugger.println("Expected :" +  ": "+ paramNameValue.get(key) + ", Actual:" + actValue);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
                     }
                 }
             }
