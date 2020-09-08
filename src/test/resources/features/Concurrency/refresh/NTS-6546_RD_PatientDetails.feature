@@ -1,13 +1,14 @@
 @Concurrency
-@RD_new_referral_PatientDetails
+@Refresh
+@RD
 Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the changes on Patient details stage done by another user
 ###FLOW
   #User1 Login to new Referral
   #User2 Login to the same referral
   #User1 Updated Patient details stage for the referral
-  #User2 Navigated and verify the changes done by user1 in Patient details stage
+  #User2 Navigate and verify the changes done by user1 in Patient details stage
 
-   @NTS-6546_RD @Z-LOGOUT
+   @NTS-6546 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the patient details stage ,Login as user B and navigates to patient details satge and verify the changes done by User A.
    #Login as User 1, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
@@ -85,7 +86,7 @@ Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the change
       | PatientDetails  | PatientDetailsUpdated | PatientDetailsUpdated_1 | PatientDetailsUpdated_2 | PatientDetailsUpdated_3 |  RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      |
       | Patient details | Title=Ms              | Title=Mr                | Title=Mrs               | Title=Mrss              |  Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John |
 
-  @NTS-6546_RD @Z-LOGOUT
+  @NTS-6546 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |

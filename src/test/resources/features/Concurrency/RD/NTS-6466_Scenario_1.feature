@@ -1,12 +1,16 @@
 @Concurrency
-@Concurrency_newReferral_RD
+@Concurrency_RD
+Feature: Proband patient details updated by user3, and user1 and user2 submit and verify the changes
 
-Feature:Submit Existing Referral for three users
+  ###FLOW
+  #User1 Login to an existing Referral
+  #User2 Login to the same Referral as User1
+  #User3 Login to the same referral as User1 and User2
+  #User3 Updates patient details of Proband
+  #User1 and User2 Submit and verify the changes done by user3
 
-  @RD_existing_referral_three_users_scenario_1 @Z-LOGOUT
-    @NTS-6466
-  Scenario Outline:User A and User B are unable to submit referral, where User C  has updated the same referral, until it has been checked.
-
+  @NTS-6466 @Scenario1 @Z-LOGOUT
+  Scenario Outline: User A and User B are unable to submit referral, where User C  has updated the same referral, until it has been checked.
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20609782352 | NRF1 |
@@ -20,23 +24,21 @@ Feature:Submit Existing Referral for three users
     Then the user updates the file NRF1 with Patient details validated by User1
     And the user waits max 3 minutes for the update Patient details validated by User2 in the file NRF1
     # Finally User1 submit Referral Successfully
-#    And the user submits the referral
-#    Then the submission confirmation message "Your referral has been submitted" is displayed
-#    And the referral status is set to "Submitted"
+    #And the user submits the referral
+    #Then the submission confirmation message "Your referral has been submitted" is displayed
+    #And the referral status is set to "Submitted"
     Examples:
       | PatientDetails  | PatientDetailsUpdated |
       | Patient details | DOB=20-10-2010        |
 
 
-#Login as User B,
-
-  @RD_existing_referral_three_users_scenario_1 @Z-LOGOUT
-
+  #Login as User B,
+  @NTS-6466 @Scenario1 @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |r20609782352| NRF1 |
     When the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-## Referral Submission by User2 after Patient Details updated by user 3
+    ## Referral Submission by User2 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NRF1
     And the user waits max 10 minutes for the update Patient details validated by User1 in the file NRF1
     And the user submits the referral
@@ -49,12 +51,10 @@ Feature:Submit Existing Referral for three users
       | PatientDetails  | PatientDetailsUpdated |
       | Patient details | DOB=20-10-2010        |
 
-#Login as User C,
+   #Login as User C,
 
-  @RD_existing_referral_three_users_scenario_1 @Z-LOGOUT
-
+  @NTS-6466 @Scenario1 @Z-LOGOUT @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
-
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER3_NAME |r20609782352| NRF1 |
 

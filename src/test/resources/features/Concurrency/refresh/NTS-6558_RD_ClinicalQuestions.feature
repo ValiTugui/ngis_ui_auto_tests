@@ -1,12 +1,17 @@
 @Concurrency
-@Concurrency_newReferral_RD_ClinicalQuestions
-Feature: Verify New Referral to validate the refresh data
+@Refresh
+@RD
+Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the changes on Clinical Questions stage done by another user
+###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Clinical Questions stage for the referral
+  #User2 Navigated and verify the changes done by user1 in Clinical Questions stage
 
-  @NTS-6558
-    @RD_newReferral_ClinicalQuestions @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the patient details when User B navigates to different stages
+  @NTS-6558 @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the Clinical questions stage and user B access the same referral and verified the changes done by user A
 
-#Login as User A, Complete all stages and do not submit referral
+   #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
     ##Requesting Organisation
@@ -16,7 +21,7 @@ Feature: Verify New Referral to validate the refresh data
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-#    ##Test Package - proband only
+    ##Test Package - proband only
     When the user navigates to the "<testPackage>" stage
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
@@ -31,7 +36,7 @@ Feature: Verify New Referral to validate the refresh data
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-#    ##Notes
+    ##Notes
     And the user clicks the Save and Continue button
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
@@ -56,7 +61,7 @@ Feature: Verify New Referral to validate the refresh data
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
- #### verify patient details after changes done by B
+    ## Responsible clinician updated by user1
     And the user waits max 10 minutes for the update Responsible Clinical details Updated by User2 in the file NRF1
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user updates the stage "<ClinicalQuestions>" with "<ClinicalQuestionsUpdated>"
@@ -69,7 +74,7 @@ Feature: Verify New Referral to validate the refresh data
       | Clinical questions | HPOPhenoType=Adult onset |  Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John |
 
 
-  @RD_newReferral_ClinicalQuestions @Z-LOGOUT
+  @NTS-6558 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update clinical questions
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
@@ -77,7 +82,7 @@ Feature: Verify New Referral to validate the refresh data
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     And the user updates the file NRF1 with Responsible Clinical details Updated by User2
-##verify clinicalQuestions & Pedigree
+    #verified clinicalQuestions & Pedigree by User2
     And the user waits max 15 minutes for the update Clinical details Updated by User1 in the file NRF1
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user verifies the stage "<ClinicalQuestions>" with "<ClinicalQuestionsDetails>"

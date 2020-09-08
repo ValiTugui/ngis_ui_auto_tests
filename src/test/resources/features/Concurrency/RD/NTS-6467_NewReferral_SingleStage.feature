@@ -1,12 +1,16 @@
 @Concurrency
-@Concurrency_newReferral_RD
-Feature: Submit New Referral to validate a stage
+@Concurrency_RD
+Feature: NTS-6467:RD_new_referral_single_stage:Create New Referral for RD flow and verify the stage update messages
+  ###FLOW
+  #User1 creates new referral and entered all mandatory stages
+  #User2 Login to the same referral
+  #User2 Updated the Patient details stage (Single Stage)
+  #User1 Submits the referral and observe for patient details change made by user2
 
-  #User1
-  @RD_new_referral_verifyStage @Z-LOGOUT
+  @NTS-6467 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage upon referral submission by A.
 
-#Login as User A, Complete all stages and do not submit referral
+    #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
     ##Requesting Organisation
@@ -16,7 +20,7 @@ Feature: Submit New Referral to validate a stage
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-#    ##Test Package - proband only
+    ##Test Package - proband only
     When the user navigates to the "<testPackage>" stage
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
@@ -31,7 +35,7 @@ Feature: Submit New Referral to validate a stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-#    ##Notes
+    ##Notes
     And the user clicks the Save and Continue button
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
@@ -75,14 +79,14 @@ Feature: Submit New Referral to validate a stage
 
 
    #User2
-  @RD_new_referral_verifyStage @Z-LOGOUT
+  @NTS-6467 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
     And the "<PatientDetails>" stage is marked as Completed
     #Below step is for new referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-#     Patient Details - Update By user2
+    #Patient Details - Update By user2
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button

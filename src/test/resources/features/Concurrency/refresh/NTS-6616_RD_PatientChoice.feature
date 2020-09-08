@@ -1,9 +1,14 @@
 @Concurrency
-@Concurrency_newReferral_RD
-Feature: Create New Referral for RD flow
-  #User1
-  @NTS-6616
-    @RD_new_referral_refresh_data_patientChoice @Z-LOGOUT
+@Refresh
+@RD
+Feature: NTS-6616:RD_new_referral_PatientChoice: Navigate and verify the changes on Patient Choice stage done by another user
+###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Patient Choice stage for the referral
+  #User2 Navigated and verify the changes done by user1 in Patient Choice stage
+
+  @NTS-6616 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Patient choice, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -71,9 +76,9 @@ Feature: Create New Referral for RD flow
 
   #User2
   #Login as User B, Verified Patient choice stage and do not submit referral
-  @RD_new_referral_refresh_data_patientChoice @Z-LOGOUT
+  @NTS-6616 @Z-LOGOUT
   Scenario Outline: Verified Patient Choice stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+   #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
    #Patient Choice - Verified by User2

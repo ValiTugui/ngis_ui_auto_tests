@@ -1,15 +1,20 @@
 @Concurrency
-@Concurrency_newReferral_RD
-Feature: Submit Existing Multiple Referrals to validate every stage
+@Concurrency_RD
+Feature: Proband details updated and same proband patient verified in another referral.
 
-@NTS-6470
-   @RD_existing_referral_multipleReferral_scenario_3 @Z-LOGOUT
+  ###FLOW
+  #User1 Login to an existing Referral - Proband
+  #User2 Login to the another existing referral - Proband (In both referrals Proband patient is same)
+  #User2 Updates patient details of proband
+  #User1 Submit and verify the changes in patient details done by user2
+
+  @NTS-6470 @Scenario3 @Z-LOGOUT
   Scenario Outline:Login as User A,Complete all stages and do not submit referral,and validate the data updated,when B is updating a stage in different referral, upon referral submission by A.
-#Login as User A, Complete all stages and do not submit referral
+    #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20706061692| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-##Patient Details - Verify
+    ##Patient Details - Verify
     And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
@@ -21,11 +26,11 @@ Feature: Submit Existing Multiple Referrals to validate every stage
       | PatientDetails  | PatientDetailsUpdated       |
       | Patient details | Ethnicity=B - White - Irish |
 
-  @RD_existing_referral_multipleReferral_scenario_3 @Z-LOGOUT
+  @NTS-6470 @Scenario3 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |r20473438456| NRF1 |
-##Patient Details - Update
+    ##Patient Details - Update
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"

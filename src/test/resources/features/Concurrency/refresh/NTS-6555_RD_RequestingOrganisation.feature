@@ -1,10 +1,15 @@
 @Concurrency
-@Concurrency_newReferral_RD
-Feature: Create New Referral for RD flow
-  #User1
-  @NTS-6555
-    @RD_new_referral_refresh_data_requesting_organisation @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Requesting organisation stage, when B accessed same referral then verified data updated by A.
+@Refresh
+@RD
+Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify the changes on Requesting organisation and print forms stage done by another user
+  ###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Requesting organisation stage for the referral
+  #User2 Navigate and verify the changes done by user1 in Requesting organisation and Print forms stage
+
+  @NTS-6555 @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the Requesting organisation stage ,Login as user B and navigates to Requesting organisation and Print forms and verify the changes done by User A.
 
     Given The user is login to the Test Order Service and create a new referral
       | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral| NRF1 |
@@ -76,9 +81,9 @@ Feature: Create New Referral for RD flow
 
   #User2
   #Login as User B, Verified Requesting organisation and Print forms stage and do not submit referral
-  @RD_new_referral_refresh_data_requesting_organisation @Z-LOGOUT
+  @NTS-6555 @Z-LOGOUT
   Scenario Outline: Verified Requesting Organisation stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral| NRF1 |
     #Requesting Organisation - Verified by User2
@@ -88,6 +93,7 @@ Feature: Create New Referral for RD flow
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user updates the file NRF1 with Requesting Organisation validated by User2
+    #Print - Verified by User2
     And the user navigates to the "Print forms" stage
     And the user verifies the lab name "<LabName>" is updated in Print forms stage
     And the user updates the file NRF1 with Print forms details validated by User2

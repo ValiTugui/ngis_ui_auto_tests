@@ -1,10 +1,15 @@
 @Concurrency
-@Concurrency_newReferral_Cancer
-Feature: Create New Referral for Cancer flow
-  #User1
-  @NTS-6616
-    @Cancer_new_referral_refresh_data_patientChoice @Z-LOGOUT
-  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Patient choice stage, when B accessed same referral then verified data updated by A.
+@Refresh
+@Cancer
+Feature: NTS-6559:Cancer_new_referral_Notes: Navigate and verify the changes on Notes stage done by another user
+  ###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Notes stage for the referral
+  #User2 Navigate and verify the changes done by user1 in Notes stage
+
+    @NTS-6559 @Z-LOGOUT
+  Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Notes stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
       | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NRF1 |
@@ -70,43 +75,31 @@ Feature: Create New Referral for Cancer flow
     ##Print Forms
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-    #Patient Choice - Updated by User1
-    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NRF1
-    And the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    And the user edits the patient choice status
-    And the user clicks on the amend patient choice button
-    When the user selects the option Adult (With Capacity) in patient choice category
-    When the user selects the option Cancer (paired tumour normal) – WGS in section Test type
-    And the user fills "<RecordedBy>" details in recorded by
-    And the user clicks on Continue Button
-    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    And the user clicks on Continue Button
-    And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form with success message
+    #Notes - Updated by User1
+    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NRF1
+    When the user navigates to the "<Notes>" stage
+    Then the user updates the stage "<Notes>" with "<NotesUpdated>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    When the user clicks on Continue Button
-    And the user updates the file NRF1 with Patient choice details Updated by User1
+    And the user updates the file NRF1 with Notes details Updated by User1
     Examples:
-      | PatientChoice  | tumour_type                             | presentationType   | stage2  | stage3         | sampleType          | sampleState        | RecordedBy                            |
-      | Patient choice | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
+      | Notes | NotesUpdated           | tumour_type                             | presentationType   | stage2  | stage3         | sampleType          | sampleState        | RecordedBy                            |
+      | Notes | Notes updated by user1 | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
 
   #User2
-  #Login as User B, Verified Patient Choice stage and do not submit referral
-  @Cancer_new_referral_refresh_data_patientChoice @Z-LOGOUT
-  Scenario Outline: Verified Patient Choice stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+  #Login as User B, Verified Notes stage and do not submit referral
+  @NTS-6559 @Z-LOGOUT
+  Scenario Outline: Verified Notes stage of new referral updated by another user
+    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-   #Patient Choice - Verified by User2
-    And the user navigates to the "<Notes>" stage
-    And the user updates the file NRF1 with Notes details Updated by User2
-    And the user waits max 5 minutes for the update Patient choice details Updated by User1 in the file NRF1
-    When the user navigates to the "<PatientChoice>" stage
-    Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
-    And the user updates the file NRF1 with Patient choice details validated by User2
+   #Notes - Verified by User2
+    And the user navigates to the "<PatientDetails>" stage
+    And the user updates the file NRF1 with Patient details Updated by User2
+    And the user waits max 15 minutes for the update Notes details Updated by User1 in the file NRF1
+    When the user navigates to the "<Notes>" stage
+    Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
+    And the user updates the file NRF1 with Notes details validated by User2
 
     Examples:
-      | Notes | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Notes | Patient choice | Proband=Declined testing    |
+      | PatientDetails  | Notes | NotesUpdated           |
+      | Patient details | Notes | Notes updated by user1 |

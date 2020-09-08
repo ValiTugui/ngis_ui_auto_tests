@@ -1,9 +1,14 @@
 @Concurrency
-@Concurrency_newReferral_RD
-Feature: Create New Referral for RD flow
-  #User1
-  @NTS-6598
-    @RD_new_referral_refresh_data_familyMembers @Z-LOGOUT
+@Refresh
+@RD
+Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes on Family Members stage done by another user
+###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Family Members stage for the referral
+  #User2 Navigated and verify the changes done by user1 in Family Members stage
+
+    @NTS-6598 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Family members stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -80,7 +85,7 @@ Feature: Create New Referral for RD flow
 
   #User2
   #Login as User B, Verified Family members and related stages and do not submit referral
-  @RD_new_referral_refresh_data_familyMembers @Z-LOGOUT
+  @NTS-6598 @Z-LOGOUT
   Scenario Outline: Verified Family members and related stages of new referral updated by another user
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral

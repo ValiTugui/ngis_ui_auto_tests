@@ -8,13 +8,13 @@ Feature: Proband details updated as family member in another referral, submit an
   #User2 Updates patient details of family member (proband of first referral)
   #User1 Submit and verify the changes done by user2
 
-@NTS-6470 @Scenario1 @Z-LOGOUT
+  @NTS-6470 @Scenario1 @Z-LOGOUT
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage in different referral, upon referral submission by A.
-#Login as User A, Complete all stages and do not submit referral
+    #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | r20012145332| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-##FamilyMembers - Verify
+    ##FamilyMembers - Verify
     And the user waits max 10 minutes for the update Family Member details Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
@@ -33,7 +33,7 @@ Feature: Proband details updated as family member in another referral, submit an
       | CONCURRENT_USER2_NAME |r20539847623| NRF1 |
 
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-##FamilyMembers - Update
+    ##FamilyMembers - Update
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user updates the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdate>"

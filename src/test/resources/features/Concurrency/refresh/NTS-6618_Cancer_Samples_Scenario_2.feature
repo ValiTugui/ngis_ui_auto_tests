@@ -1,9 +1,15 @@
 @Concurrency
-@Concurrency_newReferral_Cancer
-Feature: Create New Referral for Cancer flow
-  #User1
-  @NTS-6618
-    @Cancer_new_referral_refresh_data_samples_Scenario1 @Z-LOGOUT
+@Refresh
+@Cancer
+Feature: NTS-6618:Cancer_new_referral_Samples: Navigate and verify the changes on Samples stage done by another user
+  ###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Samples and its sub stages for the referral
+  #User2 Navigate and verify the changes done by user1 in Samples and its sub stages
+  #Here just verifying after updating the existing added samples
+
+  @NTS-6618 @Scenario2 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Samples stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -39,6 +45,7 @@ Feature: Create New Referral for Cancer flow
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add sample details
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
     And the user clicks the Save and Continue button
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinical notes
@@ -60,28 +67,23 @@ Feature: Create New Referral for Cancer flow
 
   #User2
   #Login as User B, Verified Samples stage and do not submit referral
-  @Cancer_new_referral_refresh_data_samples_Scenario1 @Z-LOGOUT
+  @NTS-6618 @Scenario2 @Z-LOGOUT
   Scenario Outline: Verified Samples stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
    #Samples - Verified by User2
-    And the user navigates to the "<Samples>" stage
-    And the "<Samples>" stage is marked as Mandatory To Do
-    And the user selects the existing sample on the landing page by clicking on the chevron right arrow icon
-    Then the user verifies the stage "<Samples>" with "<SamplesUpdated>"
     And the user navigates to the "<Tumours>" stage
     And the user updates the file NRF1 with Tumours details Updated by User2
     And the user waits max 15 minutes for the update Samples details Updated by User1 in the file NRF1
     When the user navigates to the "<Samples>" stage
     And the user selects the existing sample on the landing page by clicking on the chevron right arrow icon
-    Then the user verifies the stage "<Samples>" with "<SamplesUpdated1>"
+    Then the user verifies the stage "<Samples>" with "<SamplesUpdated>"
     And the user clicks the Save and Continue button
     Then the "<pageTitle1>" page is displayed
     And the user verifies the page "<pageTitle1>" with "<SamplesQuestionnaireUpdated>"
-    And the "<Samples>" stage is marked as Completed
     And the user updates the file NRF1 with Samples details validated by User2
 
     Examples:
-      | Tumours | Samples | SamplesUpdated                                                | SamplesUpdated1                                                                 | pageTitle1         | SamplesQuestionnaireUpdated                                     |
-      | Tumours | Samples | SampleType=Solid tumour sample:SampleState=Tumour fresh fluid | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected |
+      | Tumours | Samples | SamplesUpdated                                                                  | pageTitle1         | SamplesQuestionnaireUpdated                                     |
+      | Tumours | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected |

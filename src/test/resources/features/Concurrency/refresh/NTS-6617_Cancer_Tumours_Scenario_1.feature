@@ -1,9 +1,14 @@
 @Concurrency
-@Concurrency_newReferral_Cancer
-Feature: Create New Referral for Cancer flow
-  #User1
-  @NTS-6617
-    @Cancer_new_referral_refresh_data_tumours_Senario1 @Z-LOGOUT
+@Refresh
+@Cancer
+Feature: NTS-6617:Cancer_new_referral_Tumours_add: Navigate and verify the changes on Tumours stage done by another user
+  ###FLOW
+  #User1 Login to new Referral
+  #User2 Login to the same referral
+  #User1 Updated Tumours and its sub stages for the referral
+  #User2 Navigate and verify the changes done by user1 in Tumours and its sub stages
+
+  @NTS-6618 @Scenario1 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Tumours stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -47,9 +52,9 @@ Feature: Create New Referral for Cancer flow
 
   #User2
   #Login as User B, Verified Tumours stage and do not submit referral
-  @Cancer_new_referral_refresh_data_tumours_Senario1 @Z-LOGOUT
+  @NTS-6618 @Scenario1 @Z-LOGOUT
   Scenario Outline: Verified Tumours stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
    #Tumours - Verified by User2
