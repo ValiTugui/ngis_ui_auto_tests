@@ -2165,4 +2165,47 @@ public class PatientDetailsPage {
         }
         return true;
     }
+    public boolean updateFamilyMemberDetails(String familyMemberDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DOB": {
+                    String dobValue = paramNameValue.get(key);
+                    if (dobValue != null && !dobValue.isEmpty()) {
+                        String[] dobSplit = dobValue.split("-");
+                        seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
+                        seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
+                        seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
+                    }
+                    break;
+                }
+                case "Gender": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectGender(genderPath, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "LifeStatus": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(lifeStatusButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "Ethnicity": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "RelationShipToProband": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        editDropdownField(relationshipButton, paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
 }

@@ -1307,4 +1307,33 @@ public class ClinicalQuestionsPage {
         }
     }
 
+        public boolean selectSpecificPhenotypicSexDropdownValue() {
+        try {
+            if(genderValue==null||genderValue.isEmpty()){
+                Debugger.println("No Gender value to select phenotypic sex drop down");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, phenotypicSexDropdown, 15)) {
+                Actions.scrollToTop(driver);
+            }
+            Actions.clickElement(driver, phenotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Wait.seconds(5);//Explicitly waiting here as below element is dynamically created
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + genderValue + "']")));
+            String selectedValue=Actions.getText(phenotypicSexDropdown.findElement(By.xpath("//span[text()='" + genderValue + "']")));
+            if (selectedValue != null && selectedValue.equalsIgnoreCase(genderValue)) {
+                return true;//Already Selected the Specified Value
+            }
+            if(!genderValue.equalsIgnoreCase(selectedValue)){
+                Debugger.println("Expected value is "+genderValue+" selectedValue is "+selectedValue);
+                SeleniumLib.takeAScreenShot("mismatchInPhenotypicSexValue.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Clinical Questions Page : Exception from selecting phenotypic Sex : " + exp);
+            SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
+            return false;
+        }
+    }
 }
