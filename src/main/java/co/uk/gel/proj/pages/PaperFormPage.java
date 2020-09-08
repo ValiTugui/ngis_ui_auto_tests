@@ -349,19 +349,5 @@ public class PaperFormPage {
         Actions.clickElement(driver,usePDFOrderFormButton);
     }
 
-    public boolean verifyRequestingOrganisation(String organisationName) {
-
-        try {
-            String actualOrgName = orderEntitySearchField.getText();
-            if (!organisationName.equalsIgnoreCase(actualOrgName)) {
-                Debugger.println("Expected OrgName: " + organisationName + ",But Actual:" + actualOrgName);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from reading requesting organisation value" + exp + "\n" + driver.getCurrentUrl());
-            return false;
-        }
-    }
 }
 

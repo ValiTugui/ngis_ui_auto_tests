@@ -21,8 +21,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
-
 public class NotesPage {
 
     WebDriver driver;
@@ -158,21 +156,6 @@ public class NotesPage {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyInfoMessageOnNotesPage ." + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyNotesmessage(String Notesmessage) {
-
-        try {
-            String actualNotesMessage = addNoteField.getText();
-            if (!Notesmessage.equalsIgnoreCase(actualNotesMessage)) {
-                Debugger.println("Expected Notesmessage: " + Notesmessage + ",But Actual:" + actualNotesMessage);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Could not verify  Notesdetails:" + exp + "\n" + driver.getCurrentUrl());
             return false;
         }
     }

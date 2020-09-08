@@ -185,8 +185,8 @@ public class TumoursPage {
     @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
 
-    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
-    public WebElement updatedTumourTable;
+    public static String updatedTumourDescription;
+    public static String updatedPathologyReportId;
 
     public boolean navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -910,70 +910,9 @@ public class TumoursPage {
         return true;
     }
 
-    public boolean viewTheUpdatedTumourValues(String updatedTumour) {
-        try{
-
-            String[] expectedTumourDetails = updatedTumour.split(":");
-            String actualDateOfDiagnosis = dateDay.getAttribute("value") + "/" + dateMonth.getAttribute("value") + "/" + dateYear.getAttribute("value");
-
-            if(!Wait.isElementDisplayed(driver, updatedTumourTable, 30)) {
-                Debugger.println("The tumour value is: " + updatedTumour + " not updated");
-                return false;
-            }
-
-            if(!checkedRadioButton.isDisplayed()){
-                Debugger.println("Radio button is not displayed for: " +updatedTumour);
-                return false;
-            }
-
-            seleniumLib.clickOnWebElement(editTumourArrow);
-
-            if(!updatedTumourDescription.equalsIgnoreCase(descriptiveName.getText())){
-                Debugger.println("Expected Tumour description is: " +updatedTumourDescription + ", But actual tumour description is: " +descriptiveName.getText());
-                return false;
-            }
-
-            if(!actualDateOfDiagnosis.equalsIgnoreCase(expectedTumourDetails[0])){
-                Debugger.println("Expected date of diagnosis is: " +expectedTumourDetails[0] + ", but actual date of diagnosis is: " +actualDateOfDiagnosis);
-                return false;
-            }
-
-            if(!tumourType.getText().equalsIgnoreCase(expectedTumourDetails[1])){
-                Debugger.println("Expected tumour type is: " +expectedTumourDetails[1]+ ", but actual tumour type is: " +tumourType.getText());
-                return false;
-            }
-
-            if(!updatedPathologyReportId.equalsIgnoreCase(pathologyReportId.getText())){
-                Debugger.println("Expected Pathology Report Id is: " +updatedPathologyReportId + ", But actual Pathology Report Id is: " +pathologyReportId.getText());
-                return false;
-            }
-
-            return true;
-
-        } catch (Exception exp){
-            Debugger.println("Exception from viewTheUpdatedTumourValues: " +exp);
-            SeleniumLib.takeAScreenShot("tumourNotUpdated.jpg");
-            return false;
-        }
-    }
-    public static String updatedTumourDescription;
-    public static String updatedPathologyReportId;
-    public void verifyDescriptionAndReportId (){
+     public void verifyDescriptionAndReportId (){
         updatedTumourDescription = descriptiveName.getText();
         updatedPathologyReportId = pathologyReportId.getText();
-    }
-    public boolean viewTheUpdatedTumourDetails(String updatedRecurrence) {
-        try{
-            String expectedRecurrence = tumourCoreDataDropdown.getText();
-            if(!expectedRecurrence.equalsIgnoreCase(updatedRecurrence)){
-                Debugger.println("Expected recurrence is: " +expectedRecurrence+ ", but actual recurrence is: " +updatedRecurrence);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from viewTheUpdatedTumourDetails: " +exp);
-            return false;
-        }
     }
 
     public boolean updateTumoursDetails(String tumoursDetails) {
