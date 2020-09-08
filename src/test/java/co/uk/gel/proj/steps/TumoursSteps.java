@@ -600,13 +600,6 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user reads & validate the Tumours stage with updated data {string} on Edit a tumour page and {string}")
-    public void theUserReadsValidateTheTumoursStageWithUpdatedDataOnEditATumourPage(String updatedTumour, String updatedRecurrence) {
-        Assert.assertTrue(tumoursPage.viewTheUpdatedTumourValues(updatedTumour));
-        referralPage.saveAndContinueButton.click();
-        Assert.assertTrue(tumoursPage.viewTheUpdatedTumourDetails(updatedRecurrence));
-    }
-
     @And("the user stores the tumour details")
     public void theUserStoresTheTumourDetails() {
         tumoursPage.verifyDescriptionAndReportId();

@@ -591,12 +591,4 @@ public class SamplesSteps extends Pages {
         testResult = samplesPage.editSpecificSample(sampleNo);
         Assert.assertTrue(testResult);
     }
-
-    @Then("the user reads & validate the Sample stage with updated data {string} on Edit a sample page {string}")
-    public void theUserReadsValidateTheSampleStageWithUpdatedDataOnEditASamplePage(String updatedSample, String updatedSampleDetails) {
-        Assert.assertTrue(samplesPage.viewUpdatedSamplesDetails(updatedSample));
-        referralPage.saveAndContinueButton.click();
-        Assert.assertTrue(samplesPage.viewUpdatedSampleQuestions(updatedSampleDetails));
-    }
-
 }

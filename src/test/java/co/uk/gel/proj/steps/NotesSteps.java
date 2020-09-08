@@ -48,12 +48,4 @@ public class NotesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user reads & validate the notes details data {string}")
-    public void theUserReadsandValidateTheNotesDetails(String Message )
-    {
-        boolean testResult = false;
-        testResult = notesPage.verifyNotesmessage(Message);
-        Assert.assertTrue(testResult);
-    }
-
 }

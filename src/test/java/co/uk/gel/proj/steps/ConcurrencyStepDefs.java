@@ -78,7 +78,7 @@ public class ConcurrencyStepDefs extends Pages {
                 Assert.fail("Family member details could not be enter.");
             }
         }  else if (stageName.equalsIgnoreCase("Patient choice")) {
-            testResult = patientChoicePage.theUserAnswersThePatientChoiceQuestionswithPatientChoiceNotrequiredForRD(updateDetails);
+            testResult = patientChoicePage.theUserAnswersThePatientChoiceQuestionsWithPatientChoiceNotRequiredForRD(updateDetails);
             referralPage.clickSaveAndContinueButton();
             if (!testResult) {
                 Assert.fail("Patient Choice details could not be enter.");
@@ -156,7 +156,7 @@ public class ConcurrencyStepDefs extends Pages {
                     Assert.fail("Family member details could not be enter.");
                 }
             } else if (stageName.equalsIgnoreCase("Patient choice")) {
-                testResult = patientChoicePage.statusVerifiedCorrectlyforParticipants(verifyDetails);
+                testResult = patientChoicePage.statusVerifiedCorrectlyForParticipants(verifyDetails);
             } else if (stageName.equalsIgnoreCase("Panels")) {
                 testResult = panelsPage.verifyPanelDetails(verifyDetails);
             }
