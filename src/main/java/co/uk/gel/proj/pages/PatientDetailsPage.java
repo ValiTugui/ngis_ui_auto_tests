@@ -2023,6 +2023,12 @@ public class PatientDetailsPage {
                     }
                     break;
                 }
+                case "Postcode": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        seleniumLib.sendValue(postcodeField ,paramNameValue.get(key));
+                    }
+                    break;
+                }
             }
         }
         return true;
