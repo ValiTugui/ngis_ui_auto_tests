@@ -12,7 +12,7 @@ Feature: NTS-6470: Proband details updated and same proband patient verified in 
   Scenario Outline:Login as User A,Complete all stages and do not submit referral,and validate the data updated,when B is updating a stage in different referral, upon referral submission by A.
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME |r20101658758| NRF1 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME |r20101658758| NRF1 |
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
     ##Patient Details - Verify
     And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
