@@ -8,7 +8,7 @@ Feature: NTS-6470: Family member details updated and same Family member patient 
   #User2 Updates patient details of Family member
   #User1 Submit and verify the changes in Family member patient details done by user2
 
-  @NTS-6470 @Scenario4 @Z-LOGOUT
+  @NTS-6470 @NTS-6470_Scenario4 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
    #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
@@ -26,7 +26,7 @@ Feature: NTS-6470: Family member details updated and same Family member patient 
       | FamilyMemberDetailsUpdated | FamilyMembers  |
       | Gender=Male                | Family members |
 
-  @NTS-6470 @Scenario4 @Z-LOGOUT
+  @NTS-6470 @NTS-6470_Scenario4 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |r20764991948| NRF1 |

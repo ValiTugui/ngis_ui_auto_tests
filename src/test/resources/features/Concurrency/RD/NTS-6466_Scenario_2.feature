@@ -13,7 +13,7 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
   #User1 and user3 verifies the changes done by User2 in Notes stage
   #User2 and User3 verifies the changes done by User1 in Requesting organisation
 
-  @NTS-6466 @Scenario2 @Z-LOGOUT
+  @NTS-6466 @NTS-6466_Scenario2 @Z-LOGOUT
   Scenario Outline: Different stages updated by three users and verified by another two users upon referral submissions.
 
     #Login as User A, Complete all stages and do not submit referral
@@ -54,7 +54,7 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
 
      #Login as User B
 
-  @NTS-6466 @Scenario2 @Z-LOGOUT
+  @NTS-6466 @NTS-6466_Scenario2 @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral
@@ -92,7 +92,7 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
 
   #Login as User C,
 
-  @NTS-6466 @Scenario2 @Z-LOGOUT
+  @NTS-6466 @NTS-6466_Scenario2 @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
 
     Given The user is login to the Test Order Service and access the given referral

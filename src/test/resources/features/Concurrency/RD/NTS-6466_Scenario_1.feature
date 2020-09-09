@@ -9,7 +9,7 @@ Feature: NTS-6466: Proband patient details updated by user3, and user1 and user2
   #User3 Updates patient details of Proband
   #User1 and User2 Submit and verify the changes done by user3
 
-  @NTS-6466 @Scenario1 @Z-LOGOUT
+  @NTS-6466 @NTS-6466_Scenario1 @Z-LOGOUT
   Scenario Outline: User A and User B are unable to submit referral, where User C  has updated the same referral, until it has been checked.
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
@@ -33,7 +33,7 @@ Feature: NTS-6466: Proband patient details updated by user3, and user1 and user2
 
 
   #Login as User B,
-  @NTS-6466 @Scenario1 @Z-LOGOUT
+  @NTS-6466 @NTS-6466_Scenario1 @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |r20609782352| NRF1 |
@@ -53,7 +53,7 @@ Feature: NTS-6466: Proband patient details updated by user3, and user1 and user2
 
    #Login as User C,
 
-  @NTS-6466 @Scenario1 @Z-LOGOUT
+  @NTS-6466 @NTS-6466_Scenario1 @Z-LOGOUT
   Scenario Outline: Update the stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER3_NAME |r20609782352| NRF1 |
