@@ -9,7 +9,7 @@ Feature: NTS-6617:Cancer_new_referral_Tumours_edit: Navigate and verify the chan
   #User1 Updated Tumours and its sub stages for the referral
   #User2 Navigate and verify the changes done by user1 in Tumours and its sub stages
 
-  @NTS-6617 @Scenario2 @NTS-6617_Scenario2 @Z-LOGOUT
+  @NTS-6617 @NTS-6617_Scenario2 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Tumours stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -55,7 +55,7 @@ Feature: NTS-6617:Cancer_new_referral_Tumours_edit: Navigate and verify the chan
 
   #User2
   #Login as User B, Verified Tumours stage and do not submit referral
-  @NTS-6617 @Scenario2 @NTS-6617_Scenario2 @Z-LOGOUT
+  @NTS-6617 @NTS-6617_Scenario2 @Z-LOGOUT
   Scenario Outline: Verified Tumours stage of new referral updated by another user
    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
