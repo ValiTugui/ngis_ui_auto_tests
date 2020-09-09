@@ -2025,7 +2025,7 @@ public class PatientDetailsPage {
                 }
                 case "Postcode": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        seleniumLib.sendValue(postcodeField ,paramNameValue.get(key));
+                        fillPostcodeValue(paramNameValue.get(key));
                     }
                     break;
                 }
