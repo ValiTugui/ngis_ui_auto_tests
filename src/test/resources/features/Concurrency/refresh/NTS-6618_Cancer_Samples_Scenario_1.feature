@@ -68,7 +68,7 @@ Feature: NTS-6618:Cancer_new_referral_Samples_add: Navigate and verify the chang
   #Login as User B, Verified Samples stage and do not submit referral
   @NTS-6618 @Scenario1 @Z-LOGOUT
   Scenario Outline: Verified Samples stage of new referral updated by another user
-    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
    #Samples - Verified by User2
