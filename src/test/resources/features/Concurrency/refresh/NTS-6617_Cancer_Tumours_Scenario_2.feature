@@ -63,7 +63,7 @@ Feature: NTS-6617:Cancer_new_referral_Tumours_edit: Navigate and verify the chan
    #Tumours - Verified by User2
     And the user navigates to the "<ResponsibleClinican>" stage
     And the user updates the file NRF1 with Responsible clinician details Updated by User2
-    And the user waits max 5 minutes for the update Tumours details Updated by User1 in the file NRF1
+    And the user waits max 15 minutes for the update Tumours details Updated by User1 in the file NRF1
     When the user navigates to the "<Tumours>" stage
     And the user selects the existing tumour on the landing page by clicking on the chevron right arrow icon
     Then the user verifies the stage "<Tumours>" with "<TumoursUpdated>"
