@@ -62,7 +62,7 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
 
     #### verify patient details after changes done by B
-    And the user waits max 4 minutes for the update PatientDetails Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
@@ -74,8 +74,8 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
     And the referral status is set to "Submitted"
 
     Examples:
-      | RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated        | Notes | NotesUpdated        | FamilyMembers  | FamilyMemberDetailsUpdated                                             | FamilyMemberClinicalDetailsUpdated    | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated |
-      | Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Authorised by clinician     |
+      | RequestingOrganisation  | testPackage  | OneParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                     | ResponsibleClinicianDetails                              | PatientChoiceStage | ClinicianName      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | ResponsibleClinician  |
+      | Requesting organisation | Test package | 1              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Patient choice     | ClinicianName=John | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | Responsible clinician |
 
 
    #User2
@@ -83,7 +83,6 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-    And the "<PatientDetails>" stage is marked as Completed
     #Below step is for new referrals
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     #Patient Details - Update By user2

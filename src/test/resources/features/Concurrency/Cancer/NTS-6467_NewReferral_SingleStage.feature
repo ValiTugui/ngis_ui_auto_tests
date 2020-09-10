@@ -93,7 +93,7 @@ Feature: NTS-6467:Cancer_new_referral_single_stage:Create New Referral for Cance
    #Responsible Clinician - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 5 minutes for the update Responsible Clinician details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Responsible Clinician details Updated by User1 in the file NRF1
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<ResponsibleClinician>" stage
