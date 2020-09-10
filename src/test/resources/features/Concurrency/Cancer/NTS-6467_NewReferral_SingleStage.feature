@@ -7,7 +7,7 @@ Feature: NTS-6467:Cancer_new_referral_single_stage:Create New Referral for Cance
   #User1 updated the Responsible Clinician (Single Stage)
   #User2 Submits the referral and observe for Responsible Clinician change made by user1
 
-  @NTS-6467 @NTS-6467_Cancer @Z-LOGOUT
+  @NTS-6467 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Responsible clinician stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -86,8 +86,9 @@ Feature: NTS-6467:Cancer_new_referral_single_stage:Create New Referral for Cance
 
   #User2
   #Login as User B, Verified Responsible Clinician stage and do not submit referral
-  @NTS-6467 @NTS-6467_Cancer @Z-LOGOUT
+  @NTS-6467 @Z-LOGOUT
   Scenario Outline: Verified Responsible Clinician stage of new referral updated by another user
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
    #Responsible Clinician - Verified by User2

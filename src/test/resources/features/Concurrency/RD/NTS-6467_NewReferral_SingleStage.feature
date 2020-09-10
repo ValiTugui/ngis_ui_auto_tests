@@ -7,7 +7,7 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
   #User2 Updated the Patient details stage (Single Stage)
   #User1 Submits the referral and observe for patient details change made by user2
 
-  @NTS-6467 @NTS-6467_RD @Z-LOGOUT
+  @NTS-6467 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage upon referral submission by A.
 
     #Login as User A, Complete all stages and do not submit referral
@@ -79,7 +79,7 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
 
 
    #User2
-  @NTS-6467 @NTS-6467_RD @Z-LOGOUT
+  @NTS-6467 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
