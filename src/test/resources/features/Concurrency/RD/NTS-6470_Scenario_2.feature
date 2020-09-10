@@ -18,7 +18,7 @@ Feature: NTS-6470: Family member details updated and same Family member verified
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
-    Then the user updates the file NRF2 with PatientDetails Updated by User1
+    Then the user updates the file NRF2 with Patient details Updated by User1
     Examples:
       | PatientDetails  | PatientDetailsUpdated |
       | Patient details | Gender=Male           |
