@@ -29,7 +29,7 @@ Feature: NTS-6470: Family member details updated and same Family member verified
       | CONCURRENT_USER2_NAME | r20781045072 | NRF2 |
     Then the user updates the file NRF2 with Mandatory Stages Completed by User2
     ##Family Member Details - Verify
-    And the user waits max 10 minutes for the update PatientDetails Updated by User1 in the file NRF2
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF2
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<FamilyMembers>" stage
