@@ -357,6 +357,54 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser"+exp);
         }
     }
+    public void loginToTestOrderingSystemAsStandardConcurrentUser(String email,String password) {
+        Actions.deleteCookies(driver);
+        try {
+            Wait.seconds(5);
+            if (!Wait.isElementDisplayed(driver,emailAddressField,60)) {//If the element is not displayed, even after the waiting time
+                Debugger.println("Email Address Field is not visible, even after the waiting period of 60 seconds");
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,60)) {//Click on UseAnotherAccount and Proceed.
+                    Debugger.println("Clicking on useAnotherAccount to Proceed.");
+                    useAnotherAccount.click();
+                    Wait.seconds(3);
+                } else {
+                    Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
+                    Assert.fail("Email field or UseAnotherAccount option are not available.");
+                }
+            }else{
+                Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
+            }
+            try {
+                emailAddressField.sendKeys(email);
+            }catch(Exception exp1){
+                seleniumLib.sendValue(emailAddressField,email);
+            }
+            Wait.seconds(4);
+            try {
+                seleniumLib.clickOnWebElement(nextButton);
+            }catch(Exception exp1){
+                Actions.clickElement(driver,nextButton);
+            }
+            Wait.seconds(4);
+            try {
+                passwordField.sendKeys(password);
+            }catch(Exception exp1){
+                seleniumLib.sendValue(passwordField,password);
+            }
+            Wait.seconds(4);
+            try {
+                seleniumLib.clickOnWebElement(nextButton);
+            }catch(Exception exp1){
+                Actions.clickElement(driver,nextButton);
+            }
+            Wait.seconds(5);
+        }catch(Exception exp){
+            Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
+            SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
+            Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser"+exp);
+        }
+    }
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
         try {

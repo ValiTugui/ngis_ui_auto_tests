@@ -284,7 +284,7 @@ public class FamilyMemberDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
+   public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
         if (!Wait.isElementDisplayed(driver, patientCardName, 100)) {
@@ -354,10 +354,10 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
                 return false;
             }
-            Actions.clickElement(driver,patientCard);
+            Actions.clickElement(driver, patientCard);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from clickPatientCard:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickPatientCard:" + exp);
             SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
             return false;
         }

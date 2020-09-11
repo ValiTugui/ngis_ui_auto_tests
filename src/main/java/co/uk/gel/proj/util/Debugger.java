@@ -33,7 +33,7 @@ public class Debugger {
                     }
 
                 });
-                //handler.setFormatter(new SimpleFormatter());
+               // handler.setFormatter(new SimpleFormatter());
                 logger.addHandler(handler);
 
             } catch (Exception E) {

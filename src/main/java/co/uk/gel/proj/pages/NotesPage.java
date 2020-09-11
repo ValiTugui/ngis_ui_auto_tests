@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -72,6 +73,43 @@ public class NotesPage {
                 SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
                 return false;
             }
+        }
+    }
+
+    public boolean fillInAddNotes(String updateNotes) {
+        try {
+            if (!Wait.isElementDisplayed(driver, addNoteField, 30)) {
+                Debugger.println("AddNoteField not displayed.\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
+                return false;
+            }
+            addNoteField.clear();
+            seleniumLib.sendValue(addNoteField, updateNotes);
+            return true;
+        } catch (Exception exp1) {
+            Debugger.println("Exception from fillInAddNotesField." + exp1 + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNotesDetails(String expectedValue) {
+        try {
+            if (!Wait.isElementDisplayed(driver, addNoteField, 30)) {
+                Debugger.println("AddNoteField not displayed.\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("verifyAddNotesField.jpg");
+                return false;
+            }
+            String actValue = seleniumLib.getText(addNoteField);
+            if (!actValue.equalsIgnoreCase(expectedValue)) {
+                Debugger.println("Expected :" + expectedValue + "Actual:" + actValue);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyAddNotesField." + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("verifyAddNotesField.jpg");
+            return false;
         }
     }
 

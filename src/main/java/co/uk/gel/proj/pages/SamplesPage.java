@@ -16,7 +16,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class SamplesPage {
 
@@ -116,6 +118,8 @@ public class SamplesPage {
 
     @FindBy(css = "*[class*='sample-detail__edit-link']")
     public WebElement editSampleButton;
+    @FindBy(css = "*[class*='sample-detail__edit']")
+    public WebElement editSampleArrow;
 
     @FindBy(xpath = "//button[@type='button']/span[text()='Add sample']")
     public WebElement addSampleButton;
@@ -183,6 +187,16 @@ public class SamplesPage {
 
     @FindBy(xpath = "//a[contains(@class,'styles_sample-detail__edit-link')]")
     List<WebElement> sampleEditButtons;
+
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public WebElement updatedSampleTable;
+    @FindBy(xpath = "//label[@for='sampleType']/..//div[contains(@class,'singleValue')]/span")
+    public WebElement selectedSampleTypeValue;
+    @FindBy(xpath = "//input[@id='labId']")
+    public WebElement sampleId;
+    public static String updatedSampleId;
+    By sampleTypePath = By.xpath("//label[contains(@for,'sampleType')]//following::div[5]/../div/span/span");
+    By sampleStatePath = By.xpath("//label[contains(@for,'sampleState')]//following::div[5]/../div/span/span");
 
     public boolean isErrorPresent(){
         int noOfErrors = errorMessages.size();
@@ -502,6 +516,22 @@ public class SamplesPage {
             return false;
         }
     }
+    public boolean clickEditSampleArrow() {
+        try {
+            if (!Wait.isElementDisplayed(driver, editSampleArrow, 30)) {
+                Debugger.println("samplesLandingPageTable not loaded.");
+                SeleniumLib.takeAScreenShot("samplesLandingPageTable.jpg");
+                return false;
+            }
+            Wait.seconds(3);
+            Actions.clickElement(driver, editSampleArrow);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickEditSampleArrow:" + exp);
+            SeleniumLib.takeAScreenShot("clickEditSampleArrow.jpg");
+            return false;
+        }
+    }
 
     public List<String> getTheSampleDetailsOnEditASamplePage() {
 
@@ -687,5 +717,158 @@ public class SamplesPage {
             SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
             return false;
         }
+    }
+
+    public boolean updateSampleDetails(String sampleDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(sampleDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "SampleType": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectSampleType(paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "SampleState": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectSpecificSampleState(paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "SampleID": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        seleniumLib.sendValue(sampleId,paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean updateSampleQuestionnaireDetails(String sampleQuestionnaireDetails){
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(sampleQuestionnaireDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        percentageOfMalignantNucleiField.clear();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "PercentageOfMalignantNuclei": {
+                    By percentageOfMalignantNucleiPath= By.xpath("//*[contains(@id,'question-id-q321')]");
+                    seleniumLib.clearValue(percentageOfMalignantNucleiPath);
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        seleniumLib.sendValue(percentageOfMalignantNucleiField, paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "NumberOfSlides": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        seleniumLib.sendValue(numberOfSlidesField,paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "SampleCollectionDate": {
+                    String sampleCollectionDateValue = paramNameValue.get(key);
+                    if (sampleCollectionDateValue != null && !sampleCollectionDateValue.isEmpty()) {
+                        String[] sampleCollectionDateSplit = sampleCollectionDateValue.split("-");
+                        seleniumLib.sendValue(sampleCollectionDay, sampleCollectionDateSplit[0]);
+                        seleniumLib.sendValue(sampleCollectionMonth, sampleCollectionDateSplit[1]);
+                        seleniumLib.sendValue(sampleCollectionYear, sampleCollectionDateSplit[2]);
+                        break;
+                    }
+                }
+                case "SampleComments":{
+                    seleniumLib.sendValue(sampleCommentsField,paramNameValue.get(key));
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean verifySampleDetails(String sampleDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(sampleDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "SampleType": {
+
+                    actValue = seleniumLib.getText(sampleTypePath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "SampleState": {
+                   actValue = seleniumLib.getText(sampleStatePath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "SampleID": {
+                    actValue = sampleId.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean verifySampleQuestionnaireDetails(String sampleQuestionnaireDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(sampleQuestionnaireDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+
+                case "PercentageOfMalignantNuclei": {
+                    actValue = percentageOfMalignantNucleiField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "NumberOfSlides":{
+                    actValue = numberOfSlidesField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "SampleCollectionDate":{
+                    actValue = sampleCollectionDay.getAttribute("value")+"-";
+                    actValue += sampleCollectionMonth.getAttribute("value")+"-";
+                    actValue += sampleCollectionYear.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "SampleComments":{
+                    By sampleCommentsPath = By.xpath("//*[contains(@id,'question-id-q327')]");
+                    actValue = seleniumLib.getText(sampleCommentsPath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
     }
 }//

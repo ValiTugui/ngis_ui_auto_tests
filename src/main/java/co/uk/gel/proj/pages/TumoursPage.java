@@ -2,20 +2,23 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import co.uk.gel.lib.SeleniumLib;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class TumoursPage {
 
@@ -182,6 +185,9 @@ public class TumoursPage {
     @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
 
+    public static String updatedTumourDescription;
+    public static String updatedPathologyReportId;
+
     public boolean navigateToAddTumourPageIfOnEditTumourPage() {
 
         if (descriptiveNameList.size() > 0) {
@@ -203,8 +209,9 @@ public class TumoursPage {
         try {
             Wait.forElementToBeDisplayed(driver, descriptiveName);
             String description = TestUtils.getRandomLastName();
+            descriptiveName.clear();
             tumourDetails.setTumourDescription(description);
-            Actions.fillInValue(descriptiveName, description);
+            seleniumLib.sendValue(descriptiveName, description);
             return description;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInTumourDescription:" + exp);
@@ -900,6 +907,132 @@ public class TumoursPage {
             SeleniumLib.takeAScreenShot("verifyTumourSubTitle.jpg");
             return false;
          }
+        return true;
+    }
+
+     public void verifyDescriptionAndReportId (){
+        updatedTumourDescription = descriptiveName.getText();
+        updatedPathologyReportId = pathologyReportId.getText();
+    }
+
+    public boolean updateTumoursDetails(String tumoursDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(tumoursDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "Description": {
+                 seleniumLib.sendValue(descriptiveName,paramNameValue.get(key));
+                    break;
+                }
+                case "DateOfDiagnosis": {
+                    dateDay.clear();
+                    dateMonth.clear();
+                    dateYear.clear();
+                    String dodValue = paramNameValue.get(key);
+                    if (dodValue != null && !dodValue.isEmpty()) {
+                        String[] dodSplit = dodValue.split("-");
+                        dateDay.sendKeys(dodSplit[0]);
+                        dateMonth.sendKeys(dodSplit[1]);
+                        dateYear.sendKeys(dodSplit[2]);
+                    }
+                    break;
+                }
+                case "TumourType": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        selectTumourType(paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "SIHMDSLabID": {
+                   seleniumLib.sendValue(pathologyReportId,paramNameValue.get(key));
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean updateTumourQuestionnaireDetails(String tumourQuestionnaireDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(tumourQuestionnaireDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstPresentation": {
+                        selectTumourFirstPresentationOrOccurrenceValue(paramNameValue.get(key));
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean verifyTumourDetails(String tumourDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(tumourDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "Description": {
+                    actValue = descriptiveName.getAttribute("Value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "DateOfDiagnosis": {
+                    actValue = dateDay.getAttribute("value") + "-";
+                    actValue += dateMonth.getAttribute("value") + "-";
+                    actValue += dateYear.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "TumourType": {
+                    By tumourTypePath = By.xpath("//input[@id='tumourType']/../div/span/span");
+                    actValue = seleniumLib.getText(tumourTypePath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "SIHMDSLabID": {
+                    actValue = pathologyReportId.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean verifyTumourQuestionnaireDetails(String tumourQuestionnaireDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(tumourQuestionnaireDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "FirstPresentation": {
+                    By firstPresentationPath = By.xpath("//*[contains(@id,'question-id-q151')]/../div/span/span");
+                    actValue = seleniumLib.getText(firstPresentationPath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+            }
+        }
         return true;
     }
 }

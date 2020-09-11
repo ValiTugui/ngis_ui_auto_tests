@@ -1,14 +1,14 @@
 package co.uk.gel.proj.pages;
 
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.util.StylesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -653,9 +653,79 @@ public class ResponsibleClinicianPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp+"\n"+driver.getCurrentUrl());
+            Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ResponsibleClinician.jpg");
             return false;
         }
+    }
+
+    public boolean fillResponsibleClinicianFields(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    seleniumLib.sendValue(clinicianFirstNameField, paramNameValue.get(key));
+                    break;
+                }
+                case "LastName": {
+                    seleniumLib.sendValue(clinicianLastNameField, paramNameValue.get(key));
+                    break;
+                }
+                case "Department": {
+                    seleniumLib.sendValue(clinicianDepartmentAddressField, paramNameValue.get(key));
+                    break;
+                }
+                case "EmailAddress":{
+                    seleniumLib.sendValue(clinicianEmailField, paramNameValue.get(key));
+                }
+
+            }
+        }
+        return true;
+    }
+
+    public boolean verifyResponsibleClinicianDetails(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        for (String key : paramsKey) {
+            switch (key) {
+                case "FirstName": {
+                    actValue = clinicianFirstNameField.getAttribute("value");
+
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "LastName": {
+                    actValue = clinicianLastNameField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Department": {
+                    actValue = clinicianDepartmentAddressField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "EmailAddress": {
+                    actValue = clinicianEmailField.getAttribute("value");
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                    }
+                }
+            }
+
+
+        }
+        return true;
     }
 }
