@@ -3,7 +3,7 @@
 
 Feature: Patient Choice-16 Requesting Organisation Information after PC submission
 
-@NTS-5948 @Z-LOGOUT
+  @NTS-5948 @Z-LOGOUT
   Scenario Outline: NTS-5948: Verifying 'Requesting organisation' page is getting displayed while navigating to 'Requesting organisation' after submitting the 'patient choice'.
 
     Given a new patient referral is created with associated tests in Test Order System online service
