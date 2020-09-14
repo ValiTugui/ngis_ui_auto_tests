@@ -2390,6 +2390,107 @@ public class PatientChoicePage {
             return false;
         }
     }
-
+    public boolean theUserAnswersThePatientChoiceQuestionswithPatientChoiceNotrequiredForRD(String recordedByName) {
+        boolean testResult = false;
+        try {
+//            Wait.seconds(20);
+            selectMember(0);
+            clickOnAmendPatientChoice();
+            selectPatientChoiceCategory();
+            Wait.seconds(2);
+            selectTestType("Rare & inherited diseases – WGS");
+            Wait.seconds(2);
+            testResult = enterRecordedDetails(recordedByName);
+            if (!testResult) {
+                return testResult;
+            }
+            Wait.seconds(2);
+            selectChoicesWithPatientChoiceNotRequired();
+            Wait.seconds(2);
+            drawSignature();
+            Wait.seconds(2);
+            submitPatientChoice();
+            Wait.seconds(30);
+            return testResult;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Submitting Patient Choice for :" +  "\n" + exp);
+            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
+            return false;
+        }
+    }
+    public boolean enterRecordedDetails(String recordedByName) {
+        try {
+            Wait.forElementToBeDisplayed(driver, recordedByField);
+            co.uk.gel.lib.Actions.fillInValue(recordedByField, recordedByName);
+            Click.element(driver, recordedByContinueButton);
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(recordedByContinueButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in enterRecordedByDetails:" + exp1);
+                SeleniumLib.takeAScreenShot("enterRecordedByDetails.jpg");
+                return false;
+            }
+        }
+    }
+    public boolean theUserAnswersThePatientChoiceQuestionsWithPatientChoiceNotRequiredForRD(String recordedByName) {
+        boolean testResult = false;
+        try {
+//            Wait.seconds(20);
+            selectMember(0);
+            clickOnAmendPatientChoice();
+            selectPatientChoiceCategory();
+            Wait.seconds(2);
+            selectTestType("Rare & inherited diseases – WGS");
+            Wait.seconds(2);
+            testResult = enterRecordedDetails(recordedByName);
+            if (!testResult) {
+                return testResult;
+            }
+            Wait.seconds(2);
+            selectChoicesWithPatientChoiceNotRequired();
+            Wait.seconds(2);
+            drawSignature();
+            Wait.seconds(2);
+            submitPatientChoice();
+            Wait.seconds(30);
+            return testResult;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Submitting Patient Choice for :" +  "\n" + exp);
+            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
+            return false;
+        }
+    }
+    String pcStatusPath = "//span[text()='dummyParticipant']//following::li/span[contains(text(),'Patient choice status')]/following-sibling::span/span";
+    public boolean statusVerifiedCorrectlyForParticipants(String status) {
+        try {
+            if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
+                Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+                return false;
+            }
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(status);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey){
+                Debugger.println("The key is "+key);
+                Debugger.println("The key value is "+paramNameValue.get(key));
+                String actualPCStatusPath = pcStatusPath.replace("dummyParticipant",key);
+                WebElement pcStatus = driver.findElement(By.xpath(actualPCStatusPath));
+                String pcStatusText = pcStatus.getText();
+                if (!pcStatusText.equalsIgnoreCase(paramNameValue.get(key))){
+                    Debugger.println("Patient Choice Landing Page Status, Actual:" + pcStatusText + ",Expected:" + paramNameValue.get(key));
+                    SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from statusUpdatedCorrectly:" + exp);
+            SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");
+            return false;
+        }
+    }
 
 }//end

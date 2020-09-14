@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
@@ -9,6 +10,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
+import co.uk.gel.proj.util.ConcurrencyTest;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
@@ -897,6 +899,118 @@ public class ReferralSteps extends Pages {
         referralPage.logTheReferralId();
     }
 
+    //Added for Concurrency Test
+    @Given("The user is login to the Test Order Service and create a new referral")
+    public void theFirstUserLoginToTestOrderAndCreateNewReferral(List<String> attributeOfURL) throws IOException {
+        String baseURL = "TEST_DIRECTORY_PRIVATE_URL";
+        String confirmationPage = "test-selection/clinical-tests";
+        String searchTerm = attributeOfURL.get(0);
+        String userType = attributeOfURL.get(1);
+        String referralType = attributeOfURL.get(2);
+        String filePrefix = attributeOfURL.get(3);
+
+        if(!referralType.equalsIgnoreCase("New Referral")){
+            loginForExistingReferral(userType,referralType,filePrefix);
+            return;
+        }
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        Assert.assertTrue(homePage.searchForTheTest(searchTerm));
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+        }
+        boolean stepResult = false;
+        stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        Assert.assertTrue(stepResult);
+        if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
+            Assert.assertTrue(false);
+        }
+        Debugger.println("User Type : " + userType);
+        if (userType == null || userType.isEmpty()) {
+            Debugger.println("User Type Cannot be null");
+            return;
+        }
+        switchToURL(driver.getCurrentUrl(), userType);
+        stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
+        Assert.assertTrue(stepResult);
+        //Create New NGIS Patient
+        NGISPatientModel searchPatient = new NGISPatientModel();
+        searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+        searchPatient.setNO_NHS_REASON("Patient not eligible for NHS number (e.g. foreign national)");
+        searchPatient.setDATE_OF_BIRTH("25-10-1998");
+        searchPatient.setGENDER("Male");
+        String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
+        if (searchResult.equalsIgnoreCase("No patient found")) {
+            //Create New Patient and Add as Referral
+            if (!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")) {
+                Assert.fail("create a new patient record link not displayed");
+            }
+            if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
+                Assert.fail("Could not click on create a new patient record link");
+            }
+            if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
+                Assert.fail("Could not create new Patient Referral");
+            }
+            if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
+                Assert.fail("Referral successfully created message not displayed.");
+            }
+            if (!referralPage.saveAndContinueButtonIsDisplayed()) {
+                Assert.fail("SaveAndContinue button not displayed after referral creation.");
+            }
+        }
+        //Write to Concurrency File.
+        String referralId = referralPage.getPatientReferralId();
+        ConcurrencyTest.setReferral_id(referralId,filePrefix);
+        SeleniumLib.sleepInSeconds(5);
+        ConcurrencyTest.writeToControllerFile(filePrefix,"ReferralId="+referralId);
+    }
+    @Given("The user is login to the Test Order Service and access the given referral")
+    public void userIsLoginToTheTestOrderServiceAndAccessGivenReferral(List<String> attributeOfURL) throws IOException {
+        String userType = attributeOfURL.get(0);
+        String referralId = attributeOfURL.get(1);
+        String filePrefix = attributeOfURL.get(2);
+        loginForExistingReferral(userType,referralId,filePrefix);
+
+   }
+   private void loginForExistingReferral(String userType,String referralId,String filePrefix){
+       String baseURL = "";
+       if(referralId.equalsIgnoreCase("New Referral")){
+           baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
+       }else{
+           ConcurrencyTest.setReferral_id(referralId,filePrefix);
+           ConcurrencyTest.writeToControllerFile(filePrefix,"ReferralId="+referralId);
+           if(System.getProperty("TestEnvironment").equalsIgnoreCase("qa")) {
+               baseURL = "https://qa.build.ngis.io/test-order/referral/" + referralId;
+           }else{
+               baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/" + referralId;
+           }
+       }
+       Debugger.println("BASE_URL: "+baseURL);
+       boolean isReferralExists = false;
+       if(baseURL != null && !baseURL.isEmpty()){
+           isReferralExists = true;
+       }else{
+           //Wait for 60 seconds to create new referral by another user
+           SeleniumLib.sleepInSeconds(60);
+       }
+       int count = 1;
+       while(!isReferralExists){//Check every 15 seconds, the presence of referral creation by first user
+           count++;
+           SeleniumLib.sleepInSeconds(15);
+           baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
+           if(baseURL != null && !baseURL.isEmpty()){
+               isReferralExists = true;
+           }
+           if(count > 11){
+               break;
+           }
+       }
+       if(!isReferralExists){
+           Assert.fail("Referral is not exists/not created by another user even after 4 minutes...exiting.");
+       }
+       switchToURL(baseURL, userType);
+       SeleniumLib.sleepInSeconds(10);
+   }
+
     @And("^the mandatory fields shown with the symbol in red color$")
     public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {
 
@@ -1312,6 +1426,14 @@ public class ReferralSteps extends Pages {
     public void theUserSeesTheStageHasNoStatusIndicator(String stage) {
         boolean testResult = false;
         testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
+        Assert.assertTrue(testResult);
+    }
+
+    //Notification popup
+    @Then("the user click on Reload referral button to validate the data")
+    public void theuserclickonReloadReferral() {
+        boolean testResult = false;
+        testResult = referralPage.acknowledgeThePromptPopup_ReferralSubmit();
         Assert.assertTrue(testResult);
     }
 }

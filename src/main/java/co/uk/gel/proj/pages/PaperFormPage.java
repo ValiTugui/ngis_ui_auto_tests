@@ -145,6 +145,25 @@ public class PaperFormPage {
         }
     }
 
+    public boolean fillInSpecificValueInSearchField(String keyword) {
+        try {
+            if (!Wait.isElementDisplayed(driver, orderEntitySearchField, 30)) {
+                Debugger.println("Could not find orderEntitySearchField..Trying with SeleniumLib.");
+                seleniumLib.sendValue(orderEntitySearchField, keyword);
+                Wait.seconds(2);
+                return false;
+            }
+            orderEntitySearchField.clear();
+            orderEntitySearchField.sendKeys(keyword);
+            Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+            Wait.seconds(2);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception1 from orderEntitySearchField.." + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("OrderEntity.jpg");
+            return false;
+        }
+    }
     public boolean checkThatEntitySuggestionsAreDisplayed() {
         try {
             Wait.seconds(2);

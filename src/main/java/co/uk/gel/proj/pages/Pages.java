@@ -7,6 +7,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.miportal_pages.*;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.ExcelDataRead;
+import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -18,9 +19,13 @@ public class Pages implements Navigable {
     public final String testOrderURL = "test-order";
     protected String normalUser = "GEL_NORMAL_USER";
     protected String superUser = "GEL_SUPER_USER";
+    protected String concurrentUser1 = "CONCURRENT_USER1";
+    protected String concurrentUser2 = "CONCURRENT_USER2";
+    protected String concurrentUser3 = "CONCURRENT_USER3";
+    protected String concurrentUser4 = "CONCURRENT_USER4";
+    protected String concurrentUser5 = "CONCURRENT_USER5";
 
     protected WebDriver driver;
-
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
     protected HomePage homePage;
     protected ClinicalIndicationsTestSelectPage clinicalIndicationsTestSelect;
@@ -244,7 +249,7 @@ public class Pages implements Navigable {
     }
     @Override
     public void switchToURL(String currentURL, String userType) {
-        Debugger.println("Switching URL...");
+        Debugger.println("Switching URL..USER: "+userType+",URL:"+currentURL);
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
@@ -269,6 +274,45 @@ public class Pages implements Navigable {
                         Debugger.println("Login to TOMS as SUPER_USER");
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
+                }else if(userType.startsWith(concurrentUser1) ||
+                        userType.startsWith(concurrentUser2)){
+                    Debugger.println("Concurrent User... Logging to TestOrder");
+                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                }
+            }else{
+                if(userType.startsWith(concurrentUser1) ||
+                        userType.startsWith(concurrentUser2) ||
+                        userType.startsWith(concurrentUser3) ||
+                        userType.startsWith(concurrentUser4) ||
+                        userType.startsWith(concurrentUser5)){
+                    driver.get(currentURL);
+                    String userEmail = "";
+                    String userPwd = "";
+                    if(userType.startsWith(concurrentUser1)){
+                        userEmail = AppConfig.getConcurrent_user1_username();
+                        userPwd = AppConfig.getConcurrent_user1_password();
+                    }else if(userType.startsWith(concurrentUser2)){
+                        userEmail = AppConfig.getConcurrent_user2_username();
+                        userPwd = AppConfig.getConcurrent_user2_password();
+                    }else if(userType.startsWith(concurrentUser3)){
+                        userEmail = AppConfig.getConcurrent_user3_username();
+                        userPwd = AppConfig.getConcurrent_user3_password();
+                    }else if(userType.startsWith(concurrentUser4)){
+                        userEmail = AppConfig.getConcurrent_user4_username();
+                        userPwd = AppConfig.getConcurrent_user4_password();
+                    }else if(userType.startsWith(concurrentUser5)){
+                        userEmail = AppConfig.getConcurrent_user5_username();
+                        userPwd = AppConfig.getConcurrent_user5_password();
+                    }else{
+                        userEmail = AppConfig.getApp_username();
+                        userPwd = AppConfig.getApp_password();
+                    }
+                    TestUtils.currentUser = userEmail;
+                    if(userEmail.contains("microsoft")){
+                        patientSearchPage.loginToTestOrderingSystemAsStandardConcurrentUser(userEmail,userPwd);
+                    }else {
+                        referralPage.loginToTestOrderingSystemAsNHSUser(driver, userType);
+                    }
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to
@@ -285,6 +329,6 @@ public class Pages implements Navigable {
             SeleniumLib.takeAScreenShot("SwitchURLException.jpg");
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
-    }
+     }
 
 }//end class
