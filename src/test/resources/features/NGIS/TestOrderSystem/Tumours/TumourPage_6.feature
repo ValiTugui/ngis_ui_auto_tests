@@ -1,4 +1,4 @@
-@03-TEST_ORDER1
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 6
 

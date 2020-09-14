@@ -2,7 +2,6 @@
 @06-PANEL_ASSIGNER
 @SYSTEM_TEST
 
-
 Feature: PanelAssigner:  Validation for Panels heading and info texts
 
   @NTS-5818
@@ -22,7 +21,8 @@ Feature: PanelAssigner:  Validation for Panels heading and info texts
       | Panels | message                                      |
       | Panels | Only ticked panels will be sent for analysis |
 
-  @E2EUI-2978
+  @NTS-5818
+#  @E2EUI-2978
   Scenario Outline:E2EUI-2978 User visits the panel,change the selected panel,add additional panels and Save
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1982:Gender=Male |
@@ -50,7 +50,8 @@ Feature: PanelAssigner:  Validation for Panels heading and info texts
       | ClinicalQuestions  | ClinicalQuestionDetails                                                    | Panels | searchPanels        |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,02:HpoPhenoType=Phenotypic abnormality | Panels | Cardiac arrhythmias |
 
-  @E2EUI-2979
+  @NTS-5818
+#  @E2EUI-2979
   Scenario Outline:E2EUI-2979 User visits the panel,navigates away without saving the changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1978:Gender=Male |
@@ -67,5 +68,3 @@ Feature: PanelAssigner:  Validation for Panels heading and info texts
     Examples:
       | Panels | searchPanels     | warningMessage                                              | acknowledgeMessage | newStage       |
       | Panels | Optic neuropathy | This section contains unsaved information. Discard changes? | OK                 | Patient choice |
-
-

@@ -1,6 +1,6 @@
 #Josephine release
-@PANEL_ASSIGNER
-@NTS-5947 @Z-LOGOUT
+@06-PANEL_ASSIGNER
+@SYSTEM_TEST
 
 Feature: Submitting the referral after saving the Panels stage
 
