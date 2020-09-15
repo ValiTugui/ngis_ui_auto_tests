@@ -14,9 +14,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
-import javax.swing.text.Style;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,7 +107,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[contains(@data-testid,'notification-success')]")
     public WebElement cancelReferralNotification;
 
-    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'actionButtonCss')]//button")
+    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'css-lcbn88-actionButton')]//button")
     public List<WebElement> cancelReferralButtons;
 
     @FindBy(css = "*[class*='error-message']")

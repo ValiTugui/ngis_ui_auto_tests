@@ -1,26 +1,41 @@
-#@userJourneysRD
-#@userJourneysRD_NgisAP
-@SYSTEM_INTEGRATION_TEST
-Feature: UserJourney_RD_NGIS_AP_4 - UC15 - E2EUI-1048
+Feature: RD Duo Family : NTS-5718: Submit a referral by creating a new patient and provide any other valid NHS number in the GEL 1001 CSV
 
-  @NTS-3328 @Z-LOGOUT
-#     @E2EUI-1048
-  Scenario Outline: NTS-3328: Use Case#15 Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search NGIS Patient
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=05-05-1995:Gender=Male |
+  @NTS-5718 @Z-LOGOUT
+    #E2EUI-2777
+  Scenario Outline: NTS-5718: Submit a referral by creating a new patient and provide any other valid NHS number in the GEL 1001 CSV
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user types in the CI term  in the search field and selects the first result from the results list
+      | R100 |
+    And the user clicks the CI Search Start Referral button
+    And the user clicks the Sign in hyperlink
+      | Sign in to the online service |
+    And the user logs in to the Test Order system successfully
+      | Find your patient |
+    When the user is navigated to a page with title Find your patient
+    When the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "Create a record for this patient" page is displayed
+    When the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber "Patient not eligible for NHS number (e.g. foreign national)"
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "NGIS patient record created"
+    Then the user clicks the Start Referral button to display the referral page
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    When the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "NHS Foundation Trust" in the search field
+    And the user enters the keyword "Greater Manchester Mental Health" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
-    And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package - No of participants -1
-    When the user navigates to the "<TestPackage>" stage
+    When the user clicks the Save and Continue button
+    Then the "<RequestingOrganisation>" stage is marked as Completed
+    ##Test Package - proband only
+    Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
@@ -39,29 +54,16 @@ Feature: UserJourney_RD_NGIS_AP_4 - UC15 - E2EUI-1048
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Additional Participants, need to deselect the test
+    ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add family member details
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
-    And the user clicks the Save and Continue button
-    Then the "<FamilyMemberStage>" stage is marked as Completed
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<RecordedBy>" details in recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     When the user is in the section Patient choices
     When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -73,12 +75,10 @@ Feature: UserJourney_RD_NGIS_AP_4 - UC15 - E2EUI-1048
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
-    When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
@@ -92,5 +92,5 @@ Feature: UserJourney_RD_NGIS_AP_4 - UC15 - E2EUI-1048
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | searchPanels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Cataracts    | Pedigree |
+      | message          | hyperlinkText               | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | No patient found | create a new patient record | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |

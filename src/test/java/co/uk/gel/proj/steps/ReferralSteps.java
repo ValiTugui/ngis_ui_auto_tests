@@ -847,6 +847,10 @@ public class ReferralSteps extends Pages {
                     searchPatient.setETHNICITY(paramValue);
                     break;
                 }
+                case "Life status": {
+                    searchPatient.setLIFE_STATUS(paramValue);
+                    break;
+                }
             }//switch
         }//for
         String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
@@ -872,7 +876,6 @@ public class ReferralSteps extends Pages {
             if (!patientSearchPage.clickPatientCard()) {
                 Assert.fail("Could not click on Patient Card");
             }
-
             if (!patientDetailsPage.clickStartNewReferralButton()) {
                 Assert.fail("Could not click on StartNewReferral Button");
             }

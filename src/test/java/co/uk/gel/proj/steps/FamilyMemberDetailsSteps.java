@@ -370,6 +370,11 @@ public class FamilyMemberDetailsSteps extends Pages {
                     } else {
                         familyMember.setETHNICITY("A - White - British");
                     }
+                    if (paramNameValue.get("Life status")!=null) {
+                        familyMember.setLIFE_STATUS(paramNameValue.get("Life status"));
+                    } else {
+                        familyMember.setLIFE_STATUS("Alive");
+                    }
                     if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": fillInNHSNumberAndDateOfBirth Failed");
                     }

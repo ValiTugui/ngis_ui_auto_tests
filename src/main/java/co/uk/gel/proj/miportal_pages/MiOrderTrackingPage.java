@@ -48,8 +48,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
 
-    By orderTrackingTableHead = By.xpath("//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String orderTrackingTableRows = "//div[@id='order_tracking-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By orderTrackingTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String orderTrackingTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     @FindBy(xpath = "//select[@id='order_tracking-search-value']//option")
     List<WebElement> optionsList;
@@ -134,9 +134,11 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(orderTrackingTableHead,columnName);
-            if(colIndex == -1){
-                Debugger.println("Specified column "+columnName+" not present in the Order Tracking Search Result Table.");
+
+            List<WebElement> colHeads = driver.findElements(orderTrackingTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
+            if (colIndex == -1) {
+                Debugger.println("Specified column " + columnName + " not present in the Order Tracking Search Result Table.");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
@@ -183,15 +185,17 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
-            int colIndex1 = seleniumLib.getColumnIndex(orderTrackingTableHead,columnName1);
-            if(colIndex1 == -1){
-                Debugger.println("Specified column "+columnName1+" not present in the Order Tracking Search Result Table.");
+
+            List<WebElement> colHeads = driver.findElements(orderTrackingTableHead);
+            int colIndex1 = seleniumLib.getColumnIndex(colHeads, columnName1);
+            if (colIndex1 == -1) {
+                Debugger.println("Specified column " + columnName1 + " not present in the Order Tracking Search Result Table.");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
-            int colIndex2 = seleniumLib.getColumnIndex(orderTrackingTableHead,columnName2);
-            if(colIndex2 == -1){
-                Debugger.println("Specified column "+columnName2+" not present in the Order Tracking Search Result Table.");
+            int colIndex2 = seleniumLib.getColumnIndex(colHeads, columnName2);
+            if (colIndex2 == -1) {
+                Debugger.println("Specified column " + columnName2 + " not present in the Order Tracking Search Result Table.");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }

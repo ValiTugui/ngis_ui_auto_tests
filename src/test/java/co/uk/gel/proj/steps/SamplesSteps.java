@@ -137,6 +137,26 @@ public class SamplesSteps extends Pages {
 
     }
 
+    @When("the user answers the Samples dynamic questions with tumour content less than 30 percentage {string}")
+    public void theUserAnswersTheSamplesDynamicQuestionsByProvidingTumourContentLessThan30Percentage(String sampleTopoMorphyGraphy) {
+        samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
+        samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
+        samplesPage.fillInPercentageOfMalignantNucleiBelow30();
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
+
+    @When("the user answers the Samples dynamic questions by providing tumour content more than 30 percentage {string}")
+    public void theUserAnswersTheSamplesDynamicQuestionsByProvidingTumourContentMoreThan30Percentage(String sampleTopoMorphyGraphy) {
+        samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
+        samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
+        samplesPage.fillInPercentageOfMalignantNucleiAbove30();
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
+
     @And("the user adds a tumour sample by providing sample type {string}")
     public void theUserAddsATumourSampleByProvidingSampleType(String sampleType) {
         samplesPage.selectSampleType(sampleType);

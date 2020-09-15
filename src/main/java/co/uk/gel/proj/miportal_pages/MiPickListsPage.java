@@ -29,8 +29,8 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='picklists-search-col']")
     public WebElement pickListsSearchColumn;
 
-    By pickListsTableHead = By.xpath("//div[@id='picklists-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
-    String pickListsTableRows = "//div[@id='picklists-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
+    By pickListsTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
+    String pickListsTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
     public MiPickListsPage(WebDriver driver) {
         this.driver = driver;
@@ -95,8 +95,9 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.seconds(3);
         try {
             int colIndex = -1;
+            List<WebElement> colHeads = driver.findElements(pickListsTableHead);
             for(int i=0; i<expColumns.size(); i++){
-                colIndex = seleniumLib.getColumnIndex(pickListsTableHead,expColumns.get(i).get(0));
+                colIndex = seleniumLib.getColumnIndex(colHeads,expColumns.get(i).get(0));
                 if(colIndex == -1) {
                     Debugger.println("Specified column " + expColumns.get(i).get(0) + " not present in the FileSubmission Search Result Table.");
                     SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
@@ -119,7 +120,8 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("pickListTable.jpg");
                 return false;
             }
-            int colIndex = seleniumLib.getColumnIndex(pickListsTableHead,columnName);
+            List<WebElement> colHeads = driver.findElements(pickListsTableHead);
+            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
             if(colIndex == -1){
                 Debugger.println("Specified column "+columnName+" not present in the PickLists Search Result Table.");
                 SeleniumLib.takeAScreenShot("pickListsTable.jpg");

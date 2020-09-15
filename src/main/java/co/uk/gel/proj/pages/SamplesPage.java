@@ -295,6 +295,20 @@ public class SamplesPage {
         return percentage;
     }
 
+    public int fillInPercentageOfMalignantNucleiBelow30() {
+        Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+        int percentage = faker.number().numberBetween(2, 30);
+        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+        return percentage;
+    }
+
+    public int fillInPercentageOfMalignantNucleiAbove30() {
+        Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+        int percentage = faker.number().numberBetween(31, 99);
+        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+        return percentage;
+    }
+
     public int fillInNumberOfSlides() {
         Wait.forElementToBeDisplayed(driver, numberOfSlidesField);
         int slides = faker.number().randomDigitNotZero();
