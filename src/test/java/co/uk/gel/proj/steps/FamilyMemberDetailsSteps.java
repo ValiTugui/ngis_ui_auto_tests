@@ -351,10 +351,10 @@ public class FamilyMemberDetailsSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {
-                Debugger.println("\nAdding Family Member: " + i);
-                if (!referralPage.navigateToFamilyMemberSearchPage()) {
-                    Assert.fail("Could not click on Add Family Member Button.");
-                }
+                    Debugger.println("\nAdding Family Member: " + i);
+                    if (!referralPage.navigateToFamilyMemberSearchPage()) {
+                        Assert.fail("Could not click on Add Family Member Button.");
+                    }
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
                 nhsNumber = paramNameValue.get("NHSNumber");

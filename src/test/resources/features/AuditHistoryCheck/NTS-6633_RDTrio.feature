@@ -82,14 +82,6 @@ Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio)
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms - FamilyDetails -same as provided above Family details
     Then the user is navigated to a page with title Print sample forms
-#  #Responsible Clinician - Updated by User1
-#    And the user waits max 15 minutes for the update Patient details Updated by User2 in the file NRF1
-#    When the user navigates to the "<ResponsibleClinician>" stage
-#    Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
-#    And the user clicks the Save and Continue button
-#    And the user updates the file NRF1 with Responsible Clinician details validated by User1
-#    And the user waits max 10 minutes for the update Responsible Clinician details validated by User1 in the file NRF1
-
     ###Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed

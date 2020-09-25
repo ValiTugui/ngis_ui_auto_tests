@@ -8,7 +8,7 @@ Feature: NTS-6632:Audit history for a cancer referral
   Scenario Outline: Verify audit history for an existing cancer referral for using patient ID.
     Given The user is login to the Test Order Service and create a new referral
       | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NRF1 |
-    # Referral created and completed all stages but not submitted by user1
+    # Referral created and completed all stages and submitted by user1
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ##Requesting Organisation
