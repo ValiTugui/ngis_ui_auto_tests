@@ -11,8 +11,9 @@ Feature: Create Referrals for SPINE Patient
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
+    ###Store NGIS ID for use in NEAT
+    And the user stores the generated Patient NGIS-ID
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
@@ -77,7 +78,23 @@ Feature: Create Referrals for SPINE Patient
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
-
+    ###Logout for moving to NEAT tool
+    And the user clicks the Log out button
+    ### Navigating to NEAT Tool
+    When the user logs into the NEAT admin tool with the following credentials
+      | NEAT_URL | find-patient-record | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Find a patient record
+    And the user searches the NGIS-ID in the search box
+    Then the user is navigated to a page with title Edit this patient record
+    And the user clicks on the status button "Change status to inactive"
+    And the confirmation dialog box appears with the heading "Are you sure?"
+    And the user clicks on the status button "Continue"
+    Then the user is navigated to a page with title Make this patient record inactive
+    And the user clicks on the reason button "Duplicate"
+    And the user enters the justification reason in the text box as "from automation script"
+    And the user clicks on the status button "Confirm"
+    Then the user is navigated to a page with title Edit this patient record
+    Then the user sees the notification "This record is now inactive"
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
