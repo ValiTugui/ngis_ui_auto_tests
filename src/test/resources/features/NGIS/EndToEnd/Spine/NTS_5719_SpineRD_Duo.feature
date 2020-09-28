@@ -4,7 +4,7 @@ Feature: RDFamily:NTS-5719: CSV-E2E-Submit a RD Referral for Spine Patient with 
 
   @NTS-5719 @Z-LOGOUT
     #@E2EUI-2729
-  Scenario Outline: NTS-4954:E2EUI-2729: CSV-E2E-Submit a RD Referral for Spine Patient with a newly created Family Member and verify the payload.
+  Scenario Outline: NTS-5719:E2EUI-2729: CSV-E2E-Submit a RD Referral for Spine Patient with a newly created Family Member and verify the payload.
     ###Check the patient NHS
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |

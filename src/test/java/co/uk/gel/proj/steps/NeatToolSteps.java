@@ -207,6 +207,7 @@ public class NeatToolSteps extends Pages {
             //Pick up the NGIS ID
             theUserStoresTheGeneratedPatientNGISID();
             //Log out from the test order
+            Wait.seconds(2);
             testResult = referralPage.clickLogoutButton();
             Assert.assertTrue(testResult);
             //Log in to NEAT Tool

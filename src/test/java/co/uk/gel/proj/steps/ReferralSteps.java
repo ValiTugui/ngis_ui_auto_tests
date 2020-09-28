@@ -878,6 +878,15 @@ public class ReferralSteps extends Pages {
             if (!patientSearchPage.clickPatientCard()) {
                 Assert.fail("Could not click on Patient Card");
             }
+            if (patientDetailsPage.readEthnicityMandatoryStatus()){
+                if (searchPatient.getETHNICITY() != null && !searchPatient.getETHNICITY().isEmpty()) {
+                    patientDetailsPage.addPatientEthnicity(searchPatient.getETHNICITY());
+                    //click on continue
+                    patientDetailsPage.clickStartNewReferralButton();
+                }else{
+                    Assert.fail("No Ethnicity value...Please provide the Ethnicity value");
+                }
+            }
             if (!patientDetailsPage.clickStartNewReferralButton()) {
                 Assert.fail("Could not click on StartNewReferral Button");
             }
