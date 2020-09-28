@@ -1,5 +1,5 @@
 @AuditHistory
-@AuditHistory_Cancer
+@AuditHistory_Cancer_Cancel
 Feature: NTS-5873:Verify Audit history for a cancelled referral.
   ###FLOW
 
