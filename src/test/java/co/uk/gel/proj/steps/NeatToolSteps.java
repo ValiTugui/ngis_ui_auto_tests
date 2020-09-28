@@ -11,6 +11,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NeatToolSteps extends Pages {
@@ -22,12 +24,11 @@ public class NeatToolSteps extends Pages {
     public static String searchNgisId = null;
 
     @Given("the user logs into the NEAT admin tool with the following credentials")
-    public void theUserLogsIntoTheNEATAdminToolWithTheFollowingCredentials(DataTable loginDetailsInput) {
+    public void theUserLogsIntoTheNEATAdminToolWithTheFollowingCredentials(List<String> loginDetailsInput) {
         boolean testResult = false;
-        List<String> loginDetails = loginDetailsInput.asList();
-        String baseURL = loginDetails.get(0);
-        String pageToNavigate = loginDetails.get(1);
-        String userType = loginDetails.get(2);
+        String baseURL = loginDetailsInput.get(0);
+        String pageToNavigate = loginDetailsInput.get(1);
+        String userType = loginDetailsInput.get(2);
         //Get the URL from Properties file
         String requiredPage = AppConfig.getPropertyValueFromPropertyFile(baseURL);
         Debugger.println("Opening the URL: " + requiredPage + ",\n and Page:" + pageToNavigate);
@@ -69,7 +70,7 @@ public class NeatToolSteps extends Pages {
     }
 
     @And("the user searches the NGIS-ID in the search box")
-    public void theUserEntersTheNGISIdInTheSearchBox() {
+    public void theUserSearchesTheNGISIdInTheSearchBox() {
         boolean testResult = false;
         testResult = neatHomePage.enterAndSearchPatientNGISId(searchNgisId);
         Assert.assertTrue(testResult);
@@ -186,4 +187,65 @@ public class NeatToolSteps extends Pages {
         testResult = neatHomePage.verifyNgisID(searchNgisId);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool")
+    public void theUserSeesTheResultAsNGISPatientAndConvertsThatIntoSPINEPatientFromTheNEATTool() {
+        boolean testResult=false;
+        //Checking for NGIS
+        String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
+        if(actualBadge == null) {
+            Assert.fail("Could not read the Patient Card ID");
+        }
+        if(actualBadge.equalsIgnoreCase("NGIS")) {
+            //Steps integrated to goto NEAT Tool and convert to SPINE
+            //Click on patient result card
+            testResult = patientSearchPage.clickPatientCard();
+            Assert.assertTrue(testResult);
+            //Move onto Patient record details page
+            testResult = patientDetailsPage.patientDetailsPageIsDisplayed();
+            Assert.assertTrue(testResult);
+            //Pick up the NGIS ID
+            theUserStoresTheGeneratedPatientNGISID();
+            //Log out from the test order
+            testResult = referralPage.clickLogoutButton();
+            Assert.assertTrue(testResult);
+            //Log in to NEAT Tool
+            List<String> neatLoginCredentials= new ArrayList<>(Arrays.asList("NEAT_URL", "find-patient-record", "GEL_SUPER_USER"));
+            theUserLogsIntoTheNEATAdminToolWithTheFollowingCredentials(neatLoginCredentials);
+            //Check the page Title
+            testResult = referralPage.verifyThePageTitlePresence("Find a patient record");
+            Assert.assertTrue(testResult);
+            //Search the NGIS ID
+            theUserSearchesTheNGISIdInTheSearchBox();
+            //Check page title Edit this patient record
+            testResult = referralPage.verifyThePageTitlePresence("Edit this patient record");
+            Assert.assertTrue(testResult);
+            //Change status to inactive
+            theUserClicksOnTheStatusButton("Change status to inactive");
+            //Verify confirmation dialog box
+            theConfirmationDialogBoxAppearsWithTheHeading("Are you sure?");
+            //Click on continue in the dialog box
+            theUserClicksOnTheStatusButton("Continue");
+            //Check the page title
+            testResult = referralPage.verifyThePageTitlePresence("Make this patient record inactive");
+            Assert.assertTrue(testResult);
+            //Select reason for making inactive
+            theUserClicksOnTheReasonButton("Duplicate");
+            //Enter the reason
+            theUserEntersTheJustificationReasonInTheTextBoxAs("from automation script");
+            //Enter the confirmation
+            theUserClicksOnTheStatusButton("Confirm");
+            //Verify the page title
+            testResult = referralPage.verifyThePageTitlePresence("Edit this patient record");
+            Assert.assertTrue(testResult);
+            //Verify the success notification message
+            theUserSeesTheNotification("This record is now inactive");
+            //Logout from NEAT Tool
+            testResult = referralPage.clickLogoutButton();
+            Assert.assertTrue(testResult);
+        }else if(actualBadge.equalsIgnoreCase("NHS Spine")){
+            Debugger.println("This NHS patient is already SPINE, proceeding to next steps for referral creation...");
+        }
+    }
+
 }//end class
