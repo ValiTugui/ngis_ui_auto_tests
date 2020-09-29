@@ -1,5 +1,6 @@
 @AuditHistory
-@AuditHistory_Cancer_Cancel
+@AuditHistory_Cancel_Referral
+
 Feature: NTS-5873:Verify Audit history for a cancelled referral.
   ###FLOW
 
@@ -157,3 +158,6 @@ Feature: NTS-5873:Verify Audit history for a cancelled referral.
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | RecordedBy         | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
       | Patient details | Requesting organisation | Manchester           | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | ClinicianName=John | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
+
+
+
