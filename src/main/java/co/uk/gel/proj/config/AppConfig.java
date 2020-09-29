@@ -43,6 +43,7 @@ public class AppConfig {
     public static String BASE_URL_DS;
     public static String mi_portal_test_data_file;
     public static boolean snapshotRequired = false;
+    public static String NEAT_TOOL;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -94,6 +95,7 @@ public class AppConfig {
         BASE_URL_PP =  properties.getProperty("BASE_URL_PP");
         BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
 
+        NEAT_TOOL = properties.getProperty("NEAT_URL");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
