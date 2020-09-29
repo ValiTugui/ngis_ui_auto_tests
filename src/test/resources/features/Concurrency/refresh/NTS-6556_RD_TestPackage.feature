@@ -12,7 +12,7 @@ Feature: NTS-6556:RD_new_referral_TestPackage: Navigate and verify the changes o
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Test Package stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER3_NAME | New Referral | NRF1 |
     # Referral created and completed all stages but not submitted by user1
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -85,11 +85,11 @@ Feature: NTS-6556:RD_new_referral_TestPackage: Navigate and verify the changes o
   Scenario Outline: Verified Test Package stage of new referral updated by another user
    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER4_NAME | New Referral | NRF1 |
     #Test Package - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 20 minutes for the update Test Package details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Test Package details Updated by User1 in the file NRF1
     When the user navigates to the "<TestPackage>" stage
     Then the user verifies the stage "<TestPackage>" with "<TestPackageUpdated>"
     And the "<FamilyMembers>" stage is marked as Mandatory To Do
