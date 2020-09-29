@@ -15,7 +15,7 @@ Feature: RDFamily:NTS-5719: CSV-E2E-Submit a RD Referral for Spine Patient with 
     ### Check if NGIS and convert to SPINE from NEAT
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
-    Given a new patient referral is created with associated tests in Test Order System online service
+    When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
     ###Patient Details
     Then the user is navigated to a page with title Add a requesting organisation

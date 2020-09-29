@@ -14,7 +14,7 @@ Feature: RD SPINE Family:NTS-6019:E2EUI-3133:- Find and select patient record (F
       ### Check if NGIS and convert to SPINE from NEAT
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Referral creation for adding SPINE family member
-    Given a new patient referral is created with associated tests in Test Order System online service
+    When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=15-05-2003:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
