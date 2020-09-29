@@ -12,7 +12,7 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the Requesting organisation stage ,Login as user B and navigates to Requesting organisation and Print forms and verify the changes done by User A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral| NRF1 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER3_NAME | New Referral| NRF1 |
     # Referral created and completed all stages but not submitted by user1
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -85,7 +85,7 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
   Scenario Outline: Verified Requesting Organisation stage of new referral updated by another user
     #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral| NRF1 |
+      | CONCURRENT_USER4_NAME | New Referral| NRF1 |
     #Requesting Organisation - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NRF1 with Patient details Updated by User2
