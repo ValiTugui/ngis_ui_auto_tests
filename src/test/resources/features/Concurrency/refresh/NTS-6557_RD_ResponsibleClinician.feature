@@ -3,17 +3,17 @@
 @Refresh_RD
 Feature: NTS-6557:RD_new_referral_ResponsibleClinician: Navigate and verify the changes on Responsible clinician stage done by another user
 ###FLOW
-  #User1 Login to new Referral
-  #User2 Login to the same referral
-  #User1 Updated Responsible clinician stage for the referral
-  #User2 Navigated and verify the changes done by user1 in Responsible clinician stage
+  #User3 Login to new Referral
+  #User4 Login to the same referral
+  #User3 Updated Responsible clinician stage for the referral
+  #User4 Navigated and verify the changes done by user3 in Responsible clinician stage
 
   @NTS-6557 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Responsible clinician stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NRF1 |
-    # Referral created and completed all stages but not submitted by user1
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER3_NAME | New Referral | NRF1 |
+    # Referral created and completed all stages but not submitted by user3
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ##Requesting Organisation
@@ -68,13 +68,13 @@ Feature: NTS-6557:RD_new_referral_ResponsibleClinician: Navigate and verify the 
     And the user clicks the Save and Continue button
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-    #Responsible clinician - Updated by User1
-    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NRF1
+    Then the user updates the file NRF1 with Mandatory Stages Completed by User3
+    #Responsible clinician - Updated by User3
+    And the user waits max 10 minutes for the update Patient details Updated by User4 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Responsible Clinician details Updated by User1
+    And the user updates the file NRF1 with Responsible Clinician details Updated by User3
     Examples:
       | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | TestPackage  | OneParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     |ClinicianName      | Panels |
       | Responsible clinician | EmailAddress=john.smith@nhs.net    | Test package | 1              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality |ClinicianName=John | Panels |
@@ -84,16 +84,16 @@ Feature: NTS-6557:RD_new_referral_ResponsibleClinician: Navigate and verify the 
 
   @NTS-6557 @Z-LOGOUT
   Scenario Outline: Verified Responsible clinician stage of new referral updated by another user
-    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User3 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-    #Responsible clinician - Verified by User2
+      | CONCURRENT_USER4_NAME | New Referral | NRF1 |
+    #Responsible clinician - Verified by User4
     And the user navigates to the "<PatientDetails>" stage
-    And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 20 minutes for the update Responsible Clinician details Updated by User1 in the file NRF1
+    And the user updates the file NRF1 with Patient details Updated by User4
+    And the user waits max 10 minutes for the update Responsible Clinician details Updated by User3 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
-    And the user updates the file NRF1 with Responsible Clinician details validated by User2
+    And the user updates the file NRF1 with Responsible Clinician details validated by User4
 
     Examples:
       | PatientDetails  | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated |
