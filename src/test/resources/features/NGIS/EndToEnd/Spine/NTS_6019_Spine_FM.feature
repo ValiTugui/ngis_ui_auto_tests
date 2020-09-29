@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: RD SPINE Family:NTS-6019:[E2E|UI-3133] - Find and select patient record (Family Member Spine / NGIS Record )
+Feature: RD SPINE Family:NTS-6019:E2EUI-3133:- Find and select patient record (Family Member Spine / NGIS Record )
 
   @NTS-6019 @Z-LOGOUT
   Scenario Outline:NTS-6019:E2EUI-3133:Scenario-1: Find and select patient record (Family Member Spine Record )
