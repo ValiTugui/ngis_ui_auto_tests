@@ -89,7 +89,7 @@ Feature: NTS-6610:RD_new_referral_Panels: Navigate and verify the changes on Pan
     #Panels - Verified by User2
     And the user navigates to the "<PatientChoice>" stage
     And the user updates the file NRF1 with Patient choice details Updated by User2
-    And the user waits max 20 minutes for the update Panels details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Panels details Updated by User1 in the file NRF1
     When the user navigates to the "<Panels>" stage
     Then the user verifies the stage "<Panels>" with "<PanelsUpdated>"
     And the user updates the file NRF1 with Panels details validated by User2

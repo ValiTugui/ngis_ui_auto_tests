@@ -87,13 +87,13 @@ Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes
   #Login as User B, Verified Family members and related stages and do not submit referral
   @NTS-6598 @Z-LOGOUT
   Scenario Outline: Verified Family members and related stages of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
     #Family members - Verified by User2
     And the user navigates to the "<Notes>" stage
     And the user updates the file NRF1 with Notes details Updated by User2
-    And the user waits max 20 minutes for the update Family member details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Family member details Updated by User1 in the file NRF1
     When the user navigates to the "<FamilyMembers>" stage
     And the user should "get" participant error message as "<ErrorMessage>"
     And the user should see an error message "<ErrorMessage1>" in "<Color>" for the family member

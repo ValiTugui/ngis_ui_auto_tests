@@ -107,7 +107,7 @@ Feature: NTS-6616:Cancer_new_referral_patientChoice: Navigate and verify the cha
    #Patient Choice - Verified by User2
     And the user navigates to the "<Notes>" stage
     And the user updates the file NRF1 with Notes details Updated by User2
-    And the user waits max 5 minutes for the update Patient choice details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient choice details Updated by User1 in the file NRF1
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     And the user updates the file NRF1 with Patient choice details validated by User2
