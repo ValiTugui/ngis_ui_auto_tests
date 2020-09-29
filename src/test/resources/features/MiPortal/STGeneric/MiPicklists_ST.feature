@@ -56,3 +56,26 @@ Feature: MIPORTAL ST - PickLists 1
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
     Then the user sees an error message "Select a valid choice. That choice is not one of the available choices." on the page
+
+@NTS-6703 @MI-LOGOUT
+  Scenario Outline:NTS-6703:Remove extraneous field gel1008__plate__warning_msgs from Picklists Report
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects GLH as the pick lists search column dropdown
+    And the user selects is as the pick lists search operator dropdown
+    And the user selects GLHName as the pick lists search value dropdown
+    And the user clicks on Add criteria button
+    And the user click on the Search button
+    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
+    And the user clicks on the Display Options button
+    When the user clicks "Show all" button on the modal-content page
+    And the user sees the fields are not displayed under the "Show" section
+      | HeaderColumnOrderingList   |
+      | gel1008 Plate Warning Msgs |
+    Then the user closes the modal content by clicking on the reset-button
+
+    Examples:
+      | mi_stage  |
+      | Picklists |

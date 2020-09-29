@@ -79,7 +79,8 @@ Feature:  MIPORTAL ST -  Home Page
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-      | GEL1004 Clinic Sample Type            |
+#      | GEL1004 Clinic Sample Type            |
+       ## As part of SALLY release the field/filter "gel1004 Clinic Sample Type" has been removed
       | GEL1004 Disease Area                  |
       | GEL1004 GLH Sample Consignment Number |
       | GEL1004 Laboratory ID                 |
