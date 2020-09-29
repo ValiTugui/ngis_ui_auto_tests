@@ -260,7 +260,8 @@ Feature: MIPORTAL SIT - Sanity
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-      | gel1004 Clinic Sample Type            |
+#      | gel1004 Clinic Sample Type            |
+       ## As part of SALLY release the field/filter "gel1004 Clinic Sample Type" has been removed
       | gel1004 Disease Area                  |
       | gel1004 GLH Sample Consignment Number |
       | gel1004 Laboratory ID                 |
@@ -523,7 +524,8 @@ Feature: MIPORTAL SIT - Sanity
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-      | gel1004 Clinic Sample Type            |
+#      | gel1004 Clinic Sample Type            |
+       ## As part of SALLY release the field/filter "gel1004 Clinic Sample Type" has been removed
       | gel1004 Disease Area                  |
       | gel1004 GLH Sample Consignment Number |
       | gel1004 Laboratory ID                 |

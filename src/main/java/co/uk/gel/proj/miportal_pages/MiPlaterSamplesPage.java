@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,6 +37,9 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
+
+    @FindBy(xpath = "//select[@id='plater_samples-search-col']")
+    public List<WebElement> searchColumnDropdownValues;
 
     By platerSamplesTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
     String platerSamplesTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
@@ -204,6 +208,35 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:enterPlaterSampleTextSearchValue: "+ exp);
             SeleniumLib.takeAScreenShot("enterPlaterSampleTextSearchValue.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown(String expectedDropdownValue) {
+        try{
+            List<String> actualDropdownValueList = new ArrayList<>();
+            Wait.seconds(5);
+            for (WebElement dropDownValues : searchColumnDropdownValues) {
+                actualDropdownValueList.add(dropDownValues.getText().trim());
+            }
+            boolean isPresent = false;
+            for (int i=0; i <= actualDropdownValueList.size(); i++) {
+                if (!actualDropdownValueList.get(i).equalsIgnoreCase(expectedDropdownValue)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Expected value :" + expectedDropdownValue + " Not present under section:" + actualDropdownValueList);
+                SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
+                return isPresent;
+            } else {
+                Debugger.println("Expected value: " + expectedDropdownValue + " is not present under section:" + actualDropdownValueList);
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown: " +exp);
+            SeleniumLib.takeAScreenShot("ExpectedColumnPresent.jpg");
             return false;
         }
     }
