@@ -83,7 +83,7 @@ Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the cha
     When the user navigates to the "<ResponsibleClinician>" stage
     And the user updates the file NRF1 with Responsible Clinical details Updated by User2
     #verified clinicalQuestions & Pedigree by User2
-    And the user waits max 15 minutes for the update Clinical details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Clinical details Updated by User1 in the file NRF1
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user verifies the stage "<ClinicalQuestions>" with "<ClinicalQuestionsDetails>"
     When the user navigates to the "<Pedigree>" stage

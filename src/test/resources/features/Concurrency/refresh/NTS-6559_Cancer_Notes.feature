@@ -95,7 +95,7 @@ Feature: NTS-6559:Cancer_new_referral_Notes: Navigate and verify the changes on 
    #Notes - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 15 minutes for the update Notes details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Notes details Updated by User1 in the file NRF1
     When the user navigates to the "<Notes>" stage
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     And the user updates the file NRF1 with Notes details validated by User2
