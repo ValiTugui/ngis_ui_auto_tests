@@ -12,7 +12,7 @@ Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the change
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the patient details stage ,Login as user B and navigates to patient details satge and verify the changes done by User A.
    #Login as User 1, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER3_NAME | New Referral | NRF1 |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field
@@ -60,23 +60,23 @@ Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the change
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     Then the user updates the file NRF1 with Mandatory Stages Completed by User1
-    And the user waits max 5 minutes for the update Requesting Organisation details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Requesting Organisation details Updated by User2 in the file NRF1
     #Patient details stage updated by user1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 8 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_1>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 8 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_2>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 8 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_3>"
     And the user clicks the Save and Continue button
@@ -89,7 +89,7 @@ Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the change
   @NTS-6546 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER4_NAME | New Referral | NRF1 |
     And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     ##Patient Details verified by User2
     When the user navigates to the "<RequestingOrganisation>" stage
@@ -99,17 +99,17 @@ Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the change
     When the user navigates to the "<TestPackage>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated>"
     Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_1>"
     Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_2>"
     Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<Notes>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_3>"

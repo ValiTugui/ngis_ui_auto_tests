@@ -77,17 +77,17 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 8 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_1>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 8 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_2>"
     And the user clicks the Save and Continue button
     And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 8 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_3>"
     And the user clicks the Save and Continue button
@@ -106,22 +106,22 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
     ##Patient Details verified by User2
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the file NRF1 with Requsting Organisation details Updated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<TestPackage>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated>"
     Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_1>"
     Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<Tumours>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_2>"
     Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 8 minutes for the update Patient details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
     And the user clicks the Save and Continue button
     When the user navigates to the "<Samples>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_3>"
