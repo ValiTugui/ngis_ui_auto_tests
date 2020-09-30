@@ -101,6 +101,7 @@ Feature: NTS-6632:Audit history for a cancer referral
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
+    Then the user click on Reload referral button to validate the data
 #      Requesting Organisation - Update
     When the user navigates to the "<requestingOrganisation>" stage
     And the user updates the stage "<requestingOrganisation>" with "<RequestingOrganisationUpdated>"
