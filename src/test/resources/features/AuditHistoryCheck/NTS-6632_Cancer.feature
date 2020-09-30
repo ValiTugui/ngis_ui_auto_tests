@@ -111,5 +111,5 @@ Feature: NTS-6632:Audit history for a cancer referral
     And the user clicks the Save and Continue button
 
     Examples:
-      | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  | RequestingOrganisationUpdated                | ResponsibleClinicianDetailsUpdated                                         |
-      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms | King's College Hospital NHS Foundation Trust | departmental_address=viotialtmlk:surname=smith:email_address=msith@test.om |
+      | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  | RequestingOrganisationUpdated                | ResponsibleClinicianDetailsUpdated                                                       |
+      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms | King's College Hospital NHS Foundation Trust | departmental_address=411 Omer Drives:surname=Kling:email_address=brady.johnson@yahoo.com |
