@@ -11,7 +11,7 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
    @NTS-6546 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral and update the Patient details stage ,Login as user B and navigates to Patient details and verify the changes done by User A.
     Given The user is login to the Test Order Service and create a new referral
-      | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Well Differentiated/Dedifferentiated Liposarcoma | CONCURRENT_USER1_NAME | New Referral | NTS-6546_Cancer |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Portsmouth Hospitals NHS Trust" in the search field
@@ -70,28 +70,28 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
     When the user clicks on Continue Button
     ##print Forms
     Then the user is navigated to a page with title Print sample forms
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6546_Cancer with Mandatory Stages Completed by User1
     #Patient details stage updated by user1
-    And the user waits max 10 minutes for the update Requsting Organisation details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Requsting Organisation details Updated by User2 in the file NTS-6546_Cancer
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user updates the file NTS-6546_Cancer with Patient details Updated by User1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NTS-6546_Cancer
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_1>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user updates the file NTS-6546_Cancer with Patient details Updated by User1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NTS-6546_Cancer
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_2>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Patient details Updated by User1
-    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NRF1
+    And the user updates the file NTS-6546_Cancer with Patient details Updated by User1
+    And the user waits max 10 minutes for the update Patient details Validated by User2 in the file NTS-6546_Cancer
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated_3>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Patient details Updated by User1
+    And the user updates the file NTS-6546_Cancer with Patient details Updated by User1
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated | PatientDetailsUpdated_1 | PatientDetailsUpdated_2 | PatientDetailsUpdated_3 | RequestingOrganisation  | testPackage  | tumour_type           | presentationType | sampleType           | sampleState         | RecordedBy                            |
@@ -99,32 +99,32 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
 
   @NTS-6546 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6546_Cancer
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6546_Cancer |
      ##Patient Details verified by User2
     When the user navigates to the "<RequestingOrganisation>" stage
-    Then the user updates the file NRF1 with Requsting Organisation details Updated by User2
-    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
+    Then the user updates the file NTS-6546_Cancer with Requsting Organisation details Updated by User2
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_Cancer
     And the user clicks the Save and Continue button
     When the user navigates to the "<TestPackage>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated>"
-    Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
+    Then the user updates the file NTS-6546_Cancer with Patient details Validated by User2
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_Cancer
     And the user clicks the Save and Continue button
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_1>"
-    Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
+    Then the user updates the file NTS-6546_Cancer with Patient details Validated by User2
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_Cancer
     And the user clicks the Save and Continue button
     When the user navigates to the "<Tumours>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_2>"
-    Then the user updates the file NRF1 with Patient details Validated by User2
-    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
+    Then the user updates the file NTS-6546_Cancer with Patient details Validated by User2
+    And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_Cancer
     And the user clicks the Save and Continue button
     When the user navigates to the "<Samples>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_3>"
-    Then the user updates the file NRF1 with Patient details Validated by User2
+    Then the user updates the file NTS-6546_Cancer with Patient details Validated by User2
 
     Examples:
       | RequestingOrganisation  | ReferralBannerUpdated | ReferralBannerUpdated_1 | ReferralBannerUpdated_2 | ReferralBannerUpdated_3 | TestPackage  | ResponsibleClinician  | Tumours | Samples |

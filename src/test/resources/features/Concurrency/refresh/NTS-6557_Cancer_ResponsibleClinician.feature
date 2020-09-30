@@ -12,7 +12,7 @@ Feature: NTS-6557:Cancer_new_referral_ResponsibleClinician: Navigate and verify 
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Responsible clinician stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NTS-6557_Cancer |
     # Referral created and completed all stages but not submitted by user1
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -74,13 +74,13 @@ Feature: NTS-6557:Cancer_new_referral_ResponsibleClinician: Navigate and verify 
     When the user clicks on Continue Button
     ##Print Forms
     Then the user is navigated to a page with title Print sample forms
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6557_Cancer with Mandatory Stages Completed by User1
     #Responsible Clinician - Updated by User1
-    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NTS-6557_Cancer
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Responsible Clinician details Updated by User1
+    And the user updates the file NTS-6557_Cancer with Responsible Clinician details Updated by User1
     Examples:
       | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | tumour_type                             | presentationType   | stage2  | stage3         | sampleType          | sampleState        | RecordedBy                            |
       | Responsible clinician | EmailAddress=john.smith@nhs.net    | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
@@ -89,16 +89,16 @@ Feature: NTS-6557:Cancer_new_referral_ResponsibleClinician: Navigate and verify 
   #Login as User B, Verified Responsible Clinician stage and do not submit referral
   @NTS-6557 @Z-LOGOUT
   Scenario Outline: Verified Responsible Clinician stage of new referral updated by another user
-    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6557_Cancer
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6557_Cancer |
    #Responsible Clinician - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
-    And the user updates the file NRF1 with Patient details Updated by User2
-    And the user waits max 15 minutes for the update Responsible Clinician details Updated by User1 in the file NRF1
+    And the user updates the file NTS-6557_Cancer with Patient details Updated by User2
+    And the user waits max 15 minutes for the update Responsible Clinician details Updated by User1 in the file NTS-6557_Cancer
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
-    And the user updates the file NRF1 with Responsible Clinician details validated by User2
+    And the user updates the file NTS-6557_Cancer with Responsible Clinician details validated by User2
 
     Examples:
       | PatientDetails  | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated |
