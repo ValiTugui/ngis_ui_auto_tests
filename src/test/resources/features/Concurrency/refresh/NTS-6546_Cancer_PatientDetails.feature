@@ -99,11 +99,10 @@ Feature: NTS-6546:Cancer_new_referral_PatientDetails: Navigate and verify the ch
 
   @NTS-6546 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update Patient details
-
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
-    ##Patient Details verified by User2
+     ##Patient Details verified by User2
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the file NRF1 with Requsting Organisation details Updated by User2
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NRF1
