@@ -277,7 +277,7 @@ Feature: Create Referrals for SPINE Patient
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicit
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
 
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
@@ -361,7 +361,7 @@ Feature: Create Referrals for SPINE Patient
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicit
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
 
    ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
@@ -447,7 +447,7 @@ Feature: Create Referrals for SPINE Patient
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicit
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
             ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Save and Continue button
