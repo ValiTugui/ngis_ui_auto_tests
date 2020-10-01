@@ -9,12 +9,10 @@ Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio)
 #   get the Patient ID from the Patient Search and extract the Genomic Record data via patient ID using SQL query
 #  Then user can extract the sample processing details from Gel1001 and Gel1005 via patient ID using SQL query
   @NTS-6633 @Z-LOGOUT
-  Scenario Outline:
-#    Given a new patient referral is created with associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-1987:Gender=Male |
-    Given The user is login to the Test Order Service and create a new referral
-      | Skeletal dysplasia | CONCURRENT_USER1_NAME | New Referral | NRF1 |
-    ###Patient Details
+  Scenario Outline: NTS-6633:Audit history for a RD referral having 3 family members (Trio) or more participant
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-1987:Gender=Male |
+     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
@@ -86,7 +84,6 @@ Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio)
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
@@ -108,8 +105,8 @@ Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio)
     And the user clicks the Save and Continue button
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | ResponsibleClinicianDetailsUpdated | PatientDetailsUpdated          | TestPackageUpdated | RequestingOrganisationUpdated                  | FamilyMemberClinicalDetailsUpdated | NotesUpdated        |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | FirstName=edward                   | FirstName=Jhon12:Gender=Female | Priority=Urgent    | South London and Maudsley NHS Foundation Trust | DiseaseStatus=Affected             | Updated notes value |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | ResponsibleClinicianDetailsUpdated | PatientDetailsUpdated          | TestPackageUpdated | RequestingOrganisationUpdated                  | NotesUpdated        |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | FirstName=edward                   | FirstName=Jhon12:Gender=Female | Priority=Urgent    | South London and Maudsley NHS Foundation Trust | Updated notes value |
 
      #User2
   #Login as User B, update the stage and do not submit referral

@@ -6,9 +6,9 @@ Feature: NTS-6632:Audit history for a cancer referral
   ###Secons scenrio -  continuation of step- Update
 
   @NTS-6632 @Z-LOGOUT
-  Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+  Scenario Outline: NTS-6632:Audit history for a cancer referral
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M71 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=23-01-2007:Gender=Male |
     ##Patient Details
     And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -101,7 +101,6 @@ Feature: NTS-6632:Audit history for a cancer referral
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    Then the user click on Reload referral button to validate the data
 #      Requesting Organisation - Update
     When the user navigates to the "<requestingOrganisation>" stage
     And the user updates the stage "<requestingOrganisation>" with "<RequestingOrganisationUpdated>"
