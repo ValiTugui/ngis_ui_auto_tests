@@ -30,7 +30,7 @@
         <osVersion>10</osVersion>
         <features></features>
         <rerunOption>No</rerunOption>
-        <parallelScheme>FEATURE</parallelScheme>
+        <parallelScheme>SCENARIO</parallelScheme>
     </properties>
     <build>
         <plugins>
