@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_Cancer
-Feature: NTS-6469:Cancer_existing_referral_all_stages_entity
+Feature: NTS-6469:Cancer_new_referral_all_stages_entity
 
   ###FLOW
   #User1 Login to New Referral

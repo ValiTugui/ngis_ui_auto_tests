@@ -1,6 +1,6 @@
 @Concurrency
 @Concurrency_Cancer
-Feature: NTS-6468:Cancer_existing_referral_all_stages: Submit and verify the changes on each stages done by another user
+Feature: NTS-6468:Cancer_new_referral_all_stages: Submit and verify the changes on each stages done by another user
 
   ###FLOW
   #User1 Login to a new Referral
