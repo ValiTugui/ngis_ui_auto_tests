@@ -19,23 +19,21 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only
     When the user navigates to the "<testPackage>" stage
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-    And the "<testPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
+    Then the user is navigated to a page with title Add clinical notes
+    And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
@@ -58,7 +56,6 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
     Then the user updates the file NTS-6467_RD with Mandatory Stages Completed by User1
 
     #### verify patient details after changes done by B
