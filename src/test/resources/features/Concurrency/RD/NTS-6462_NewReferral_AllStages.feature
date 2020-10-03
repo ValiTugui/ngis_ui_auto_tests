@@ -15,7 +15,6 @@ Feature: NTS-6462:RD_new_referral_all_stages
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NTS-6462 |
     ##Patient Details
-    ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
@@ -83,14 +82,14 @@ Feature: NTS-6462:RD_new_referral_all_stages
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NTS-6462 with Mandatory Stages Completed by User1
-    And the user waits max 4 minutes for the update PatientDetails Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user updates the file NTS-6462 with Patient details validated by User1
    ##Requesting Organization - Verify
-    And the user waits max 8 minutes for the update Requesting Organisation Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update Requesting Organisation Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<RequestingOrganisation>" stage
@@ -111,28 +110,28 @@ Feature: NTS-6462:RD_new_referral_all_stages
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     Then the user updates the file NTS-6462 with Responsible Clinician details validated by User1
    ##ClinicalQuestions - Verify
-    And the user waits max 8 minutes for the update Clinical Questions details Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update Clinical Questions details Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user verifies the stage "<ClinicalQuestions>" with "<ClinicalQuestionDetailsUpdated>"
     Then the user updates the file NTS-6462 with Clinical Questions details validated by User1
    ##Notes
-    And the user waits max 8 minutes for the update Notes details Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Notes>" stage
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     Then the user updates the file NTS-6462 with Notes details validated by User1
    ##FamilyMembers - Verify
-    And the user waits max 8 minutes for the update Family Member details Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update Family Member details Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<FamilyMembers>" stage
     Then the user verifies the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdated>"
     Then the user updates the file NTS-6462 with Family Member details validated by User1
    ##FamilyMembersclinicalquestions - Verify
-    And the user waits max 8 minutes for the update Family Member clinical details Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update Family Member clinical details Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     Then the user verify the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
@@ -145,7 +144,7 @@ Feature: NTS-6462:RD_new_referral_all_stages
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
     Then the user updates the file NTS-6462 with Patient Choice details validated by User1
    ##Panels-Verify
-    And the user waits max 8 minutes for the update Panels details Updated by User2 in the file NTS-6462
+    And the user waits max 10 minutes for the update Panels details Updated by User2 in the file NTS-6462
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Panels>" stage
@@ -157,8 +156,8 @@ Feature: NTS-6462:RD_new_referral_all_stages
    ##And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated        | Notes | NotesUpdated        | FamilyMembers  | FamilyMemberDetailsUpdated                                             | FamilyMemberClinicalDetailsUpdated    | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated     | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | RecordedBy         |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Proband=Authorised by clinician | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated                 | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated        | Notes | NotesUpdated        | FamilyMembers  | FamilyMemberDetailsUpdated                                             | FamilyMemberClinicalDetailsUpdated    | Panels | PanelsDetailsUpdated                                                               | PatientChoice  | PatientChoiceDetailsUpdated     | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | RecordedBy         |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2:Priority=Urgent | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=1,2 | Panels | AdditionalPanels=Hereditary ataxia - adult onset:SuggestedPanels=Holoprosencephaly | Patient choice | Proband=Authorised by clinician | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John |
 
    #User2
   @NTS-6462 @NTS-6465 @Z-LOGOUT
@@ -226,5 +225,5 @@ Feature: NTS-6462:RD_new_referral_all_stages
     Then the user updates the file NTS-6462 with Panels details Updated by User2
 
     Examples:
-      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated        | FamilyMemberDetailsUpdate                                              | FamilyMemberClinicalDetailsUpdated      | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | NotesUpdated  | Panels | PanelsDetailsUpdated                             | PatientChoice  | FamilyMembers  |
-      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1 | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=01,02 | Notes | NotesupdatedbyUser2 | Authorised by clinician     | Requesting organisation | Test package | Responsible clinician | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Family members |
+      | PatientDetails  | PatientDetailsUpdated                                                                                       | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated                 | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated                       | ClinicalQuestions  | ClinicalQuestionDetailsUpdated        | FamilyMemberDetailsUpdate                                              | FamilyMemberClinicalDetailsUpdated      | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | RequestingOrganisation  | TestPackage  | ResponsibleClinician  | NotesUpdated  | Panels | PanelsDetailsUpdated                             | PatientChoice  | FamilyMembers  |
+      | Patient details | FirstName=Jhon12:LastName=Peter:DOB=20-10-2010:Gender=Other:LifeStatus=Deceased:Ethnicity=B - White - Irish | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2:Priority=Urgent | Responsible clinician | FirstName=edward:LastName=thomas:Department=woodspark,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=1,1 | LifeStatus=Alive:Ethnicity=B - White - Irish:RelationShipToProband=Son | DiseaseStatus=Affected:AgeOfOnset=01,02 | Notes | NotesupdatedbyUser2 | Authorised by clinician     | Requesting organisation | Test package | Responsible clinician | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Family members |
