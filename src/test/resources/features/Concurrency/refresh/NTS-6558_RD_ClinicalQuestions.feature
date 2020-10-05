@@ -13,7 +13,7 @@ Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the cha
 
    #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NTS-6558_RD |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field
@@ -60,13 +60,13 @@ Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the cha
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6558_RD with Mandatory Stages Completed by User1
     ## Responsible clinician updated by user1
-    And the user waits max 10 minutes for the update Responsible Clinical details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Responsible Clinical details Updated by User2 in the file NTS-6558_RD
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user updates the stage "<ClinicalQuestions>" with "<ClinicalQuestionsUpdated>"
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Clinical details Updated by User1
+    And the user updates the file NTS-6558_RD with Clinical details Updated by User1
 
 
     Examples:
@@ -76,14 +76,14 @@ Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the cha
 
   @NTS-6558 @Z-LOGOUT
   Scenario Outline: Verify Referral Banner by navigating to different stages when User A update clinical questions
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6558_RD
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6558_RD |
     #Below step is for new referrals
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     When the user navigates to the "<ResponsibleClinician>" stage
-    And the user updates the file NRF1 with Responsible Clinical details Updated by User2
+    And the user updates the file NTS-6558_RD with Responsible Clinical details Updated by User2
     #verified clinicalQuestions & Pedigree by User2
-    And the user waits max 15 minutes for the update Clinical details Updated by User1 in the file NRF1
+    And the user waits max 10 minutes for the update Clinical details Updated by User1 in the file NTS-6558_RD
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user verifies the stage "<ClinicalQuestions>" with "<ClinicalQuestionsDetails>"
     When the user navigates to the "<Pedigree>" stage
@@ -91,7 +91,7 @@ Feature: NTS-6558:RD_new_referral_ClinicalQuestions: Navigate and verify the cha
     And the user clicks on the proband node on the pedigree diagram for "<PatientType>" and "<Gender>"
     And the user select the pedigree tab Phenotype
     Then the user should see the hpo phenotypes "<HPOPhenoType>" displayed
-    And the user updates the file NRF1 with Clinical details Validated by User2
+    And the user updates the file NTS-6558_RD with Clinical details Validated by User2
 
 
     Examples:

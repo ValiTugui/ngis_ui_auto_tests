@@ -261,7 +261,9 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user clicks on edit button in (.*)")
     public void theUserClicksOnEditButton(String category) {
-        patientChoicePage.clickOnEditButton(category);
+        boolean testResult = false;
+        testResult= patientChoicePage.clickOnEditButton(category);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see previous section re-opened")

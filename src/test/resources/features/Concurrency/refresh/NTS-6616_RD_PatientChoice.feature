@@ -12,7 +12,7 @@ Feature: NTS-6616:RD_new_referral_PatientChoice: Navigate and verify the changes
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Patient choice, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NTS-6616_RD |
     # Referral created and completed all stages but not submitted by user1
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -55,21 +55,21 @@ Feature: NTS-6616:RD_new_referral_PatientChoice: Navigate and verify the changes
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6616_RD with Mandatory Stages Completed by User1
    #Patient Choice - Updated by User1
-    And the user waits max 10 minutes for the update Family members details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Family members details Updated by User2 in the file NTS-6616_RD
     And the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<TwoParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=17-07-1965:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    And the user waits max 10 minutes for the update Family members details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Family members details Updated by User2 in the file NTS-6616_RD
     And the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<TwoParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
-    And the user updates the file NRF1 with Patient choice details Updated by User1
+    And the user updates the file NTS-6616_RD with Patient choice details Updated by User1
     Examples:
       | FamilyMembers  | PatientChoice  | TestPackage  | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | ClinicianName      |
       | Family members | Patient choice | Test package | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John |
@@ -78,16 +78,16 @@ Feature: NTS-6616:RD_new_referral_PatientChoice: Navigate and verify the changes
   #Login as User B, Verified Patient choice stage and do not submit referral
   @NTS-6616 @Z-LOGOUT
   Scenario Outline: Verified Patient Choice stage of new referral updated by another user
-   #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+   And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6616_RD
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6616_RD |
    #Patient Choice - Verified by User2
     And the user navigates to the "<FamilyMembers>" stage
-    And the user updates the file NRF1 with Family members details Updated by User2
-    And the user waits max 20 minutes for the update Patient choice details Updated by User1 in the file NRF1
+    And the user updates the file NTS-6616_RD with Family members details Updated by User2
+    And the user waits max 20 minutes for the update Patient choice details Updated by User1 in the file NTS-6616_RD
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
-    And the user updates the file NRF1 with Patient choice details validated by User2
+    And the user updates the file NTS-6616_RD with Patient choice details validated by User2
 
     Examples:
       | FamilyMembers  | PatientChoice  | PatientChoiceDetailsUpdated                       |

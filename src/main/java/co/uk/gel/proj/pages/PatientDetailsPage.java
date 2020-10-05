@@ -2029,6 +2029,10 @@ public class PatientDetailsPage {
                     }
                     break;
                 }
+                case "Title":{
+                    seleniumLib.sendValue(title, paramNameValue.get(key));
+                    break;
+                }
             }
         }
         return true;

@@ -23,7 +23,7 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
 
     Examples:
       | TextToValidate                                                                                                                                                                                          |
-      | RARE AND INHERITED,v1.18,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID |
+      | RARE AND INHERITED,v1.19,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID |
 
   @NTS-3414
 #    @E2EUI-2780
@@ -45,4 +45,4 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
 
     Examples:
       | TextToValidate                                                                                                                                                                                                                                                                                                                           |
-      | CANCER,v1.18,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other |
+      | CANCER,v1.19,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other |
