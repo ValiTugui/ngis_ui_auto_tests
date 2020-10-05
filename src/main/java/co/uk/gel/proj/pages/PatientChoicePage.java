@@ -956,14 +956,21 @@ public class PatientChoicePage {
         }
     }
 
-    public void clickOnEditButton(String category) {
+    public boolean clickOnEditButton(String category) {
         try {
             String editButtonField = editButton.replaceAll("dummyOption", category);
             WebElement editButtonResult = driver.findElement(By.xpath(editButtonField));
+            if (!Wait.isElementDisplayed(driver,editButtonResult,10)){
+                Debugger.println("Edit button not present");
+                SeleniumLib.takeAScreenShot("EditButtonError.jpg");
+            }
             Actions.scrollToTop(driver);
             seleniumLib.clickOnWebElement(editButtonResult);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking edit button." + exp);
+            SeleniumLib.takeAScreenShot("EditButtonError.jpg");
+            return false;
         }
     }
 
@@ -972,11 +979,12 @@ public class PatientChoicePage {
             seleniumLib.isElementPresent(patientCategoryReopen);
             seleniumLib.isElementPresent(testTypeReopen);
             seleniumLib.isElementPresent(recordedByReopen);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page:previousSectionsReopened: " + exp);
+            SeleniumLib.takeAScreenShot("ReopenPCSection.jpg");
             return false;
         }
-        return true;
     }
 
     public boolean errorMessageInPatientChoicePage(String boxColor, String message) {
