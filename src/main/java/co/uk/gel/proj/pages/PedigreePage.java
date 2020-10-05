@@ -10,6 +10,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedigreePage {
@@ -22,6 +24,7 @@ public class PedigreePage {
 
     String pedigreeNGISDNode = "//*[name()='tspan'][contains(text(),'NGIS Patient ID : dummyNGSID')]/..";
     String pedigreeNonNGISDNode = "//*[name()='tspan'][contains(text(),'Non NGIS Patient ID : dummyNGSID')]/..";
+
 
     @FindBy(xpath = "//*[name()='tspan'][contains(text(),'Non NGIS Patient ID : ')]/..")
     List<WebElement> nonNGISPatientNodes;
@@ -165,6 +168,15 @@ public class PedigreePage {
 
     @FindBy(xpath = "//div[@class='menu-box']//span[@class='close-button']")
     public WebElement closePopup;
+
+    @FindBy(xpath = "//input[@type='checkbox' and @name='monozygotic']")
+    public WebElement personalTab_monozygoticTwin;
+
+    @FindBy(xpath = "//*[name()='tspan'][contains(text(),'NGIS Patient ID : ')]/..")
+    List<WebElement> NGISPatientNodes;
+
+
+
 
 
     public PedigreePage(WebDriver driver) {
@@ -1451,4 +1463,174 @@ public class PedigreePage {
             return false;
         }
     }
+    public boolean clickProbandNodeOnPedigree(String patientType, String gender, String ngisId) {
+        if (!waitForThePedigreeDiagramToBeLoaded()) {
+            return false;
+        }
+        try {
+            boolean zoomOutFlag = false;
+            int flag = 0;
+            ArrayList<String> list = new ArrayList<String>();
+            for (int i = 0; i < NGISPatientNodes.size(); i++) {
+                String NgisId = NGISPatientNodes.get(i).getText().trim();
+                String[] id = NgisId.split(":");
+                if (patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
+                    SeleniumLib.scrollToElement(pedigreeWorkArea);
+                    Debugger.println("Clicking on Pedigree Node for NGIS: " + ngisId);
+                    if (id[1].contains(ngisId)) {
+                        flag = 1;
+                    }
+                }
+            }
+            if (flag == 1) {
+
+                String nodePath = pedigreeNGISDNode.replaceAll("NGIS Patient ID : dummyNGSID", ngisId);
+                WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
+                if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 100)) {
+                    if (!zoomOutFlag) {
+                        Wait.forElementToBeDisplayed(driver, zoomOutButton, 100);
+                        Actions.clickElement(driver, zoomOutButton);
+                        zoomOutFlag = true;
+                        clickProbandNodeOnPedigree(patientType, gender, ngisId);
+                    } else {
+                        Debugger.println("Could not locate the Pedigree node for " + patientType);
+                        return false;
+                    }
+                }
+                if (patientType.equalsIgnoreCase("NGIS")) {
+                    if (gender.equalsIgnoreCase("Male")) {
+                        Debugger.println("Clicking on NGIS:-Male Node");
+                        return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                    } else if (gender.equalsIgnoreCase("Female")) {
+                        Debugger.println("Clicking on NGIS:-Female Node");
+                        return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                    }
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Pedigree Node for NGSID:"+ngisId +"could not locate.");
+            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickFamilyMemberNodeOnPedigreeDiagram(String patientType, String gender, String ngisId) {
+        if (!waitForThePedigreeDiagramToBeLoaded()) {
+            return false;
+        }
+        try {
+            boolean zoomOutFlag = false;
+            int flag = 0;
+            String id[] = null;
+            //            String temp = new String();
+            System.out.print(NGISPatientNodes.size());
+            for (int i = 0; i < NGISPatientNodes.size(); i++) {
+                String NgisId = NGISPatientNodes.get(i).getText().trim();
+                id = NgisId.split(":");
+                if (patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
+                    SeleniumLib.scrollToElement(pedigreeWorkArea);
+                    if (!(id[1].contains(ngisId)) && !(id[1].contains("gen"))) {
+                        Debugger.println("Clicking on Pedigree Node for NGIS: " + id[1]);
+                        flag = 1;
+                        break;
+
+                    }
+                }
+            }
+            if (flag == 1) {
+                assert id != null;
+                String nodePath = pedigreeNGISDNode.replaceAll("NGIS Patient ID : dummyNGSID", id[1].trim());
+                WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
+                if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 100)) {
+                    if (!zoomOutFlag) {
+                        Wait.forElementToBeDisplayed(driver, zoomOutButton, 100);
+                        Actions.clickElement(driver, zoomOutButton);
+                        zoomOutFlag = true;
+                        clickFamilyMemberNodeOnPedigreeDiagram(patientType, gender, id[1].trim());
+                    } else {
+                        Debugger.println("Could not locate the Pedigree node for " + patientType);
+                        return false;
+                    }
+                }
+                if (patientType.equalsIgnoreCase("NGIS")) {
+                    if (gender.equalsIgnoreCase("Male")) {
+                        Debugger.println("Clicking on NGIS:-Male Node");
+                        return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                    } else if (gender.equalsIgnoreCase("Female")) {
+                        Debugger.println("Clicking on NGIS:-Female Node");
+                        return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                    }
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Pedigree Node for NGSID:"+ ngisId +"could not locate.");
+            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
+            return false;
+        }
+    }
+
+
+
+    public boolean verifyMonozygoticTwinInSelectStatus(String expStatus) {
+        boolean isSelected = false;
+        try {
+            if (!Wait.isElementDisplayed(driver, personalTab_monozygoticTwin, 10)) {
+                Debugger.println("Monozygotic Twin feild not displayed in Personal Tab.");
+                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
+                return false;
+            }
+            boolean actStatus = personalTab_monozygoticTwin.isSelected();
+            if (expStatus.equalsIgnoreCase("Selected")) {
+                isSelected = actStatus;
+            } else {
+                if (!actStatus) {
+                    isSelected = true;
+                }
+            }
+            if (!isSelected) {
+                Debugger.println("Expected Status of Monozygotic Twin:" + expStatus + ", but actual:" + isSelected);
+                SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
+            }
+            return isSelected;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying Monozygotic Twin check box.");
+            SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyMonozygoticTwinInSelectStatusAsNotSelected(String expStatus) {
+        boolean isSelected = false;
+        try {
+            if (!Wait.isElementDisplayed(driver, personalTab_monozygoticTwin, 10)) {
+                Debugger.println("Monozygotic Twin feild not displayed in Personal Tab.");
+                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
+                return false;
+            }
+            boolean actStatus = personalTab_monozygoticTwin.isSelected();
+            System.out.print("***************************************************" + actStatus);
+            if (expStatus.equalsIgnoreCase("Selected")) {
+                isSelected = actStatus;
+            } else {
+                if (!actStatus) {
+                    isSelected = true;
+                }
+            }
+            if (!isSelected) {
+                Debugger.println("Expected Status of Monozygotic Twin:" + expStatus + ", but actual:" + isSelected);
+                SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
+            }
+            return isSelected;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying Monozygotic Twin check box.");
+            SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
+            return false;
+        }
+    }
+
+
+
+
 }//end

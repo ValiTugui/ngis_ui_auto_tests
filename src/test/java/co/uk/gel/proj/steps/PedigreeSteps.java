@@ -462,4 +462,37 @@ public class PedigreeSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+
+    @When("the user clicks on the proband node on the pedigree for {string} and {string}")
+    public void theUserClicksOnTheProbandNodeOnThePedigree(String patientType, String gender) {
+        boolean testResult = false;
+        String ngisID=referralPage.getPatientNGISId();
+        testResult = pedigreePage.clickProbandNodeOnPedigree(patientType,gender,ngisID);
+        Assert.assertTrue("Error from click specific node for member with NGIS:", testResult);
+    }
+
+    @When("the user clicks on the family member node on the pedigree diagram for {string} and {string}")
+    public void theUserClicksOnTheFamilyMemberNodeOnThePedigreeDiagram(String patientType, String gender) {
+        boolean testResult = false;
+        String ngisID=referralPage.getPatientNGISId();
+        testResult = pedigreePage.clickFamilyMemberNodeOnPedigreeDiagram(patientType, gender,ngisID);
+        Assert.assertTrue("Error from click specific node for member with NGIS:", testResult);
+    }
+
+    @Then("user should see the monozygotic twin check box is (.*)")
+    public void userShouldSeeTheMonozygoticTwincheckboxIs(String selectStatus) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyMonozygoticTwinInSelectStatus(selectStatus);
+        Assert.assertTrue(testResult);
+    }
+
+
+    @Then("The user should see the monozygotic twin check box status as (.*)")
+    public void TheuserShouldSeeTheMonoTwincheckboxIsNotPresent(String status) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyMonozygoticTwinInSelectStatusAsNotSelected(status);
+        Assert.assertTrue(testResult);
+    }
+
+
 }//end
