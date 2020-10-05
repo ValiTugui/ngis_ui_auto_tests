@@ -45,7 +45,7 @@ public class PanelsPage {
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSearchResultsList;
 
-    @FindBy(xpath = "//h3[contains(text(),'Penetrance')]")
+    @FindBy(xpath = "//h2[contains(text(),'penetrance')]")
     public WebElement penetranceTitle;
 
     @FindBy(xpath = "//button[contains(text(),'Complete')]")
@@ -63,7 +63,7 @@ public class PanelsPage {
     @FindBy(xpath = "//div[@class='styles_select-panel__3qIYD']")
     public List<WebElement> deselectedPanelsList;
 
-    @FindBy(xpath = "//div[contains(@class,'panel-assigner__penetrance')]//p")
+    @FindBy(xpath = "(//div[contains(@class,'panel-assigner')]//div[contains(@class,'paragraph')]/..)[2]")
     public WebElement penetranceIntroMessage;
 
     String titleStringPath = "//h3[contains(text(),'dummyTitle')]";
@@ -338,11 +338,12 @@ public class PanelsPage {
         try {
 
             if(!Wait.isElementDisplayed(driver,penetranceIntroMessage,10)){
-                Debugger.println("PanelAssignerIntoMessage Not displayed.");
+                Debugger.println("PanelAssignerIntroMessage Not displayed.");
                 SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
                 return false;
             }
             String actualMessage = penetranceIntroMessage.getText();
+            actualMessage=actualMessage.replace("\n"," ");
             if(!actualMessage.contains(expMessage)){
                 Debugger.println("PenetranceIntoMessage mismatch. Expected:"+expMessage+"\nActual:"+actualMessage);
                 SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
