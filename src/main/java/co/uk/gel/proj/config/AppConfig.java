@@ -44,6 +44,7 @@ public class AppConfig {
     public static String mi_portal_test_data_file;
     public static boolean snapshotRequired = false;
     public static String NEAT_TOOL;
+    public static String KIBANA_TOOL;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -96,6 +97,9 @@ public class AppConfig {
         BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
 
         NEAT_TOOL = properties.getProperty("NEAT_URL");
+        KIBANA_TOOL=properties.getProperty("KIBANA_URL");
+
+
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
@@ -258,5 +262,9 @@ public class AppConfig {
 
     public static String getConcurrent_user5_password() {
         return concurrent_user5_password;
+    }
+
+    public static String getKibanaUrl(){
+        return KIBANA_TOOL;
     }
 }//end
