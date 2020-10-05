@@ -13,7 +13,7 @@ Feature: NTS-6618:Cancer_new_referral_Samples: Navigate and verify the changes o
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Samples stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NTS-6618_Scenario2 |
     # Referral created and completed all stages but not submitted by user1
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -49,9 +49,9 @@ Feature: NTS-6618:Cancer_new_referral_Samples: Navigate and verify the changes o
     And the user clicks the Save and Continue button
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinical notes
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6618_Scenario2 with Mandatory Stages Completed by User1
     #Samples - Updated by User1
-    And the user waits max 10 minutes for the update Tumours details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Tumours details Updated by User2 in the file NTS-6618_Scenario2
     When the user navigates to the "<Samples>" stage
     And the user selects the existing sample on the landing page by clicking on the chevron right arrow icon
     And the user updates the stage "<Samples>" with "<SamplesUpdated>"
@@ -60,7 +60,7 @@ Feature: NTS-6618:Cancer_new_referral_Samples: Navigate and verify the changes o
     And the user updates the page "<pageTitle1>" with "<SamplesQuestionnaireUpdated>"
     And the user clicks the Save and Continue button
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Samples details Updated by User1
+    And the user updates the file NTS-6618_Scenario2 with Samples details Updated by User1
     Examples:
       | Samples | SamplesUpdated                                                                  | tumour_type                             | presentationType   | pageTitle1         | SamplesQuestionnaireUpdated                                     | sampleType          | sampleState        |
       | Samples | SampleType=Liquid tumour sample:SampleState=Fresh frozen tumour:SampleID=SD6756 | Haematological malignancy: solid sample | First presentation | Add sample details | SampleCollectionDate=20-05-2020:SampleComments=Sample Collected | Solid tumour sample | Tumour fresh fluid |
@@ -69,20 +69,20 @@ Feature: NTS-6618:Cancer_new_referral_Samples: Navigate and verify the changes o
   #Login as User B, Verified Samples stage and do not submit referral
   @NTS-6618 @NTS-6618_Scenario2 @Z-LOGOUT
   Scenario Outline: Verified Samples stage of new referral updated by another user
-    #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6618_Scenario2
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6618_Scenario2 |
    #Samples - Verified by User2
     And the user navigates to the "<Tumours>" stage
-    And the user updates the file NRF1 with Tumours details Updated by User2
-    And the user waits max 15 minutes for the update Samples details Updated by User1 in the file NRF1
+    And the user updates the file NTS-6618_Scenario2 with Tumours details Updated by User2
+    And the user waits max 15 minutes for the update Samples details Updated by User1 in the file NTS-6618_Scenario2
     When the user navigates to the "<Samples>" stage
     And the user selects the existing sample on the landing page by clicking on the chevron right arrow icon
     Then the user verifies the stage "<Samples>" with "<SamplesUpdated>"
     And the user clicks the Save and Continue button
     Then the "<pageTitle1>" page is displayed
     And the user verifies the page "<pageTitle1>" with "<SamplesQuestionnaireUpdated>"
-    And the user updates the file NRF1 with Samples details validated by User2
+    And the user updates the file NTS-6618_Scenario2 with Samples details validated by User2
 
     Examples:
       | Tumours | Samples | SamplesUpdated                                                                  | pageTitle1         | SamplesQuestionnaireUpdated                                     |

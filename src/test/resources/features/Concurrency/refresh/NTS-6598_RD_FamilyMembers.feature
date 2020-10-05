@@ -12,7 +12,7 @@ Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Family members stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NTS-6598_RD |
     # Referral created and completed all stages but not submitted by user1
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -68,16 +68,16 @@ Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes
     And the user clicks the Save and Continue button
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6598_RD with Mandatory Stages Completed by User1
     #Family Members - Updated by User1
-    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NTS-6598_RD
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                               | RelationshipToProband | DiseaseStatusDetails   |
       | NHSNumber=NA:DOB=10-03-1995:Gender=Male:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Affected |
     And the user clicks the Save and Continue button
-    And the user updates the file NRF1 with Family member details Updated by User1
+    And the user updates the file NTS-6598_RD with Family member details Updated by User1
 
     Examples:
       | FamilyMembers  | TestPackage  | OneParticipant | NoOfParticipants | ClinicalQuestionDetails                                                     | ClinicianName      | Panels | ResponsibleClinicianDetails                              |
@@ -87,13 +87,13 @@ Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes
   #Login as User B, Verified Family members and related stages and do not submit referral
   @NTS-6598 @Z-LOGOUT
   Scenario Outline: Verified Family members and related stages of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6598_RD
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6598_RD |
     #Family members - Verified by User2
     And the user navigates to the "<Notes>" stage
-    And the user updates the file NRF1 with Notes details Updated by User2
-    And the user waits max 20 minutes for the update Family member details Updated by User1 in the file NRF1
+    And the user updates the file NTS-6598_RD with Notes details Updated by User2
+    And the user waits max 15 minutes for the update Family member details Updated by User1 in the file NTS-6598_RD
     When the user navigates to the "<FamilyMembers>" stage
     And the user should "get" participant error message as "<ErrorMessage>"
     And the user should see an error message "<ErrorMessage1>" in "<Color>" for the family member
@@ -103,7 +103,7 @@ Feature: NTS-6598:RD_new_referral_FamilyMembers: Navigate and verify the changes
     And the user should be able see the pedigree diagram loaded for the given members
       | MemberDetails               |
       | NHSNumber=NA:DOB=10-03-1995 |
-    And the user updates the file NRF1 with Family member details validated by User2
+    And the user updates the file NTS-6598_RD with Family member details validated by User2
 
 
     Examples:
