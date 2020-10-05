@@ -83,6 +83,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -179,6 +180,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
@@ -274,6 +276,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -371,6 +374,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
@@ -469,6 +473,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -565,6 +570,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
