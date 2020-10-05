@@ -343,7 +343,7 @@ public class PanelsPage {
                 return false;
             }
             String actualMessage = penetranceIntroMessage.getText();
-            actualMessage=actualMessage.replace("\n"," ");
+            actualMessage=actualMessage.replaceAll("\\r?\\n"," ");
             if(!actualMessage.contains(expMessage)){
                 Debugger.println("PenetranceIntoMessage mismatch. Expected:"+expMessage+"\nActual:"+actualMessage);
                 SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
