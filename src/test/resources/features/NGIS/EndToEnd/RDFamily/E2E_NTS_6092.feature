@@ -50,16 +50,16 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     And the user clicks the Save and Continue button
     #Patient choice for the proband
     When the user navigates to the "<PatientChoice>" stage
-      And the user selects the proband
+    And the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
     Then the "<PatientChoice>" page is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
       ###Patient Choice - Family Details Provided below same as the Family Members
-    When the user completes the patient choice for below family members as agreeing to test
-      | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                            |
-      | NHSNumber=NA:DOB=19-10-2002 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123 |
+    When the user edits patient choice for "<TwoParticipant>" family members with the below details
+      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
+      | NHSNumber=NA:DOB=19-10-2001 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
@@ -148,9 +148,9 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
     And the user is navigated to a page with title Patient choice
       ###Patient Choice - Family Details Provided below same as the Family Members
-    When the user completes the patient choice for below family members as agreeing to test
-      | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                            |
-      | NHSNumber=NA:DOB=19-10-2002 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123 |
+    When the user edits patient choice for "<TwoParticipant>" family members with the below details
+      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
+      | NHSNumber=NA:DOB=19-10-2002 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
@@ -236,9 +236,9 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     Then the "<PatientChoice>" page is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
       ###Patient Choice - Family Details Provided below same as the Family Members
-    When the user completes the patient choice for below family members as agreeing to test
-      | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                            |
-      | NHSNumber=NA:DOB=19-10-2001 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123 |
+    When the user edits patient choice for "<TwoParticipant>" family members with the below details
+      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
+      | NHSNumber=NA:DOB=19-10-2001 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
@@ -265,4 +265,4 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | RecordedBy                            | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | FamilyMemberDetails                                                 | DiseaseStatusDetails                                                                                |
-      | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree | NHSNumber=NA:DOB=19-10-2002:Gender=Male:Relationship=Twins Dizygous | DiseaseStatus=Affected:AgeOfOnset=00,01:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY |
+      | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree | NHSNumber=NA:DOB=19-10-2001:Gender=Male:Relationship=Twins Dizygous | DiseaseStatus=Affected:AgeOfOnset=00,01:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY |
