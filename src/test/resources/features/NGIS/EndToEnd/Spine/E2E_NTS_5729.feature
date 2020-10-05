@@ -5,18 +5,18 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
 #E2EUI-2750
   ###Check if NGIS and convert to SPINE from NEAT
   Scenario Outline:NTS-5729:Submit a RD Referral for Spine Patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral and verify the payload.
-  Given a web browser is at the patient search page
-  | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
-    ###Patient Search Page Title
-    When the user is navigated to a page with title Find your patient
-    When the user types in different valid details in the NHS number "9449303665" and DOB "15-09-2000" fields
-    And the user clicks the Search button
-    ### Check if NGIS and convert to SPINE from NEAT
-#    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-    
-    ###Create a cancer referral for a patient
+#  Given a web browser is at the patient search page
+#  | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+#    ###Patient Search Page Title
+#    When the user is navigated to a page with title Find your patient
+#    When the user types in different valid details in the NHS number "9449303665" and DOB "15-09-2000" fields
+#    And the user clicks the Search button
+#    ### Check if NGIS and convert to SPINE from NEAT
+##    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
+#
+#    ###Create a cancer referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=9449303665:DOB=15-09-2000|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=9449303665:DOB=15-09-2000:Ethnicity=A - White - British|
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -39,7 +39,7 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
     And the user types in different valid details in the NHS number "<NhsNumber>" and DOB "<DOB>" fields
     And the user clicks the Search button
     ###Check if NGIS and convert to SPINE from NEAT
-#    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
+    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
 
     ###Submit a RD referral for a spine patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral
     ###Start the referral
@@ -54,7 +54,7 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     Then the "<RequestingOrganisation>" stage is marked as Completed
-    ###Test Package - Trio family - No of participants 3
+    ###Test Package - duo family - No of participants 2
     When the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<TwoParticipant>"
     And the user clicks the Save and Continue button
@@ -137,8 +137,8 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
     ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE IN END TO END FRAMEWORK
 
     Examples:
-      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  | ClinicalQuestion   | ClinicalQuestionDetails                                                                                     | Notes | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                   | PatientChoice  | Panels | Pedigree | searchPanels |
-      | 9449308853 | 14-06-2011 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members | NHSNumber=9449303665:DOB=15-09-2000 | Full Sibling          | FirstName=George:LastName=Williams:Department=Cleaning | Patient choice | Panels | Pedigree | Amyloidosis  |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  |ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                                                     | Notes | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                                         | PatientChoice  | Panels | Pedigree | searchPanels |
+      | 9449308853 | 14-06-2011 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician |FirstName=George:LastName=Williams:Department=Cleaning  |  Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members | NHSNumber=9449303665:DOB=15-09-2000 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  |
 
 
 
