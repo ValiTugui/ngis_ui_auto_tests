@@ -1,6 +1,6 @@
 Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizygous relationship with Proband verification
 
-  @NTS-6092 @Z-LOGOUT  @Scenario1
+  @NTS-6092_1 @Z-LOGOUT  @Scenario1
 
   Scenario Outline:NTS-6092_Scenario-1:Twins Monozygous relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -95,7 +95,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
       | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree |
 
 
-  @NTS-6092 @Z-LOGOUT  @Scenario2
+  @NTS-6092_2 @Z-LOGOUT  @Scenario2
 
   Scenario Outline: NTS-6092_Scenario-2: Twins Unknown relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -188,7 +188,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
       | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | RecordedBy                            | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree |
 
-  @NTS-6092 @Z-LOGOUT  @Scenario3
+  @NTS-6092_3 @Z-LOGOUT  @Scenario3
 
   Scenario Outline: NTS-6092_Scenario-3: Twins Dizygous relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
