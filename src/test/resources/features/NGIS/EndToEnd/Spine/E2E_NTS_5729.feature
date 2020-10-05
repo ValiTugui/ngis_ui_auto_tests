@@ -12,9 +12,9 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
 #    When the user types in different valid details in the NHS number "9449303665" and DOB "15-09-2000" fields
 #    And the user clicks the Search button
 #    ### Check if NGIS and convert to SPINE from NEAT
-##    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-#
-#    ###Create a cancer referral for a patient
+#    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
+
+    ###Create a cancer referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=9449303665:DOB=15-09-2000:Ethnicity=A - White - British|
     ##Patient Details
@@ -123,22 +123,18 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
     When the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    ###Print forms - No
-    When the user is navigated to a page with title Print sample forms
-    And the user is able to download print form for the proband
-    And the user is able to download print forms for "1" family members with the below details
-      | FamilyMemberDetails                 |
-      | NHSNumber=9449303665:DOB=15-09-2000 |
-    ###Submitting Referral
-    When the user submits the referral
+    ##Print forms
+    When the user navigates to the "<PrintForms>" stage
+    Then the user is navigated to a page with title Print sample forms
+    And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
     ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE IN END TO END FRAMEWORK
 
     Examples:
-      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  |ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                                                     | Notes | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                                         | PatientChoice  | Panels | Pedigree | searchPanels |
-      | 9449308853 | 14-06-2011 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician |FirstName=George:LastName=Williams:Department=Cleaning  |  Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members | NHSNumber=9449303665:DOB=15-09-2000 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                            | ClinicalQuestion   | ClinicalQuestionDetails                                                                                     | Notes | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                                        | PatientChoice  | Panels | Pedigree | searchPanels | PrintForms  |
+      | 9449308853 | 14-06-2011 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=George:LastName=Williams:Department=Cleaning | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members | NHSNumber=9449303665:DOB=15-09-2000 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  | Print forms |
 
 
 
