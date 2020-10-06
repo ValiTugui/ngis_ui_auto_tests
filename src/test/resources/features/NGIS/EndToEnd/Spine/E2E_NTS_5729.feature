@@ -3,17 +3,7 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
 
   @NTS-5729 @Z-LOGOUT @test1
 #E2EUI-2750
-  ###Check if NGIS and convert to SPINE from NEAT
   Scenario Outline:NTS-5729:Submit a RD Referral for Spine Patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral and verify the payload.
-#  Given a web browser is at the patient search page
-#  | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
-#    ###Patient Search Page Title
-#    When the user is navigated to a page with title Find your patient
-#    When the user types in different valid details in the NHS number "9449303665" and DOB "15-09-2000" fields
-#    And the user clicks the Search button
-#    ### Check if NGIS and convert to SPINE from NEAT
-#    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-
     ###Create a cancer referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=9449303665:DOB=15-09-2000:Ethnicity=A - White - British|
