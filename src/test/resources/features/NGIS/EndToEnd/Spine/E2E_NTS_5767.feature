@@ -5,7 +5,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
   Scenario Outline:NTS-5767:Submit a RD Referral for Spine Patient and add a Family Member who is an NGIS patient and having RD referral and verify the payload.
      ##Create a RD referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449308896:DOB=03-04-2011:Ethnicity=A - White - British|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449308896:DOB=03-04-2011:Ethnicity=A - White - British |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -18,7 +18,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
     Then the user is navigated to a page with title Confirm the test package
     When the user clicks the Save and Continue button
     And the user clicks the Log out button
-##Convert a NGIS patient into a Spine using the NEAT tool
+   ##Convert a NGIS patient into a Spine using the NEAT tool
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     ###Patient Search Page Title
@@ -110,7 +110,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms - No
-    When the user navigates to the "<PrintForms>" stage
+    When the user navigates to the "Print forms" stage
     Then the user is navigated to a page with title Print sample forms
     ###Submitting Referral
     When the user submits the referral
@@ -120,5 +120,5 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
     ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE IN END TO END FRAMEWORK
 
     Examples:
-      | PatientDetails    |  NhsNumber1  | DOB1        | PatientDetails1  | RequestingOrganisation1  | TestPackage1  | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                            | ClinicalQuestion   | ClinicalQuestionDetails                                                                                       | Notes | FamilyMembers    |FamilyMemberDetails                   | RelationshipToProband | DiseaseStatusDetails                                                                                        |PatientChoice  | Panels | Pedigree | searchPanels |
-      | Patient details    | 9449304513   |23-10-1934   | Patient details | Requesting organisation | Test package   | 2              | Responsible clinician | FirstName=George:LastName=Williams:Department=Cleaning | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Female:KaryotypicSex=XX   | Notes | Family members | NHSNumber=9449308896:DOB=03-04-2011|  Son                    | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  |
+      | PatientDetails  | NhsNumber1 | DOB1       | PatientDetails1 | RequestingOrganisation1 | TestPackage1 | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                            | ClinicalQuestion   | ClinicalQuestionDetails                                                                                       | Notes | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                                        | PatientChoice  | Panels | Pedigree | searchPanels |
+      | Patient details | 9449304513 | 23-10-1934 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=George:LastName=Williams:Department=Cleaning | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Female:KaryotypicSex=XX | Notes | Family members | NHSNumber=9449308896:DOB=03-04-2011 | Son                   | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  |
