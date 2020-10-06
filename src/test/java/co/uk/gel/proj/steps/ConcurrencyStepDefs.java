@@ -43,7 +43,7 @@ public class ConcurrencyStepDefs extends Pages {
 
     @And("the user updates the stage {string} with {string}")
     public void theUserUpdatesPatientDetailsStageWith(String stageName,String updateDetails) {
-        Debugger.println(TestUtils.currentUser+" : Updating "+stageName+" with "+updateDetails);
+        Debugger.println("Stage "+TestUtils.currentUser+" : Updating "+stageName+" with "+updateDetails);
         boolean testResult = false;
         if(stageName.equalsIgnoreCase("Patient details")) {
             testResult = patientDetailsPage.updatePatientDetails(updateDetails);

@@ -16,5 +16,5 @@ Feature: Verify user history details for a referral using Kibana Logs
     Then the user should be able to generate the CSV report
     ##searchDuration can be like Last-15-minutes format also
     Examples:
-      | ButtonName | refID        | searchDuration | filterFields                                          |
+      | ButtonName | refID        | searchDuration | filterFields                                           |
       | Refresh    | r20934394794 | This month     | jwt_claims.name,request.querystring.human_readable_id |
