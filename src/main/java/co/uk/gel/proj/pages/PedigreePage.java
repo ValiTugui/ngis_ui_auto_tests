@@ -10,8 +10,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class PedigreePage {
@@ -1463,6 +1461,7 @@ public class PedigreePage {
             return false;
         }
     }
+
     public boolean clickProbandNodeOnPedigree(String patientType, String gender, String ngisId) {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
@@ -1470,7 +1469,6 @@ public class PedigreePage {
         try {
             boolean zoomOutFlag = false;
             int flag = 0;
-            ArrayList<String> list = new ArrayList<String>();
             for (int i = 0; i < NGISPatientNodes.size(); i++) {
                 String NgisId = NGISPatientNodes.get(i).getText().trim();
                 String[] id = NgisId.split(":");
@@ -1509,7 +1507,7 @@ public class PedigreePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Pedigree Node for NGSID:"+ngisId +"could not locate.");
+            Debugger.println("Pedigree Node for NGSID:" + ngisId + "could not locate.");
             SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
@@ -1523,7 +1521,6 @@ public class PedigreePage {
             boolean zoomOutFlag = false;
             int flag = 0;
             String id[] = null;
-            //            String temp = new String();
             System.out.print(NGISPatientNodes.size());
             for (int i = 0; i < NGISPatientNodes.size(); i++) {
                 String NgisId = NGISPatientNodes.get(i).getText().trim();
@@ -1534,7 +1531,6 @@ public class PedigreePage {
                         Debugger.println("Clicking on Pedigree Node for NGIS: " + id[1]);
                         flag = 1;
                         break;
-
                     }
                 }
             }
@@ -1565,13 +1561,11 @@ public class PedigreePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Pedigree Node for NGSID:"+ ngisId +"could not locate.");
+            Debugger.println("Pedigree Node for NGSID:" + ngisId + "could not locate.");
             SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
-
-
 
     public boolean verifyMonozygoticTwinInSelectStatus(String expStatus) {
         boolean isSelected = false;
@@ -1629,8 +1623,4 @@ public class PedigreePage {
             return false;
         }
     }
-
-
-
-
 }//end
