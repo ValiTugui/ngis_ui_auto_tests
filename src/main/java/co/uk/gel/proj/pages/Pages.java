@@ -5,6 +5,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.miportal_pages.*;
+import co.uk.gel.proj.neatPages.*;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.ExcelDataRead;
 import co.uk.gel.proj.util.TestUtils;
@@ -62,6 +63,11 @@ public class Pages implements Navigable {
 
     protected InterpretationPortalHomePage interpretationPortalHomePage;
 
+    protected NeatHomePage neatHomePage;
+    protected NeatPatientRecordPage neatPatientRecordPage;
+    protected KibanaPage kibanaPage;
+    protected DataDogPage dataDogPage;
+    protected String DataDog_User = "DATADOG_USER";
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -104,6 +110,12 @@ public class Pages implements Navigable {
         miNewReferralsPage = PageFactory.initElements(driver, MiNewReferralsPage.class);
         excelDataRead = PageFactory.initElements(driver, ExcelDataRead.class);
         interpretationPortalHomePage = PageFactory.initElements(driver, InterpretationPortalHomePage.class);
+
+        //NEAT Admin Tool Pages
+        neatHomePage=PageFactory.initElements(driver,NeatHomePage.class);
+        neatPatientRecordPage=PageFactory.initElements(driver,NeatPatientRecordPage.class);
+        kibanaPage = PageFactory.initElements(driver,KibanaPage.class);
+        dataDogPage=PageFactory.initElements(driver, DataDogPage.class);
 
     }
 

@@ -11,7 +11,6 @@ Feature: Create Referrals for SPINE Patient
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation

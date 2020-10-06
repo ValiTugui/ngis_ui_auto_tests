@@ -16,7 +16,8 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-      | GEL1004 Clinic Sample Type            |
+#      | GEL1004 Clinic Sample Type            |
+       ## As part of SALLY release the field/filter "gel1004 Clinic Sample Type" has been removed
       | GEL1004 Disease Area                  |
       | GEL1004 GLH Sample Consignment Number |
       | GEL1004 Laboratory ID                 |
@@ -43,10 +44,11 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     And the user selects Patient NGIS ID as the plater samples search input value
     Then the selected search option is reset after test
     ###5 gel1004 Clinic Sample Type
-    When the user selects <filter_value5> as the plater samples search column dropdown
-    And the user selects is as the plater samples search operator dropdown
-    And the user selects <value5> as the plater samples search value dropdown
-    Then the selected search option is reset after test
+#    When the user selects <filter_value5> as the plater samples search column dropdown
+##    And the user selects is as the plater samples search operator dropdown
+##    And the user selects <value5> as the plater samples search value dropdown
+##    Then the selected search option is reset after test
+     ## As part of SALLY release the field/filter "gel1004 Clinic Sample Type" has been removed
     ####6  gel1004 Disease Area
     And the user selects a value "<filter_value6>" from the "plater_samples-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "plater_samples-search-operator" operator drop-down
