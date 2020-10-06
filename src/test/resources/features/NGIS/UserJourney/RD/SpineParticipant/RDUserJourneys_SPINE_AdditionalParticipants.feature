@@ -67,7 +67,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<RecordedBy>" details in recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     When the user is in the section Patient choices
     When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -79,12 +79,10 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
@@ -180,7 +178,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
-    When the user navigates to the "<Panels>" stage
+
     Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
@@ -393,7 +391,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the referral status is set to "Submitted"
 
     Examples:
-    |NhsNumber|DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels | PrintFormsStage |
+    |NhsNumber|DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree | searchPanels | PrintFormsStage |
     |9449304076|05-05-1995 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    | Print forms     |
 
   @NTS-4599 @Z-LOGOUT
@@ -460,7 +458,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<RecordedBy>" details in recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     Then the user is in the section Patient choices
     When the user selects the option Patient conversation happened; form to follow for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -489,7 +487,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the referral status is set to "Submitted"
 
     Examples:
-    |NhsNumber|DOB  | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
+    |NhsNumber|DOB  | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
      |9449304076|05-05-1995 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4585 @Z-LOGOUT
@@ -557,7 +555,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<RecordedBy>" details in recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     Then the user is in the section Patient choices
     When the user selects the option Patient conversation happened; form to follow for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -593,5 +591,5 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
  # |NhsNumber    |DOB    | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels |PrintFormsStage |
 #  # | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |Print forms     |
 
-  |NhsNumber    |DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                                    | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels | PrintFormsStage |
+  |NhsNumber    |DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                                    | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree | searchPanels | PrintFormsStage |
   |9449303673   |16-07-2010| Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk| Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality| Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Catar,Crani  | Print forms     |
