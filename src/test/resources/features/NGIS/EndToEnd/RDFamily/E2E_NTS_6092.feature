@@ -36,7 +36,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-#    Then the "<Notes>" stage is marked as Completed
+    Then the "<Notes>" stage is marked as Completed
     ##Family Members - Adding one member
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -146,7 +146,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     Then the "<PatientChoice>" page is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
     And the user is navigated to a page with title Patient choice
-      ###Patient Choice - Family Details Provided below same as the Family Members
+    ###Patient Choice - Family Details Provided below same as the Family Members
     When the user edits patient choice for "<TwoParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=19-10-2002 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
@@ -213,7 +213,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-      ##Family Members - Adding one member -
+    ##Family Members - Adding one member -
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -233,7 +233,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     And the user clicks the Save and Continue button on the patient choice
     Then the "<PatientChoice>" page is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
-      ###Patient Choice - Family Details Provided below same as the Family Members
+    ###Patient Choice - Family Details Provided below same as the Family Members
     When the user edits patient choice for "<TwoParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=19-10-2001 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
@@ -243,7 +243,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-#    ##Pedigree - Pedigree by default marked as completed
+    ##Pedigree - Pedigree by default marked as completed
     Then the user is navigated to a page with title Build a pedigree
     Then the user clicks on the proband node on the pedigree for "NGIS" and "Male"
     And the user select the pedigree tab Personal
