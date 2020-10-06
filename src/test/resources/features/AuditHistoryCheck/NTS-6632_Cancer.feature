@@ -102,14 +102,20 @@ Feature: NTS-6632:Audit history for a cancer referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
 #      Requesting Organisation - Update
+    When the user navigates to the "<testPackage>" stage
+    Then the user updates the stage "<testPackage>" with "<testPackageUpdated>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<notes>" stage
+    And the user updates the stage "<notes>" with "<NotesUpdated>"
+    And the user clicks the Save and Continue button
     When the user navigates to the "<requestingOrganisation>" stage
     And the user updates the stage "<requestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user clicks the Save and Continue button
-   #Responsible Clinician - Verified by User2
+#   #Responsible Clinician - Update
     When the user navigates to the "<responsibleClinician>" stage
     Then the user updates the stage "<responsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
 
     Examples:
-      | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  | RequestingOrganisationUpdated                | ResponsibleClinicianDetailsUpdated                                                       |
-      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms | King's College Hospital NHS Foundation Trust | departmental_address=411 Omer Drives:surname=Kling:email_address=brady.johnson@yahoo.com |
+      | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  | RequestingOrganisationUpdated                | ResponsibleClinicianDetailsUpdated                                                       | testPackageUpdated | NotesUpdated                      |
+      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms | King's College Hospital NHS Foundation Trust | departmental_address=411 Omer Drives:surname=Kling:email_address=brady.johnson@yahoo.com | Priority=Urgent    | Chuck Norris doesn't pair program |

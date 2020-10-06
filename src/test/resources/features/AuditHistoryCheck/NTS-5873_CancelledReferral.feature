@@ -2,7 +2,6 @@
 @AuditHistory_Cancel_Referral
 
 Feature: NTS-5873:Verify Audit history for a cancelled referral.
-  ###FLOW
 
   @NTS-5873 @Z-LOGOUT @Scenario1
   Scenario Outline:Scenario 1: Verify audit history for a cancelled referral(cancer) for using patient Human readable Id..
