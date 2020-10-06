@@ -40,7 +40,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation1>" stage is marked as Completed
-    ###Test Package - Trio family - No of participants 3
+    ###Test Package - duo family - No of participants 2
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<TwoParticipant>"
     And the user clicks the Save and Continue button

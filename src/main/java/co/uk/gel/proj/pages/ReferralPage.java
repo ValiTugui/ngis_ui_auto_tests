@@ -383,8 +383,8 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("ReferralHeaderNotLoaded.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,toDoList,60)){
-                Debugger.println("Landing Page ToDo List not loaded even after 30 seconds.\n"+driver.getCurrentUrl());
+            if(!Wait.isElementDisplayed(driver,toDoList,100)){
+                Debugger.println("Landing Page ToDo List not loaded even after 100 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("LandingPageToDoList.jpg");
                 return false;
             }
