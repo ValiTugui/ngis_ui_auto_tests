@@ -90,9 +90,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
       | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | RecordedBy                            | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | FamilyMemberDetails                                                   | DiseaseStatusDetails                                                                                |
       | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree | NHSNumber=NA:DOB=19-10-2001:Gender=Male:Relationship=Twins Monozygous | DiseaseStatus=Affected:AgeOfOnset=00,01:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY |
 
-
   @NTS-6092 @NTS-6092_Scenario2 @Z-LOGOUT
-
   Scenario Outline: NTS-6092_Scenario-2: Twins Unknown relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
@@ -181,7 +179,6 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
       | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree | NHSNumber=NA:DOB=19-10-2002:Gender=Male:Relationship=Twins Unknown | DiseaseStatus=Affected:AgeOfOnset=00,01:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY |
 
   @NTS-6092 @NTS-6092_Scenario3 @Z-LOGOUT
-
   Scenario Outline: NTS-6092_Scenario-3: Twins Dizygous relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
