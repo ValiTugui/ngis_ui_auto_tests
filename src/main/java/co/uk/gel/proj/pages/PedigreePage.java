@@ -168,7 +168,7 @@ public class PedigreePage {
     public WebElement closePopup;
 
     @FindBy(xpath = "//input[@type='checkbox' and @name='monozygotic']")
-    public WebElement personalTab_monozygoticTwin;
+    public WebElement personalTabMonozygoticTwin;
 
     @FindBy(xpath = "//*[name()='tspan'][contains(text(),'NGIS Patient ID : ')]/..")
     List<WebElement> NGISPatientNodes;
@@ -1570,12 +1570,12 @@ public class PedigreePage {
     public boolean verifyMonozygoticTwinInSelectStatus(String expStatus) {
         boolean isSelected = false;
         try {
-            if (!Wait.isElementDisplayed(driver, personalTab_monozygoticTwin, 10)) {
+            if (!Wait.isElementDisplayed(driver, personalTabMonozygoticTwin, 10)) {
                 Debugger.println("Monozygotic Twin feild not displayed in Personal Tab.");
                 SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
                 return false;
             }
-            boolean actStatus = personalTab_monozygoticTwin.isSelected();
+            boolean actStatus = personalTabMonozygoticTwin.isSelected();
             if (expStatus.equalsIgnoreCase("Selected")) {
                 isSelected = actStatus;
             } else {
@@ -1598,12 +1598,12 @@ public class PedigreePage {
     public boolean verifyMonozygoticTwinInSelectStatusAsNotSelected(String expStatus) {
         boolean isSelected = false;
         try {
-            if (!Wait.isElementDisplayed(driver, personalTab_monozygoticTwin, 10)) {
+            if (!Wait.isElementDisplayed(driver, personalTabMonozygoticTwin, 10)) {
                 Debugger.println("Monozygotic Twin feild not displayed in Personal Tab.");
                 SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
                 return false;
             }
-            boolean actStatus = personalTab_monozygoticTwin.isSelected();
+            boolean actStatus = personalTabMonozygoticTwin.isSelected();
             System.out.print("***************************************************" + actStatus);
             if (expStatus.equalsIgnoreCase("Selected")) {
                 isSelected = actStatus;

@@ -57,7 +57,7 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
     And the user clicks the Save and Continue button on the patient choice
     Then the "<PatientChoice>" page is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
-      ###Patient Choice - Family Details Provided below same as the Family Members
+    ###Patient Choice - Family Details Provided below same as the Family Members
     When the user edits patient choice for "<TwoParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=19-10-2001 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
