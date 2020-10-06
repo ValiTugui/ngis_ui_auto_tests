@@ -9,6 +9,7 @@ import co.uk.gel.proj.util.Debugger;
 import javafx.scene.shape.MoveTo;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,8 +46,10 @@ public class DataDogPage {
     @FindBy(xpath = "/html/body/div[1]/nav/div[2]/ul[1]/li[11]/div[1]/a/div/span")
     public WebElement logsSection1;
 
-    @FindBy(xpath = "/html/body/div[1]/nav/div[2]/ul[1]/li[11]/ul/li[2]/div/a/div/span")
-    public WebElement searchOption;
+    @FindBy(xpath = "//input[@class='ui_form_input-text__input ui_form_validation__element'][@placeholder='Filter values']")
+    public WebElement serviceFilterSearch;
+    @FindBy(xpath = "//div[@class='ui_facets_facet-value']")
+    public List<WebElement> serviceFilters;
 
     @FindBy(css = "#ui_icons_logs--sprite")
     public WebElement logsSection;
@@ -54,13 +57,11 @@ public class DataDogPage {
     @FindBy(xpath = "//*[@id=\"react-app\"]/div[1]/div[2]/div[2]/header/div[2]/div/div/div/div/div/div/div/div/svg[3]/g[2]/g/rect[1]")
     public List<WebElement> searchBoxOptionsList;
 
-    @FindBy(xpath = "//*[@id='react-app']/div[1]/div[2]/div[2]/header/div[1]/div/div[2]/div/div/div/div/span[2]/span/span")
+    @FindBy(xpath = "//span[@class='ui_form_editable-text ui_form_editable-text--md']")
     public WebElement searchBox1;
 
-    @FindBy(xpath = "//*[@id='react-app']/div[1]/div[2]/div[2]/div[2]/div/div[2]/div/div/div/div[2]/div/div/table/thead/tr/th[3]/span/div/div[2]/span")
+    @FindBy(xpath = "//div[@class='drillthrough-frame']/table/tbody/tr")
     public WebElement hostHeader;
-
-    String selectedCheckBox = "//div[contains(@title,'dummyName')]//label[contains(@class,'checkbox')]";
 
     @FindBy(xpath = "(//div[contains(text(),'Service')])[2]")
     public WebElement serviceSection;
@@ -75,56 +76,21 @@ public class DataDogPage {
     public List<WebElement> coreSections;
 
 
-    public void loginToDataDogApplication(WebDriver driver, String userType) {
+    public String loginToDataDogApplication(WebDriver driver, String userType) {
         try {
-            Wait.seconds(5);
             if (!Wait.isElementDisplayed(driver,emailAddressField,60)) { //If the element is not displayed, even after the waiting time
-                Debugger.println("Email Address Field is not visible, even after the waiting period of 60 seconds");
-            }else{
-                Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
+                return "Email Address Field is not visible, even after the waiting period of 60 seconds. Looks like Datadog page is not accessible.";
             }
-            if (userType.equalsIgnoreCase("DATADOG_USER")) {
-                try {
-                    seleniumLib.sendValue(emailAddressField,AppConfig.getDataDog_userName());
-                }catch(Exception exp1){
-                    emailAddressField.sendKeys(AppConfig.getDataDog_userName());
-                }
-            }
-            Wait.seconds(2);
-            if (userType.equalsIgnoreCase("DATADOG_USER")) {
-                try {
-                    seleniumLib.sendValue(passwordField,AppConfig.getDataDog_password());
-                }catch(Exception exp1){
-                    passwordField.sendKeys(AppConfig.getDataDog_password());
-                }
-            }
-            Wait.seconds(4);
-            try {
-                Click.element(driver, loginButton);
-                Wait.seconds(5);
-            }catch(Exception exp1){
-                seleniumLib.clickOnWebElement(loginButton);
-                Wait.seconds(5);
-            }
+            seleniumLib.sendValue(emailAddressField,AppConfig.getDataDog_userName());
+            seleniumLib.sleepInSeconds(2);
+            seleniumLib.sendValue(passwordField,AppConfig.getDataDog_password());
+            seleniumLib.sleepInSeconds(2);
+            seleniumLib.clickOnWebElement(loginButton);
+            seleniumLib.sleepInSeconds(5);
+            return "Success";
         } catch (Exception exp){
-            Debugger.println("loginToDataDogApplication:Exception:\n"+exp);
             SeleniumLib.takeAScreenShot("DatadogLogin.jpg");
-            Assert.fail("Exception from loginToDataDogApplication"+exp);
-        }
-    }
-
-    public boolean openAndVerifyDataDogPage() {
-        try {
-            if (!Wait.isElementDisplayed(driver, integrationMonitorText, 5)) {
-                Debugger.println("The datadog Tool page is not loaded properly.");
-                SeleniumLib.takeAScreenShot("DataDogHomePageError.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from openAndVerifyDataDogPage:" + exp);
-            SeleniumLib.takeAScreenShot("DataDogLoginException.jpg");
-            return false;
+            return "Exception from loginToDataDogApplication"+exp;
         }
     }
 
@@ -135,13 +101,11 @@ public class DataDogPage {
                 seleniumLib.moveMouseAndClickOnElement(menuItem);
             }
             seleniumLib.sleepInSeconds(3);
-//            seleniumLib.moveAndClickOn(logsSection1);
-//            try {
-//                seleniumLib.clickOnWebElement(searchOption);
-//            } catch (Exception exp1) {
-//                searchOption.click();
-//            }
-//            Wait.seconds(5); // to load the logs page
+
+            By closePanel = By.xpath("//a[@class='cancel']");
+            if(seleniumLib.isElementPresent(closePanel)){
+                seleniumLib.clickOnElement(closePanel );
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from moveToLogsSectionAndClickOnSearchOption: " +exp);
@@ -155,9 +119,12 @@ public class DataDogPage {
                 Debugger.println("Core:"+coreSection.getText());
                 if(coreSection.getText().equalsIgnoreCase(menu)){
                     coreSection.click();
-                    seleniumLib.sleepInSeconds(2);
+                    seleniumLib.sleepInSeconds(5);
+                    coreSection.click();
                     break;
                 }
+                seleniumLib.sleepInSeconds(3);
+
             }
             return true;
         } catch (Exception exp) {
@@ -184,66 +151,109 @@ public class DataDogPage {
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    public boolean enterTheSearchValuesInTheSearchBox(String values) {
+    public String enterTheSearchValuesInTheSearchBox(String values) {
         try {
+            Debugger.println("Searching for: "+values);
             if(!Wait.isElementDisplayed(driver, searchBox1, 15)){
-                Debugger.println("No search box is displayed.");
-                SeleniumLib.takeAScreenShot("noSearchBox.jpg");
-                return false;
+                return "No search box is displayed.";
             }
-            Wait.seconds(3);
+            seleniumLib.sleepInSeconds(3);
             searchBox1.sendKeys(values);
+            seleniumLib.sleepInSeconds(2);
             try {
                 Actions.selectValueFromDropdown(dropdownValue, values);
-//                Click.element(driver, searchBoxOptionsList.get(new Random().nextInt(searchBoxOptionsList.size())));
             } catch (Exception exp1) {
-//                seleniumLib.sendValue(searchBox1, "source:authlog");
                 Click.element(driver, searchBoxOptionsList.get(new Random().nextInt(searchBoxOptionsList.size())));
-//                Debugger.println("Value is not selected");
             }
-            Wait.seconds(10); //to load the table
-            return true;
+            seleniumLib.sleepInSeconds(10);
+            return "Success";
         } catch (Exception exp) {
-            Debugger.println("Exception from enterTheSearchValuesInTheSearchBox:" + exp);
-            SeleniumLib.takeAScreenShot("noSearchValueInSearchBox.jpg");
-            return false;
+            return "Exception from enterTheSearchValuesInTheSearchBox:" + exp;
         }
     }
 
-    public boolean verifyTheHostHeaderInTheTable() {
+    public String verifySearchResult() {
         try {
-            if(!Wait.isElementDisplayed(driver, hostHeader, 30)){
-                Debugger.println("Host header is not displayed in the table");
-                SeleniumLib.takeAScreenShot("noHostHeader.jpg");
+            By tableRows = By.xpath("//div[@class='drillthrough-frame']/table/tbody/tr");
+            if(seleniumLib.isElementPresent(tableRows)){
+                List<WebElement> rowList = seleniumLib.getElements(tableRows);
+                if(rowList.size() < 1){
+                    return "No search List available";
+                }
+            }else{
+                return "Search Result Table not loaded.";
             }
-            Wait.seconds(5);
-            return true;
+            return "Success";
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheHostHeaderInTheTable:" + exp);
-            SeleniumLib.takeAScreenShot("noHostHeader.jpg");
-            return false;
+            return "Exception from verifyTheHostHeaderInTheTable:" + exp;
         }
     }
 
 
 
-    public boolean selectTheServiceCheckBox(String serviceName) {
+    public String searchAndSelectFilters(String filters) {
         try{
-            String serName=selectedCheckBox.replaceAll("dummyName", serviceName);
-            WebElement checkBox =driver.findElement(By.xpath(serName));
-            if (!Wait.isElementDisplayed(driver,checkBox , 10)){
-                Debugger.println("Option to click on checkbox not present in Service Options");
-                SeleniumLib.takeAScreenShot("SelectCheckBox.jpg");
-                return false;
+           String expFilters[] = filters.split(",");
+           String actTitle = "",checkStatus="";
+           WebElement inputCheck = null;
+           boolean isSelected = false;
+            if(seleniumLib.isElementPresent(serviceFilterSearch)){
+                seleniumLib.clickOnWebElement(serviceFilterSearch);
+                seleniumLib.sleepInSeconds(2);
+                seleniumLib.sendValue(serviceFilterSearch,expFilters[0].substring(0,6));
+                seleniumLib.sleepInSeconds(2);
             }
-            Actions.clickElement(driver,checkBox);
-            Wait.seconds(2);
-            return true;
-        }
-        catch (Exception exp){
-            Debugger.println("Exception from SelectTheServiceCheckBox:" + exp);
-            SeleniumLib.takeAScreenShot("SelectTheServiceCheckBox.jpg");
-            return false;
+            serviceFilters = driver.findElements(By.xpath("//div[@class='ui_facets_facet-value']"));
+            seleniumLib.sleepInSeconds(2);
+            int count = 0;
+            int consideredCount = 0;
+            for (WebElement serviceFilter : serviceFilters) {
+                count++;
+                actTitle = serviceFilter.getAttribute("title");
+                inputCheck = serviceFilter.findElement(By.xpath(".//input"));
+                isSelected = false;
+                checkStatus = inputCheck.getAttribute("value");
+                if(count == 1) {
+                   WebElement onlySelect = serviceFilter.findElement(By.xpath("./span/span"));
+                   if (seleniumLib.isElementPresent(onlySelect)) {
+                       onlySelect.click();
+                       seleniumLib.sleepInSeconds(5);
+                       Debugger.println("Only selected:");
+                       consideredCount++;
+                       serviceFilters = driver.findElements(By.xpath("//div[@class='ui_facets_facet-value']"));
+                       Debugger.println("Total Filters2....:" + serviceFilters.size());
+                   }
+                   continue;
+               }
+               Debugger.println(count+".Filter....:" + actTitle+"-"+checkStatus);
+               for(int j=0; j<expFilters.length; j++) {
+                    if (actTitle.equalsIgnoreCase(expFilters[j])) {
+                        if (checkStatus.equalsIgnoreCase("off")) {
+                            try {
+                                seleniumLib.clickOnWebElement(inputCheck);//Select
+                                Debugger.println(actTitle + " Selected");
+                                consideredCount++;
+                            } catch (Exception exp) {
+                                //Stale element reference
+                            }
+                        } else {
+                            //Already selected
+                            Debugger.println(actTitle + " already in selected mode.");
+                        }
+                    }
+               }
+               if(count >= consideredCount){
+                   break;
+               }
+               if(actTitle.equalsIgnoreCase("Alert")||actTitle.equalsIgnoreCase("Critical")||
+                       actTitle.equalsIgnoreCase("Warn")||actTitle.equalsIgnoreCase("Info")){
+                   continue;
+               }
+                seleniumLib.sleepInSeconds(2);
+            }
+            return "Success";
+        } catch (Exception exp){
+            return "Exception from SelectTheServiceCheckBox:" + exp;
         }
     }
 

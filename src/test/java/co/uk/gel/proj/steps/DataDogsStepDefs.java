@@ -37,55 +37,36 @@ public class DataDogsStepDefs extends Pages {
 
     @And("the user provide the filters values in search box for e2e-latest")
     public void theUserProvideTheFiltersValuesInSearchBoxForEELatest(DataTable values) {
-        boolean testResult = false;
+        String testResult = "";
         List<List<String>> fields = values.asLists();
-        for (int i = 1; i < fields.size(); i++) {
+        for (int i = 0; i < fields.size(); i++) {
             testResult = dataDogPage.enterTheSearchValuesInTheSearchBox(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if (!testResult.equalsIgnoreCase("Success")) {
+                Assert.fail(testResult);
             }
         }
-        Assert.assertTrue(testResult);
-    }
+      }
 
     @Then("the user can see the host details in the result table")
     public void theUserCanSeeTheHostDetailsInTheResultTable() {
-        boolean testResult = false;
-        testResult = dataDogPage.verifyTheHostHeaderInTheTable();
-        Assert.assertTrue(testResult);
+        String testResult = "";
+        testResult = dataDogPage.verifySearchResult();
+        if(!testResult.equalsIgnoreCase("Success")){
+            Assert.fail(testResult);
+        }
     }
 
-    @Given("a web browser is at the datadog home page")
-    public void aWebBrowserIsAtTheDatadogHomePage (List<String> loginDetailsInput) {
-        boolean testResult = false;
-        String baseURL = loginDetailsInput.get(0);
-        String pageToNavigate = loginDetailsInput.get(1);
-        String userType = loginDetailsInput.get(2);
+    @Given("the user logins to the data dog home page")
+    public void aWebBrowserIsAtTheDatadogHomePage () {
+        String baseURL = "DATADOG_URL";
+        String userType = "DATADOG_USER";
         //Get the URL from Properties file
         String requiredPage = AppConfig.getPropertyValueFromPropertyFile(baseURL);
-        Debugger.println("Opening the URL: " + requiredPage + "\n and Page:" + pageToNavigate);
         driver.get(requiredPage);
-        Wait.seconds(10);//Wait for 10 Seconds for the page to load
-        String navigatedURL = driver.getCurrentUrl();
-        Debugger.println("Current URL before LOGIN is :" + navigatedURL);
-        if (navigatedURL.contains("app.datadoghq")) {
-            if (userType != null) {
-                dataDogPage.loginToDataDogApplication(driver, userType);
-            } else {
-                Assert.fail("There is No User details provided to login.");
-            }
-        } else if (navigatedURL.contains(pageToNavigate)) {
-            Debugger.println("Already logged in, current URL after LOGIN :" + navigatedURL);
+        String testResult = dataDogPage.loginToDataDogApplication(driver, userType);
+        if(!testResult.equalsIgnoreCase("Success")) {
+            Assert.fail(testResult);
         }
-        navigatedURL = driver.getCurrentUrl();
-        Debugger.println("Current URL after LOGIN :" + navigatedURL);
-        if (!navigatedURL.contains(pageToNavigate)) {
-            Debugger.println("The open page after login is not correct..." + navigatedURL + "Reloading page..." + requiredPage);
-            driver.get(requiredPage);
-            Wait.seconds(5); //Wait for page load
-        }
-        testResult = dataDogPage.openAndVerifyDataDogPage();
-        Assert.assertTrue(testResult);
     }
 
 
@@ -96,10 +77,13 @@ public class DataDogsStepDefs extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user select the checkbox {string} in the services")
-    public void theUserSelectTheCheckboxInTheServices(String Name) {
-        boolean testResult = false;
-        testResult = dataDogPage.selectTheServiceCheckBox(Name);
-        Assert.assertTrue(testResult);
+    @And("the user search and select the service filters (.*)")
+    public void theUserSearchAndSelectTheServiceFilters(String filters) {
+        String testResult = "";
+        testResult = dataDogPage.searchAndSelectFilters(filters);
+        if(!testResult.equalsIgnoreCase("Success")) {
+            Assert.fail(testResult);
+        }
+        Wait.seconds(15);
     }
-}
+}//end
