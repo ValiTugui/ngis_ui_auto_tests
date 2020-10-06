@@ -462,7 +462,6 @@ public class PedigreeSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
     @When("the user clicks on the proband node on the pedigree for {string} and {string}")
     public void theUserClicksOnTheProbandNodeOnThePedigree(String patientType, String gender) {
         boolean testResult = false;
@@ -480,19 +479,16 @@ public class PedigreeSteps extends Pages {
     }
 
     @Then("user should see the monozygotic twin check box is (.*)")
-    public void userShouldSeeTheMonozygoticTwincheckboxIs(String selectStatus) {
+    public void userShouldSeeTheMonozygoticTwinCheckboxIs(String selectStatus) {
         boolean testResult = false;
         testResult = pedigreePage.verifyMonozygoticTwinInSelectStatus(selectStatus);
         Assert.assertTrue(testResult);
     }
 
-
     @Then("The user should see the monozygotic twin check box status as (.*)")
-    public void TheuserShouldSeeTheMonoTwincheckboxIsNotPresent(String status) {
+    public void theUserShouldSeeTheMonoTwinCheckboxIsNotPresent(String status) {
         boolean testResult = false;
         testResult = pedigreePage.verifyMonozygoticTwinInSelectStatusAsNotSelected(status);
         Assert.assertTrue(testResult);
     }
-
-
 }//end
