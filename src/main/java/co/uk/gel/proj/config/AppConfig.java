@@ -45,6 +45,9 @@ public class AppConfig {
     public static boolean snapshotRequired = false;
     public static String NEAT_TOOL;
     public static String KIBANA_TOOL;
+    public static String DataDog_TOOL;
+    public static String DataDog_USERNAME;
+    public static String DataDog_PASSWORD;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -99,6 +102,9 @@ public class AppConfig {
         NEAT_TOOL = properties.getProperty("NEAT_URL");
         KIBANA_TOOL=properties.getProperty("KIBANA_URL");
 
+        DataDog_TOOL = properties.getProperty("DATADOG_URL");
+        DataDog_USERNAME = properties.getProperty("USERNAME_DATADOG");
+        DataDog_PASSWORD = properties.getProperty("PASSWORD_DATADOG");
 
     }
 
@@ -267,4 +273,20 @@ public class AppConfig {
     public static String getKibanaUrl(){
         return KIBANA_TOOL;
     }
+    public static void setDataDog_TOOL(String dataDog_url) {
+        AppConfig.DataDog_TOOL = dataDog_url;
+    }
+    public static void setDataDog_USERNAME(String datadog_username) {
+        AppConfig.DataDog_USERNAME = datadog_username;
+    }
+    public static String getDataDog_userName () {
+        return DataDog_USERNAME;
+    }
+    public static void setDataDog_PASSWORD(String dataDog_password) {
+        AppConfig.DataDog_PASSWORD = dataDog_password;
+    }
+    public static String getDataDog_password () {
+        return DataDog_PASSWORD;
+    }
+
 }//end

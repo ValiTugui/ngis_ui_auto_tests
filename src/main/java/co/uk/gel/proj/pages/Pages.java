@@ -61,12 +61,13 @@ public class Pages implements Navigable {
     protected MiNewReferralsPage miNewReferralsPage;
     protected ExcelDataRead excelDataRead;
 
-
     protected InterpretationPortalHomePage interpretationPortalHomePage;
 
     protected NeatHomePage neatHomePage;
     protected NeatPatientRecordPage neatPatientRecordPage;
     protected KibanaPage kibanaPage;
+    protected DataDogPage dataDogPage;
+    protected String DataDog_User = "DATADOG_USER";
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -114,6 +115,7 @@ public class Pages implements Navigable {
         neatHomePage=PageFactory.initElements(driver,NeatHomePage.class);
         neatPatientRecordPage=PageFactory.initElements(driver,NeatPatientRecordPage.class);
         kibanaPage = PageFactory.initElements(driver,KibanaPage.class);
+        dataDogPage=PageFactory.initElements(driver, DataDogPage.class);
 
     }
 
