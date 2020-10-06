@@ -1,13 +1,7 @@
 @AuditHistory
 @AuditHistory_RD
 Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio) or more participant
-  ###FLOW
-  # submit the new referral and entered all mandatory stages
-  # Login to the same referral
-  # updated or change in the referral like :- Changed Responsible Clinician
-#   download the updated referral form the print form stage
-#   get the Patient ID from the Patient Search and extract the Genomic Record data via patient ID using SQL query
-#  Then user can extract the sample processing details from Gel1001 and Gel1005 via patient ID using SQL query
+
   @NTS-6633 @Z-LOGOUT
   Scenario Outline: NTS-6633:Audit history for a RD referral having 3 family members (Trio) or more participant
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -88,9 +82,9 @@ Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio)
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
    ##Requesting Organisation - Update
-    When the user navigates to the "<RequestingOrganisation>" stage
-    And the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
-    And the user clicks the Save and Continue button
+#    When the user navigates to the "<RequestingOrganisation>" stage
+#    And the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
+#    And the user clicks the Save and Continue button
      ##Test Package - Update
     When the user navigates to the "<TestPackage>" stage
     And the user updates the stage "<TestPackage>" with "<TestPackageUpdated>"
@@ -99,46 +93,11 @@ Feature: NTS-6633:Audit history for a RD referral having 3 family members (Trio)
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user clicks the Save and Continue button
-    ##Notes
+    ##Notes -Update
     When the user navigates to the "<Notes>" stage
     Then the user updates the stage "<Notes>" with "<NotesUpdated>"
     And the user clicks the Save and Continue button
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | ResponsibleClinicianDetailsUpdated | PatientDetailsUpdated          | TestPackageUpdated | RequestingOrganisationUpdated                  | NotesUpdated        |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | FirstName=edward                   | FirstName=Jhon12:Gender=Female | Priority=Urgent    | South London and Maudsley NHS Foundation Trust | Updated notes value |
-
-     #User2
-  #Login as User B, update the stage and do not submit referral
-##  @NTS-6633 @Z-LOGOUT
-#  Scenario Outline: Verified Responsible Clinician stage of new referral updated by another user
-#    And the user waits max 20 minutes for the update Referral Submitted by User1 in the file NRF1
-#    Given The user is login to the Test Order Service and access the given referral
-#      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
-#   #Responsible Clinician - Verified by User2
-##    When the user is navigated to a page with title Add a requesting organisation
-#   ##Patient Details - Update
-#    When the user navigates to the "<PatientDetails>" stage
-#    And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
-#    And the user clicks the Save and Continue button
-#   ##Requesting Organisation - Update
-#    When the user navigates to the "<RequestingOrganisation>" stage
-#    And the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
-#    And the user clicks the Save and Continue button
-#   ##Test Package - Update
-#    When the user navigates to the "<TestPackage>" stage
-#    And the user updates the stage "<TestPackage>" with "<TestPackageUpdated>"
-#    And the user clicks the Save and Continue button
-#   ##Responsible Clinician- Update
-#    When the user navigates to the "<ResponsibleClinician>" stage
-#    Then the user updates the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
-#    And the user clicks the Save and Continue button
-#    ##Notes
-#    When the user navigates to the "<Notes>" stage
-#    Then the user updates the stage "<Notes>" with "<NotesUpdated>"
-#    And the user clicks the Save and Continue button
-#
-#
-#    Examples:
-#      | PatientDetails  | PatientDetailsUpdated          | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | FamilyMemberDetailsUpdate | FamilyMemberClinicalDetailsUpdated | Notes | NotesUpdated        |
-#      | Patient details | FirstName=Jhon12:Gender=Female | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | Priority=Urgent    | Responsible clinician | FirstName=edward:LastName=Nort     | Clinical questions | AgeOfOnset=1,1                 | LifeStatus=Alive          | DiseaseStatus=Affected             | Notes | NotesupdatedbyUser2 |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | FirstName=edward                   | FirstName=Jhon12:Gender=Female | Priority=Routine    | South London and Maudsley NHS Foundation Trust | Updated notes value |
