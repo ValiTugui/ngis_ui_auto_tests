@@ -254,7 +254,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'ngisId')]")
     public List<WebElement> ngisIdResults;
 
-    @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-1')][1]")
+    @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-')][1]")
     public List<WebElement> familyPageBeingTestedField;
 
     @FindBy(xpath = "//span[contains(text(),'Not being tested')]/ancestor::span[contains(@class,'css-')][1]")
