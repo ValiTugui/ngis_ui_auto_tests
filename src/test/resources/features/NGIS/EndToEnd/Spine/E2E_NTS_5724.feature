@@ -3,7 +3,7 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
   @NTS-5724 @Z-LOGOUT
 #E2EUI-2751
   Scenario Outline:NTS-5724:Proband -spine with a family member (NGIS), the FM is a proband in another referral whose having a family member who was a part of cancer referral   ##Create a RD referral for a patient
- ###Create a cancer referral for a patient
+ #Create a cancer referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=4553534533:DOB=01-02-1990:Ethnicity=A - White - British |
     ##Patient Details
@@ -19,7 +19,6 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     Then the user clicks the Log out button
-
     ##Create a RD referral for 2 members in which the additional family member should be the Proband of the above cancer referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=5647546374:DOB=04-03-2014:Ethnicity=A - White - British |
@@ -37,22 +36,7 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     And the user selects the number of participants as "<TwoParticipant1>"
     And the user clicks the Save and Continue button
     Then the "<TestPackage1>" stage is marked as Completed
-#    ###Responsible Clinician
-#    When the user is navigated to a page with title Add clinician information
-#    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the "<ResponsibleClinician>" stage is marked as Completed
-#    ###Clinical Question
-#    When the user is navigated to a page with title Answer clinical questions
-#    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the "<ClinicalQuestion>" stage is marked as Completed
-#    ###Notes
-#    When the user is navigated to a page with title Add clinical notes
-#    And the user fills in the Add Notes field
-#    And the user clicks the Save and Continue button
-#    Then the "<Notes>" stage is marked as Completed
-    ###Family Members - Adding a family member - Mother
+    ###Family Members - Adding a family member
     When the user navigates to the "<FamilyMembers1>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -76,20 +60,18 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     Then the "<FamilyMembers1>" stage is marked as Completed
     And the user clicks the Save and Continue button
     Then the user clicks the Log out button
-
      ###Check if NGIS and convert to SPINE from NEAT
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     ###Patient Search Page Title
     When the user is navigated to a page with title Find your patient
-    And the user types in different valid details in the NHS number "2345678658" and DOB "09-02-2010" fields
+    And the user types in different valid details in the NHS number "9449305978" and DOB "09-04-2010" fields
     And the user clicks the Search button
     ###Check if NGIS and convert to SPINE from NEAT
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-
      ##Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=2345678658:DOB=09-02-2010:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=9449305978:DOB=09-04-2010:Ethnicity=A - White - British |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails2>" stage is marked as Completed
@@ -99,7 +81,7 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     Then the "<RequestingOrganisation2>" stage is marked as Completed
-    ###Test Package - duo family - No of participants 2
+    ##Test Package - duo family - No of participants 2
     When the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<TwoParticipant2>"
     And the user clicks the Save and Continue button
