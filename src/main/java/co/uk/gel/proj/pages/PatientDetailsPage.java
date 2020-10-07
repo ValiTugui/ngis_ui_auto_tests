@@ -241,6 +241,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@id='administrativeGender']/../div/span/span")
     public WebElement genderPath;
 
+    @FindBy(xpath = "//label[contains(@for,'ethnicity')]/span")
+    WebElement ethnicityMissing;
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -2148,4 +2151,27 @@ public class PatientDetailsPage {
         }
         return true;
     }
+
+    public boolean readEthnicityMandatoryStatus() {
+        try {
+            if (!Wait.isElementDisplayed(driver, ethnicityMissing, 10)) {
+                Debugger.println("Ethnicity field is not loaded.");
+                SeleniumLib.takeAScreenShot("readEthnicityStatusError.jpg");
+                return false;
+            }
+            Debugger.println("The status is-" + ethnicityMissing.getText());
+            if (!ethnicityMissing.getText().equals("✱")) {
+                Debugger.println("Ethnicity field is not missing value.");
+                SeleniumLib.takeAScreenShot("readEthnicityStatusError.jpg");
+                return false;
+            }
+            Debugger.println("The ethnicity is mandatory status is-" + ethnicityMissing.getText());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from readEthnicityStatus:" + exp);
+            SeleniumLib.takeAScreenShot("readEthnicityStatusError.jpg");
+            return false;
+        }
+    }
+
 }//end
