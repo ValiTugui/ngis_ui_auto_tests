@@ -67,7 +67,6 @@ public class Pages implements Navigable {
     protected NeatPatientRecordPage neatPatientRecordPage;
     protected KibanaPage kibanaPage;
     protected DataDogPage dataDogPage;
-    protected String DataDog_User = "DATADOG_USER";
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;

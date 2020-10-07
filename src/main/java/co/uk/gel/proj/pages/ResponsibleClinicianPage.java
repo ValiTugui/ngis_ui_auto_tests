@@ -668,22 +668,18 @@ public class ResponsibleClinicianPage {
         for (String key : paramsKey) {
             switch (key) {
                 case "FirstName": {
-                    clinicianFirstNameField.clear();
                     seleniumLib.sendValue(clinicianFirstNameField, paramNameValue.get(key));
                     break;
                 }
                 case "LastName": {
-                    clinicianLastNameField.clear();
                     seleniumLib.sendValue(clinicianLastNameField, paramNameValue.get(key));
                     break;
                 }
                 case "Department": {
-                    clinicianDepartmentAddressField.clear();
                     seleniumLib.sendValue(clinicianDepartmentAddressField, paramNameValue.get(key));
                     break;
                 }
                 case "EmailAddress":{
-                    clinicianEmailField.clear();
                     seleniumLib.sendValue(clinicianEmailField, paramNameValue.get(key));
                 }
 

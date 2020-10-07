@@ -1,7 +1,8 @@
+@SYSTEM_TEST
+
 Feature: Login to Datadog application
 
   @NTS-6131
-
   Scenario: Login to datadog application
     Given the user logins to the data dog home page
     When the user selects the menu section Logs

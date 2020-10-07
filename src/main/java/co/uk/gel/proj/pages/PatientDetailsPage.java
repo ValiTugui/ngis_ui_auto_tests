@@ -241,6 +241,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@id='administrativeGender']/../div/span/span")
     public WebElement genderPath;
 
+    @FindBy(xpath = "//label[contains(@for,'ethnicity')]/span")
+    WebElement ethnicityMissing;
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -2148,9 +2151,6 @@ public class PatientDetailsPage {
         }
         return true;
     }
-
-    @FindBy(xpath = "//label[contains(@for,'ethnicity')]/span")
-    WebElement ethnicityMissing;
 
     public boolean readEthnicityMandatoryStatus() {
         try {
