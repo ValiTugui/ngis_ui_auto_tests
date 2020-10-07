@@ -956,14 +956,21 @@ public class PatientChoicePage {
         }
     }
 
-    public void clickOnEditButton(String category) {
+    public boolean clickOnEditButton(String category) {
         try {
             String editButtonField = editButton.replaceAll("dummyOption", category);
             WebElement editButtonResult = driver.findElement(By.xpath(editButtonField));
+            if (!Wait.isElementDisplayed(driver,editButtonResult,10)){
+                Debugger.println("Edit button not present");
+                SeleniumLib.takeAScreenShot("EditButtonError.jpg");
+            }
             Actions.scrollToTop(driver);
             seleniumLib.clickOnWebElement(editButtonResult);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking edit button." + exp);
+            SeleniumLib.takeAScreenShot("EditButtonError.jpg");
+            return false;
         }
     }
 
