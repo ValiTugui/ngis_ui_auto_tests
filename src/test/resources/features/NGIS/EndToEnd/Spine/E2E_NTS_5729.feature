@@ -1,12 +1,11 @@
 @E2E_TEST
 Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral and verify the payload.
-
-  @NTS-5729 @Z-LOGOUT @test1
+  @NTS-5729 @Z-LOGOUT
 #E2EUI-2750
   Scenario Outline:NTS-5729:Submit a RD Referral for Spine Patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral and verify the payload.
     ###Create a cancer referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=9449303665:DOB=15-09-2000:Ethnicity=A - White - British|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=9449303665:DOB=15-09-2000:Ethnicity=A - White - British |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -20,7 +19,6 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     Then the user clicks the Log out button
-
     ###Check if NGIS and convert to SPINE from NEAT
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -30,9 +28,8 @@ Feature:Submit a RD Referral for Spine Patient and add a NGIS patient as a Famil
     And the user clicks the Search button
     ###Check if NGIS and convert to SPINE from NEAT
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-
-    ###Submit a RD referral for a spine patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral
-    ###Start the referral
+    ##Submit a RD referral for a spine patient and add a NGIS patient as a Family Member which has Previously undergone cancer referral
+    ##Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=9449308853:DOB=14-06-2011:Ethnicity=A - White - British |
     ###Patient Details
