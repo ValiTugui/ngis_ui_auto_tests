@@ -600,15 +600,13 @@ public class SeleniumLib {
         try
         {
             Wait.forAlertToBePresent(driver);
-            if (isAlertPresent()){
-                Alert alert = driver.switchTo().alert();
-                Debugger.println("User name is " + userName);
-                Debugger.println("Password is " + password);
-                alert.sendKeys(userName + Keys.TAB + password);
-                //Actions action = new Actions(driver);
-                //action.sendKeys(userName).sendKeys(Keys.TAB).sendKeys(password).build().perform();
-                alert.accept();
-            }
+            Alert alert = driver.switchTo().alert();
+            Debugger.println("User name is " + userName);
+            Debugger.println("Password is " + password);
+            alert.sendKeys(userName + Keys.TAB + password);
+            //Actions action = new Actions(driver);
+            //action.sendKeys(userName).sendKeys(Keys.TAB).sendKeys(password).build().perform();
+            alert.accept();
         } catch (Exception ex){
 
             Debugger.println("Exception in switching to new Tab: "+ex);
