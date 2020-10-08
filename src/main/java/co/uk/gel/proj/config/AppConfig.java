@@ -15,6 +15,8 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    private static String td_username;
+    private static String td_password;
     static String concurrent_user1_username;
     static String concurrent_user1_password;
     static String concurrent_user2_username;
@@ -67,6 +69,8 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        td_username = properties.getProperty("APP_USERNAME");
+        td_password = properties.getProperty("APP_PASSWORD");
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         concurrent_user1_username = properties.getProperty("CONCURRENT_USER1_NAME");
@@ -159,6 +163,13 @@ public class AppConfig {
         return app_username;
     }
 
+    public static String getTd_username() {
+        if (td_username == null || td_username.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_username;
+    }
+
     public static String getApp_superUsername() {
         return app_superUsername;
     }
@@ -169,6 +180,13 @@ public class AppConfig {
 
     public static String getApp_password() {
         return app_password;
+    }
+
+    public static String getTd_password() {
+        if (td_password == null || td_password.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_password;
     }
 
     public static String getApp_superPassword() {

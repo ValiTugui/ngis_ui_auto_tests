@@ -586,13 +586,26 @@ public class SeleniumLib {
         }
     }
 
-    static boolean isAlertPresent() {
+    public static boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
         } catch (NoAlertPresentException ex) {
             return false;
         }
+    }
+
+    public static void authenticateWithAlert(String userName, String password)
+    {
+        try
+        {
+            if (isAlertPresent()){
+                alert.authenticateUsing(userName, password);
+            }
+        } catch (NoAlertPresentException ex){
+
+        }
+
     }
 
     public static void scrollToElement(WebElement element) {

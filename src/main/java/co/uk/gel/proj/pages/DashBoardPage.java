@@ -5,7 +5,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import io.cucumber.java.af.Wanneer;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -208,6 +207,7 @@ public class DashBoardPage {
 
     public boolean directedToTestSelectionPage() {
         try {
+            SeleniumLib.authenticateWithAlert(AppConfig.getTd_username(), AppConfig.getTd_password());
             if (driver.getCurrentUrl().contains("dashboard")) {
                 Debugger.println("Current URL still contains dashboard, which is not expected after re-direction.");
                 SeleniumLib.takeAScreenShot("TestSelectionRedirection.jpg");
