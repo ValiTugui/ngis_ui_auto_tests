@@ -243,7 +243,7 @@ Feature: Patient search page_SPINE
       | NGIS                | 9449305099 | 14-11-1    | Enter a year in 4 figures e.g. 1983 |
       | NGIS                | 9449305099 | 14-11-19   | Enter a year in 4 figures e.g. 1983 |
       | NGIS                | 9449305099 | 14-11-193  | Enter a year in 4 figures e.g. 1983 |
-      | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900            |
+      | NGIS                | 9449305099 | 14-11-1800 | Enter a year after 1900            |
       | NGIS                | 9449305099 | 14-11- -   | Enter a year                        |
 #
     Examples: of future date scenario
