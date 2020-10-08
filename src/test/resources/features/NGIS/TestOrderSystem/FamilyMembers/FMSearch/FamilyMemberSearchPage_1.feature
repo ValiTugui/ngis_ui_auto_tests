@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Family Members Search Page - Field Validation_1
 
-  @NTS-3302
+  @NTS-3302 @Z-LOGOUT
 #    @E2EUI-965 @E2EUI-1395
   Scenario Outline: NTS-3302: Find a Family Member page layout
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -30,6 +30,8 @@ Feature: Family Members Search Page - Field Validation_1
   @NTS-3304 @Z-LOGOUT
 #    @E2EUI-1301
   Scenario Outline: NTS-3304: Search a family member record with NHS selected No, Date of birth Field validation with incorrect date
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
