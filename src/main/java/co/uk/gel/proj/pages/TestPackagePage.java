@@ -93,10 +93,10 @@ public class TestPackagePage {
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
 
-    @FindBy(xpath = "//p[text()='Trio']/../*[name()='svg']")
+    @FindBy(xpath = "//p[contains(text(),'Trio')]/../*[name()='svg']")
     public WebElement trioFamilyIcon;
 
-    @FindBy(xpath = "//span[text()='Trio']/../*[name()='svg']")
+    @FindBy(xpath = "//span[contains(text(),'Trio')]/../*[name()='svg']")
     public WebElement trioFamilyIcon_TestOrder;
 
     @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
