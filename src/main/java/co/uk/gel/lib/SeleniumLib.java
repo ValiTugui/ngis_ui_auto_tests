@@ -600,7 +600,8 @@ public class SeleniumLib {
         try
         {
             if (isAlertPresent()){
-                alert.authenticateUsing(userName, password);
+                Alert alert = driver.switchTo().alert();
+                alert.sendKeys("username" + Keys.TAB + "password");
             }
         } catch (NoAlertPresentException ex){
 
