@@ -69,8 +69,8 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
-        td_username = properties.getProperty("APP_USERNAME");
-        td_password = properties.getProperty("APP_PASSWORD");
+        td_username = properties.getProperty("TD_USERNAME");
+        td_password = properties.getProperty("TD_PASSWORD");
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         concurrent_user1_username = properties.getProperty("CONCURRENT_USER1_NAME");
