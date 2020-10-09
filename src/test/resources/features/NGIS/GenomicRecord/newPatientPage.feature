@@ -390,3 +390,70 @@ Feature: GenomicRecord: New Patient page
     Examples:
       | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | patient-type |
       | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS         |
+
+  @NTS-6043 @Z-LOGOUT
+  Scenario Outline:NTS-6043:Scenario_01:Find and select patient record (New patient record) without selecting CI
+    Given a web browser is at the dashboard page
+    And User should be able to see my Dashboard
+    Then The user should see the Page title as "Welcome to the National Genomic Informatics System"
+    And the user clicks on "Order a genomic test" Tab
+    When the user is navigated to a page with title Find your patient
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message "No patient found" is displayed below the search button
+    When the user clicks on the hyper link
+    Then the "Create a record for this patient" page is displayed
+    And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
+    And the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the Save patient details to NGIS button
+    And the patient is successfully created with a message "NGIS patient record created"
+    And the clinical indication ID missing banner is displayed
+    And the user clicks the "Test Directory" link on the notification banner
+    Then the Test Directory homepage is displayed
+
+    Examples:
+      | reason_for_no_nhsNumber       |
+      | Other (please provide reason) |
+
+  @NTS-6043 @Z-LOGOUT
+  Scenario Outline:NTS-6043:Scenario_02:Find and select patient record (New patient record)
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | R89 |
+    Then the user sees the "Eligibility Criteria" tab is selected by default
+    And the user sees the button "Yes, start Referral" on Bottom right
+    And the user selects the "Test Package" tab
+    And the user clicks on view more icon
+    Then the user should be able to see a new modal window
+    And the user click on Go to test page button
+    Then the list of clinical indications are loaded
+    And the user sees the "Clinical Indications" tab is selected by default
+    Then the user clicks the Start Test Order Referral button
+    And the user selects the test in the test page and clicks on Continue button
+    And the user clicks the Sign in hyperlink
+      | Sign in to the online service |
+    And the user logs in to the Test Order system successfully
+      | Find your patient |
+    When the user is navigated to a page with title Find your patient
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message "No patient found" is displayed below the search button
+    When the user clicks on the hyper link
+    Then the "Create a record for this patient" page is displayed
+    And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
+    And the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the Save patient details to NGIS button
+    And the patient is successfully created with a message "NGIS patient record created"
+    Then the correct details are displayed in patient record page
+    And the user verifies the patient NGIS ID
+    And the user verifies the - "Back to patient search" - link
+    Then the Start New Referral button is enabled
+
+    Examples:
+      | reason_for_no_nhsNumber       |
+      | Other (please provide reason) |

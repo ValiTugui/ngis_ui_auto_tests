@@ -46,6 +46,10 @@ public class NewPatient {
 	private String clinicalIndicationTestTypeSampleType;
 	private int totalNumberOfUncheckedTumourList;
 	private List<String> patientAddress = new ArrayList<>();
+	
+	private String lifeStatus;
+	private String ethnicity;
+	private String reasonForNoNHS;
 
 
 	public String getClinicalIndication() {
@@ -318,4 +322,16 @@ public class NewPatient {
 		this.patientAddress = patientAddress;
 	}
 
-}
+	public String getEthincity() { return ethnicity;}
+
+	public void setEthincity(String ethincity) { this.ethnicity = ethincity; }
+
+	public String getLifeStatus() { return lifeStatus; 	}
+	
+	public void setLifeStatus(String lifeStatus) { this.lifeStatus = lifeStatus; }
+
+	public String getReasonForNoNHSNumber() { return reasonForNoNHS; 	}
+
+	public void setReasonForNoNHSNumber(String reasonForNoNHS) { this.reasonForNoNHS = reasonForNoNHS; }
+
+}//end
