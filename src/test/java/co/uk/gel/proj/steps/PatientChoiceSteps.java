@@ -261,7 +261,9 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user clicks on edit button in (.*)")
     public void theUserClicksOnEditButton(String category) {
-        patientChoicePage.clickOnEditButton(category);
+        boolean testResult = false;
+        testResult= patientChoicePage.clickOnEditButton(category);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see previous section re-opened")
@@ -826,4 +828,84 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user has to click on latest record of discussion")
+    public void theUserHasToClickOnLatestRecordOfDiscussion() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnRecordOfDiscussionForm();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should be able to view Withdraw from Research button on the top.")
+    public void theUserShouldBeAbleToViewWithdrawFromResearchButtonOnTheTop() {
+        boolean testResult = false;
+        testResult = patientChoicePage.viewWithdrawButton();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should click on that Withdraw button and should start providing details.")
+    public void theUserShouldClickOnThatWithdrawButtonAndShouldStartProvidingDetails() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnWithdrawButton();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should selects the option (.*) in patient category")
+    public void theUserShouldSelectsTheOptionOptionInPatientCategory(String inputData) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should provide answer as (.*) for the question (.*).")
+    public void theUserShouldProvideAnswerAsYesForTheQuestionHasThePatientHadTheOpportunityToReadAndUnderstoodTheWithdrawalInformationAndHaveHadTheOpportunityToGetMoreInformationAndAskQuestions(String option, String question) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectOptionForQuestion(option,question);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should see the Withdrawal Received section")
+    public void theUserShouldSeeTheWithdrawalReceivedSection() {
+        boolean testResult = false;
+        testResult = patientChoicePage.viewWithdrawalReceivedSection();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should provide (.*) in Withdrawal Received details as")
+    public void theUserShouldProvideInPersonInWithdrawalReceivedDetailsAs(String expButton) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectWithdrawalDetails(expButton);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user provide (.*) in Admin/Clinician Name section")
+    public void theUserProvideAdminClinicianName(String adminName) {
+        boolean testResult = false;
+        testResult = patientChoicePage.fillAdminOrClinicianName(adminName);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user click on Submit Withdrawal button")
+    public void theUserClickOnSubmitWithdrawalButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnSubmitWithdrawalButton();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user has to click on Withdrawal form.")
+    public void theUserHasToClickOnWithdrawalForm() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnWithdrawalForm();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see the Patient Type as (.*) ,according to Patient Category provided in Withdrawal Form")
+    public void theUserShouldBeAbleToSeeThePatientTypeAsOptionAccordingToPatientCategoryProvidedInWithdrawalForm(String inputData) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyThePatientCategory(inputData);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user click on Continue Button")
+    public void theUserClickOnContinueButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnContinueButton();
+        Assert.assertTrue(testResult);
+    }
+
+
+    @Then("the user should able to see upload button is enable by default in Record by section")
+    public void theUserShouldAbleToSeeUploadButtonIsEnableByDefaultInRecordBySection() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadButtonStatus();
+        Assert.assertTrue(testResult);
+    }
 }//end

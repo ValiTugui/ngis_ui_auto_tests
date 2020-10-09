@@ -512,6 +512,127 @@ public class ClinicalQuestionsPage {
         }
     }//method
 
+    public boolean fillDiseaseStatusAgeOfOnset(String searchParams) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DiseaseStatus":
+                    //DiseaseStatus
+                    String paramValue = paramNameValue.get(key);
+                    if (paramValue != null && !paramValue.isEmpty()) {
+                        if (selectDiseaseStatus(paramNameValue.get("DiseaseStatus")) == null) {
+                            return false;
+                        }
+                    }
+                break;
+                case "AgeOfOnset":
+                    String dOBValue = paramNameValue.get(key);
+                    if (dOBValue != null && !dOBValue.isEmpty()) {
+                        String[] age_of_onsets = dOBValue.split(",");
+                        seleniumLib.sendValue(ageOfOnsetYearsField, age_of_onsets[0]);
+                        seleniumLib.sendValue(ageOfOnsetMonthsField, age_of_onsets[1]);
+                    }
+                break;
+                case "HPOPhenoType":
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        if (!(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key)) > 0)) {
+                            isHPOAlreadyConsidered(paramNameValue.get(key));
+                        }
+                    }
+                break;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean updateFamilyMemberClinicalDetails(String familyMemberClinicalDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberClinicalDetails);
+        //DiseaseStatus
+        String paramValue = paramNameValue.get("DiseaseStatus");
+        if (paramValue != null && !paramValue.isEmpty()) {
+            if (selectDiseaseStatus(paramNameValue.get("DiseaseStatus")) == null) {
+                return false;
+            }
+        }
+        //AgeOfOnset
+        paramValue = paramNameValue.get("AgeOfOnset");
+        if (paramValue != null && !paramValue.isEmpty()) {
+            String[] age_of_onsets = paramValue.split(",");
+            seleniumLib.sendValue(ageOfOnsetYearsField, age_of_onsets[0]);
+            seleniumLib.sendValue(ageOfOnsetMonthsField, age_of_onsets[1]);
+        }
+        return true;
+    }
+
+    public boolean verifyClinicalQuestionsDetails(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DiseaseStatus":
+                    actValue = seleniumLib.getText(diseaseStatusDropdown);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                break;
+                case "AgeOfOnset":
+                    String actValueMonth = ageOfOnsetYearsField.getAttribute("value");
+                    String actValueYear = ageOfOnsetMonthsField.getAttribute("value");
+                    actValue = actValueMonth + "," + actValueYear;
+                    if (!(actValue).equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                break;
+                case "HPOPhenoType":
+                    Wait.seconds(2);
+                    if (!Wait.isElementDisplayed(driver, hpoTable, 30)) {
+                        Debugger.println("hpoTable not displayed");
+                        SeleniumLib.takeAScreenShot("hpoTable.jpg");
+                        return false;
+                    }
+                    for (WebElement hpoTerm : hpoTermNames) {
+                        if (hpoTerm.getText().contains(paramNameValue.get(key))) {
+                            return true;
+                        }
+                    }
+                break;
+            }//switch
+        }//for
+        return true;
+    }
+    public boolean verifyFamilyMemberClinicalQuestions(String clinicalInfo) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DiseaseStatus":
+                    actValue = seleniumLib.getText(diseaseStatusDropdown);
+                    if (!actValue.equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + key + ": " + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                break;
+                case "AgeOfOnset":
+                    String actValueMonth = ageOfOnsetYearsField.getAttribute("value");
+                    String actValueYear = ageOfOnsetMonthsField.getAttribute("value");
+                    actValue = actValueMonth + "," + actValueYear;
+                    if (!(actValue).equalsIgnoreCase(paramNameValue.get(key))) {
+                        Debugger.println("Expected :" + paramNameValue.get(key) + ", Actual:" + actValue);
+                        return false;
+                    }
+                break;
+             }
+        }
+        return true;
+    }
+
+
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
         try {
             String hpoValue = "";

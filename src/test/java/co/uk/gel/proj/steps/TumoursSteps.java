@@ -600,4 +600,10 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user stores the tumour details")
+    public void theUserStoresTheTumourDetails() {
+        tumoursPage.verifyDescriptionAndReportId();
+    }
+
+
 }

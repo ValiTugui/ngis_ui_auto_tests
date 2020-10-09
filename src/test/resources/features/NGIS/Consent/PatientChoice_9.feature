@@ -1,7 +1,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
+Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
 
   @NTS-3389
     #@E2EUI-2039 @E2EUI-1100

@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST_Plater
+@MIPORTAL_ST
 @SYSTEM_TEST
 
 Feature:  MIPORTAL ST - Plater Samples
@@ -91,6 +91,30 @@ Feature:  MIPORTAL ST - Plater Samples
     When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
 
+    Examples:
+      | mi_stage       |
+      | Plater Samples |
+
+
+@NTS-6704 @MI-LOGOUT
+  Scenario Outline:NTS-6704:Remove GEL1004 Clinical Sample Type from Plater Samples Report
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user can not see the value "gel1004 Clinic Sample Type" under search column dropdown
+    And the user selects GLH as the plater samples search column dropdown
+    And the user selects is as the plater samples search operator dropdown
+    And the user selects GLHName as the plater samples search value dropdown
+    And the user clicks on Add criteria button
+    And the user click on the Search button
+    Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
+    And the user clicks on the Display Options button
+    When the user clicks "Show all" button on the modal-content page
+    And the user sees the fields are not displayed under the "Show" section
+      | HeaderColumnOrderingList   |
+      | gel1004 Clinic Sample Type |
+    And the user closes the modal content by clicking on the reset-button
     Examples:
       | mi_stage       |
       | Plater Samples |

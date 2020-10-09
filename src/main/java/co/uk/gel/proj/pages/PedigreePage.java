@@ -482,6 +482,48 @@ public class PedigreePage {
             return false;
         }
     }
+    public boolean clickProbandNodeOnPedigreeDiagram(String NGISID,String patientType,String gender) {
+        if (!waitForThePedigreeDiagramToBeLoaded()) {
+            return false;
+        }
+
+        boolean zoomOutFlag = false;
+        String nodePath = null;
+        try {
+            if (patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
+                SeleniumLib.scrollToElement(pedigreeWorkArea);
+                Debugger.println("Clicking on Pedigree Node for NGIS: " + NGISID);
+                nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID", NGISID);
+            }
+            WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
+            if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
+                if (!zoomOutFlag) {
+                    Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
+                    Actions.clickElement(driver, zoomOutButton);
+                    zoomOutFlag = true;
+                    clickProbandNodeOnPedigreeDiagram(NGISID,patientType,gender);
+                } else {
+                    Debugger.println("Could not locate the Pedigree node for " + patientType + ", NGS:" + NGISID );
+                    return false;
+                }
+            }
+            if (patientType.equalsIgnoreCase("NGIS")) {
+                if (gender.equalsIgnoreCase("Male")) {
+                    Debugger.println("Clicking on NGIS:-Male Node");
+                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                } else if (gender.equalsIgnoreCase("Female")) {
+                    Debugger.println("Clicking on NGIS:-Female Node");
+                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                }
+            }
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Pedigree Node for NGSID:" + NGISID + " could not locate.");
+            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
+            return false;
+        }
+    }
 
     private boolean clickOnMaleNode(String ngsIdX, String patientType) {
         boolean diagramClicked = false;

@@ -200,4 +200,4 @@ public class PaperFormSteps extends Pages {
         paperFormPage.clickCancelOrderLink();
         Actions.acceptAlert(driver);
     }
-}
+ }

@@ -1,6 +1,6 @@
 #Josephine release
-@PANEL_ASSIGNER
-@NTS-5947 @Z-LOGOUT
+@06-PANEL_ASSIGNER
+@SYSTEM_TEST
 
 Feature: Submitting the referral after saving the Panels stage
 
@@ -198,7 +198,7 @@ Feature: Submitting the referral after saving the Panels stage
       | OneParticipant | RecordedBy                            | ClinicalQuestion   | ClinicalQuestionDetails                                           | Panels | Title                        | ResponsibleClinicianDetails                               |
       | 1              | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | There is missing information | FirstName=Karen:LastName=Smith:Department=Victoria Street |
 
-#  @NTS-5947 @Z-LOGOUT @Scenario4
+  @NTS-5947 @Z-LOGOUT @Scenario4
   #as per the discussion with manual team it is not feasible for automation since required dev tools interaction
   Scenario Outline:NTS-5947:Message has to be displayed to alert the user if auto-save fails,when panels are not previously saved.
 
@@ -231,7 +231,7 @@ Feature: Submitting the referral after saving the Panels stage
 #    And a message is shown to alert the user
     Examples:
       | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | penetranceIntro                                                                                                                                                           |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Change suggested penetrance if:there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
 
 
 

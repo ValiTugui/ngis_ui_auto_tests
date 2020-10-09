@@ -786,8 +786,8 @@ public class SeleniumLib {
     public int getColumnIndex(List<WebElement> Headings, String column_name) {
         if(Headings == null || Headings.size() == 0){
             Debugger.println("Headings NULL...");
-            return -1;
-        }
+        return -1;
+    }
         int colindex = -1;
         String heading_name = "";
         try{

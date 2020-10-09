@@ -1,4 +1,4 @@
-@06-GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 6
 
@@ -57,9 +57,6 @@ Feature: GenomicRecord: Patient details page 6
       | create a new patient record | Find your patient | Other (please provide reason) | NGIS                | a-01-2011    | Enter a day    | 01-b-2011    | Enter a month  | 01-01-c      | Enter a year   | a-b-c        | Date of birth is required. | 33-09-1990   | Enter a day between 1 and 31 | 12-15-2000   | Enter a month between 1 and 12 | 29-02-2002   | Check the day and month are valid | 01-01-1899   | Enter a year after 1900 | 10-10-2030    | Please enter a date before today | Date of birth is required. | AASFGWE  | Date of birth is required. | ABC12d34ef | Enter a month between 1 and 12 | 200074      | Enter a day     |
 
   @NTS-6343
-
-
-    @NTS-6343_Scenario_1
   Scenario Outline: NTS-6343 - Rollout: Multi input date - Pre-referral patient detailsage
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -99,8 +96,7 @@ Feature: GenomicRecord: Patient details page 6
       | stage1          | patient-search-type | NhsNumber  | DOB        |
       | Patient details | NGIS                | 9449306141 | 08-04-2011 |
 
-
-  @NTS-6343_Scenario_2
+  @NTS-6343
   Scenario Outline:
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
@@ -116,8 +112,7 @@ Feature: GenomicRecord: Patient details page 6
       | pageTitle                        |
       | Create a record for this patient |
 
-
-  @NTS-6343_Scenario_3
+  @NTS-6343
   Scenario Outline:
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1971:Gender=Male |
@@ -148,8 +143,7 @@ Feature: GenomicRecord: Patient details page 6
       | stage          | FamilyMemberDetails                 |
       | Family members | NHSNumber=9449305552:DOB=20-09-2008 |
 
-
-  @NTS-6343_Scenario_4
+  @NTS-6343
   Scenario Outline:
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1971:Gender=Male |
@@ -174,7 +168,7 @@ Feature: GenomicRecord: Patient details page 6
       | stage          | pageTitle                              | SearchDetails|PatientSearchMessage |
       | Family members | Create a record for this family member |DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female|No patient found|
 
-  @NTS-6343_Scenario_5
+  @NTS-6343
   Scenario Outline: NTS-3165:E2EUI-953:Tumours page layout
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
@@ -192,7 +186,7 @@ Feature: GenomicRecord: Patient details page 6
       | Tumours |
 
 
-  @NTS-6343_Scenario_6
+  @NTS-6343
   Scenario Outline:
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
@@ -215,8 +209,7 @@ Feature: GenomicRecord: Patient details page 6
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample |
 
-
-  @NTS-6343_Scenario_7
+  @NTS-6343
   Scenario Outline:
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1992:Gender=Male |
@@ -239,5 +232,3 @@ Feature: GenomicRecord: Patient details page 6
     Examples:
       | PatientChoice  | option1               | section1                | option2                         | section2  | section3    | RecordedBy                                                                                                           | message               |
       | Patient choice | Adult (With Capacity) | Patient choice category | Rare & inherited diseases – WGS | Test type | Recorded by | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Successfully Uploaded |
-
-

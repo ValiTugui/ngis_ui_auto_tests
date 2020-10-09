@@ -4,6 +4,7 @@ import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
@@ -382,5 +383,9 @@ public class PrintFormSteps extends Pages {
         testResult = printFormsPage.verifyRelationshipToProband(relationToProband);
         Assert.assertTrue(testResult);
     }
-
+    @And("the user verifies the lab name {string} is updated in Print forms stage")
+    public void verifyLabNameInPrintFormsSection(String labName) {
+        boolean testResult = printFormsPage.getLabName(labName);
+        Assert.assertTrue(testResult);
+    }
 }//end
