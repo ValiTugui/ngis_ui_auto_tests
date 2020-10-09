@@ -184,14 +184,14 @@ public class Actions {
         }
     }
 
-    public static void acceptAlert(WebDriver driver) {	    public static void acceptAlert(WebDriver driver) {
-        try {	        if (isAlertPresent(driver)) {
-            if (isAlertPresent(driver)) {	            driver.switchTo().alert().accept();
-                driver.switchTo().alert().accept();	            driver.switchTo().defaultContent();
-                driver.switchTo().defaultContent();	            Wait.seconds(2);
+    public static void acceptAlert(WebDriver driver) {
+        try {
+            if (isAlertPresent(driver)) {
+                driver.switchTo().alert().accept();
+                driver.switchTo().defaultContent();
                 Wait.seconds(2);
             }
-        }	        }
+        }
         catch (Exception exp) {
             Debugger.println("Exception while accepting the alert");
         }
