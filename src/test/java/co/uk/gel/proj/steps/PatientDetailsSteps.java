@@ -895,7 +895,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the Start New Referral button is enabled")
     public void theStartNewReferralButtonIsEnabled() {
-        patientDetailsPage.startNewReferralButtonIsEnabled();
+        boolean testResult = false;
+        testResult = patientDetailsPage.startNewReferralButtonIsEnabled();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user verifies the - {string} - link")
