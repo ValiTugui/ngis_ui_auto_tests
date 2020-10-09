@@ -240,7 +240,7 @@ public class PatientDetailsPage {
     public WebElement genderPath;
 
     //New Patient Record Page
-    @FindBy(xpath = " //p[@class='css-nwfzl']")
+    @FindBy(xpath = "//div[contains(@class,'form-header')]/p")
     public WebElement patientName;
 
     @FindBy(xpath = "//span[text()='Patient NGIS ID']/following-sibling::span")
