@@ -39,6 +39,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
         }
         Wait.seconds(1);
+        Debugger.println("Refreshing the browser page before starting...");
         SeleniumLib.refreshPage();
         Wait.seconds(2);
         Actions.acceptAlert(driver);
