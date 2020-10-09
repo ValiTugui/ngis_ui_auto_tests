@@ -893,4 +893,30 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-}
+    @And("the Start New Referral button is enabled")
+    public void theStartNewReferralButtonIsEnabled() {
+        patientDetailsPage.startNewReferralButtonIsEnabled();
+    }
+
+    @And("the user verifies the - {string} - link")
+    public void theUserVerifiesTheLink(String goBackToPatientSearch) {
+        boolean testResult;
+        testResult = patientDetailsPage.verifyTheGoBackLink(goBackToPatientSearch);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the correct details are displayed in patient record page")
+    public void theCorrectDetailsAreDisplayedInPatientRecordPage() {
+        boolean testResult ;
+        testResult=patientDetailsPage.verifyThePatientRecordDetails();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user verifies the patient NGIS ID")
+    public void theuserverifiesthepatientNGISID() {
+        boolean testResult;
+        testResult=patientDetailsPage.verifyPatientNgisId();
+        Assert.assertTrue(testResult);
+    }
+
+}//end
