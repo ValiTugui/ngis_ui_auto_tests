@@ -2498,11 +2498,11 @@ public class PatientChoicePage {
 
     public boolean verifyTheRemoveDocumentButtonIsNotPresent() {
         try {
-            if(!Wait.isElementDisplayed(driver,removeDocumentButton,5)){
-                Debugger.println("Remove document button is not displayed ");
-                return true;
+            if(Wait.isElementDisplayed(driver,removeDocumentButton,5)){
+                Debugger.println("Remove document button is displayed,but not expected. ");
+                return false;
             }
-            return false;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheRemoveDocumentButtonIsNotPresent:" + exp);
             SeleniumLib.takeAScreenShot("RemoveDocumentButton.jpg");
