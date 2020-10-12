@@ -908,4 +908,11 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyUploadButtonStatus();
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user should not be able to see the remove document button")
+    public void theUserShouldNotBeAbleToSeeTheRemoveDocumentButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheRemoveDocumentButtonIsNotPresent();
+        Assert.assertTrue(testResult);
+    }
 }//end
