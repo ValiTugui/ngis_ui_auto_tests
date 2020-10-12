@@ -76,6 +76,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//*[contains(@id,'signature-pad')]//child::canvas")
     public WebElement signatureSection;
 
+    @FindBy(xpath = "//button[contains(text(),'Remove document')]")
+    public WebElement removeDocumentButton;
+
     @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")
     List<WebElement> patientChoiceStatus;
 
@@ -2500,4 +2503,17 @@ public class PatientChoicePage {
         }
     }
 
+    public boolean verifyTheRemoveDocumentButtonIsNotPresent() {
+        try {
+            if(Wait.isElementDisplayed(driver,removeDocumentButton,5)){
+                Debugger.println("Remove document button is displayed,but not expected. ");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheRemoveDocumentButtonIsNotPresent:" + exp);
+            SeleniumLib.takeAScreenShot("RemoveDocumentButton.jpg");
+            return false;
+        }
+    }
 }//end
