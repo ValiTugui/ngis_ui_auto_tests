@@ -340,11 +340,8 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='finish-button btn ld-ext-left']")
     public WebElement continueButtonOnWithdrawalForm;
 
-    @FindBy(xpath = "//div[@id='hidden']//p[1]")
-    public WebElement pdfDocumentHiddenText_1;
-
-    @FindBy(xpath = "//div[@id='hidden']//p[2]")
-    public WebElement pdfDocumentHiddenText_2;
+    @FindBy(xpath = "//div[@id='hidden']/p")
+    public List<WebElement> pdfDocumentHiddenText;
 
     public boolean editPatientChoice() {
         try {
@@ -2526,12 +2523,13 @@ public class PatientChoicePage {
 
     public boolean verifyDeletedDocument(String expectedMessage) {
         try {
-            String[] expectedDeletedMessage= expectedMessage.split(":");
-            String actualFileDeletedMessage = pdfDocumentHiddenText_1.getAttribute("textContent");
-            String actualFileDeletedMessage_2 = pdfDocumentHiddenText_2.getAttribute("textContent");
-            if ((!actualFileDeletedMessage.equalsIgnoreCase(expectedDeletedMessage[0])) && (!actualFileDeletedMessage_2.equalsIgnoreCase(expectedDeletedMessage[1])))
-            {
-                Debugger.println("PDF Document Deleted Message, Actual:" + actualFileDeletedMessage + actualFileDeletedMessage_2 + ",Expected:" + expectedMessage);
+            String actualFileDeletedMessage="";
+            for (WebElement ele:pdfDocumentHiddenText){
+                actualFileDeletedMessage += ele.getAttribute("textContent");
+            }
+            Debugger.println("Actual Deleted Message :"+actualFileDeletedMessage);
+            if (!expectedMessage.equalsIgnoreCase(actualFileDeletedMessage)) {
+                Debugger.println("PDF Document Deleted Message, Actual:" + actualFileDeletedMessage + ",Expected:" + expectedMessage);
                 SeleniumLib.takeAScreenShot("PDFDocumentDeletedMessage.jpg");
                 return false;
             }

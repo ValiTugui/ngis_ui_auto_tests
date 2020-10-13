@@ -85,7 +85,7 @@ public class PrintFormsPage {
     @FindBy(css = "*[class*='downloads__notice']")
     public WebElement submissionConfirmationBanner;
 
-    @FindBy(xpath = "//span[contains(text(),'Start a new referral')]")
+    @FindBy(xpath = "//span[text()='Start a new referral']")
     WebElement startANewReferralButton;
 
     @FindBy(xpath = "//div[contains(@class,'notice__text')]")

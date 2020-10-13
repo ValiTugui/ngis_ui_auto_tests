@@ -71,6 +71,6 @@ Feature: Patient Choice- Document upload section should be open by default
     And the user see that proper message "<expectedMessage>" is displayed after document is deleted
 
     Examples:
-      | PatientChoice  | ClinicianNameWithFile                                                             | expectedMessage                                                                                                             |
-      | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileName=testfile.pdf | This document was recently deleted. If further assistance is needed,:please contact the Service Desk for further assistance |
+      | PatientChoice  | ClinicianNameWithFile                                                             | expectedMessage                                                                                                            |
+      | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileName=testfile.pdf | This document was recently deleted. If further assistance is needed,please contact the Service Desk for further assistance |
 
