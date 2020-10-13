@@ -915,4 +915,11 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyTheRemoveDocumentButtonIsNotPresent();
         Assert.assertTrue(testResult);
     }
+
+    @And("the user see that proper message {string} is displayed after document is deleted")
+    public void theUserSeeThatTheDocumentIsDeleted(String expectedDeletedMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyDeletedDocument(expectedDeletedMessage);
+        Assert.assertTrue(testResult);
+    }
 }//end

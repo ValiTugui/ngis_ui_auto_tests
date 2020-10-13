@@ -85,7 +85,7 @@ public class PrintFormsPage {
     @FindBy(css = "*[class*='downloads__notice']")
     public WebElement submissionConfirmationBanner;
 
-    @FindBy(xpath = "//button[text()='Start a new referral']")
+    @FindBy(xpath = "//span[contains(text(),'Start a new referral')]")
     WebElement startANewReferralButton;
 
     @FindBy(xpath = "//div[contains(@class,'notice__text')]")
@@ -520,7 +520,11 @@ public class PrintFormsPage {
 
     public boolean clickOnStartANewReferralButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, startANewReferralButton);
+            if (!Wait.isElementDisplayed(driver, startANewReferralButton, 30)) {
+                Debugger.println("PrintFormsPage : Referral Submitted :Start New Referral Button Not found");
+                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+                return false;
+            }
             Actions.clickElement(driver, startANewReferralButton);
             return true;
         } catch (Exception exp) {
