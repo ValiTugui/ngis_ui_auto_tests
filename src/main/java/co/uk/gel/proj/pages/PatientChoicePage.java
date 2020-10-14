@@ -340,6 +340,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='finish-button btn ld-ext-left']")
     public WebElement continueButtonOnWithdrawalForm;
 
+    @FindBy(xpath = "//div[@id='hidden']/p")
+    public List<WebElement> pdfDocumentHiddenText;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -2517,4 +2520,25 @@ public class PatientChoicePage {
             return false;
         }
     }
+
+    public boolean verifyDeletedDocument(String expectedMessage) {
+        try {
+            String actualFileDeletedMessage="";
+            for (WebElement ele:pdfDocumentHiddenText){
+                actualFileDeletedMessage += ele.getAttribute("textContent");
+            }
+            Debugger.println("Actual Deleted Message :"+actualFileDeletedMessage);
+            if (!expectedMessage.equalsIgnoreCase(actualFileDeletedMessage)) {
+                Debugger.println("PDF Document Deleted Message, Actual:" + actualFileDeletedMessage + ",Expected:" + expectedMessage);
+                SeleniumLib.takeAScreenShot("PDFDocumentDeletedMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheRemovedDocumentIsNotPresent:" + exp);
+            SeleniumLib.takeAScreenShot("PDFDocumentDeletedMessage.jpg");
+            return false;
+        }
+    }
+
 }//end
