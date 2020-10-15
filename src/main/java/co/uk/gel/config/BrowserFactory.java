@@ -239,10 +239,10 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
-        chromeLocalOptions.addArguments("--disable-gpu");
-        chromeLocalOptions.addArguments("--no-sandbox");
-        chromeLocalOptions.setHeadless(true);
-        chromeLocalOptions.addArguments("--whitelisted-ips");
+//        chromeLocalOptions.addArguments("--disable-gpu");
+//        chromeLocalOptions.addArguments("--no-sandbox");
+//        chromeLocalOptions.setHeadless(true);
+//        chromeLocalOptions.addArguments("--whitelisted-ips");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
