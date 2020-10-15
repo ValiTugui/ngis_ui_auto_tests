@@ -660,4 +660,13 @@ public class PatientSearchSteps extends Pages {
         testResult = patientSearchPage.verifyTheNHSQuestionOfThePage(nhsQuestion);
         Assert.assertTrue(testResult);
     }
-}
+
+    @When("the user fills in valid patient details in the search fields when No is selected")
+    public void theUserFillsInValidPatientDetailsInTheSearchFieldsWhenNoIsSelected() {
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInPatientSearchWithNoFieldsForSavedDetails();
+        Assert.assertTrue(testResult);
+    }
+
+
+}//end
