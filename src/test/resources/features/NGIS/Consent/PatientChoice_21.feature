@@ -74,3 +74,29 @@ Feature: Patient Choice- Document upload section should be open by default
       | PatientChoice  | ClinicianNameWithFile                                                             | expectedMessage                                                                                                            |
       | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileName=testfile.pdf | This document was recently deleted. If further assistance is needed,please contact the Service Desk for further assistance |
 
+  @NTS-6027
+  Scenario Outline:NTS-6027:Patient choice form does not have the research section completed
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2008:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    And the user is in the section Patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
+    Then the Patient choice category option is marked as completed
+    And the option Adult (With Capacity) displayed with edit option in Patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the Test type option is marked as completed
+    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the user is in the section Recorded by
+    And the user fills "<RecordedByWithFormUpload>" details in recorded by
+    And the user clicks on Continue Button
+    And the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user clicks on Continue Button
+    Then the user should see a error message box with border color #dd2509 and message as Please select an answer
+
+    Examples:
+      | PatientChoice  | RecordedByWithFormUpload                                                                                             |
+      | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
