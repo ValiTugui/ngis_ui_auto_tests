@@ -4,15 +4,19 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.ExcelDataRead;
 import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1773,6 +1777,182 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }catch(Exception exp){
             Debugger.println("Exception from Logging out from MI...."+exp);
         }
+    }
+
+    public boolean validateDataInAllReports(String fileName,String sheetName) {
+        By miStage = null;
+        MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
+        MiOrderTrackingPage miOrderTrackingPage = new MiOrderTrackingPage(driver);
+        MiGlhSamplesPage miGlhSamplesPage = new MiGlhSamplesPage(driver);
+        MiPlaterSamplesPage miPlaterSamplesPage = new MiPlaterSamplesPage(driver);
+        MiPickListsPage miPickListsPage = new MiPickListsPage(driver);
+        MiSequencerSamplesPage miSequencerSamplesPage = new MiSequencerSamplesPage(driver);
+        MiNewReferralsPage miNewReferralsPage = new MiNewReferralsPage(driver);
+        try {
+            Map<String,Map<String,String>> dataFromSheet = ExcelDataRead.readAllDataFromAllSheet(fileName,sheetName);
+            if (sheetName.equalsIgnoreCase("File Submissions")) {
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    String[] splitDate=key.split("T");
+                    String storeOnlyDate= splitDate[0];
+                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+                    Date date= simpleDateFormat.parse(storeOnlyDate);
+                    String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
+                    Debugger.println(createdDate);
+                    miPortalFileSubmissionPage.selectDropDownSearchColumn("Created");
+                    miPortalFileSubmissionPage.selectDropDownSearchOperator("equals");
+                    miPortalFileSubmissionPage.fillInTheFileSubmissionDate(createdDate);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+
+
+//                    split key to read only date
+//                    format date that s
+//                    enter date in MI portal filter
+                }
+            }else if (sheetName.equalsIgnoreCase("Order Tracking")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn("Referral ID");
+                    miOrderTrackingPage.selectOrderTrackingDropDownSearchOperator("is exactly");
+                    miOrderTrackingPage.enterOrderTrackingTextSearchValue(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+                }
+            }else if (sheetName.equalsIgnoreCase("GLH Samples")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miGlhSamplesPage.selectGlhDropDownSearchColumn("Referral ID");
+                    miGlhSamplesPage.selectGlhDropDownSearchOperator("is exactly");
+                    miGlhSamplesPage.fillValueInGLHSamplesSearchInputField(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+                }
+            }
+            else if (sheetName.equalsIgnoreCase("Plater Samples")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miPlaterSamplesPage.selectPlaterSamplesDropDownSearchColumn("Referral ID");
+                    miPlaterSamplesPage.selectPlaterSamplesDropDownSearchOperator("is exactly");
+                    miPlaterSamplesPage.enterPlaterSampleTextSearchValue(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+                }
+            }else if (sheetName.equalsIgnoreCase("Picklists")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miPickListsPage.selectPickListsDropDownSearchColumn("GEL1008 Plate ID");
+                    miPickListsPage.selectPickListsDropDownSearchOperator("is exactly");
+                    miPickListsPage.enterPickListsTextSearchValue(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+                }
+            }else if (sheetName.equalsIgnoreCase("Sequencer Samples")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miSequencerSamplesPage.selectSequencerSamplesDropDownSearchColumn("Referral ID");
+                    miSequencerSamplesPage.selectSequencerSamplesDropDownSearchOperator("is exactly");
+                    miSequencerSamplesPage.enterSequencerSamplesTextSearchValue(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+                }
+            }else if (sheetName.equalsIgnoreCase("New Referrals")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miNewReferralsPage.selectNewReferralsDropDownSearchColumn("Referral ID");
+                    miNewReferralsPage.selectNewReferralsDropDownSearchOperator("is");
+                    miNewReferralsPage.enterNewReferralsTextSearchValue(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    clickOnSaveAndCloseButton();
+                    selectValueInPagination("100");
+
+                }
+            }
+// Make a map same as excel reader
+//            Check sheetName condition
+//            Select sheet name tab in MI
+//            Pickup key from the map and input in Mi for all section
+
+
+        }catch (Exception exp){
+            Debugger.println("Exception from readAllDataFromAllSheet: " + exp);
+        }
+        return true;
     }
 }
 

@@ -1,7 +1,10 @@
 package co.uk.gel.proj.util;
 
 import co.uk.gel.lib.SeleniumLib;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -68,7 +71,7 @@ public class ExcelDataRead {
         }
     }
 
-    public static List<String> getValue(String key)  {
+    public static List<String> getValue(String key) {
         Map<String, List<String>> myVal = readAllData(fileName);
         List<String> retValue = myVal.get(key);
         return retValue;
@@ -80,6 +83,144 @@ public class ExcelDataRead {
         listStr.sort(String.CASE_INSENSITIVE_ORDER);
         return listStr;
     }
+
+    public static Map<String, Map<String, String>> readAllDataFromAllSheet(String fileName, String expectedSheetName) {
+        try {
+            //Read and load the excel file provided
+            loadExcel(fileName);
+            Map<String, Map<String, String>> myMap = new HashMap<>();
+            DataFormatter dataFormatter = new DataFormatter();
+            for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+                sheet = workbook.getSheetAt(i);
+                row = sheet.getRow(0);
+                String sheetName = sheet.getSheetName();
+                if (sheetName.equalsIgnoreCase("File Submissions")&&expectedSheetName.equalsIgnoreCase("File Submissions")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in File submissions
+                        String key = dataRow.getCell(6).getStringCellValue().trim();
+                        //different value in each row in File submissions
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 0; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equalsIgnoreCase("Created"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in File submissions is " + myMap.toString());
+                } else if (sheetName.equalsIgnoreCase("Order Tracking")&&expectedSheetName.equalsIgnoreCase("Order Tracking")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in Order Tracking
+                        String key = dataRow.getCell(2).getStringCellValue().trim();
+                        //different value in each row in File submissions
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 0; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equalsIgnoreCase("GEL1001 Referral ID"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in Order Tracking is " + myMap.toString());
+                } else if (sheetName.equalsIgnoreCase("GLH Samples")&&expectedSheetName.equalsIgnoreCase("GLH Samples")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in GLH Samples
+                        String key = dataRow.getCell(13).getStringCellValue().trim();
+                        //different value in each row in GLH Samples
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 0; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equalsIgnoreCase("GEL1001 Referral ID"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in GLH Samples is " + myMap.toString());
+                } else if (sheetName.equalsIgnoreCase("Plater Samples")&&expectedSheetName.equalsIgnoreCase("Plater Samples")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in Plater Samples
+                        String key = dataRow.getCell(1).getStringCellValue().trim();
+                        //different value in each row in Plater Samples
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 0; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equalsIgnoreCase("GEL1001 Referral ID"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in Plater Samples is " + myMap.toString());
+                } else if (sheetName.equalsIgnoreCase("Picklists")&&expectedSheetName.equalsIgnoreCase("Picklists")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in Picklists
+                        String key = dataFormatter.formatCellValue(dataRow.getCell(11));
+                        //different value in each row in Picklists
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 0; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equals("GEL1008 Plate ID"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in Picklists is " + myMap.toString());
+                } else if (sheetName.equalsIgnoreCase("Sequencer Samples")&&expectedSheetName.equalsIgnoreCase("Sequencer Samples")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in Sequencer Samples
+                        String key = dataRow.getCell(1).getStringCellValue().trim();
+                        //different value in each row in Sequencer Samples
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 0; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equals("GEL1009 Group ID"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in Sequencer Samples is " + myMap.toString());
+                } else if (sheetName.equalsIgnoreCase("New Referrals")&&expectedSheetName.equalsIgnoreCase("New Referrals")) {
+                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                        Row dataRow = CellUtil.getRow(j, sheet);
+                        //common key for multiple rows in New Referrals
+                        String key = dataRow.getCell(0).getStringCellValue().trim();
+                        //different value in each row in New Referrals
+                        Map<String, String> valueMap = new HashMap<>();
+                        for (int k = 1; k < dataRow.getLastCellNum(); k++) {
+                            if (!(row.getCell(k).getStringCellValue().equals("Referral ID"))) {
+                                String dataKey = row.getCell(k).getStringCellValue();
+                                String value = dataFormatter.formatCellValue(dataRow.getCell(k));
+                                valueMap.put(dataKey, value);
+                            }
+                        }
+                        myMap.put(key, valueMap);
+                    }
+                    Debugger.println("Data in New Referrals is " + myMap.toString());
+                }
+            }
+            Debugger.println("The value read from excelSheet " + fileName + " is " + myMap.toString());
+            return myMap;
+        } catch (Exception exp) {
+            Debugger.println("Exception from readAllDataFromAllSheet: " + exp);
+            return null;
+        }
+
+    }
 }
-
-

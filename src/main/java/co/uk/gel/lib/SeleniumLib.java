@@ -844,5 +844,38 @@ public class SeleniumLib {
         }
     }
 
+    public List<String> scrollTableAndGetHeaders(By tableHeaderElement) {
+        try {
+            //Requires the /th element of table header to read each column header of the table
+            List<WebElement> allHeaders = driver.findElements(tableHeaderElement);
+            //Retrieve the column headers
+            List<String> headersList = new ArrayList<>();
+            int headerSize = allHeaders.size();
+            for (int i = 0; i < headerSize; i++) {
+                Wait.seconds(2);
+                String headerText = allHeaders.get(i).getAttribute("aria-label");
+                String[] headerTextArray = headerText.split(":");
+                String headerStartText = headerTextArray[0];
+                if (headerStartText != null && !headerStartText.isEmpty()) {
+                    headersList.add(headerStartText);
+                } else {
+                    WebElement lastHeader = allHeaders.get(headerSize - 1);
+                    if (!lastHeader.isDisplayed()) {
+                        moveAndClickOn(lastHeader);
+                        Wait.seconds(2);
+                        headerText = allHeaders.get(i).getAttribute("aria-label");
+                        headerTextArray = headerText.split(":");
+                        headerStartText = headerTextArray[0];
+                    }
+                    headersList.add(headerStartText);
+                }
+            }
+            return headersList;
+        } catch (Exception exp) {
+            Debugger.println("Exception from scrolling table:" + exp);
+            return null;
+        }
+    }
+
 }//end
 
