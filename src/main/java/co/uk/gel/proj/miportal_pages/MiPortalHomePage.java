@@ -1779,6 +1779,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    @FindBy(xpath = "//div[contains(@class,'dataTables_paginate paging_simple_numbers')]/span/a")
+    List<WebElement> paginateButtons;
+
+
     public boolean validateDataInAllReports(String fileName,String sheetName) {
         By miStage = null;
         MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
@@ -1798,38 +1802,42 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
-                for (String key:dataKeyFromSheet){
-                    String[] splitDate=key.split("T");
-                    String storeOnlyDate= splitDate[0];
-                    SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-                    Date date= simpleDateFormat.parse(storeOnlyDate);
+                for (String key : dataKeyFromSheet) {
+                    String[] splitDate = key.split("T");
+                    String storeOnlyDate = splitDate[0];
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = simpleDateFormat.parse(storeOnlyDate);
                     String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
-                    Debugger.println(createdDate);
+                    Debugger.println("The date for filter is: " + createdDate);
                     miPortalFileSubmissionPage.selectDropDownSearchColumn("Created");
                     miPortalFileSubmissionPage.selectDropDownSearchOperator("equals");
                     miPortalFileSubmissionPage.fillInTheFileSubmissionDate(createdDate);
                     clickAddButton();
                     clickSearchButton();
+//                    Wait.seconds(2);
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
                     selectValueInPagination("100");
 
+                    boolean searchResult=matchDataFromMiTable(key,"Created", dataFromSheet);
 
-
-//                    split key to read only date
-//                    format date that s
-//                    enter date in MI portal filter
                 }
             }else if (sheetName.equalsIgnoreCase("Order Tracking")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
                     return false;
                 }
+                Thread.sleep(5000);
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
+                    if(key.contains("-")){
+                        key=key.replace("-","");
+                    }
                     miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn("Referral ID");
                     miOrderTrackingPage.selectOrderTrackingDropDownSearchOperator("is exactly");
                     miOrderTrackingPage.enterOrderTrackingTextSearchValue(key);
@@ -1837,8 +1845,13 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
                     selectValueInPagination("100");
+                    Wait.seconds(5);
+
+                    boolean searchResult=matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
 
                 }
             }else if (sheetName.equalsIgnoreCase("GLH Samples")){
@@ -1860,6 +1873,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickOnSaveAndCloseButton();
                     selectValueInPagination("100");
 
+                    matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
                 }
             }
             else if (sheetName.equalsIgnoreCase("Plater Samples")){
@@ -1881,6 +1895,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickOnSaveAndCloseButton();
                     selectValueInPagination("100");
 
+                    matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+
                 }
             }else if (sheetName.equalsIgnoreCase("Picklists")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1900,6 +1916,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickShowAllOrHideAllButton("Show all");
                     clickOnSaveAndCloseButton();
                     selectValueInPagination("100");
+
+                    matchDataFromMiTable(key,"GEL1008 Plate ID",dataFromSheet);
 
                 }
             }else if (sheetName.equalsIgnoreCase("Sequencer Samples")){
@@ -1921,6 +1939,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickOnSaveAndCloseButton();
                     selectValueInPagination("100");
 
+                    matchDataFromMiTable(key,"GEL1009 Group ID",dataFromSheet);
+
                 }
             }else if (sheetName.equalsIgnoreCase("New Referrals")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1941,18 +1961,81 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickOnSaveAndCloseButton();
                     selectValueInPagination("100");
 
+                    matchDataFromMiTable(key,"Referral ID",dataFromSheet);
+
                 }
             }
-// Make a map same as excel reader
-//            Check sheetName condition
-//            Select sheet name tab in MI
-//            Pickup key from the map and input in Mi for all section
 
-
+            return true;
         }catch (Exception exp){
             Debugger.println("Exception from readAllDataFromAllSheet: " + exp);
+            return false;
         }
-        return true;
     }
-}
+
+    public boolean matchDataFromMiTable(String key,String keyColName, Map<String, Map<String, String>> dataFromSheet) {
+        try {
+            MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
+
+            Debugger.println("Start reading table...............");
+            if (!Wait.isElementDisplayed(driver, miPortalFileSubmissionPage.searchResults, 20)) {
+                Debugger.println("Search results table is not displayed");
+                SeleniumLib.takeAScreenShot("VerifyColumnData.jpg");
+                return false;
+            }
+            Debugger.println("Waiting to read the headers....");
+            Wait.seconds(3);
+            List<String> headers = seleniumLib.scrollTableAndGetHeaders(miPortalFileSubmissionPage.fileSubmissionTableHead);
+            Debugger.println("The headers in the table are:-" + headers.toString());
+//            int colIndex = headers.indexOf("Created");
+            int colIndex = headers.indexOf(keyColName);
+            Debugger.println("The index of key column is " + colIndex);
+            for (WebElement pageNum : paginateButtons) {
+                pageNum.click();
+                Wait.seconds(5);
+                Debugger.println("Changing the result pages....");
+                List<WebElement> rowDataPath = driver.findElements(By.xpath(miPortalFileSubmissionPage.fileSubmissionTableRows));
+                Debugger.println("The number of row elements:" + rowDataPath.size());
+                for (WebElement rowEle : rowDataPath) {
+                    WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
+                    String keyCellData = keyCellPath.getText();
+                    Debugger.println("The cell value is:-" + keyCellData + " and the key is:-" + key);
+                    if (!keyCellData.equalsIgnoreCase(key)) {
+                        Debugger.println("..........No.........");
+                        continue;
+                    } else {
+                        Map<String, String> mainKeyDataValue = dataFromSheet.get(key);
+                        Debugger.println("The cell data " + mainKeyDataValue.toString());
+                        Set<String> columnNameKeysFromSheet = mainKeyDataValue.keySet();
+                        Debugger.println("The key set:" + columnNameKeysFromSheet);
+                        for (String columnName : columnNameKeysFromSheet) {
+                            Debugger.println("Matching for column: " + columnName);
+                            int colNum = headers.indexOf(columnName);
+                            Debugger.println("The index of the column is:- " + colNum);
+                            WebElement dataCellPath = rowEle.findElement(By.xpath("./td[" + (colNum + 1) + "]"));
+                            String dataCellValue = dataCellPath.getText();
+                            Debugger.println("The cell data of the column is:- " + dataCellValue);
+                            String cellValueFromSheet = mainKeyDataValue.get(columnName);
+                            Debugger.println("The value of the column is:- " + cellValueFromSheet);
+                            if (!cellValueFromSheet.equalsIgnoreCase(dataCellValue)) {
+                                Debugger.println("The values are not matching, Actual: " + dataCellValue + " But Expected: " + cellValueFromSheet);
+                                SeleniumLib.takeAScreenShot("ValueMismatch.jpg");
+                                return false;
+                            }
+                        }
+                        Debugger.println("One row match success....");
+                        return true;
+                    }
+                }
+                Debugger.println("Page completed...");
+            }
+            Debugger.println("No match found for key:" + key + " and data:" + dataFromSheet.get(key).toString());
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Exception from matching results.." + exp);
+            return false;
+        }
+    }
+
+}//end
 

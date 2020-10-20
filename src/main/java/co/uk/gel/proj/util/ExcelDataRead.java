@@ -95,7 +95,7 @@ public class ExcelDataRead {
                 row = sheet.getRow(0);
                 String sheetName = sheet.getSheetName();
                 if (sheetName.equalsIgnoreCase("File Submissions")&&expectedSheetName.equalsIgnoreCase("File Submissions")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in File submissions
                         String key = dataRow.getCell(6).getStringCellValue().trim();
@@ -112,7 +112,7 @@ public class ExcelDataRead {
                     }
                     Debugger.println("Data in File submissions is " + myMap.toString());
                 } else if (sheetName.equalsIgnoreCase("Order Tracking")&&expectedSheetName.equalsIgnoreCase("Order Tracking")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in Order Tracking
                         String key = dataRow.getCell(2).getStringCellValue().trim();
@@ -125,11 +125,18 @@ public class ExcelDataRead {
                                 valueMap.put(dataKey, value);
                             }
                         }
+//                        String newkey="";
+                        if(myMap.containsKey(key)){
+                            if(!myMap.get(key).equals(valueMap)){
+//                                newkey=key.concat("-");
+                                key=key.concat("-");
+                            }
+                        }
                         myMap.put(key, valueMap);
                     }
                     Debugger.println("Data in Order Tracking is " + myMap.toString());
                 } else if (sheetName.equalsIgnoreCase("GLH Samples")&&expectedSheetName.equalsIgnoreCase("GLH Samples")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in GLH Samples
                         String key = dataRow.getCell(13).getStringCellValue().trim();
@@ -146,7 +153,7 @@ public class ExcelDataRead {
                     }
                     Debugger.println("Data in GLH Samples is " + myMap.toString());
                 } else if (sheetName.equalsIgnoreCase("Plater Samples")&&expectedSheetName.equalsIgnoreCase("Plater Samples")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in Plater Samples
                         String key = dataRow.getCell(1).getStringCellValue().trim();
@@ -163,7 +170,7 @@ public class ExcelDataRead {
                     }
                     Debugger.println("Data in Plater Samples is " + myMap.toString());
                 } else if (sheetName.equalsIgnoreCase("Picklists")&&expectedSheetName.equalsIgnoreCase("Picklists")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in Picklists
                         String key = dataFormatter.formatCellValue(dataRow.getCell(11));
@@ -180,7 +187,7 @@ public class ExcelDataRead {
                     }
                     Debugger.println("Data in Picklists is " + myMap.toString());
                 } else if (sheetName.equalsIgnoreCase("Sequencer Samples")&&expectedSheetName.equalsIgnoreCase("Sequencer Samples")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in Sequencer Samples
                         String key = dataRow.getCell(1).getStringCellValue().trim();
@@ -197,7 +204,7 @@ public class ExcelDataRead {
                     }
                     Debugger.println("Data in Sequencer Samples is " + myMap.toString());
                 } else if (sheetName.equalsIgnoreCase("New Referrals")&&expectedSheetName.equalsIgnoreCase("New Referrals")) {
-                    for (int j = 1; j < sheet.getLastRowNum(); j++) {
+                    for (int j = 1; j <= sheet.getLastRowNum(); j++) {
                         Row dataRow = CellUtil.getRow(j, sheet);
                         //common key for multiple rows in New Referrals
                         String key = dataRow.getCell(0).getStringCellValue().trim();
