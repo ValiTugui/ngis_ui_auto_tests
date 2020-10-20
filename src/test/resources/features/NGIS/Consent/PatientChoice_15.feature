@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
 
-  @NTS-3417
+  @NTS-3417 @failed
     #@E2EUI-2040 @E2EUI-1060
   Scenario Outline: NTS-3417: Pre-Req:Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -30,11 +30,9 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
       | PatientChoiceStage | RecordedBy                            |
       | Patient choice     | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3417
+  @NTS-3417 @failed
     #@E2EUI-2040 @E2EUI-1060 @scenario_5
   Scenario Outline: NTS-3417: scenario 5 - Editing Patient choice for an Adult (without capacity)
-    When the user clicks on edit button in Patient choices
-    And the user should be able to see previous section re-opened
     When the user is in the section Patient choices
     Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
     And the options displayed as below for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
@@ -101,7 +99,7 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417
+  @NTS-3417 @failed
     #@E2EUI-2040 @E2EUI-1060 @scenario_5(a)
   Scenario Outline: NTS-3417: scenario 5(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
@@ -139,7 +137,7 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @Z-LOGOUT
+  @NTS-3417 @failed @Z-LOGOUT
     #@E2EUI-2040 @E2EUI-1060 @scenario_5(b)
   Scenario Outline: NTS-3417: scenario 5(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation

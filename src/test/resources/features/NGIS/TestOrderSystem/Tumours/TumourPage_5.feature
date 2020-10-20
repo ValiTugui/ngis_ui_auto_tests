@@ -5,8 +5,8 @@ Feature: Tumours Page - 5
   @NTS-3174 @Z-LOGOUT
 #    @E2EUI-1159 @E2EUI-1577 @E2EUI-1377
   Scenario Outline: NTS-3174:E2EUI-1159,1577,1377:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer | create a new patient record |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     And the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And the tumours stage is at Add a Tumour page
