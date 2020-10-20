@@ -56,70 +56,73 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectOrderTrackingDropDownSearchColumn(String value) {
         try {
-            if(!seleniumLib.selectFromListByText(orderTrackSearchColumn,value)){
+            if (!seleniumLib.selectFromListByText(orderTrackSearchColumn, value)) {
                 Wait.seconds(5);
-                return seleniumLib.selectFromListByText(orderTrackSearchColumn,value);
+                return seleniumLib.selectFromListByText(orderTrackSearchColumn, value);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchColumn: "+ exp);
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchColumn: " + exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchColumn.jpg");
             return false;
         }
     }
+
     public boolean selectOrderTrackingDropDownSearchOperator(String value) {
-       try {
-           Wait.seconds(3);
-           if(!seleniumLib.selectFromListByText(orderTrackSearchOperator,value)){
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.selectFromListByText(orderTrackSearchOperator, value)) {
                 Wait.seconds(5);
-                return seleniumLib.selectFromListByText(orderTrackSearchOperator,value);
+                return seleniumLib.selectFromListByText(orderTrackSearchOperator, value);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: "+ exp);
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: " + exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchOperator.jpg");
             return false;
         }
     }
+
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         Wait.seconds(3); // To load the dropdown values
         try {
             Wait.seconds(3);
-            if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
+            if (!seleniumLib.selectFromListByText(orderTrackSearchValue, value)) {
                 Wait.seconds(5);
-                if(!seleniumLib.selectFromListByText(orderTrackSearchValue,value)){
-                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'"+value+"')]");
+                if (!seleniumLib.selectFromListByText(orderTrackSearchValue, value)) {
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'" + value + "')]");
                     seleniumLib.clickOnElement(optionPath);
                 }
             }
             return true;
         } catch (StaleElementReferenceException exp) {
             By searchValue = By.xpath("//select[@id='order_tracking-search-value']");
-            return seleniumLib.optionFromListByText(searchValue,value);
-        }catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: "+ exp);
+            return seleniumLib.optionFromListByText(searchValue, value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: " + exp);
             SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
 
 
     }
+
     public boolean enterOrderTrackingTextSearchValue(String value) {
         try {
-            if(!Wait.isElementDisplayed(driver,orderTrackSearchInput,30)){
+            if (!Wait.isElementDisplayed(driver, orderTrackSearchInput, 30)) {
                 Debugger.println("orderTrackSearchInput not loaded...");
                 SeleniumLib.takeAScreenShot("orderTrackSearchInput.jpg");
                 return false;
             }
-            seleniumLib.sendValue(orderTrackSearchInput,value);
+            seleniumLib.sendValue(orderTrackSearchInput, value);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:enterOrderTrackingTextSearchValue: "+ exp);
+            Debugger.println("Exception in MIPortalOrderTracking:enterOrderTrackingTextSearchValue: " + exp);
             SeleniumLib.takeAScreenShot("enterOrderTrackingTextSearchValue.jpg");
             return false;
         }
     }
- 
+
     public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName, String expValue) {
         Wait.seconds(5);// To load the table elements
         try {
@@ -129,7 +132,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             int noOfFilteredRows = seleniumLib.getNoOfRows(orderTrackingTableRows);
-            if(noOfFilteredRows == 0){
+            if (noOfFilteredRows == 0) {
                 Debugger.println("No search result found in Order Tracking Search Result Table");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
@@ -146,17 +149,17 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
-            for(int i=0; i<noOfFilteredRows;i++){
+            for (int i = 0; i < noOfFilteredRows; i++) {
                 //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellPath = By.xpath(orderTrackingTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+                cellPath = By.xpath(orderTrackingTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
                 cellValue = seleniumLib.getText(cellPath);
-                if(expValue.equalsIgnoreCase("non-empty-data")){
-                    if(cellValue.isEmpty()){
+                if (expValue.equalsIgnoreCase("non-empty-data")) {
+                    if (cellValue.isEmpty()) {
                         Debugger.println("Column:" + columnName + " value supposed to be non-empty, but Actual is empty");
                         SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                         return false;
                     }
-                }else {
+                } else {
                     if (!cellValue.contains(expValue)) {
                         Debugger.println("Column:" + columnName + " value, Expected:" + expValue + ",Actual:" + cellValue);
                         SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
@@ -171,7 +174,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-    public boolean verifyOrderTrackingResultColumnValuesDifference(String columnName1,String columnName2) {
+
+    public boolean verifyOrderTrackingResultColumnValuesDifference(String columnName1, String columnName2) {
         Wait.seconds(3);
         try {
             if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
@@ -180,7 +184,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             int noOfFilteredRows = seleniumLib.getNoOfRows(orderTrackingTableRows);
-            if(noOfFilteredRows == 0){
+            if (noOfFilteredRows == 0) {
                 Debugger.println("No search result found in Order Tracking Search Result Table");
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
@@ -201,15 +205,15 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             //Verify value in each column value as expected.
             By cellPath = null;
-            String cellValue1 = "",cellValue2 = "";
-            for(int i=0; i<noOfFilteredRows;i++){
+            String cellValue1 = "", cellValue2 = "";
+            for (int i = 0; i < noOfFilteredRows; i++) {
                 //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellPath = By.xpath(orderTrackingTableRows+"["+(i+1)+"]/td["+colIndex1+"]");
+                cellPath = By.xpath(orderTrackingTableRows + "[" + (i + 1) + "]/td[" + colIndex1 + "]");
                 cellValue1 = seleniumLib.getText(cellPath);
-                cellPath = By.xpath(orderTrackingTableRows+"["+(i+1)+"]/td["+colIndex2+"]");
+                cellPath = By.xpath(orderTrackingTableRows + "[" + (i + 1) + "]/td[" + colIndex2 + "]");
                 cellValue2 = seleniumLib.getText(cellPath);
-                if(!cellValue1.equalsIgnoreCase(cellValue2)){
-                    Debugger.println("Different value expected for columns :" + columnName1 + " and "+columnName2+", but found same.");
+                if (!cellValue1.equalsIgnoreCase(cellValue2)) {
+                    Debugger.println("Different value expected for columns :" + columnName1 + " and " + columnName2 + ", but found same.");
                     SeleniumLib.takeAScreenShot("orderTrackingTableDifference.jpg");
                     return false;
                 }

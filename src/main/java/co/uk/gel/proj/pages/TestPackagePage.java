@@ -5,13 +5,17 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class TestPackagePage {
 
@@ -89,10 +93,10 @@ public class TestPackagePage {
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
 
-    @FindBy(xpath = "//p[text()='Trio']/../*[name()='svg']")
+    @FindBy(xpath = "//p[contains(text(),'Trio')]/../*[name()='svg']")
     public WebElement trioFamilyIcon;
 
-    @FindBy(xpath = "//span[text()='Trio']/../*[name()='svg']")
+    @FindBy(xpath = "//span[contains(text(),'Trio')]/../*[name()='svg']")
     public WebElement trioFamilyIcon_TestOrder;
 
     @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
@@ -471,4 +475,58 @@ public class TestPackagePage {
         }
     }
 
+    public boolean updateTestPackageDetails(String testPackageDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(testPackageDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "NoOfParticipants": {
+                    selectNumberOfParticipants(Integer.parseInt(paramNameValue.get(key)));
+                    break;
+                }
+                case "Priority": {
+                    String selectedPriorityButton = chosenPriorityButton.getText();
+                    if (!selectedPriorityButton.equalsIgnoreCase(paramNameValue.get(key))) {
+                        if (paramNameValue.get(key).equalsIgnoreCase("Urgent")){
+                            clickUrgentPriority();
+                        }else{
+                            clickRoutinePriority();
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean verifyTestPackageDetails(String testPackageDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(testPackageDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "NoOfParticipants":{
+                    By noOfParticipantsPath=By.xpath("//div[@id='numberOfParticipants']");
+                    actValue = seleniumLib.getText(noOfParticipantsPath);
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+                case "Priority": {
+                    actValue = chosenPriorityButton.getText();
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+                }
+
+            }
+        }
+        return true;
+    }
 }//end

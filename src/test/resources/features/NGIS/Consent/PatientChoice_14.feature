@@ -2,7 +2,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-Feature: Patient Choice-14 ConsentScenario - Child
+Feature: Patient Choice-14 - ConsentScenario - Child
 
   @NTS-3415 @Z-LOGOUT
     #@E2EUI-1627

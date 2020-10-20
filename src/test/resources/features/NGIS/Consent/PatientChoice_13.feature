@@ -2,7 +2,7 @@
 @05-CONSENT
 @SYSTEM_TEST
 
-Feature: Patient Choice -13 Page - FamilyMemberAddition
+Feature: Patient Choice -13  - Page - FamilyMemberAddition
 
   @NTS-3411 @Z-LOGOUT
     #@E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570

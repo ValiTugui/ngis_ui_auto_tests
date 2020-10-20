@@ -254,7 +254,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'ngisId')]")
     public List<WebElement> ngisIdResults;
 
-    @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-1')][1]")
+    @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-')][1]")
     public List<WebElement> familyPageBeingTestedField;
 
     @FindBy(xpath = "//span[contains(text(),'Not being tested')]/ancestor::span[contains(@class,'css-')][1]")
@@ -284,7 +284,7 @@ public class FamilyMemberDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
+   public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
         if (!Wait.isElementDisplayed(driver, patientCardName, 100)) {
@@ -354,10 +354,10 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
                 return false;
             }
-            Actions.clickElement(driver,patientCard);
+            Actions.clickElement(driver, patientCard);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from clickPatientCard:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickPatientCard:" + exp);
             SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
             return false;
         }
@@ -380,7 +380,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean fillTheRelationshipToProband(String relationToProband) {
         try {
-            Debugger.println("URLLLLLLL: "+driver.getCurrentUrl());
+            Debugger.println("Filling RelationShip To Proband URL: "+driver.getCurrentUrl());
             validationErrors.clear();
             Actions.scrollToTop(driver);
             if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
@@ -390,7 +390,7 @@ public class FamilyMemberDetailsPage {
             }
             seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
             Wait.seconds(2);
-            Debugger.println("DDSise: "+dropdownValues.size());
+            Debugger.println("DDSize: "+dropdownValues.size());
             By ddElement = By.xpath("//span[text()='" + relationToProband + "']");
             if (seleniumLib.isElementPresent(ddElement)) {
                 seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));

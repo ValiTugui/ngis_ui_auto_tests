@@ -6,12 +6,15 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class PanelsPage {
 
@@ -42,7 +45,7 @@ public class PanelsPage {
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSearchResultsList;
 
-    @FindBy(xpath = "//h3[contains(text(),'Penetrance')]")
+    @FindBy(xpath = "//h2[contains(text(),'penetrance')]")
     public WebElement penetranceTitle;
 
     @FindBy(xpath = "//button[contains(text(),'Complete')]")
@@ -60,7 +63,7 @@ public class PanelsPage {
     @FindBy(xpath = "//div[@class='styles_select-panel__3qIYD']")
     public List<WebElement> deselectedPanelsList;
 
-    @FindBy(xpath = "//div[contains(@class,'panel-assigner__penetrance')]//p")
+    @FindBy(xpath = "(//div[contains(@class,'panel-assigner')]//div[contains(@class,'paragraph')]/..)[2]")
     public WebElement penetranceIntroMessage;
 
     String titleStringPath = "//h3[contains(text(),'dummyTitle')]";
@@ -85,6 +88,8 @@ public class PanelsPage {
 
     @FindBy(xpath = "//h2[contains(text(),'Add panels')]/parent::div/following-sibling::p")
     public WebElement addPanelsMessage;
+    @FindBy (css = "[class*='button--selected']")
+    public WebElement selectedPentrance;
 
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
@@ -333,11 +338,12 @@ public class PanelsPage {
         try {
 
             if(!Wait.isElementDisplayed(driver,penetranceIntroMessage,10)){
-                Debugger.println("PanelAssignerIntoMessage Not displayed.");
+                Debugger.println("PanelAssignerIntroMessage Not displayed.");
                 SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
                 return false;
             }
             String actualMessage = penetranceIntroMessage.getText();
+            actualMessage=actualMessage.replaceAll("\\r?\\n"," ");
             if(!actualMessage.contains(expMessage)){
                 Debugger.println("PenetranceIntoMessage mismatch. Expected:"+expMessage+"\nActual:"+actualMessage);
                 SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
@@ -518,6 +524,57 @@ public class PanelsPage {
             SeleniumLib.takeAScreenShot("PanelMessageNotPresent.jpg");
             return false;
         }
+    }
+
+    public boolean verifyPanelDetails(String panelDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(panelDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String actValue = "";
+        String expValue = "";
+        for (String key : paramsKey) {
+            expValue = paramNameValue.get(key);
+            switch (key) {
+                case "AdditionalPanels":
+                    verifyInAddedPanelsList(expValue);
+                    break;
+                case "SuggestedPanels":
+                    verifySuggestedPanels();
+                    break;
+                case "Penetrance":
+                    actValue = selectedPentrance.getText();
+                    if (!actValue.equalsIgnoreCase(expValue)) {
+                        Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
+                        return false;
+                    }
+                    break;
+            }
+        }
+        return true;
+    }
+
+    public boolean updatePanelDetails(String panelDetails) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(panelDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "AdditionalPanels":
+                    searchAndAddPanel(paramNameValue.get(key));
+                    break;
+                case "Penetrance":
+                    String selectedPenetranceText = selectedPentrance.getText();
+                    if (!selectedPenetranceText.equalsIgnoreCase(paramNameValue.get(key))) {
+                        if (paramNameValue.get(key).equalsIgnoreCase("Incomplete (suggested)")){
+                            seleniumLib.clickOnWebElement(incompleteButton);
+                        }else{
+                            seleniumLib.clickOnWebElement(completeButton);
+                        }
+                    }else{
+                        Debugger.println("The Penetrance value selected and passed are same, Please pass a different value");
+                    }
+                    break;
+            }
+        }
+        return true;
     }
 
 }//end

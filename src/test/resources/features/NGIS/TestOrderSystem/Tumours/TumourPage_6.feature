@@ -1,4 +1,4 @@
-@03-TEST_ORDER1
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 6
 
@@ -45,8 +45,8 @@ Feature: Tumours Page - 6
   @NTS-3172 @Z-LOGOUT
 #    @E2EUI-1465
   Scenario Outline: NTS-3172:E2EUI-1465:Validate the mandatory input field 'The tumour is' for the Tumour Section
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     And the user answers all tumour system questions without selecting any tumour type
     And the user clicks the Save and Continue button

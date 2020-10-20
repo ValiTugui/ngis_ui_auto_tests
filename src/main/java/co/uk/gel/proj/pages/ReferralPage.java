@@ -25,6 +25,11 @@ public class ReferralPage<check> {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
+    protected String concurrentUser1 = "CONCURRENT_USER1";
+    protected String concurrentUser2 = "CONCURRENT_USER2";
+    protected String concurrentUser3 = "CONCURRENT_USER3";
+    protected String concurrentUser4 = "CONCURRENT_USER4";
+    protected String concurrentUser5 = "CONCURRENT_USER5";
 
     public ReferralPage(WebDriver driver) {
         this.driver = driver;
@@ -257,6 +262,10 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//body")
     public WebElement pageBodyElement;
 
+    @FindBy(xpath = "//span[@class='css-19vaq6o']//button[@class='css-1spiz15-sharedByAllButtons']")
+    public WebElement reloadReferral;
+
+
     private String incompleteStageInDialogBox = "//*[contains(@class,'referral-header__stage-list')]//a[contains(text(),'" + "dummyValue" + "')]";
 
     static int referralBannerXLocation, referralBannerYLocation;
@@ -374,8 +383,8 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("ReferralHeaderNotLoaded.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,toDoList,30)){
-                Debugger.println("Landing Page ToDo List not loaded even after 30 seconds.\n"+driver.getCurrentUrl());
+            if(!Wait.isElementDisplayed(driver,toDoList,100)){
+                Debugger.println("Landing Page ToDo List not loaded even after 100 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("LandingPageToDoList.jpg");
                 return false;
             }
@@ -1233,7 +1242,7 @@ public class ReferralPage<check> {
     //To log the ReferralId in the Log file.
     public void logTheReferralId() {
         String referralID = getPatientReferralId();
-        Debugger.println("ReferralID: " + referralID);
+        Debugger.println("ReferralID: "+ referralID);
         Debugger.println(driver.getCurrentUrl());
     }
 
@@ -1967,9 +1976,29 @@ public class ReferralPage<check> {
 
     public void loginToTestOrderingSystemAsNHSUser(WebDriver driver, String userType) {
         Actions.deleteCookies(driver);
-        String nhsMail = AppConfig.getApp_username();
-        String nhsPassword = AppConfig.getApp_password();
-        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser....");
+        String nhsMail = "";
+        String nhsPassword = "";
+        Debugger.println("Logging to TOMS as2 "+userType);
+        if(userType.startsWith(concurrentUser1)){
+            nhsMail = AppConfig.getConcurrent_user1_username();
+            nhsPassword = AppConfig.getConcurrent_user1_password();
+        }else if(userType.startsWith(concurrentUser2)){
+            nhsMail = AppConfig.getConcurrent_user2_username();
+            nhsPassword = AppConfig.getConcurrent_user2_password();
+        }else if(userType.startsWith(concurrentUser3)){
+            nhsMail = AppConfig.getConcurrent_user3_username();
+            nhsPassword = AppConfig.getConcurrent_user3_password();
+        }else if(userType.startsWith(concurrentUser4)){
+            nhsMail = AppConfig.getConcurrent_user4_username();
+            nhsPassword = AppConfig.getConcurrent_user4_password();
+        }else if(userType.startsWith(concurrentUser5)){
+            nhsMail = AppConfig.getConcurrent_user5_username();
+            nhsPassword = AppConfig.getConcurrent_user5_password();
+        }else{
+            nhsMail = AppConfig.getApp_username();
+            nhsPassword = AppConfig.getApp_password();
+        }
+        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser...."+nhsMail+","+nhsPassword);
         try {
             Wait.seconds(5);
             if (!Wait.isElementDisplayed(driver, emailAddressField, 120)) {//If the element is not displayed, even after the waiting time
@@ -2080,5 +2109,52 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+    public boolean acknowledgeThePromptPopup_ReferralSubmit() {
+        try {
+            if (!Wait.isElementDisplayed(driver, reloadReferral, 30)) {
+                Actions.scrollToBottom(driver);
+            }
+            if (!Wait.isElementDisplayed(driver, reloadReferral, 60)) {
+                Debugger.println("Save and Continue not visible even after 60 minutes.");
+                return false;
+            }
+            try {
+                seleniumLib.clickOnWebElement(reloadReferral);
+            } catch (Exception exp1) {
+                Actions.clickElement(driver, reloadReferral);
+            }
+               return true;
+        } catch (UnhandledAlertException exp) {
+            Debugger.println("UnhandledAlertException from ReferralPage:Reload referral: " + exp);
+            SeleniumLib.dismissAllert();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from ReferralPage:ReloadReferral: " + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("refPagereReloadReferral.jpg");
+            return false;
+        }
+    }
+    public boolean verifyPatientTitleInUrl(String title) {
+        try {
+            if(!Wait.isElementDisplayed(driver,referralHeaderPatientName,30)){
+                Debugger.println("referralHeaderPatientTitle not displayed at top bar."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("referralHeaderPatientTitle.jpg");
+                return false;
+            }
+            String refPatientName =referralHeaderPatientName.getText();
+            if (refPatientName.contains(title)) {
+                Debugger.println(refPatientName+ " not contains the title : " + title);
+                SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralBanner:PatientTitle:Exception " + exp);
+            SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");
+            return false;
+        }
+    }
+
 }
 

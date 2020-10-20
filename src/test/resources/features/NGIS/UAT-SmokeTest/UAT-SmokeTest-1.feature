@@ -63,6 +63,6 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     And User should be able to see my Dashboard
   #Interpretation Portal from Dashboard
     And the user clicks on "Enter the Interpretation Portal" Tab
-    And the user logs in to the Interpretation Portal system
-    And the user is navigated to a page with title GMS: Interpretation Portal
-    When the user clicks the Log out button
+    #And the user logs in to the Interpretation Portal system
+    #And the user is navigated to a page with title GMS: Interpretation Portal
+    #When the user clicks the Log out button

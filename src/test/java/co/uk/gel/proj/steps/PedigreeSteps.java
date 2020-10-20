@@ -36,6 +36,11 @@ public class PedigreeSteps extends Pages {
         boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient, "NGIS");
         Assert.assertTrue(testResult);
     }
+    @When("the user clicks on the proband node on the pedigree diagram for {string} and {string}")
+    public void theUserClicksOnTheProbandNodeOnThePedigreeDiagram(String patientType,String gender) {
+        String ngisID=referralPage.getPatientNGISId();
+        pedigreePage.clickProbandNodeOnPedigreeDiagram(ngisID,patientType,gender);
+    }
 
     @And("the user should be able see the pedigree diagram loaded for the given members")
     public void theUserShouldSeeThePedigreeDiagramLoadedForMembers(DataTable members) {

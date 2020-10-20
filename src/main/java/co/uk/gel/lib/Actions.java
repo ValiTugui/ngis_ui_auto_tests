@@ -185,10 +185,15 @@ public class Actions {
     }
 
     public static void acceptAlert(WebDriver driver) {
-        if (isAlertPresent(driver)) {
-            driver.switchTo().alert().accept();
-            driver.switchTo().defaultContent();
-            Wait.seconds(2);
+        try {
+            if (isAlertPresent(driver)) {
+                driver.switchTo().alert().accept();
+                driver.switchTo().defaultContent();
+                Wait.seconds(2);
+            }
+        }
+        catch (Exception exp) {
+            Debugger.println("Exception while accepting the alert");
         }
     }
 

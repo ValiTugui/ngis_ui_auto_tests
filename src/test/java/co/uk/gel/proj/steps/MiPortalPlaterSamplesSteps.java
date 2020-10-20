@@ -118,4 +118,10 @@ public class MiPortalPlaterSamplesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user can not see the value {string} under search column dropdown")
+    public void theUserCanNotSeeTheValueUnderSearchColumnDropdown(String expectedHeaderValue) {
+        boolean testResult = false;
+        testResult = miPlaterSamplesPage.verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown(expectedHeaderValue);
+        Assert.assertTrue(testResult);
+    }
 }
