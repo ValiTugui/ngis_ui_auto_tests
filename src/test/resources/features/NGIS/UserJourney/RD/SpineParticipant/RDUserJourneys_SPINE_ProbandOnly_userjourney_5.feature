@@ -1,13 +1,12 @@
 #@userJourneys
 #@userJourneysRD
-#@userJourneysRD_SPINE_AdditionalParticipant
+#@userJourneysRD_SPINE
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for SPINE Patient - Additional Participant
-  @Spine2
-
-  @NTS-4591 @Z-LOGOUT
-#    @E2EUI-1264 @UseCase14
-  Scenario Outline: NTS-4591: Use Case#14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search Spine Patient
+Feature: Create Referrals for SPINE Patient
+@spine
+  @NTS-4570 @Z-LOGOUT
+#    @E2EUI-1430 @UseCase02
+  Scenario Outline: NTS-4570: Use Case#02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search Spine Patient
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     ###Patient Search Page Title
@@ -18,17 +17,17 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-   | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+
+    #Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package - No of participants -1
-    When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    ##Test Package - proband only
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -46,21 +45,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Additional Participants, need to deselect the test
+    ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Continue with this family member
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
     And the user clicks the Save and Continue button
-    Then the "<FamilyMemberStage>" stage is marked as Completed
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -87,7 +74,6 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ##Modify Pedigree Pending
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
@@ -97,12 +83,12 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the referral status is set to "Submitted"
 
     Examples:
-    |NhsNumber|DOB | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
-    |9449303673| 16-07-2010|Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      |9449310084  | 20-10-1973 | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4602 @Z-LOGOUT
-#    @E2EUI-1451 @UseCase15
-  Scenario Outline: NTS-4602: Use Case#15: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search Spine Patient
+  @NTS-4608 @Z-LOGOUT
+#     @E2EUI-1267 @UseCase03
+  Scenario Outline: NTS-4608: Use Case#03: Create Referral for Proband Only + Edit Data + Patient Choice Yes - Search Spine Patient
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     ###Patient Search Page Title
@@ -113,14 +99,192 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Wye Valley NHS Trust" in the search field
+    And the user enters the keyword "Croydon Health Services NHS Trust" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+    ##Test Package -
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the "<TestPackage>" stage is marked as Completed
+    ##Responsible Clinician
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    ##Clinical Question
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the "<ClinicalQuestion>" stage is marked as Completed
+    ##Notes
+    Then the user is navigated to a page with title Add clinical notes
+    And the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    Then the "<Notes>" stage is marked as Completed
+    ##Family Members -
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks the Save and Continue button
+    ##Patient Choice
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    When the user selects the option Adult (With Capacity) in patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    When the user fills "<ClinicianName>" details in recorded by
+    And the user clicks on Continue Button
+    When the user is in the section Patient choices
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Patient choice
+    And the user clicks the Save and Continue button
+    Then the "<PatientChoiceStage>" stage is marked as Completed
+    ##Panels
+    Then the user is navigated to a page with title Manage panels
+    And the user should see the default status of penetrance button as Complete
+    When the user search and add the "<SearchPanels>" panels
+    And the user clicks the Save and Continue button
+    Then the "<Panels>" stage is marked as Completed
+    ##Pedigree -  Modify pedigree
+    Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
+    Then the "<Pedigree>" stage is marked as Completed
+    ##Print forms
+    Then the user is navigated to a page with title Print sample forms
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
+
+    Examples:
+      | NhsNumber  | DOB      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | ClinicianName         | Panels | Pedigree | SearchPanels |
+      |9449310084  | 20-10-1973| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
+
+  @NTS-4575 @Z-LOGOUT
+#    @E2EUI-1059 @UseCase04
+  Scenario Outline: NTS-4575: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Spine Patient
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    ###Patient Search Page Title
+    When the user is navigated to a page with title Find your patient
+    When the user types in different valid details in the NHS number "<NhsNumber>" and DOB "<DOB>" fields
+    And the user clicks the Search button
+    ### Check if NGIS and convert to SPINE from NEAT
+    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
+    ###Start the referral
+    When a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+
+    ##Patient Details
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user clicks the Save and Continue button
+    And the "<PatientDetails>" stage is marked as Completed
+    ##Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+    ##Test Package -
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the "<TestPackage>" stage is marked as Completed
+    ##Responsible Clinician
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    ##Clinical Question
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the "<ClinicalQuestion>" stage is marked as Completed
+    ##Notes
+    Then the user is navigated to a page with title Add clinical notes
+    And the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    Then the "<Notes>" stage is marked as Completed
+    ##Family Members -
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks the Save and Continue button
+    ##Patient Choice
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    When the user selects the option Adult (With Capacity) in patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    When the user fills "<ClinicianName>" details in recorded by
+    And the user clicks on Continue Button
+    When the user is in the section Patient choices
+    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the user clicks on Continue Button
+   ## Then the Patient choices option is marked as completed
+    When the user is in the section Review and submit
+    And the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
+    Then the "Patient choice" page is displayed
+    And the user clicks the Save and Continue button
+    Then the "<PatientChoiceStage>" stage is marked as Completed
+    ##Panels
+    When the user navigates to the "<Panels>" stage
+    Then the user is navigated to a page with title Manage panels
+    And the user clicks the Save and Continue button
+    Then the "<Panels>" stage is marked as Completed
+    ##Pedigree
+    Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
+    Then the "<Pedigree>" stage is marked as Completed
+    ##Print forms
+    Then the user is navigated to a page with title Print sample forms
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
+
+    Examples:
+      | NhsNumber  | DOB | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
+      |9449310084  | 20-10-1973| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
+
+  @NTS-4554 @Z-LOGOUT
+#    @E2EUI-1383 @UseCase05
+  Scenario Outline: NTS-4554:: Use Case#05: User Journey to Create NGIS Referral for Proband Only + Edit Data + Patient Choice Yes - Search NGIS Patient
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    ###Patient Search Page Title
+    When the user is navigated to a page with title Find your patient
+    When the user types in different valid details in the NHS number "<NhsNumber>" and DOB "<DOB>" fields
+    And the user clicks the Search button
+    ### Check if NGIS and convert to SPINE from NEAT
+    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
+    ###Start the referral
+    When a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+
+    ##Patient Details
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user clicks the Save and Continue button
+    And the "<PatientDetails>" stage is marked as Completed
+    ##Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "Rotherham Doncaster and" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -135,7 +299,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
     And the "<ResponsibleClinician>" stage is marked as Completed
-    ##Clinical Questions
+    ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
@@ -147,15 +311,6 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the "<Notes>" stage is marked as Completed
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
     And the user clicks the Save and Continue button
     ##Patient Choice
     When the user is navigated to a page with title Patient choice
@@ -163,14 +318,11 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    And the user fills "<ClinicianName>" details in recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
-    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    When the user selects the option Yes for the question Has research participation been discussed?
-    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
     And the user clicks on Continue Button
-    When the user is in the section Patient signature
-    And the user fills PatientSignature details in patient signature
+    When the user is in the section Review and submit
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
@@ -178,7 +330,6 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
-
     Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
@@ -192,14 +343,13 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
-
     Examples:
-    |NhsNumber |DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                         | DiseaseStatusDetails                                            | Status           | PatientChoiceStage | ClinicianName                            | Panels | searchPanels | Pedigree |
-  |9449308225|14-12-1998| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
+      | NhsNumber  | DOB | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName                            | Panels | searchPanels | Pedigree |
+      |9449308969  | 11-03-2009| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
-  @NTS-4605 @Z-LOGOUT
-#    @E2EUI-1143 @UseCase16
-  Scenario Outline: NTS-4605: Use Case#16: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Spine Patient
+  @NTS-4571 @Z-LOGOUT
+#    @E2EUI-907 @UseCase06
+  Scenario Outline: NTS-4571: Use Case#06 Create Referral for Proband Only + Default Data + Patient Choice Not Given - Search Spine Patient
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     ###Patient Search Page Title
@@ -210,8 +360,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+
+   ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
@@ -222,7 +373,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package - No of participants -1
+    ##Test Package - proband only - No of participants -1
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -242,129 +393,22 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Additional Participants, need to deselect the test
+    ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
     And the user clicks the Save and Continue button
-    Then the "<FamilyMemberStage>" stage is marked as Completed
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    Then the user is navigated to a page with title Add patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<ClinicianName>" details in recorded by
-    And the user clicks on Continue Button
-    Then the user is in the section Patient choices
-    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    And the user clicks on Continue Button
-    When the user is in the section Review and submit
-    And the user clicks on submit patient choice Button
-    Then the user should be able to see the patient choice form with success message
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
-    ##Panels
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage Panels
-    And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
-    ##Pedigress
-    Then the user is navigated to a page with title Build a pedigree
-    ##Pedigree modification steps will be added later
-    And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
-    ##Print forms
-    Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=22-03-2001 |
-    And the user submits the referral
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    Then the referral status is set to "Submitted"
-
-    Examples:
- |NhsNumber|DOB     | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
- |9449308225       |14-12-1998  | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=22-03-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
-
-  @NTS-4596 @Z-LOGOUT
-#    @E2EUI-966 @UseCase17
-  Scenario Outline: NTS-4596: Use Case#17: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice No - Search Spine Patient
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    ###Patient Search Page Title
-    When the user is navigated to a page with title Find your patient
-    When the user types in different valid details in the NHS number "<NhsNumber>" and DOB "<DOB>" fields
-    And the user clicks the Search button
-    ### Check if NGIS and convert to SPINE from NEAT
-    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-    ###Start the referral
-    When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
-    ##Requesting Organisation
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
-    And the user selects a random entity from the suggestions list
-    Then the details of the new organisation are displayed
-    And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package - No of participants -1
-    When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
-    ##Responsible Clinician
-    Then the user is navigated to a page with title Add clinician information
-    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
-    And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
-    ##Clinical Question
-    Then the user is navigated to a page with title Answer clinical questions
-    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
-    ##Notes
-    Then the user is navigated to a page with title Add clinical notes
-    And the user fills in the Add Notes field
-    And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Additional Participants, need to deselect the test
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
-    And the user clicks the Save and Continue button
-    Then the "<FamilyMemberStage>" stage is marked as Completed
-    ##Patient Choice
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
+    When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
     When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     When the user is in the section Patient choices
-    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Patient conversation happened; form to follow for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
     And the user clicks on Continue Button
+    Then the Patient choices option is marked as completed
+    When the user is in the section Review and submit
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
@@ -373,30 +417,26 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage Panels
-    When the user search and add the "<searchPanels>" panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ## need to madify pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
-    When the user navigates to the "<PrintFormsStage>" stage
     Then the user is navigated to a page with title Print sample forms
-    ##Submit Referral
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
     Examples:
-    |NhsNumber|DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree | searchPanels | PrintFormsStage |
-    |9449304076|05-05-1995 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    | Print forms     |
+    | NhsNumber  | DOB  | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
+    |9449303673  | 16-07-2010 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4599 @Z-LOGOUT
-#    @E2EUI-1129 @UseCase18
-  Scenario Outline: NTS-4599: Use Case#18: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given - Search Spine Patient
+  @NTS-4561 @Z-LOGOUT
+#    @E2EUI-977 @UseCase07
+  Scenario Outline: NTS-4561: Use Case#07: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search Spine Patient
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     ###Patient Search Page Title
@@ -407,27 +447,27 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+            ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    When the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
+    And the user enters the keyword "The Whittington Hospital NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
-    And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package - No of participants -1
-    When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
+    When the user clicks the Save and Continue button
+    Then the "<RequestingOrganisation>" stage is marked as Completed
+    ##Test Package - Proband only
+    When the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<OneParticipant>"
+    When the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
-    Then the user is navigated to a page with title Add clinician information
+    When the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
-    And the user clicks the Save and Continue button
+    When the user clicks the Save and Continue button
     And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
@@ -439,19 +479,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Additional Participants, need to deselect the test
+    ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
     And the user clicks the Save and Continue button
-    Then the "<FamilyMemberStage>" stage is marked as Completed
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -470,14 +500,14 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    ##Panels
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage Panels
+     ##Panels
+    Then the user is navigated to a page with title Manage panels
+    And the user should see the default status of penetrance button as Complete
+    When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    ##Pedigress
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ##Pedigree modification steps will be added later
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
@@ -485,108 +515,6 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
-
     Examples:
-    |NhsNumber|DOB  | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
-     |9449304076|05-05-1995 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
-
-  @NTS-4585 @Z-LOGOUT
-#    @E2EUI-1414 @UseCase19
-  Scenario Outline: NTS-4585: Use Case#19: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Not Given - Search Spine Patient
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    ###Patient Search Page Title
-    When the user is navigated to a page with title Find your patient
-    When the user types in different valid details in the NHS number "<NhsNumber>" and DOB "<DOB>" fields
-    And the user clicks the Search button
-    ### Check if NGIS and convert to SPINE from NEAT
-    Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
-    ###Start the referral
-    When a new patient referral is created with associated tests in Test Order System online service
-
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
-    ##Requesting Organisation
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
-    And the user selects a random entity from the suggestions list
-    Then the details of the new organisation are displayed
-    And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package - No of participants -1
-    When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
-    ##Responsible Clinician
-    Then the user is navigated to a page with title Add clinician information
-    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
-    And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
-    ##Clinical Question
-    Then the user is navigated to a page with title Answer clinical questions
-    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
-    ##Notes
-    Then the user is navigated to a page with title Add clinical notes
-    And the user fills in the Add Notes field
-    And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Additional Participants, need to deselect the test
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And  the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
-    And the user clicks the Save and Continue button
-    Then the "<FamilyMemberStage>" stage is marked as Completed
-    ##Patient Choice
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    Then the user is navigated to a page with title Add patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<ClinicianName>" details in recorded by
-    And the user clicks on Continue Button
-    Then the user is in the section Patient choices
-    When the user selects the option Patient conversation happened; form to follow for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    And the user clicks on Continue Button
-    When the user is in the section Review and submit
-    And the user clicks on submit patient choice Button
-    Then the user should be able to see the patient choice form with success message
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
-    ##Panels
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage Panels
-    When the user search and add the "<searchPanels>" panels
-    And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
-    ##Pedigree
-    Then the user is navigated to a page with title Build a pedigree
-    ##Modify Pedigree Pending
-    And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
-    ##Print forms
-    When the user navigates to the "<PrintFormsStage>" stage
-    Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<OneParticipant>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=14-04-2011 |
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    Then the referral status is set to "Submitted"
-
-    Examples:
-  |NhsNumber    |DOB| PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                                    | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName         | Panels | Pedigree | searchPanels | PrintFormsStage |
-  |9449303673   |16-07-2010| Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk| Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality| Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Catar,Crani  | Print forms     |
+      | NhsNumber  | DOB  | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | ClinicianName                           | Panels | searchPanels | Pedigree |
+      |9449310084  | 20-10-1973 | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |

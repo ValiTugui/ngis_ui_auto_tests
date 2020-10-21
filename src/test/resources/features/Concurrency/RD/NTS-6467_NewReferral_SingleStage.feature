@@ -12,30 +12,28 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NTS-6467_RD |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only
     When the user navigates to the "<testPackage>" stage
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-    And the "<testPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
+    Then the user is navigated to a page with title Add clinical notes
+    And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
@@ -58,16 +56,15 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6467_RD with Mandatory Stages Completed by User1
 
     #### verify patient details after changes done by B
-    And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NTS-6467_RD
     And the user submits the referral
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
-    And the user updates the file NRF1 with Patient details validated by User1
+    And the user updates the file NTS-6467_RD with Patient details validated by User1
      # Finally User1 submit Referral Successfully
     And the user submits the referral
     Then the submission confirmation message "Your referral has been submitted" is displayed
@@ -81,15 +78,15 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
    #User2
   @NTS-6467 @NTS-6467_RD @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6467_RD
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6467_RD |
     #Below step is for new referrals
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
     #Patient Details - Update By user2
     When the user navigates to the "<PatientDetails>" stage
     And the user updates the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user clicks the Save and Continue button
-    Then the user updates the file NRF1 with PatientDetails Updated by User2
+    Then the user updates the file NTS-6467_RD with PatientDetails Updated by User2
 
 
     Examples:

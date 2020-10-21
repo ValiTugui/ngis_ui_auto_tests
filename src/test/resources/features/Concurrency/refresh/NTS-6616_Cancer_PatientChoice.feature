@@ -12,7 +12,7 @@ Feature: NTS-6616:Cancer_new_referral_patientChoice: Navigate and verify the cha
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Patient choice stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
-      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NRF1 |
+      | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NTS-6616_Cancer |
     # Referral created and completed all stages but not submitted by user1
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
@@ -74,9 +74,9 @@ Feature: NTS-6616:Cancer_new_referral_patientChoice: Navigate and verify the cha
     When the user clicks on Continue Button
     ##Print Forms
     Then the user is navigated to a page with title Print sample forms
-    Then the user updates the file NRF1 with Mandatory Stages Completed by User1
+    Then the user updates the file NTS-6616_Cancer with Mandatory Stages Completed by User1
     #Patient Choice - Updated by User1
-    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NRF1
+    And the user waits max 10 minutes for the update Notes details Updated by User2 in the file NTS-6616_Cancer
     And the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     And the user edits the patient choice status
@@ -92,7 +92,7 @@ Feature: NTS-6616:Cancer_new_referral_patientChoice: Navigate and verify the cha
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     When the user clicks on Continue Button
-    And the user updates the file NRF1 with Patient choice details Updated by User1
+    And the user updates the file NTS-6616_Cancer with Patient choice details Updated by User1
     Examples:
       | PatientChoice  | tumour_type                             | presentationType   | stage2  | stage3         | sampleType          | sampleState        | RecordedBy                            |
       | Patient choice | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
@@ -101,16 +101,16 @@ Feature: NTS-6616:Cancer_new_referral_patientChoice: Navigate and verify the cha
   #Login as User B, Verified Patient Choice stage and do not submit referral
   @NTS-6616 @Z-LOGOUT
   Scenario Outline: Verified Patient Choice stage of new referral updated by another user
-   #And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NRF1
+    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6616_Cancer
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | New Referral | NRF1 |
+      | CONCURRENT_USER2_NAME | New Referral | NTS-6616_Cancer |
    #Patient Choice - Verified by User2
     And the user navigates to the "<Notes>" stage
-    And the user updates the file NRF1 with Notes details Updated by User2
-    And the user waits max 5 minutes for the update Patient choice details Updated by User1 in the file NRF1
+    And the user updates the file NTS-6616_Cancer with Notes details Updated by User2
+    And the user waits max 20 minutes for the update Patient choice details Updated by User1 in the file NTS-6616_Cancer
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"
-    And the user updates the file NRF1 with Patient choice details validated by User2
+    And the user updates the file NTS-6616_Cancer with Patient choice details validated by User2
 
     Examples:
       | Notes | PatientChoice  | PatientChoiceDetailsUpdated |

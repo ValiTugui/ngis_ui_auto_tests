@@ -1411,5 +1411,27 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-}
+
+    public boolean fillInPatientSearchWithNoFieldsForSavedDetails() {
+        try {
+            NewPatient savedData = PatientDetailsPage.newPatient;
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            dateDay.sendKeys(savedData.getDay());
+            dateMonth.sendKeys(savedData.getMonth());
+            dateYear.sendKeys(savedData.getYear());
+            firstName.sendKeys(savedData.getFirstName());
+            lastName.sendKeys(savedData.getLastName());
+            if (!selectGender(genderButton, savedData.getGender())) {
+                selectGender(administrativeGenderButton, savedData.getGender());
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in searching patient with No Option." + exp);
+            SeleniumLib.takeAScreenShot("PatientSearchNo.jpg");
+            return false;
+        }
+    }
+
+
+}//end
 

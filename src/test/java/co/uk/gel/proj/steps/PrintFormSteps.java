@@ -1,15 +1,11 @@
 package co.uk.gel.proj.steps;
 
-import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
-import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
@@ -21,9 +17,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class PrintFormSteps extends Pages {
 
@@ -383,9 +377,11 @@ public class PrintFormSteps extends Pages {
         testResult = printFormsPage.verifyRelationshipToProband(relationToProband);
         Assert.assertTrue(testResult);
     }
+
     @And("the user verifies the lab name {string} is updated in Print forms stage")
     public void verifyLabNameInPrintFormsSection(String labName) {
-        boolean testResult = printFormsPage.getLabName(labName);
+        boolean testResult = false;
+        testResult = printFormsPage.getLabName(labName);
         Assert.assertTrue(testResult);
     }
 }//end
