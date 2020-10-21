@@ -65,7 +65,8 @@ public class Pages implements Navigable {
 
     protected NeatHomePage neatHomePage;
     protected NeatPatientRecordPage neatPatientRecordPage;
-
+    protected KibanaPage kibanaPage;
+    protected DataDogPage dataDogPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -112,6 +113,9 @@ public class Pages implements Navigable {
         //NEAT Admin Tool Pages
         neatHomePage=PageFactory.initElements(driver,NeatHomePage.class);
         neatPatientRecordPage=PageFactory.initElements(driver,NeatPatientRecordPage.class);
+        kibanaPage = PageFactory.initElements(driver,KibanaPage.class);
+        dataDogPage=PageFactory.initElements(driver, DataDogPage.class);
+
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

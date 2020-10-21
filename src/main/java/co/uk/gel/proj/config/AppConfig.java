@@ -15,6 +15,8 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    private static String td_username;
+    private static String td_password;
     static String concurrent_user1_username;
     static String concurrent_user1_password;
     static String concurrent_user2_username;
@@ -44,13 +46,18 @@ public class AppConfig {
     public static String mi_portal_test_data_file;
     public static boolean snapshotRequired = false;
     public static String NEAT_TOOL;
+    public static String KIBANA_TOOL;
+    public static String DataDog_TOOL;
+    public static String DataDog_USERNAME;
+    public static String DataDog_PASSWORD;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
         String current_environment = System.getProperty("TestEnvironment");
         System.out.println("TestEnvironment: " + current_environment);
         if(current_environment.equalsIgnoreCase("UAT") ||
-        current_environment.equalsIgnoreCase("Beta")){
+        current_environment.equalsIgnoreCase("Beta") ||
+                current_environment.equalsIgnoreCase("Prod")){
             snapshotRequired = true;
         }
         configFileName = String.format(configFileName, current_environment);
@@ -67,6 +74,8 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        td_username = properties.getProperty("TD_USERNAME");
+        td_password = properties.getProperty("TD_PASSWORD");
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         concurrent_user1_username = properties.getProperty("CONCURRENT_USER1_NAME");
@@ -96,6 +105,12 @@ public class AppConfig {
         BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
 
         NEAT_TOOL = properties.getProperty("NEAT_URL");
+        KIBANA_TOOL=properties.getProperty("KIBANA_URL");
+
+        DataDog_TOOL = properties.getProperty("DATADOG_URL");
+        DataDog_USERNAME = properties.getProperty("USERNAME_DATADOG");
+        DataDog_PASSWORD = properties.getProperty("PASSWORD_DATADOG");
+
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
@@ -160,6 +175,13 @@ public class AppConfig {
         return app_username;
     }
 
+    public static String getTd_username() {
+        if (td_username == null || td_username.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_username;
+    }
+
     public static String getApp_superUsername() {
         return app_superUsername;
     }
@@ -170,6 +192,13 @@ public class AppConfig {
 
     public static String getApp_password() {
         return app_password;
+    }
+
+    public static String getTd_password() {
+        if (td_password == null || td_password.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_password;
     }
 
     public static String getApp_superPassword() {
@@ -259,4 +288,24 @@ public class AppConfig {
     public static String getConcurrent_user5_password() {
         return concurrent_user5_password;
     }
+
+    public static String getKibanaUrl(){
+        return KIBANA_TOOL;
+    }
+    public static void setDataDog_TOOL(String dataDog_url) {
+        AppConfig.DataDog_TOOL = dataDog_url;
+    }
+    public static void setDataDog_USERNAME(String datadog_username) {
+        AppConfig.DataDog_USERNAME = datadog_username;
+    }
+    public static String getDataDog_userName () {
+        return DataDog_USERNAME;
+    }
+    public static void setDataDog_PASSWORD(String dataDog_password) {
+        AppConfig.DataDog_PASSWORD = dataDog_password;
+    }
+    public static String getDataDog_password () {
+        return DataDog_PASSWORD;
+    }
+
 }//end

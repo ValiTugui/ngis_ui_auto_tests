@@ -239,6 +239,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@id='administrativeGender']/../div/span/span")
     public WebElement genderPath;
 
+
     //New Patient Record Page
     @FindBy(xpath = "//div[contains(@class,'form-header')]/p")
     public WebElement patientName;
@@ -266,6 +267,7 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//span[text()='Address']/following-sibling::span")
     public WebElement address;
+
 
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]/span")
     WebElement ethnicityMissing;
@@ -600,6 +602,7 @@ public class PatientDetailsPage {
 
     public boolean clickCISearchStartReferralButton() {
         try {
+
             if (!Wait.isElementDisplayed(driver, CISearchStartReferral, 10)) {
                 Debugger.println("Start Referral Button not displayed.");
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");

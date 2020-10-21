@@ -509,6 +509,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean fillFamilyMemberDiseaseStatusWithGivenParams(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Debugger.println("URL: "+driver.getCurrentUrl());
         //DiseaseStatus
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
