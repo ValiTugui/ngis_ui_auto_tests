@@ -1814,23 +1814,20 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     miPortalFileSubmissionPage.fillInTheFileSubmissionDate(createdDate);
                     clickAddButton();
                     clickSearchButton();
-//                    Wait.seconds(2);
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
                     selectValueInPagination("100");
-
-                    boolean searchResult=matchDataFromMiTable(key,"Created", dataFromSheet);
-
+                    matchDataFromMiTable(key,"Created", dataFromSheet);
+                    clickResetButton();
                 }
             }else if (sheetName.equalsIgnoreCase("Order Tracking")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
                     return false;
                 }
-                Thread.sleep(5000);
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
@@ -1848,11 +1845,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    selectValueInPagination("100");
-                    Wait.seconds(5);
-
-                    boolean searchResult=matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
-
+                    matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+                    clickResetButton();
                 }
             }else if (sheetName.equalsIgnoreCase("GLH Samples")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1870,10 +1864,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
-                    selectValueInPagination("100");
-
+                    Wait.seconds(1);
                     matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+                    clickResetButton();
                 }
             }
             else if (sheetName.equalsIgnoreCase("Plater Samples")){
@@ -1892,10 +1887,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
-                    selectValueInPagination("100");
-
+                    Wait.seconds(1);
                     matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+                    clickResetButton();
 
                 }
             }else if (sheetName.equalsIgnoreCase("Picklists")){
@@ -1914,10 +1910,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
-                    selectValueInPagination("100");
-
+                    Wait.seconds(1);
                     matchDataFromMiTable(key,"GEL1008 Plate ID",dataFromSheet);
+                    clickResetButton();
 
                 }
             }else if (sheetName.equalsIgnoreCase("Sequencer Samples")){
@@ -1936,10 +1933,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
-                    selectValueInPagination("100");
-
+                    Wait.seconds(1);
                     matchDataFromMiTable(key,"GEL1009 Group ID",dataFromSheet);
+                    clickResetButton();
 
                 }
             }else if (sheetName.equalsIgnoreCase("New Referrals")){
@@ -1958,11 +1956,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
                     clickOnSaveAndCloseButton();
-                    selectValueInPagination("100");
-
+                    Wait.seconds(1);
                     matchDataFromMiTable(key,"Referral ID",dataFromSheet);
-
+                    clickResetButton();
                 }
             }
 
@@ -1987,7 +1985,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(3);
             List<String> headers = seleniumLib.scrollTableAndGetHeaders(miPortalFileSubmissionPage.fileSubmissionTableHead);
             Debugger.println("The headers in the table are:-" + headers.toString());
-//            int colIndex = headers.indexOf("Created");
             int colIndex = headers.indexOf(keyColName);
             Debugger.println("The index of key column is " + colIndex);
             for (WebElement pageNum : paginateButtons) {

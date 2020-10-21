@@ -632,8 +632,8 @@ public class MilHomePageSteps extends Pages {
     }
 
 
-    @And("the user verifies the {string} data from table against {string} based on created date")
-    public void theUserVerifiesTheFileSubmissionsDataFromTableAgainstBasedOnCreatedDate(String sheetName,String fileName) {
+    @And("the user verifies the {string} data from table against {string}")
+    public void theUserVerifiesTheFileSubmissionsDataFromTableAgainst(String sheetName,String fileName) {
         boolean testResult = false;
         testResult =  miPortalHomePage.validateDataInAllReports(fileName,sheetName);
         Assert.assertTrue(testResult);
