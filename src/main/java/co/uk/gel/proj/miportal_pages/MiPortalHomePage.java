@@ -1835,12 +1835,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
+                    String newkey=null;
                     if(key.contains("-")){
-                        key=key.replace("-","");
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
                     }
                     miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn("Referral ID");
                     miOrderTrackingPage.selectOrderTrackingDropDownSearchOperator("is exactly");
-                    miOrderTrackingPage.enterOrderTrackingTextSearchValue(key);
+                    miOrderTrackingPage.enterOrderTrackingTextSearchValue(newkey);
                     clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
@@ -1999,6 +2002,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 for (WebElement rowEle : rowDataPath) {
                     WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
                     String keyCellData = keyCellPath.getText();
+                    if(key.endsWith("-")){
+                        key=key.replace("-","");
+                    }
                     Debugger.println("The cell value is:-" + keyCellData + " and the key is:-" + key);
                     if (!keyCellData.equalsIgnoreCase(key)) {
                         Debugger.println("..........No.........");
