@@ -1784,15 +1784,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean validateDataInAllReports(String fileName,String sheetName) {
-        By miStage = null;
-        MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
-        MiOrderTrackingPage miOrderTrackingPage = new MiOrderTrackingPage(driver);
-        MiGlhSamplesPage miGlhSamplesPage = new MiGlhSamplesPage(driver);
-        MiPlaterSamplesPage miPlaterSamplesPage = new MiPlaterSamplesPage(driver);
-        MiPickListsPage miPickListsPage = new MiPickListsPage(driver);
-        MiSequencerSamplesPage miSequencerSamplesPage = new MiSequencerSamplesPage(driver);
-        MiNewReferralsPage miNewReferralsPage = new MiNewReferralsPage(driver);
         try {
+            By miStage = null;
+            MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
+            MiOrderTrackingPage miOrderTrackingPage = new MiOrderTrackingPage(driver);
+            MiGlhSamplesPage miGlhSamplesPage = new MiGlhSamplesPage(driver);
+            MiPlaterSamplesPage miPlaterSamplesPage = new MiPlaterSamplesPage(driver);
+            MiPickListsPage miPickListsPage = new MiPickListsPage(driver);
+            MiSequencerSamplesPage miSequencerSamplesPage = new MiSequencerSamplesPage(driver);
+            MiNewReferralsPage miNewReferralsPage = new MiNewReferralsPage(driver);
             Map<String,Map<String,String>> dataFromSheet = ExcelDataRead.readAllDataFromAllSheet(fileName,sheetName);
             if (sheetName.equalsIgnoreCase("File Submissions")) {
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1813,6 +1813,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     miPortalFileSubmissionPage.selectDropDownSearchOperator("equals");
                     miPortalFileSubmissionPage.fillInTheFileSubmissionDate(createdDate);
                     clickAddButton();
+                    miPortalFileSubmissionPage.selectDropDownSearchColumn("Status");
+                    miPortalFileSubmissionPage.selectDropDownSearchOperator("is");
+                    miPortalFileSubmissionPage.selectDropDownSearchValue("Valid");
+                    clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
                     clickShowAllOrHideAllButton("Show all");
@@ -1823,21 +1827,26 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     matchDataFromMiTable(key,"Created", dataFromSheet);
                     clickResetButton();
                 }
+
             }else if (sheetName.equalsIgnoreCase("Order Tracking")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
                     return false;
                 }
+                Thread.sleep(5000);
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
+                    String newkey=null;
                     if(key.contains("-")){
-                        key=key.replace("-","");
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
                     }
-                    miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn("Referral ID");
+                    miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn("Patient NGIS ID");
                     miOrderTrackingPage.selectOrderTrackingDropDownSearchOperator("is exactly");
-                    miOrderTrackingPage.enterOrderTrackingTextSearchValue(key);
+                    miOrderTrackingPage.enterOrderTrackingTextSearchValue(newkey);
                     clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
@@ -1845,9 +1854,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+                    matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
                     clickResetButton();
                 }
+
             }else if (sheetName.equalsIgnoreCase("GLH Samples")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
@@ -1857,9 +1867,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
-                    miGlhSamplesPage.selectGlhDropDownSearchColumn("Referral ID");
+                    String newkey=null;
+                    if(key.contains("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miGlhSamplesPage.selectGlhDropDownSearchColumn("Patient NGIS ID");
                     miGlhSamplesPage.selectGlhDropDownSearchOperator("is exactly");
-                    miGlhSamplesPage.fillValueInGLHSamplesSearchInputField(key);
+                    miGlhSamplesPage.fillValueInGLHSamplesSearchInputField(newkey);
                     clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
@@ -1867,9 +1883,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+                    matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
                     clickResetButton();
                 }
+
             }
             else if (sheetName.equalsIgnoreCase("Plater Samples")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1880,9 +1897,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
-                    miPlaterSamplesPage.selectPlaterSamplesDropDownSearchColumn("Referral ID");
+                    String newkey=null;
+                    if(key.contains("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miPlaterSamplesPage.selectPlaterSamplesDropDownSearchColumn("Patient NGIS ID");
                     miPlaterSamplesPage.selectPlaterSamplesDropDownSearchOperator("is exactly");
-                    miPlaterSamplesPage.enterPlaterSampleTextSearchValue(key);
+                    miPlaterSamplesPage.enterPlaterSampleTextSearchValue(newkey);
                     clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
@@ -1890,10 +1913,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1001 Referral ID",dataFromSheet);
+                    matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
                     clickResetButton();
-
                 }
+
             }else if (sheetName.equalsIgnoreCase("Picklists")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
@@ -1903,9 +1926,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
-                    miPickListsPage.selectPickListsDropDownSearchColumn("GEL1008 Plate ID");
+                    String newkey=null;
+                    if(key.contains("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miPickListsPage.selectPickListsDropDownSearchColumn("Patient NGIS ID");
                     miPickListsPage.selectPickListsDropDownSearchOperator("is exactly");
-                    miPickListsPage.enterPickListsTextSearchValue(key);
+                    miPickListsPage.enterPickListsTextSearchValue(newkey);
                     clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
@@ -1913,10 +1942,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1008 Plate ID",dataFromSheet);
+                    matchDataFromMiTable(key,"GEL1008 Participant ID",dataFromSheet);
                     clickResetButton();
-
                 }
+
             }else if (sheetName.equalsIgnoreCase("Sequencer Samples")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
@@ -1926,9 +1955,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
-                    miSequencerSamplesPage.selectSequencerSamplesDropDownSearchColumn("Referral ID");
+                    String newkey=null;
+                    if(key.contains("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miSequencerSamplesPage.selectSequencerSamplesDropDownSearchColumn("Patient NGIS ID");
                     miSequencerSamplesPage.selectSequencerSamplesDropDownSearchOperator("is exactly");
-                    miSequencerSamplesPage.enterSequencerSamplesTextSearchValue(key);
+                    miSequencerSamplesPage.enterSequencerSamplesTextSearchValue(newkey);
                     clickAddButton();
                     clickSearchButton();
                     clickSearchResultDisplayOptionsButton();
@@ -1936,9 +1971,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1009 Group ID",dataFromSheet);
+                    matchDataFromMiTable(key,"GEL1009 Patient ID",dataFromSheet);
                     clickResetButton();
-
                 }
             }else if (sheetName.equalsIgnoreCase("New Referrals")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1962,8 +1996,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     matchDataFromMiTable(key,"Referral ID",dataFromSheet);
                     clickResetButton();
                 }
-            }
 
+            }
             return true;
         }catch (Exception exp){
             Debugger.println("Exception from readAllDataFromAllSheet: " + exp);
@@ -1985,6 +2019,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(3);
             List<String> headers = seleniumLib.scrollTableAndGetHeaders(miPortalFileSubmissionPage.fileSubmissionTableHead);
             Debugger.println("The headers in the table are:-" + headers.toString());
+//            int colIndex = headers.indexOf("Created");
             int colIndex = headers.indexOf(keyColName);
             Debugger.println("The index of key column is " + colIndex);
             for (WebElement pageNum : paginateButtons) {
@@ -1996,8 +2031,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 for (WebElement rowEle : rowDataPath) {
                     WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
                     String keyCellData = keyCellPath.getText();
-                    Debugger.println("The cell value is:-" + keyCellData + " and the key is:-" + key);
-                    if (!keyCellData.equalsIgnoreCase(key)) {
+                    String newkey=null;
+                    if(key.contains("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    Debugger.println("The cell value is:-" + keyCellData + " and the key is:-" + newkey);
+                    if (!keyCellData.equalsIgnoreCase(newkey)) {
                         Debugger.println("..........No.........");
                         continue;
                     } else {
@@ -2020,7 +2061,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                                 return false;
                             }
                         }
-                        Debugger.println("One row match success....");
+                        Debugger.println("Successfully verified the data for key: " +key);
                         return true;
                     }
                 }
