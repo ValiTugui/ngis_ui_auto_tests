@@ -1996,7 +1996,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     matchDataFromMiTable(key,"Referral ID",dataFromSheet);
                     clickResetButton();
                 }
-
             }
             return true;
         }catch (Exception exp){
@@ -2005,7 +2004,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean matchDataFromMiTable(String key,String keyColName, Map<String, Map<String, String>> dataFromSheet) {
+    public boolean matchDataFromMiTable(String key, String keyColName, Map<String, Map<String, String>> dataFromSheet) {
         try {
             MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
 
@@ -2019,9 +2018,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(3);
             List<String> headers = seleniumLib.scrollTableAndGetHeaders(miPortalFileSubmissionPage.fileSubmissionTableHead);
             Debugger.println("The headers in the table are:-" + headers.toString());
-//            int colIndex = headers.indexOf("Created");
             int colIndex = headers.indexOf(keyColName);
-            Debugger.println("The index of key column is " + colIndex);
+            Debugger.println("The index of key column in UI is " + colIndex);
             for (WebElement pageNum : paginateButtons) {
                 pageNum.click();
                 Wait.seconds(5);
@@ -2029,15 +2027,16 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 List<WebElement> rowDataPath = driver.findElements(By.xpath(miPortalFileSubmissionPage.fileSubmissionTableRows));
                 Debugger.println("The number of row elements:" + rowDataPath.size());
                 for (WebElement rowEle : rowDataPath) {
+                    Debugger.println("Starting with a row......");
                     WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
                     String keyCellData = keyCellPath.getText();
-                    String newkey=null;
-                    if(key.contains("-")){
-                        newkey=key.replace("-","");
-                    }else{
-                        newkey=key;
+                    String newkey = null;
+                    if (key.contains("-")) {
+                        newkey = key.replace("-", "");
+                    } else {
+                        newkey = key;
                     }
-                    Debugger.println("The cell value is:-" + keyCellData + " and the key is:-" + newkey);
+                    Debugger.println("The cell value is: " + keyCellData + " and the key is: " + key);
                     if (!keyCellData.equalsIgnoreCase(newkey)) {
                         Debugger.println("..........No.........");
                         continue;
@@ -2046,15 +2045,39 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                         Debugger.println("The cell data " + mainKeyDataValue.toString());
                         Set<String> columnNameKeysFromSheet = mainKeyDataValue.keySet();
                         Debugger.println("The key set:" + columnNameKeysFromSheet);
+                        //Secondary check of data in a second column when the NGIS ID may be duplicate in Cancer cases
+                        String[] sampleIdColumnNames = {"GEL1001 Dispatched Sample Lsid", "GEL1004 Laboratory Sample ID", "GEL1008 Laboratory Sample ID", "GEL1009 Sample ID"};
+                        boolean rowChangeFlag = false;
+                        for (String sampleIDCol : sampleIdColumnNames) {
+                            if (columnNameKeysFromSheet.contains(sampleIDCol)) {
+                                Debugger.println("For repeated NGIS ID Cross check column: " + sampleIDCol);
+                                int columnNum = headers.indexOf(sampleIDCol);
+                                Debugger.println("The index of this column in UI is:- " + columnNum);
+                                WebElement cellPath = rowEle.findElement(By.xpath("./td[" + (columnNum + 1) + "]"));
+                                String cellValue = cellPath.getText();
+                                Debugger.println("The cell data of the column from UI is:- " + cellValue);
+                                String cellValueFromSheet = mainKeyDataValue.get(sampleIDCol);
+                                Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
+                                if (!cellValue.equalsIgnoreCase(cellValueFromSheet)) {
+                                    Debugger.println("The values are not matching, Actual: " + cellValue + " But Expected: " + cellValueFromSheet + "....check in next rows..");
+                                    rowChangeFlag = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (rowChangeFlag) {
+                            continue;
+                        }
+                        // Matching the data row
                         for (String columnName : columnNameKeysFromSheet) {
                             Debugger.println("Matching for column: " + columnName);
                             int colNum = headers.indexOf(columnName);
-                            Debugger.println("The index of the column is:- " + colNum);
+                            Debugger.println("The index of the column in UI is:- " + colNum);
                             WebElement dataCellPath = rowEle.findElement(By.xpath("./td[" + (colNum + 1) + "]"));
                             String dataCellValue = dataCellPath.getText();
-                            Debugger.println("The cell data of the column is:- " + dataCellValue);
+                            Debugger.println("The cell data of the column from UI is:- " + dataCellValue);
                             String cellValueFromSheet = mainKeyDataValue.get(columnName);
-                            Debugger.println("The value of the column is:- " + cellValueFromSheet);
+                            Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
                             if (!cellValueFromSheet.equalsIgnoreCase(dataCellValue)) {
                                 Debugger.println("The values are not matching, Actual: " + dataCellValue + " But Expected: " + cellValueFromSheet);
                                 SeleniumLib.takeAScreenShot("ValueMismatch.jpg");
