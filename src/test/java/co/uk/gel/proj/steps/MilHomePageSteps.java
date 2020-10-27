@@ -463,7 +463,7 @@ public class MilHomePageSteps extends Pages {
             }
         } catch (Exception exp) {
             Debugger.println("Exception from Sample Processing Section Header " + exp);
-            Assert.assertFalse("MilHomePageSteps: Exception from Sample Processing Section Header " + exp, true);
+            Assert.assertFalse("MiHomePageSteps: Exception from Sample Processing Section Header " + exp, true);
         }
     }
     @And("the user should be able to see Participant NHS Spine Data menu is displayed")
@@ -489,7 +489,7 @@ public class MilHomePageSteps extends Pages {
             }
         } catch (Exception exp) {
             Debugger.println("Exception from Data Quality Section Header " + exp);
-            Assert.assertFalse("MilHomePageSteps: Exception from Data Quality Section Header " + exp, true);
+            Assert.assertFalse("MiHomePageSteps: Exception from Data Quality Section Header " + exp, true);
         }
     }
 
@@ -601,15 +601,27 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testresult);
     }
 
-    @And("the user click on {string} section select the filters and click on Add and Search buttons and verify the table loaded")
-    public void theUserClickOnFileSubmissionSectionSelectTheFiltersAndClickOnAddButtonAndClickOnSearchButton(String miPage) {
+    @And("the user click on {string} section select the filters {string} and click on Add and Search buttons and verify the table loaded")
+    public void theUserClickOnFileSubmissionSectionSelectTheFiltersAndClickOnAddButtonAndClickOnSearchButton(String miPage, String filterValue) {
         Assert.assertTrue(miPortalHomePage.navigateToMiPage(miPage));
         Debugger.println("Navigated to " + miPage);
         if (miPage.equals("File Submissions"))
         {
             Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchColumn("Status"));
             Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchOperator("is"));
-            Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchValue("Valid"));
+            Assert.assertTrue(miPortalFileSubmissionPage.selectDropDownSearchValue(filterValue));
+        } else if(miPage.equals("Order Tracking") ){
+            Assert.assertTrue(miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(filterValue));
+        } else if(miPage.equals("GLH Samples") ){
+            Assert.assertTrue(miGlhSamplesPage.selectGlhDropDownSearchValue(filterValue));
+        }else if(miPage.equals("Plater Samples") ){
+            Assert.assertTrue(miPlaterSamplesPage.selectPlaterSamplesDropDownSearchValue(filterValue));
+        }else if(miPage.equals("Picklists") ){
+            Assert.assertTrue(miPickListsPage.selectPickListsDropDownSearchValue(filterValue));
+        }else if(miPage.equals("Sequencer Samples") ){
+            Assert.assertTrue(miSequencerSamplesPage.selectSequencerSamplesDropDownSearchValue(filterValue));
+        }else if(miPage.equals("New Referrals") ){
+            Assert.assertTrue(miNewReferralsPage.selectNewReferralsDropDownSearchValue(filterValue));
         }
         Assert.assertTrue(miPortalHomePage.clickAddButton());
         Debugger.println("Add button is clicked");
