@@ -595,6 +595,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=14-04-2011 |
+    And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
