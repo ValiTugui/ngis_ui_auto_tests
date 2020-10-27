@@ -1794,6 +1794,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             MiSequencerSamplesPage miSequencerSamplesPage = new MiSequencerSamplesPage(driver);
             MiNewReferralsPage miNewReferralsPage = new MiNewReferralsPage(driver);
             Map<String,Map<String,String>> dataFromSheet = ExcelDataRead.readAllDataFromAllSheet(fileName,sheetName);
+            boolean matchResult=false;
             if (sheetName.equalsIgnoreCase("File Submissions")) {
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
@@ -1824,10 +1825,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
                     selectValueInPagination("100");
-                    matchDataFromMiTable(key,"Created", dataFromSheet);
+                    matchResult=matchDataFromMiTable(key,"Created", dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
-
             }else if (sheetName.equalsIgnoreCase("Order Tracking")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
@@ -1839,7 +1842,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
-                    if(key.contains("-")){
+                    if(key.endsWith("-")){
                         newkey=key.replace("-","");
                     }else{
                         newkey=key;
@@ -1854,10 +1857,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
+                    matchResult= matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
-
             }else if (sheetName.equalsIgnoreCase("GLH Samples")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
                     Debugger.println("No data received from excel data sheet:" + sheetName);
@@ -1868,7 +1873,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
-                    if(key.contains("-")){
+                    if(key.endsWith("-")){
                         newkey=key.replace("-","");
                     }else{
                         newkey=key;
@@ -1883,10 +1888,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
+                    matchResult=matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
-
             }
             else if (sheetName.equalsIgnoreCase("Plater Samples")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1898,7 +1905,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
-                    if(key.contains("-")){
+                    if(key.endsWith("-")){
                         newkey=key.replace("-","");
                     }else{
                         newkey=key;
@@ -1913,8 +1920,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
+                    matchResult=matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
 
             }else if (sheetName.equalsIgnoreCase("Picklists")){
@@ -1927,7 +1937,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
-                    if(key.contains("-")){
+                    if(key.endsWith("-")){
                         newkey=key.replace("-","");
                     }else{
                         newkey=key;
@@ -1942,8 +1952,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1008 Participant ID",dataFromSheet);
+                    matchResult=matchDataFromMiTable(key,"GEL1008 Participant ID",dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
 
             }else if (sheetName.equalsIgnoreCase("Sequencer Samples")){
@@ -1956,7 +1969,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
-                    if(key.contains("-")){
+                    if(key.endsWith("-")){
                         newkey=key.replace("-","");
                     }else{
                         newkey=key;
@@ -1971,8 +1984,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"GEL1009 Patient ID",dataFromSheet);
+                    matchResult=matchDataFromMiTable(key,"GEL1009 Patient ID",dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
             }else if (sheetName.equalsIgnoreCase("New Referrals")){
                 if (dataFromSheet == null || dataFromSheet.isEmpty()) {
@@ -1993,8 +2009,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     Wait.seconds(3);
                     clickOnSaveAndCloseButton();
                     Wait.seconds(1);
-                    matchDataFromMiTable(key,"Referral ID",dataFromSheet);
+                    matchResult=matchDataFromMiTable(key,"Referral ID",dataFromSheet);
                     clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
                 }
             }
             return true;
@@ -2021,7 +2040,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             int colIndex = headers.indexOf(keyColName);
             Debugger.println("The index of key column in UI is " + colIndex);
             for (WebElement pageNum : paginateButtons) {
-                pageNum.click();
+//                pageNum.click();
+                seleniumLib.clickOnWebElement(pageNum);
                 Wait.seconds(5);
                 Debugger.println("Changing the result pages....");
                 List<WebElement> rowDataPath = driver.findElements(By.xpath(miPortalFileSubmissionPage.fileSubmissionTableRows));
@@ -2031,7 +2051,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
                     String keyCellData = keyCellPath.getText();
                     String newkey = null;
-                    if (key.contains("-")) {
+                    if (key.endsWith("-")) {
                         newkey = key.replace("-", "");
                     } else {
                         newkey = key;
@@ -2070,25 +2090,25 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                         }
                         // Matching the data row
                         for (String columnName : columnNameKeysFromSheet) {
-                            Debugger.println("Matching for column: " + columnName);
+//                            Debugger.println("Matching for column: " + columnName);
                             int colNum = headers.indexOf(columnName);
-                            Debugger.println("The index of the column in UI is:- " + colNum);
+//                            Debugger.println("The index of the column in UI is:- " + colNum);
                             WebElement dataCellPath = rowEle.findElement(By.xpath("./td[" + (colNum + 1) + "]"));
                             String dataCellValue = dataCellPath.getText();
-                            Debugger.println("The cell data of the column from UI is:- " + dataCellValue);
+//                            Debugger.println("The cell data of the column from UI is:- " + dataCellValue);
                             String cellValueFromSheet = mainKeyDataValue.get(columnName);
-                            Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
+//                            Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
                             if (!cellValueFromSheet.equalsIgnoreCase(dataCellValue)) {
                                 Debugger.println("The values are not matching, Actual: " + dataCellValue + " But Expected: " + cellValueFromSheet);
                                 SeleniumLib.takeAScreenShot("ValueMismatch.jpg");
                                 return false;
                             }
                         }
-                        Debugger.println("One row match success....");
+//                        Debugger.println("One row match success....");
                         return true;
                     }
                 }
-                Debugger.println("Page completed...");
+//                Debugger.println("Page completed...");
             }
             Debugger.println("No match found for key:" + key + " and data:" + dataFromSheet.get(key).toString());
             return false;
