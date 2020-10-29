@@ -642,4 +642,12 @@ public class MilHomePageSteps extends Pages {
     public void theUserClicksTheMIPortalLogOutButton() {
         miPortalHomePage.logOutFromMIPortal();
     }
+
+
+    @And("the user verifies the {string} data from MI table against {string}")
+    public void theUserVerifiesTheFileSubmissionsDataFromMITableAgainst(String sheetName,String fileName) {
+        boolean testResult = false;
+        testResult =  miPortalHomePage.validateDataInAllReports(fileName,sheetName);
+        Assert.assertTrue(testResult);
+    }
 }

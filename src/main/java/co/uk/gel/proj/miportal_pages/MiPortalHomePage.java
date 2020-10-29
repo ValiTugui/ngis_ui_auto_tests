@@ -4,15 +4,19 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.ExcelDataRead;
 import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -1774,5 +1778,336 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Exception from Logging out from MI...."+exp);
         }
     }
-}
+
+    @FindBy(xpath = "//div[contains(@class,'dataTables_paginate paging_simple_numbers')]/span/a")
+    List<WebElement> paginateButtons;
+
+
+    public boolean validateDataInAllReports(String fileName,String sheetName) {
+        try {
+            By miStage = null;
+            MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
+            MiOrderTrackingPage miOrderTrackingPage = new MiOrderTrackingPage(driver);
+            MiGlhSamplesPage miGlhSamplesPage = new MiGlhSamplesPage(driver);
+            MiPlaterSamplesPage miPlaterSamplesPage = new MiPlaterSamplesPage(driver);
+            MiPickListsPage miPickListsPage = new MiPickListsPage(driver);
+            MiSequencerSamplesPage miSequencerSamplesPage = new MiSequencerSamplesPage(driver);
+            MiNewReferralsPage miNewReferralsPage = new MiNewReferralsPage(driver);
+            Map<String,Map<String,String>> dataFromSheet = ExcelDataRead.readAllDataFromAllSheet(fileName,sheetName);
+            boolean matchResult=false;
+            if (sheetName.equalsIgnoreCase("File Submissions")) {
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key : dataKeyFromSheet) {
+                    String[] splitDate = key.split("T");
+                    String storeOnlyDate = splitDate[0];
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = simpleDateFormat.parse(storeOnlyDate);
+                    String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
+                    miPortalFileSubmissionPage.selectDropDownSearchColumn("Created");
+                    miPortalFileSubmissionPage.selectDropDownSearchOperator("equals");
+                    miPortalFileSubmissionPage.fillInTheFileSubmissionDate(createdDate);
+                    clickAddButton();
+                    miPortalFileSubmissionPage.selectDropDownSearchColumn("Status");
+                    miPortalFileSubmissionPage.selectDropDownSearchOperator("is");
+                    miPortalFileSubmissionPage.selectDropDownSearchValue("Valid");
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    selectValueInPagination("100");
+                    matchResult=matchDataFromMiTable(key,"Created", dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+            }else if (sheetName.equalsIgnoreCase("Order Tracking")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                Thread.sleep(5000);
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    String newkey=null;
+                    if(key.endsWith("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn("Patient NGIS ID");
+                    miOrderTrackingPage.selectOrderTrackingDropDownSearchOperator("is exactly");
+                    miOrderTrackingPage.enterOrderTrackingTextSearchValue(newkey);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    matchResult= matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+            }else if (sheetName.equalsIgnoreCase("GLH Samples")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    String newkey=null;
+                    if(key.endsWith("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miGlhSamplesPage.selectGlhDropDownSearchColumn("Patient NGIS ID");
+                    miGlhSamplesPage.selectGlhDropDownSearchOperator("is exactly");
+                    miGlhSamplesPage.fillValueInGLHSamplesSearchInputField(newkey);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    matchResult=matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+            }
+            else if (sheetName.equalsIgnoreCase("Plater Samples")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    String newkey=null;
+                    if(key.endsWith("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miPlaterSamplesPage.selectPlaterSamplesDropDownSearchColumn("Patient NGIS ID");
+                    miPlaterSamplesPage.selectPlaterSamplesDropDownSearchOperator("is exactly");
+                    miPlaterSamplesPage.enterPlaterSampleTextSearchValue(newkey);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    matchResult=matchDataFromMiTable(key,"GEL1001 Patient NGIS ID",dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+
+            }else if (sheetName.equalsIgnoreCase("Picklists")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    String newkey=null;
+                    if(key.endsWith("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miPickListsPage.selectPickListsDropDownSearchColumn("Patient NGIS ID");
+                    miPickListsPage.selectPickListsDropDownSearchOperator("is exactly");
+                    miPickListsPage.enterPickListsTextSearchValue(newkey);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    matchResult=matchDataFromMiTable(key,"GEL1008 Participant ID",dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+
+            }else if (sheetName.equalsIgnoreCase("Sequencer Samples")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    String newkey=null;
+                    if(key.endsWith("-")){
+                        newkey=key.replace("-","");
+                    }else{
+                        newkey=key;
+                    }
+                    miSequencerSamplesPage.selectSequencerSamplesDropDownSearchColumn("Patient NGIS ID");
+                    miSequencerSamplesPage.selectSequencerSamplesDropDownSearchOperator("is exactly");
+                    miSequencerSamplesPage.enterSequencerSamplesTextSearchValue(newkey);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    matchResult=matchDataFromMiTable(key,"GEL1009 Patient ID",dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+            }else if (sheetName.equalsIgnoreCase("New Referrals")){
+                if (dataFromSheet == null || dataFromSheet.isEmpty()) {
+                    Debugger.println("No data received from excel data sheet:" + sheetName);
+                    return false;
+                }
+                miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
+                Actions.clickElement(driver, driver.findElement(miStage));
+                Set<String> dataKeyFromSheet = dataFromSheet.keySet();
+                for (String key:dataKeyFromSheet){
+                    miNewReferralsPage.selectNewReferralsDropDownSearchColumn("Referral ID");
+                    miNewReferralsPage.selectNewReferralsDropDownSearchOperator("is");
+                    miNewReferralsPage.enterNewReferralsTextSearchValue(key);
+                    clickAddButton();
+                    clickSearchButton();
+                    clickSearchResultDisplayOptionsButton();
+                    clickShowAllOrHideAllButton("Show all");
+                    Wait.seconds(3);
+                    clickOnSaveAndCloseButton();
+                    Wait.seconds(1);
+                    matchResult=matchDataFromMiTable(key,"Referral ID",dataFromSheet);
+                    clickResetButton();
+                    if(!matchResult){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from readAllDataFromAllSheet: " + exp);
+            return false;
+        }
+    }
+
+    public boolean matchDataFromMiTable(String key, String keyColName, Map<String, Map<String, String>> dataFromSheet) {
+        try {
+            MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
+            if (!Wait.isElementDisplayed(driver, miPortalFileSubmissionPage.searchResults, 20)) {
+                Debugger.println("Search results table is not displayed");
+                SeleniumLib.takeAScreenShot("VerifyColumnData.jpg");
+                return false;
+            }
+            Wait.seconds(3);
+            List<String> headers = seleniumLib.scrollTableAndGetHeaders(miPortalFileSubmissionPage.fileSubmissionTableHead);
+            Debugger.println("The headers in the table are:-" + headers.toString());
+            int colIndex = headers.indexOf(keyColName);
+            Debugger.println("The index of key column in UI is " + colIndex);
+            for (WebElement pageNum : paginateButtons) {
+//                pageNum.click();
+                seleniumLib.clickOnWebElement(pageNum);
+                Wait.seconds(5);
+                List<WebElement> rowDataPath = driver.findElements(By.xpath(miPortalFileSubmissionPage.fileSubmissionTableRows));
+                for (WebElement rowEle : rowDataPath) {
+                    WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
+                    String keyCellData = keyCellPath.getText();
+                    String newkey = null;
+                    if (key.endsWith("-")) {
+                        newkey = key.replace("-", "");
+                    } else {
+                        newkey = key;
+                    }
+                    Debugger.println("The cell value is: " + keyCellData + " and the key is: " + key);
+                    if (!keyCellData.equalsIgnoreCase(newkey)) {
+                        continue;
+                    } else {
+                        Map<String, String> mainKeyDataValue = dataFromSheet.get(key);
+                        Debugger.println("The cell data " + mainKeyDataValue.toString());
+                        Set<String> columnNameKeysFromSheet = mainKeyDataValue.keySet();
+                        Debugger.println("The key set:" + columnNameKeysFromSheet);
+                        //Secondary check of data in a second column when the NGIS ID may be duplicate in Cancer cases
+                        String[] sampleIdColumnNames = {"GEL1001 Dispatched Sample Lsid", "GEL1004 Laboratory Sample ID", "GEL1008 Laboratory Sample ID", "GEL1009 Sample ID"};
+                        boolean rowChangeFlag = false;
+                        for (String sampleIDCol : sampleIdColumnNames) {
+                            if (columnNameKeysFromSheet.contains(sampleIDCol)) {
+                                Debugger.println("For repeated NGIS ID Cross check column: " + sampleIDCol);
+                                int columnNum = headers.indexOf(sampleIDCol);
+                                Debugger.println("The index of this column in UI is:- " + columnNum);
+                                WebElement cellPath = rowEle.findElement(By.xpath("./td[" + (columnNum + 1) + "]"));
+                                String cellValue = cellPath.getText();
+                                Debugger.println("The cell data of the column from UI is:- " + cellValue);
+                                String cellValueFromSheet = mainKeyDataValue.get(sampleIDCol);
+                                Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
+                                if (!cellValue.equalsIgnoreCase(cellValueFromSheet)) {
+                                    Debugger.println("The values are not matching, Actual: " + cellValue + " But Expected: " + cellValueFromSheet + "....check in next rows..");
+                                    rowChangeFlag = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (rowChangeFlag) {
+                            continue;
+                        }
+                        // Matching the data row
+                        for (String columnName : columnNameKeysFromSheet) {
+                            Debugger.println("Matching for column: " + columnName);
+                            int colNum = headers.indexOf(columnName);
+                            Debugger.println("The index of the column in UI is:- " + colNum);
+                            WebElement dataCellPath = rowEle.findElement(By.xpath("./td[" + (colNum + 1) + "]"));
+                            String dataCellValue = dataCellPath.getText();
+                            Debugger.println("The cell data of the column from UI is:- " + dataCellValue);
+                            String cellValueFromSheet = mainKeyDataValue.get(columnName);
+                            Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
+                            if (!cellValueFromSheet.equalsIgnoreCase(dataCellValue)) {
+                                Debugger.println("The values are not matching, Actual: " + dataCellValue + " But Expected: " + cellValueFromSheet);
+                                SeleniumLib.takeAScreenShot("ValueMismatch.jpg");
+                                return false;
+                            }
+                        }
+                        Debugger.println("Successfully verified the data for key:- "+key);
+                        return true;
+                    }
+                }
+            }
+            Debugger.println("No match found for key:" + key + " and data:" + dataFromSheet.get(key).toString());
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Exception from matching results.." + exp);
+            return false;
+        }
+    }
+
+}//end
 

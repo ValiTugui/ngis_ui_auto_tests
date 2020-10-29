@@ -26,6 +26,9 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//select[@id='new_referrals-search-col']")
     public WebElement newReferralsSearchColumn;
 
+    @FindBy(xpath = "//input[@id='new_referrals-search-value']")
+    public WebElement newReferralsSearchInput;
+
     By newReferralsTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
     String newReferralsTableRows = "//div[contains(@class,'scrollHeadInner')]/table/thead/tr";
 
@@ -108,6 +111,18 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from retrieving data." + exp);
             SeleniumLib.takeAScreenShot("UnableToRetrieveAllColumnData.jpg");
+            return false;
+        }
+    }
+    public boolean enterNewReferralsTextSearchValue(String value) {
+        try {
+
+            Wait.seconds(2);
+            seleniumLib.sendValue(newReferralsSearchInput,value);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalNewReferrals:newReferralsSearchInput: "+ exp);
+            SeleniumLib.takeAScreenShot("newReferralsSearchInput.jpg");
             return false;
         }
     }

@@ -37,6 +37,9 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     By sequencerSampleTableHead = By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th");
     String sequencerSampleTableRows = "//div[contains(@class,'scrollBody')]/table/tbody/tr";
 
+    @FindBy(xpath = "//input[@id='sequencer_samples-search-value']")
+    public WebElement sequencerSamplesSearchInput;
+
     public MiSequencerSamplesPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -163,6 +166,18 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from:getListOfColumnsInHeaderShowOrHidden:" + exp);
             SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
+            return false;
+        }
+    }
+    public boolean enterSequencerSamplesTextSearchValue(String value) {
+        try {
+
+            Wait.seconds(2);
+            seleniumLib.sendValue(sequencerSamplesSearchInput,value);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalSequencerSamples:sequencerSamplesSearchInput: "+ exp);
+            SeleniumLib.takeAScreenShot("sequencerSamplesSearchInput.jpg");
             return false;
         }
     }
