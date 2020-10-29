@@ -1809,7 +1809,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = simpleDateFormat.parse(storeOnlyDate);
                     String createdDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
-                    Debugger.println("The date for filter is: " + createdDate);
                     miPortalFileSubmissionPage.selectDropDownSearchColumn("Created");
                     miPortalFileSubmissionPage.selectDropDownSearchOperator("equals");
                     miPortalFileSubmissionPage.fillInTheFileSubmissionDate(createdDate);
@@ -2026,14 +2025,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean matchDataFromMiTable(String key, String keyColName, Map<String, Map<String, String>> dataFromSheet) {
         try {
             MiPortalFileSubmissionPage miPortalFileSubmissionPage = new MiPortalFileSubmissionPage(driver);
-
-            Debugger.println("Start reading table...............");
             if (!Wait.isElementDisplayed(driver, miPortalFileSubmissionPage.searchResults, 20)) {
                 Debugger.println("Search results table is not displayed");
                 SeleniumLib.takeAScreenShot("VerifyColumnData.jpg");
                 return false;
             }
-            Debugger.println("Waiting to read the headers....");
             Wait.seconds(3);
             List<String> headers = seleniumLib.scrollTableAndGetHeaders(miPortalFileSubmissionPage.fileSubmissionTableHead);
             Debugger.println("The headers in the table are:-" + headers.toString());
@@ -2043,11 +2039,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 //                pageNum.click();
                 seleniumLib.clickOnWebElement(pageNum);
                 Wait.seconds(5);
-                Debugger.println("Changing the result pages....");
                 List<WebElement> rowDataPath = driver.findElements(By.xpath(miPortalFileSubmissionPage.fileSubmissionTableRows));
-                Debugger.println("The number of row elements:" + rowDataPath.size());
                 for (WebElement rowEle : rowDataPath) {
-                    Debugger.println("Starting with a row......");
                     WebElement keyCellPath = rowEle.findElement(By.xpath("./td[" + (colIndex + 1) + "]"));
                     String keyCellData = keyCellPath.getText();
                     String newkey = null;
@@ -2058,7 +2051,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     }
                     Debugger.println("The cell value is: " + keyCellData + " and the key is: " + key);
                     if (!keyCellData.equalsIgnoreCase(newkey)) {
-                        Debugger.println("..........No.........");
                         continue;
                     } else {
                         Map<String, String> mainKeyDataValue = dataFromSheet.get(key);
@@ -2090,25 +2082,24 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                         }
                         // Matching the data row
                         for (String columnName : columnNameKeysFromSheet) {
-//                            Debugger.println("Matching for column: " + columnName);
+                            Debugger.println("Matching for column: " + columnName);
                             int colNum = headers.indexOf(columnName);
-//                            Debugger.println("The index of the column in UI is:- " + colNum);
+                            Debugger.println("The index of the column in UI is:- " + colNum);
                             WebElement dataCellPath = rowEle.findElement(By.xpath("./td[" + (colNum + 1) + "]"));
                             String dataCellValue = dataCellPath.getText();
-//                            Debugger.println("The cell data of the column from UI is:- " + dataCellValue);
+                            Debugger.println("The cell data of the column from UI is:- " + dataCellValue);
                             String cellValueFromSheet = mainKeyDataValue.get(columnName);
-//                            Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
+                            Debugger.println("The value of the column in Sheet is:- " + cellValueFromSheet);
                             if (!cellValueFromSheet.equalsIgnoreCase(dataCellValue)) {
                                 Debugger.println("The values are not matching, Actual: " + dataCellValue + " But Expected: " + cellValueFromSheet);
                                 SeleniumLib.takeAScreenShot("ValueMismatch.jpg");
                                 return false;
                             }
                         }
-//                        Debugger.println("One row match success....");
+                        Debugger.println("Successfully verified the data for key:- "+key);
                         return true;
                     }
                 }
-//                Debugger.println("Page completed...");
             }
             Debugger.println("No match found for key:" + key + " and data:" + dataFromSheet.get(key).toString());
             return false;
