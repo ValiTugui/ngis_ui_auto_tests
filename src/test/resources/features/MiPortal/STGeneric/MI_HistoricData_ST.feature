@@ -4,8 +4,7 @@
 @DQ_Report
 Feature: MIPORTAL ST - Historic Data
 
-  @NTS-5743
-#    @MI-LOGOUT
+  @NTS-5743 @MI-LOGOUT
   Scenario Outline: User is able to verify historic data
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
