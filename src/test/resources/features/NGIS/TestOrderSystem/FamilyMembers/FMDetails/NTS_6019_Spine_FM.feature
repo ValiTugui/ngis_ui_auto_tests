@@ -1,4 +1,6 @@
-@E2E_TEST
+#@FamilyMembersDetailsPage
+@03-TEST_ORDER
+@SYSTEM_TEST
 
 Feature: RD SPINE Family:NTS-6019:E2EUI-3133:- Find and select patient record (Family Member Spine / NGIS Record )
 
