@@ -33,4 +33,4 @@ Feature: TestOrder - Family Members Search Page 4- Test Checkbox Validation_1
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          |
+      | Family members | Test package | 2                | NHSNumber=2000004377:DOB=02-10-2011 | Full Sibling          |

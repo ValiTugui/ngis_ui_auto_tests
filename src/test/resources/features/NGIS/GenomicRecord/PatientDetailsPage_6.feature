@@ -94,7 +94,7 @@ Feature: GenomicRecord: Patient details page 6
 
     Examples:
       | stage1          | patient-search-type | NhsNumber  | DOB        |
-      | Patient details | NGIS                | 9449306141 | 08-04-2011 |
+      | Patient details | NGIS                | 2000004083 | 06-10-2011 |
 
   @NTS-6343
   Scenario Outline:
@@ -141,7 +141,7 @@ Feature: GenomicRecord: Patient details page 6
 
     Examples:
       | stage          | FamilyMemberDetails                 |
-      | Family members | NHSNumber=9449305552:DOB=20-09-2008 |
+      | Family members | NHSNumber=2000004326:DOB=08-10-2011 |
 
   @NTS-6343
   Scenario Outline:

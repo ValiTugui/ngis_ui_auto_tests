@@ -30,7 +30,7 @@ Feature: Family Members Details Page 4- Field Validation_4
 
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | AgeOfOnset   |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Age of onset |
+      | Family members | NHSNumber=2000003869:DOB=18-09-2011 | Full Sibling          | Age of onset |
 
   @NTS-4380 @Z-LOGOUT
 #    @E2EUI-859
@@ -114,4 +114,4 @@ Feature: Family Members Details Page 4- Field Validation_4
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
     Examples:
       | FamilyMember   | FamilyMemberDetails                 | RelationshipToProband | TargetedGenes    |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Father                | Craniosynostosis |
+      | Family members | NHSNumber=2000003850:DOB=28-09-2011 | Father                | Craniosynostosis |

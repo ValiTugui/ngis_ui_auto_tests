@@ -24,7 +24,7 @@ Feature: Family Members Details Page 6- Field Validation_6
 
     Examples:
       | stage          | FamilyMemberDetails                 | HospitalNumber      |
-      | Family members | NHSNumber=9449305552:DOB=20-09-2008 | 1234567890123456789 |
+      | Family members | NHSNumber=2000004326:DOB=08-10-2011 | 1234567890123456789 |
 
   @NTS-3474 @Z-LOGOUT
 #    @E2EUI-1876
@@ -86,7 +86,7 @@ Feature: Family Members Details Page 6- Field Validation_6
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=9449305307:DOB=14-02-2011 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
+      | NHSNumber=2000004261:DOB=10-10-2011 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
     When the user is navigated to a page with title Patient choice
     Then the "<Patient Choice>" stage is marked as Completed
     When the user submits the referral
@@ -99,4 +99,4 @@ Feature: Family Members Details Page 6- Field Validation_6
 
     Examples:
       | Requesting organisation | ordering_entity_name | NoOfParticipants | FamilyMembers  | Patient Choice | Message                      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                      | ClinicalQuestionDetails                | TestType                        | RecordedBy                            | PatientChoice                  | YesOption | IncompleteSection |
-      | Requesting organisation | Queen                | 2                | Family members | Patient choice | There is missing information | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | DiseaseStatus=Unknown:AgeOfOnset=01,02 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | Family members    |
+      | Requesting organisation | Queen                | 2                | Family members | Patient choice | There is missing information | NHSNumber=2000004261:DOB=10-10-2011 | Full Sibling          | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | DiseaseStatus=Unknown:AgeOfOnset=01,02 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | Family members    |

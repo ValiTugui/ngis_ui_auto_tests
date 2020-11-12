@@ -61,7 +61,7 @@ Feature: RD SPINE Family:NTS-6019:E2EUI-3133:- Find and select patient record (F
     And the "<FamilyMembers>" stage is marked as Completed
     Examples:
       | FamilyMemberDetails                 | RelationshipToProband | PatientType | DiseaseStatusDetails  | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | FamilyMembers  |
-      | NHSNumber=9449305471:DOB=30-07-1984 | Father                | NHS Spine   | DiseaseStatus=Unknown | 9449305471 | 30-07-1984 | Patient details | Requesting organisation | Test package | 2              | Family members |
+      | NHSNumber=2000003699:DOB=02-02-1984 | Father                | NHS Spine   | DiseaseStatus=Unknown | 2000003699 | 02-02-1984 | Patient details | Requesting organisation | Test package | 2              | Family members |
 
   @NTS-6019 @Z-LOGOUT
   Scenario Outline:NTS-6019:E2EUI-3133:Scenario-2:Find and select patient record (Family Member NGIS Record )
@@ -119,4 +119,4 @@ Feature: RD SPINE Family:NTS-6019:E2EUI-3133:- Find and select patient record (F
     And the "<FamilyMembers>" stage is marked as Completed
     Examples:
       | FamilyMemberDetails                 | RelationshipToProband | PatientType | DiseaseStatusDetails  | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | FamilyMembers  |
-      | NHSNumber=9449303665:DOB=15-09-2000 | Father                | NGIS        | DiseaseStatus=Unknown | 9449303665 | 15-09-2000 | Patient details | Requesting organisation | Test package | 2              | Family members |
+      | NHSNumber=2000003842:DOB=13-05-2001 | Father                | NGIS        | DiseaseStatus=Unknown | 2000003842 | 13-05-2001 | Patient details | Requesting organisation | Test package | 2              | Family members |

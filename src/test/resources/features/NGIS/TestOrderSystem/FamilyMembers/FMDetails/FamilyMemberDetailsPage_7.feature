@@ -26,9 +26,9 @@ Feature: Family Members Details Page 7- Post Code validation_1
 
     Examples:
       | FamilyMember   | FamilyMemberDetails                 | Postcode | RelationshipToProband | PostcodeFormat |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | AB12CD   | Full Sibling          | AB1 2CD        |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | AB1 2CD  | Full Sibling          | AB1 2CD        |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | AB1  2CD | Full Sibling          | AB1 2CD        |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | ab12cd   | Full Sibling          | ab1 2cd        |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | ab1 2cd  | Full Sibling          | ab1 2cd        |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | ab1  2cd | Full Sibling          | ab1 2cd        |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB12CD   | Full Sibling          | AB1 2CD        |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB1 2CD  | Full Sibling          | AB1 2CD        |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB1  2CD | Full Sibling          | AB1 2CD        |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab12cd   | Full Sibling          | ab1 2cd        |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab1 2cd  | Full Sibling          | ab1 2cd        |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab1  2cd | Full Sibling          | ab1 2cd        |

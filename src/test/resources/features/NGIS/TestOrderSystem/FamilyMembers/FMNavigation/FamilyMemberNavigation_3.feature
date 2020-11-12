@@ -117,8 +117,8 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
 
     Examples:
       | TestStatus       | color   | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
-      | Being tested     | #e5f6f5 | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
-      | Not being tested | #fdf3e5 | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
+      | Being tested     | #e5f6f5 | Family members | NHSNumber=2000004296:DOB=24-09-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+      | Not being tested | #fdf3e5 | Family members | NHSNumber=2000004768:DOB=02-08-1968 | Maternal Aunt         | DiseaseStatus=Unknown    |
 ##Commented as some FIX required for this
 #  @NTS-3339 @E2EUI-1791 @Z-LOGOUT
 #  Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers

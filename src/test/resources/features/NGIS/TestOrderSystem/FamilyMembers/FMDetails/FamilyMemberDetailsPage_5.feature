@@ -8,7 +8,7 @@ Feature: Family Members Details Page 5- Field Validation_5
 #  @E2EUI-1694  @scenario1
   Scenario: NTS-4744: Referral create as a Proband
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=9449306206:DOB=06-05-2011 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=2000003753:DOB=12-09-2011 |
     Then the user is navigated to a page with title Add a requesting organisation
 
   @NTS-4744 @Z-LOGOUT
@@ -40,7 +40,7 @@ Feature: Family Members Details Page 5- Field Validation_5
     ##Note : Provide the FamilyMemberDetails as same as used in scenario 1 search
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
-      | Family members | NHSNumber=9449306206:DOB=06-05-2011 | Father                | DiseaseStatus=Unaffected |
+      | Family members | NHSNumber=2000003699:DOB=02-02-1984 | Father                | DiseaseStatus=Unaffected |
 
   @NTS-4744 @Z-LOGOUT
 #    @E2EUI-1694 @scenario3
@@ -58,7 +58,7 @@ Feature: Family Members Details Page 5- Field Validation_5
 
     Examples:
       | patient-search-type | NHSNumber  | DOB        |
-      | NGIS                | 9449306206 | 06-05-2011 |
+      | NGIS                | 2000003907 | 20-09-2011 |
 
   @NTS-4052 @Z-LOGOUT
 #    @E2EUI-1837 @scenario_2
@@ -76,7 +76,7 @@ Feature: Family Members Details Page 5- Field Validation_5
     Then the user does not see an error message on the page
     Examples:
       | patient-search-type | FamilyMembers  | NhsNumber  | DOB        | error_message                  | DOB2       |
-      | NGIS                | Family members | 9449305935 | 20-13-2000 | Enter a month between 1 and 12 | 19-03-2000 |
+      | NGIS                | Family members | 2000003834 | 20-13-2000 | Enter a month between 1 and 12 | 10-05-2001 |
 
   @NTS-4054 @Z-LOGOUT
 #    @E2EUI-1882
@@ -105,7 +105,7 @@ Feature: Family Members Details Page 5- Field Validation_5
       | Relationship to proband | #dd2509 |
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 |
-      | Family members | Test package | 2                | NHSNumber=9449305919:DOB=24-07-2011 |
+      | Family members | Test package | 2                | NHSNumber=2000004083:DOB=06-10-2011 |
 
   @NTS-4054 @Z-LOGOUT
 #    @E2EUI-1882 @scenario_2
