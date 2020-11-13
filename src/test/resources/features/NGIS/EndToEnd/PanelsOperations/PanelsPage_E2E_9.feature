@@ -85,7 +85,7 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
     ##Scenario-2  referral for existing NGIS Patient
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-2: CSV-Verify the payload by adding additional panel to suggested panels for existing NGIS patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=2000003117:DOB=13-05-1994 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -164,7 +164,7 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
     ##Scenario-3  SPINE Patient Note: on running once the SPINE patient will get converted to NGIS patient
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-3: CSV-Verify the payload by adding additional panel to suggested panels for SPINE patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449305986:DOB=08-09-1994 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000003117:DOB=13-05-1994 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed

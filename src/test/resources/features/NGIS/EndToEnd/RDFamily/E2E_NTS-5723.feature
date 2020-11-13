@@ -81,7 +81,7 @@ Feature: RD Duo Family : Genetic sex does not match sex as reported
      ##Patient Choice - Family Members
     When the user edits patient choice for "<TwoParticipant>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      | ChildAssent | ParentSignature |
-      | NHSNumber=9449305307:DOB=14-02-2011 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |             |                 |
+      | NHSNumber=2000004377:DOB=02-10-2011 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |             |                 |
     Then the "<PatientChoiceStage>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
@@ -104,4 +104,4 @@ Feature: RD Duo Family : Genetic sex does not match sex as reported
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMemberDetails                 | DiseaseStatusDetails                                               | RelationshipToProband | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | NHSNumber=9449306621:DOB=09-05-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Early balding | Maternal Aunt         | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
+      | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | NHSNumber=2000004377:DOB=02-10-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Early balding | Maternal Aunt         | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
