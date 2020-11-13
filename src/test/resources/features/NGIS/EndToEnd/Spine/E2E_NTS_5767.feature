@@ -5,7 +5,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
   Scenario Outline:NTS-5767:Submit a RD Referral for Spine Patient and add a Family Member who is an NGIS patient and having RD referral and verify the payload.
      ##Create a RD referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=2000003753:DOB=12-09-2011:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=2000003753:DOB=12-09-2011 |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
