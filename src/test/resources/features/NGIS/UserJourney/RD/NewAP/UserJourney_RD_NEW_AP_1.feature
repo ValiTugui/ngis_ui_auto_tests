@@ -8,12 +8,9 @@ Feature: UserJourney_RD_NEW_AP_1 - UC14 - E2EUI-1310
   Scenario Outline: NTS-4613:Use Case#14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

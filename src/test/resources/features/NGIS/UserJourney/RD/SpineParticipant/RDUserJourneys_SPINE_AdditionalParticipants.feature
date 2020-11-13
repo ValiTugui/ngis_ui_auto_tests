@@ -20,8 +20,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -98,8 +99,8 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the referral status is set to "Submitted"
 
     Examples:
-      | NhsNumber  | DOB        | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
-      | 9449303673 | 16-07-2010 | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | 2000001807 | 20-08-2010 | Patient details |Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2012:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4602 @Z-LOGOUT 
 #    @E2EUI-1451 @UseCase15
@@ -115,12 +116,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Wye Valley NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -198,7 +196,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
 
     Examples:
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                         | DiseaseStatusDetails                                            | Status           | PatientChoiceStage | ClinicianName                         | Panels | searchPanels | Pedigree |
-      | 9449308225 | 14-12-1998 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
+      | 2000002455 | 09-03-1998 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
   @NTS-4605 @Z-LOGOUT 
 #    @E2EUI-1143 @UseCase16
@@ -214,12 +212,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -292,14 +287,14 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=22-03-2001 |
+      | NHSNumber=NA:DOB=22-03-1998 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
     Examples:
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
-      | 9449306656 | 29-04-1998 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=22-03-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=02,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | 2000004474 | 02-06-2001 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=22-03-1998:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=02,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4596 @Z-LOGOUT 
 #    @E2EUI-966 @UseCase17
@@ -315,12 +310,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -399,7 +391,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
 
     Examples:
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree | searchPanels | PrintFormsStage |
-      | 9449306400 | 07-03-1994 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    | Print forms     |
+      | 2000003117 | 13-05-1994 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-1996:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    | Print forms     |
 
   @NTS-4599 @Z-LOGOUT 
 #    @E2EUI-1129 @UseCase18
@@ -415,12 +407,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -497,7 +486,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
 
     Examples:
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
-      | 9449306338 | 22-03-1997 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | 2000004172 | 14-05-2001 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2003:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4585 @Z-LOGOUT 
 #    @E2EUI-1414 @UseCase19
@@ -514,12 +503,9 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     When a new patient referral is created with associated tests in Test Order System online service
 
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -594,11 +580,11 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=14-04-2011 |
+      | NHSNumber=NA:DOB=14-04-2013 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
     Examples:
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree | searchPanels | PrintFormsStage |
-      | 9449306427 | 11-12-2010 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Catar,Crani  | Print forms     |
+      | 2000004253 | 04-10-2011 | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2013:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Catar,Crani  | Print forms     |

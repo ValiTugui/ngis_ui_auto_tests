@@ -59,7 +59,7 @@ Feature: Test Directory: ClinicalIndicationSelect_3
 
     Examples:
       | PatientDetails  | FamilyMember   | TestPackage  | ClinicalQuestions  | RelationshipToProband | FamilyMemberDetails                 |
-      | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=9449305307:DOB=14-02-2011 |
+      | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=2000003869:DOB=18-09-2011 |
 
   @NTS-4701 @Z-LOGOUT
 #    @E2EUI-1645

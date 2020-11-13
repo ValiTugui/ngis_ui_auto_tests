@@ -37,7 +37,7 @@ Feature: Family Members Details Page 1- Field Validation_1
 
     Examples:
       | stage          | FamilyMemberDetails                 |
-      | Family members | NHSNumber=9449305552:DOB=20-09-2008 |
+      | Family members | NHSNumber=2000003745:DOB=12-10-2011 |
 
   @NTS-3300 @Z-LOGOUT
 #    @E2EUI-1349
@@ -65,7 +65,7 @@ Feature: Family Members Details Page 1- Field Validation_1
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Maternal Aunt         |
+      | Family members | NHSNumber=2000003796:DOB=12-05-2001 | Maternal Aunt         |
 
   @NTS-3298 @Z-LOGOUT
 #    @E2EUI-1369
@@ -99,7 +99,7 @@ Feature: Family Members Details Page 1- Field Validation_1
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Maternal Aunt         |
+      | Family members | NHSNumber=2000003753:DOB=12-09-2011 | Maternal Aunt         |
 
   @NTS-3297 @Z-LOGOUT
 #    @E2EUI-1012
@@ -128,4 +128,4 @@ Feature: Family Members Details Page 1- Field Validation_1
     And the referral submit button is not enabled
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
+      | Family members | NHSNumber=2000000754:DOB=11-01-1975 | Full Sibling          |

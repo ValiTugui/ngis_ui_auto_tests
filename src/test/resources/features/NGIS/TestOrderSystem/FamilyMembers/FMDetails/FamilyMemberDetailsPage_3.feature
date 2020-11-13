@@ -42,4 +42,4 @@ Feature: Family Members Details Page 3- Field Validation_3
 
     Examples:
       | FamilyMember   | ClearFields                                          | FamilyMemberDetails                 |
-      | Family members | Gender,Life status,Ethnicity,Relationship to proband | NHSNumber=9449305307:DOB=14-02-2011 |
+      | Family members | Gender,Life status,Ethnicity,Relationship to proband | NHSNumber=2000003877:DOB=19-09-2011 |

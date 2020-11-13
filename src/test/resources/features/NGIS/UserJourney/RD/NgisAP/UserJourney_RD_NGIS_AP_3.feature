@@ -7,13 +7,10 @@ Feature: UserJourney_RD_NGIS_AP_3 - UC18 - E2EUI-1210
 #     @E2EUI-1210 @UseCase18
   Scenario Outline: NTS-4617: Use Case#18: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449306680:DOB=14-06-2011 |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000000827:DOB=28-08-2011 |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -91,5 +88,5 @@ Feature: UserJourney_RD_NGIS_AP_3 - UC18 - E2EUI-1210
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                           | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | FamilyMemberStage | Status           | PatientChoiceStage | Panels | searchPanels                                                          | Pedigree | RecordedBy                            |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Midlands,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Family members    | Not being tested | Patient choice     | Panels | Congenital hypothyroidism,Cataracts,Growth failure in early childhood | Pedigree | ClinicianName=John:HospitalNumber=123 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                           | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | FamilyMemberStage | Status           | PatientChoiceStage | Panels |  Pedigree | RecordedBy                            |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Midlands,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-2009:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Family members    | Not being tested | Patient choice     | Panels |  Pedigree | ClinicianName=John:HospitalNumber=123 |

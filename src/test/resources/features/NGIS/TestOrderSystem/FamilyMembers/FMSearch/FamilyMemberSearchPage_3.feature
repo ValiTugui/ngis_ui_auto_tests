@@ -8,7 +8,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
 #    @E2EUI-1947
   Scenario Outline: NTS-3227: Verify that re-adding a patient who is already included in referral via Yes option displays error message
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310327:DOB=16-12-1970:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000001173:DOB=18-03-1967:Gender=Male |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the YES button is selected by default on family member search
@@ -17,7 +17,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     ##TestData: NHSNumber and DOB same as the patient used for searching in Given step
     Examples:
       | stage          | FamilyMemberDetails                 | ErrorMessage1                                      | ErrorMessage2                                       |
-      | Family members | NHSNumber=9449310327:DOB=16-12-1970 | That person has already been added to the referral | Check that all details have been entered correctly. |
+      | Family members | NHSNumber=2000001173:DOB=18-03-1967 | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @NTS-3227 @Z-LOGOUT
 #    @E2EUI-1947
@@ -27,8 +27,8 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     Then the message should display as "<ErrorMessage1>" and "<ErrorMessage2>" along with search string
     ##TestData : Details of same patient used for searching in Given step
     Examples:
-      | SearchDetails                                                      | ErrorMessage1                                      | ErrorMessage2                                       |
-      | DOB=16-12-1970:FirstName=MARY:LastName=O'MY GOODNESS:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
+      | SearchDetails                                                            | ErrorMessage1                                      | ErrorMessage2                                       |
+      | DOB=18-03-1967:FirstName=MADELINE:LastName=LENNON GOODNESS:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
@@ -48,5 +48,5 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
 
     Examples:
       | stage          | SearchDetails                                                                      | ResultMessage          | PostcodeFormat |
-      | Family members | DOB=20-09-2008:FirstName=OCTAVIA:LastName=CHISLETT:Gender=Female:Postcode=KT19 0ST | 1 patient record found | KT19 0ST       |
-      | Family members | DOB=20-09-2008:FirstName=OCTAVIA:LastName=CHISLETT:Gender=Female:Postcode=kt19 0st | 1 patient record found | KT19 0ST       |
+      | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=LE17 2RJ    | 1 patient record found | LE17 2RJ      |
+      | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=le17 2rj    | 1 patient record found | LE17 2RJ       |

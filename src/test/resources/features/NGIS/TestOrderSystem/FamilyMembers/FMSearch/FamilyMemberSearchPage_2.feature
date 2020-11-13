@@ -23,10 +23,10 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | Enter a year after 1900        | #dd2509 |
     And the user will see error messages highlighted in red colour when search with the given details
       | SearchDetails                       | message                 | color   |
-      | NHSNumber=9449310351:DOB=11-11-1111 | Enter a year after 1900 | #dd2509 |
+      | NHSNumber=2000000827:DOB=11-11-1111 | Enter a year after 1900 | #dd2509 |
     Examples:
       | stage          | SearchDetails                       |
-      | Family members | NHSNumber=9449310351:DOB=00-00-0000 |
+      | Family members | NHSNumber=2000000827:DOB=00-00-0000 |
 
   @NTS-3328
 #    @E2EUI-1016
@@ -73,7 +73,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
 
     Examples:
       | stage          | SearchDetails                       | ResultMessage          |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
+      | Family members | NHSNumber=2000000827:DOB=28-08-2011 | 1 patient record found |
 
   @NTS-3328
 #    @E2EUI-1493
@@ -88,7 +88,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
 
     Examples:
       | stage          | SearchDetails                                                                   | ResultMessage          |
-      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=KT18 7BW | 1 patient record found |
+      | Family members | DOB=02-09-2011:FirstName=CHELSEA:LastName=CRAM:Gender=Male:Postcode=ST20 6LH    | 1 patient record found |
 
   @NTS-3328
 #    @E2EUI-1011
@@ -121,7 +121,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
 
     Examples:
       | stage          | SearchDetails                       | ResultMessage          |
-      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
+      | Family members | NHSNumber=2000000827:DOB=28-08-2011 | 1 patient record found |
 
   @NTS-3328
 #    @E2EUI-851
@@ -160,9 +160,9 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     And the user will see error messages highlighted in red colour when search with the given details
       | SearchDetails                       | message                                           | color   |
       | NHSNumber=12345                     | Please enter your full NHS Number (10 characters) | #dd2509 |
-      | NHSNumber=9449305307:DOB=ab-10-1975 | Enter a day                                       | #dd2509 |
-      | NHSNumber=9449305307:DOB=10-bc-1975 | Enter a month                                     | #dd2509 |
-      | NHSNumber=9449305307:DOB=12-10-abcd | Enter a year                                      | #dd2509 |
+      | NHSNumber=2000000827:DOB=ab-10-1975 | Enter a day                                       | #dd2509 |
+      | NHSNumber=2000000827:DOB=10-bc-1975 | Enter a month                                     | #dd2509 |
+      | NHSNumber=2000000827:DOB=12-10-abcd | Enter a year                                      | #dd2509 |
 
     Examples:
       | stage          |

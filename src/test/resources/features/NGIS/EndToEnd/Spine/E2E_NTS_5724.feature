@@ -5,12 +5,10 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
   Scenario Outline:NTS-5724:Proband -spine with a family member (NGIS), the FM is a proband in another referral whose having a family member who was a part of cancer referral   ##Create a RD referral for a patient
  #Create a cancer referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=4553534533:DOB=01-02-1990:Ethnicity=A - White - British |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=2000001378:DOB=27-04-1990 |
     ##Requesting Organisation
     And the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button
@@ -21,7 +19,7 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     Then the user clicks the Log out button
     ##Create a RD referral for 2 members in which the additional family member should be the Proband of the above cancer referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=5647546374:DOB=04-03-2014:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=2000006035:DOB=20-11-2016 |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails1>" stage is marked as Completed
@@ -65,13 +63,13 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     ###Patient Search Page Title
     When the user is navigated to a page with title Find your patient
-    And the user types in different valid details in the NHS number "9449305978" and DOB "09-04-2010" fields
+    And the user types in different valid details in the NHS number "2000003745" and DOB "12-10-2011" fields
     And the user clicks the Search button
     ###Check if NGIS and convert to SPINE from NEAT
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
      ##Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=9449305978:DOB=09-04-2010:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=2000003745:DOB=12-10-2011:Ethnicity=A - White - British |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails2>" stage is marked as Completed
@@ -138,7 +136,7 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
       | FamilyMemberDetails                 | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=5647546374:DOB=04-03-2014 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=2000006035:DOB=20-11-2016 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
@@ -160,4 +158,4 @@ Feature:Proband -spine with a family member (NGIS), the FM is a proband in anoth
     ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE IN END TO END FRAMEWORK
         Examples:
       | PatientDetails | TestPackage | PatientDetails1 | RequestingOrganisation1 | TwoParticipant1 | TestPackage1 | FamilyMembers1 | FamilyMemberDetails1              | RelationshipToProband1 | DiseaseStatusDetails1                                                                                     | PatientDetails2 | RequestingOrganisation2 | TwoParticipant2 | TestPackage2 | ResponsibleClinicianDetails                          | ResponsibleClinician | ClinicalQuestionDetails                                                                                   | ClinicalQuestion | Notes | FamilyMembers2 | FamilyMemberDetails2              | RelationshipToProband2 | DiseaseStatusDetails2                                                                                     | PatientChoice | searchPanels | Panels | Pedigree | PrintForms |
-      | Patient details| Test package|Patient details  |Requesting organisation  |2                |Test package  |Family members  |NHSNumber=4553534533:DOB=01-02-1990|Father                  |DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY|Patient details  |Requesting organisation  |2                |Test package  |FirstName=George:LastName=Williams:Department=Cleaning|Responsible clinician |DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XX|Clinical questions|Notes  |Family members  |NHSNumber=5647546374:DOB=04-03-2014|Full Sibling            |DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY|Patient choice |Amyloidosis   |Panels  |Pedigree  |Print forms |
+      | Patient details| Test package|Patient details  |Requesting organisation  |2                |Test package  |Family members  |NHSNumber=2000001378:DOB=27-04-1990|Father                  |DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY|Patient details  |Requesting organisation  |2                |Test package  |FirstName=George:LastName=Williams:Department=Cleaning|Responsible clinician |DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XX|Clinical questions|Notes  |Family members  |NHSNumber=2000006035:DOB=20-11-2016|Full Sibling            |DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY|Patient choice |Amyloidosis   |Panels  |Pedigree  |Print forms |

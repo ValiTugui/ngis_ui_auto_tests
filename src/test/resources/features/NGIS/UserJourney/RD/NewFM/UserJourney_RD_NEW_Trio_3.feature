@@ -9,12 +9,9 @@ Feature: UserJourney_RD_NEW_Trio_3 - UC13 - E2EUI-1119
   Scenario Outline: NTS:4572: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/Non NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-05-1997:Gender=Male |
-    ###Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

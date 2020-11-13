@@ -101,15 +101,15 @@ Feature: Family Members Search Page - Field Validation_1
 
     Examples: of alphaNumeric
       | stage          | patient-search-type | NhsNumber  | DOB        | error_message |
-      | Family members | NGIS                | 9449305099 | ab-02-2011 | Enter a day   |
-      | Family members | NGIS                | 9449305099 | 22-!!-2011 | Enter a month |
-      | Family members | NGIS                | 9449305099 | 01-02-abcd | Enter a year  |
+      | Family members | NGIS                | 2000000827 | ab-02-2011 | Enter a day   |
+      | Family members | NGIS                | 2000000827 | 22-!!-2011 | Enter a month |
+      | Family members | NGIS                | 2000000827 | 01-02-abcd | Enter a year  |
 
     Examples: of invalid, day, month and year
       | stage          | patient-search-type | NhsNumber  | DOB        | error_message                  |
-      | Family members | NGIS                | 9449305099 | 32-03-2011 | Enter a day between 1 and 31   |
-      | Family members | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12 |
-      | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year after 1900       |
+      | Family members | NGIS                | 2000000827 | 32-03-2011 | Enter a day between 1 and 31   |
+      | Family members | NGIS                | 2000000827 | 10-28-2011 | Enter a month between 1 and 12 |
+      | Family members | NGIS                | 2000000827 | 14-11-1800 | Enter a year after 1900       |
 
 
   @NTS-4722 @Z-LOGOUT

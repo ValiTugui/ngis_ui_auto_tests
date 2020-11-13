@@ -6,7 +6,7 @@ Feature: RDReferral:NTS-4950:  CSV-E2E- CSV process for a referral which has add
     #@E2EUI-2686
   Scenario Outline: NTS-4950 : CSV-E2E- CSV process for a referral which has additional 10 plus panels
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449305250:DOB=06-12-1988 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=2000003699:DOB=02-02-1984 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button

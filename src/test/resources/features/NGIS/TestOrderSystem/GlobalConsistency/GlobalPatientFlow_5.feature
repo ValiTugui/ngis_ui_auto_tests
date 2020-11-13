@@ -62,4 +62,4 @@ Feature: GlobalConsistency:Global Patient Flow 5 - Global Patient Information Ba
     And the referral submit button is not enabled
     Examples:
       | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails     | Print forms |
-      | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Unaffected | Print forms |
+      | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=2000004083:DOB=06-10-2011:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Unaffected | Print forms |

@@ -8,12 +8,9 @@ Feature: UserJourney_RD_NEW_Proband_5 - UC03 - E2EUI-1032
   Scenario Outline: NTS-4606: Use Case#03: Create Referral for Proband Only + Edit Data + Patient Choice Yes - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-05-2007:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Croydon Health Services NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
