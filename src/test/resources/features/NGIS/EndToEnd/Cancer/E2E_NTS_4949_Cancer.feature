@@ -74,13 +74,9 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    And the user clicks the Cancel referral link
-    And the user selects the cancellation reason "An uneditable mistake was made in creation (“Mark in error”)" from the modal
-    And the user submits the cancellation
-    Then the message should display as "<RevokeMessage>"
 
      ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | Pedigree | searchPanels | RevokeMessage                                                              |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree | Catar,Crani  | This referral has been cancelled so further changes might not take effect. |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | Pedigree | searchPanels |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree | Catar,Crani  |
