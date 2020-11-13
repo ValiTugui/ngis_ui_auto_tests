@@ -559,7 +559,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
                 Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
+                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification.jpg");
+                Actions.scrollToTop(driver);
+                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification1.jpg");
                 return false;
             }
             String successMsg = Actions.getText(successNotification);

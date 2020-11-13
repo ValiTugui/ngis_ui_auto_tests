@@ -220,7 +220,6 @@ public class ReferralSteps extends Pages {
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);

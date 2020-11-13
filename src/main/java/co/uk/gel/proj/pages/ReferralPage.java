@@ -52,7 +52,7 @@ public class ReferralPage<check> {
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
 
-    @FindBy(css = "h1[class*='page-title']")
+    @FindBy(xpath = "//h1[contains(@class,'css')]")
     public WebElement pageTitle;
 
     @FindBy(css = "button[class*='referral-navigation__continue']")
@@ -602,9 +602,9 @@ public class ReferralPage<check> {
             if (Wait.isElementDisplayed(driver, pageTitle, 30)) {
                 return seleniumLib.getText(pageTitle);
             }
-            return null;
+            return "Page Title element could not locate.";
         } catch (Exception exp) {
-            return null;
+            return "Page Title Could not Read.";
         }
     }
 
