@@ -45,7 +45,7 @@ public class TumoursPage {
     @FindBy(xpath = "//input[@id='pathologyReportId']")
     public WebElement pathologyReportId;
 
-    @FindBy(css = "h1[class*='page-title']")
+    @FindBy(xpath = "//h1[contains(@class,'css')]")
     public WebElement AddATumourPageTitle;
 
     @FindBy(css = "p[class*='subtitle']")

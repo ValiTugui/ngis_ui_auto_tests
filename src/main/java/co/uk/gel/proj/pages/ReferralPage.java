@@ -52,7 +52,7 @@ public class ReferralPage<check> {
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
 
-    @FindBy(css = "h1[class*='page-title']")
+    @FindBy(xpath = "//h1[contains(@class,'page-title')]|//h1[contains(@class,'css')]")
     public WebElement pageTitle;
 
     @FindBy(css = "button[class*='referral-navigation__continue']")
