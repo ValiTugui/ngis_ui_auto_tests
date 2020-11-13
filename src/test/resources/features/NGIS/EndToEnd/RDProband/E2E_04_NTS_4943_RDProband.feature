@@ -6,7 +6,7 @@ Feature: RDProband:NTS-4943:E2E04:Create Referrals for SPINE Patient_E2E
     #@E2EUI-2658
   Scenario Outline: NTS-4943: Use Case_E2E#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=2000003125:DOB=18-07-1977 |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button

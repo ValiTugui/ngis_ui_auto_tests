@@ -5,7 +5,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
   Scenario Outline:NTS-5767:Submit a RD Referral for Spine Patient and add a Family Member who is an NGIS patient and having RD referral and verify the payload.
      ##Create a RD referral for a patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449308896:DOB=03-04-2011:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=2000003753:DOB=12-09-2011:Ethnicity=A - White - British |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
@@ -29,7 +29,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
     Then the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool
     ###Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=9449304513:DOB=23-10-1934:Ethnicity=A - White - British |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=2000000584:DOB=06-06-1937:Ethnicity=A - White - British |
     ###Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails1>" stage is marked as Completed
@@ -97,7 +97,7 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
       | FamilyMemberDetails                 | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=9449308896:DOB=03-04-2011 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=2000003753:DOB=12-09-2011 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
@@ -121,4 +121,4 @@ Feature:Submit a RD Referral for Spine Patient and add a Family Member who is an
 
     Examples:
       | PatientDetails  | NhsNumber1 | DOB1       | PatientDetails1 | RequestingOrganisation1 | TestPackage1 | TwoParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                            | ClinicalQuestion   | ClinicalQuestionDetails                                                                                       | Notes | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                                        | PatientChoice  | Panels | Pedigree | searchPanels |
-      | Patient details | 9449304513 | 23-10-1934 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=George:LastName=Williams:Department=Cleaning | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Female:KaryotypicSex=XX | Notes | Family members | NHSNumber=9449308896:DOB=03-04-2011 | Son                   | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  |
+      | Patient details | 2000000584 | 06-06-1937 | Patient details | Requesting organisation | Test package | 2              | Responsible clinician | FirstName=George:LastName=Williams:Department=Cleaning | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Female:KaryotypicSex=XX | Notes | Family members | NHSNumber=2000003753:DOB=12-09-2011 | Son                   | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Patient choice | Panels | Pedigree | Amyloidosis  |
