@@ -54,8 +54,8 @@ public class AppConfig {
         String configFileName = "%s-appconfig.properties";
         String current_environment = System.getProperty("TestEnvironment");
         System.out.println("TestEnvironment: " + current_environment);
-        if (current_environment.equalsIgnoreCase("UAT") ||
-                current_environment.equalsIgnoreCase("Beta")) {
+        if(current_environment.equalsIgnoreCase("UAT") ||
+        current_environment.equalsIgnoreCase("Beta")){
             snapshotRequired = true;
         }
         configFileName = String.format(configFileName, current_environment);
@@ -69,9 +69,8 @@ public class AppConfig {
                 properties.load(resourceStream);
             }
 
-        } catch (IOException exp) {
-            Debugger.println("Exception :"+exp);
-            exp.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
@@ -98,14 +97,14 @@ public class AppConfig {
         panel_app_url = properties.getProperty("PANEL_APP_URL");
         mi_portal_test_data_file = properties.getProperty("MI_PORTAL_TEST_DATA_FILE");
 
-        BASE_URL_TS = properties.getProperty("BASE_URL_TS");
-        BASE_URL_TO = properties.getProperty("BASE_URL_TO");
-        BASE_URL_PA = properties.getProperty("BASE_URL_PA");
-        BASE_URL_PP = properties.getProperty("BASE_URL_PP");
-        BASE_URL_DS = properties.getProperty("BASE_URL_DS");
+        BASE_URL_TS =   properties.getProperty("BASE_URL_TS");
+        BASE_URL_TO =  properties.getProperty("BASE_URL_TO");
+        BASE_URL_PA =  properties.getProperty("BASE_URL_PA");
+        BASE_URL_PP =  properties.getProperty("BASE_URL_PP");
+        BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
 
         NEAT_TOOL = properties.getProperty("NEAT_URL");
-        KIBANA_TOOL = properties.getProperty("KIBANA_URL");
+        KIBANA_TOOL=properties.getProperty("KIBANA_URL");
 
         DataDog_TOOL = properties.getProperty("DATADOG_URL");
         DataDog_USERNAME = properties.getProperty("USERNAME_DATADOG");
@@ -121,7 +120,7 @@ public class AppConfig {
     }
 
     public static String getKibanaUrl() {
-        if (KIBANA_TOOL == null || KIBANA_TOOL.isEmpty()) {
+        if (KIBANA_TOOL == null||KIBANA_TOOL.isEmpty()) {
             loadAppConfig();
         }
         return KIBANA_TOOL;
@@ -211,7 +210,6 @@ public class AppConfig {
         NGIS_Version_Number = properties.getProperty("NGIS_Version_Number");
         return NGIS_Version_Number;
     }
-
     public static String getSearchTerm() {
         searchTerm = properties.getProperty("Search_Term");
         return searchTerm;
@@ -225,8 +223,8 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user1_username() {
-        if (concurrent_user1_username == null ||
-                concurrent_user1_username.isEmpty()) {
+        if(concurrent_user1_username == null ||
+                concurrent_user1_username.isEmpty()){
             loadAppConfig();
         }
         return concurrent_user1_username;
@@ -237,8 +235,8 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user2_username() {
-        if (concurrent_user2_username == null ||
-                concurrent_user2_username.isEmpty()) {
+        if(concurrent_user2_username == null ||
+                concurrent_user2_username.isEmpty()){
             loadAppConfig();
         }
         return concurrent_user2_username;
@@ -249,8 +247,8 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user3_username() {
-        if (concurrent_user3_username == null ||
-                concurrent_user3_username.isEmpty()) {
+        if(concurrent_user3_username == null ||
+                concurrent_user3_username.isEmpty()){
             loadAppConfig();
         }
         return concurrent_user3_username;
@@ -261,8 +259,8 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user4_username() {
-        if (concurrent_user4_username == null ||
-                concurrent_user4_username.isEmpty()) {
+        if(concurrent_user4_username == null ||
+                concurrent_user4_username.isEmpty()){
             loadAppConfig();
         }
         return concurrent_user4_username;
@@ -273,8 +271,8 @@ public class AppConfig {
     }
 
     public static String getConcurrent_user5_username() {
-        if (concurrent_user5_username == null ||
-                concurrent_user5_username.isEmpty()) {
+        if(concurrent_user5_username == null ||
+                concurrent_user5_username.isEmpty()){
             loadAppConfig();
         }
         return concurrent_user5_username;
@@ -283,24 +281,19 @@ public class AppConfig {
     public static String getConcurrent_user5_password() {
         return concurrent_user5_password;
     }
-
     public static void setDataDog_TOOL(String dataDog_url) {
         AppConfig.DataDog_TOOL = dataDog_url;
     }
-
     public static void setDataDog_USERNAME(String datadog_username) {
         AppConfig.DataDog_USERNAME = datadog_username;
     }
-
-    public static String getDataDog_userName() {
+    public static String getDataDog_userName () {
         return DataDog_USERNAME;
     }
-
     public static void setDataDog_PASSWORD(String dataDog_password) {
         AppConfig.DataDog_PASSWORD = dataDog_password;
     }
-
-    public static String getDataDog_password() {
+    public static String getDataDog_password () {
         return DataDog_PASSWORD;
     }
 
