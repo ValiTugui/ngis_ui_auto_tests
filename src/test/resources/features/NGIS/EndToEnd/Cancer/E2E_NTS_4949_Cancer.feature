@@ -74,10 +74,6 @@ Feature: Cancer:NTS-4949:Create RD Referrals for NEW Patient - Proband Only
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    And the user clicks the Cancel referral link
-    And the user selects the cancellation reason "An uneditable mistake was made in creation (“Mark in error”)" from the modal
-    And the user submits the cancellation
-    Then the message should display as "<RevokeMessage>"
 
      ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
 
