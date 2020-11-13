@@ -7,13 +7,10 @@ Feature: UserJourney_RD_NGIS_Trio_3 - UC12 - E2EUI-1233
 #    @E2EUI-1233 @UseCase12
   Scenario Outline:NTS:4598: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
-    ###Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=2000000258:DOB=05-06-2001 |
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

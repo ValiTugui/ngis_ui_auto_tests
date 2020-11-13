@@ -1,7 +1,6 @@
 @MIPORTAL
 @MIPORTAL_ST
 @SYSTEM_TEST
-@DQ_Report
 Feature: MIPORTAL ST - Historic Data
 
   @NTS-5743 @MI-LOGOUT

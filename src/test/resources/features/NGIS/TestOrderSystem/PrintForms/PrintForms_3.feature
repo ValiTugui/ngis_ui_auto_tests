@@ -64,7 +64,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 #    @E2EUI-1787
   Scenario Outline: NTS-4702: scenario_1: View cancelled referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=9449310661:DOB=05-04-2000 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=2000003834:DOB=10-05-2001 |
      ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
@@ -92,7 +92,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 
     Examples:
       | NhsNumber            | DOB            | Reason  |
-      | NHSNumber=9449310661 | DOB=05-04-2000 | Revoked |
+      | NHSNumber=2000003834 | DOB=10-05-2001 | Revoked |
 
   @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1212
@@ -181,4 +181,4 @@ Feature: TestOrder - Print Forms 3 - Validations
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | FamilyMemberDetails                 | RelationshipToProband | ChangedRelationshipToProband |
-      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Paternal Half Sibling        |
+      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=2000003869:DOB=18-09-2011 | Full Sibling          | Paternal Half Sibling        |

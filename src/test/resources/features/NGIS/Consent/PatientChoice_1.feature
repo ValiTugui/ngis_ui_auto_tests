@@ -220,4 +220,4 @@ Feature: Patient Choice-1 - Adult with Capacity
     ##Family member details validation covered in E2EUI-1583
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | PatientChoice  |
-      | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | Patient choice |
+      | Family members | NHSNumber=2000000754:DOB=11-01-1975 | Maternal Aunt         | Patient choice |

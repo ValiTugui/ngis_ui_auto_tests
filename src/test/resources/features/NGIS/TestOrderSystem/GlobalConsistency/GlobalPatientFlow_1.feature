@@ -115,7 +115,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
     Examples:
       | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  |
-      | 3,3,4       | NHS  | 9449306621 | 09-05-2011 | Requesting organisation | Family members | NHSNumber=9449310440:DOB=12-07-2003 | 1 patient record found | Print forms |
+      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms |
 
   @NTS-3498 @Z-LOGOUT
 #    @E2EUI-1701

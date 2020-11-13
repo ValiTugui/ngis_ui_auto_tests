@@ -84,4 +84,4 @@ Feature: Test Directory: ClinicalIndicationSelect_4
 
     Examples:
       | ordering_entity_name                | NoOfParticipants | ResponsibleClinicianDetails                          | ClinicalQuestionDetails                                                     | FamilyMemberDetails                 | PatientChoice  | RelationshipToProband |
-      | Northern Devon Healthcare NHS Trust | 1                | FirstName=Winnie:LastName=Ocean:Department=Down Town | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | NHSNumber=9449303924:DOB=14-05-2004 | Patient choice | Maternal Uncle        |
+      | Northern Devon Healthcare NHS Trust | 1                | FirstName=Winnie:LastName=Ocean:Department=Down Town | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | NHSNumber=2000003842:DOB=13-05-2001 | Patient choice | Maternal Uncle        |

@@ -66,7 +66,7 @@ Feature: TestDirectory: Requesting Organisation page
 #    @E2EUI-879
   Scenario Outline: NTS-4725:E2EUI-879: Highlight the current/active stage
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=9449306680:DOB=14-06-2011 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=2000003850:DOB=28-09-2011 |
     ##Patient Details Page
     When the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<PatientDetails>" stage

@@ -80,7 +80,7 @@ Feature: Family Members Details Page 2- Field Validation_2
 
     Examples:
       | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
-      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
+      | Family members | NHSNumber=2000003842:DOB=13-05-2001 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @NTS-3475
 #    @E2EUI-2090 @v_1 @P1

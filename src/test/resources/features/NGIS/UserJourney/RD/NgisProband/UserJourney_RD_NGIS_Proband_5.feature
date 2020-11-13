@@ -9,12 +9,9 @@ Feature: UserJourney_RD_NGIS_Proband_5: - UC05 - E2EUI-1296
   Scenario Outline: NTS-4558: UC#05:E2EUI-1296: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1983:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Great Western Hospitals NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

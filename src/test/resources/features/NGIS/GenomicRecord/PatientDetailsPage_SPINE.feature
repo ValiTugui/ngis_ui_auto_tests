@@ -42,7 +42,7 @@ Feature: Genomic Record - Patient details page_SPINE
 
     Examples:
       | patient-search-type | stage1          | stage          | FamilyMemberDetails                 | RelationshipToProband |
-      | NGIS                | Patient details | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
+      | NGIS                | Patient details | Family members | NHSNumber=2000004768:DOB=02-08-1968 | Full Sibling          |
 
   @NTS-4795 @Z-LOGOUT
 #    @E2EUI-969
@@ -59,7 +59,7 @@ Feature: Genomic Record - Patient details page_SPINE
 
     Examples:
       | patient-search-type | NhsNumber  | DOB        | addToPatientDetails |
-      | NHS Spine           | 9449308691 | 23-05-2011 | Add details to NGIS |
+      | NHS Spine           | 2000001750 | 06-09-2011 | Add details to NGIS |
 
   @NTS-4795 @Z-LOGOUT
 #    @E2EUI-969
@@ -76,9 +76,9 @@ Feature: Genomic Record - Patient details page_SPINE
     And the Add To Patient Details "<addToPatientDetails>" button is displayed
 
     Examples:
-      | patient-search-type | addToPatientDetails | SearchDetails                                                                     |
-      | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown:Postcode=RH3 7JP |
-      | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown                  |
+      | patient-search-type | addToPatientDetails | SearchDetails                                                                |
+      | NHS Spine           | Add details to NGIS | DOB=06-09-2011:FirstName=KATIE:LastName=MCPHEE:Gender=Male:Postcode=SR21 1PG |
+      | NHS Spine           | Add details to NGIS | DOB=06-09-2011:FirstName=KATIE:LastName=MCPHEE:Gender=Male                   |
 
 #  SPINE DATA replaced with NGIS DATA
 #  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @Z-LOGOUT

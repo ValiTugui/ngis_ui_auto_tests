@@ -155,4 +155,4 @@ Feature: GenomicRecord: Patient search page_NGIS
 
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
-      | NGIS                | 9449310327 | 16-12-1970 |
+      | NGIS                | 2000004768 | 02-08-1968 |
