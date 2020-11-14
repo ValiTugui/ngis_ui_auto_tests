@@ -204,6 +204,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[@type='button']//span[contains(text(),'Edit patient details')]")
     public WebElement editPatientDetails;
 
+    @FindBy(xpath = "//div[@id='passwordError']")
+    public WebElement loginPassWordError;
+
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -353,7 +357,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }catch(Exception exp1){
                 Actions.clickElement(driver,nextButton);
             }
-            Wait.seconds(5);
+            Wait.seconds(3);
+            if(seleniumLib.isElementDisplayed(loginPassWordError,2)){
+                seleniumLib.sendValue(passwordField,password);
+                seleniumLib.clickOnWebElement(nextButton);
+                Wait.seconds(3);
+            }
+            if(seleniumLib.isElementDisplayed(loginPassWordError,2)){
+                SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
+                Assert.fail("Could not login to Test Order System.");
+            }
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
             SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
@@ -737,7 +750,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
         // Find elements
         long start = System.currentTimeMillis();
-        if(!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)){
+        if(!seleniumLib.isElementDisplayed(searchButtonByXpath, 120)){
             Debugger.println("Patient Search Page Not Loaded.");
             SeleniumLib.takeAScreenShot("PatientSearchNotLoaded.jpg");
         }

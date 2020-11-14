@@ -378,17 +378,17 @@ public class ReferralPage<check> {
             // deliberate 3 seconds wait is added to handle the slowness of UI on Jenkins run
             //ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
             Wait.seconds(3);
-            if(!Wait.isElementDisplayed(driver,referralHeader,120)){
+            if(!seleniumLib.isElementDisplayed(referralHeader,60)){
                 Debugger.println("Referral Header not loaded even after 120 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ReferralHeaderNotLoaded.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,toDoList,100)){
+            if(!seleniumLib.isElementDisplayed(toDoList,30)){
                 Debugger.println("Landing Page ToDo List not loaded even after 100 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("LandingPageToDoList.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,sectionBody,30)){
+            if(!seleniumLib.isElementDisplayed(sectionBody,30)){
                 Debugger.println("Landing Page Main Section not loaded even after 30 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("LandingPageMainBody.jpg");
                 return false;

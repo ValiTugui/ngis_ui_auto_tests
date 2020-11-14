@@ -486,7 +486,7 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue("Failure in clickStartReferralButton", false);
         }
         if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-            Assert.assertTrue("Failure in checkThatReferralWasSuccessfullyCreated", false);
+            Assert.fail("Failure in checkThatReferralWasSuccessfullyCreated");
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();

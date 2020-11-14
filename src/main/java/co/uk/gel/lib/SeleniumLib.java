@@ -369,6 +369,16 @@ public class SeleniumLib {
         }
         return false;
     }
+    public boolean isElementDisplayed(WebElement element,int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, seconds);
+        final WebElement el = element;
+        wait.until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return el.isDisplayed();
+            }
+        });
+        return false;
+    }
 
     public void waitForElementVisible(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
