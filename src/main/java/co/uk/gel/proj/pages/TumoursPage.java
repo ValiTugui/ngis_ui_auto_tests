@@ -771,7 +771,6 @@ public class TumoursPage {
 
     public boolean tumourSelectedWithoutAnyMessage() {
         try {
-            Wait.forElementToBeDisplayed(driver, AddATumourPageTitle);
             for (WebElement element : addedTumours) {
                 if (element.getTagName().contains("checked")) {
                     if (tumourUpdatedMsg.isDisplayed()) {

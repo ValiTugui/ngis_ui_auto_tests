@@ -706,13 +706,13 @@ public class ReferralSteps extends Pages {
     public void theUserNavigatesBackToPatientExistingReferralPage(List<String> attributeOfURL) {
 
         String existingReferralID = patientDetailsPage.newPatient.getReferralHumanReadableID();
-        Debugger.println("existingReferralID:" + existingReferralID);
+        //Debugger.println("existingReferralID:" + existingReferralID);
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String referralFullUrl = TestUtils.getReferralURL(baseURL, existingReferralID, confirmationPage);
-        Debugger.println("referralFullUrl:" + referralFullUrl);
+       //Debugger.println("referralFullUrl:" + referralFullUrl);
         NavigateTo(referralFullUrl, confirmationPage);
-        Debugger.println("Navigated to:" + driver.getCurrentUrl());
+        //Debugger.println("Navigated to:" + driver.getCurrentUrl());
         Assert.assertTrue(referralPage.saveAndContinueButtonIsDisplayed());
 
     }
@@ -859,10 +859,10 @@ public class ReferralSteps extends Pages {
                 Assert.fail("Could not click on create a new patient record link");
             }
             if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
-//                Assert.fail("Could not create new Patient Referral");
+                Assert.fail("Could not create new Patient Referral");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-//                Assert.fail("Referral successfully created message not displayed.");
+                Assert.fail("Referral successfully created message not displayed.");
             }
             if (!referralPage.saveAndContinueButtonIsDisplayed()) {
                 Assert.fail("SaveAndContinue button not displayed after referral creation.");
