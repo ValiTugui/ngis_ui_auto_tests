@@ -77,7 +77,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(name = "loginfmt")
     public WebElement emailAddressField;
 
-    @FindBy(name = "passwd")
+    @FindBy(xpath = "//input[@name='passwd']")
     public WebElement passwordField;
 
     @FindBy(css = "input[type*='submit']")
@@ -358,12 +358,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver,nextButton);
             }
             Wait.seconds(3);
-            if(seleniumLib.isErrorMessageElementDisplayed(loginPassWordError,2)){
+            if(loginPassWordError.isDisplayed()){
+                Debugger.println("Login Password Error.......");
                 seleniumLib.sendValue(passwordField,password);
                 seleniumLib.clickOnWebElement(nextButton);
                 Wait.seconds(3);
             }
-            if(seleniumLib.isErrorMessageElementDisplayed(loginPassWordError,2)){
+            if(loginPassWordError.isDisplayed()){
                 SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
                 Assert.fail("Could not login to Test Order System.");
             }

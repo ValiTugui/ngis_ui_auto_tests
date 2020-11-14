@@ -245,21 +245,21 @@ public class Pages implements Navigable {
     }
     @Override
     public void switchToURL(String currentURL, String userType) {
-        Debugger.println("Switching URL..USER: "+userType+",URL:"+currentURL);
+        //Debugger.println("Switching URL..USER: "+userType+",URL:"+currentURL);
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
                 Debugger.println("URL Contains: patientSearchURL:"+patientSearchURL);
                 //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                Debugger.println("URL Contains: testOrderLoginURL:"+testOrderLoginURL+"\n"+userType);
+                //Debugger.println("URL Contains: testOrderLoginURL:"+testOrderLoginURL+"\n"+userType);
                 if(userType.equalsIgnoreCase(normalUser)) {
                    String email = AppConfig.getApp_username();
                    if(email.contains("nhs.net")){
                        // If the email id contains nhs, proceed with NHS login
                        referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                    }else {
-                       Debugger.println("Login to TOMS as NORMAL_USER");
+                       //Debugger.println("Login to TOMS as NORMAL_USER");
                        patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                    }
                 }else if(userType.equalsIgnoreCase(superUser)){
@@ -267,7 +267,7 @@ public class Pages implements Navigable {
                     if(super_email.contains("nhs.net")){
                         referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                     }else {
-                        Debugger.println("Login to TOMS as SUPER_USER");
+                        //Debugger.println("Login to TOMS as SUPER_USER");
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
                 }else if(userType.startsWith(concurrentUser1) ||

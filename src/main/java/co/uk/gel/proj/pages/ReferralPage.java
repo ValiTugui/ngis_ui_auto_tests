@@ -46,7 +46,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
-    @FindBy(xpath = "//div[@data-testid='referral-sidebar']//ul")
+    @FindBy(xpath = "//div[@data-testid='referral-sidebar']/h2")
     public WebElement toDoList;
 
     @FindBy(css = "div[class*='referral__main']")
@@ -716,8 +716,7 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
-            Wait.forPageToBeLoaded(driver);
-            Debugger.println("EXP TITLE: " + expTitle);
+            //Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             int titlesSize = titleElements.size();
@@ -748,8 +747,8 @@ public class ReferralPage<check> {
                 return true;
             }
             long endTime = System.currentTimeMillis();
-            Debugger.println("Page title not loaded event after "+((endTime-startTime)/1000)+" seconds. Trying again");
-            SeleniumLib.takeAScreenShot("PageTitleNotLoaded1.jpg");
+            //Debugger.println("Page title not loaded event after "+((endTime-startTime)/1000)+" seconds. Trying again");
+            //SeleniumLib.takeAScreenShot("PageTitleNotLoaded1.jpg");
             //In case of failure again, trying with another method.
             By pageTitle;
             if (expTitle.contains("\'")) {
