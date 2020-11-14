@@ -358,12 +358,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver,nextButton);
             }
             Wait.seconds(3);
-            if(seleniumLib.isElementDisplayed(loginPassWordError,2)){
+            if(seleniumLib.isErrorMessageElementDisplayed(loginPassWordError,2)){
                 seleniumLib.sendValue(passwordField,password);
                 seleniumLib.clickOnWebElement(nextButton);
                 Wait.seconds(3);
             }
-            if(seleniumLib.isElementDisplayed(loginPassWordError,2)){
+            if(seleniumLib.isErrorMessageElementDisplayed(loginPassWordError,2)){
                 SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
                 Assert.fail("Could not login to Test Order System.");
             }
@@ -750,7 +750,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
         // Find elements
         long start = System.currentTimeMillis();
-        if(!seleniumLib.isElementDisplayed(searchButtonByXpath, 120)){
+        if(!Wait.isElementDisplayed(driver,searchButtonByXpath, 120)){
             Debugger.println("Patient Search Page Not Loaded.");
             SeleniumLib.takeAScreenShot("PatientSearchNotLoaded.jpg");
         }
