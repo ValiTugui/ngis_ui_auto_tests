@@ -1,6 +1,6 @@
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST
+@SYSTEM_TEST1
 Feature: Patient Choice-17 - Adult with Capacity
 
   @NTS-4100 @Z-LOGOUT

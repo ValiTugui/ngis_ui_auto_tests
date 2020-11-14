@@ -1,6 +1,6 @@
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST
+@SYSTEM_TEST1
 Feature: Patient Choice-11 - validations
 
   @NTS-3478 @Z-LOGOUT

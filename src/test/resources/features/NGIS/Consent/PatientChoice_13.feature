@@ -1,6 +1,6 @@
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST
+@SYSTEM_TEST1
 
 Feature: Patient Choice -13  - Page - FamilyMemberAddition
 
