@@ -358,15 +358,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver,nextButton);
             }
             Wait.seconds(3);
-            if(loginPassWordError.isDisplayed()){
-                Debugger.println("Login Password Error.......");
-                seleniumLib.sendValue(passwordField,password);
-                seleniumLib.clickOnWebElement(nextButton);
-                Wait.seconds(3);
-            }
-            if(loginPassWordError.isDisplayed()){
-                SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
-                Assert.fail("Could not login to Test Order System.");
+            try {
+                if (loginPassWordError.isDisplayed()) {
+                    Debugger.println("Login Password Error.......");
+                    seleniumLib.sendValue(passwordField, password);
+                    seleniumLib.clickOnWebElement(nextButton);
+                    Wait.seconds(3);
+                }
+                if (loginPassWordError.isDisplayed()) {
+                    SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
+                    Assert.fail("Could not login to Test Order System.");
+                }
+            }catch(Exception exp){
+
             }
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
