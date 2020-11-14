@@ -310,54 +310,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
-        Actions.deleteCookies(driver);
-        try {
-            Wait.seconds(5);
-            if (!Wait.isElementDisplayed(driver,emailAddressField,60)) {//If the element is not displayed, even after the waiting time
-                Debugger.println("Email Address Field is not visible, even after the waiting period of 60 seconds");
-                if (Wait.isElementDisplayed(driver,useAnotherAccount,60)) {//Click on UseAnotherAccount and Proceed.
-                    Debugger.println("Clicking on useAnotherAccount to Proceed.");
-                    useAnotherAccount.click();
-                    Wait.seconds(3);
-                } else {
-                    Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
-                    SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
-                    Assert.fail("Email field or UseAnotherAccount option are not available.");
-                }
-            }else{
-                Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
-            }
-            try {
-                emailAddressField.sendKeys(AppConfig.getApp_username());
-            }catch(Exception exp1){
-                seleniumLib.sendValue(emailAddressField,AppConfig.getApp_username());
-            }
-            Wait.seconds(4);
-            try {
-                seleniumLib.clickOnWebElement(nextButton);
-            }catch(Exception exp1){
-                Actions.clickElement(driver,nextButton);
-            }
-            Wait.seconds(4);
-            try {
-                passwordField.sendKeys(AppConfig.getApp_password());
-            }catch(Exception exp1){
-                seleniumLib.sendValue(passwordField,AppConfig.getApp_password());
-            }
-            Wait.seconds(4);
-            try {
-                seleniumLib.clickOnWebElement(nextButton);
-            }catch(Exception exp1){
-                Actions.clickElement(driver,nextButton);
-            }
-            Wait.seconds(5);
-        }catch(Exception exp){
-            Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
-            SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
-            Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser"+exp);
-        }
+        String email = AppConfig.getApp_username();
+        String password = AppConfig.getApp_password();
+        loginToTestOrderingSystem(email,password);
     }
-    public void loginToTestOrderingSystemAsStandardConcurrentUser(String email,String password) {
+    public void loginToTestOrderingSystem(String email,String password) {
         Actions.deleteCookies(driver);
         try {
             Wait.seconds(5);
@@ -372,8 +329,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
                     Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
-            }else{
-                Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
             }
             try {
                 emailAddressField.sendKeys(email);
@@ -407,62 +362,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
-        try {
-            Actions.deleteCookies(driver);
-            if(!Wait.isElementDisplayed(driver,emailAddressField,30)){
-                Debugger.println("Email Address Field is not displayed even after the waiting period.");
-                if (Wait.isElementDisplayed(driver,useAnotherAccount,10)) {//Click on UseAnotherAccount and Proceed.
-                    Debugger.println("Clicking on useAnotherAccount to Proceed.");
-                    useAnotherAccount.click();
-                    Wait.seconds(3);
-                } else {
-                    Debugger.println("Email field or UseAnotherAccount option are not available.");
-                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
-                }
-            }
-            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                try {
-                    emailAddressField.sendKeys(AppConfig.getApp_username());
-                }catch(Exception exp1){
-                    seleniumLib.sendValue(emailAddressField,AppConfig.getApp_username());
-                }
-            } else {
-                try {
-                    emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
-                }catch(Exception exp1){
-                    seleniumLib.sendValue(emailAddressField,AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
-                }
-            }
-            try {
-                Click.element(driver, nextButton);
-            }catch(Exception exp1){
-                seleniumLib.clickOnWebElement(nextButton);
-            }
-            Wait.seconds(3);
-            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                try {
-                    passwordField.sendKeys(AppConfig.getApp_password());
-                }catch(Exception exp1){
-                    seleniumLib.sendValue(passwordField,AppConfig.getApp_password());
-                }
-            } else {
-                try {
-                    passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
-                }catch(Exception exp1){
-                    seleniumLib.sendValue(passwordField,AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
-                }
-            }
-            try {
-                Click.element(driver, nextButton);
-            }catch(Exception exp1){
-                seleniumLib.clickOnWebElement(nextButton);
-            }
-            Wait.seconds(3);
-            Debugger.println(" Logging to TO as user type: "+userType);
-        }catch(Exception exp){
-            Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
-            Assert.assertFalse("Exception in Logging to TO as user type: "+userType+".Exception: "+exp,true);
+        String email="",password = "";
+        if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
+            email = AppConfig.getApp_username();
+            password = AppConfig.getApp_password();
+        }else {
+            email = AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME");
+            password = AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD");
         }
+        loginToTestOrderingSystem(email,password);
     }
 
     public boolean fillInValidPatientDetailsUsingNOFields(String searchParams) {
@@ -497,9 +405,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                         if(!selectGender(genderButton,paramNameValue.get(key))){
                             selectGender(administrativeGenderButton,paramNameValue.get(key));
                         }
-//                        seleniumLib.clickOnWebElement(genderButton);
-//                        seleniumLib.clickOnElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']"));
-                        break;
+                     break;
                     }
                     case "Postcode": {
                         seleniumLib.sendValue(postcode,paramNameValue.get(key));
@@ -516,13 +422,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void checkSearchResultHeaderIsDisplayed(WebDriver driver, String resultHeader) {
-
         Wait.forElementToBeDisplayed(driver, patientCard);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
         Debugger.println("The actual search result header is :" + patientSearchResultsHeader.getText());
         Assert.assertEquals(resultHeader, patientSearchResultsHeader.getText().trim());
-
-
     }
 
     public String getText(WebElement element) {
@@ -833,7 +736,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
+        long start = System.currentTimeMillis();
+        if(!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)){
+            Debugger.println("Patient Search Page Not Loaded.");
+            SeleniumLib.takeAScreenShot("PatientSearchNotLoaded.jpg");
+        }
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -846,15 +753,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(dateDay);
         expectedElements.add(dateMonth);
         expectedElements.add(dateYear);
-        expectedElements.add(searchButton);
+        Debugger.println("Start2..."+((start-System.currentTimeMillis())/1000));
         for (int i = 0; i < expectedElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+            if (!expectedElements.get(i).isDisplayed()) {
                 Debugger.println("Element: "+expectedElements.get(i)+" Not present.");
+                SeleniumLib.takeAScreenShot("PatientSearchYes.jpg");
                 return false;
             }
+//            Debugger.println("\tStart"+i+"..."+((start-System.currentTimeMillis())/1000));
         }
+        Debugger.println("Startend..."+((start-System.currentTimeMillis())/1000));
         return true;
-
     }
 
 

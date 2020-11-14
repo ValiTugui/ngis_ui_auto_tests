@@ -58,7 +58,13 @@ public class DashBoardPage {
     public void navigateToDashboardPage() {
         driver.get(AppConfig.getTo_dashboard_url());
         if ((driver.getCurrentUrl().contains("login.microsoft"))){
-            Pages.login(this.driver, emailAddressField, passwordField, nextButton );
+            Wait.forElementToBeClickable(driver, emailAddressField);
+            emailAddressField.sendKeys(AppConfig.getApp_username());
+            nextButton.click();
+            Wait.seconds(2);
+            Wait.forElementToBeClickable(driver, passwordField);
+            passwordField.sendKeys(AppConfig.getApp_password());
+            nextButton.click();
         }
     }
 

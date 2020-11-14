@@ -359,7 +359,7 @@ public class BrowserFactory {
         if (!location.exists()) {
             location.mkdirs();
         }
-        Debugger.println("BROWSER FACTORY:DEFAULT DOWNLOAD PATH:"+downloadFilePath);
+        //Debugger.println("BROWSER FACTORY:DEFAULT DOWNLOAD PATH:"+downloadFilePath);
         HashMap<String, Object> pathPrefs = new HashMap<String, Object>();
         pathPrefs.put("profile.default_content_settings.popups", 0);
         pathPrefs.put("download.default_directory", downloadFilePath);

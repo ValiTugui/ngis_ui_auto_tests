@@ -220,7 +220,6 @@ public class ReferralSteps extends Pages {
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -237,15 +236,10 @@ public class ReferralSteps extends Pages {
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         boolean testResult = false;
-        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
-        if (!testResult) {
-            Assert.assertTrue("Failed in waitUntilHomePageResultsContainerIsLoaded", false);
-        }
         testResult = homePage.typeInSearchField(searchTerm);
         if (!testResult) {
             Assert.assertTrue("Failed in typeInSearchField", false);
         }
-
         testResult = homePage.clickSearchIconFromSearchField();
         if (!testResult) {
             Assert.assertTrue("Failed in clickSearchIconFromSearchField", false);

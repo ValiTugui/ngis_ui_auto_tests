@@ -12,7 +12,6 @@ import org.openqa.selenium.*;
 
 public class TestHooks extends Pages {
 
-    //SeleniumLib seleniumLib;
     public static String currentTagName = "";
     public static String currentTags = "";
     public static String currentFeature = "";
@@ -23,11 +22,10 @@ public class TestHooks extends Pages {
 
     public TestHooks(SeleniumDriver driver) {
         super(driver);
-        //seleniumLib = new SeleniumLib(driver);
     }
 
     @Before
-    public void begininingOfTest(Scenario scenario) {
+    public void beginingOfTest(Scenario scenario) {
         currentTagName = scenario.getSourceTagNames().toString();
         ntsTag = TestUtils.getNtsTag(currentTagName);
         currentTags = scenario.getSourceTagNames().toString();

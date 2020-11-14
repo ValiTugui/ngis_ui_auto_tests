@@ -108,7 +108,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
 
-    @FindBy(css = "*[data-testid*='notification-warning']")     //@FindBy(css = "*[class*='notification--warning']")
+    @FindBy(css = "*[data-testid*='notification-warning']")
     public WebElement patientDetailsnotificationBanner;
 
     @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]//a")
@@ -138,7 +138,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
-    //@FindBy(xpath = "//button[text()='Save and continue']")
     @FindBy(xpath = "//*[text()='Save and continue']")
     public WebElement saveAndContinue;
 
@@ -166,7 +165,7 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='referral-list__link']")
     public WebElement referralLink;
 
-    @FindBy(css = "div[class*='css-1jwqj7b']") //@FindBy(css = "div[class*='referral-card']")
+    @FindBy(css = "div[class*='css-1jwqj7b']")
     public WebElement referralCard;
 
     @FindBy(xpath = "//div[contains(@id,'referral__header')]/div//child::span[contains(@class,'child-element')]")
@@ -269,6 +268,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]/span")
     WebElement ethnicityMissing;
+    @FindBy(xpath = "//div[contains(@class,'styles_error-message')]")
+    public List<WebElement> errorMessages;
+
 
     public boolean patientDetailsPageIsDisplayed() {
         try {
@@ -542,17 +544,29 @@ public class PatientDetailsPage {
                 return false;
             }
             seleniumLib.clickOnWebElement(createRecord);
-            return true;
         } catch (Exception exp) {
             try{
                 Actions.clickElement(driver, createRecord);
-                return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
                 SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 return false;
             }
         }
+        if(errorMessages.size() > 0){
+            //Mostly due to ethnicity drop down selection
+            editDropdownField(ethnicityButton, "A - White - British");
+            seleniumLib.clickOnWebElement(createRecord);
+            if(errorMessages.size() > 0) {
+                Debugger.println("Patient could not create...");
+                for(int i=0;i<errorMessages.size();i++){
+                    Debugger.println("\t"+errorMessages.get(i).getText());
+                }
+                Actions.scrollToTop(driver);
+                SeleniumLib.takeAScreenShot("PatientCouldNotCreate.jpg");
+            }
+        }
+        return true;
     }
 
     public boolean patientIsCreated() {

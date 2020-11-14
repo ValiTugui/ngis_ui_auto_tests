@@ -76,30 +76,29 @@ public class HomePage {
     @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logOutLink;
 
-
     public boolean waitUntilHomePageResultsContainerIsLoaded() {
        try {
-           if (!Wait.isElementDisplayed(driver, filtersPanel, 200)) {
+           if (!Wait.isElementDisplayed(driver, filtersPanel, 120)) {
                Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
                SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
                return false;
            }
-           if (!Wait.isElementDisplayed(driver, resultsPanel, 200)) {
+           if (!Wait.isElementDisplayed(driver, resultsPanel, 120)) {
                Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
                SeleniumLib.takeAScreenShot("HomePageResultPanel.jpg");
-                return false;
+               return false;
            }
            return true;
        }catch(Exception exp){
            Debugger.println("Exception:HomePage:waitUntilHomePageResultsContainerIsLoaded:"+exp);
            SeleniumLib.takeAScreenShot("HomePagePanels.jpg");
-            return false;
+           return false;
        }
     }
 
     public boolean typeInSearchField(String searchTerm) {
         try {
-            if(!Wait.isElementDisplayed(driver,searchField,30)){
+            if(!Wait.isElementDisplayed(driver,searchField,60)){
                 Debugger.println("searchField for present even after waiting period: ");
                 SeleniumLib.takeAScreenShot("typeInSearchField.jpg");
                 return false;
@@ -138,7 +137,7 @@ public class HomePage {
         if (cookiesUnderstandButton.size() > 0) {
             Click.element(driver, cookiesUnderstandButton.get(0));
             Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
-            Debugger.println("Cookies Banner Closed.");
+            //Debugger.println("Cookies Banner Closed.");
         }
     }
 
