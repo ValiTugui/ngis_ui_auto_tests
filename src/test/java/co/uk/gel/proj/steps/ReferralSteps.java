@@ -391,6 +391,10 @@ public class ReferralSteps extends Pages {
     public void theStageIsMarkedAsMandatoryToDo(String stage) {
         Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
     }
+    @And("the {string} stage is NOT marked as Mandatory To Do")
+    public void theStageIsNotMarkedAsMandatoryToDo(String stage) {
+        Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
+    }
 
     @And("Save and Continue button is displayed")
     public void saveAndContinueButtonIsDisplayed() {

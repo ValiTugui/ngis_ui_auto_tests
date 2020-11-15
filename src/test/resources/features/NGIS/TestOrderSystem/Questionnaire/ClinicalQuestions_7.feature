@@ -29,7 +29,7 @@ Feature: ClinicalQuestions 7 - RD Questionnaire
     And the "<ResponsibleClinician>" stage is marked as Completed
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user is navigated to a page with title Answer clinical questions
-    And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
+    And the "<ClinicalQuestions>" stage is NOT marked as Mandatory To Do
     Examples:
       | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions  |
       | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions |

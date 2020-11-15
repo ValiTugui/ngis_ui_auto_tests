@@ -33,7 +33,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
     When the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon
     Then the Disease status field is NOT set with the disease status value Affected
     And the user clicks the Save and Continue button
-    And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
+    And the "<ClinicalQuestions>" stage is NOT marked as Mandatory To Do
     And the "<notes>" stage is selected
     Examples:
       | ClinicalQuestions  | title                     | ClinicalQuestionDetails                  | notes |
