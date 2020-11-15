@@ -480,7 +480,7 @@ public class ReferralSteps extends Pages {
         }
         //patientDetailsPage.clickSavePatientDetailsToNGISButton();
         if (!patientDetailsPage.clickOnCreateRecord()) {
-            Assert.assertTrue("Failure in clickOnCreateRecord", false);
+            Assert.fail("Failure in clickOnCreateRecord.Details may not have entered properly in previous step.");
         }
         if (!patientDetailsPage.patientIsCreated()) {
             Assert.assertTrue("Failure in patientIsCreated", false);
@@ -646,6 +646,7 @@ public class ReferralSteps extends Pages {
             }
         }
         if (!patientDetailsPage.clickOnCreateRecord()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCreate.jpg");
             Assert.fail("Could not click on Create Record.");
         }
         if (!patientDetailsPage.patientIsCreated()) {
@@ -655,6 +656,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("Could not start referral button.");
         }
         if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
             Assert.fail("Could not verify the successful creation of referral.");
         }
         //To log the ReferralI in the Log.
@@ -866,6 +868,7 @@ public class ReferralSteps extends Pages {
                 Assert.fail("Could not create new Patient Referral");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
                 Assert.fail("Referral successfully created message not displayed.");
             }
             if (!referralPage.saveAndContinueButtonIsDisplayed()) {
@@ -874,6 +877,7 @@ public class ReferralSteps extends Pages {
         } else if (searchResult.equalsIgnoreCase("1 patient record found")) {
             //Existing Patient
             if (!patientSearchPage.clickPatientCard()) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCreate.jpg");
                 Assert.fail("Could not click on Patient Card");
             }
             if (patientDetailsPage.readEthnicityMandatoryStatus()){
@@ -889,14 +893,15 @@ public class ReferralSteps extends Pages {
                 Assert.fail("Could not click on StartNewReferral Button");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-//                Assert.fail("Could not verify the Referral successfully creation message");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
+                Assert.fail("Could not verify the Referral successfully creation message");
 
             }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if (!toDoListDisplayed) {
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
                 //Observed undefined attached in the URL sometime....This is to verify the URL the moment
-                Debugger.println("ToDoListNotLeaded:URL:" + driver.getCurrentUrl());
+                Debugger.println("ToDoListNotLoaded:URL:" + driver.getCurrentUrl());
                 Assert.fail("ToDoList in Referral Page is not loaded even after the waiting time..");
             }
         } else {

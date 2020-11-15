@@ -28,7 +28,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     And the user clicks the Save and Continue button
     Then The Last name field should display an error message "<error_info>"
     And The mandatory field Last name should be highlighted with a "<red_color_hex_code>" red mark
-    And the "Responsible clinician" stage is marked as Mandatory To Do
+    And the "Responsible clinician" stage is NOT marked as Mandatory To Do
     When the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
     Then the "Responsible clinician" stage is marked as Completed

@@ -473,7 +473,7 @@ public class TestUtils {
     }
 
     public static String getNtsTag(String fullTagName) {
-        //Debugger.println("FullTag:"+fullTagName);
+
         String ntsTag = "";
         String[] tags = fullTagName.split(",");
         if (tags != null) {
