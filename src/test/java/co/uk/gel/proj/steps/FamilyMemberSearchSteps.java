@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
@@ -85,6 +86,9 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theFamilyMemberSearchMessage(String message1, String message2) {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyMessageOfExistingPatient(message1, message2);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EMessage.jpg");
+        }
         Assert.assertTrue(testResult);
     }
 

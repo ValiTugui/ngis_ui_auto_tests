@@ -540,7 +540,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
                 Debugger.println("Create Record button not present in new patient creation page.");
-                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 Actions.scrollToBottom(driver);
                 return false;
             }
@@ -550,7 +549,6 @@ public class PatientDetailsPage {
                 Actions.clickElement(driver, createRecord);
             } catch (Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
-                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 return false;
             }
         }
@@ -572,7 +570,6 @@ public class PatientDetailsPage {
             if (errorMessages.size() > 0) {
                 Debugger.println("Patient could not create...");
                 Actions.scrollToTop(driver);
-                SeleniumLib.takeAScreenShot("PatientCouldNotCreate.jpg");
                 return false;
             }
         }

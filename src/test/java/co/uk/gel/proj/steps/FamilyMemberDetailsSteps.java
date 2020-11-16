@@ -353,6 +353,7 @@ public class FamilyMemberDetailsSteps extends Pages {
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nAdding Family Member: " + i);
                 if (!referralPage.navigateToFamilyMemberSearchPage()) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                     Assert.fail("Could not click on Add Family Member Button.");
                 }
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
@@ -376,9 +377,11 @@ public class FamilyMemberDetailsSteps extends Pages {
                         familyMember.setLIFE_STATUS("Alive");
                     }
                     if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": fillInNHSNumberAndDateOfBirth Failed");
                     }
                     if (!patientSearchPage.clickSearchButtonByXpath()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": fillInNHSNumberAndDateOfBirth Failed");
                     }
                     if (patientSearchPage.getPatientSearchNoResult() == null) {//Got error saying invalid NHS number, proceeding with No search in that case
@@ -387,27 +390,33 @@ public class FamilyMemberDetailsSteps extends Pages {
                         }
                     }
                     if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+"clickCreateNewPatientLinkFromNoSearchResultsPage Failed");
                     }
                     if (!familyMemberNewPatientPage.newFamilyMemberPageIsDisplayed()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": new Family Member URL not displayed");
                     }
                     if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+"createNewFamilyMember Failed");
                     }
                     if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
                         if(!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
+                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                             Assert.fail("FM:"+memberDetails.get(i).get(0)+"verifyThePageTitlePresence Failed");
                         }
                     }
                     referralPage.updatePatientNGSID(familyMember);
                     if (!referralPage.clickSaveAndContinueButton()) {
                         if(!referralPage.clickSaveAndContinueButton()) {//Again Clicking
+                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                             Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickSaveAndContinueButton Failed");
                         }
                     }
                 } else {
                     if (!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+"searchFamilyMemberWithGivenParams Failed");
                     }
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
@@ -415,12 +424,15 @@ public class FamilyMemberDetailsSteps extends Pages {
                         continue;
                     }
                     if (!familyMemberDetailsPage.clickPatientCard()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+": clickPatientCard Failed");
                     }
                     if(!familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1))){
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+"fillTheRelationshipToProband Failed");
                     }
                     if(!referralPage.clickSaveAndContinueButton()){
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                         Assert.fail("FM:"+memberDetails.get(i).get(0)+"clickSaveAndContinueButton Failed");
                     }
                 }
@@ -428,12 +440,13 @@ public class FamilyMemberDetailsSteps extends Pages {
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
                 if (familyMember == null) {
                     Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                     Assert.fail("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
                 }
                 Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
                 if (!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)) {
                     Assert.fail("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg");
-                    SeleniumLib.takeAScreenShot("SelectTitle.jpg");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                 }
                 Wait.seconds(5);
                 if (memberDetails.get(i).size() < 3) {
@@ -445,10 +458,12 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Wait.seconds(5);
                 if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
                     Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                     Assert.fail("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                 }
                 Wait.seconds(5);
                 if (!referralPage.clickSaveAndContinueButton()) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);
@@ -460,7 +475,8 @@ public class FamilyMemberDetailsSteps extends Pages {
                 }
 
                 if (!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))) {
-                     Assert.fail("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
+                    Assert.fail("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                 }
                 Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " Added Successfully.\n");
                 Wait.seconds(5);
@@ -470,6 +486,7 @@ public class FamilyMemberDetailsSteps extends Pages {
             }
         } catch (Exception exp) {
             Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: " + exp);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
             Assert.fail("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ");
         }
     }

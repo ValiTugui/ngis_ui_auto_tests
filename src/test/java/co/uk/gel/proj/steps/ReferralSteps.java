@@ -324,7 +324,10 @@ public class ReferralSteps extends Pages {
 
         testResult = patientDetailsPage.clickOnCreateRecord();
         if (!testResult) {
-            Assert.assertTrue("Failed in clickOnCreateRecord", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated1.jpg");
+            Assert.fail("Failed in clickOnCreateRecord");
         }
         testResult = patientDetailsPage.patientIsCreated();
         if (!testResult) {
@@ -593,6 +596,7 @@ public class ReferralSteps extends Pages {
         }
         homePage.closeCookiesBannerFromFooter();
         if (!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_startReferral.jpg");
             Assert.fail("Could not click on StartTestOrderReferral Button");
         }
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
@@ -865,6 +869,7 @@ public class ReferralSteps extends Pages {
                 Assert.fail("Could not click on create a new patient record link");
             }
             if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewRef.jpg");
                 Assert.fail("Could not create new Patient Referral");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
