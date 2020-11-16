@@ -528,7 +528,7 @@ public class SamplesSteps extends Pages {
         switch (stageStatus) {
             case "MandatoryToDo": {
                 //Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
-                Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+                Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
                 break;
             }
             case "NotMandatoryToDo": {

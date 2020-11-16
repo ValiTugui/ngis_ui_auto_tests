@@ -232,11 +232,3 @@ Feature: Submitting the referral after saving the Panels stage
     Examples:
       | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | penetranceIntro                                                                                                                                                           |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
-
-
-
-
-
-
-
-

@@ -91,6 +91,7 @@ public class DashBoardPage {
         if (actual.equalsIgnoreCase(titleText)) {
             return true;
         } else {
+            Debugger.println("Actual Title:"+actual);
             return false;
         }
     }

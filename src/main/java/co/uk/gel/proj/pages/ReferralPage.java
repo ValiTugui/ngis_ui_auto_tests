@@ -778,7 +778,7 @@ public class ReferralPage<check> {
                 }
                 Actions.scrollToTop(driver);
                 endTime = System.currentTimeMillis();
-                Debugger.println("Page title not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
+                Debugger.println("Page title"+expTitle+" not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
                 SeleniumLib.takeAScreenShot("PageTitleNotLoaded2.jpg");
                 Debugger.println("TITLE URL:" + driver.getCurrentUrl());
                 return false;

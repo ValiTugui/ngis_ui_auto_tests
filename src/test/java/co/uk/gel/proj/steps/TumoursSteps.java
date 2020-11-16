@@ -441,7 +441,6 @@ public class TumoursSteps extends Pages {
 
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
-
         tumoursPage.fillInTumourDescription();
         if(!tumoursPage.fillInDateOfDiagnosis()){
             Assert.assertTrue(false);

@@ -47,7 +47,7 @@ public class ReferralSteps extends Pages {
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
-        Debugger.println("Stage: " + stage + " Starting.");
+        //Debugger.println("Stage: " + stage + " Starting.");
         boolean testResult = referralPage.navigateToStage(stage);
         if(!testResult){
             Assert.fail("Could not navigate to stage:"+stage);
@@ -274,7 +274,8 @@ public class ReferralSteps extends Pages {
         }
         testResult = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         if (!testResult) {
-            Assert.assertTrue("Failed in verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PageYesNotDisplayed.jpg");
+            Assert.fail("Failed in verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected");
         }
 
         if (patientType == null || patientType.isEmpty()) {
@@ -1121,7 +1122,7 @@ public class ReferralSteps extends Pages {
         String actualGenomicsEngLogo = referralPage.getGenomicMedicineServiceLogoInHeader();
         Debugger.println("actual Genomics Logo " + actualGenomicsEngLogo);
         Debugger.println("expected Genomics Logo " + expectedGenomicsEngLogo);
-        Assert.assertEquals(expectedGenomicsEngLogo, actualGenomicsEngLogo);
+        Assert.assertEquals(expectedGenomicsEngLogo.trim(), actualGenomicsEngLogo.trim());
     }
 
     @And("the username {string} is displayed in the header of Test Ordering")

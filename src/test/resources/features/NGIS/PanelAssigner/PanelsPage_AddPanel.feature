@@ -21,7 +21,7 @@ Feature: PanelAssigner: Panels Page Add Panel
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
     ##@E2EUI-1906
-    And the user should be able to see a sub title Penetrance on panels page
+    And the user should be able to see a sub title Confirm disease penetrance on panels page
     Then the user should be able to see an additional line "<textLine>" underneath the penetrance title
     ##@E2EUI-1278
     And the user should be able to see Add another panel section with search field and search icon
@@ -32,13 +32,13 @@ Feature: PanelAssigner: Panels Page Add Panel
     Then the user is navigated to a page with title Build a pedigree
     ##panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panel
+    Then the user is navigated to a page with title Manage panels
     And the user sees the selected "<searchPanels>" panels under added panels
     Then the user should see the referral submit button as disabled
 
     Examples:
-      | Panels | searchPanels                                  | textLine                                                                                                      |
-      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
+      | Panels | searchPanels                                  | textLine                                                                                                                                                                   |
+      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
 
   @NTS-3381 @Z-LOGOUT
 #    @E2EUI-1045 @E2EUI-1484 @E2EUI-1158
@@ -50,7 +50,7 @@ Feature: PanelAssigner: Panels Page Add Panel
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user should be able to see panels page is correctly displayed
     ##Below line for @E2EUI-1484
     And the user should see the section with title Suggestions based on the clinical information

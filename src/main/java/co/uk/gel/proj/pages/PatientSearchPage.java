@@ -754,7 +754,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
         // Find elements
-        long start = System.currentTimeMillis();
         if(!Wait.isElementDisplayed(driver,searchButtonByXpath, 120)){
             Debugger.println("Patient Search Page Not Loaded.");
             SeleniumLib.takeAScreenShot("PatientSearchNotLoaded.jpg");
@@ -771,16 +770,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(dateDay);
         expectedElements.add(dateMonth);
         expectedElements.add(dateYear);
-        Debugger.println("Start2..."+((start-System.currentTimeMillis())/1000));
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!expectedElements.get(i).isDisplayed()) {
                 Debugger.println("Element: "+expectedElements.get(i)+" Not present.");
                 SeleniumLib.takeAScreenShot("PatientSearchYes.jpg");
                 return false;
             }
-//            Debugger.println("\tStart"+i+"..."+((start-System.currentTimeMillis())/1000));
         }
-        Debugger.println("Startend..."+((start-System.currentTimeMillis())/1000));
         return true;
     }
 

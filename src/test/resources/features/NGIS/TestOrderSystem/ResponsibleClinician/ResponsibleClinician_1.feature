@@ -275,7 +275,7 @@ Feature: Responsible Clinician - 1
     And The user sees the text field Department name and address
     When the user fills in all clinician form fields except Department name and address
     And the user clicks the Save and Continue button
-    Then the "<stage>" stage is marked as Mandatory To Do
+    Then the "<stage>" stage is NOT marked as Mandatory To Do
     And the "<new_stage>" stage is selected
     And the user navigates to the "<stage>" stage
     When the user fills in the Department name and address

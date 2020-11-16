@@ -575,6 +575,24 @@ public class PatientDetailsPage {
         }
         return true;
     }
+    public boolean clickSavePatientDetailsToNGISButton() {
+        try {
+            if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
+                Debugger.println("Create Record button not present in new patient creation page.");
+                Actions.scrollToBottom(driver);
+                return false;
+            }
+            seleniumLib.clickOnWebElement(createRecord);
+        } catch (Exception exp) {
+            try {
+                Actions.clickElement(driver, createRecord);
+            } catch (Exception exp1) {
+                Debugger.println("Exception in clickOnCreateRecord:" + exp);
+                return false;
+            }
+        }
+        return true;
+    }
 
     public boolean patientIsCreated() {
         try {

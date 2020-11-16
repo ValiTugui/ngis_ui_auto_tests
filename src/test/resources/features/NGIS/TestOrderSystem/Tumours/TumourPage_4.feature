@@ -16,7 +16,7 @@ Feature: Tumours Page - 4
       | stage   | Date_of_Diagnosis                                | error_message                                     |
       | Tumours | Month_is_more_than_9_months_before_date_of_birth | Cannot be more than 9 months before date of birth |
       | Tumours | Date_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
-      | Tumours | Year_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
+      | Tumours | Year_is_more_than_9_months_before_date_of_birth  | Enter a year after 1900 |
 
   @NTS-3487 @Z-LOGOUT
 #    @E2EUI-2144 @E2EUI-2097
