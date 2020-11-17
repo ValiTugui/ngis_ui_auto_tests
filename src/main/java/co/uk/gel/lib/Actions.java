@@ -355,9 +355,9 @@ public class Actions {
 
     public static void deleteCookies(WebDriver driver) {
         try {
-            Debugger.println("Clearing Browser cookies...");
+            //Debugger.println("Clearing Browser cookies...");
             driver.manage().deleteAllCookies();
-            Debugger.println("No cookies found... " + driver.manage().getCookies());
+            //Debugger.println("No cookies found... " + driver.manage().getCookies());
         } catch (Exception exp) {
             Debugger.println("Exception caught while clearing cookies : " + exp);
         }

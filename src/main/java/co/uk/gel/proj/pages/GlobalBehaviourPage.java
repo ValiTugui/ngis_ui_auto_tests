@@ -92,7 +92,13 @@ public class GlobalBehaviourPage {
         Click.element(driver, footerLinks.get(1));
         Actions.switchTab(driver);
         if (!(driver.getCurrentUrl().contains("privacy-policy"))) {
-            Pages.login(this.driver, emailAddressField, passwordField, nextButton);
+            Wait.forElementToBeClickable(driver, emailAddressField);
+            emailAddressField.sendKeys(AppConfig.getApp_username());
+            nextButton.click();
+            Wait.seconds(2);
+            Wait.forElementToBeClickable(driver, passwordField);
+            passwordField.sendKeys(AppConfig.getApp_password());
+            nextButton.click();
         }
     }
 

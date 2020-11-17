@@ -26,7 +26,7 @@ Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggeste
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     And the user sees the No suggested panels found message on the page
-    Then the "<Panels>" stage is marked as Mandatory To Do
+    Then the "<Panels>" stage is NOT marked as Mandatory To Do
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Message>"
     Then the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral
@@ -69,7 +69,7 @@ Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggeste
     Then the user is navigated to a page with title Manage panels
     And the user sees the No suggested panels found message on the page
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Mandatory To Do
+    Then the "<Panels>" stage is NOT marked as Mandatory To Do
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Message>"
     Then the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral

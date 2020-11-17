@@ -104,7 +104,7 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean clickStartTestOrderReferralButton() {
         try {
-            Debugger.println("Starting Referral....");
+            //Debugger.println("Starting Referral....");
             if (!Wait.isElementDisplayed(driver, startTestOrderButton, 80)) {
                 Debugger.println("Start Referral button not displayed even after waiting period 60s...Failing.");
                 SeleniumLib.takeAScreenShot("startReferralError.jpg");

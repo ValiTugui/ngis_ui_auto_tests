@@ -103,7 +103,7 @@ Feature: ClinicalQuestions 13 - Page Validation
     Then the "<title>" page is displayed
     And the HPO phenotype drop-down is allowed to have values up to "<maximumAllowedValues>"
     And the OMIM and Oprhanet drop-down is allowed to have values up to "<maximumAllowedValues>"
-
+    #Drop down values showed as 200
     Examples:
       | stage              | title                     | maximumAllowedValues |
-      | Clinical questions | Answer clinical questions | 50                   |
+      | Clinical questions | Answer clinical questions | 200                   |

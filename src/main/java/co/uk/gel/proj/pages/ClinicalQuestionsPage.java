@@ -663,20 +663,15 @@ public class ClinicalQuestionsPage {
         try {
             Wait.seconds(5);
             if (hpoSearchField.size() < 1) {
-                Debugger.println("HPO");
+                Debugger.println("HPO Phenotype not displayed.");
+                SeleniumLib.takeAScreenShot("HPOPhenoTypeNoLoaded.jpg");
                 return false;
             }
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField.get(0), "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
-            int i = 0;
             int numberOfElements = dropdownValues.size();
-            for (WebElement element : dropdownValues) {
-                Debugger.println(" HPO Phenotype value" + ++i + " : " + element.getText());
-            }
-            Debugger.println(" Number of items displayed in HPO Phenotype Field  : " + numberOfElements);
             return numberOfElements <= maxAllowedValues;
-
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value -> " + exp);
             return false;
@@ -690,14 +685,8 @@ public class ClinicalQuestionsPage {
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Wait.seconds(10);
             }
-            int i = 0;
             int numberOfElements = dropdownValues.size();
-            for (WebElement element : dropdownValues) {
-                Debugger.println(" OMIM and Orphanet value" + ++i + " : " + element.getText());
-            }
-            Debugger.println(" Number of items displayed in OMIM and Orphanet Field  : " + numberOfElements);
             return numberOfElements <= maxAllowedValues;
-
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value -> " + exp);
             return false;

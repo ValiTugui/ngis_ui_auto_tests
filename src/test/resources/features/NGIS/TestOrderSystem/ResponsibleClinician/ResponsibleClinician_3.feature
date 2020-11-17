@@ -22,7 +22,7 @@ Feature: TestOrder - Responsible Clinician 3
     And the user clicks the Save and Continue button
     Then The Last name field should display an error message "<error_info>"
     And The mandatory field Last name should be highlighted with a "<red_color_hex_code>" red mark in additional clinician section
-    And the "<stage>" stage is marked as Mandatory To Do
+    And the "<stage>" stage is NOT marked as Mandatory To Do
     Examples:
       | stage                 | pageTitle                 | hyperlinkText | error_info            | red_color_hex_code |
       | Responsible clinician | Add clinician information | Add another   | Last name is required | #dd2509            |

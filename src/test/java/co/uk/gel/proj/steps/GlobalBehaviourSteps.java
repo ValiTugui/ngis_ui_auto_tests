@@ -6,6 +6,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
@@ -109,6 +110,9 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserShouldBeAbleToSeeAnErrorMessage(String errMessage) {
         boolean testResult = false;
         testResult = globalBehaviourPage.verifyMicrosoftLoginError(errMessage);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EMessage.jpg");
+        }
         Assert.assertTrue(testResult);
     }
     @When("the user provides an invalid referral id in the url {string}")

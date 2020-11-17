@@ -2,7 +2,6 @@
 #@userJourneysCancer
 #@BVT_UI_SMOKE_TEST_CANCER
 Feature: NTS-3362: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
-   
   @NTS-3362 @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes

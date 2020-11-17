@@ -84,7 +84,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@placeholder='YYYY']")
     public WebElement dateOfYear_dateOfSignature;
 
-   // public WebElement dateOfDeath;
+    // public WebElement dateOfDeath;
     public WebElement nhsNumber;
     @FindBy(xpath = "//input[@id='hospitalNumber']")
     public WebElement hospitalNumber;
@@ -108,7 +108,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
 
-    @FindBy(css = "*[data-testid*='notification-warning']")     //@FindBy(css = "*[class*='notification--warning']")
+    @FindBy(css = "*[data-testid*='notification-warning']")
     public WebElement patientDetailsnotificationBanner;
 
     @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]//a")
@@ -138,7 +138,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
-    //@FindBy(xpath = "//button[text()='Save and continue']")
     @FindBy(xpath = "//*[text()='Save and continue']")
     public WebElement saveAndContinue;
 
@@ -166,7 +165,7 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='referral-list__link']")
     public WebElement referralLink;
 
-    @FindBy(css = "div[class*='css-1jwqj7b']") //@FindBy(css = "div[class*='referral-card']")
+    @FindBy(css = "div[class*='css-1jwqj7b']")
     public WebElement referralCard;
 
     @FindBy(xpath = "//div[contains(@id,'referral__header')]/div//child::span[contains(@class,'child-element')]")
@@ -269,6 +268,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]/span")
     WebElement ethnicityMissing;
+    @FindBy(xpath = "//div[contains(@class,'styles_error-message')]")
+    public List<WebElement> errorMessages;
+
 
     public boolean patientDetailsPageIsDisplayed() {
         try {
@@ -292,6 +294,7 @@ public class PatientDetailsPage {
             return false;
         }
     }
+
     public boolean newFamilyMemberPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/family-members/new");
@@ -363,10 +366,10 @@ public class PatientDetailsPage {
                 dayOfBirth = String.valueOf(faker.number().numberBetween(10, 31));
                 monthOfBirth = String.valueOf(faker.number().numberBetween(10, 12));
                 yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
-                seleniumLib.sendValue(dateOfBirthDay,dayOfBirth);
-                seleniumLib.sendValue(dateOfBirthMonth,monthOfBirth);
-                seleniumLib.sendValue(dateOfBirthYear,yearOfBirth);
-             }
+                seleniumLib.sendValue(dateOfBirthDay, dayOfBirth);
+                seleniumLib.sendValue(dateOfBirthMonth, monthOfBirth);
+                seleniumLib.sendValue(dateOfBirthYear, yearOfBirth);
+            }
 
             newPatient.setDay(dayOfBirth);
             newPatient.setMonth(monthOfBirth);
@@ -439,9 +442,9 @@ public class PatientDetailsPage {
             newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
             Actions.fillInValue(firstName, newPatient.getFirstName());
             Actions.fillInValue(familyName, newPatient.getLastName());
-            seleniumLib.sendValue(dateOfBirthDay,newPatient.getDay());
-            seleniumLib.sendValue(dateOfBirthMonth,newPatient.getMonth());
-            seleniumLib.sendValue(dateOfBirthYear,newPatient.getYear());
+            seleniumLib.sendValue(dateOfBirthDay, newPatient.getDay());
+            seleniumLib.sendValue(dateOfBirthMonth, newPatient.getMonth());
+            seleniumLib.sendValue(dateOfBirthYear, newPatient.getYear());
             selectGender(administrativeGenderButton, "Male");
             editDropdownField(lifeStatusButton, "Alive");
             editDropdownField(ethnicityButton, "B - White - Irish");
@@ -483,7 +486,7 @@ public class PatientDetailsPage {
         try {
             try {
                 Actions.clickElement(driver, element);
-            }catch(Exception exp1){
+            } catch (Exception exp1) {
                 seleniumLib.clickOnWebElement(element);
             }
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -496,7 +499,7 @@ public class PatientDetailsPage {
                     Wait.forElementToBeClickable(driver, ddElements.get(0));
                     Actions.clickElement(driver, ddElements.get(0));
                     Wait.seconds(2);
-                }catch(Exception exp1){
+                } catch (Exception exp1) {
                     seleniumLib.clickOnWebElement(ddElements.get(0));
                 }
             }
@@ -515,12 +518,12 @@ public class PatientDetailsPage {
             }
             try {
                 Actions.clickElement(driver, noNhsNumberReasonDropdown);
-            }catch(Exception exp1){
+            } catch (Exception exp1) {
                 seleniumLib.clickOnWebElement(noNhsNumberReasonDropdown);
             }
             Actions.selectValueFromDropdown(noNhsNumberReasonDropdown, reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
-                if(Wait.isElementDisplayed(driver, otherReasonExplanation,20)) {
+                if (Wait.isElementDisplayed(driver, otherReasonExplanation, 20)) {
                     otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
                 }
             }
@@ -537,40 +540,78 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
                 Debugger.println("Create Record button not present in new patient creation page.");
-                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 Actions.scrollToBottom(driver);
                 return false;
             }
             seleniumLib.clickOnWebElement(createRecord);
-            return true;
         } catch (Exception exp) {
-            try{
+            try {
                 Actions.clickElement(driver, createRecord);
-                return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in clickOnCreateRecord:" + exp);
-                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 return false;
             }
         }
+        if (errorMessages.size() > 0) {
+            //Mostly due to ethnicity drop down selection
+            Debugger.println("ERROR MESSAGES.......");
+            for (int i = 0; i < errorMessages.size(); i++) {
+                Debugger.println("\t" + errorMessages.get(i).getText());
+                if (errorMessages.get(i).getText().contains("Life status is")) {
+                    editDropdownField(lifeStatusButton, "Alive");
+                }else if (errorMessages.get(i).getText().contains("Ethnicity")) {
+                    editDropdownField(ethnicityButton, "A - White - British");
+                }else if (errorMessages.get(i).getText().contains("Gender")) {
+                    editDropdownField(administrativeGenderButton, "Male");
+                }
+           }
+            seleniumLib.clickOnWebElement(createRecord);
+            SeleniumLib.sleepInSeconds(3);
+            if (errorMessages.size() > 0) {
+                Debugger.println("Patient could not create...");
+                Actions.scrollToTop(driver);
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean clickSavePatientDetailsToNGISButton() {
+        try {
+            if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
+                Debugger.println("Create Record button not present in new patient creation page.");
+                Actions.scrollToBottom(driver);
+                return false;
+            }
+            seleniumLib.clickOnWebElement(createRecord);
+        } catch (Exception exp) {
+            try {
+                Actions.clickElement(driver, createRecord);
+            } catch (Exception exp1) {
+                Debugger.println("Exception in clickOnCreateRecord:" + exp);
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean patientIsCreated() {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
-                Debugger.println("NGIS Patient Created Message not displayed."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCCreatedsuccessNotification.jpg");
+                Debugger.println("NGIS Patient Created Message not displayed." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification.jpg");
+                Actions.scrollToTop(driver);
+                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification1.jpg");
                 return false;
             }
             String successMsg = Actions.getText(successNotification);
             if (successMsg.equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
-            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created."+driver.getCurrentUrl());
+            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created." + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception in creating the patient." + exp+"\n"+driver.getCurrentUrl());
+            Debugger.println("Exception in creating the patient." + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCCreatedException.jpg");
             return false;
         }
@@ -579,7 +620,7 @@ public class PatientDetailsPage {
     public boolean clickStartReferralButton() {
         try {
             if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
-                Debugger.println("Start Referral Button not displayed.\n"+driver.getCurrentUrl());
+                Debugger.println("Start Referral Button not displayed.\n" + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
@@ -625,18 +666,18 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
-            Debugger.println("Status: "+startNewReferralButton.isEnabled());
-            if(!startNewReferralButton.isEnabled()){
+            Debugger.println("Status: " + startNewReferralButton.isEnabled());
+            if (!startNewReferralButton.isEnabled()) {
                 Wait.seconds(3);
             }
             Actions.clickElement(driver, startNewReferralButton);
 
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(startReferralButton);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
@@ -748,13 +789,13 @@ public class PatientDetailsPage {
 
     public boolean nhsNumberFieldIsEnabled() {
         try {
-             if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
+            if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
                 Debugger.println("NHS number field not displayed");
                 SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
                 return false;
             }
-            if(!nhsNumber.isEnabled()){
-                Debugger.println("For a Super user, NHSNumber field is expected to be enabled and set to True, but not."+driver.getCurrentUrl());
+            if (!nhsNumber.isEnabled()) {
+                Debugger.println("For a Super user, NHSNumber field is expected to be enabled and set to True, but not." + driver.getCurrentUrl());
                 return false;
             }
             return true;
@@ -767,12 +808,12 @@ public class PatientDetailsPage {
 
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
         String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
-        String actualDOB = seleniumLib.getText(dateOfBirthDay)+"/"+seleniumLib.getText(dateOfBirthMonth)+"/"+seleniumLib.getText(dateOfBirthYear);
+        String actualDOB = seleniumLib.getText(dateOfBirthDay) + "/" + seleniumLib.getText(dateOfBirthMonth) + "/" + seleniumLib.getText(dateOfBirthYear);
         Assert.assertEquals(DOB, actualDOB);
     }
 
     public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
-        if(!Wait.isElementDisplayed(driver, referralCard, 70)){
+        if (!Wait.isElementDisplayed(driver, referralCard, 70)) {
             Debugger.println("No referral card found");
             return;
         }
@@ -798,19 +839,19 @@ public class PatientDetailsPage {
 
     public boolean patientReferralsAreDisplayed() {
         try {
-            if(!Wait.isElementDisplayed(driver, referralLink,60)){
+            if (!Wait.isElementDisplayed(driver, referralLink, 60)) {
                 Debugger.println("Referral Link not displayed.");
                 SeleniumLib.takeAScreenShot("ReferralLink.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver, referralCard,60)){
+            if (!Wait.isElementDisplayed(driver, referralCard, 60)) {
                 Debugger.println("Referral Card not displayed.");
                 SeleniumLib.takeAScreenShot("ReferralCard.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("No Referrals are found for the patient:"+exp);
+            Debugger.println("No Referrals are found for the patient:" + exp);
             SeleniumLib.takeAScreenShot("ReferralLinkCard.jpg");
             return false;
         }
@@ -843,7 +884,7 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyReferralReason(String expectedReason) {
-        if(!Wait.isElementDisplayed(driver, referralCancelReason,60)){
+        if (!Wait.isElementDisplayed(driver, referralCancelReason, 60)) {
             Debugger.println("referralCancelReason not displayed.");
             SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
             return false;
@@ -898,8 +939,8 @@ public class PatientDetailsPage {
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
 
-            Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
-            Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+            //Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
+            //Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInAllFieldsNewPatientDetailsExceptNHSNumber:" + exp);
@@ -910,7 +951,6 @@ public class PatientDetailsPage {
 
     public boolean fillInAllFieldsNewPatientDetailsWithNHSNumber(String patientNameWithSpecialCharacters) {
         try {
-            Debugger.println("Yes..here.......");
             String patientTitle = "Mr";
             newPatient.setTitle(patientTitle);
             String firstNameValue;
@@ -958,8 +998,8 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine4, faker.address().state());
             Actions.fillInValue(postcode, postcodeValue);
 
-            Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
-            Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+            //Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
+            //Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInAllFieldsNewPatientDetailsWithNHSNumber:" + exp);
@@ -976,7 +1016,7 @@ public class PatientDetailsPage {
     public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
         try {
             if (Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
-               Actions.retryClickAndIgnoreElementInterception(driver, clearGenderDropDownValue);
+                Actions.retryClickAndIgnoreElementInterception(driver, clearGenderDropDownValue);
                 selectGender(administrativeGenderButton, gender);
                 editDropdownField(lifeStatusButton, lifeStatus);
                 editDropdownField(ethnicityButton, ethnicity);
@@ -1006,10 +1046,10 @@ public class PatientDetailsPage {
             Click.element(driver, addDetailsToNGISButton);
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(addDetailsToNGISButton);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:" + exp1);
                 SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
                 return false;
@@ -1043,28 +1083,28 @@ public class PatientDetailsPage {
             Wait.forElementToBeDisplayed(driver, successNotification);
             return Actions.getText(successNotification);
         } catch (Exception exp) {
-            try{
+            try {
                 return seleniumLib.getText(successNotification);
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: " + exp1);
-            SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
-            return null;
+                SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
+                return null;
+            }
         }
-    }
     }
 
     public List<String> getTheEthnicityDropDownValues() {
         try {
-        Wait.forElementToBeClickable(driver, ethnicityButton);
-        Actions.clickElement(driver, ethnicityButton);
-        List<String> actualEthnicityValues = new ArrayList<String>();
-        for (WebElement ethnicityValue : ethnicityValues) {
-            actualEthnicityValues.add(ethnicityValue.getText().trim());
-        }
+            Wait.forElementToBeClickable(driver, ethnicityButton);
+            Actions.clickElement(driver, ethnicityButton);
+            List<String> actualEthnicityValues = new ArrayList<String>();
+            for (WebElement ethnicityValue : ethnicityValues) {
+                actualEthnicityValues.add(ethnicityValue.getText().trim());
+            }
             //Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
-        return actualEthnicityValues;
-        }catch(Exception exp){
-            Debugger.println("Exception in getting Ethnicity Dropdown."+exp);
+            return actualEthnicityValues;
+        } catch (Exception exp) {
+            Debugger.println("Exception in getting Ethnicity Dropdown." + exp);
             return null;
         }
     }
@@ -1184,8 +1224,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(firstName, referralDetails.getFIRST_NAME());
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
             selectGender(administrativeGenderButton, referralDetails.getGENDER());
-//            editDropdownField(lifeStatusButton, "Alive");
-            editDropdownField(lifeStatusButton,referralDetails.getLIFE_STATUS());
+            editDropdownField(lifeStatusButton, referralDetails.getLIFE_STATUS());
             editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
             //Address
@@ -1220,19 +1259,19 @@ public class PatientDetailsPage {
 
     public List<String> getActualPatientAddressOnPatientDetailPage() {
         try {
-        Wait.forElementToBeDisplayed(driver, addressLine0);
-        List<String> actualPatientAddress = new ArrayList<>();
+            Wait.forElementToBeDisplayed(driver, addressLine0);
+            List<String> actualPatientAddress = new ArrayList<>();
 
-        actualPatientAddress.add(Actions.getValue(addressLine0));
-        actualPatientAddress.add(Actions.getValue(addressLine1));
-        actualPatientAddress.add(Actions.getValue(addressLine2));
-        actualPatientAddress.add(Actions.getValue(addressLine3));
-        actualPatientAddress.add(Actions.getValue(addressLine4));
+            actualPatientAddress.add(Actions.getValue(addressLine0));
+            actualPatientAddress.add(Actions.getValue(addressLine1));
+            actualPatientAddress.add(Actions.getValue(addressLine2));
+            actualPatientAddress.add(Actions.getValue(addressLine3));
+            actualPatientAddress.add(Actions.getValue(addressLine4));
 
             //Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
-        return actualPatientAddress;
-        }catch(Exception exp){
-            Debugger.println("Exception getting Actual Patient Address:"+exp);
+            return actualPatientAddress;
+        } catch (Exception exp) {
+            Debugger.println("Exception getting Actual Patient Address:" + exp);
             return null;
         }
     }
@@ -1245,7 +1284,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
-    public boolean verifyPatientDetails(String patientDetails){
+    public boolean verifyPatientDetails(String patientDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
         Set<String> paramsKey = paramNameValue.keySet();
         String actValue = "";
@@ -1445,31 +1484,31 @@ public class PatientDetailsPage {
 
     public boolean fillPostcodeValue(String postcode) {
         try {
-            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
-                Debugger.println("The Postcode field is not displayed in the edit patient details page."+driver.getCurrentUrl());
+            if (!Wait.isElementDisplayed(driver, postcodeField, 20)) {
+                Debugger.println("The Postcode field is not displayed in the edit patient details page." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("fillPostcode.jpg");
                 return false;
             }
             postcodeField.clear();
             postcodeField.sendKeys(postcode);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in filling the postcode: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in filling the postcode: " + exp);
             SeleniumLib.takeAScreenShot("fillPostcode.jpg");
             return false;
         }
     }
 
     public boolean verifyPostcodeFormatInAddress(String formattedPostcode) {
-        try{
-            if(!Wait.isElementDisplayed(driver,addressField,20)){
-                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+        try {
+            if (!Wait.isElementDisplayed(driver, addressField, 20)) {
+                Debugger.println("The address is not displayed." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
                 return false;
             }
-            String actualAddress=addressField.getText();
-            if(!actualAddress.contains(formattedPostcode)){
-                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual address is:"+actualAddress);
+            String actualAddress = addressField.getText();
+            if (!actualAddress.contains(formattedPostcode)) {
+                Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual address is:" + actualAddress);
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
                 return false;
             }
@@ -1482,27 +1521,27 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyPostcodeFormatInPD(String formattedPostcode) {
-        try{
-            if(!Wait.isElementDisplayed(driver,postcodeField,20)){
-                Debugger.println("The address is not displayed."+driver.getCurrentUrl());
+        try {
+            if (!Wait.isElementDisplayed(driver, postcodeField, 20)) {
+                Debugger.println("The address is not displayed." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
                 return false;
             }
-            String actualPostcode=postcodeField.getAttribute("value");
-            if(!actualPostcode.equalsIgnoreCase(formattedPostcode)){
-                Debugger.println("The postcode format expected is:"+formattedPostcode+" But actual is:"+actualPostcode);
+            String actualPostcode = postcodeField.getAttribute("value");
+            if (!actualPostcode.equalsIgnoreCase(formattedPostcode)) {
+                Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual is:" + actualPostcode);
                 SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from checking the postcode format in address:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the postcode format in address:" + exp);
             SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
             return false;
         }
     }
 
-    public String verifyPatientDetails_NGIS(){
+    public String verifyPatientDetails_NGIS() {
         try {
             String actualPrefix = title.getAttribute("value");
             String actualFirstName = firstName.getAttribute("value");
@@ -1513,77 +1552,79 @@ public class PatientDetailsPage {
 
             NewPatient newPatient = getNewlyCreatedPatientData();
             String expectedDOB = newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear();
-            if(!newPatient.getTitle().equalsIgnoreCase(actualPrefix)){
-                return "Expected Prefix: "+newPatient.getTitle()+",But Actual:"+actualPrefix;
+            if (!newPatient.getTitle().equalsIgnoreCase(actualPrefix)) {
+                return "Expected Prefix: " + newPatient.getTitle() + ",But Actual:" + actualPrefix;
             }
-            if(!newPatient.getFirstName().equalsIgnoreCase(actualFirstName)){
-                return "Expected FirstName: "+newPatient.getFirstName()+",But Actual:"+actualFirstName;
+            if (!newPatient.getFirstName().equalsIgnoreCase(actualFirstName)) {
+                return "Expected FirstName: " + newPatient.getFirstName() + ",But Actual:" + actualFirstName;
             }
-            if(!newPatient.getLastName().equalsIgnoreCase(actualLastName)){
-                return "Expected LastName: "+newPatient.getLastName()+",But Actual:"+actualLastName;
+            if (!newPatient.getLastName().equalsIgnoreCase(actualLastName)) {
+                return "Expected LastName: " + newPatient.getLastName() + ",But Actual:" + actualLastName;
             }
-            if(!expectedDOB.equalsIgnoreCase(actualFullDOB)){
-                return "Expected DOB: "+actualFullDOB+",But Actual:"+actualFullDOB;
+            if (!expectedDOB.equalsIgnoreCase(actualFullDOB)) {
+                return "Expected DOB: " + actualFullDOB + ",But Actual:" + actualFullDOB;
             }
-            if(!newPatient.getGender().equalsIgnoreCase(actualGender)){
-                return "Expected Gender: "+newPatient.getGender()+",But Actual:"+actualGender;
+            if (!newPatient.getGender().equalsIgnoreCase(actualGender)) {
+                return "Expected Gender: " + newPatient.getGender() + ",But Actual:" + actualGender;
             }
-            if(actualNHSNumber != null && !actualNHSNumber.isEmpty()) {
+            if (actualNHSNumber != null && !actualNHSNumber.isEmpty()) {
                 if (!newPatient.getNhsNumber().equalsIgnoreCase(actualNHSNumber)) {
                     return "Expected NHSNumber: " + newPatient.getGender() + ",But Actual:" + actualNHSNumber;
                 }
             }
             return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not verify NGIS Patient Details:"+exp+"\n"+driver.getCurrentUrl());
-            return "Could not verify NGIS Patient details:"+exp;
+        } catch (Exception exp) {
+            Debugger.println("Could not verify NGIS Patient Details:" + exp + "\n" + driver.getCurrentUrl());
+            return "Could not verify NGIS Patient details:" + exp;
         }
     }
-    public String fillDateOfBirth(String dateOfBirth){
+
+    public String fillDateOfBirth(String dateOfBirth) {
         try {
             String[] dobSplit = dateOfBirth.split("-");
             seleniumLib.sendValue(dateOfBirthDay, dobSplit[0]);
             seleniumLib.sendValue(dateOfBirthMonth, dobSplit[1]);
             seleniumLib.sendValue(dateOfBirthYear, dobSplit[2]);
             return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not fill Date Of Birth: "+exp;
+        } catch (Exception exp) {
+            Debugger.println("Could not fill Date Of Birth: " + exp + "\n" + driver.getCurrentUrl());
+            return "Could not fill Date Of Birth: " + exp;
         }
     }
-    public String clearDateOfBirth(){
+
+    public String clearDateOfBirth() {
         try {
-            if(!seleniumLib.isElementPresent(dateOfBirthDay)){
+            if (!seleniumLib.isElementPresent(dateOfBirthDay)) {
                 return "Date of birth fields not displayed.";
             }
             Actions.clearInputField(dateOfBirthDay);
             Actions.clearInputField(dateOfBirthMonth);
             Actions.clearInputField(dateOfBirthYear);
             return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not Clear Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not Clear Date Of Birth: "+exp;
+        } catch (Exception exp) {
+            Debugger.println("Could not Clear Date Of Birth: " + exp + "\n" + driver.getCurrentUrl());
+            return "Could not Clear Date Of Birth: " + exp;
         }
     }
 
 
-    public String fillBirthday(String Birthday){
+    public String fillBirthday(String Birthday) {
         try {
             seleniumLib.sendValue(dateOfBirthDay, Birthday);
             return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not fill Date Of Birthday: "+exp;
+        } catch (Exception exp) {
+            Debugger.println("Could not fill Date Of Birth: " + exp + "\n" + driver.getCurrentUrl());
+            return "Could not fill Date Of Birthday: " + exp;
         }
     }
 
-    public String fillBirthYear(String BirthYear){
+    public String fillBirthYear(String BirthYear) {
         try {
             seleniumLib.sendValue(dateOfBirthYear, BirthYear);
             return "Success";
-        }catch(Exception exp){
-            Debugger.println("Could not fill Date Of Birth: "+exp+"\n"+driver.getCurrentUrl());
-            return "Could not fill month Of Birthyear: "+exp;
+        } catch (Exception exp) {
+            Debugger.println("Could not fill Date Of Birth: " + exp + "\n" + driver.getCurrentUrl());
+            return "Could not fill month Of Birthyear: " + exp;
         }
     }
 
@@ -1596,7 +1637,7 @@ public class PatientDetailsPage {
                 return false;
             }
             return true;
-        }  catch (Exception exp1) {
+        } catch (Exception exp1) {
             Debugger.println("Exception from checking dayfield:" + exp1);
             SeleniumLib.takeAScreenShot("subPageTitle.jpg");
             return false;
@@ -1606,7 +1647,7 @@ public class PatientDetailsPage {
 
     public boolean clickDayinputfield() {
         try {
-            if (!Wait.isElementDisplayed(driver,dateOfBirthDay_patientsearch, 30)) {
+            if (!Wait.isElementDisplayed(driver, dateOfBirthDay_patientsearch, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
                 SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
@@ -1632,7 +1673,7 @@ public class PatientDetailsPage {
 
     public boolean clickDayinputfield_1() {
         try {
-            if (!Wait.isElementDisplayed(driver,dateOfBirthDay, 30)) {
+            if (!Wait.isElementDisplayed(driver, dateOfBirthDay, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
                 SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
@@ -1655,6 +1696,7 @@ public class PatientDetailsPage {
             }
         }
     }
+
     public boolean monthfield() {
         try {
             if (!Wait.isElementDisplayed(driver, monthfield, 10)) {
@@ -1663,7 +1705,7 @@ public class PatientDetailsPage {
                 return false;
             }
             return true;
-        }  catch (Exception exp1) {
+        } catch (Exception exp1) {
             Debugger.println("Exception from checking monthfield:" + exp1);
             SeleniumLib.takeAScreenShot("monthTitle.jpg");
             return false;
@@ -1673,7 +1715,7 @@ public class PatientDetailsPage {
 
     public boolean clickMonthinputfield() {
         try {
-            if (!Wait.isElementDisplayed(driver,dateOfBirthMonth_patientsearch, 30)) {
+            if (!Wait.isElementDisplayed(driver, dateOfBirthMonth_patientsearch, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
                 SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
@@ -1699,7 +1741,7 @@ public class PatientDetailsPage {
 
     public boolean clickMonthinputfield_1() {
         try {
-            if (!Wait.isElementDisplayed(driver,dateOfBirthMonth, 30)) {
+            if (!Wait.isElementDisplayed(driver, dateOfBirthMonth, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
                 SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
@@ -1722,6 +1764,7 @@ public class PatientDetailsPage {
             }
         }
     }
+
     public boolean yearfield() {
         try {
             if (!Wait.isElementDisplayed(driver, yearfield, 10)) {
@@ -1730,8 +1773,7 @@ public class PatientDetailsPage {
                 return false;
             }
             return true;
-        }
-        catch (Exception exp1) {
+        } catch (Exception exp1) {
             Debugger.println("Exception from checking yearfield:" + exp1);
             SeleniumLib.takeAScreenShot("yearTitle.jpg");
             return false;
@@ -1741,7 +1783,7 @@ public class PatientDetailsPage {
 
     public boolean clickYearinputfield() {
         try {
-            if (!Wait.isElementDisplayed(driver,dateOfBirthYear_patientsearch, 30)) {
+            if (!Wait.isElementDisplayed(driver, dateOfBirthYear_patientsearch, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
                 SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
@@ -1767,7 +1809,7 @@ public class PatientDetailsPage {
 
     public boolean clickYearinputfield_1() {
         try {
-            if (!Wait.isElementDisplayed(driver,dateOfBirthYear, 30)) {
+            if (!Wait.isElementDisplayed(driver, dateOfBirthYear, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
                 SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
@@ -1848,7 +1890,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " +dateOfYear_dateOfDiagnosis.isEnabled());
+            Debugger.println("Status: " + dateOfYear_dateOfDiagnosis.isEnabled());
             if (!dateOfYear_dateOfDiagnosis.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1923,7 +1965,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " +dateOfYear_SampleDetails.isEnabled());
+            Debugger.println("Status: " + dateOfYear_SampleDetails.isEnabled());
             if (!dateOfYear_SampleDetails.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1948,7 +1990,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " +dateOfDay_dateOfSignature.isEnabled());
+            Debugger.println("Status: " + dateOfDay_dateOfSignature.isEnabled());
             if (!dateOfDay_SampleDetails.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1998,7 +2040,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " +dateOfYear_dateOfSignature.isEnabled());
+            Debugger.println("Status: " + dateOfYear_dateOfSignature.isEnabled());
             if (!dateOfYear_dateOfSignature.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -2016,7 +2058,7 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean updatePatientDetails(String patientDetails){
+    public boolean updatePatientDetails(String patientDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(patientDetails);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
@@ -2063,7 +2105,7 @@ public class PatientDetailsPage {
                     }
                     break;
                 }
-                case "Title":{
+                case "Title": {
                     seleniumLib.sendValue(title, paramNameValue.get(key));
                     break;
                 }
@@ -2080,13 +2122,12 @@ public class PatientDetailsPage {
                 return null;
             }
             return administrativeGenderButton.getText();
+        } catch (Exception exp) {
+            Debugger.println("Exception from readGenderValue:" + exp);
+            SeleniumLib.takeAScreenShot("readGenderValue.jpg");
+            return null;
         }
-       catch (Exception exp){
-                Debugger.println("Exception from readGenderValue:" + exp);
-                SeleniumLib.takeAScreenShot("readGenderValue.jpg");
-                return null;
-            }
-        }
+    }
 
     public boolean updateFamilyMemberDetails(String familyMemberDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
@@ -2131,6 +2172,7 @@ public class PatientDetailsPage {
         }
         return true;
     }
+
     public boolean verifyFamilyMemberDetails(String familyMemberDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
         Set<String> paramsKey = paramNameValue.keySet();
@@ -2211,18 +2253,18 @@ public class PatientDetailsPage {
 
     public boolean startNewReferralButtonIsEnabled() {
         try {
-            if(!Wait.isElementDisplayed(driver,startNewReferralButton,30)){
+            if (!Wait.isElementDisplayed(driver, startNewReferralButton, 30)) {
                 Debugger.println("Start new referral button not displayed");
                 SeleniumLib.takeAScreenShot("startNewReferralButtonError.jpg");
                 return false;
             }
-            if(!startNewReferralButton.isEnabled()){
+            if (!startNewReferralButton.isEnabled()) {
                 Debugger.println("Start new referral button not enabled");
                 SeleniumLib.takeAScreenShot("startNewReferralButtonError.jpg");
                 return false;
             }
             return true;
-        }catch(Exception exp){
+        } catch (Exception exp) {
             Debugger.println("Start new referral button not enabled");
             SeleniumLib.takeAScreenShot("startNewReferralButtonError.jpg");
             return false;
@@ -2278,7 +2320,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
-            String expReason=newPatient.getReasonForNoNHSNumber();
+            String expReason = newPatient.getReasonForNoNHSNumber();
             if (!expReason.equalsIgnoreCase(NHSNumber.getText().trim())) {
                 Debugger.println("Expected NHSNumber: " + newPatient.getNhsNumber() + ",But Actual:" + NHSNumber.getText().trim());
                 SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");

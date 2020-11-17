@@ -47,7 +47,7 @@ public class ReferralSteps extends Pages {
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
-        Debugger.println("Stage: " + stage + " Starting.");
+        //Debugger.println("Stage: " + stage + " Starting.");
         boolean testResult = referralPage.navigateToStage(stage);
         if(!testResult){
             Assert.fail("Could not navigate to stage:"+stage);
@@ -220,7 +220,6 @@ public class ReferralSteps extends Pages {
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -237,15 +236,10 @@ public class ReferralSteps extends Pages {
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         boolean testResult = false;
-        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
-        if (!testResult) {
-            Assert.assertTrue("Failed in waitUntilHomePageResultsContainerIsLoaded", false);
-        }
         testResult = homePage.typeInSearchField(searchTerm);
         if (!testResult) {
             Assert.assertTrue("Failed in typeInSearchField", false);
         }
-
         testResult = homePage.clickSearchIconFromSearchField();
         if (!testResult) {
             Assert.assertTrue("Failed in clickSearchIconFromSearchField", false);
@@ -280,7 +274,8 @@ public class ReferralSteps extends Pages {
         }
         testResult = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         if (!testResult) {
-            Assert.assertTrue("Failed in verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PageYesNotDisplayed.jpg");
+            Assert.fail("Failed in verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected");
         }
 
         if (patientType == null || patientType.isEmpty()) {
@@ -330,7 +325,10 @@ public class ReferralSteps extends Pages {
 
         testResult = patientDetailsPage.clickOnCreateRecord();
         if (!testResult) {
-            Assert.assertTrue("Failed in clickOnCreateRecord", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated1.jpg");
+            Assert.fail("Failed in clickOnCreateRecord");
         }
         testResult = patientDetailsPage.patientIsCreated();
         if (!testResult) {
@@ -396,6 +394,10 @@ public class ReferralSteps extends Pages {
     @And("the {string} stage is marked as Mandatory To Do")
     public void theStageIsMarkedAsMandatoryToDo(String stage) {
         Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+    }
+    @And("the {string} stage is NOT marked as Mandatory To Do")
+    public void theStageIsNotMarkedAsMandatoryToDo(String stage) {
+        Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
     }
 
     @And("Save and Continue button is displayed")
@@ -482,7 +484,7 @@ public class ReferralSteps extends Pages {
         }
         //patientDetailsPage.clickSavePatientDetailsToNGISButton();
         if (!patientDetailsPage.clickOnCreateRecord()) {
-            Assert.assertTrue("Failure in clickOnCreateRecord", false);
+            Assert.fail("Failure in clickOnCreateRecord.Details may not have entered properly in previous step.");
         }
         if (!patientDetailsPage.patientIsCreated()) {
             Assert.assertTrue("Failure in patientIsCreated", false);
@@ -492,7 +494,7 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue("Failure in clickStartReferralButton", false);
         }
         if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-            Assert.assertTrue("Failure in checkThatReferralWasSuccessfullyCreated", false);
+            Assert.fail("Failure in checkThatReferralWasSuccessfullyCreated");
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
@@ -595,6 +597,7 @@ public class ReferralSteps extends Pages {
         }
         homePage.closeCookiesBannerFromFooter();
         if (!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_startReferral.jpg");
             Assert.fail("Could not click on StartTestOrderReferral Button");
         }
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
@@ -648,6 +651,7 @@ public class ReferralSteps extends Pages {
             }
         }
         if (!patientDetailsPage.clickOnCreateRecord()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCreate.jpg");
             Assert.fail("Could not click on Create Record.");
         }
         if (!patientDetailsPage.patientIsCreated()) {
@@ -657,6 +661,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("Could not start referral button.");
         }
         if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
             Assert.fail("Could not verify the successful creation of referral.");
         }
         //To log the ReferralI in the Log.
@@ -712,13 +717,13 @@ public class ReferralSteps extends Pages {
     public void theUserNavigatesBackToPatientExistingReferralPage(List<String> attributeOfURL) {
 
         String existingReferralID = patientDetailsPage.newPatient.getReferralHumanReadableID();
-        Debugger.println("existingReferralID:" + existingReferralID);
+        //Debugger.println("existingReferralID:" + existingReferralID);
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String referralFullUrl = TestUtils.getReferralURL(baseURL, existingReferralID, confirmationPage);
-        Debugger.println("referralFullUrl:" + referralFullUrl);
+       //Debugger.println("referralFullUrl:" + referralFullUrl);
         NavigateTo(referralFullUrl, confirmationPage);
-        Debugger.println("Navigated to:" + driver.getCurrentUrl());
+        //Debugger.println("Navigated to:" + driver.getCurrentUrl());
         Assert.assertTrue(referralPage.saveAndContinueButtonIsDisplayed());
 
     }
@@ -865,10 +870,12 @@ public class ReferralSteps extends Pages {
                 Assert.fail("Could not click on create a new patient record link");
             }
             if (!patientDetailsPage.createNewPatientReferral(searchPatient)) {
-//                Assert.fail("Could not create new Patient Referral");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewRef.jpg");
+                Assert.fail("Could not create new Patient Referral");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-//                Assert.fail("Referral successfully created message not displayed.");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
+                Assert.fail("Referral successfully created message not displayed.");
             }
             if (!referralPage.saveAndContinueButtonIsDisplayed()) {
                 Assert.fail("SaveAndContinue button not displayed after referral creation.");
@@ -876,6 +883,7 @@ public class ReferralSteps extends Pages {
         } else if (searchResult.equalsIgnoreCase("1 patient record found")) {
             //Existing Patient
             if (!patientSearchPage.clickPatientCard()) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCreate.jpg");
                 Assert.fail("Could not click on Patient Card");
             }
             if (patientDetailsPage.readEthnicityMandatoryStatus()){
@@ -891,14 +899,15 @@ public class ReferralSteps extends Pages {
                 Assert.fail("Could not click on StartNewReferral Button");
             }
             if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-//                Assert.fail("Could not verify the Referral successfully creation message");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
+                Assert.fail("Could not verify the Referral successfully creation message");
 
             }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if (!toDoListDisplayed) {
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
                 //Observed undefined attached in the URL sometime....This is to verify the URL the moment
-                Debugger.println("ToDoListNotLeaded:URL:" + driver.getCurrentUrl());
+                Debugger.println("ToDoListNotLoaded:URL:" + driver.getCurrentUrl());
                 Assert.fail("ToDoList in Referral Page is not loaded even after the waiting time..");
             }
         } else {
@@ -1113,7 +1122,7 @@ public class ReferralSteps extends Pages {
         String actualGenomicsEngLogo = referralPage.getGenomicMedicineServiceLogoInHeader();
         Debugger.println("actual Genomics Logo " + actualGenomicsEngLogo);
         Debugger.println("expected Genomics Logo " + expectedGenomicsEngLogo);
-        Assert.assertEquals(expectedGenomicsEngLogo, actualGenomicsEngLogo);
+        Assert.assertEquals(expectedGenomicsEngLogo.trim(), actualGenomicsEngLogo.trim());
     }
 
     @And("the username {string} is displayed in the header of Test Ordering")

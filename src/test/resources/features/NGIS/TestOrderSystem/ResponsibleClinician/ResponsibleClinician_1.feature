@@ -65,7 +65,7 @@ Feature: Responsible Clinician - 1
     And the user clicks the Save and Continue button
     Then The Last name field should display an error message "<error_info>"
     And The mandatory field Last name should be highlighted with a "<red_color_hex_code>" red mark
-    And the "<stage>" stage is marked as Mandatory To Do
+    And the "<stage>" stage is NOT marked as Mandatory To Do
     Examples:
       | stage                 | hyperlinkText | error_info            |red_color_hex_code |
       | Responsible clinician | Add another   | Last name is required | #dd2509           |
@@ -83,7 +83,7 @@ Feature: Responsible Clinician - 1
     And The user sees the text field Department name and address
     When the user fills in all clinician form fields except Department name and address
     And the user clicks the Save and Continue button
-    Then the "<stage>" stage is marked as Mandatory To Do
+    Then the "<stage>" stage is NOT marked as Mandatory To Do
     And the "<new_stage>" stage is selected
     Examples:
       | stage                 |  new_stage   |
@@ -104,7 +104,7 @@ Feature: Responsible Clinician - 1
     And the user clicks the Save and Continue button
     Then The Last name field should display an error message "<error_info>"
     And The mandatory field Last name should be highlighted with a "<red_color_hex_code>" red mark
-    And the "<stage>" stage is marked as Mandatory To Do
+    And the "<stage>" stage is NOT marked as Mandatory To Do
     Examples:
       | stage                 | pageTitle                 | hyperlinkText | error_info            | red_color_hex_code |
       | Responsible clinician | Add clinician information | Add another   | Last name is required | #dd2509            |
@@ -275,7 +275,7 @@ Feature: Responsible Clinician - 1
     And The user sees the text field Department name and address
     When the user fills in all clinician form fields except Department name and address
     And the user clicks the Save and Continue button
-    Then the "<stage>" stage is marked as Mandatory To Do
+    Then the "<stage>" stage is NOT marked as Mandatory To Do
     And the "<new_stage>" stage is selected
     And the user navigates to the "<stage>" stage
     When the user fills in the Department name and address

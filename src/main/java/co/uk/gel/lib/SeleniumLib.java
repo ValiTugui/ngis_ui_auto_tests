@@ -369,6 +369,21 @@ public class SeleniumLib {
         }
         return false;
     }
+    public boolean isErrorMessageElementDisplayed(WebElement element,int seconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, seconds);
+            final WebElement el = element;
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
+                    return el.isDisplayed();
+                }
+            });
+            return false;
+        }catch(Exception exp){
+            return false;
+        }
+    }
+
 
     public void waitForElementVisible(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, 30);

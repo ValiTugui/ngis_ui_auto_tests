@@ -1,5 +1,6 @@
 package co.uk.gel.proj.config;
 
+import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 
 import java.io.File;
@@ -62,6 +63,9 @@ public class AppConfig {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             try (InputStream resourceStream = loader.getResourceAsStream(configFileName)) {
+                if(resourceStream == null){
+                    Assert.fail("Could not read the properties file:"+configFileName+",Please check whether the environment provided is correct.");
+                }
                 properties.load(resourceStream);
             }
 

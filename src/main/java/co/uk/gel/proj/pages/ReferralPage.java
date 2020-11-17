@@ -46,7 +46,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
-    @FindBy(xpath = "//div[@data-testid='referral-sidebar']//ul")
+    @FindBy(xpath = "//div[@data-testid='referral-sidebar']/h2")
     public WebElement toDoList;
 
     @FindBy(css = "div[class*='referral__main']")
@@ -378,12 +378,12 @@ public class ReferralPage<check> {
             // deliberate 3 seconds wait is added to handle the slowness of UI on Jenkins run
             //ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
             Wait.seconds(3);
-            if(!Wait.isElementDisplayed(driver,referralHeader,120)){
-                Debugger.println("Referral Header not loaded even after 120 seconds.\n"+driver.getCurrentUrl());
+            if(!Wait.isElementDisplayed(driver,referralHeader,60)){
+                Debugger.println("Referral Header not loaded even after 60 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ReferralHeaderNotLoaded.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,toDoList,100)){
+            if(!Wait.isElementDisplayed(driver,toDoList,30)){
                 Debugger.println("Landing Page ToDo List not loaded even after 100 seconds.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("LandingPageToDoList.jpg");
                 return false;
@@ -716,8 +716,7 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
-            Wait.forPageToBeLoaded(driver);
-            Debugger.println("EXP TITLE: " + expTitle);
+            //Debugger.println("EXP TITLE: " + expTitle);
             long startTime = System.currentTimeMillis();
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 8 seconds forceful wait
             int titlesSize = titleElements.size();
@@ -748,8 +747,8 @@ public class ReferralPage<check> {
                 return true;
             }
             long endTime = System.currentTimeMillis();
-            Debugger.println("Page title not loaded event after "+((endTime-startTime)/1000)+" seconds. Trying again");
-            SeleniumLib.takeAScreenShot("PageTitleNotLoaded1.jpg");
+            //Debugger.println("Page title not loaded event after "+((endTime-startTime)/1000)+" seconds. Trying again");
+            //SeleniumLib.takeAScreenShot("PageTitleNotLoaded1.jpg");
             //In case of failure again, trying with another method.
             By pageTitle;
             if (expTitle.contains("\'")) {
@@ -779,7 +778,7 @@ public class ReferralPage<check> {
                 }
                 Actions.scrollToTop(driver);
                 endTime = System.currentTimeMillis();
-                Debugger.println("Page title not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
+                Debugger.println("Page title"+expTitle+" not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
                 SeleniumLib.takeAScreenShot("PageTitleNotLoaded2.jpg");
                 Debugger.println("TITLE URL:" + driver.getCurrentUrl());
                 return false;

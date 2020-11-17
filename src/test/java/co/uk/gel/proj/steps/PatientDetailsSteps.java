@@ -330,9 +330,8 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Save patient details to NGIS button")
     public void theUserClicksTheSavePatientDetailsToNGISButton() {
-        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
         boolean testResult = false;
-        testResult = patientDetailsPage.clickOnCreateRecord();
+        testResult = patientDetailsPage.clickSavePatientDetailsToNGISButton();
         Assert.assertTrue(testResult);
     }
 

@@ -1,5 +1,5 @@
 @05-CONSENT
-@SYSTEM_TEST
+@SYSTEM_TEST1
 Feature: Patient Choice-19 - Different types of Form File upload and removal in recorded by section.
 
   @NTS-6024 @Z-LOGOUT
