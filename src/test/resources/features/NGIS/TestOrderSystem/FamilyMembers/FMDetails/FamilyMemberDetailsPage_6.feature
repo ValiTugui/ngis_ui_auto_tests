@@ -75,7 +75,7 @@ Feature: Family Members Details Page 6- Field Validation_6
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    And the "<FamilyMembers>" stage is marked as Mandatory To Do
+    And the "<FamilyMembers>" stage is NOT marked as Mandatory To Do
     And the user clicks the Save and Continue button
     ####Patient Choice
     Then the user is navigated to a page with title Patient choice
