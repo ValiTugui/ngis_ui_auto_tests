@@ -28,7 +28,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     ##TestData : Details of same patient used for searching in Given step
     Examples:
       | SearchDetails                                                            | ErrorMessage1                                      | ErrorMessage2                                       |
-      | DOB=18-03-1967:FirstName=MADELINE:LastName=LENNON GOODNESS:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
+      | DOB=18-03-1967:FirstName=MADELINE:LastName=LENNON:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
