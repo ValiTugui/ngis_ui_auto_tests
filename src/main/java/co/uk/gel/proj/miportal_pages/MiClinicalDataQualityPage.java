@@ -79,7 +79,6 @@ public class MiClinicalDataQualityPage {
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
 
     String link="//a[text()='dummyLink']";
-
     String dummyTabPath = "//*[@class='nav nav-tabs']//a[text()='dummyTab']";
 
     @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
