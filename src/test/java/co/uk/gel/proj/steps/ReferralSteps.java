@@ -788,11 +788,15 @@ public class ReferralSteps extends Pages {
         String referralDetails = attributeOfURL.get(4);
 
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        Assert.assertTrue(homePage.searchForTheTest(searchTerm));
+        boolean stepResult = false;
+        stepResult = homePage.searchForTheTest(searchTerm);
+        if(!stepResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
         }
-        boolean stepResult = false;
+
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         Assert.assertTrue(stepResult);
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
