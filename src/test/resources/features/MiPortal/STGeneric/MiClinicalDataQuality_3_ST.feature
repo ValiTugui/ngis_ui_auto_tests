@@ -5,7 +5,7 @@
 Feature: MIPORTAL ST - Clinical Data Quality - 3
 
   @NTS-6097 @MI-LOGOUT
-  Scenario Outline:NTS-6097:Scenario-1: User is able to navigate to Clinical Data Quality page
+  Scenario Outline:NTS-6097:Scenario-1: User is able to navigate to report guidance link
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user should be able to see data quality menu is displayed
