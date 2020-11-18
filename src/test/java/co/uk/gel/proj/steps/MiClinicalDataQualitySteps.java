@@ -132,4 +132,47 @@ public class MiClinicalDataQualitySteps extends Pages {
         Debugger.println("The Elements Present In Apply Filters Section are verified");
     }
 
-}
+    @And("the user clicks the {string} link to open the document in a new tab having {string} url")
+    public void theUserClicksTheReportGuidanceLinkToOpenTheDocumentInANewTabHavingUrl(String linkName,String linkURL) {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.openReportGuidance(linkName,linkURL);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the column headers of each of the tables with data present in the tabs")
+    public void theUserSeesTheColumnHeadersPresentInTheTabs(DataTable tabNameAndFields) {
+        boolean testResult = false;
+        List<List<String>> data = tabNameAndFields.cells();
+        Debugger.println("The data row size:" + data.size());
+        for (int i = 0; i < data.size(); i++) {
+            String tabName = data.get(i).get(0);
+            String headerValues = data.get(i).get(1);
+            String dataPresence = data.get(i).get(2);
+            testResult = miClinicalDataQualityPage.verifyDQTabNamesAndColumnHeaders(tabName, headerValues,dataPresence);
+            Assert.assertTrue(testResult);
+        }
+    }
+
+    @And("the user selects the tab {string}")
+    public void theUserSelectsTheTab(String tabName) {
+        boolean testResult=false;
+        testResult=miClinicalDataQualityPage.clickOnSpecifiedTab(tabName);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks the {string} link in the {string} tab which opens {string} url")
+    public void theUserClicksTheLinkInTheTabWhichOpensUrl(String linkName, String tabName, String linkUrl) {
+        boolean testResult=false;
+        testResult=miClinicalDataQualityPage.openTestOrderLink(linkName,tabName,linkUrl);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to download the filtered DQ report")
+    public void theUserShouldBeAbleToDownloadTheFilteredDQReport() {
+        boolean testResult = false;
+        testResult = miClinicalDataQualityPage.downloadDqCSVFile("Data_quality_report");
+        Assert.assertTrue(testResult);
+        testResult = TestUtils.isFilePresent("Data_quality_report","");
+        Assert.assertTrue(testResult);
+    }
+}//end
