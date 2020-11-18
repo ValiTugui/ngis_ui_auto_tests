@@ -86,7 +86,7 @@ Feature: Patient Choice-12 - Adult with Capacity
     When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=10-12-1950:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    And the "<PatientChoice>" stage is marked as Mandatory To Do
+    And the "<PatientChoice>" stage is NOT marked as Mandatory To Do
 
     Examples:
       | PatientDetails  | TestPackage  | TwoParticipants | FamilyMembers  | PatientChoice  | ThreeParticipants |
