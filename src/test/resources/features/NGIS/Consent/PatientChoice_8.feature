@@ -1,6 +1,6 @@
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST1
+@SYSTEM_TEST
 Feature: Patient Choice-8 - History - Preference
 
   @NTS-3437

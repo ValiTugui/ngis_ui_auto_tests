@@ -1,7 +1,7 @@
 #@regression
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST1
+@SYSTEM_TEST
 Feature: Patient Choice-6 - File uploads
 
   @NTS-3440 @Z-LOGOUT

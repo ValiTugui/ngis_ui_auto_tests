@@ -42,7 +42,7 @@ Feature: UserJourney_RD_NEW_Proband_4 - UC26 - E2EUI-1801
     ###Patient choice for the proband Not to be given for this scenario so this stage will be marked with asterisk
     Then the user is navigated to a page with title Patient choice
     And the user clicks on Continue Button
-    Then the "<PatientChoice>" stage is marked as Mandatory To Do
+    Then the "<PatientChoice>" stage is NOT marked as Mandatory To Do
     ###Panels - no need to check for its completion
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
