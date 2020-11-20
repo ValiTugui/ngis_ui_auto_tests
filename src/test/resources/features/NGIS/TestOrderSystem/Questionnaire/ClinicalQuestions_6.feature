@@ -34,7 +34,7 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
     And the user sees the data such as "<diseaseStatueValue>" "<hpoTerm1>" "<ClinicalQuestionDetails>" "<rareDiseaseValue>" phenotypic and karyotypic sex are saved
     Examples:
       | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue | NoOfParticipants |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | ACHONDROPLASIA | Affected           | 2                |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | ACHONDROPLASIA   | Affected           | 2                |
 
   @NTS-3439 @Z-LOGOUT
 #    @E2EUI-1443 @E2EUI-918

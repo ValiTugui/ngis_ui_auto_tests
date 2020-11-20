@@ -529,7 +529,7 @@ public class ReferralPage<check> {
                 return false;
             }
             String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
-            //Debugger.println("WebElementLocator:"+webElementLocator);
+//            Debugger.println("WebElementLocator:"+webElementLocator);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
             List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
             if (webElementList.size() == 1) {

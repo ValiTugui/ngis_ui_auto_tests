@@ -322,13 +322,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Actions.deleteCookies(driver);
         try {
             Wait.seconds(5);
-            if (!Wait.isElementDisplayed(driver,emailAddressField,60)) {//If the element is not displayed, even after the waiting time
-                Debugger.println("Email Address Field is not visible, even after the waiting period of 60 seconds");
-                if (Wait.isElementDisplayed(driver,useAnotherAccount,60)) {//Click on UseAnotherAccount and Proceed.
+            if (Wait.isElementDisplayed(driver,useAnotherAccount,5)) {//If the element is not displayed, even after the waiting time
                     Debugger.println("Clicking on useAnotherAccount to Proceed.");
                     useAnotherAccount.click();
                     Wait.seconds(3);
-                } else {
+                if (!Wait.isElementDisplayed(driver,emailAddressField,60)) {//Click on UseAnotherAccount and Proceed.
                     Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
                     Assert.fail("Email field or UseAnotherAccount option are not available.");

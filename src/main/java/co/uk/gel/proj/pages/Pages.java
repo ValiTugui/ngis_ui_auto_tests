@@ -129,7 +129,6 @@ public class Pages implements Navigable {
 
     public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
         if (urlToNavigate.contains("miportal")) {
-            Debugger.println("Mi portal login");
             loginToMiPortal(urlToNavigate, pageToNavigate, userType);
         } else {
             login(urlToNavigate, pageToNavigate, userType);
@@ -184,11 +183,11 @@ public class Pages implements Navigable {
 
     private void loginToMiPortal(String urlToNavigate, String pageToNavigate, String userType) {
         try {
-            Debugger.println("Pages:login:Navigating to URL: " + urlToNavigate + ", Page:" + pageToNavigate);
+            //Debugger.println("Pages:login:Navigating to URL: " + urlToNavigate + ", Page:" + pageToNavigate);
             driver.get(urlToNavigate);
             Wait.seconds(5);//Wait for 15 Seconds
             String navigatedURL = driver.getCurrentUrl();
-            Debugger.println("Current URL before LOGIN is :" + navigatedURL);
+            //Debugger.println("Current URL before LOGIN is :" + navigatedURL);
             //Navigate to Test Directory
             if (navigatedURL.contains("https://miportal.")) {
                 //homePage.waitUntilHomePageResultsContainerIsLoaded();
@@ -211,11 +210,11 @@ public class Pages implements Navigable {
             navigatedURL = driver.getCurrentUrl();
             //Debugger.println("Current URL after LOGIN to TOMS :" + navigatedURL);
             // we have noticed after login to TOMS, sometimes dashboard page is shown in the TOMS - following code will handle this and redirects to test directory
-            if (driver.getCurrentUrl().contains("dashboard")) {
+            if (navigatedURL.contains("dashboard")) {
                 dashBoardPage.clickFindAGenomicTest();
                 Wait.seconds(2);
                 navigatedURL = driver.getCurrentUrl();
-                Debugger.println("Current URL AFTER dashboard page re-direction:" + navigatedURL);
+                //Debugger.println("Current URL AFTER dashboard page re-direction:" + navigatedURL);
             }
 
         } catch (UnhandledAlertException exp) {
