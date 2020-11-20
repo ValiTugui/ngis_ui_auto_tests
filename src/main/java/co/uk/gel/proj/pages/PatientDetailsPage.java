@@ -558,11 +558,20 @@ public class PatientDetailsPage {
             for (int i = 0; i < errorMessages.size(); i++) {
                 Debugger.println("\t" + errorMessages.get(i).getText());
                 if (errorMessages.get(i).getText().contains("Life status is")) {
-                    editDropdownField(lifeStatusButton, "Alive");
+                    Debugger.println("Re-entering Life status.");
+                    By ddByElement = By.xpath("//label[contains(@for,'lifeStatus')]/..//div[contains(@class,'placeholder')]");
+                    WebElement ddWebElement = driver.findElement(ddByElement);
+                    editDropdownField(ddWebElement, "Alive");
                 }else if (errorMessages.get(i).getText().contains("Ethnicity")) {
-                    editDropdownField(ethnicityButton, "A - White - British");
+                    Debugger.println("Re-entering Ethnicity.");
+                    By ddByElement = By.xpath("//label[contains(@for,'ethnicity')]/..//div[contains(@class,'placeholder')]");
+                    WebElement ddWebElement = driver.findElement(ddByElement);
+                    editDropdownField(ddWebElement, "A - White - British");
                 }else if (errorMessages.get(i).getText().contains("Gender")) {
-                    editDropdownField(administrativeGenderButton, "Male");
+                    Debugger.println("Re-entering Gender.");
+                    By ddByElement = By.xpath("//label[contains(@for,'administrativeGender')]/..//div[contains(@class,'placeholder')]");
+                    WebElement ddWebElement = driver.findElement(ddByElement);
+                    editDropdownField(ddWebElement, "Male");
                 }
            }
             seleniumLib.clickOnWebElement(createRecord);

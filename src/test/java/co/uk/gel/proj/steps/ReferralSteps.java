@@ -325,10 +325,9 @@ public class ReferralSteps extends Pages {
 
         testResult = patientDetailsPage.clickOnCreateRecord();
         if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
             Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated1.jpg");
-            Assert.fail("Failed in clickOnCreateRecord");
+            Assert.fail("Failed in clickOnCreateRecord and proceed. Probably the form not filled properly.Check PCNotCreated.jpg snapshot.");
         }
         testResult = patientDetailsPage.patientIsCreated();
         if (!testResult) {
