@@ -8,7 +8,6 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -400,30 +399,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean verifyColumnHeadPresence(String columnName) {
-        Wait.seconds(3);
-        try {
-            if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
-                Debugger.println("Search results are not displayed");
-                SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
-                return false;
-            }
-            List<WebElement> colHeads = driver.findElements(fileSubmissionTableHead);
-            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
-            if (colIndex == -1) {
-                Debugger.println("Specified column " + columnName + " not present in the FileSubmission Search Result Table.");
-                SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
-                return false;
-            }
-
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from getAllHeadersInSearchResultTable. " + exp);
-            SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
-            return false;
-        }
-    }
-
     public List<String> getAllHeadersInSearchResultTable() {
         Wait.seconds(3);
         try {
@@ -432,30 +407,17 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
                 return null;
             }
-            List<WebElement> allHeaders = null;
+            List<WebElement> allHeaders = driver.findElements(fileSubmissionTableHead);
+            //Retrieve the column headers
             List<String> headers = new ArrayList<>();
-            try {
-                allHeaders = driver.findElements(fileSubmissionTableHead);
-                //Retrieve the column headers
-                for (WebElement elementHeader : allHeaders) {
-                    String header = elementHeader.getText();
-                    headers.add(header);
-                }
-            } catch (StaleElementReferenceException exp1) {
-                Debugger.println("Stale element exception trying again.." + exp1);
-                Wait.seconds(3);
-                allHeaders = driver.findElements(By.xpath("//div[contains(@class,'scrollHeadInner')]/table/thead/tr/th"));
-                //Retrieve the column headers again after clearing the earlier values
-                headers.clear();
-                for (WebElement elementHeader : allHeaders) {
-                    String header = elementHeader.getText();
-                    headers.add(header);
-                }
+            for (WebElement elementHeader : allHeaders) {
+                String header = elementHeader.getText();
+                headers.add(header);
             }
             Debugger.println("All headers" + headers);
             return headers;
         } catch (Exception exp) {
-            Debugger.println("Exception from getAllHeadersInSearchResultTable. " + exp);
+            Debugger.println("Exception from retrieving data." + exp);
             SeleniumLib.takeAScreenShot("UnableToRetrieveAllHeaders.jpg");
             return null;
         }
