@@ -6,6 +6,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,8 +72,20 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//a[text()='Report Guidance']")
     public WebElement reportGuidanceLink;
 
+    @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download Data')]")
+    public WebElement downloadDataButton;
+
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
+
+    String link="//a[text()='dummyLink']";
+    String dummyTabPath = "//*[@class='nav nav-tabs']//a[text()='dummyTab']";
+
+    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
+    WebElement clinicalDqReportTable;
+
+    String dqReportTabTableHeaders = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollHeadInner']/table[@class='display dataTable no-footer']/thead/tr/th";
+    String dqReportTabTableRows = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollBody']/table[@class='display dataTable no-footer']/tbody/tr/td";
 
     public boolean verifyClinicalDataQualityReport(String expValue) {
         try {
@@ -285,7 +298,7 @@ public class MiClinicalDataQualityPage {
             }
             Wait.forElementToBeClickable(driver, driver.findElement(tabName));
             Click.element(driver, driver.findElement(tabName));
-            Wait.seconds(2); // It is observed that particular tab is taking time to load
+            Wait.seconds(5); // It is observed that particular tab is taking time to load
             Debugger.println("The " + expectedTabName + " is clicked");
             return true;
         } catch (Exception exp){
@@ -375,8 +388,138 @@ public class MiClinicalDataQualityPage {
             return false;
         }
     }
-}
+
+    public boolean openReportGuidance(String linkName,String linkURL) {
+        try{
+            String linkPath=link.replace("dummyLink",linkName);
+            WebElement linkButton = driver.findElement(By.xpath(linkPath));
+            if(!Wait.isElementDisplayed(driver,linkButton,10)){
+                Debugger.println("The link "+linkName+" is not present.");
+                SeleniumLib.takeAScreenShot("LinkNotPresent.jpg");
+                return false;
+            }
+            linkButton.click();
+            Wait.seconds(3);
+            seleniumLib.ChangeWindow();
+            String currentURL= driver.getCurrentUrl();
+            if(!currentURL.contains(linkURL)){
+                Debugger.println("The current url is:"+currentURL+" ,But expected to contain-"+linkURL);
+                SeleniumLib.takeAScreenShot("OpenReportLinkError.jpg");
+                return false;
+            }
+            SeleniumLib.closeCurrentWindow();
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from openReportGuidance:"+exp);
+            SeleniumLib.takeAScreenShot("OpenReportGuidanceError.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyDQTabNamesAndColumnHeaders(String tabName, String headerValues, String dataPresence) {
+        try {
+            String tabPath = dummyTabPath.replace("dummyTab", tabName);
+            WebElement selectedTab = driver.findElement(By.xpath(tabPath));
+            if (!Wait.isElementDisplayed(driver, selectedTab, 20)) {
+                Debugger.println("The " + tabName + " Tab is not present.");
+                SeleniumLib.takeAScreenShot("DQTabsNotPresent.jpg");
+                return false;
+            }
+            Debugger.println("The Tab to check is: " + selectedTab.getText());
+            seleniumLib.highLightWebElement(selectedTab);
+            seleniumLib.clickOnWebElement(selectedTab);
+            Wait.seconds(10);
+            String[] headerNames = headerValues.split(",");
+            if (!Wait.isElementDisplayed(driver, clinicalDqReportTable, 30)) {
+                Debugger.println("The clinical DQ report table is not present.");
+                SeleniumLib.takeAScreenShot("DqReportTableNotPresent.jpg");
+                return false;
+            }
+            String headerPathWithTabName = dqReportTabTableHeaders.replace("dummyTab", tabName);
+            By headerPathWithTabNameBy = By.xpath(headerPathWithTabName);
+            //Scrolling the report table and reading the table headers in a list
+            List<String> headers = seleniumLib.scrollTableAndGetHeaders(headerPathWithTabNameBy);
+            if (headerNames.length != headers.size()) {
+                Debugger.println("The number of headers is not matching. Actual " + headers.size() + "but expected" + headerNames.length);
+                return false;
+            }
+            //Debugger.println("The headers--" + headers.toString());
+            for (int i = 0; i < headers.size(); i++) {
+                if (!headers.get(i).equalsIgnoreCase(headerNames[i])) {
+                    Debugger.println("The header expected is-" + headerNames[i] + " ,Actual-" + headers.get(i));
+                    SeleniumLib.takeAScreenShot("DqReportTableHeaderError.jpg");
+                    return false;
+                }
+            }
+            String tableRowsInCurrentTab = dqReportTabTableRows.replace("dummyTab", tabName);
+            List<WebElement> dataRows = driver.findElements(By.xpath(tableRowsInCurrentTab.replace("/td", "")));
+            if (dataPresence.equalsIgnoreCase("Yes")) {
+                if (!(dataRows.size() >= 1)) {
+                    Debugger.println("There is no data report present in the table of tab:" + tabName);
+                    SeleniumLib.takeAScreenShot("DqReportTableNoData.jpg");
+                    return false;
+                }
+            } else if(dataPresence.equalsIgnoreCase("No")){
+                if ((dataRows.size() > 1)) {
+                    Debugger.println("There is data report present in the table of tab:" + tabName+" when it was not expected.");
+                    SeleniumLib.takeAScreenShot("DqReportTableData.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyVariantTabNamesAndHeaders:" + exp);
+            SeleniumLib.takeAScreenShot("DQReportTabTableHeaderError.jpg");
+            return false;
+        }
+    }
+
+    public boolean openTestOrderLink(String linkName, String tabName, String linkUrl) {
+        try{
+            clickOnSpecifiedTab(tabName);
+            String tableRowsInCurrentTab = dqReportTabTableRows.replace("dummyTab", tabName);
+            WebElement linkButton = driver.findElement(By.xpath(tableRowsInCurrentTab+"/a"));
+            if(!Wait.isElementDisplayed(driver,linkButton,10)){
+                Debugger.println("The link "+linkName+" is not present.");
+                SeleniumLib.takeAScreenShot("TestOrderLinkNotPresent.jpg");
+                return false;
+            }
+            linkButton.click();
+            Wait.seconds(3);
+            seleniumLib.ChangeWindow();
+            String currentURL= driver.getCurrentUrl();
+            if(!currentURL.contains(linkUrl)){
+                Debugger.println("The current url is:"+currentURL+" ,But expected to contain-"+linkUrl);
+                SeleniumLib.takeAScreenShot("TestOrderLinkError.jpg");
+                return false;
+            }
+            SeleniumLib.closeCurrentWindow();
+            return true;
+        }catch(Exception exp){
+         Debugger.println("Exception from openTestOrderLink:"+exp);
+         SeleniumLib.takeAScreenShot("OpenTestOrderLinkError.jpg");
+         return false;
+        }
+    }
 
 
-
-
+    public boolean downloadDqCSVFile(String clinical_dq_report_filtered) {
+        try {
+            //Delete if File already present
+            TestUtils.deleteIfFilePresent(clinical_dq_report_filtered, "");
+            if (!Wait.isElementDisplayed(driver, downloadDataButton, 20)) {
+                Debugger.println("The CSV file download option is not displayed");
+                SeleniumLib.takeAScreenShot("DownloadDataFile.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(downloadDataButton);
+            Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
+            Debugger.println("Form: " + clinical_dq_report_filtered + " ,downloaded from section: " + clinical_dq_report_filtered);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking CSV file download: " + exp);
+            SeleniumLib.takeAScreenShot("DownloadDataFile.jpg");
+            return false;
+        }
+    }
+}//class End

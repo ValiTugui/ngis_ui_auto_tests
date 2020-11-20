@@ -1,7 +1,7 @@
 #@regression
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST1
+@SYSTEM_TEST
 Feature: Patient Choice -5 - Page - FamilyMemberAddition
 
   @NTS-3341 @Z-LOGOUT

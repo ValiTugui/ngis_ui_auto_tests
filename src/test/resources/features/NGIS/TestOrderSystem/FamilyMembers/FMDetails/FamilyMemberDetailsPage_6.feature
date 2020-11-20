@@ -88,7 +88,7 @@ Feature: Family Members Details Page 6- Field Validation_6
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=2000004261:DOB=10-10-2011 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
     When the user is navigated to a page with title Patient choice
-    Then the "<Patient Choice>" stage is NOT marked as Completed
+    Then the "<Patient Choice>" stage is marked as Completed
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Message>"
     Then the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral
