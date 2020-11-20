@@ -1,7 +1,6 @@
-@MIPORTAL
-@MIPORTAL_ST
-@SYSTEM_TEST
-@DQ_Report
+@DQ_Report_System_Testing
+
+  ##This feature has been moved to @DQ_Report_System_Testing tag as this will be maintained by DDF Squad
 Feature: MIPORTAL ST - Clinical Data Quality - 2
 
   @NTS-6097 @MI-LOGOUT
