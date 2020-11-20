@@ -1,7 +1,5 @@
-@MIPORTAL
-@MIPORTAL_ST
-@SYSTEM_TEST
-@DQ_Report
+@DQ_Report_System_Testing
+
 Feature: MIPORTAL ST - Clinical Data Quality - 3
 
   @NTS-6097 @MI-LOGOUT
