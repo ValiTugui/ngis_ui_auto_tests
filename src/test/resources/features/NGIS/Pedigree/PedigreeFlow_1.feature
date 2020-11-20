@@ -67,7 +67,7 @@ Feature: Pedigree - Pedigree Flow 1
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Build a pedigree
-    And the "<Pedigree>" stage is marked as Mandatory To Do
+    And the "<Pedigree>" stage is NOT marked as Mandatory To Do
     And the user should see the referral submit button as disabled
 
     When the user navigates to the "<FamilyMembers>" stage

@@ -1,6 +1,6 @@
 #@patientChoice
 @05-CONSENT
-@SYSTEM_TEST1
+@SYSTEM_TEST
 
 Feature: Patient Choice -13  - Page - FamilyMemberAddition
 
@@ -65,7 +65,7 @@ Feature: Patient Choice -13  - Page - FamilyMemberAddition
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=12-05-1933 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
-    Then the "<PatientChoice>" stage is marked as Mandatory To Do
+    Then the "<PatientChoice>" stage is NOT marked as Mandatory To Do
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Test package | 3                | Family members | Patient choice |
@@ -100,8 +100,8 @@ Feature: Patient Choice -13  - Page - FamilyMemberAddition
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
     And the Patient Choice landing page is updated to "Agreed to testing" for the proband
-    And the "<FamilyMembers>" stage is marked as Mandatory To Do
-    And the "<PatientChoice>" stage is marked as Mandatory To Do
+    And the "<FamilyMembers>" stage is NOT marked as Mandatory To Do
+    And the "<PatientChoice>" stage is NOT marked as Mandatory To Do
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Test package | 1                | Family members | Patient choice |
