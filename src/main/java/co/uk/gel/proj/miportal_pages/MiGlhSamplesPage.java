@@ -185,7 +185,7 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 rowValues[i] = tableHeads.get(i).getText()+": "+rowColumns.get(i).getText();
             }
             seleniumLib.doubleClickOperation(firstRow);
-            boolean result =verifyPopUpBox(rowValues);
+            boolean result = verifyPopUpBox(rowValues);
             Wait.seconds(10);
             return result;
         } catch (Exception exp) {
