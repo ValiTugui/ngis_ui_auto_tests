@@ -247,12 +247,14 @@ public class PatientDetailsSteps extends Pages {
     @Then("the patient is successfully updated with a message {string}")
     public void thePatientIsSuccessfullyUpdatedWithAMessage(String expectedNotification) {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
-        Debugger.println("Expected notification : " + expectedNotification);
-        Debugger.println(("Actual notification " + actualNotification));
         if(actualNotification == null){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NotificationNull.jpg");
             Assert.fail("Expected Notification not present:"+expectedNotification);
         }
-        Assert.assertEquals(expectedNotification, actualNotification);
+        if(!expectedNotification.equalsIgnoreCase(actualNotification)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NotificationMismatch.jpg");
+            Assert.fail("Expected Notification not matching with actual:Exp:"+expectedNotification+",Actual:"+actualNotification);
+        }
     }
 
     @And("the newly edited patient's Gender {string}, Life Status {string} and Ethnicity {string} are displayed in Patient Details page")
@@ -261,10 +263,6 @@ public class PatientDetailsSteps extends Pages {
         String actualGender = Actions.getText(patientDetailsPage.administrativeGenderButton);
         String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusButton);
         String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityButton);
-
-        Debugger.println("Expected: gender: " + expectedGender + ":" + "lifestatus: " + expectedLifeStatus + ":" + "ethnicity: " + expectedEthnicity);
-        Debugger.println("Actual: gender: " + actualGender + ":" + "lifestatus: " + actualLifeStatus + ":" + "ethnicity: " + actualEthnicity);
-
         Assert.assertEquals(expectedGender, actualGender);
         Assert.assertEquals(expectedLifeStatus, actualLifeStatus);
         Assert.assertEquals(expectedEthnicity, actualEthnicity);

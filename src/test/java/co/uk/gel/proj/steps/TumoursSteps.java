@@ -356,6 +356,9 @@ public class TumoursSteps extends Pages {
     public void thePageIsDisplayed(String expectedPageTitle) {
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TitleNotDisplayed.jpg");
+        }
         Assert.assertTrue(testResult);
     }
 

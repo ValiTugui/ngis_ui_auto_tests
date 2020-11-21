@@ -571,7 +571,7 @@ public class PatientDetailsPage {
                     Debugger.println("Re-entering Gender.");
                     By ddByElement = By.xpath("//label[contains(@for,'administrativeGender')]/..//div[contains(@class,'placeholder')]");
                     WebElement ddWebElement = driver.findElement(ddByElement);
-                    editDropdownField(ddWebElement, "Male");
+                    selectGender(ddWebElement, "Male");
                 }
            }
             seleniumLib.clickOnWebElement(createRecord);

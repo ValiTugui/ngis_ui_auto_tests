@@ -576,6 +576,7 @@ public class ReferralSteps extends Pages {
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HomePageContainer.jpg");
             Assert.fail("Home page result containers not loaded properly.");
         }
         if (!homePage.typeInSearchField(searchTerm)) {
@@ -790,16 +791,21 @@ public class ReferralSteps extends Pages {
         boolean stepResult = false;
         stepResult = homePage.searchForTheTest(searchTerm);
         if(!stepResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
+            Assert.fail("Failed in searching for the test.");
         }
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
         }
 
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        Assert.assertTrue(stepResult);
+        if(!stepResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartTO.jpg");
+            Assert.fail("Start Test Order Referral Button not clicked.");
+        }
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SignInOnlineTO.jpg");
+            Assert.fail("Sign in to Online Service Button click failed..");
         }
         Debugger.println("User Type : " + userType);
         if (userType == null || userType.isEmpty()) {
@@ -807,7 +813,10 @@ public class ReferralSteps extends Pages {
         }
         switchToURL(driver.getCurrentUrl(), userType);
         stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
-        Assert.assertTrue(stepResult);
+        if(!stepResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FindYourPatient.jpg");
+            Assert.fail("Find your patient title not displayed.");
+        }
         //Create NGIS Patient with the given Details and the use for referral Creation
         NGISPatientModel searchPatient = new NGISPatientModel();
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);

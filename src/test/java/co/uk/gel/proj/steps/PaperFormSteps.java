@@ -59,7 +59,11 @@ public class PaperFormSteps extends Pages {
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
         }
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
+            Assert.fail("Could not select requesting organization.");
+        }
+
     }
 
     @And("the user selects the first entity from the suggestions list")
