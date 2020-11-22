@@ -33,7 +33,10 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theFamilyMemberSearchPageIsDisplayedCorrectly() {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyTheElementsOnFamilyMemberSearchPageWhenYesIsSelected();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMSearch.jpg");
+            Assert.fail("FM search page is not correctly displayed");
+        }
     }
 
     @And("^the YES button is selected by default on family member search$")
@@ -63,9 +66,12 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @Then("^the family member search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons$")
     public void theFamilyMemberSearchPageDisplaysInputFieldsSuchAsDOBFirstNameLastNameGenderPostcodeAndSearchButtons() {
-        boolean eachElementIsLoaded;
-        eachElementIsLoaded = familyMemberSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        boolean testResult;
+        testResult = familyMemberSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMSearch.jpg");
+            Assert.fail("FM search page is not correctly displayed");
+        }
     }
 
     @When("^the user clicks the Search button in family member search page$")
@@ -88,8 +94,8 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifyMessageOfExistingPatient(message1, message2);
         if(!testResult){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EMessage.jpg");
+            Assert.fail("Message not displayed as expected.");
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user search the family member with the specified details {string}")
@@ -102,21 +108,23 @@ public class FamilyMemberSearchSteps extends Pages {
             familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
             familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
             if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
-                Debugger.println("Could not fill the NHS number and DOB for search....");
+                //Debugger.println("Could not fill the NHS number and DOB for search....");
                 Assert.assertTrue(false);
             }
             patientSearchPage.clickSearchButtonByXpath();
             if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
-                Debugger.println("NHS Not Found...going with No option.");
+                //Debugger.println("NHS Not Found...going with No option.");
                 familyMember.setGENDER(paramNameValue.get("Gender"));
                  if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
                      patientSearchPage.clickSearchButtonByXpath();
                 }
             }
             if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CreateNewPCLink.jpg");
                 Assert.assertTrue(false);
             }
             if(!patientDetailsPage.newFamilyMemberPageIsDisplayed()){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewFM.jpg");
                 Assert.assertTrue(false);
             }
 
@@ -129,6 +137,7 @@ public class FamilyMemberSearchSteps extends Pages {
                 familyMember.setETHNICITY("A - White - British");
             }
             if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CreateFM.jpg");
                 Assert.assertTrue(false);
             }
             referralPage.updatePatientNGSID(familyMember);
@@ -157,7 +166,10 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMDescription.jpg");
+            Assert.fail("FM description is not displayed");
+        }
     }
 
     @And("^the display question for NHS Number of the family member search page is (.*)$")
@@ -169,7 +181,10 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theSearchResultsHaveBeenDisplayedWithPatientNameDobGenderNHSNumberAndAddress() {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchResultDisplay();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMSearchDisplay.jpg");
+            Assert.fail("FM  search result not displayed");
+        }
     }
 
      @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
@@ -181,14 +196,20 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserClicksOnThe() {
         boolean testResult = false;
         testResult = familyMemberSearchPage.clickOnNewPatientLink();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewPatientRecord.jpg");
+            Assert.fail("Could not click on new patient record");
+        }
     }
 
     @Then("the family member landing page displayed without incomplete error message")
     public void theFamilyMemberLandingPageDisplayedWithoutIncompleteErrorMessage() {
         boolean testResult = true;
         testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteFamilyMember();
-        Assert.assertFalse(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMIncomplete.jpg");
+            Assert.fail("FM incomplete message is not displayed");
+        }
     }
     @Then("the message will be displayed as {string} in {string} for the invalid field")
     public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
@@ -207,13 +228,19 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theDOBEntryFiledDisplayFormat() {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyDOBFieldPlaceHolder();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DOBPlaceHolder.jpg");
+            Assert.fail("FM DOB Place holder not displayed");
+        }
     }
     @And("^the Search button should be displayed with search symbol and click-able$")
     public void theSearchButtonShouldBeClickable() {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifySearchButtonClickable();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMSearchButton.jpg");
+            Assert.fail("FM Search Button is not displayed");
+        }
     }
     @And("the user verifies the svg icon for tick mark")
     public void theUserVerifiesTheIconForTickMark() {

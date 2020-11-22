@@ -34,7 +34,10 @@ public class MilHomePageSteps extends Pages {
     public void theUserNavigatesToTheMiPortalStage(String miPage) {
         boolean testResult = false;
         testResult = miPortalHomePage.navigateToMiPage(miPage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIPageNavigation.jpg");
+            Assert.fail("Could not navigate to MI Page");
+        }
     }
 
 
@@ -42,7 +45,10 @@ public class MilHomePageSteps extends Pages {
     public void theUserSelectsAValueFromTheColumnDropDown(String value, String dropDownButton) {
         boolean testResult = false;
         testResult = miPortalHomePage.selectSearchValueDropDown(value, dropDownButton);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIDropDown.jpg");
+            Assert.fail("Could select the drop down value");
+        }
     }
 
 

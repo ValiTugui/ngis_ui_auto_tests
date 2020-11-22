@@ -139,7 +139,6 @@ public class PaperFormPage {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception1 from orderEntitySearchField.."+exp1+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("OrderEntity.jpg");
                 return false;
             }
         }
@@ -171,7 +170,6 @@ public class PaperFormPage {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in Order Entity Suggestion List display."+exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("OrderEntityDisplay.jpg");
             return false;
         }
     }
@@ -198,8 +196,7 @@ public class PaperFormPage {
         try {
             if(orderEntitySearchSuggestionsList.size() == 0){
                 Debugger.println("No Organisation list loaded for the search."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("NoOgranisation.jpg");
-                return false;
+                 return false;
             }
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             return true;
@@ -210,7 +207,6 @@ public class PaperFormPage {
               return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from Selecting Requesting Organization: " + exp+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
                 return false;
             }
         }

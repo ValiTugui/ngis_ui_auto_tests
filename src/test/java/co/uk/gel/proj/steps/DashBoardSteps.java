@@ -30,7 +30,10 @@ public class DashBoardSteps extends Pages {
 
     @And("User should be able to see my Dashboard")
     public void userShouldBeAbleToSeeMyDashBoardPage() {
-        dashBoardPage.dashboardPageResultsIsLoaded();
+        if(!dashBoardPage.dashboardPageResultsIsLoaded()){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DashBoard.jpg");
+            Assert.fail("Dashboard not visible.");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Dashboard.jpg");
         }
@@ -38,21 +41,30 @@ public class DashBoardSteps extends Pages {
 
     @Then("The user should see the Page title as {string}")
     public void theUserShouldSeeThePageTitleAs(String titleText) {
-        Assert.assertTrue("The Correct Page Title is NOT Displayed", dashBoardPage.pageTitleValidation(titleText));
+        if(!dashBoardPage.pageTitleValidation(titleText)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DBTitle.jpg");
+            Assert.fail("The Correct Page Title is NOT Displayed");
+        }
     }
 
     @And("the user sees the NHS logo on top in left side")
     public void theUserSeesTheNHSLogoOnTopInLeftSide() {
         boolean testResult = false;
         testResult = dashBoardPage.verifyTheNHSLogo();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NHSLogo.jpg");
+            Assert.fail("NHS Logo not displayed");
+        }
     }
 
     @Then("the user should be able to see clickable tabs")
     public void theUserShouldBeAbleToSeeClickableTabs() {
         boolean testResult = false;
         testResult = dashBoardPage.verifyTheDashboardTabs();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DashboardTabs.jpg");
+            Assert.fail("Clickable tabs not visible.");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DashboardTabs.jpg");
         }
@@ -62,24 +74,33 @@ public class DashBoardSteps extends Pages {
     public void theUserClicksOnTab(String tabName) {
         boolean testResult = false;
         testResult = dashBoardPage.clickOnTab(tabName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoTab.jpg");
+            Assert.fail("Could not click on tab:"+tabName);
+        }
     }
 
     @Then("the user should be directed to Test selection url")
     public void theUserShouldBeDirectedToTestSelectionUrl() {
         boolean testResult = false;
         testResult = dashBoardPage.directedToTestSelectionPage();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestSelection.jpg");
+            Assert.fail("Not redirected to Test selection URL:");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestSelection.jpg");
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("User clicks Manage Sample")
     public void userClicksManageSample() {
         boolean testResult = false;
         testResult = dashBoardPage.clickOnManageSampleTab();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ManageSample.jpg");
+            Assert.fail("Not clicked on Manage Sample:");
+        }
     }
 
     @And("the user logs in to the Interpretation Portal system")
@@ -93,7 +114,7 @@ public class DashBoardSteps extends Pages {
     @And("the user logs in to the {string} system")
     public void theUserLogsInToTheSystem(String portalName) {
         patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
-        Debugger.println("The user is logged in to " + portalName);
+        //Debugger.println("The user is logged in to " + portalName);
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(portalName," ")+".jpg");
         }

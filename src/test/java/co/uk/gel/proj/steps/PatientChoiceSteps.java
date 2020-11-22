@@ -43,6 +43,7 @@ public class PatientChoiceSteps extends Pages {
                 //Debugger.println("Selected Family Member:");
                 testResult = patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
                 if(!testResult){
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCEdit.jpg");
                     Assert.fail("FM "+i+": Could not select Patient Choice Category:"+memberDetails.get(i).get(1));
                     break;
                 }
@@ -50,6 +51,7 @@ public class PatientChoiceSteps extends Pages {
                 //Debugger.println("Category Done:");
                 testResult = patientChoicePage.selectTestType(memberDetails.get(i).get(2));
                 if(!testResult){
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCTestType.jpg");
                     Assert.fail("FM "+i+": Could not select Patient Choice Test Type:"+memberDetails.get(i).get(2));
                     break;
                 }
@@ -98,7 +100,7 @@ public class PatientChoiceSteps extends Pages {
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
                     patientChoicePage.drawSignature();
                 }
-                Debugger.println("Submitting PC:");
+                //Debugger.println("Submitting PC:");
                 if (!patientChoicePage.submitPatientChoice()) {
                     referralPage.navigateToStage("Patient choice");
                     Wait.seconds(5);
@@ -114,6 +116,7 @@ public class PatientChoiceSteps extends Pages {
             }
         } catch (Exception exp) {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientChoiceFM");
             Assert.fail("PatientChoiceSteps: Exception in Filling FM PatientChoice Details: " + exp);
         }
     }
@@ -187,21 +190,30 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSeesNewPatientChoiceTabSelectedByDefault(String subtitle) {
         boolean testResult = false;
         testResult = patientChoicePage.verifySelectedTabInPatientChoice(subtitle);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Subtitle");
+            Assert.fail("Could not see PC subtitle."+subtitle);
+        }
     }
 
     @And("the user fills {string} details in recorded by")
     public void theUserFillsDetailsInRecordedBy(String recordedBy) {
         boolean testResult = false;
         testResult = patientChoicePage.fillRecordedByDetails("", recordedBy);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RecordBy");
+            Assert.fail("Could not fill recorder by details.");
+        }
     }
 
     @When("the user selects the option (.*) for the question (.*)")
     public void theUserFillsDetailsInPatientChoices(String option,String question) {
         boolean testResult = false;
         testResult = patientChoicePage.selectOptionForQuestion(option,question);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Option");
+            Assert.fail("Could not select Question option");
+        }
         Wait.seconds(3);
     }
 
@@ -209,7 +221,10 @@ public class PatientChoiceSteps extends Pages {
     public void theUserFillsDetailsInPatientSignature() {
         boolean testResult = false;
         testResult = patientChoicePage.drawSignature();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Signature");
+            Assert.fail("Could not draw signature.");
+        }
         Wait.seconds(3);
     }
 
@@ -217,23 +232,35 @@ public class PatientChoiceSteps extends Pages {
     public void theUserWillSeeTheChosenWithEditButton(String option, String category) {
         boolean testResult = false;
         testResult = patientChoicePage.verifySelectedOption(option);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCOtion");
+            Assert.fail("Could not see selected option "+option);
+        }
         testResult = patientChoicePage.verifyEditButton(category);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Edit");
+            Assert.fail("Could not Edit the option "+category);
+        }
     }
 
     @Then("the (.*) option is marked as completed")
     public void theOptionIsMarkedAsCompleted(String category) {
         boolean testResult = false;
         testResult = patientChoicePage.optionIsCompleted(category);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Option");
+            Assert.fail("Could not see option marked as completed "+category);
+        }
     }
 
     @And("the user is in the section (.*)")
     public void theUserIsInTheSection(String sectionName) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyTheSectionTitle(sectionName);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Section");
+            Assert.fail("Could not see the section "+sectionName);
+        }
     }
 
     @And("the user should see selected details displayed under the section (.*)")
@@ -249,60 +276,93 @@ public class PatientChoiceSteps extends Pages {
     public void theUserWillSeeAWarningMessage(String warningMessage) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyWarningMessage(warningMessage);
-       Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_WarningMsg");
+            Assert.fail("Could not see warning message "+warningMessage);
+        }
     }
 
     @And("the user will see a notification warning message {string}")
     public void theUserWillSeeANotificationWarningMessage(String warningMessage) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyNotificationWarning(warningMessage);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_WarningMsg");
+            Assert.fail("Could not see warning message "+warningMessage);
+        }
     }
 
     @When("the user clicks on edit button in (.*)")
     public void theUserClicksOnEditButton(String category) {
         boolean testResult = false;
         testResult= patientChoicePage.clickOnEditButton(category);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Edit");
+            Assert.fail("Could not click on Edit button ");
+        }
     }
 
     @Then("the user should be able to see previous section re-opened")
     public void theUserShouldBeAbleToSeePreviousSectionReOpened() {
         boolean testResult = false;
         testResult = patientChoicePage.previousSectionsReopened();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Reopen");
+            Assert.fail("Could not see as previous section re-opened ");
+        }
     }
 
    @Then("the user should see a error message box with border color (.*) and message as (.*)")
     public void theUserShouldSeeAErrorMessageBox(String boxColor,String message) {
         boolean testResult = false;
         testResult = patientChoicePage.errorMessageInPatientChoicePage(boxColor,message);
-        Assert.assertTrue(testResult);
+       if (!testResult) {
+           SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ErrorMsg");
+           Assert.fail("Could not see message "+message);
+       }
     }
 
     @When("the user selects the proband")
     public void theUserSelectsTheProband() {
         boolean testResult = false;
         testResult = patientChoicePage.selectMember(0);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Edit");
+            Assert.fail("Could not Edit member ");
+        }
     }
 
     @And("the user answers the patient choice questions with agreeing to testing")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTesting() {
         boolean testResult = patientChoicePage.selectPatientChoiceCategory();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_tPCCategorySelect.jpg");
+            Assert.fail("Could not select Patient Choice Category");
+        }
         Wait.seconds(2);
         testResult = patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCTestType.jpg");
+            Assert.fail("Could not select test type Patient Choice");
+        }
         Wait.seconds(2);
         testResult = patientChoicePage.enterRecordedByDetails();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCrecordDetails.jpg");
+            Assert.fail("Could enter record details Patient Choice");
+        }
         Wait.seconds(2);
         testResult = patientChoicePage.selectChoicesWithPatientChoiceNotRequired();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SelectPCChoice.jpg");
+            Assert.fail("Could not Select Patient Choice");
+        }
         Wait.seconds(2);
         testResult = patientChoicePage.submitPatientChoiceWithoutSignature();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SubmitPC.jpg");
+            Assert.fail("Could not submit Patient Choice");
+        }
         Wait.seconds(2);
     }
 
@@ -398,6 +458,7 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0);
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCStatus.jpg");
             Assert.fail("Proband Patient Choice could not complete.");
         }
         if(AppConfig.snapshotRequired){
@@ -410,27 +471,32 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory();
         if (!testResult) {
-            Assert.assertTrue("Cancer : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientChoiceProband");
+            Assert.fail("Cancer : Failure from patientChoicePage.selectPatientChoiceCategory.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
         if (!testResult) {
-            Assert.assertTrue("Cancer: Failure from patientChoicePage.selectTestType.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCTestType");
+            Assert.fail("Cancer: Failure from patientChoicePage.selectTestType.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.enterRecordedByDetails();
         if (!testResult) {
-            Assert.assertTrue("Cancer: Failure from patientChoicePage.enterRecordedByDetails.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCRecordDetail");
+            Assert.fail("Cancer: Failure from patientChoicePage.enterRecordedByDetails.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
         if (!testResult) {
-            Assert.assertTrue("Cancer: Failure from patientChoicePage.selectChoicesWithAgreeingTesting.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCChoice");
+            Assert.fail("Cancer: Failure from patientChoicePage.selectChoicesWithAgreeingTesting.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.drawSignature();
         if (!testResult) {
-            Assert.assertTrue("Cancer:Failure from patientChoicePage.drawSignature.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSignature");
+            Assert.fail("Cancer:Failure from patientChoicePage.drawSignature.");
         }
         Wait.seconds(2);
 
@@ -440,27 +506,32 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory();
         if (!testResult) {
-            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientChoiceProband");
+            Assert.fail("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
         if (!testResult) {
-            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectTestType.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCTestType");
+            Assert.fail("RD Proband : Failure from patientChoicePage.selectTestType.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.enterRecordedByDetails();
         if (!testResult) {
-            Assert.assertTrue("RD Proband : Failure from patientChoicePage.enterRecordedByDetails.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCRecordDetail");
+            Assert.fail("RD Proband : Failure from patientChoicePage.enterRecordedByDetails.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
         if (!testResult) {
-            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCChoice");
+            Assert.fail("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.");
         }
         Wait.seconds(2);
         testResult = patientChoicePage.drawSignature();
         if (!testResult) {
-            Assert.assertTrue("RD Proband : Failure from patientChoicePage.drawSignature.", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSignature");
+            Assert.fail("RD Proband : Failure from patientChoicePage.drawSignature.");
         }
         Wait.seconds(2);
     }
@@ -469,14 +540,20 @@ public class PatientChoiceSteps extends Pages {
     public void theHelpTextIsDisplayed() {
         boolean testResult = false;
         testResult = patientChoicePage.verifyHelpTextLabelIsVisible();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCHelpText");
+            Assert.fail("PC Help text not displayed.");
+        }
     }
 
     @Then("the user should see the question displayed as (.*)")
     public void theUserShouldShouldSeeTheSectionTitleAs(String sectionTitle) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyQuestionTitle(sectionTitle);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCQnTitle");
+            Assert.fail("Question title not displayed.");
+        }
     }
     @And("the options displayed as below for the question (.*)")
     public void thePatientChoiceOptionsAsBelow(String question,DataTable inputDetails) {
@@ -499,44 +576,82 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user clicks on the amend patient choice button")
     public void theUserClicksOnTheAmendPatientChoiceButton() {
-        Assert.assertTrue(patientChoicePage.clickOnAmendPatientChoice());
+        boolean testResult = patientChoicePage.clickOnAmendPatientChoice();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCAmend");
+            Assert.fail("Could not amend PC.");
+        }
     }
 
     @And("the user should be able to see patient choice in history tab")
     public void theUserShouldBeAbleToSeePatientChoiceInHistoryTab() {
-        Assert.assertTrue(patientChoicePage.patientChoiceUnderHistoryTab());
+        boolean testResult = patientChoicePage.patientChoiceUnderHistoryTab();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCHistory");
+            Assert.fail("PC History tab not present.");
+        }
     }
 
     @Then("the user should be able to see replaced patient choice in history tab")
     public void theUserShouldBeAbleToSeeReplacedPatientChoiceInHistoryTab() {
-        Assert.assertTrue(patientChoicePage.replacedPatientChoiceUnderHistoryTab());
+        boolean testResult = patientChoicePage.replacedPatientChoiceUnderHistoryTab();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCHistory");
+            Assert.fail("Replaced history tab not present");
+        }
     }
 
     @When("the user fills {string} details for signature")
     public void theUserFillsDetailsForSignature(String signatureDetails) {
         boolean testResult = false;
         testResult = patientChoicePage.fillTheSignatureDetails(signatureDetails);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSignature");
+            Assert.fail("Could not fill Signature details");
+        }
     }
 
     @And("the user should be able to clear the signature")
     public void theUserShouldBeAbleToClearTheSignature() {
         boolean testResult = false;
         testResult = patientChoicePage.clearTheSignature();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSignature");
+            Assert.fail("Could not clear the signature.");
+        }
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes and uploading recording form")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesAndUploadingForm() {
-        patientChoicePage.selectPatientChoiceCategory();
+        boolean testResult = patientChoicePage.selectPatientChoiceCategory();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientChoiceProband");
+            Assert.fail("Failure from patientChoicePage.selectPatientChoiceCategory.");
+        }
         Wait.seconds(2);
-        patientChoicePage.selectTestType();
+        testResult = patientChoicePage.selectTestType();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCTestType");
+            Assert.fail("Failure from patientChoicePage.selectTestType.");
+        }
         Wait.seconds(2);
-        patientChoicePage.fillRecordedByDetails("","ClinicianName=John:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf");
+        testResult = patientChoicePage.fillRecordedByDetails("","ClinicianName=John:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCRecordDetail");
+            Assert.fail("Failure from patientChoicePage.enterRecordedByDetails.");
+        }
         Wait.seconds(5);
-       patientChoicePage.selectDefaultPatientChoices();
+        testResult = patientChoicePage.selectDefaultPatientChoices();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCChoice");
+            Assert.fail("Failure from patientChoicePage.selectPatientChoiceCategory.");
+        }
         Wait.seconds(2);
-        patientChoicePage.clickOnContinue();
+        testResult = patientChoicePage.clickOnContinue();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCContinue");
+            Assert.fail("Failure from Clicking on Continue Button.");
+        }
         Wait.seconds(2);
         if(!patientChoicePage.submitPatientChoice()){//Trying again as sometimes the click not happened.
             Debugger.println("Continuing from Patient Choice again as looks like the first click not happened.");
@@ -549,7 +664,12 @@ public class PatientChoiceSteps extends Pages {
     }
     @And("the user save patient choice form and continue")
     public void theUserSavePatientChoiceFormAndContinue() {
-       patientChoicePage.clickOnSaveAndContinueButton();
+
+        boolean testResult = patientChoicePage.clickOnSaveAndContinueButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCClickAndContinue");
+            Assert.fail("Could not click and continue on PC.");
+        }
     }
 
     @Then("the user should see the supporting information links under the section (.*)")
@@ -560,21 +680,22 @@ public class PatientChoiceSteps extends Pages {
             testResult = patientChoicePage.verifyTheFormLibrarySection(formSection);
             if(!testResult){
                 Debugger.println("Section "+formSection+" not present in the FormLibrary Tab.");
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFormLibrary");
+                Assert.fail("Section "+formSection+" not present in the FormLibrary Tab.");
             }
 
             for (int i = 1; i < linkDetails.size(); i++) {
                testResult = patientChoicePage.verifyTheSupportingInformationLink(formSection,linkDetails.get(i).get(0));
                if(!testResult){
                    Debugger.println("Form "+linkDetails.get(i).get(0)+" could not verify in section:"+formSection);
-                   Assert.assertTrue(testResult);
+                   SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFormLink");
+                   Assert.fail("Form "+linkDetails.get(i).get(0)+" could not verify in section:"+formSection);
                }
                Wait.seconds(2);
             }
-            Assert.assertTrue(testResult);
         } catch (Exception exp) {
             Debugger.println("Exception from supporting information links " + exp);
-            Assert.assertFalse("PatientChoiceSteps: Exception from supporting information links: " + exp, true);
+            Assert.fail("PatientChoiceSteps: Exception from supporting information links: " + exp);
         }
     }
     @And("^the mandatory fields in patient choice shown with the symbol in red color$")
@@ -584,10 +705,10 @@ public class PatientChoiceSteps extends Pages {
         for (int i = 1; i < messageDetails.size(); i++) {
             testResult = patientChoicePage.verifyMandatoryFieldDisplaySymbolInPatientChoice(messageDetails.get(i).get(0),messageDetails.get(i).get(1),messageDetails.get(i).get(2),messageDetails.get(i).get(3));
             if(!testResult){
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCMandatoryField");
+                Assert.fail("Field: not displayed as mandatory field.");
             }
         }
-        Assert.assertTrue(testResult);
     }
     @And("^the following optional fields should be displayed in patient choice section$")
     public void theOptionalFieldInPatientChoice(DataTable messages) {
@@ -596,10 +717,10 @@ public class PatientChoiceSteps extends Pages {
         for (int i = 1; i < messageDetails.size(); i++) {
             testResult = patientChoicePage.verifyOptionalFieldPresence(messageDetails.get(i).get(0));
             if(!testResult){
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCOptionalField");
+                Assert.fail("Optional field not present.");
             }
         }
-        Assert.assertTrue(testResult);
     }
     @Then("the user sees the specified error messages for unsupported file uploads")
     public void theUserSelectsFileToBeUploadedFrom(DataTable inputDetails) {
@@ -611,7 +732,10 @@ public class PatientChoiceSteps extends Pages {
             fileName = uploadFiles.get(i).get(0);
             errorMessage = uploadFiles.get(i).get(1);
             testResult = patientChoicePage.verifyInvalidFileUploadMessages(fileName, errorMessage);
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUpload");
+                Assert.fail("No file upload error message present.");
+            }
             Wait.seconds(2);//Just waiting for 2 seconds between each upload
         }
     }
@@ -620,7 +744,10 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         List<String> fileTypes = inputDetails.asList();
         testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes,0);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+            Assert.fail("No file upload drop down values not present.");
+        }
     }
 
     @And("the file type dropdown options loaded with below details for {string} form type")
@@ -629,10 +756,17 @@ public class PatientChoiceSteps extends Pages {
         List<String> fileTypes = inputDetails.asList();
         if (formNum.equalsIgnoreCase("2nd")) { //to verify dropdown for 2nd form category
             testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes,1);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("No file upload drop down values not present.");
+            }
         } else if(formNum.equalsIgnoreCase("3rd")) { //to verify dropdown for 3rd form category
             testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes,2);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("No file upload drop down values not present.");
+            }
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the Date of Signature fields are displayed as (.*)")
@@ -665,7 +799,10 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsFromDropdownOptionInRecordedBy(String dropdownValue) {
         boolean testResult = false;
         testResult = patientChoicePage.selectUploadFormType(dropdownValue);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+            Assert.fail("Upload form type not present.");
+        }
     }
 
     @And("the user selects {string} from the {string} form type dropdown option in recorded by")
@@ -673,16 +810,26 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         if (formNum.equalsIgnoreCase("2nd")) { //to select dropdown for 2nd form category
             testResult = patientChoicePage.selectUploadFormTypeForFormNumber(dropdownValue,1);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("Signature field values not present.");
+            }
         } else if(formNum.equalsIgnoreCase("3rd")) { //to select dropdown for 3rd form category
             testResult = patientChoicePage.selectUploadFormTypeForFormNumber(dropdownValue,2);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("Signature field values not present.");
+            }
         }
-        Assert.assertTrue(testResult);
     }
     @And("the user fills current date as Date of Signature")
     public void theUserFillsTheValidDateIn() {
         boolean testResult = false;
         testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCDateOfSignature");
+            Assert.fail("Date of Signature could not fill");
+        }
     }
 
     @And("the user fills current date as Date of Signature in the {string} form type")
@@ -690,17 +837,27 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         if (formNum.equalsIgnoreCase("2nd")) { //to fill date for 2nd form category
             testResult = patientChoicePage.fillTheDateOfSignatureInRecordedByForFormNum(1);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("Signature field values not present.");
+            }
         } else if(formNum.equalsIgnoreCase("3rd")) { //to fill date for 3rd form category
             testResult = patientChoicePage.fillTheDateOfSignatureInRecordedByForFormNum(2);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("Signature field values not present.");
+            }
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees a success message after form upload in recorded by as (.*)")
     public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadMsg");
+            Assert.fail("Upload success message not displayed.");
+        }
     }
 
     @Then("the user sees a success message for {string} form type upload in recorded by as {string}")
@@ -708,44 +865,66 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         if (formNumber.equalsIgnoreCase("2nd")) { //to verify message for 2nd form category
             testResult = patientChoicePage.verifyFormUploadSuccessMessageForFormNum(expMessage, 1);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("Signature field values not present.");
+            }
         } else if(formNumber.equalsIgnoreCase("3rd")) { //to verify message for 3rd form category
             testResult = patientChoicePage.verifyFormUploadSuccessMessageForFormNum(expMessage, 2);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadDD");
+                Assert.fail("Signature field values not present.");
+            }
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user will see a {string} message on upload section")
     public void theUserWillSeeAMessageOnUploadSection(String message) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadMessage(message);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCFileUploadMsg");
+            Assert.fail("Upload success message not displayed.");
+        }
     }
     @When("the user clicks the Save and Continue button on the patient choice")
     public void theUserClicksTheSaveAndContinueButtonOnThe() {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnSaveAndContinueButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSaveAndContinue");
+            Assert.fail("Could not click on Save and Continue.");
+        }
 
     }
     @And("the user sees the patient choice status for family member (.*) as (.*)")
     public void theFamilyMemberPatientChoice(String familyNumber, String status) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyPatientChoiceStatus(status, Integer.parseInt(familyNumber));
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCStatus");
+            Assert.fail("Patient Choice status not displayed.");
+        }
     }
 
     @And("the user sees the test badge status for family member as (.*)")
     public void theFamilyMemberTestBadge(String status) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyFamilyMemberTestBadge(status);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCBadge");
+            Assert.fail("FM Badge status not present.");
+        }
     }
 
     @When("the user clicks on patient choice status link for family member (.*)")
     public void clickOnFamilyMemberPatientChoice(String familyNumber) {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnPatientChoiceStatusLink(Integer.parseInt(familyNumber));
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCStatus");
+            Assert.fail("PC Status link not displayed.");
+        }
     }
 
     @And("the user should able to see TO DO list even after clicking the Save and Continue button")
@@ -753,10 +932,9 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = referralPage.checkThatToDoListSuccessfullyLoaded();
         if (!testResult) {
-            SeleniumLib.takeAScreenShot("ToDoList.jpg");
-            Assert.assertFalse("ToDoList in Referral Page is not loaded after PC submitting Patient Choice..", true);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ToDoList");
+            Assert.fail("ToDoList in Referral Page is not loaded after PC submitting Patient Choice..");
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user should see the details of family members displayed in patient choice landing page")
@@ -767,72 +945,101 @@ public class PatientChoiceSteps extends Pages {
         for (int i = 1; i < memberDetails.size(); i++) {
             familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
             testResult = patientChoicePage.verifyFamilyMemberDetailsPatientChoicePage(familyMember);
-            Assert.assertTrue(testResult);
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMDetails");
+                Assert.fail("FM details in PC Landing page not displayed..");
+            }
             Wait.seconds(2);
         }
-    }
-    @And("the user should wait for session expiry time (.*) seconds")
-    public void theUserShouldWaitUntilTokenExpires(String timeToWait) {
-        patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
     }
 
     @And("the user should be able to see the uploaded file name {string}")
     public void theUserShouldBeAbleToSeeTheUploadedFileName(String fileName) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadedFileName(fileName);
-        Assert.assertTrue(testResult);
-
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_UploadFile");
+            Assert.fail("Uploaded file name not present.");
+        }
     }
 
     @Then("the user is navigated to a page of section with title (.*)")
     public void theUserIsNavigatedToAPageOfSectionPatientChoiceHistory(String title) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyThePageSectionTitleInPatientChoicePage(title);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PageTitle");
+            Assert.fail("Page title "+title+" not present.");
+        }
     }
     @Then("the user verifies the referral id on history tab is same as on referral id on referral bar")
     public void theUserVerifiesTheReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
         boolean testResult = false;
         testResult = patientChoicePage.verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HistoryTab");
+            Assert.fail("Referral id on history tab not present.");
+        }
     }
 
     @When("the user clicks on Form To Follow Button")
     public void theUserClicksOnFormToFollowButton() {
-        patientChoicePage.clickOnFormToFollow();
+
+        boolean testResult = patientChoicePage.clickOnFormToFollow();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FormToFollow");
+            Assert.fail("Could not click on Form to follow.");
+        }
     }
 
     @When("the user Cancel the uploaded forms")
     public void theUserCancelUploadedForms() {
-        patientChoicePage.clickOnCancelUpload();
+
+        boolean testResult = patientChoicePage.clickOnCancelUpload();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CancelUpload");
+            Assert.fail("Could not click on Cancel Upload.");
+        }
     }
 
     @Then("the user should not see any uploaded files")
     public void theUserShouldNotSeeAnyUploadedFiles() {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadedFileName("");
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCUpload");
+            Assert.fail("Upload file could still see.");
+        }
     }
 
     @And("the user clicks on the current completed referral")
     public void theUserClicksOnTheCurrentCompletedReferral() {
         boolean testResult = false;
         testResult = patientChoicePage.selectCompletedReferral();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CompletedReferral");
+            Assert.fail("Could not click on Completed Referral.");
+        }
     }
 
     @And("the user clicks on the {string} button")
     public void theUserClicksOnTheRemoveDocumentButton(String buttonText) {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnRemoveDocument(buttonText);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RemoveDoc");
+            Assert.fail("Could not click on button "+buttonText);
+        }
     }
 
     @And("the user has to click on latest record of discussion")
     public void theUserHasToClickOnLatestRecordOfDiscussion() {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnRecordOfDiscussionForm();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LastROD");
+            Assert.fail("Could not click on Last record of discussion.");
+        }
     }
     @And("the user should be able to view Withdraw from Research button on the top.")
     public void theUserShouldBeAbleToViewWithdrawFromResearchButtonOnTheTop() {
@@ -844,61 +1051,91 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldClickOnThatWithdrawButtonAndShouldStartProvidingDetails() {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnWithdrawButton();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Withdraw");
+            Assert.fail("Could not click on Withdraw button.");
+        }
     }
     @And("the user should selects the option (.*) in patient category")
     public void theUserShouldSelectsTheOptionOptionInPatientCategory(String inputData) {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCategory");
+            Assert.fail("Could not select catagory."+inputData);
+        }
     }
     @And("the user should provide answer as (.*) for the question (.*).")
     public void theUserShouldProvideAnswerAsYesForTheQuestionHasThePatientHadTheOpportunityToReadAndUnderstoodTheWithdrawalInformationAndHaveHadTheOpportunityToGetMoreInformationAndAskQuestions(String option, String question) {
         boolean testResult = false;
         testResult = patientChoicePage.selectOptionForQuestion(option,question);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCOption");
+            Assert.fail("Could not Select the PC Option.");
+        }
     }
     @And("the user should see the Withdrawal Received section")
     public void theUserShouldSeeTheWithdrawalReceivedSection() {
         boolean testResult = false;
         testResult = patientChoicePage.viewWithdrawalReceivedSection();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Withdraw");
+            Assert.fail("Could not see withdrawal received section.");
+        }
     }
     @And("the user should provide (.*) in Withdrawal Received details as")
     public void theUserShouldProvideInPersonInWithdrawalReceivedDetailsAs(String expButton) {
         boolean testResult = false;
         testResult = patientChoicePage.selectWithdrawalDetails(expButton);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Withdraw");
+            Assert.fail("Could not provide withdrawal recieved details");
+        }
     }
     @And("the user provide (.*) in Admin/Clinician Name section")
     public void theUserProvideAdminClinicianName(String adminName) {
         boolean testResult = false;
         testResult = patientChoicePage.fillAdminOrClinicianName(adminName);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Admin");
+            Assert.fail("Could not provide Admin/Clinician Name");
+        }
     }
     @And("the user click on Submit Withdrawal button")
     public void theUserClickOnSubmitWithdrawalButton() {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnSubmitWithdrawalButton();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CancelUpload");
+            Assert.fail("Could not click on Submit withdrawal.");
+        }
     }
     @And("the user has to click on Withdrawal form.")
     public void theUserHasToClickOnWithdrawalForm() {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnWithdrawalForm();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Withdrawal");
+            Assert.fail("Could not click on Withdrawal form.");
+        }
     }
     @Then("the user should be able to see the Patient Type as (.*) ,according to Patient Category provided in Withdrawal Form")
     public void theUserShouldBeAbleToSeeThePatientTypeAsOptionAccordingToPatientCategoryProvidedInWithdrawalForm(String inputData) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyThePatientCategory(inputData);
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCategory");
+            Assert.fail("Could not patient category details.");
+        }
     }
     @And("the user click on Continue Button")
     public void theUserClickOnContinueButton() {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnContinueButton();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Continue");
+            Assert.fail("Could not click on Continue button.");
+        }
     }
 
 
@@ -906,6 +1143,9 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldAbleToSeeUploadButtonIsEnableByDefaultInRecordBySection() {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadButtonStatus();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Upload");
+            Assert.fail("Could not see upload button as enabled in Recorded by section.");
+        }
     }
 }//end

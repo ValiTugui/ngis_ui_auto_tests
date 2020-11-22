@@ -159,7 +159,7 @@ public class FamilyMemberSearchPage {
         expElements.add(dateYear);
         expElements.add(searchButton);
         for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
+            if(!expElements.get(i).isDisplayed()){
                 return false;
             }
         }
@@ -211,7 +211,7 @@ public class FamilyMemberSearchPage {
         expElements.add(postcode);
         expElements.add(searchButton);
         for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
+            if(!expElements.get(i).isDisplayed()){
                 return false;
             }
         }
@@ -299,7 +299,6 @@ public class FamilyMemberSearchPage {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in searching family member: "+exp);
-            SeleniumLib.takeAScreenShot("searchFM.jpg");
             return false;
         }
     }//method
@@ -379,7 +378,7 @@ public class FamilyMemberSearchPage {
         expResultElements.add(resultCardNHSNo);
         expResultElements.add(resultCardAddress);
         for(int i=0; i<expResultElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expResultElements.get(i))){
+            if(!expResultElements.get(i).isDisplayed()){
                 return false;
             }
         }
@@ -390,14 +389,10 @@ public class FamilyMemberSearchPage {
         try {
         String actualPageDescription = pageDescription.getText();
            if(!actualPageDescription.contains(DescriptionOfPage)){
-               Debugger.println("Expected message not found of FamilyMember search page.");
-               SeleniumLib.takeAScreenShot("FMDescription.jpg");
                return false;
            }
            return true;
         }catch(Exception exp){
-            Debugger.println("Exception in verifying message FamilyMember search page.");
-            SeleniumLib.takeAScreenShot("FMDescription.jpg");
             return false;
         }
     }
@@ -412,15 +407,11 @@ public class FamilyMemberSearchPage {
      public boolean clickOnNewPatientLink() {
         try {
             if(!Wait.isElementDisplayed(driver,createNewPatientLink,10)){
-                Debugger.println("createNewPatientLink not displayed");
-                SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
                 return false;
             }
             Actions.clickElement(driver,createNewPatientLink);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from clickOnNewPatientLink:"+exp);
-            SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
             return false;
         }
     }
@@ -480,14 +471,10 @@ public class FamilyMemberSearchPage {
         try {
             String actStatus = nhsNumber.getAttribute("placeholder");
             if(!actStatus.equalsIgnoreCase("e.g. 1231237890")){
-                Debugger.println("NHSField does not contains placeholder.");
-                SeleniumLib.takeAScreenShot("NHSPlaceHolderError.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception verifying NHS place holder:"+exp);
-            SeleniumLib.takeAScreenShot("NHSPlaceHolderError.jpg");
             return false;
         }
     }
@@ -495,26 +482,18 @@ public class FamilyMemberSearchPage {
         try {
             String actStatus = dateDay.getAttribute("placeholder");
             if(!actStatus.equalsIgnoreCase("DD")){
-                Debugger.println("Day DOB does not contains placeholder.");
-                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
                 return false;
             }
             actStatus = dateMonth.getAttribute("placeholder");
             if(!actStatus.equalsIgnoreCase("MM")){
-                Debugger.println("Month DOB does not contains placeholder.");
-                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
                 return false;
             }
             actStatus = dateYear.getAttribute("placeholder");
             if(!actStatus.equalsIgnoreCase("YYYY")){
-                Debugger.println("Year DOB does not contains placeholder.");
-                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception verifying DOB place holder:"+exp);
-            SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
             return false;
         }
     }
@@ -524,9 +503,7 @@ public class FamilyMemberSearchPage {
             Wait.forElementToBeClickable(driver,searchButton);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception verifying search button clickable:"+exp);
-            SeleniumLib.takeAScreenShot("SearchButtonClickableError.jpg");
-            return false;
+           return false;
         }
     }
     public boolean verifySVGForTickMark() {
@@ -536,23 +513,17 @@ public class FamilyMemberSearchPage {
             if (!noButton.isSelected()) {//Select No, if not selected and verify presence of SVG
                 Actions.clickElement(driver,noButton);
                 if(!Wait.isElementDisplayed(driver,noButtonSVG,5)){
-                    Debugger.println("SVG tick not present in selected No button");
-                    SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
                     return false;
                 }
             }
             if (!yesButton.isSelected()) {
                 Actions.clickElement(driver,yesButton);
                 if(!Wait.isElementDisplayed(driver,yesButtonSVG,5)){
-                    Debugger.println("SVG tick not present in selected Yes button");
-                    SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifying SVG tick mark: "+exp);
-            SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
             return false;
         }
     }

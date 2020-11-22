@@ -3,8 +3,10 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,68 +25,98 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user clicks the Start Test Order Referral button")
     public void theUserClicksTheStartTestOrderReferralButton() {
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
+            Assert.fail("Could not click on Start Referral.");
+        }
     }
 
     @And("the loading wheel is displayed")
     public void theLoadingWheelIsDisplayed() {
-        Assert.assertTrue("The Loading Wheel is NOT Displayed", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
+        if(!clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LoadingWheel.jpg");
+            Assert.fail("Loading wheel not displayed.");
+        }
     }
 
     @And("the text {string} is not displayed")
     public void theTextIsNotDisplayed(String wrongText) {
-        Assert.assertTrue(wrongText + "  is Displayed", clinicalIndicationsTestSelect.validateIfWrongTextIsNotDisplayed(clinicalIndicationsTestSelect.loadingText, wrongText));
+        if(!clinicalIndicationsTestSelect.validateIfWrongTextIsNotDisplayed(wrongText)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoText.jpg");
+            Assert.fail(wrongText+ " displayed.");
+        }
     }
 
     @Then("the text {string} is displayed")
     public void theTextIsDisplayed(String correctText) {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(correctText);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoText.jpg");
+            Assert.fail(correctText+ " not displayed.");
+        }
+
     }
 
     @And("the list of clinical indications are loaded")
     public void theListOfClinicalIndicationsIsLoading() {
         Wait.seconds(3);
-        Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded());
+        if(!clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalIndication.jpg");
+            Assert.fail("The List of Clinical Indication are NOT Loaded");
+        }
     }
 
     @And("the user sees the {string} tab is selected by default")
     public void theUserSeesTheTabIsSelectedByDefault(String tabName) {
-        Assert.assertTrue(clinicalIndicationsTestSelect.isTabSelected(tabName));
+        if(!clinicalIndicationsTestSelect.isTabSelected(tabName)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TabNotSelected.jpg");
+            Assert.fail("Tab "+tabName+" not selected by default.");
+        }
     }
 
     @And("the user sees the button {string} on Bottom right")
     public void theUserSeesTheButtonOnBottomRight(String buttonName) {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.validateIfCorrectButtonDisplayed(buttonName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoButton.jpg");
+            Assert.fail("Button "+buttonName+" not present.");
+        }
     }
 
     @And("the user selects the {string} tab")
     public void theUserClicksOnTab(String tabName) {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.selectTab(tabName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TabNotSelected.jpg");
+            Assert.fail("Tab "+tabName+" not present.");
+        }
     }
 
     @And("the user clicks on view more icon")
     public void theUserClicksOnViewMoreIcon() {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.clickOnViewMoreIcon();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ViewMore.jpg");
+            Assert.fail("Could not click on view more icon.");
+        }
     }
 
     @And("the user click on Go to test page button")
     public void theUserClickOnGoToTestPageButtom() {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.clickGoToTestPageButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_GoToTestPage.jpg");
+            Assert.fail("Could not click on  Go To Test Page button.");
+        }
     }
 
     @And("the user should be able to see all {string} tabs and are clickable")
     public void theUserShouldBeAbleToSeeAllTabsAndAreClickable(String tabCount, List<String> tabName) {
-
         Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tabName.get(0), tabName.get(1), tabName.get(2), tabName.get(3)));
         Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount), clinicalIndicationsTestSelect.clinicalIndicationTabs));
     }
@@ -93,7 +125,6 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theUserShouldBeAbleToSeeANewModalWindow() {
         clinicalIndicationsTestSelect.testPackagePopUpValidations();
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpContents());
-
         for (int i = 0; i < clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).size(); i++) {
             Assert.assertFalse(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
         }
@@ -127,7 +158,10 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user clicks on Back to Search button")
     public void theUserClicksOnBackToSearchButton() {
-        clinicalIndicationsTestSelect.clickBackToSearchButton();
+        if(!clinicalIndicationsTestSelect.clickBackToSearchButton()){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_BackButton.jpg");
+            Assert.fail("Could not click on  Back to Search Button.");
+        }
     }
 
     @And("the user should be able to see the following under Eligibility Criteria tab")
@@ -166,7 +200,10 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theUserClickOnGoToClinicalIndicationButton() {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.clickGoToClinicalIndicationButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalIndicate.jpg");
+            Assert.fail("Could not click on Clinical Indicate Button.");
+        }
     }
 
     @Then("the browser navigates to the previously selected Clinical Indication Details page while still saving the user's most recent search for further page navigation")
@@ -178,13 +215,19 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theUserVerifiesThePageWillBeCoveredByAnOverlay() {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.verifyTheOverlayIsDisplayed();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Overlay.jpg");
+            Assert.fail("Page not covered by overlay.");
+        }
     }
 
     @When("the user clicks the close icon of clinical indication pop up")
     public void theUserClicksTheCloseIconOfClinicalIndicationPopUp() {
         boolean testResult = false;
         testResult = clinicalIndicationsTestSelect.closeClinicalIndicationPopUp();
-        Assert.assertTrue(testResult);
-    }
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalIndication.jpg");
+            Assert.fail("Could not click on Close icon of Clinical Indication Pop up");
+        }
+    }//end
 }

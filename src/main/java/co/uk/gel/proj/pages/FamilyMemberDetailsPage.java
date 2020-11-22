@@ -350,30 +350,22 @@ public class FamilyMemberDetailsPage {
     public boolean clickPatientCard() {
         try {
             if(!Wait.isElementDisplayed(driver, patientCard,10)){
-                Debugger.println("Patient Card Not displayed..");
-                SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
                 return false;
             }
             Actions.clickElement(driver, patientCard);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from clickPatientCard:" + exp);
-            SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
             return false;
         }
     }
     public boolean editPatientDetails() {
         try {
             if(!Wait.isElementDisplayed(driver, editPatientDetailsLink,10)){
-                Debugger.println("Edit Patient Details Link not displayed..");
-                SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
                 return false;
             }
             Actions.clickElement(driver,editPatientDetailsLink);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from editPatientDetails:"+exp);
-            SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
             return false;
         }
     }
@@ -574,12 +566,12 @@ public class FamilyMemberDetailsPage {
         }
         List<WebElement> rows = seleniumLib.getElements(hpoRows);
         if (rows != null && rows.size() > 0) {
-            Debugger.println("Verifying HPO already exists or not...." + hpoTerm + " in " + rows.size() + " rows.");
+            //Debugger.println("Verifying HPO already exists or not...." + hpoTerm + " in " + rows.size() + " rows.");
             for (WebElement row : rows) {
                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
                 if (hpoValue.equalsIgnoreCase(hpoTerm)) {
                     isExists = true;
-                    Debugger.println("Phenotype already exists:");
+                    //Debugger.println("Phenotype already exists:");
                     break;//for loop
                 }
             }//for
@@ -606,7 +598,7 @@ public class FamilyMemberDetailsPage {
             return numberOfHPO;
         } catch (ElementClickInterceptedException interExp) {
             //SeleniumLib click handles the javascript and Actions click also.
-            SeleniumLib.takeAScreenShot("PhenoTypeInterceptedExp.jpg");
+            //SeleniumLib.takeAScreenShot("PhenoTypeInterceptedExp.jpg");
             seleniumLib.clickOnWebElement(dropdownValues.get(0));
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -1456,13 +1448,10 @@ public class FamilyMemberDetailsPage {
                     }
                 }
             }
-            if (!isPresent) {
-                SeleniumLib.takeAScreenShot("BadgePresence.jpg");
-            }
+
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception from checking being tested field " + exp);
-            SeleniumLib.takeAScreenShot("BadgePresence.jpg");
             return false;
         }
     }
@@ -1587,19 +1576,13 @@ public class FamilyMemberDetailsPage {
             Wait.forElementToBeClickable(driver, relationshipToProband);
             String actualRelationship = relationshipToProband.getText();
             if (actualRelationship == null) {
-                Debugger.println("Relationship to proban is NULL");
-                SeleniumLib.takeAScreenShot("ReationToProband.jpg");
                 return false;
             }
             if (!(expectedRelation.equalsIgnoreCase(actualRelationship))) {
-                Debugger.println("Relationship to proband: Actual:" + actualRelationship + " ,Expected: " + expectedRelation);
-                SeleniumLib.takeAScreenShot("ReationToProband.jpg");
-                return false;
+               return false;
             }
             return true;
         } catch (Exception e) {
-            Debugger.println("Error message not found");
-            SeleniumLib.takeAScreenShot("ReationToProband.jpg");
             return false;
         }
     }

@@ -34,14 +34,20 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserSelectsThePatientSearchResultTab() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.clickPatientCard();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientCard.jpg");
+            Assert.fail("Not clicked on Patient Card");
+        }
     }
 
     @When("the user clicks on edit patient details")
     public void theUserClicksOnEditPatientDetails() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.editPatientDetails();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditPatientDetails.jpg");
+            Assert.fail("Could not edit patient details.");
+        }
     }
 
     @When("the user selects the Relationship to proband as {string} for family member {string}")
@@ -598,15 +604,15 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserNavigateToFamilyMemberAddANewPatientToTheDatabasePage(String expectedPageTitle, List<String> attributeOfURL) {
         try {
             String existingReferralID = referralPage.getPatientReferralId();
-            Debugger.println("existingReferralID:" + existingReferralID);
+            //Debugger.println("existingReferralID:" + existingReferralID);
             String baseURL = attributeOfURL.get(0);
             String confirmationPage = attributeOfURL.get(1);
             String referralFullUrl = TestUtils.getReferralURL(baseURL, existingReferralID, confirmationPage);
-            Debugger.println("referralFullUrl :" + referralFullUrl);
+            //Debugger.println("referralFullUrl :" + referralFullUrl);
             NavigateTo(referralFullUrl, confirmationPage);
             Wait.seconds(5);
             String currentTitle = referralPage.getTheCurrentPageTitle();
-            Debugger.println("CurrentTitle:" + currentTitle);
+            //Debugger.println("CurrentTitle:" + currentTitle);
             if (!currentTitle.equalsIgnoreCase(expectedPageTitle)) {
                 Assert.assertTrue(false);
             }
@@ -642,14 +648,20 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserShouldSeeTheVisibleAndClickableReferralCard() {
         boolean testResult = false;
         testResult = patientDetailsPage.verifyTheSubmittedReferralCardsAreClickable();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralCard.jpg");
+            Assert.fail("Referral Card not clickable");
+        }
     }
 
     @And("the user sees the relationship to proband which was previously selected is same as {string}")
     public void theUserSeesTheRelationshipToProbandWhichWasPreviouslySelectedIsSameAs(String expectedRelation) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifySelectedRelationshipToProband(expectedRelation);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RelationToProband.jpg");
+            Assert.fail("Relationship to proband is not selected as before");
+        }
     }
 
 }//end

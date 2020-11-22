@@ -180,14 +180,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         By miStage = null;
         try {
             if(!Wait.isElementDisplayed(driver,sampleProcessingMenuLink,40)){
-                Debugger.println("MIPortal Menu List not loaded."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
                 return false;
             }
             miStage = By.xpath("//a[contains(string(),'" + expectedMipage + "')]");
             if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 20)) {
-                Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
             }
             try {
@@ -198,16 +194,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     seleniumLib.clickOnElement(miStage);
                     return true;
                 }catch(Exception exp1){
-                    Debugger.println("Could not access the MIPortal:"+exp1);
-                    SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
                     return false;
                 }
             }
             Wait.seconds(2);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from clicking on Mandatory page link. " + exp);
-            SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
             return false;
         }
     }//end
@@ -334,8 +326,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             if (value == null || value.isEmpty()) {
-                Debugger.println("There is no value to select from dropdown.");
-                SeleniumLib.takeAScreenShot("SearchValueDropDown.jpg");
                 return false;
             }
             String[] valueList = null;
@@ -351,7 +341,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
-            SeleniumLib.takeAScreenShot("SearchValueDropDown.jpg");
             return false;
         }
     }
@@ -377,14 +366,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean badgeFilterSearchCriteriaIsDisplayed() {
         try {
             if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 30)) {
-                Debugger.println("badge search criteria element is not found."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in badge search criteria element is not found:"+exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
             return false;
         }
     }
@@ -402,7 +387,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from badgeFilterSearchCriteriaIsNotDisplayed:"+exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
             return false;
         }
     }
@@ -419,8 +403,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
         } catch (Exception exp) {
-            Debugger.println("search result table is not found");
-            SeleniumLib.takeAScreenShot("searchResultTableNotFound.jpg");
             return false;
         }
     }

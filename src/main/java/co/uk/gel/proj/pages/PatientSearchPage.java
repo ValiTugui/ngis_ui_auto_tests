@@ -233,7 +233,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         try {
-            Debugger.println("SPINE SEARCH:NHS:"+nhsNo+":"+dayOfBirth+"-"+monthOfBirth+"-"+yearOfBirth);
+            //Debugger.println("SPINE SEARCH:NHS:"+nhsNo+":"+dayOfBirth+"-"+monthOfBirth+"-"+yearOfBirth);
             Wait.forElementToBeDisplayed(driver, nhsNumber);
             nhsNumber.sendKeys(nhsNo);
             dateDay.sendKeys(dayOfBirth);
@@ -242,7 +242,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from fillInValidPatientDetailsUsingNHSNumberAndDOB:"+exp);
-            SeleniumLib.takeAScreenShot("fillInValidPatientDetailsUsingNHSNumberAndDOB.jpg");
+            //SeleniumLib.takeAScreenShot("fillInValidPatientDetailsUsingNHSNumberAndDOB.jpg");
             return false;
         }
 
@@ -291,12 +291,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if(!Wait.isElementDisplayed(driver,patientCard,30)){
                 Debugger.println("Expected Patient card not displayed."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("patientCardNotDisplayed.jpg");
                 return null;
             }
             if(!Wait.isElementDisplayed(driver,patientCardBadge,10)){
                 Debugger.println("Expected patientCardBadge displayed."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("patientCardBadgeNotDisplayed.jpg");
                 return null;
             }
             badge =  patientCardBadge.getText();
@@ -307,7 +305,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 return badge;
             }catch(Exception exp1) {
                 Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp1+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("patientCardBadgeNotDisplayed.jpg");
                 return null;
             }
         }
@@ -479,9 +476,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.forElementToBeDisplayed(driver, patientCard);
             if (!Wait.isElementDisplayed(driver, patientCard, 30)) {
-                Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
-                SeleniumLib.takeAScreenShot("PatientCard.jpg");
-                Assert.assertFalse("PatientCard not found to be clicked.", true);
+                return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
@@ -489,7 +484,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clickPatientCard:"+exp);
-            SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
             return false;
         }
     }
@@ -573,13 +567,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeDisplayed(driver, createNewPatientLink);
             if(!hyperLinkText.equalsIgnoreCase(createNewPatientLink.getText())){
                 Debugger.println("Expected Message:"+hyperLinkText+", Actual: "+createNewPatientLink.getText());
-                SeleniumLib.takeAScreenShot("checkCreateNewPatientLinkDisplayed.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from checkCreateNewPatientLinkDisplayed:"+exp);
-            SeleniumLib.takeAScreenShot("checkCreateNewPatientLinkDisplayed.jpg");
             return false;
         }
     }
@@ -753,8 +745,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
         // Find elements
         if(!Wait.isElementDisplayed(driver,searchButtonByXpath, 120)){
-            Debugger.println("Patient Search Page Not Loaded.");
-            SeleniumLib.takeAScreenShot("PatientSearchNotLoaded.jpg");
+           return false;
         }
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
@@ -770,8 +761,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(dateYear);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!expectedElements.get(i).isDisplayed()) {
-                Debugger.println("Element: "+expectedElements.get(i)+" Not present.");
-                SeleniumLib.takeAScreenShot("PatientSearchYes.jpg");
                 return false;
             }
         }
@@ -836,7 +825,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp1);
-                SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
                 return false;
             }
         }

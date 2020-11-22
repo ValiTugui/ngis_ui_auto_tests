@@ -40,21 +40,27 @@ public class PatientDetailsSteps extends Pages {
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
         if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewPatientLink.jpg");
             Assert.fail("patientSearchPage.checkCreateNewPatientLinkDisplayed");
         }
         if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewPatientLink.jpg");
             Assert.fail("patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage");
         }
         if(!patientDetailsPage.newPatientPageIsDisplayed()){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewPatientPage.jpg");
             Assert.fail("patientDetailsPage.newPatientPageIsDisplayed");
         }
         if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewPatientFill.jpg");
             Assert.fail("patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber");
         }
         if(!patientDetailsPage.clickOnCreateRecord()){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CreateRcord.jpg");
             Assert.fail("patientDetailsPage.clickOnCreateRecord");
         }
        if(!patientDetailsPage.patientIsCreated()) {
+           SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientCreated.jpg");
            Assert.fail("patientDetailsPage.patientIsCreated");
        }
     }
@@ -63,7 +69,10 @@ public class PatientDetailsSteps extends Pages {
     public void theUserClicksTheStartANewReferralButton() {
         boolean testResult;
         testResult = patientDetailsPage.clickStartNewReferralButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartNewReferral.jpg");
+            Assert.fail("Could not click on New Referral Button");
+        }
 
     }
 
@@ -72,44 +81,57 @@ public class PatientDetailsSteps extends Pages {
 
         boolean testResult;
         testResult = patientDetailsPage.clickStartReferralButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
+            Assert.fail("Could not click on Start Referral Button");
+        }
     }
 
     @When("the user clicks the CI Search Start Referral button")
     public void theUserClicksTheCISerachStartReferralButton() {
         boolean testResult;
         testResult = patientDetailsPage.clickCISearchStartReferralButton();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
+            Assert.fail("Could not click on New Referral Button");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks the Start Referral button to display the referral page")
     public void theUserClicksTheStartReferralButtonToDisplayTheReferralPage() {
-        patientDetailsPage.clickStartNewReferralButton();
-    }
-
-    @When("the user does not modify the existing information on the {string} form")
-    public void theUserDoesNotModifyTheExistingInformationOnTheForm(String arg0) {
-        //patientDetailsPage.TestTest() - part of e2e user journey. To be continued once e2e commences
-
+        boolean testResult = patientDetailsPage.clickStartNewReferralButton();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
+            Assert.fail("Could not click on New Referral Button");
+        }
     }
 
     @Then("the clinical indication ID missing banner is displayed")
     public void theClinicalIndicationIDMissingBannerIsDisplayed() {
         boolean testResult;
         testResult = patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CIndication.jpg");
+            Assert.fail("Clinical indication id missing banner not displayed");
+        }
     }
 
     @And("the Start Referral button is disabled")
     public void theStartReferralButtonIsDisabled() {
-        patientDetailsPage.startReferralButtonIsDisabled();
+
+        boolean testResult = patientDetailsPage.startReferralButtonIsDisabled();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferralBut.jpg");
+            Assert.fail("Could not see Start Referral button is disabled");
+        }
     }
 
     @And("the Start New Referral button is disabled")
     public void theStartNewReferralButtonIsDisabled() {
+
         patientDetailsPage.startNewReferralButtonIsDisabled();
     }
 
@@ -118,25 +140,47 @@ public class PatientDetailsSteps extends Pages {
     public void theUserClicksTheLink(String goBackToPatientSearch) {
         boolean testResult;
         testResult = patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_BackLink.jpg");
+            Assert.fail("Could not click on back link");
+        }
     }
 
     @Given("a web browser is at the Patient Details page of a {string} patient with NHS number {string} and Date of Birth {string} without clinical indication test selected")
     public void aWebBrowserIsAtThePatientDetailsPageOfAPatientWithNHSNumberAndDateOfBirthWithoutClinicalIndicationTestSelected(String patientType, String nhsNo, String dob) {
 
         String[] value = dob.split("-");  // Split DOB in the format 01-01-1900
-        patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
+        boolean testResult = patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FillValues.jpg");
+            Assert.fail("Could not fill patient search values");
+        }
         patientSearchPage.clickSearchButtonByXpath();
-        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
-        patientSearchPage.clickPatientCard();
-        Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
+        if(patientSearchPage.checkThatPatientCardIsDisplayed() == null){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCard.jpg");
+            Assert.fail("Could not see PC card displayed");
+        }
+        testResult = patientSearchPage.clickPatientCard();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CreatePC.jpg");
+            Assert.fail("Could not Click on Create Patient");
+        }
+
+        testResult = patientDetailsPage.patientDetailsPageIsDisplayed();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCreated.jpg");
+            Assert.fail("Patient details page is displayed");
+        }
     }
 
     @When("the user clicks the {string} link on the notification banner")
     public void theUserClicksTheLinkOnTheNotificationBanner(String linkOnNotification) {
         boolean testResult = false;
         testResult = patientDetailsPage.clickTheLinkOnNotificationBanner();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Notification.jpg");
+            Assert.fail("Could not click on notification banner");
+        }
     }
 
     @Given("a web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")

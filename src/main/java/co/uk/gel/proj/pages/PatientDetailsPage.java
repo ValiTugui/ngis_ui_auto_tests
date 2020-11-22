@@ -279,7 +279,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in patientDetailsPageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("PatientDetails.jpg");
             return false;
         }
     }
@@ -290,7 +289,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from newPatientPageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("newPatientPageIsDisplayed.jpg");
             return false;
         }
     }
@@ -301,7 +299,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from newFamilyMemberPageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("newFamilyMemberPage.jpg");
             return false;
         }
     }
@@ -427,7 +424,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInAllNewPatientDetails:" + exp);
-            SeleniumLib.takeAScreenShot("fillInAllNewPatientDetails.jpg");
             return false;
         }
     }
@@ -606,22 +602,15 @@ public class PatientDetailsPage {
     public boolean patientIsCreated() {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
-                Debugger.println("NGIS Patient Created Message not displayed." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification.jpg");
-                Actions.scrollToTop(driver);
-                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification1.jpg");
                 return false;
             }
             String successMsg = Actions.getText(successNotification);
             if (successMsg.equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
-            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created." + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception in creating the patient." + exp + "\n" + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PCCreatedException.jpg");
             return false;
         }
     }
@@ -630,7 +619,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
                 Debugger.println("Start Referral Button not displayed.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
             Actions.clickElement(driver, startReferralButton);
@@ -642,7 +630,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp1 + "\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
         }
@@ -652,7 +639,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, CISearchStartReferral, 10)) {
                 Debugger.println("Start Referral Button not displayed.");
-                SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
             Actions.clickElement(driver, CISearchStartReferral);
@@ -663,7 +649,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);
-            SeleniumLib.takeAScreenShot("StartReferral.jpg");
             return false;
         }
     }
@@ -672,10 +657,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startNewReferralButton, 30)) {
                 Debugger.println("Start New Referral Button not displayed.");
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
-            Debugger.println("Status: " + startNewReferralButton.isEnabled());
+            //Debugger.println("Status: " + startNewReferralButton.isEnabled());
             if (!startNewReferralButton.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -688,7 +672,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
         }
@@ -698,20 +681,16 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, patientDetailsnotificationBanner, 30)) {
                 Debugger.println("Clinical Indication ID Missing message not displayed.");
-                SeleniumLib.takeAScreenShot("patientDetailsnotificationBanner.jpg");
                 return false;
             }
             String text = Actions.getText(patientDetailsnotificationBanner);
             if (text.isEmpty()) {
                 Debugger.println("Clinical Indication ID Missing message is EMPTY.");
-                SeleniumLib.takeAScreenShot("patientDetailsnotificationBanner.jpg");
                 return false;
             }
-            Debugger.println("TEXT:" + text);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from: clinicalIndicationIDMissingBannerIsDisplayed" + exp);
-            SeleniumLib.takeAScreenShot("patientDetailsnotificationBanner.jpg");
             return false;
         }
     }
@@ -720,18 +699,15 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
                 Debugger.println("startReferralButtonIsDisabled ot displayed");
-                SeleniumLib.takeAScreenShot("startReferralButton.jpg");
                 return false;
             }
             if (startReferralButton.isEnabled()) {
                 Debugger.println("startReferralButton expected to be disabled. but enabled.");
-                SeleniumLib.takeAScreenShot("startReferralButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in startReferralButtonIsDisabled:" + exp);
-            SeleniumLib.takeAScreenShot("startReferralButton.jpg");
             return false;
         }
     }
@@ -747,7 +723,6 @@ public class PatientDetailsPage {
             goBackLink = By.xpath("//a[contains(text(),'" + expectedGoBackToPatientSearch + "')]");
             if (!Wait.isElementDisplayed(driver, driver.findElement(goBackLink), 10)) {
                 Debugger.println("Link not present:" + expectedGoBackToPatientSearch);
-                SeleniumLib.takeAScreenShot("clickTheGoBackLink.jpg");
                 return false;
             }
             Actions.clickElement(driver, driver.findElement(goBackLink));
@@ -760,7 +735,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from clickTheGoBackLink:" + exp1);
-                SeleniumLib.takeAScreenShot("clickTheGoBackLink.jpg");
                 return false;
             }
         }
@@ -770,7 +744,6 @@ public class PatientDetailsPage {
     public boolean clickTheLinkOnNotificationBanner() {
         if (!Wait.isElementDisplayed(driver, testDirectoryLink, 30)) {
             Debugger.println("Test Directory Link is not present...");
-            SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
             return false;
         }
         try {
@@ -782,7 +755,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Test Directory Link is not shown on banner..." + exp1);
-                SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
                 return false;
             }
         }
@@ -1165,11 +1137,11 @@ public class PatientDetailsPage {
             Wait.seconds(10);//Wait for 10 seconds to create the new member
             //Removed isPatientCreated check for Family member addition as it is not needed
             FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
-            Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
+            //Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from adding mew family member:" + exp);
-            SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");
+            //SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");
             return false;
         }
     }
@@ -1426,19 +1398,13 @@ public class PatientDetailsPage {
     public boolean verifyTheSubmittedReferralCardsAreClickable() {
         try {
             if (submittedReferralCardsList.size() == 0) {
-                Debugger.println("No submitted referral card found.");
-                SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
                 return false;
             }
             if (!Actions.isTabClickable(driver, submittedReferralCardsList.size(), submittedReferralCardsList)) {
-                Debugger.println("Submitted referral cards are not clickable.");
-                SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
-                return false;
+               return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheSubmittedReferralCardsAreClickable: " + exp);
-            SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
             return false;
         }
     }
