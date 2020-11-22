@@ -49,20 +49,20 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the user enters a date (.*) in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
-        boolean testResult =false;
-        testResult=miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIFileSubmission.jpg");
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MIFileSubmission.jpg");
             Assert.fail("FileSubmission date could not filled");
         }
     }
 
     @And("the user enters (.*) days before today in the file-submission date field")
     public void theUserEntersADateNDaysBeforeInTheFileSubmissionDateField(String noOfDaysBefore) {
-        boolean testResult =false;
-        testResult=miPortalFileSubmissionPage.fillInPastDateInTheFileSubmissionDate(noOfDaysBefore);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIFileSubmission.jpg");
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.fillInPastDateInTheFileSubmissionDate(noOfDaysBefore);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MIFileSubmission.jpg");
             Assert.fail("Past date could not fill in file submission");
         }
     }
@@ -72,8 +72,8 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         boolean testResult = false;
         Wait.seconds(3);
         testResult = miPortalHomePage.badgeFilterSearchCriteriaIsDisplayed();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_BadgeDisplay.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_BadgeDisplay.jpg");
             Assert.fail("Badge not displayed in MI");
         }
     }
@@ -83,8 +83,8 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void searchResultsAreDisplayedForTheFileSubmissionSearch() {
         boolean testResult = false;
         testResult = miPortalHomePage.searchResultTableIsDisplayed();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MISearchResult.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MISearchResult.jpg");
             Assert.fail("Search Result not displayed MI Page");
         }
     }
@@ -104,8 +104,8 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theFileSubmissionPageDisplaysTheSearchHeaderDropDownColumnOperatorAndValueAddSearchAndResetButtons() {
         boolean testResult = false;
         testResult = miPortalFileSubmissionPage.verifyTheElementsOnFileSubmissionPage();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIFileSubmissionPage.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MIFileSubmissionPage.jpg");
             Assert.fail("File submission page not displayed correctly");
         }
     }
@@ -115,8 +115,8 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theSearchCriteriaBadgeDisappears() {
         boolean testResult = false;
         testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_BadgeCriteria.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_BadgeCriteria.jpg");
             Assert.fail("Badge criteria not disappeared");
         }
     }
@@ -128,12 +128,12 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Assert.assertNotNull(actualDropDownValues);
         boolean testResult = false;
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            if(!actualDropDownValues.contains(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"))){
+            if (!actualDropDownValues.contains(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"))) {
                 testResult = true;
-            }else {
-                Debugger.println("Unexpected value "+expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader")+" contains in "+DropDownButton);
+            } else {
+                Debugger.println("Unexpected value " + expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader") + " contains in " + DropDownButton);
                 testResult = false;
-                Assert.assertTrue("Unexpected value "+expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader")+" contains in "+DropDownButton,testResult);
+                Assert.assertTrue("Unexpected value " + expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader") + " contains in " + DropDownButton, testResult);
             }
             Assert.assertTrue(testResult);
         }
@@ -163,18 +163,19 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             dateToday = dateToday.replace("/", "-");
             String pastDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore, 0, 0); //Add future day +1
             String dateInYYMMDD = TestUtils.dateFormatReverserToYYYYMMDD(pastDate);
-            testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,dateInYYMMDD);
+            testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName, dateInYYMMDD);
             Assert.assertTrue(testResult);
-        }catch(Exception exp){
+        } catch (Exception exp) {
 
         }
     }
+
     @Then("the user should be able to see the non-empty data cell in the (.*) column of file submission search result table")
     public void theUserShouldBeAbleToSeeTheNonEmptyDataCellInTheColumn(String columnName) {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,"non-empty-data");
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NonEmptyValue.jpg");
+        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName, "non-empty-data");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NonEmptyValue.jpg");
             Assert.fail("Non empty value not displayed");
         }
     }
@@ -199,11 +200,11 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theColumnsFieldsAreNotDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
         List<List<String>> expectedListOfColumnHeaders = dataTable.asLists();
         boolean testResult = false;
-        for(int i=1; i<expectedListOfColumnHeaders.size(); i++) {
+        for (int i = 1; i < expectedListOfColumnHeaders.size(); i++) {
             testResult = miPortalFileSubmissionPage.verifyColumnHeadPresence(expectedListOfColumnHeaders.get(i).get(0));
-            if(!testResult){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIColumnHead.jpg");
-                Assert.fail("Column head not present");
+            if (testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MIColumnHead.jpg");
+                Assert.fail("Column head " + expectedListOfColumnHeaders.get(i).get(0) + " present in the search result table, but not expected.");
             }
         }
     }
@@ -212,15 +213,15 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theUserSeesTheExpandPlusIconAtTheStartOfEachRowWhereItIsClickedToShowColumnNamesAndValues() {
         String testResult = "";
         testResult = miPortalFileSubmissionPage.verifyThePusIconAtTheStartOfEachRowAndClickToExpand();
-        Assert.assertEquals("Success",testResult);
+        Assert.assertEquals("Success", testResult);
     }
 
     @And("the user see dates value in {string} column of file-submission search result in descending order")
     public void theUserSeeDatesValueInColumnOfFileSubmissionSearchResultInDescendingOrder(String columnHeader) {
 
         List<String> actualValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnHeader);
-        if(actualValues.size() == 0){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIColumnValue.jpg");
+        if (actualValues.size() == 0) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MIColumnValue.jpg");
             Assert.assertTrue(false);
         }
         List<String> expectedValues = new ArrayList<>();
@@ -239,7 +240,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("the user should be able to see the selected {string} value in file submissions page")
     public void theUserShouldBeAbleToSeeTheSelectedValueInFileSubmissionsPage(String selectedOption) {
         boolean testResult = false;
-        testResult =miPortalFileSubmissionPage.verifyThePresenceOfSelectedOption(selectedOption);
+        testResult = miPortalFileSubmissionPage.verifyThePresenceOfSelectedOption(selectedOption);
         Assert.assertTrue(testResult);
     }
 
@@ -254,24 +255,25 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
         for (int i = 0; i < valueList.length; i++) {
             testResult = miPortalFileSubmissionPage.addColumnHeadersToHideSection(valueList[i]);
-            if(!testResult){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIColumnHide.jpg");
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MIColumnHide.jpg");
                 Assert.fail("Column Hide and Show not working");
             }
         }
     }
+
     @And("the user selects (.*) as the search value dropdown")
     public void theUserSelectSpecifiedSearchValue(String searchValue) {
         boolean testResult = false;
         Wait.seconds(5);
-        if(searchValue.equalsIgnoreCase("GLHName")) {
+        if (searchValue.equalsIgnoreCase("GLHName")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
                 Debugger.println("No Data exists in the test data file provided.");
                 Assert.assertTrue("No Data exists in the test data file provided.", false);
             }
             testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(mipData.getGlh_name());
-        }else{
+        } else {
             testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(searchValue);
         }
         Assert.assertTrue(testResult);
@@ -282,33 +284,34 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         boolean testResult = false;
         Wait.seconds(5);
         testResult = miPortalFileSubmissionPage.selectDropDownSearchOperator(searchOperator);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MISearchOperator.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MISearchOperator.jpg");
             Assert.fail("Operator could not select from drop down");
         }
     }
+
     @And("the user selects (.*) as the search column dropdown")
     public void theUserSelectSpecifiedSearchColumn(String searchColumn) {
         boolean testResult = false;
         Wait.seconds(5);
         testResult = miPortalFileSubmissionPage.selectDropDownSearchColumn(searchColumn);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MISearchValue.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MISearchValue.jpg");
             Assert.fail("Search value could not select from drop down");
         }
     }
 
     @Then("the user should see the below columns populated in search result table based on the selected (.*)")
-    public void theUserSelectSpecifiedSearchValue(String searchValue,DataTable columnHeaders) {
+    public void theUserSelectSpecifiedSearchValue(String searchValue, DataTable columnHeaders) {
         boolean testResult = false;
         MIPortalTestData mipData = csvFileReader.getRandomTestData();
-        if(mipData == null){
+        if (mipData == null) {
             Debugger.println("No Data exists in the test data file provided.");
-            Assert.assertTrue("No Data exists in the test data file provided.",false);
+            Assert.assertTrue("No Data exists in the test data file provided.", false);
         }
         List<List<String>> columnNames = columnHeaders.asLists();
         String columnValue = "";
-        for(int i=1; i<columnNames.size(); i++) {
+        for (int i = 1; i < columnNames.size(); i++) {
             if (columnNames.get(i).get(0).equalsIgnoreCase("Submitted By Code")) {
                 columnValue = mipData.getGlh_code();
             } else if (columnNames.get(i).get(0).equalsIgnoreCase("Submitted By")) {
@@ -318,13 +321,15 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
     @Then("the table column (.*) is displayed with data (.*)")
-    public void theTableColumnIsDisplayedWithData(String columnName,String columnValue) {
+    public void theTableColumnIsDisplayedWithData(String columnName, String columnValue) {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName,columnValue);
+        testResult = miPortalFileSubmissionPage.verifyColumnValueInFileSubmissionSearchResultTable(columnName, columnValue);
         Assert.assertTrue(testResult);
 
     }
+
     @And("the user should not sees the below values in the file-submission search column drop-down menu")
     public void theUserShouldNotSeesBelowValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
@@ -334,6 +339,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Assert.assertFalse(testResult);
         }
     }
+
     @And("the user sees the below values in the file-submission search column drop-down menu")
     public void theUserSeesBelowValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
@@ -343,6 +349,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
     @And("the user sees the below values in the file-submission search operator drop-down menu")
     public void theUserSeesBelowValuesInTheFileSubmissionSearchOperatorDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
@@ -352,6 +359,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
     @And("the user sees the below values in the file-submission search value drop-down menu")
     public void theUserSeesBelowValuesInTheFileSubmissionSearchValueDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
@@ -359,17 +367,20 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Wait.seconds(5);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             testResult = miPortalFileSubmissionPage.selectDropDownSearchValue(expectedDropDownValues.get(i).get(0));
-            if(!testResult){
-              Assert.fail(expectedDropDownValues.get(i).get(0)+" not available in FileSubmission search value drop down");
+            if (!testResult) {
+                Assert.fail(expectedDropDownValues.get(i).get(0) + " not available in FileSubmission search value drop down");
             }
         }
     }
+
     @And("the columns fields are  displayed in the list of columns headers of the search result table")
     public void theColumnsFieldsAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
-
         List<List<String>> expectedListOfColumnHeaders = dataTable.asLists();
         boolean testResult = false;
         testResult = miPortalFileSubmissionPage.verifyColumnHeaderInFileSubmissionSearchResultTable(expectedListOfColumnHeaders);
-        Assert.assertTrue(testResult);
+        if(!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FileSubmission.jpg");
+            Assert.fail("Columns in File submission search is not correctly displayed");
+        }
     }
-    }
+}

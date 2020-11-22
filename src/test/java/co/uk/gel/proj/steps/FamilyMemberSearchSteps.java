@@ -84,7 +84,10 @@ public class FamilyMemberSearchSteps extends Pages {
         List<List<String>> messageDetails = messages.asLists();
         for (int i = 1; i < messageDetails.size(); i++) {
             familyMemberSearchPage.searchFamilyMemberWithGivenParams(messageDetails.get(i).get(0));
-            referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2));
+            if(!referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2))){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ErrorMsgl.jpg");
+                Assert.fail("No error message displayed");
+            }
         }
     }
 
@@ -152,7 +155,11 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
         boolean testResult = false;
         testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoErrorMsg.jpg");
+            Assert.fail("Expected error message:"+errorMessage+" not displayed.");
+        }
+
     }
 
     @Then("the message will be displayed as {string} result found")

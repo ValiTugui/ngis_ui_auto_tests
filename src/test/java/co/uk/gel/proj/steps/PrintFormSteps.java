@@ -65,11 +65,6 @@ public class PrintFormSteps extends Pages {
 
                 for (int i = 1; i < memberDetails.size(); i++) {
                     Debugger.println("Downloading and Verifying content for :" + memberDetails.get(i).get(0));
-//                    if (!printFormsPage.downloadSpecificPrintForm(i, "RD")) {
-//                        Debugger.println("Could not download form for " + memberDetails.get(i).get(0));
-//                        testResult = false;
-//                        continue;
-//                    }
                     //The file is downloading by checking DOB, rather than checking via index
                     //Debugger.println("Downloaded...Verifying content....");
                     NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
@@ -112,13 +107,13 @@ public class PrintFormSteps extends Pages {
             }catch(Exception exp){
                 Debugger.println("Exception in setting printform details to Patient.."+exp+"\n"+driver.getCurrentUrl());
             }
-            Debugger.println("Downloading ........");
+            //Debugger.println("Downloading ........");
             if (!printFormsPage.downloadProbandPrintForm()) {
                 Debugger.println("Could not download form for proband");
                 Assert.assertTrue("Could not download print form for proband",false);
             }
 
-            Debugger.println("Verifying content....");
+            //Debugger.println("Verifying content....");
             NewPatient newlyCreatedPatientRecord = patientDetailsPage.getNewlyCreatedPatientData();
             String patientName = newlyCreatedPatientRecord.getPatientFullName();
             String dateOfBirth = newlyCreatedPatientRecord.getPatientDOBInMonthFormat();
@@ -141,17 +136,6 @@ public class PrintFormSteps extends Pages {
 
             String tumourInfo = newlyCreatedPatientRecord.getTumourType();
             String sampleInfo = newlyCreatedPatientRecord.getSampleType();
-
-//            Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
-//            Debugger.println("Patient DOB to verify in the downloaded PDF file                  : " + dateOfBirth);
-//            Debugger.println("Patient Gender to verify in the downloaded PDF file               : " + gender);
-//            Debugger.println("Patient NGIS Is to verify in the downloaded PDF file               : " + patientNGISId);
-//            Debugger.println("Patient Referral Id to verify in the downloaded PDF file               : " + patientReferralId);
-//            Debugger.println("Patient CI     to verify in the downloaded PDF file               : " + clinicalIndication);
-//            Debugger.println("Ordering entity to verify in the downloaded PDF file              : " + requestingOrg);
-//            Debugger.println("Responsible Clinician Name to verify in the downloaded PDF file            : " + responsibleClinicianName);
-//            Debugger.println("Responsible Clinician Email to verify in the downloaded PDF file           : " + responsibleClinicianEmail);
-//            Debugger.println("Responsible Clinician contact number to verify in the downloaded PDF file  : " + responsibleClinicianContact);
             String[] tumours = tumourInfo.split(" •");
             if(tumours.length > 0) {
             Debugger.println("Tumour Type to verify in the downloaded PDF file  : " + tumours[0]);
@@ -213,14 +197,20 @@ public class PrintFormSteps extends Pages {
     public void thePrintFormsStageIsLocked(String lockStatus) {
         boolean testResult = false;
         testResult = printFormsPage.validateLockIconInPrintFormsStage(lockStatus);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForm.jpg");
+            Assert.fail("Print form stage not validated");
+        }
     }
 
     @Then("the user will not see back button on print forms page")
     public void theUserWillNotSeeBackButtonOnPrintFormsPage() {
         boolean testResullt = false;
         testResullt = printFormsPage.backButtonNotPresentOnPrintFormsPage();
-        Assert.assertTrue(testResullt);
+        if(!testResullt){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForm.jpg");
+            Assert.fail("Back button not present in print form");
+        }
     }
 
     @And("the user is able to download print form for the proband")
@@ -245,7 +235,10 @@ public class PrintFormSteps extends Pages {
         boolean testResult = false;
         if (expectedSection.equalsIgnoreCase("Referral")) {
             testResult = printFormsPage.downloadForm(fileName, expectedSection);
-            Assert.assertTrue(testResult);
+            if(testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintFormDownload.jpg");
+                Assert.fail("Print form Download not prsent");
+            }
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
          }else if (expectedSection.equalsIgnoreCase("Additional family members")) {
             testResult = printFormsPage.downloadForm(fileName, expectedSection);
@@ -269,7 +262,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
-            Debugger.println("Validate Test Type: "+testType);
+            //Debugger.println("Validate Test Type: "+testType);
             testResult = printFormsPage.validatePDFContent(testType, fileName);
             Assert.assertTrue(testResult);
         } else if (fieldType.contains("laboratory")) {
@@ -278,7 +271,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
-            Debugger.println("Validate Laboratory: "+labDetails);
+            //Debugger.println("Validate Laboratory: "+labDetails);
             testResult = printFormsPage.validatePDFContent(labDetails, fileName);
             Assert.assertTrue(testResult);
         }
@@ -306,14 +299,20 @@ public class PrintFormSteps extends Pages {
     public void theUserShouldBeAbleToSeeStartANewReferralButton() {
         boolean testResult = false;
         testResult = printFormsPage.startANewReferralButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartNewReferral.jpg");
+            Assert.fail("Could not click on Start New Referral");
+        }
     }
 
     @When("the user clicks on start a new referral button")
     public void theUserClicksOnStartANewReferralButton() {
         boolean testResult = false;
         testResult = printFormsPage.clickOnStartANewReferralButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartReferral.jpg");
+            Assert.fail("Could not click on Start New Referral");
+        }
     }
 
     @And("the user is able to see the following guidelines below the confirmation message")
@@ -323,10 +322,11 @@ public class PrintFormSteps extends Pages {
         for (String stage : stages) {
             testResult = printFormsPage.validateGuidelinesContent(stage);
             if (!testResult) {
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_GuideLine.jpg");
+                Assert.fail("Guide line not present");
             }
         }
-        Assert.assertTrue(testResult);
+
     }
 
     @Then("the user is able to download form of the {string} section having file name {string}")
@@ -358,16 +358,10 @@ public class PrintFormSteps extends Pages {
         boolean testResult = false;
         String labAddress=printFormsPage.readLabAddress(showAddress);
         if(labAddress==null){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LabAddress.jpg");
+            Assert.fail("Lab address not present");
         }
         testResult = printFormsPage.validatePDFContent(labAddress,"SampleForm.pdf");
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user verifies that the the relationship to proband {string} is updated in Print forms section")
-    public void theUserVerifiesThatTheTheRelationshipToProbandIsUpdatedInPrintFormsSection(String realationToProband) {
-        boolean testResult = false;
-        testResult = printFormsPage.verifyRelationshipToProband(realationToProband);
         Assert.assertTrue(testResult);
     }
 
@@ -375,13 +369,19 @@ public class PrintFormSteps extends Pages {
     public void verifyRelationshipInPrintFormsSection(String relationToProband) {
         boolean testResult = false;
         testResult = printFormsPage.verifyRelationshipToProband(relationToProband);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Relationship.jpg");
+            Assert.fail("Relation ship to proband not validated");
+        }
     }
 
     @And("the user verifies the lab name {string} is updated in Print forms stage")
     public void verifyLabNameInPrintFormsSection(String labName) {
         boolean testResult = false;
         testResult = printFormsPage.getLabName(labName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LabelMismatch.jpg");
+            Assert.fail("Labels are not identical");
+        }
     }
 }//end

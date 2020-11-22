@@ -144,8 +144,7 @@ Feature: GenomicRecord: New Patient page
     And the "<pageTitle>" page is displayed
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Then the patient is successfully updated with a message "<notification>"
-    And the Start Referral button is disabled
- #   And the Start New Referral button is disabled
+    And the Start New Referral button is disabled
 
     Examples:
       | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | notification                |
@@ -166,8 +165,7 @@ Feature: GenomicRecord: New Patient page
     And the No button is selected by default for the question - Do you have the NHS Number?
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Then the patient is successfully updated with a message "<notification>"
-    And the Start Referral button is disabled
-#    And the Start New Referral button is disabled
+    And the Start New Referral button is disabled
 
     Examples:
       | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       | notification                |

@@ -33,6 +33,7 @@ public class ResponsibleClinicianPage {
     String key3 = "additionalClinician2";
     public HashMap<String, ArrayList<String>> cliniciansMap = new HashMap<>();
     SeleniumLib seleniumLib;
+
     public ResponsibleClinicianPage(WebDriver driver) {
         this.driver = driver;
         seleniumLib = new SeleniumLib(driver);
@@ -554,51 +555,51 @@ public class ResponsibleClinicianPage {
 
     public boolean verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature() {
         try {
-			if (!Wait.isElementDisplayed(driver, clinicianFirstNameField, 30)) {
-				Debugger.println("Responsible Clinician Page is not displayed properly." + driver.getCurrentUrl());
-				SeleniumLib.takeAScreenShot("ResponsibleClinicianPage.jpg");
-				return false;
-			}
-			String autoComplete = clinicianFirstNameField.getAttribute("autocomplete");
-			if (!autoComplete.equalsIgnoreCase("Off")) {
-				Debugger.println("Responsible Clinician Page:clinicianFirstNameField autoComplete attribute supposed to be OFF. but not.");
-				return false;
-			}
-			autoComplete = clinicianLastNameField.getAttribute("autocomplete");
-			if (!autoComplete.equalsIgnoreCase("Off")) {
-				Debugger.println("Responsible Clinician Page:clinicianLastNameField autoComplete attribute supposed to be OFF. but not.");
-				return false;
-			}
+            if (!Wait.isElementDisplayed(driver, clinicianFirstNameField, 30)) {
+                Debugger.println("Responsible Clinician Page is not displayed properly." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ResponsibleClinicianPage.jpg");
+                return false;
+            }
+            String autoComplete = clinicianFirstNameField.getAttribute("autocomplete");
+            if (!autoComplete.equalsIgnoreCase("Off")) {
+                Debugger.println("Responsible Clinician Page:clinicianFirstNameField autoComplete attribute supposed to be OFF. but not.");
+                return false;
+            }
+            autoComplete = clinicianLastNameField.getAttribute("autocomplete");
+            if (!autoComplete.equalsIgnoreCase("Off")) {
+                Debugger.println("Responsible Clinician Page:clinicianLastNameField autoComplete attribute supposed to be OFF. but not.");
+                return false;
+            }
 
-			autoComplete = clinicianPhoneNumberField.getAttribute("autocomplete");
-			if (!autoComplete.equalsIgnoreCase("Off")) {
-				Debugger.println("Responsible Clinician Page:clinicianPhoneNumberField autoComplete attribute supposed to be OFF. but not.");
-				return false;
-			}
+            autoComplete = clinicianPhoneNumberField.getAttribute("autocomplete");
+            if (!autoComplete.equalsIgnoreCase("Off")) {
+                Debugger.println("Responsible Clinician Page:clinicianPhoneNumberField autoComplete attribute supposed to be OFF. but not.");
+                return false;
+            }
 
-			autoComplete = clinicianEmailField.getAttribute("autocomplete");
-			if (!autoComplete.equalsIgnoreCase("Off")) {
-				Debugger.println("Responsible Clinician Page:clinicianEmailField autoComplete attribute supposed to be OFF. but not.");
-				return false;
-			}
+            autoComplete = clinicianEmailField.getAttribute("autocomplete");
+            if (!autoComplete.equalsIgnoreCase("Off")) {
+                Debugger.println("Responsible Clinician Page:clinicianEmailField autoComplete attribute supposed to be OFF. but not.");
+                return false;
+            }
 
-			autoComplete = clinicianDepartmentAddressField.getAttribute("autocomplete");
-			if (!autoComplete.equalsIgnoreCase("Off")) {
-				Debugger.println("Responsible Clinician Page:clinicianDepartmentAddressField autoComplete attribute supposed to be OFF. but not.");
-				return false;
-			}
+            autoComplete = clinicianDepartmentAddressField.getAttribute("autocomplete");
+            if (!autoComplete.equalsIgnoreCase("Off")) {
+                Debugger.println("Responsible Clinician Page:clinicianDepartmentAddressField autoComplete attribute supposed to be OFF. but not.");
+                return false;
+            }
 
-			autoComplete = clinicianProfesionalRegistrationNumberField.getAttribute("autocomplete");
-			if (!autoComplete.equalsIgnoreCase("Off")) {
-				Debugger.println("Responsible Clinician Page:clinicianProfesionalRegistrationNumberField autoComplete attribute supposed to be OFF. but not.");
-				return false;
-			}
-			return true;
-		}catch(Exception exp){
-			Debugger.println("Exception from verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature."+exp+"\n"+ driver.getCurrentUrl());
-			SeleniumLib.takeAScreenShot("ResponsibleClinicianPage.jpg");
-			return false;
-		}
+            autoComplete = clinicianProfesionalRegistrationNumberField.getAttribute("autocomplete");
+            if (!autoComplete.equalsIgnoreCase("Off")) {
+                Debugger.println("Responsible Clinician Page:clinicianProfesionalRegistrationNumberField autoComplete attribute supposed to be OFF. but not.");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature." + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("ResponsibleClinicianPage.jpg");
+            return false;
+        }
     }
 
     //Added for filling up the Responsible clinician page
@@ -614,35 +615,35 @@ public class ResponsibleClinicianPage {
             if (paramValue != null && (!paramValue.isEmpty())) {
                 try {
                     clinicianFirstNameField.sendKeys(paramValue);
-                }catch(Exception exp){
-                    seleniumLib.sendValue(clinicianFirstNameField,paramValue);
+                } catch (Exception exp) {
+                    seleniumLib.sendValue(clinicianFirstNameField, paramValue);
                 }
             }
             //LastName
             paramValue = paramNameValue.get("LastName");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                try{
+                try {
                     clinicianLastNameField.sendKeys(paramValue);
-                }catch(Exception exp){
-                    seleniumLib.sendValue(clinicianLastNameField,paramValue);
+                } catch (Exception exp) {
+                    seleniumLib.sendValue(clinicianLastNameField, paramValue);
                 }
             }
             //Email
             paramValue = paramNameValue.get("Email");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                try{
+                try {
                     clinicianEmailField.sendKeys(paramValue);
-                }catch(Exception exp){
-                    seleniumLib.sendValue(clinicianEmailField,paramValue);
+                } catch (Exception exp) {
+                    seleniumLib.sendValue(clinicianEmailField, paramValue);
                 }
             }
             //Department
             paramValue = paramNameValue.get("Department");
             if (paramValue != null && (!paramValue.isEmpty())) {
-                try{
+                try {
                     clinicianDepartmentAddressField.sendKeys(paramValue);
-                }catch(Exception exp){
-                    seleniumLib.sendValue(clinicianDepartmentAddressField,paramValue);
+                } catch (Exception exp) {
+                    seleniumLib.sendValue(clinicianDepartmentAddressField, paramValue);
                 }
             }
             //Registration
@@ -650,8 +651,8 @@ public class ResponsibleClinicianPage {
             if (paramValue != null && (!paramValue.isEmpty())) {
                 try {
                     clinicianProfesionalRegistrationNumberField.sendKeys(paramValue);
-                }catch(Exception exp){
-                    seleniumLib.sendValue(clinicianProfesionalRegistrationNumberField,paramValue);
+                } catch (Exception exp) {
+                    seleniumLib.sendValue(clinicianProfesionalRegistrationNumberField, paramValue);
                 }
             }
             return true;
@@ -679,7 +680,7 @@ public class ResponsibleClinicianPage {
                     seleniumLib.sendValue(clinicianDepartmentAddressField, paramNameValue.get(key));
                     break;
                 }
-                case "EmailAddress":{
+                case "EmailAddress": {
                     seleniumLib.sendValue(clinicianEmailField, paramNameValue.get(key));
                 }
 
@@ -726,8 +727,6 @@ public class ResponsibleClinicianPage {
                     }
                 }
             }
-
-
         }
         return true;
     }

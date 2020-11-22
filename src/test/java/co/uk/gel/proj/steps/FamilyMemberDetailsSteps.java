@@ -641,7 +641,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserShouldVerifyTheRoleAndRelationshipOfPatientOnReferralCard() {
         boolean testResult = false;
         testResult = patientDetailsPage.verifyTheSubmittedReferrals();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SubmittedReferral.jpg");
+            Assert.fail("Submitted Referral Details not verified");
+        }
     }
 
     @Then("the user should see the visible and clickable referral card")

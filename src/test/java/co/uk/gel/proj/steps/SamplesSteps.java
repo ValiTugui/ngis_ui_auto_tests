@@ -64,7 +64,10 @@ public class SamplesSteps extends Pages {
     public void theUserClicksTheAddSampleButton() {
         boolean testResult = false;
         testResult = samplesPage.clickAddSampleButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_AddSample.jpg");
+            Assert.fail("Could not click on Add sample button");
+        }
     }
 
     @And("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state and filling SampleID")
@@ -286,7 +289,10 @@ public class SamplesSteps extends Pages {
     public void aSearchIconIsDisplayedInsideTheSampleStateDropDownField() {
         boolean testResult = false;
         testResult = samplesPage.verifySearchIconInsideSampleStateField();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleIcon.jpg");
+            Assert.fail("verifySearchIconInsideSampleStateField failed");
+        }
     }
 
     @And("fields and drops-downs are shown as mandatory with astericks star symbol")
@@ -316,7 +322,10 @@ public class SamplesSteps extends Pages {
     public void theSubPageTitleIsDisplayedOnAddASamplePage(String subPageTitle) {
         boolean testResult = false;
         testResult = samplesPage.verifyTheSubPageTitle(subPageTitle);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Subtitle.jpg");
+            Assert.fail("Page subtitle not present:"+subPageTitle);
+        }
     }
 
 
@@ -340,7 +349,10 @@ public class SamplesSteps extends Pages {
     public void theUserSelectsTheExistingSampleFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
         boolean testResult = false;
         testResult = samplesPage.selectSampleFromLandingPage();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditSample.jpg");
+            Assert.fail("Could not Edit Sample from Landing page :");
+        }
     }
 
     @And("the user edits the fields on Edit a Sample page by selecting the sample type {string}, sample state {string} and SampleID")
@@ -528,7 +540,11 @@ public class SamplesSteps extends Pages {
         switch (stageStatus) {
             case "MandatoryToDo": {
                 //Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
-                Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
+                boolean testResult = referralPage.stageIsMandatoryToDo(stage);
+                if(!testResult){
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"StageNotMandatory.jpg");
+                    Assert.fail("Stage "+stage+" not marked as mandatory to do.");
+                }
                 break;
             }
             case "NotMandatoryToDo": {
@@ -576,7 +592,10 @@ public class SamplesSteps extends Pages {
     public void theUserEditsTheThAddedSample() {
         boolean testResult = false;
         testResult = samplesPage.editSpecificSample();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditSample.jpg");
+            Assert.fail("Could not Edit Sample:");
+        }
     }
     @Then("the user sees the Add sample button to add additional samples")
     public void theUserSeesTheAddSampleButtonToAddAdditionalSampleOnPage() {
@@ -589,6 +608,9 @@ public class SamplesSteps extends Pages {
     public void theUserEditsTheThAddedSample(String sampleNo) {
         boolean testResult = false;
         testResult = samplesPage.editSpecificSample(sampleNo);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditSample.jpg");
+            Assert.fail("Could not edit specific sample :");
+        }
     }
 }

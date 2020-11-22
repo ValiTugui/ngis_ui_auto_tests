@@ -361,7 +361,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 colIndex = seleniumLib.getColumnIndex(colHeads, expColumns.get(i).get(0));
                 if (colIndex == -1) {
                     Debugger.println("Specified column " + expColumns.get(i).get(0) + " not present in the FileSubmission Search Result Table.");
-                    SeleniumLib.takeAScreenShot("fileSubmissionTable.jpg");
                     return false;
                 }
                 seleniumLib.sleepInSeconds(2);
@@ -369,7 +368,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in verifyColumnHeaderInFileSubmissionSearchResultTable." + exp);
-            SeleniumLib.takeAScreenShot("FileSubmissionColumnVerification.jpg");
             return false;
         }
     }

@@ -38,11 +38,11 @@ public class PatientSearchSteps extends Pages {
         if (userType != null) {
             NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
         }
-
     }
 
     @Then("the Patient Search page is displayed")
     public void thePatientSearchPageIsDisplayed() {
+
         patientSearchPage.pageIsDisplayed();
     }
 
@@ -260,7 +260,10 @@ public class PatientSearchSteps extends Pages {
     public void theUserClicksTheNOButton() throws Throwable {
         boolean testResult = false;
         testResult = patientSearchPage.clickNoButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoButton.jpg");
+            Assert.fail("Could not click on No button");
+        }
     }
 
 
@@ -268,7 +271,10 @@ public class PatientSearchSteps extends Pages {
     public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
         boolean testResult = false;
         testResult = patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientNoDetails.jpg");
+            Assert.fail("Patient Details with No option could not enter");
+        }
     }
 
 
@@ -658,14 +664,20 @@ public class PatientSearchSteps extends Pages {
     public void theDisplayQuestionForNHSNumber(String nhsQuestion) {
         boolean testResult = false;
         testResult = patientSearchPage.verifyTheNHSQuestionOfThePage(nhsQuestion);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NHSQuestion.jpg");
+            Assert.fail("Question for NHS not displayed");
+        }
     }
 
     @When("the user fills in valid patient details in the search fields when No is selected")
     public void theUserFillsInValidPatientDetailsInTheSearchFieldsWhenNoIsSelected() {
         boolean testResult = false;
         testResult = patientSearchPage.fillInPatientSearchWithNoFieldsForSavedDetails();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientSearch.jpg");
+            Assert.fail("Could enter patient earch details");
+        }
     }
 
 

@@ -459,13 +459,13 @@ public class FamilyMemberSearchPage {
     public boolean checkTheErrorMessageForIncompleteFamilyMember() {
         try {
             if (editBoxTestPackage.isDisplayed()) {
-                return true;
+                return false;
             }
+            return true;
         }catch (Exception exp){
             Debugger.println("Error message not found "+exp);
             return false;
         }
-        return false;
     }
     public boolean verifyNHSFieldPlaceHolder() {
         try {

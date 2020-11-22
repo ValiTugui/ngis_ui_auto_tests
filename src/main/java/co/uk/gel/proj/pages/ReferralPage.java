@@ -361,13 +361,11 @@ public class ReferralPage<check> {
         try {
             if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
                 Debugger.println("Save and Continue Button is not displayed.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("RefSaveAndContinueBut.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:Exception from Clicking on saveAndContinueButton:" + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("RefSaveAndContinue.jpg");
             return false;
         }
     }
@@ -380,23 +378,19 @@ public class ReferralPage<check> {
             Wait.seconds(3);
             if(!Wait.isElementDisplayed(driver,referralHeader,60)){
                 Debugger.println("Referral Header not loaded even after 60 seconds.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("ReferralHeaderNotLoaded.jpg");
                 return false;
             }
             if(!Wait.isElementDisplayed(driver,toDoList,30)){
                 Debugger.println("Landing Page ToDo List not loaded even after 100 seconds.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("LandingPageToDoList.jpg");
                 return false;
             }
             if(!Wait.isElementDisplayed(driver,sectionBody,30)){
                 Debugger.println("Landing Page Main Section not loaded even after 30 seconds.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("LandingPageMainBody.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("LandingPageNotLoaded.jpg");
             return false;
         }
     }
@@ -440,7 +434,6 @@ public class ReferralPage<check> {
             //handle by scrolling up/down
             if(!Wait.isElementDisplayed(driver, toDoList, 60)){
                 Debugger.println("TODO List is not loaded successfully."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("ToDoListNotLoaded.jpg");
                 return false;
             }
             By stageElement = By.xpath("//a[contains(text(),'" + stage + "')]");
@@ -449,7 +442,7 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             try {
-                Debugger.println("Navigating to Stage by Actions Class.");
+                //Debugger.println("Navigating to Stage by Actions Class.");
                 String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
                 referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
                 if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
@@ -463,7 +456,6 @@ public class ReferralPage<check> {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from navigating to Stage:" + stage);
-                SeleniumLib.takeAScreenShot("StageNavigation.jpg");
                 return false;
             }
         }
@@ -474,13 +466,11 @@ public class ReferralPage<check> {
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, activeStage, 30)) {
                 Debugger.println("No stage is marked as active.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("ActiveStage.jpg");
                 return false;
             }
             String actualStage = activeStage.getText();
             if (!expStage.equalsIgnoreCase(actualStage)) {
                 Debugger.println("Stage: " + expStage + " expected to be currently active, but not.\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("ActiveStage.jpg");
                 return false;
             }
             return true;
@@ -500,8 +490,6 @@ public class ReferralPage<check> {
             if(seleniumLib.isElementPresent(By.xpath(completedMark))){
                  return true;
             }
-            Debugger.println("Stage :"+stage+" not displayed as completed..("+completedMark+")."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot(stage.replaceAll(" ","")+"_stage.jpg");
             return false;
         } catch (Exception exp) {
             try {
@@ -510,13 +498,10 @@ public class ReferralPage<check> {
                 if(seleniumLib.isElementPresent(By.xpath(completedMark))){
                     return true;
                 }
-                Debugger.println("Exception in Checking Stage Completion Status: " + exp+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot(stage.replaceAll(" ","")+"_stage.jpg");
                 return false;
             } catch (Exception exp1) {
                 Debugger.println("Exception1 in Checking Stage Completion Status: " + exp+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot(stage.replaceAll(" ","")+"_stage.jpg");
-                return false;
+               return false;
             }
         }
     }
@@ -525,7 +510,6 @@ public class ReferralPage<check> {
         try {
             if(!Wait.isElementDisplayed(driver, toDoList,30)){
                 Debugger.println("ToDoList is not loaded in Landing Page."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("toDoListNotLoaded.jpg");
                 return false;
             }
             String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
@@ -535,12 +519,9 @@ public class ReferralPage<check> {
             if (webElementList.size() == 1) {
                 return true;
             }
-            Debugger.println("Stage:"+stage+" expected to be marked as Mandatory. But not."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("MandatoryStage.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: stageIsMandatoryToDo: " + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("ReferralPageMandatoryStage.jpg");
             return false;
         }
     }
@@ -557,8 +538,8 @@ public class ReferralPage<check> {
                 Debugger.println("Expected alert message, but not present.");
                 SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
             }
-            Debugger.println("Accepted the alert message :: " + actualAlertText);
-            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+            //Debugger.println("Accepted the alert message :: " + actualAlertText);
+            //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
             //Wait.forAlertToBePresent(driver);
             Wait.seconds(2);
@@ -569,8 +550,8 @@ public class ReferralPage<check> {
                 Debugger.println("Expected alert message, but not present.");
                 SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
             }
-            Debugger.println("Dismissed the alert message :: " + actualAlertText);
-            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+            //Debugger.println("Dismissed the alert message :: " + actualAlertText);
+            //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         }
         return actualAlertText;
     }
@@ -592,7 +573,7 @@ public class ReferralPage<check> {
             return driver.getTitle();
         } catch (Exception exp) {
             Debugger.println("Exception in logoutSuccessMessageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("logOutMessage.jpg");
+            //SeleniumLib.takeAScreenShot("logOutMessage.jpg");
             return null;
         }
     }
@@ -637,7 +618,7 @@ public class ReferralPage<check> {
             actualHelpHintTexts.add(fieldHelpHintText.getText().trim());
         }
         String currentPage = getTheCurrentPageTitle();
-        Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :" + actualHelpHintTexts);
+        //Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :" + actualHelpHintTexts);
         return actualHelpHintTexts;
     }
 
@@ -702,10 +683,6 @@ public class ReferralPage<check> {
                         break;
                     }
                 }
-            }
-            if (!isPresent) {
-                Debugger.println("ErrorMessage:" + errorMessage + ", not displayed in :" + expectedFontColor+",Actual:"+actColor);
-                SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
             }
             return isPresent;
         } catch (Exception exp) {
@@ -778,8 +755,6 @@ public class ReferralPage<check> {
                 }
                 Actions.scrollToTop(driver);
                 endTime = System.currentTimeMillis();
-                Debugger.println("Page title"+expTitle+" not loaded event after (second time) "+((endTime-startTime)/1000)+" seconds.");
-                SeleniumLib.takeAScreenShot("PageTitleNotLoaded2.jpg");
                 Debugger.println("TITLE URL:" + driver.getCurrentUrl());
                 return false;
             }
@@ -840,7 +815,6 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, cancelReferralLink, 30)) {
                 Debugger.println("Cancel referral link  not displayed.");
-                SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
                 return false;
             }
             try {
@@ -854,7 +828,6 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Cancelling Referral " + exp);
-            SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
             return false;
         }
     }
@@ -863,20 +836,17 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, cancelReasonDropdown, 10)) {
                 Debugger.println("Cancel referral dropdown not present.");
-                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
                 return false;
             }
             Actions.clickElement(driver, cancelReasonDropdown);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("Cancel referral dropdown values not loaded.");
-                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
                 return false;
             }
             Actions.selectValueFromDropdown(dropdownValue, reason);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectCancellationReason: " + exp);
-            SeleniumLib.takeAScreenShot("CancelReferral.jpg");
             return false;
         }
     }
@@ -1060,7 +1030,6 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from getting field labels." + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("fields-labels.jpg");
             return false;
         }
     }
@@ -1735,7 +1704,6 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, driver.findElement(mandatoryStage), 30);
             if (!Wait.isElementDisplayed(driver, driver.findElement(mandatoryStage), 10)) {
                 Debugger.println(" Mandatory Stage Link is not displayed even after waiting period...Failing.");
-                SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(mandatoryStage));
@@ -1743,7 +1711,6 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Mandatory Stage Link is not displayed even after waiting period...Failing." + exp);
-            SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
             return false;
         }
     }
@@ -1752,20 +1719,17 @@ public class ReferralPage<check> {
         try {
             if(!Wait.isElementDisplayed(driver,referralHeaderReferralId,30)){
                 Debugger.println("referralHeaderReferralId not displayed at top bar."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("referralHeaderReferralId.jpg");
                 return false;
             }
             String refId = referralHeaderReferralId.getText();
             String getURl = driver.getCurrentUrl();
             if (!getURl.contains("/" + refId + "/")) {
                 Debugger.println("Referral ID : " + refId + " not contains in the URL : " + getURl);
-                SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: verifyPatientIdInUrl: Exception " + exp);
-            SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
             return false;
         }
     }
@@ -1787,17 +1751,14 @@ public class ReferralPage<check> {
             WebElement selectedStage = driver.findElement(By.xpath(incompleteStagePath));
             if (!Wait.isElementDisplayed(driver, selectedStage, 10)) {
                 Debugger.println("The stage " + selectedStage + " is not incomplete");
-                SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
                 return false;
             }
             Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 20);
-
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript("arguments[0].click();", selectedStage);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on incomplete stage, PatientDetailsPage: clickOnIncompleteStageInTodoList: " + exp);
-            SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
             return false;
         }
     }
@@ -1820,19 +1781,16 @@ public class ReferralPage<check> {
     public boolean verifyNgisIdAndReferralId() {
         if (!Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 10)) {
             Debugger.println("referralHeaderPatientNgisId not present");
-            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
             return false;
         }
         if (!Wait.isElementDisplayed(driver, referralHeaderReferralId, 10)) {
             Debugger.println("referralHeaderReferralId not present");
-            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
             return false;
         }
         String ngisId = referralHeaderPatientNgisId.getText();
         String referralId = referralHeaderReferralId.getText();
         if (ngisId == null || referralId == null) {
             Debugger.println("ngsId or referralIs is null");
-            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
             return false;
         }
 
@@ -1841,14 +1799,12 @@ public class ReferralPage<check> {
             if (!(ngisId.charAt(0) == 'p' && ngisId.length() == 12)) {
                 if (!(referralId.charAt(0) == 'p' && referralId.length() == 12)) {
                     Debugger.println("The ngis id and referral id are not correct");
-                    SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: verifyNgisIdAndReferralId: exception found" + exp);
-            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
             return false;
         }
     }
@@ -1857,24 +1813,20 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 10)) {
                 Debugger.println("referralHeaderPatientNgisId not present");
-                SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
                 return false;
             }
             String webElementText = referralHeaderPatientNgisId.getText();
             if (webElementText == null) {
                 Debugger.println("NGISIDTextVerification not present.");
-                SeleniumLib.takeAScreenShot("NGISIDTextVerification.jpg");
                 return false;
             }
             if (webElementText.contains(" ")) {
                 Debugger.println("Text copied from webElement is different from actual content");
-                SeleniumLib.takeAScreenShot("NGISIDTextVerification.jpg");
                 return false;
             }
             return true;
         } catch (Exception e) {
             Debugger.println("Exception found while copying and verifying the webelement text." + e);
-            SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
             return false;
         }
     }
@@ -1883,7 +1835,6 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, referralHeader, 20)) {
                 Debugger.println("Referral header banner is not present.");
-                SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
                 return false;
             }
             //Storing the referral header banner location to verify the position in various pages
@@ -1893,7 +1844,6 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheBannerLocation, " + exp);
-            SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
             return false;
         }
     }
@@ -1902,7 +1852,6 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, referralHeader, 20)) {
                 Debugger.println("Referral header banner is not present.");
-                SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
                 return false;
             }
             Point referralBannerLocation = referralHeader.getLocation();
@@ -1910,18 +1859,15 @@ public class ReferralPage<check> {
             int currentLocationY = referralBannerLocation.getY();
             if (Math.abs(currentLocationX - referralBannerXLocation) > 10) {
                 Debugger.println("Referral Banner XLocation has changed...Expected at X:" + referralBannerXLocation + ",Actual X:" + currentLocationX);
-                SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
                 return false;
             }
             if (Math.abs(currentLocationY - referralBannerYLocation) > 10) {
                 Debugger.println("Referral Banner YLocation has changed...Expected at Y:" + referralBannerYLocation + ",Actual Y:" + currentLocationY);
-                SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: verifyTheBannerLocationAtSameLocation: " + exp);
-            SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
             return false;
         }
     }
@@ -1930,7 +1876,6 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, reportAnIssueOrProvideFeedbackLink, 20)) {
                 Debugger.println("FeedbackLink/Report an issue present.");
-                SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
                 return false;
             }
             colorValue = colorValue.replaceAll("\"", "");
@@ -1938,13 +1883,11 @@ public class ReferralPage<check> {
             String linkColor = reportAnIssueOrProvideFeedbackLink.getCssValue("color");
             if (!linkColor.equalsIgnoreCase(linkColorHexValue)) {
                 Debugger.println("Actual font colour of link: " + linkColor + " ,But Expected is: " + linkColorHexValue);
-                SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception verifying verifyFeedbackLinkFontColor:" + exp);
-            SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
             return false;
         }
     }
@@ -1953,7 +1896,6 @@ public class ReferralPage<check> {
         try {
             if (!Wait.isElementDisplayed(driver, privacyPolicyLink, 20)) {
                 Debugger.println("Privacy policy link present.");
-                SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
                 return false;
             }
             colorValue = colorValue.replaceAll("\"", "");
@@ -1961,13 +1903,11 @@ public class ReferralPage<check> {
             String actualColor = privacyPolicyLink.getCssValue("color");
             if (!expectedColor.equalsIgnoreCase(actualColor)) {
                 Debugger.println("Actual link colour is " + actualColor + " ,But Expected " + expectedColor);
-                SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception verifying verifyPrivacyPolicyLinkFontColor:" + exp);
-            SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
             return false;
         }
     }
@@ -2044,21 +1984,16 @@ public class ReferralPage<check> {
     public boolean verifyMicrosoftLoginPage(String loginPageUrl) {
         try {
             if (!Wait.isElementDisplayed(driver, useAnotherAccount, 20)) {
-                Debugger.println("Sign Pop up");
-                SeleniumLib.takeAScreenShot("signInPopUP.jpg");
                 return false;
             }
             String fullCurrentURL = driver.getCurrentUrl();
             if (!fullCurrentURL.contains(loginPageUrl)) {
                 Debugger.println("Expected URL:" + loginPageUrl + ",Actual:" + fullCurrentURL);
-                SeleniumLib.takeAScreenShot("loginPageUrl.jpg");
                 return false;
             }
-
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyMicrosoftLoginPage:" + exp);
-            SeleniumLib.takeAScreenShot("verifyMicrosoftLoginPage.jpg");
             return false;
         }
     }
@@ -2068,19 +2003,16 @@ public class ReferralPage<check> {
             Wait.seconds(3);
             if (helix.size() < 1) {
                 Debugger.println("Page should load with helix in action.... but helix not present.");
-                SeleniumLib.takeAScreenShot("verifyPageLoadingWithInvalidReferralURL.jpg");
                 return false;
             }
             Wait.seconds(30);//Waiting for another 30 seconds and ensuring still the helix present
             if (helix.size() < 1) {
                 Debugger.println("Page should load with helix in action.... but helix not present.");
-                SeleniumLib.takeAScreenShot("verifyPageLoadingWithInvalidReferralURL.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyPageLoadingWithInvalidReferralURL: " + exp);
-            SeleniumLib.takeAScreenShot("verifyPageLoadingWithInvalidReferralURL.jpg");
             return false;
         }
     }
@@ -2094,17 +2026,13 @@ public class ReferralPage<check> {
     public boolean verifyStageHasNoStatusIndicator(String stage) {
         try {
             String completedMark = stageCompletedMark.replace("dummyStage", stage);
-            Debugger.println("completedMark is"+completedMark);
             String mandatoryAsterixMark = stageMandatoryMark.replace("dummyStage", stage);
-            Debugger.println("mandatoryAsterixMark is"+mandatoryAsterixMark);
             if ((seleniumLib.isElementPresent(By.xpath(completedMark)) || seleniumLib.isElementPresent(By.xpath(mandatoryAsterixMark)))) {
-                SeleniumLib.takeAScreenShot("NoStatusIndicator.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Stage :" + stage + " has Status Indicator." + exp);
-            SeleniumLib.takeAScreenShot("verifyStageHasNoStatusIndicator.jpg");
             return false;
         }
     }
@@ -2130,7 +2058,6 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from ReferralPage:ReloadReferral: " + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("refPagereReloadReferral.jpg");
             return false;
         }
     }
@@ -2138,22 +2065,18 @@ public class ReferralPage<check> {
         try {
             if(!Wait.isElementDisplayed(driver,referralHeaderPatientName,30)){
                 Debugger.println("referralHeaderPatientTitle not displayed at top bar."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("referralHeaderPatientTitle.jpg");
                 return false;
             }
             String refPatientName =referralHeaderPatientName.getText();
             if (refPatientName.contains(title)) {
                 Debugger.println(refPatientName+ " not contains the title : " + title);
-                SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralBanner:PatientTitle:Exception " + exp);
-            SeleniumLib.takeAScreenShot("NoTitleInPatientName.jpg");
             return false;
         }
     }
-
 }
 

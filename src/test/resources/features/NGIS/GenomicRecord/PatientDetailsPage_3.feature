@@ -42,7 +42,7 @@ Feature: GenomicRecord: Patient details page 3
     Then the Patient Details page is displayed
     And the clinical indication ID missing banner is displayed
     And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
-    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
 #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
@@ -215,7 +215,7 @@ Feature: GenomicRecord: Patient details page 3
     Then the Patient Details page is displayed
     And the clinical indication ID missing banner is displayed
     And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
-    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
 #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral

@@ -28,6 +28,7 @@ public class RequestingOrganisationSteps extends Pages {
         try {
             boolean testResult = requestingOrganisationPage.verifyOrganisationDetails();
             if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrderingEntity");
                 Assert.fail("Organisation details are not displayed properly.");
             }
             if(AppConfig.snapshotRequired){

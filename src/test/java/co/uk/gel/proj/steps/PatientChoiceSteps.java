@@ -402,9 +402,15 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.verifyContinueButtonStatus("#f0f0f0");
         if(status.equalsIgnoreCase("enabled")){
-            Assert.assertFalse(testResult);
+            if(testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ContinueButton.jpg");
+                Assert.fail("Continue button status is not as expected:"+status);
+            }
         }else {
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ContinueButton.jpg");
+                Assert.fail("Continue button status is not as expected:"+status);
+            }
         }
     }
     @Then("the user should be able to see patient hospital number")

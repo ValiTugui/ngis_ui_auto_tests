@@ -942,28 +942,6 @@ public class PatientChoicePage {
         }
     }
 
-//    public boolean selectPatientSignature() {
-//        try {
-//            if(Wait.isElementDisplayed(driver, signaturePad,30)){
-//                Debugger.println("Signature Pad not loaded.."+driver.getCurrentUrl());
-//                SeleniumLib.takeAScreenShot("SignaturePad.jpg");
-//                return false;
-//            }
-//            if (!SeleniumLib.drawSignature(signaturePad)) {
-//                Actions.scrollToTop(driver);
-//                if (!SeleniumLib.drawSignature(signaturePad)) {
-//                    Actions.scrollToBottom(driver);
-//                    return SeleniumLib.drawSignature(signaturePad);
-//                }
-//            }
-//            return true;
-//        } catch (Exception exp) {
-//            Debugger.println("Patient Choice Page: selectSignature: " + exp);
-//            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
-//            return false;
-//        }
-//    }
-
     public boolean patientChoiceFormCompleted() {
         try {
             if (!Wait.isElementDisplayed(driver, patientChoiceFormCompletedMessage, 60)) {
@@ -1938,7 +1916,6 @@ public class PatientChoicePage {
             if(!Wait.isElementDisplayed(driver, continueButton,15)){//Two sets of button present
                 if(!Wait.isElementDisplayed(driver, continueOnRecordByButton,15)) {
                     Debugger.println("Continue button on PC Page not present:" + driver.getCurrentUrl());
-                    SeleniumLib.takeAScreenShot("PContinueButton.jpg");
                     return false;
                 }else{
                     actualColor = continueOnRecordByButton.getCssValue("background-color");
@@ -1949,13 +1926,11 @@ public class PatientChoicePage {
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
                 Debugger.println("Continue button expected BGColor" + expectedBackground+",Actual:"+actualColor+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PContinueButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying formToFollow button Status:" + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PContinueButton.jpg");
             return false;
         }
     }

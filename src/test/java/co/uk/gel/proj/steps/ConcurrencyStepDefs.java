@@ -42,22 +42,22 @@ public class ConcurrencyStepDefs extends Pages {
     }
 
     @And("the user updates the stage {string} with {string}")
-    public void theUserUpdatesPatientDetailsStageWith(String stageName,String updateDetails) {
-        Debugger.println(TestUtils.currentUser+" : Updating "+stageName+" with "+updateDetails);
+    public void theUserUpdatesPatientDetailsStageWith(String stageName, String updateDetails) {
+        Debugger.println(TestUtils.currentUser + " : Updating " + stageName + " with " + updateDetails);
         boolean testResult = false;
-        if(stageName.equalsIgnoreCase("Patient details")) {
+        if (stageName.equalsIgnoreCase("Patient details")) {
             testResult = patientDetailsPage.updatePatientDetails(updateDetails);
-        }else if(stageName.equalsIgnoreCase("Requesting Organisation")) {
+        } else if (stageName.equalsIgnoreCase("Requesting Organisation")) {
             testResult = paperFormPage.fillInSpecificValueInSearchField(updateDetails);
-            if(!testResult){
+            if (!testResult) {
                 Assert.fail("Could not search for Order entity.");
             }
             testResult = paperFormPage.checkThatEntitySuggestionsAreDisplayed();
-        }else if(stageName.equalsIgnoreCase("Test package")) {
-            testResult =testPackagePage.updateTestPackageDetails(updateDetails);
-        } else if(stageName.equalsIgnoreCase("Responsible clinician")) {
+        } else if (stageName.equalsIgnoreCase("Test package")) {
+            testResult = testPackagePage.updateTestPackageDetails(updateDetails);
+        } else if (stageName.equalsIgnoreCase("Responsible clinician")) {
             testResult = responsibleClinicianPage.fillResponsibleClinicianFields(updateDetails);
-            if(!testResult){
+            if (!testResult) {
                 Assert.fail("Responsible Clinician Details could not enter.");
             }
         } else if (stageName.equalsIgnoreCase("Clinical questions")) {
@@ -77,7 +77,7 @@ public class ConcurrencyStepDefs extends Pages {
             if (!testResult) {
                 Assert.fail("Family member details could not be enter.");
             }
-        }  else if (stageName.equalsIgnoreCase("Patient choice")) {
+        } else if (stageName.equalsIgnoreCase("Patient choice")) {
             testResult = patientChoicePage.theUserAnswersThePatientChoiceQuestionsWithPatientChoiceNotRequiredForRD(updateDetails);
             referralPage.clickSaveAndContinueButton();
             if (!testResult) {
@@ -85,8 +85,7 @@ public class ConcurrencyStepDefs extends Pages {
             }
         } else if (stageName.equalsIgnoreCase("Panels")) {
             testResult = panelsPage.updatePanelDetails(updateDetails);
-        }
-        else if (stageName.equalsIgnoreCase("Tumours")) {
+        } else if (stageName.equalsIgnoreCase("Tumours")) {
             testResult = tumoursPage.updateTumoursDetails(updateDetails);
             if (!testResult) {
                 Assert.fail("Tumours Details could not be enter.");
@@ -100,8 +99,9 @@ public class ConcurrencyStepDefs extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
     @And("the user update the page {string} with {string}")
-    public void theUserUpdatesFamilyMemberClinicalDetails(String pageName, String updateDetails){
+    public void theUserUpdatesFamilyMemberClinicalDetails(String pageName, String updateDetails) {
         Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + updateDetails);
         boolean testResult = false;
         referralPage.clickSaveAndContinueButton();
@@ -111,8 +111,9 @@ public class ConcurrencyStepDefs extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
     @And("the user verify the page {string} with {string}")
-    public void theUserVerifiesFamilyMemberClinicalDetails(String pageName, String verifyDetails){
+    public void theUserVerifiesFamilyMemberClinicalDetails(String pageName, String verifyDetails) {
         Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + verifyDetails);
         boolean testResult = false;
         referralPage.clickSaveAndContinueButton();
@@ -124,90 +125,96 @@ public class ConcurrencyStepDefs extends Pages {
         Assert.assertTrue(testResult);
     }
 
-        @When("the user updates the file (.*) with (.*)")
-        public void theUserUpdateConcurrencyControllerFileWith (String filePrefix, String stringToUpdate){
-            Debugger.println(TestUtils.currentUser + ": Writing to File: " + stringToUpdate);
-            boolean testResult = ConcurrencyTest.writeToControllerFile(filePrefix, stringToUpdate);
+    @When("the user updates the file (.*) with (.*)")
+    public void theUserUpdateConcurrencyControllerFileWith(String filePrefix, String stringToUpdate) {
+        Debugger.println(TestUtils.currentUser + ": Writing to File: " + stringToUpdate);
+        boolean testResult = ConcurrencyTest.writeToControllerFile(filePrefix, stringToUpdate);
+        if (!testResult) {
+            Assert.fail("Could not write the update:" + stringToUpdate + " to the file.");
+        }
+    }
+
+    @And("the user verifies the stage {string} with {string}")
+    public void theUserVerifiesPatientDetailsStageWith(String stageName, String verifyDetails) {
+        Debugger.println(TestUtils.currentUser + " : Verifying " + stageName);
+        boolean testResult = false;
+        if (stageName.equalsIgnoreCase("Patient details")) {
+            testResult = patientDetailsPage.verifyPatientDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Requesting Organisation")) {
+            testResult = requestingOrganisationPage.verifyOrganisationDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Test package")) {
+            testResult = testPackagePage.verifyTestPackageDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Responsible clinician")) {
+            testResult = responsibleClinicianPage.verifyResponsibleClinicianDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Clinical questions")) {
+            testResult = clinicalQuestionsPage.verifyClinicalQuestionsDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Notes")) {
+            testResult = notesPage.verifyNotesDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Family members")) {
+            familyMemberDetailsPage.editFamilyMember();
+            familyMemberDetailsPage.editPatientDetails();
+            testResult = patientDetailsPage.verifyFamilyMemberDetails(verifyDetails);
             if (!testResult) {
-                Assert.fail("Could not write the update:" + stringToUpdate + " to the file.");
+                Assert.fail("Family member details could not be enter.");
             }
+        } else if (stageName.equalsIgnoreCase("Patient choice")) {
+            testResult = patientChoicePage.statusVerifiedCorrectlyForParticipants(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Panels")) {
+            testResult = panelsPage.verifyPanelDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Tumours")) {
+            testResult = tumoursPage.verifyTumourDetails(verifyDetails);
+        } else if (stageName.equalsIgnoreCase("Samples")) {
+            testResult = samplesPage.verifySampleDetails(verifyDetails);
         }
-        @And("the user verifies the stage {string} with {string}")
-        public void theUserVerifiesPatientDetailsStageWith (String stageName, String verifyDetails){
-            Debugger.println(TestUtils.currentUser + " : Verifying " + stageName);
-            boolean testResult = false;
-            if (stageName.equalsIgnoreCase("Patient details")) {
-                testResult = patientDetailsPage.verifyPatientDetails(verifyDetails);
-            } else if (stageName.equalsIgnoreCase("Requesting Organisation")) {
-                testResult = requestingOrganisationPage.verifyOrganisationDetails(verifyDetails);
-            } else if (stageName.equalsIgnoreCase("Test package")) {
-                testResult = testPackagePage.verifyTestPackageDetails(verifyDetails);
-            } else if (stageName.equalsIgnoreCase("Responsible clinician")) {
-                testResult = responsibleClinicianPage.verifyResponsibleClinicianDetails(verifyDetails);
-            } else if (stageName.equalsIgnoreCase("Clinical questions")) {
-                testResult = clinicalQuestionsPage.verifyClinicalQuestionsDetails(verifyDetails);
-            } else if (stageName.equalsIgnoreCase("Notes")) {
-                testResult = notesPage.verifyNotesDetails(verifyDetails);
-            }  else if (stageName.equalsIgnoreCase("Family members")) {
-                familyMemberDetailsPage.editFamilyMember();
-                familyMemberDetailsPage.editPatientDetails();
-                testResult = patientDetailsPage.verifyFamilyMemberDetails(verifyDetails);
-                if (!testResult) {
-                    Assert.fail("Family member details could not be enter.");
-                }
-            } else if (stageName.equalsIgnoreCase("Patient choice")) {
-                testResult = patientChoicePage.statusVerifiedCorrectlyForParticipants(verifyDetails);
-            } else if (stageName.equalsIgnoreCase("Panels")) {
-                testResult = panelsPage.verifyPanelDetails(verifyDetails);
-            }
-            else if (stageName.equalsIgnoreCase("Tumours")){
-                testResult = tumoursPage.verifyTumourDetails(verifyDetails);
-            }
-            else if (stageName.equalsIgnoreCase("Samples")){
-                testResult = samplesPage.verifySampleDetails(verifyDetails);
-            }
-            Assert.assertTrue(testResult);
-        }
-
-        @And("the user updates the page {string} with {string}")
-        public void theUserUpdatesTumoursQuestionnairePageWith (String pageName, String updateDetails){
-            Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + updateDetails);
-            boolean testResult = false;
-            if (pageName.equalsIgnoreCase("Answer questions about this tumour")) {
-                testResult = tumoursPage.updateTumourQuestionnaireDetails(updateDetails);
-            } else if (pageName.equalsIgnoreCase("Add sample details")) {
-                testResult = samplesPage.updateSampleQuestionnaireDetails(updateDetails);
-            }
-            Assert.assertTrue(testResult);
-        }
-
-        @And("the user verifies the page {string} with {string}")
-        public void theUserVerifiesTumoursQuestionnairePageWith (String pageName, String verifyDetails){
-            Debugger.println(TestUtils.currentUser + " : Verifying " + pageName);
-            boolean testResult = false;
-            if (pageName.equalsIgnoreCase("Answer questions about this tumour")) {
-                testResult = tumoursPage.verifyTumourQuestionnaireDetails(verifyDetails);
-            } else if (pageName.equalsIgnoreCase("Add sample details")) {
-                testResult = samplesPage.verifySampleQuestionnaireDetails(verifyDetails);
-            }
-            Assert.assertTrue(testResult);
-        }
-
-        @When("the user selects the existing tumour on the landing page by clicking on the chevron right arrow icon")
-        public void theUserSelectsTheExistingTumourOnTheLandingPageByClickingOnTheChevronRightArrowIcon () {
-            boolean testResult = tumoursPage.clickEditTumourArrow();
-            Assert.assertTrue(testResult);
-        }
-
-       @When("the user selects the existing sample on the landing page by clicking on the chevron right arrow icon")
-        public void theUserSelectsTheExistingSampleOnTheLandingPageByClickingOnTheChevronRightArrowIcon() {
-        boolean testResult = samplesPage.clickEditSampleArrow();
         Assert.assertTrue(testResult);
     }
+
+    @And("the user updates the page {string} with {string}")
+    public void theUserUpdatesTumoursQuestionnairePageWith(String pageName, String updateDetails) {
+        Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + updateDetails);
+        boolean testResult = false;
+        if (pageName.equalsIgnoreCase("Answer questions about this tumour")) {
+            testResult = tumoursPage.updateTumourQuestionnaireDetails(updateDetails);
+        } else if (pageName.equalsIgnoreCase("Add sample details")) {
+            testResult = samplesPage.updateSampleQuestionnaireDetails(updateDetails);
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user verifies the page {string} with {string}")
+    public void theUserVerifiesTumoursQuestionnairePageWith(String pageName, String verifyDetails) {
+        Debugger.println(TestUtils.currentUser + " : Verifying " + pageName);
+        boolean testResult = false;
+        if (pageName.equalsIgnoreCase("Answer questions about this tumour")) {
+            testResult = tumoursPage.verifyTumourQuestionnaireDetails(verifyDetails);
+        } else if (pageName.equalsIgnoreCase("Add sample details")) {
+            testResult = samplesPage.verifySampleQuestionnaireDetails(verifyDetails);
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user selects the existing tumour on the landing page by clicking on the chevron right arrow icon")
+    public void theUserSelectsTheExistingTumourOnTheLandingPageByClickingOnTheChevronRightArrowIcon() {
+        boolean testResult = tumoursPage.clickEditTumourArrow();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user selects the existing sample on the landing page by clicking on the chevron right arrow icon")
+    public void theUserSelectsTheExistingSampleOnTheLandingPageByClickingOnTheChevronRightArrowIcon() {
+        boolean testResult = samplesPage.clickEditSampleArrow();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_EditSample.jpg");
+            Assert.fail("Could not select Edit Sample Arrow :");
+        }
+    }
+
     @And("the user verifies the referral header with {string}")
     public void theUserVerifiesReferralHeaderWith(String verifyDetails) {
         boolean testResult = referralPage.verifyPatientTitleInUrl(verifyDetails);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralHeader.jpg");
+            Assert.fail("Referral header with "+verifyDetails+" not displayed");
+        }
     }
 
 }//end
