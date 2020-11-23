@@ -155,12 +155,12 @@ public class TestUtils {
         if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
             location.mkdirs();
         }
-        Debugger.println("Deleting file if present from : " + downloadLocation);
+        //Debugger.println("Deleting file if present from : " + downloadLocation);
         File[] files = location.listFiles();
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
                 if (files[i].getName().startsWith(fileName)) {
-                    Debugger.println("File:" + files[i].getName() + " deleted from " + downloadLocation);
+                    //Debugger.println("File:" + files[i].getName() + " deleted from " + downloadLocation);
                     files[i].delete();
                 }
             }
@@ -169,13 +169,13 @@ public class TestUtils {
             return;
         }
         //Delete from default location also
-        Debugger.println("Deleting ALSO file if present from : " + defaultDownloadLocation);
+        //Debugger.println("Deleting ALSO file if present from : " + defaultDownloadLocation);
         File defLocation = new File(defaultDownloadLocation);
         File[] files_default = defLocation.listFiles();
         if (files_default != null && files_default.length > 0) {
             for (int i = 0; i < files_default.length; i++) {
                 if (files_default[i].getName().startsWith(fileName)) {
-                    Debugger.println("File:" + files_default[i].getName() + " deleted from " + defaultDownloadLocation);
+                    //Debugger.println("File:" + files_default[i].getName() + " deleted from " + defaultDownloadLocation);
                     files_default[i].delete();
                 }
             }
@@ -458,6 +458,7 @@ public class TestUtils {
             Wait.seconds(5);
             return "Success";
         } catch (Exception exp) {
+            Debugger.println("Exception from downloading File: "+url);
             return "Exception from downloadFile:" + exp;
         }
     }

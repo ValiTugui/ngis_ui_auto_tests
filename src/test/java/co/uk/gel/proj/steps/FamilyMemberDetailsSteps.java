@@ -552,11 +552,22 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user selects the test for the {string}")
     public void theUserSelectsTheTestForThe(String relationshipToProband) {
-        Debugger.println("Tests going to be unselected for " + relationshipToProband);
-        Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
+        boolean testResult = familyMemberDetailsPage.editFamilyMember();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditFM.jpg");
+            Assert.fail("Could not edit Family Member");
+        }
         // navigate from family member patient details page
-        referralPage.clickSaveAndContinueButton();
-        Assert.assertTrue(familyMemberDetailsPage.selectTheTest());
+        testResult = referralPage.clickSaveAndContinueButton();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMSaveContinue.jpg");
+            Assert.fail("Could not click on SaveAndContinue");
+        }
+        testResult = familyMemberDetailsPage.selectTheTest();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FMSelectTest.jpg");
+            Assert.fail("Could not Select the Test");
+        }
         // navigate from family members selected tests page
         referralPage.clickSaveAndContinueButton();
         // navigate from family members clinical questions page

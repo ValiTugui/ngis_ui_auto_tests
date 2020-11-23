@@ -463,8 +463,8 @@ public class FamilyMemberSearchPage {
             }
             return true;
         }catch (Exception exp){
-            Debugger.println("Error message not found "+exp);
-            return false;
+            //Return true as if the element is not present, it throws NoSuchElementException.
+            return true;
         }
     }
     public boolean verifyNHSFieldPlaceHolder() {

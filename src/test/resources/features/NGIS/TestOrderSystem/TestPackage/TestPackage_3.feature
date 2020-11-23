@@ -1,5 +1,3 @@
-#@regression
-#@testPackageRD
 @03-TEST_ORDER
 @SYSTEM_TEST
 

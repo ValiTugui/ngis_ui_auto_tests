@@ -679,10 +679,12 @@ public class ReferralPage<check> {
             for (int i = 0; i < noOfErrors; i++) {
                 actualMessage = validationErrors.get(i).getText();
                 if (errorMessage.equalsIgnoreCase(actualMessage)) {
-                    actColor = validationErrors.get(0).getCssValue("color");
-                    if (expectedFontColor.equalsIgnoreCase(actColor)) {
+                    actColor = validationErrors.get(i).getCssValue("color");
+                    if (actColor != null && expectedFontColor.equalsIgnoreCase(actColor)) {
                         isPresent = true;
                         break;
+                    }else{
+                        Debugger.println("Colour...not matching.."+actColor+",exp:"+expectedFontColor);
                     }
                 }
             }
