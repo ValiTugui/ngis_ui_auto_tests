@@ -1,5 +1,3 @@
-#@regression
-#@FamilyMemberSearchPage
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Search Page - Field Validation_1
@@ -43,7 +41,7 @@ Feature: Family Members Search Page - Field Validation_1
       | DOB=10-28-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234 | Enter a month between 1 and 12      | #dd2509 |
       | DOB=10-0-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234  | Enter a month between 1 and 12      | #dd2509 |
       | DOB=14-11-1:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234    | Enter a year in 4 figures e.g. 1983 | #dd2509 |
-      | DOB=14-11-1800:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234 | Enter a year beyond 1900            | #dd2509 |
+      | DOB=14-11-1800:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234 | Enter a year after 1900             | #dd2509 |
       | DOB=29-02-2001:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234 | Check the day and month are valid   | #dd2509 |
 
     Examples:
@@ -109,7 +107,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          | patient-search-type | NhsNumber  | DOB        | error_message                  |
       | Family members | NGIS                | 2000000827 | 32-03-2011 | Enter a day between 1 and 31   |
       | Family members | NGIS                | 2000000827 | 10-28-2011 | Enter a month between 1 and 12 |
-      | Family members | NGIS                | 2000000827 | 14-11-1800 | Enter a year after 1900       |
+      | Family members | NGIS                | 2000000827 | 14-11-1800 | Enter a year after 1900        |
 
 
   @NTS-4722 @Z-LOGOUT

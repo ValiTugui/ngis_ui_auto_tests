@@ -96,7 +96,7 @@ public class HomePage {
     public boolean typeInSearchField(String searchTerm) {
         try {
             if(!Wait.isElementDisplayed(driver,searchField,60)){
-                Debugger.println("searchField for present even after waiting period: ");
+                Debugger.println("searchField not present even after waiting period: ");
                 return false;
             }
             searchField.sendKeys(searchTerm);

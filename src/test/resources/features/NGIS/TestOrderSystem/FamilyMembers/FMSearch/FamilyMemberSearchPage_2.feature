@@ -1,5 +1,3 @@
-#@regression
-#@FamilyMemberSearchPage
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
@@ -90,7 +88,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | stage          | SearchDetails                                                                   | ResultMessage          |
       | Family members | DOB=02-09-2011:FirstName=CHELSEA:LastName=CRAM:Gender=Male:Postcode=ST20 6LH    | 1 patient record found |
 
-  @NTS-3328
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-1011
   Scenario Outline: NTS-3328: Find a family member page validation with NHS selected as YES: Special characters entered in NHS number
     When the user navigates to the "<stage>" stage
@@ -101,15 +99,17 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     And the user will see error messages highlighted in red colour when search with the given details
       | SearchDetails        | message                                           | color   |
       | NHSNumber=123456789@ | Please enter your full NHS Number (10 characters) | #dd2509 |
-      | NHSNumber=$#%#*&^@%  | NHS Number is required.                           | #dd2509 |
 
     Examples:
       | stage          |
       | Family members |
 
-  @NTS-3343
+  @NTS-3343 @Z-LOGOUT
 #    @E2EUI-1205
   Scenario Outline: NTS-3328: Find a family member Search Results Page validation
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
@@ -123,9 +123,12 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | stage          | SearchDetails                       | ResultMessage          |
       | Family members | NHSNumber=2000000827:DOB=28-08-2011 | 1 patient record found |
 
-  @NTS-3328
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-851
   Scenario Outline: NTS-3328: verify the text information present on the 'Find a family member ' page
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
@@ -136,9 +139,12 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | stage          |
       | Family members |
 
-  @NTS-3328
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-1254
   Scenario Outline: NTS-3328: Search a family member record with NHS selected No, Last name field validation with incorrect data
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user clicks the NO button in family member search page
@@ -150,9 +156,12 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | stage          |
       | Family members |
 
-  @NTS-3328
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-983
   Scenario Outline: NTS-3328: Find a Family member page field validation
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
@@ -168,9 +177,12 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | stage          |
       | Family members |
 
-  @NTS-3328
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-829
   Scenario Outline: NTS-3328: Search for a family member record with NHS selected No and provided a valid gender and all other mandatory fields left blank
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user clicks the NO button in family member search page
@@ -181,10 +193,13 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | stage          | SearchDetails | ErrorMessage                                                              | MessageColor |
       | Family members | Gender=Female | Date of birth is required.,First name is required.,Last name is required. | #dd2509      |
 
-  @NTS-3328
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-830
   Scenario Outline: NTS-3328: Search a family member record with NHS selected No and providing a valid First name and leaving all other mandatory fields blank
-    And the user navigates to the "<stage>" stage
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<stage>" stage
     When the user clicks on Add family member button
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
@@ -204,7 +219,10 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
   @NTS-3328 @Z-LOGOUT
 #    @E2EUI-1260 @E2EUI-1259
   Scenario Outline: NTS-3328: Search for a family member record with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
-    And the user navigates to the "<stage>" stage
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
     And the user clicks the NO button in family member search page

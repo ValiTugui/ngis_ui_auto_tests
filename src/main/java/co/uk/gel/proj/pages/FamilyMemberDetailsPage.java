@@ -1482,9 +1482,13 @@ public class FamilyMemberDetailsPage {
             Actions.clickElement(driver, editButtonForParticipant);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from editing family member" + exp);
-            SeleniumLib.takeAScreenShot("EditFamilyMember.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(editButtonForParticipant);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from editing family member" + exp);
+                return false;
+            }
         }
     }
 

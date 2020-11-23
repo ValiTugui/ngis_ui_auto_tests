@@ -235,9 +235,9 @@ public class PrintFormSteps extends Pages {
         boolean testResult = false;
         if (expectedSection.equalsIgnoreCase("Referral")) {
             testResult = printFormsPage.downloadForm(fileName, expectedSection);
-            if(testResult){
+            if(!testResult){
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintFormDownload.jpg");
-                Assert.fail("Print form Download not prsent");
+                Assert.fail("Could not download print form file:"+fileName);
             }
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
          }else if (expectedSection.equalsIgnoreCase("Additional family members")) {

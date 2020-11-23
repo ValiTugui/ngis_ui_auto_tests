@@ -81,12 +81,14 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @Then("^the user will see error messages highlighted in red colour when search with the given details$")
     public void theUserWillSeeErrorMessagesInRedColorWhenSearchWithGivenDetails(DataTable messages) {
+        boolean testResult = false;
         List<List<String>> messageDetails = messages.asLists();
         for (int i = 1; i < messageDetails.size(); i++) {
             familyMemberSearchPage.searchFamilyMemberWithGivenParams(messageDetails.get(i).get(0));
-            if(!referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2))){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ErrorMsgl.jpg");
-                Assert.fail("No error message displayed");
+            testResult = referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2));
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ErrorMsg.jpg");
+                Assert.fail("No error message displayed as expected:"+messageDetails.get(i).get(1));
             }
         }
     }

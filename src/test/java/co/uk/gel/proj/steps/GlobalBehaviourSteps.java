@@ -33,7 +33,11 @@ public class GlobalBehaviourSteps extends Pages {
 
     @When("the user clicks the privacy policy link")
     public void theUserClicksThePrivacyPolicyLink() {
-        globalBehaviourPage.clickPrivacyPolicy();
+        boolean testResult = globalBehaviourPage.clickPrivacyPolicy();
+        if(!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PrivacyPolicy.jpg");
+            Assert.fail("Could mot click on privacy policy link:");
+        }
     }
 
     @Then("the {string} page should be opened in the next tab")

@@ -45,7 +45,7 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to validate the text "<Watermark>" in the downloaded form "SampleForm.pdf"
 
     Examples:
-      | NoOfParticipants | PrintForms  | Watermark                         |
+      | NoOfParticipants | PrintForms  | Watermark               |
       | 1                | Print forms | N ot for C linical U se |
 
   @NTS-4713
@@ -71,7 +71,7 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                     | RequestingOrganisation                                  |
+      | Text                                                                                           | RequestingOrganisation                                  |
       | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
   @NTS-4713
@@ -96,5 +96,5 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                    | RequestingOrganisation                                  |
-      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C linical U  | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                | RequestingOrganisation                                  |
+      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C linical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |

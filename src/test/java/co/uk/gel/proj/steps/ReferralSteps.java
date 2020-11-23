@@ -245,11 +245,13 @@ public class ReferralSteps extends Pages {
         boolean testResult = false;
         testResult = homePage.typeInSearchField(searchTerm);
         if (!testResult) {
-            Assert.assertTrue("Failed in typeInSearchField", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchFailed.jpg");
+            Assert.fail("could not enter value in search field "+searchTerm);
         }
         testResult = homePage.clickSearchIconFromSearchField();
         if (!testResult) {
-            Assert.assertTrue("Failed in clickSearchIconFromSearchField", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchClick.jpg");
+            Assert.fail("could not click on search icon ");
         }
 
         testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
@@ -346,12 +348,14 @@ public class ReferralSteps extends Pages {
         }
         testResult = patientDetailsPage.clickStartReferralButton();
         if (!testResult) {
-            Assert.assertTrue("Failed in clickStartReferralButton", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+            Assert.fail("Failed in clickStartReferralButton");
         }
 
         testResult = referralPage.checkThatReferralWasSuccessfullyCreated();
         if (!testResult) {
-            Assert.assertTrue("Failed in checkThatReferralWasSuccessfullyCreated", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+            Assert.fail("Failed in checkThatReferralWasSuccessfullyCreated");
         }
 
         //To log the ReferralI in the Log.

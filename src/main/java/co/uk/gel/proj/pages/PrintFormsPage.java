@@ -438,7 +438,6 @@ public class PrintFormsPage {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     urlToDownload = downloadButton.get(i).getAttribute("href");
-                    //Debugger.println("URL TO DOWNLOAD:" + urlToDownload);
                     if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
                         isDownloaded = true;
                         Wait.seconds(3);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
