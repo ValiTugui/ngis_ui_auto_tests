@@ -50,7 +50,7 @@ public class ReferralSteps extends Pages {
         //Debugger.println("Stage: " + stage + " Starting.");
         boolean testResult = referralPage.navigateToStage(stage);
         if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Stage");
             Assert.fail("Could not navigate to stage:"+stage);
         }
         if(AppConfig.snapshotRequired){
@@ -307,9 +307,13 @@ public class ReferralSteps extends Pages {
 
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         if (actualNoPatientFoundLabel == null) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoPatient.jpg");
+            Assert.fail("Expected no patient found message, but null.");
         }
-        Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
+        if(!actualNoPatientFoundLabel.equalsIgnoreCase("No patient found")){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SaveAndContinue.jpg");
+            Assert.fail("Expected no patient found message, but "+actualNoPatientFoundLabel);
+        }
         testResult = patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         if (!testResult) {
             Assert.assertTrue("Failed in checkCreateNewPatientLinkDisplayed", false);
@@ -408,9 +412,9 @@ public class ReferralSteps extends Pages {
     @And("the {string} stage is NOT marked as Mandatory To Do")
     public void theStageIsNotMarkedAsMandatoryToDo(String stage) {
         boolean testResult = referralPage.stageIsMandatoryToDo(stage);
-        if(!testResult){
+        if(testResult){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"StageNotMandatory.jpg");
-            Assert.fail("Stage "+stage+" not marked as mandatory to do.");
+            Assert.fail("Stage "+stage+" marked as mandatory to do.");
         }
     }
 
@@ -951,8 +955,8 @@ public class ReferralSteps extends Pages {
                 Assert.fail("ToDoList in Referral Page is not loaded even after the waiting time..");
             }
         } else {
-            Debugger.println("Search Result: " + searchResult);
-            Assert.fail(searchResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NotSearch.jpg");
+            Assert.fail("Could not search for patient:"+searchResult);
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();

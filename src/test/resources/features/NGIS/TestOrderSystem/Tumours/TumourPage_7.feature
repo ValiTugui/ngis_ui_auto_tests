@@ -63,7 +63,7 @@ Feature: Tumours Page - 7
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
-    And the "<stage>" stage is NOT marked as Mandatory To Do
+    And the "<stage>" stage is marked as Mandatory To Do
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"

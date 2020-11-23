@@ -28,7 +28,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     And the user clicks the Save and Continue button
     Then The Last name field should display an error message "<error_info>"
     And The mandatory field Last name should be highlighted with a "<red_color_hex_code>" red mark
-    And the "Responsible clinician" stage is NOT marked as Mandatory To Do
+    And the "Responsible clinician" stage is marked as Mandatory To Do
     When the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
     Then the "Responsible clinician" stage is marked as Completed
@@ -38,7 +38,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | mandatory_field | field_type | symbol | symbol color |
       | Disease status  | label      | ✱      | #dd2509      |
     And the user clicks the Save and Continue button
-    Then the "Clinical questions" stage is NOT marked as Mandatory To Do
+    Then the "Clinical questions" stage is marked as Mandatory To Do
     When the user navigates to the "Clinical questions" stage
     And the user selects "<DiseaseStatus>"
     Then the mandatory fields shown with the symbol in red color
@@ -66,7 +66,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     When the user provided the values "<yearvalue1>" "<monthvalue1>" for Age of onset fields
     Then the user sees an error "<errorMessage1>" message on the page
     And the user clicks the Save and Continue button
-    Then the "Clinical questions" stage is NOT marked as Mandatory To Do
+    Then the "Clinical questions" stage is marked as Mandatory To Do
     When the user provided the values "<yearvalue2>" "<monthvalue2>" for Age of onset fields
     And the user adds a new HPO phenotype term "<hpoTerm>" using the autosuggest terms
     And the user clicks the Save and Continue button

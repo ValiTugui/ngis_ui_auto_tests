@@ -1028,7 +1028,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return "No patient found";
         } catch (Exception exp) {
             Debugger.println("Oops no patient text found " + exp + "\n" + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("NoPatientTextFound.jpg");
             return null;
         }
     }
@@ -1116,7 +1115,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public String searchPatientReferral(NGISPatientModel referralDetails) {
         try {
             if (!Wait.isElementDisplayed(driver, nhsNumber, 60)) {
-                SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
                 return "Patient Search Page not displayed even after a minute wait..";
             }
             nhsNumber.sendKeys(referralDetails.getNHS_NUMBER());
@@ -1128,17 +1126,14 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             dateYear.sendKeys(referralDetails.getYEAR_OF_BIRTH());
             //Search for the referral
             if (!clickSearchButtonByXpath()) {
-                SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
                 return "Could not click on Search Button in Patient Search Page.";
             }
             if (!Wait.isElementDisplayed(driver, patientSearchResult, 120)) {
-                SeleniumLib.takeAScreenShot("PatientSearchResult.jpg");
                 return "Patient Search Result Page not displayed even after 2 minute wait..";
             }
             return patientSearchResult.getText();
         } catch (Exception exp) {
             Debugger.println("Exception from Search Patient Referral: " + exp);
-            SeleniumLib.takeAScreenShot("SearchPatientReferralError.jpg");
             return "Exception from Search Patient Referral: " + exp;
         }
 

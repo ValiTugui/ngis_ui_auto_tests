@@ -175,14 +175,31 @@ public class SamplesSteps extends Pages {
 
     @And("the user answers the sample dynamic questions by providing topography {string} morphology {string}")
     public void theUserAnswersTheSampleDynamicQuestionsByProvidingTopographyMorphology(String topographyValue, String morphologyValue) {
-        samplesPage.answerSampleTopography(topographyValue);
-        samplesPage.answerSampleMorphology(morphologyValue);
+        boolean testResult = false;
+        testResult = samplesPage.answerSampleTopography(topographyValue);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Topography.jpg");
+            Assert.fail("Could not answer Sample topography."+topographyValue);
+        }
+        testResult = samplesPage.answerSampleMorphology(morphologyValue);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Morphology.jpg");
+            Assert.fail("Could not answer Sample Morphology."+morphologyValue);
+        }
         samplesPage.fillInPercentageOfMalignantNuclei();
         samplesPage.fillInNumberOfSlides();
         samplesPage.selectSampleCollectionDate();
         samplesPage.fillInSampleComments();
-        referralPage.clickSaveAndContinueButton();
-        Assert.assertTrue(samplesPage.newSampleIsDisplayedInLandingPage());
+        testResult = referralPage.clickSaveAndContinueButton();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SaveAndContinue.jpg");
+            Assert.fail("Could not Save And continue.");
+        }
+        testResult = samplesPage.newSampleIsDisplayedInLandingPage();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleNotSipsplayed.jpg");
+            Assert.fail("New sample not displayed in landing page.");
+        }
     }
 
     @Then("the new sample is displayed in the landing page")

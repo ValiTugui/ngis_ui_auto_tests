@@ -265,37 +265,41 @@ public class SamplesPage {
         }
     }
 
-    public void answerSampleTopography(String value) {
+    public boolean answerSampleTopography(String value) {
         try {
             Wait.forElementToBeDisplayed(driver, sampleTopographyField);
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectRandomValueFromDropdown(dropdownValues);
+            return true;
         } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("SampleTopograhy.jpg");
             Debugger.println(" Sample Topograhy value " + value + " is not displayed in the dynamic dropdown list");
-            Assert.assertFalse(true);
+            return false;
         }
     }
 
-    public void answerSampleMorphology(String value) {
+    public boolean answerSampleMorphology(String value) {
         try {
             Wait.forElementToBeDisplayed(driver, sampleMorphologyField);
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleMorphologyField, value);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectRandomValueFromDropdown(dropdownValues);
+            return true;
         } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
             Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
-            Assert.assertFalse(true);
+            return false;
         }
     }
 
     public int fillInPercentageOfMalignantNuclei() {
-        Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
-        int percentage = faker.number().numberBetween(2, 99);
-        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
-        return percentage;
+        try {
+            Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+            int percentage = faker.number().numberBetween(2, 99);
+            Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+            return percentage;
+        }catch(Exception exp){
+            return -1;
+        }
     }
 
     public int fillInPercentageOfMalignantNucleiBelow30() {

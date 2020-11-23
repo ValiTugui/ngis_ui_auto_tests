@@ -323,7 +323,6 @@ public class ReferralPage<check> {
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
             if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
                 Debugger.println("Try Again appears after SaveAndContinue Click....");
-                SeleniumLib.takeAScreenShot("TryAgain.jpg");
                 Actions.clickElement(driver, tryAgain);
                 Wait.seconds(10);
                 if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
@@ -352,7 +351,6 @@ public class ReferralPage<check> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
             return false;
         }
     }
@@ -512,8 +510,12 @@ public class ReferralPage<check> {
                 Debugger.println("ToDoList is not loaded in Landing Page."+driver.getCurrentUrl());
                 return false;
             }
-            String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
-//            Debugger.println("WebElementLocator:"+webElementLocator);
+            String partial_url = getPartialUrl(stage);
+            By stageLink = By.xpath("//a[contains(@href,'"+partial_url+"')]//*[name()='svg' and @data-testid='mandatory-icon']");
+            if(seleniumLib.isElementPresent(stageLink)){
+               return true;
+            }
+            String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage",partial_url);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
             List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
             if (webElementList.size() == 1) {
