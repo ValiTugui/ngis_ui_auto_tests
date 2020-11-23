@@ -194,7 +194,10 @@ public class TumoursSteps extends Pages {
     public void theTumoursStageDisplaysAddATumourPageWithAppropriateFieldsDescriptionDateOfDiagnosisEtc() {
         boolean eachElementIsLoaded;
         eachElementIsLoaded = tumoursPage.verifyTheElementsOnAddTumoursPageAreDisplayed();
-        Assert.assertTrue(eachElementIsLoaded);
+        if(!eachElementIsLoaded){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ElementsOnAddTumoursPage.jpg");
+            Assert.fail("ElementsOnAddTumoursPage not displayed as expected");
+        }
 
     }
 
@@ -326,14 +329,20 @@ public class TumoursSteps extends Pages {
     public void theUserSelectsTheExistingTumourFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
         boolean testResult = false;
         testResult = tumoursPage.clickEditTumourArrow();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditTumour.jpg");
+            Assert.fail("Could not select Edit Tumour Arrow :");
+        }
     }
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")
     public void theUserEditsTheTumourSystemQuestionsFieldsAndSelectANewTumourType(String tumourType) {
         boolean testResult = false;
         testResult = tumoursPage.editTumourDescription();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditTumourDesc.jpg");
+            Assert.fail("Could not select Edit Tumour Description :");
+        }
         testResult = tumoursPage.editDateOfDiagnosis();
         Assert.assertTrue(testResult);
         if(tumoursPage.selectTumourType(tumourType) == null){
@@ -426,11 +435,12 @@ public class TumoursSteps extends Pages {
     @And("the error message {string} is displayed in {string} fonts colour in the page")
     public void theErrorMessageIsDisplayedInFontsColourInThePage(String errorMessage, String messageColor) {
 
-        Debugger.println("Expected error message: " + errorMessage);
-        Debugger.println("Actual Error message: " + getText(tumoursPage.errorMessages.get(0)));
         boolean testResult = false;
         testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ErrorMsg.jpg");
+            Assert.fail("Error Message not displayed:"+errorMessage);
+        }
     }
 
     @When("user clicks add a new tumour link")

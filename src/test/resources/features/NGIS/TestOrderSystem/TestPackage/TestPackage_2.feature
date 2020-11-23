@@ -55,9 +55,9 @@ Feature: TestOrder - Test Package 2 - RD
     And The user sees a drop down box for the Total number of participants
     And the drop down box is displayed as empty by default
     When the user clicks on the drop down box to see the values between "<minParticipants>" - "<maxParticipants>" displayed
-    And the "<stage>" stage is NOT marked as Mandatory To Do
+    And the "<stage>" stage is marked as Mandatory To Do
     When the user clicks the Save and Continue button
-    Then the "<stage>" stage is NOT marked as Mandatory To Do
+    Then the "<stage>" stage is marked as Mandatory To Do
     And the "<new_stage>" stage is selected
     And the correct "<number_of>" tests are saved to the referral in  "<stage>"
     Examples:
@@ -77,7 +77,7 @@ Feature: TestOrder - Test Package 2 - RD
     And the drop down box is displayed as empty by default
     When the user does not select one of the values
     And the user sees an error message "<errorMessage>"
-    And the "<stage>" stage is NOT marked as Mandatory To Do
+    And the "<stage>" stage is marked as Mandatory To Do
     And the user selects the number of participants: "<count>"
     When the user clicks the Save and Continue button
     Then the "<stage>" stage is marked as Completed

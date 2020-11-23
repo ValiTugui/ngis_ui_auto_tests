@@ -40,10 +40,10 @@ public class SamplesPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
-    @FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div[2]") //@FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div[2]")
     public WebElement sampleType;
 
-    @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div[2]")  ////@FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div[2]")
     public WebElement sampleState;
 
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'singleValue')]/span")
@@ -69,13 +69,6 @@ public class SamplesPage {
 
     @FindBy(css = "label[for*='question-id-q326']")
     public WebElement numberOfSlidesFieldLabel;
-
-//    @FindBy(xpath = "//*[contains(@id,'question-id-q328')]")
-//    public WebElement sampleCollectionDateField;
-
-//    @FindBy(css = "label[for*='question-id-q328']")
-//    public WebElement sampleCollectionDateFieldLabel;
-
     @FindBy(xpath = "//input[@placeholder='DD']")
     public WebElement sampleCollectionDay;
     @FindBy(xpath = "//input[@placeholder='MM']")
@@ -157,14 +150,14 @@ public class SamplesPage {
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> sampleStateDropDownValues;
 
-	@FindBy (css = "label[for*='sampleType']")
-	public WebElement sampleTypeLabel;
+    @FindBy(css = "label[for*='sampleType']")
+    public WebElement sampleTypeLabel;
 
-	@FindBy (css = "label[for*='sampleState']")
-	public WebElement sampleStateLabel;
+    @FindBy(css = "label[for*='sampleState']")
+    public WebElement sampleStateLabel;
 
-	@FindBy (css = "label[for*='labId']")
-	public WebElement labIdLabel;
+    @FindBy(css = "label[for*='labId']")
+    public WebElement labIdLabel;
 
     @FindBy(css = "*[class*='styles_field-label--error']")
     public List<WebElement> fieldsLabelErrors;
@@ -179,28 +172,24 @@ public class SamplesPage {
     @FindBy(xpath = "//table//tbody/tr")
     public List<WebElement> listOfSamplesInTheTable;
 
-    @FindBy (css = "h6[class*='styles_text--6']")
+    @FindBy(css = "h6[class*='styles_text--6']")
     public WebElement infoTextForLinkingSamples;
 
-    @FindBy(css ="span[class*='checkmark--checked']")
+    @FindBy(css = "span[class*='checkmark--checked']")
     public WebElement sampleTypeSVGTickMark;
 
     @FindBy(xpath = "//a[contains(@class,'styles_sample-detail__edit-link')]")
     List<WebElement> sampleEditButtons;
 
-    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
-    public WebElement updatedSampleTable;
-    @FindBy(xpath = "//label[@for='sampleType']/..//div[contains(@class,'singleValue')]/span")
-    public WebElement selectedSampleTypeValue;
     @FindBy(xpath = "//input[@id='labId']")
     public WebElement sampleId;
     public static String updatedSampleId;
     By sampleTypePath = By.xpath("//label[contains(@for,'sampleType')]//following::div[5]/../div/span/span");
     By sampleStatePath = By.xpath("//label[contains(@for,'sampleState')]//following::div[5]/../div/span/span");
 
-    public boolean isErrorPresent(){
+    public boolean isErrorPresent() {
         int noOfErrors = errorMessages.size();
-        if(noOfErrors > 0){
+        if (noOfErrors > 0) {
             return true;
         }
         return false;
@@ -213,8 +202,8 @@ public class SamplesPage {
             sampleDetails.setSampleType(type);
             Wait.seconds(1);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from selectSampleType:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from selectSampleType:" + exp);
             SeleniumLib.takeAScreenShot("selectSampleType.jpg");
             return false;
         }
@@ -229,7 +218,7 @@ public class SamplesPage {
             Actions.reClickDropDownFieldIfLabelErrorIsShown(driver, fieldsLabelErrors, sampleState, sampleStateLabel, numberOfAttempts);
             Actions.retrySelectRandomValueFromDropDown(dropdownValues);
             sampleDetails.setSampleState(Actions.getText(selectedSampleStateValue));
-        }catch(Exception exp){
+        } catch (Exception exp) {
 
         }
     }
@@ -242,7 +231,7 @@ public class SamplesPage {
             }
             Actions.clickElement(driver, sampleState);
             Wait.seconds(2);
-            if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("SampleState Drop values not loaded: ");
                 SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
                 return false;
@@ -269,44 +258,48 @@ public class SamplesPage {
             }
             sampleDetails.setSampleID(ID);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in fillInSampleID:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in fillInSampleID:" + exp);
             SeleniumLib.takeAScreenShot("fillInSampleID.jpg");
             return false;
         }
     }
 
-    public void answerSampleTopography(String value) {
+    public boolean answerSampleTopography(String value) {
         try {
-        Wait.forElementToBeDisplayed(driver, sampleTopographyField);
-        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+            Wait.forElementToBeDisplayed(driver, sampleTopographyField);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectRandomValueFromDropdown(dropdownValues);
+            return true;
         } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("SampleTopograhy.jpg");
             Debugger.println(" Sample Topograhy value " + value + " is not displayed in the dynamic dropdown list");
-            Assert.assertFalse(true);
+            return false;
         }
     }
 
-    public void answerSampleMorphology(String value) {
+    public boolean answerSampleMorphology(String value) {
         try {
             Wait.forElementToBeDisplayed(driver, sampleMorphologyField);
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleMorphologyField, value);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectRandomValueFromDropdown(dropdownValues);
+            return true;
         } catch (Exception exp) {
-                SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
-                Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
-                Assert.assertFalse(true);
-            }
+            Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
+            return false;
+        }
     }
 
     public int fillInPercentageOfMalignantNuclei() {
-        Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
-        int percentage = faker.number().numberBetween(2, 99);
-        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
-        return percentage;
+        try {
+            Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+            int percentage = faker.number().numberBetween(2, 99);
+            Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+            return percentage;
+        }catch(Exception exp){
+            return -1;
+        }
     }
 
     public int fillInPercentageOfMalignantNucleiBelow30() {
@@ -334,9 +327,9 @@ public class SamplesPage {
         sampleDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
         sampleDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         sampleDetails.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-        seleniumLib.sendValue(sampleCollectionDay,sampleDetails.getDay());
-        seleniumLib.sendValue(sampleCollectionMonth,sampleDetails.getMonth());
-        seleniumLib.sendValue(sampleCollectionYear,sampleDetails.getYear());
+        seleniumLib.sendValue(sampleCollectionDay, sampleDetails.getDay());
+        seleniumLib.sendValue(sampleCollectionMonth, sampleDetails.getMonth());
+        seleniumLib.sendValue(sampleCollectionYear, sampleDetails.getYear());
     }
 
     public String fillInSampleComments() {
@@ -357,20 +350,18 @@ public class SamplesPage {
 
     public boolean clickAddSampleButton() {
         try {
-            if(!Wait.isElementDisplayed(driver,addSampleButton,10)){
+            if (!Wait.isElementDisplayed(driver, addSampleButton, 10)) {
                 Debugger.println("Add sample button not displayed\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("clickAddSampleButton.jpg");
                 return false;
             }
-        Actions.clickElement(driver, addSampleButton);
+            Actions.clickElement(driver, addSampleButton);
             return true;
-        }catch(Exception exp){
-            try{
+        } catch (Exception exp) {
+            try {
                 seleniumLib.clickOnWebElement(addSampleButton);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in clickAddSampleButton:" + exp1 + "\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("clickAddSampleButton.jpg");
                 return false;
             }
         }
@@ -405,7 +396,7 @@ public class SamplesPage {
         for (WebElement fieldLabel : fieldsLabelErrors) {
             actualFieldErrorLabels.add(fieldLabel.getText().trim());
         }
-       // Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
+        // Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
         return actualFieldErrorLabels;
     }
 
@@ -421,7 +412,6 @@ public class SamplesPage {
     }
 
     public boolean verifyTheElementsOnAddASamplePage() {
-
         // Find elements
         Wait.forElementToBeDisplayed(driver, sampleTypeDropDown);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
@@ -433,7 +423,7 @@ public class SamplesPage {
         expectedElements.add(labId);
 
         for (int i = 0; i < expectedElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+            if (!expectedElements.get(i).isDisplayed()) {
                 return false;
             }
         }
@@ -445,13 +435,11 @@ public class SamplesPage {
             Wait.forElementToBeDisplayed(driver, sampleState);
             if (!Wait.isElementDisplayed(driver, sampleStateSearchIcon, 10)) {
                 Debugger.println("Sample State Search Icon could not locate:");
-                SeleniumLib.takeAScreenShot("SampleStateSearch.jpg");
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from verifySearchIconInsideSampleStateField:"+exp);
-            SeleniumLib.takeAScreenShot("SampleStateSearch.jpg");
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifySearchIconInsideSampleStateField:" + exp);
             return false;
         }
     }
@@ -475,16 +463,13 @@ public class SamplesPage {
             if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
                 Wait.forElementToBeDisplayed(driver, driver.findElement(actualSubPageTitle));
                 if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
-                    Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
+                    //Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
                     return false;
                 }
             }
-            //Debugger.println("Actual Add-Sample sub-title :" + driver.findElement(actualSubPageTitle).getText());
-            //Debugger.println("Expected Add-Sample sub-title :" + expectedSubPageTitle);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in verifyTheSubPageTitle:"+exp);
-            SeleniumLib.takeAScreenShot("verifyTheSubPageTitle.jpg");
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifyTheSubPageTitle:" + exp);
             return false;
         }
     }
@@ -503,24 +488,22 @@ public class SamplesPage {
 
     public boolean selectSampleFromLandingPage() {
         try {
-            if(!Wait.isElementDisplayed(driver,editSampleButton,30)){
+            if (!Wait.isElementDisplayed(driver, editSampleButton, 30)) {
                 Debugger.println("Edit Sample type option not present.");
-                SeleniumLib.takeAScreenShot("editSample.jpg");
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, editSampleButton);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from selectSampleFromLandingPage:"+exp);
-            SeleniumLib.takeAScreenShot("editSample.jpg");
+        } catch (Exception exp) {
+            Debugger.println("Exception from selectSampleFromLandingPage:" + exp);
             return false;
         }
     }
+
     public boolean clickEditSampleArrow() {
         try {
             if (!Wait.isElementDisplayed(driver, editSampleArrow, 30)) {
                 Debugger.println("samplesLandingPageTable not loaded.");
-                SeleniumLib.takeAScreenShot("samplesLandingPageTable.jpg");
                 return false;
             }
             Wait.seconds(3);
@@ -528,7 +511,6 @@ public class SamplesPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clickEditSampleArrow:" + exp);
-            SeleniumLib.takeAScreenShot("clickEditSampleArrow.jpg");
             return false;
         }
     }
@@ -577,7 +559,7 @@ public class SamplesPage {
 
         /* parentAndChildSampleDetails - index 0 is for parent and index 1 is for child */
         Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
-        List<WebElement>parentSampleDetails = listOfSamplesInTheTable.get(parentAndChildSampleDetails).findElements(By.tagName("td"));
+        List<WebElement> parentSampleDetails = listOfSamplesInTheTable.get(parentAndChildSampleDetails).findElements(By.tagName("td"));
 
         List<String> actualSampleTestData = new ArrayList<>();
         for (WebElement sampleDetails : parentSampleDetails) {
@@ -591,12 +573,12 @@ public class SamplesPage {
         // If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted
         boolean flag = false;
         if (expectedTumourDescription == null) {
-            Debugger.println("Expected TumourDescription Step-def - empty :" + expectedTumourDescription);
+            //Debugger.println("Expected TumourDescription Step-def - empty :" + expectedTumourDescription);
             flag = actualSampleTestData.contains("-");
         }
         // if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list
         else if (!expectedTumourDescription.isEmpty()) {
-            Debugger.println("Expected TumourDescription Step-def - not empty :" + expectedTumourDescription);
+            //Debugger.println("Expected TumourDescription Step-def - not empty :" + expectedTumourDescription);
             flag = actualSampleTestData.contains(expectedTumourDescription);
         }
         return flag;
@@ -611,7 +593,7 @@ public class SamplesPage {
         Actions.retryClickAndIgnoreElementInterception(driver, addTumourLink);
     }
 
-    public String getTheDisplayedTumourTextLinkOnAddASamplePage(){
+    public String getTheDisplayedTumourTextLinkOnAddASamplePage() {
         Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
         return Actions.getText(notTheRightTumourLink);
     }
@@ -621,7 +603,7 @@ public class SamplesPage {
         Actions.retryClickAndIgnoreElementInterception(driver, notTheRightTumourLink);
     }
 
-    public String getTheDisplayedSampleTextLinkOnAddASamplePage(){
+    public String getTheDisplayedSampleTextLinkOnAddASamplePage() {
         Wait.forElementToBeDisplayed(driver, infoTextForLinkingSamples);
         return Actions.getText(infoTextForLinkingSamples);
     }
@@ -633,8 +615,8 @@ public class SamplesPage {
         expElements.add(sampleCollectionYear);
         expElements.add(sampleCommentsField);
         expElements.add(sampleCommentsFieldLabel);
-        for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!expElements.get(i).isDisplayed()) {
                 return false;
             }
         }
@@ -658,22 +640,22 @@ public class SamplesPage {
         expElements.add(sampleCollectionYear);
         expElements.add(sampleCommentsField);
         expElements.add(sampleCommentsFieldLabel);
-        for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
-                Debugger.println("Element: "+expElements.get(i)+" not present.");
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!expElements.get(i).isDisplayed()) {
+                Debugger.println("Element: " + expElements.get(i) + " not present.");
                 return false;
             }
         }
         return true;
     }
 
-    public String getTheLabelForTumourContentPercentageField(){
+    public String getTheLabelForTumourContentPercentageField() {
         return Actions.getText(tumourContentPercentageOfMalignantNucleiFieldLabel);
     }
 
-    public boolean ensureTickMarkIsDisplayedNextToSampleType(){
+    public boolean ensureTickMarkIsDisplayedNextToSampleType() {
         Wait.forElementToBeDisplayed(driver, sampleTypeSVGTickMark);
-        if(Wait.isElementDisplayed(driver, sampleTypeSVGTickMark, 10)){
+        if (Wait.isElementDisplayed(driver, sampleTypeSVGTickMark, 10)) {
             return true;
         }
         return false;
@@ -681,40 +663,38 @@ public class SamplesPage {
 
     public boolean editSpecificSample() {
         try {
-            if(!Wait.isElementDisplayed(driver, editSampleButton,10)){
+            if (!Wait.isElementDisplayed(driver, editSampleButton, 10)) {
                 Debugger.println("Edit Sample Button Not Present ");
-                SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
                 return false;
             }
-            Actions.clickElement(driver,editSampleButton);
+            Actions.clickElement(driver, editSampleButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in :editSpecificSample" + exp);
-            SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
             return false;
         }
     }
+
     public boolean verifyAddSampleButtonIsDisplayed() {
-        if(!Wait.isElementDisplayed(driver,addSampleButton,10)){
+        if (!Wait.isElementDisplayed(driver, addSampleButton, 10)) {
             Debugger.println("Add Samples Button not displayed as expected.");
             SeleniumLib.takeAScreenShot("AddSamplesButton.jpg");
             return false;
         }
         return true;
     }
+
     public boolean editSpecificSample(String sampleNo) {
         try {
             int noOfSamples = Integer.parseInt(sampleNo);
-            if(sampleEditButtons.size() < noOfSamples){
+            if (sampleEditButtons.size() < noOfSamples) {
                 Debugger.println("Edit Sample Button Not Present ");
-                SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
                 return false;
             }
-            Actions.clickElement(driver,sampleEditButtons.get((noOfSamples-1)));
+            Actions.clickElement(driver, sampleEditButtons.get((noOfSamples - 1)));
             return true;
         } catch (NumberFormatException exp) {
             Debugger.println("Exception in : editSpecificSample" + exp);
-            SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
             return false;
         }
     }
@@ -738,7 +718,7 @@ public class SamplesPage {
                 }
                 case "SampleID": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        seleniumLib.sendValue(sampleId,paramNameValue.get(key));
+                        seleniumLib.sendValue(sampleId, paramNameValue.get(key));
                     }
                     break;
                 }
@@ -746,14 +726,15 @@ public class SamplesPage {
         }
         return true;
     }
-    public boolean updateSampleQuestionnaireDetails(String sampleQuestionnaireDetails){
+
+    public boolean updateSampleQuestionnaireDetails(String sampleQuestionnaireDetails) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(sampleQuestionnaireDetails);
         Set<String> paramsKey = paramNameValue.keySet();
         percentageOfMalignantNucleiField.clear();
         for (String key : paramsKey) {
             switch (key) {
                 case "PercentageOfMalignantNuclei": {
-                    By percentageOfMalignantNucleiPath= By.xpath("//*[contains(@id,'question-id-q321')]");
+                    By percentageOfMalignantNucleiPath = By.xpath("//*[contains(@id,'question-id-q321')]");
                     seleniumLib.clearValue(percentageOfMalignantNucleiPath);
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         seleniumLib.sendValue(percentageOfMalignantNucleiField, paramNameValue.get(key));
@@ -762,7 +743,7 @@ public class SamplesPage {
                 }
                 case "NumberOfSlides": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        seleniumLib.sendValue(numberOfSlidesField,paramNameValue.get(key));
+                        seleniumLib.sendValue(numberOfSlidesField, paramNameValue.get(key));
                     }
                     break;
                 }
@@ -776,8 +757,8 @@ public class SamplesPage {
                         break;
                     }
                 }
-                case "SampleComments":{
-                    seleniumLib.sendValue(sampleCommentsField,paramNameValue.get(key));
+                case "SampleComments": {
+                    seleniumLib.sendValue(sampleCommentsField, paramNameValue.get(key));
                     break;
                 }
             }
@@ -794,7 +775,6 @@ public class SamplesPage {
             expValue = paramNameValue.get(key);
             switch (key) {
                 case "SampleType": {
-
                     actValue = seleniumLib.getText(sampleTypePath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -803,7 +783,7 @@ public class SamplesPage {
                     break;
                 }
                 case "SampleState": {
-                   actValue = seleniumLib.getText(sampleStatePath);
+                    actValue = seleniumLib.getText(sampleStatePath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
@@ -840,7 +820,7 @@ public class SamplesPage {
                     }
                     break;
                 }
-                case "NumberOfSlides":{
+                case "NumberOfSlides": {
                     actValue = numberOfSlidesField.getAttribute("value");
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -848,9 +828,9 @@ public class SamplesPage {
                     }
                     break;
                 }
-                case "SampleCollectionDate":{
-                    actValue = sampleCollectionDay.getAttribute("value")+"-";
-                    actValue += sampleCollectionMonth.getAttribute("value")+"-";
+                case "SampleCollectionDate": {
+                    actValue = sampleCollectionDay.getAttribute("value") + "-";
+                    actValue += sampleCollectionMonth.getAttribute("value") + "-";
                     actValue += sampleCollectionYear.getAttribute("value");
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -858,7 +838,7 @@ public class SamplesPage {
                     }
                     break;
                 }
-                case "SampleComments":{
+                case "SampleComments": {
                     By sampleCommentsPath = By.xpath("//*[contains(@id,'question-id-q327')]");
                     actValue = seleniumLib.getText(sampleCommentsPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {

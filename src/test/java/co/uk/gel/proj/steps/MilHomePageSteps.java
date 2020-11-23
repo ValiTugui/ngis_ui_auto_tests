@@ -34,7 +34,10 @@ public class MilHomePageSteps extends Pages {
     public void theUserNavigatesToTheMiPortalStage(String miPage) {
         boolean testResult = false;
         testResult = miPortalHomePage.navigateToMiPage(miPage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIPageNavigation.jpg");
+            Assert.fail("Could not navigate to MI Page");
+        }
     }
 
 
@@ -42,7 +45,10 @@ public class MilHomePageSteps extends Pages {
     public void theUserSelectsAValueFromTheColumnDropDown(String value, String dropDownButton) {
         boolean testResult = false;
         testResult = miPortalHomePage.selectSearchValueDropDown(value, dropDownButton);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIDropDown.jpg");
+            Assert.fail("Could select the drop down value");
+        }
     }
 
 
@@ -64,7 +70,10 @@ public class MilHomePageSteps extends Pages {
     public void theUserClickOnTheSearchButton() {
         boolean testResult = false;
         testResult = miPortalHomePage.clickSearchButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchButton.jpg");
+            Assert.fail("Search button could not found/click");
+        }
     }
 
     @When("the user click on the reset button")
@@ -151,7 +160,10 @@ public class MilHomePageSteps extends Pages {
     public void theSearchResultsSectionDisplaysTheElementsSearchResultsTextDisplayOptionsEntryOptionsResultRowHeaderAndDownLoadCSV() {
         boolean testResult = false;
         testResult = miPortalHomePage.verifyTheElementsInTheSearchResultSection();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchResultDisplay.jpg");
+            Assert.fail("Search result section not displayed the required details.");
+        }
     }
 
     @When("the user clicks on the Download CSV button to download the CSV file as {string}.csv")

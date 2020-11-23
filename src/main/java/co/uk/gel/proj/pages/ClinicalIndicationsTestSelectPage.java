@@ -6,7 +6,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -104,10 +103,7 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean clickStartTestOrderReferralButton() {
         try {
-            //Debugger.println("Starting Referral....");
             if (!Wait.isElementDisplayed(driver, startTestOrderButton, 80)) {
-                Debugger.println("Start Referral button not displayed even after waiting period 60s...Failing.");
-                SeleniumLib.takeAScreenShot("startReferralError.jpg");
                 return false;
             }
             Actions.clickElement(driver,startTestOrderButton);
@@ -118,25 +114,24 @@ public class ClinicalIndicationsTestSelectPage {
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from Starting Referral...." + exp);
-                SeleniumLib.takeAScreenShot("startReferralError.jpg");
                 return false;
             }
         }
-
     }
 
-    public void clickBackToSearchButton() {
+    public boolean clickBackToSearchButton() {
         try {
             if (!Wait.isElementDisplayed(driver, backToSearch, 10)) {
                 Actions.scrollToTop(driver);
             }
             Actions.clickElement(driver, backToSearch);
+            return true;
         }catch(Exception exp){
             try {
                seleniumLib.clickOnWebElement(backToSearch);
+               return true;
             }catch(Exception exp1){
-                Debugger.println("Exception in clickBackToSearchButton:" + exp1+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("clickBackToSearchButton.jpg");
+                return false;
             }
         }
     }
@@ -151,8 +146,6 @@ public class ClinicalIndicationsTestSelectPage {
                 seleniumLib.clickOnWebElement(goToTestPageButtonFromPopup);
                 return true;
             }catch(Exception exp1) {
-                Debugger.println("Exception in clickGoToTestPageButton:" + exp);
-                SeleniumLib.takeAScreenShot("clickGoToTestPageButton.jpg");
                 return false;
             }
         }
@@ -168,25 +161,19 @@ public class ClinicalIndicationsTestSelectPage {
                 seleniumLib.clickOnWebElement(goToClinicalIndicationsButtonInPopup);
                 return true;
             }catch(Exception exp1) {
-                Debugger.println("Exception in clickGoToClinicalIndicationButton:" + exp);
-                SeleniumLib.takeAScreenShot("clickGoToClinicalIndicationButton.jpg");
                 return false;
             }
         }
     }
-
     public boolean validateIfLoadingWheelIsPresent() {
         return loadingWheel.size() >= 0;
     }
 
     public boolean validateIfCorrectTextIsDisplayed(String expected) {
         if(!Wait.isElementDisplayed(driver,loadingText,30)){
-            Debugger.println("Text element not displayed:"+expected);
-            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
             return false;
         }
         String actual = loadingText.getText();
-        Debugger.println("ActualText:"+actual);
         if(actual.equalsIgnoreCase(expected)){
             return true;
         }
@@ -194,37 +181,31 @@ public class ClinicalIndicationsTestSelectPage {
             //Wait for another 30 seconds more - as observed from jenkins failure
             Wait.seconds(30);
         }else{
-            Debugger.println("Expected text:"+expected+",Actual:"+actual);
-            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
             return false;
         }
         actual = loadingText.getText();
-        Debugger.println("ActualText1:"+actual);
         if(!actual.equalsIgnoreCase(expected)){
-            Debugger.println("Expected text:"+expected+",Actual:"+actual);
-            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
-            return false;
+           return false;
         }
         return true;
     }
     public boolean validateIfCorrectButtonDisplayed(String expected) {
         if(!Wait.isElementDisplayed(driver,startTestOrderButton,10)){
-            Debugger.println("Text element not displayed:"+expected);
-            SeleniumLib.takeAScreenShot("validateIfCorrectButtonDisplayed.jpg");
             return false;
         }
         String actual = startTestOrderButton.getText();
         if(!actual.equalsIgnoreCase(expected)){
-            Debugger.println("Expected text:"+expected+",Actual:"+actual);
-            SeleniumLib.takeAScreenShot("validateIfCorrectButtonDisplayed.jpg");
             return false;
         }
         return true;
     }
 
-    public boolean validateIfWrongTextIsNotDisplayed(WebElement element, String expected) {
-        String actual = element.getText();
-        return !actual.equalsIgnoreCase(expected);
+    public boolean validateIfWrongTextIsNotDisplayed(String expected) {
+        String actual = loadingText.getText();
+        if(actual.equalsIgnoreCase(expected)){
+            return false;
+        }
+        return true;
     }
 
     public boolean checkIfClinicalIndicationsAreLoaded() {
@@ -232,12 +213,9 @@ public class ClinicalIndicationsTestSelectPage {
             if(Wait.isElementDisplayed(driver, clinicalIndicationsResultContainer,180)) {
                 return clinicalIndicationsResults.size() >= 0;
             }
-            Debugger.println("FAILED: ClinicalIndicationResultContainer not loaded."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("clinicalIndicationsResultContainer.jpg");
             return false;
         }catch(Exception exp){
             Debugger.println("Exception in ClinicalIndicationResultContainer loading.. "+exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("clinicalIndicationsResultContainer.jpg");
             return false;
         }
     }
@@ -299,8 +277,6 @@ public class ClinicalIndicationsTestSelectPage {
             }
             return isSelected;
         }catch(Exception exp){
-            Debugger.println("Exception from selectTab:"+exp);
-            SeleniumLib.takeAScreenShot("selectTab.jpg");
             return false;
         }
     }
@@ -441,14 +417,10 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean verifyTheOverlayIsDisplayed() {
         try {
             if(!Wait.isElementDisplayed(driver, overlayPage,10)){
-                Debugger.println("Clinical indication page is not covered by an overlay");
-                SeleniumLib.takeAScreenShot("OverLayPage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying verifyTheOverlayIsDisplayed" + exp);
-            SeleniumLib.takeAScreenShot("OverLayPage.jpg");
             return false;
         }
     }
@@ -456,30 +428,23 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean closeClinicalIndicationPopUp() {
         try{
             if(!Wait.isElementDisplayed(driver, closePopupButton,10)){
-                Debugger.println("Clinical indication close pop icon not displayed.");
-                SeleniumLib.takeAScreenShot("CIClosePopupIcon.jpg");
+                return false;
             }
             closePopupButton.click();
             return true;
         }catch (Exception exp){
-            Debugger.println("Exception from closing Clinical Indication: "+exp);
-            SeleniumLib.takeAScreenShot("CIClosePopupIcon.jpg");
             return false;
         }
     }
     public boolean clickOnViewMoreIcon(){
         try{
             if(!Wait.isElementDisplayed(driver,testInfoIcon,10)){
-                Debugger.println("View More Icon not present.");
-                SeleniumLib.takeAScreenShot("clickOnViewMoreIcon.jpg");
                 return false;
             }
             Actions.clickElement(driver,testInfoIcon);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from clickOnViewMoreIcon:"+exp);
-            SeleniumLib.takeAScreenShot("clickOnViewMoreIcon.jpg");
-            return false;
+           return false;
         }
     }
 }

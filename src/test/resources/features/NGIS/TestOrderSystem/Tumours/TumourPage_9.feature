@@ -97,7 +97,7 @@ Feature: TestOrder - Tumours Page - 9
     And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
     Then the user is navigated to a page with title Select or edit a tumour
-    And the "<Tumours>" stage is NOT marked as Mandatory To Do
+    And the "<Tumours>" stage is marked as Mandatory To Do
     Then on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
@@ -185,7 +185,7 @@ Feature: TestOrder - Tumours Page - 9
     And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
     Then the user is navigated to a page with title Select or edit a tumour
-    And the "<Tumours>" stage is NOT marked as Mandatory To Do
+    And the "<Tumours>" stage is marked as Mandatory To Do
     Then on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:

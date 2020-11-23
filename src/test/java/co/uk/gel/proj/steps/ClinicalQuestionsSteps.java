@@ -31,17 +31,26 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("there is {string} existing HPO term")
     public void thereIsExistingHPOTerm(String numberOfHPOTerms) {
-        Assert.assertTrue(clinicalQuestionsPage.verifyTheCountOfHPOTerms(Integer.parseInt(numberOfHPOTerms)));
+        if(!clinicalQuestionsPage.verifyTheCountOfHPOTerms(Integer.parseInt(numberOfHPOTerms))) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HPOTerm.jpg");
+            Assert.fail("Existing HPO term validation failed.");
+        }
     }
 
     @When("the user adds a new HPO phenotype term {string}")
     public void theUserAddsANewHPOPhenotypeTerm(String newHPOTerm) {
-        int actualNumberOfHPOTerms = clinicalQuestionsPage.searchAndSelectRandomHPOPhenotype(newHPOTerm);
+        if(clinicalQuestionsPage.searchAndSelectRandomHPOPhenotype(newHPOTerm) < 1){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewHPOTerm.jpg");
+            Assert.fail("New HPO term not added.");
+        }
     }
 
     @Then("the new HPO term {string} appears at the top of the list of the HPO terms")
     public void theNewHPOTermAppearsAtTheTopOfTheListOfTheHPOTerms(String expectedHPOTerm) {
-        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm));
+        if(!clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NewHPOTerm.jpg");
+            Assert.fail("New HPO term not appeared at top.");
+        }
     }
 
     @And("the Clinical Questions page is displayed with at least {string} HPO terms in the HPO Phenotype section")
@@ -57,7 +66,11 @@ public class ClinicalQuestionsSteps extends Pages {
         }
         if(!actualValue.equalsIgnoreCase(expectedDiagnosis)){
             actualValue = clinicalQuestionsPage.retrySelectingDiagnosis(expectedDiagnosis);
-            Assert.assertEquals("Success",actualValue);
+            if(!actualValue.equalsIgnoreCase("Success")){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RareDisease.jpg");
+                Assert.fail("Rare disease selection not success");
+            }
+
         }
     }
 
@@ -114,15 +127,21 @@ public class ClinicalQuestionsSteps extends Pages {
     @And("the user sees an error {string} message on the page")
     public void theUserSeesAnErrorMessageOnThePage(String expectedErrorMessage) {
         String actualErrorMessage = clinicalQuestionsPage.getErrorMessageText();
-        Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
+        if(!expectedErrorMessage.equalsIgnoreCase(actualErrorMessage)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoErrorMsg.jpg");
+            Assert.fail("Error messsge not seeen as expected:"+expectedErrorMessage);
+        }
     }
 
     @And("the user does not see an error message on the page")
     public void theUserDoesNotSeeAnErrorMessageOnThePage() {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.checkNoErrorMessageIsDisplayed();
-        Assert.assertTrue(testResult);
-    }
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoErrorMsg.jpg");
+            Assert.fail("No error message displayed.");
+        }
+   }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         boolean testResult = false;
@@ -131,6 +150,7 @@ public class ClinicalQuestionsSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalQuestions");
         }
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalQuestions");
             Assert.fail("Clinical Questions could not enter.");
         }
    }
@@ -153,15 +173,15 @@ public class ClinicalQuestionsSteps extends Pages {
     @Then("the Disease status field is NOT set with the disease status value (.*)")
     public void theDiseaseStatusFieldIsNotSetWithTheDiseaseStatusValue(String expectedDefaultValueOfDiseaseStatus) {
         String actualValueOfDiseaseStatus = clinicalQuestionsPage.getDefaultValueOfDiseaseStatus();
-        Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
+        //Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
         Assert.assertFalse(actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus));
     }
     @Then("the Disease status field is SET with the disease status value (.*)")
     public void theDiseaseStatusFieldIsSetWithTheDiseaseStatusValue(String expectedDefaultValueOfDiseaseStatus) {
         String actualValueOfDiseaseStatus = clinicalQuestionsPage.getDefaultValueOfDiseaseStatus();
-        Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
+        //Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
         if(!actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus)){
-            Debugger.println("URL:"+driver.getCurrentUrl());
+            //Debugger.println("URL:"+driver.getCurrentUrl());
             Assert.fail("Expected :"+expectedDefaultValueOfDiseaseStatus+",Actual:"+actualValueOfDiseaseStatus);
         }
     }
@@ -185,25 +205,14 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user sees the data such as {string} {string} {string} {string} phenotypic and karyotypic sex are saved")
     public void theUserSeesTheDataSuchAsPhenotypicAndKaryotypicSexAreSaved(String expectedDiseaseStatus, String expectedHPOTerm, String searchTerms, String expectedRareDiseaseValue) {
-        Debugger.println("URL: "+driver.getCurrentUrl());
+        //Debugger.println("URL: "+driver.getCurrentUrl());
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
         String[] expectedAgeOnSets = paramNameValue.get("AgeOfOnset").split(",");
         String expectedHPOTermInFirstRow = paramNameValue.get("HpoPhenoType");
         // verify Age On Set
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetYearsValue(expectedAgeOnSets[0]));
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetMonthValue(expectedAgeOnSets[1]));
-        // verify Disease Status
-//        Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiseaseStatusValue(expectedDiseaseStatus));
-//        // verify HPO term
-//        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTermInFirstRow));
-//        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTerm));
-//        //verify Rare Disease Diagnoses
-//        Assert.assertTrue(clinicalQuestionsPage.verifySpecificRareDiseaseValue(expectedRareDiseaseValue));
-//        //verify Phenotypic and karyotypic sex
-//        Assert.assertNotNull(clinicalQuestionsPage.getPhenotypicSexDropdownValue());
-//        Assert.assertNotNull(clinicalQuestionsPage.getKaryotypicSexDropdownValue());
-
-    }
+     }
     @When("the user search for a HPO phenotype term {string} by selecting from the list of answers")
     public void theUserSearchForAHPOPhenotypeTermBySelectingFromTheListOfAnswers(String hpoTerm) {
         theUserAddsANewHPOPhenotypeTerm(hpoTerm);
@@ -252,7 +261,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user sees the data in HPO phenotype details such as {string} Term presence {string}")
     public void theUserSeesTheDataInHPOPhenotypeDetailsSuchAsTermPresence(String expectedHPOTerm, String expectedTermPresence) {
-        Debugger.println("URL:...."+driver.getCurrentUrl());
+        //Debugger.println("URL:...."+driver.getCurrentUrl());
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTerm));
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificTermPresence(expectedTermPresence));
     }
@@ -325,7 +334,11 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserShouldAbleToSeeTheSameFamilyMemberDiseaseStatusDetails(String diseaseStatus) {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.verifyTheFilledDiseaseStatusDetails(diseaseStatus);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DiseaseStatus.jpg");
+            Assert.fail("Disease status details not correct: "+diseaseStatus);
+        }
+
     }
     //Created this new method for optional field validation as it is observed that the existing method pass with mandatory label also.
     @And("the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page")
@@ -340,14 +353,21 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserShouldSeeThatSpecialCharactersAreNotAllowed() {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.verifyThePresenceOfSpecialCharacters();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SpecialChar.jpg");
+            Assert.fail("Special characters are allowed.");
+        }
     }
 
     @Then("the user should be able to see the hint text {string} for HPO phenotype details")
     public void theUserShouldBeAbleToSeeTheHintTextForHPOPhenotypeDetails(String hintText) {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.verifyTheHPOFieldsHintText(hintText);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HintText.jpg");
+            Assert.fail("Hint Text not displayed.");
+        }
+
     }
     @Then("the user should be able to see the hint text {string} for the {string}")
     public void theUserShouldBeAbleToSeeTheHintTextForThe(String hintText, String dropdownInput) {
@@ -378,7 +398,10 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserSeesAnBottomMessageOnThePage(String subTitlemsg) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifySubTitleMessage(subTitlemsg);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SubtitleMsg.jpg");
+            Assert.fail("Subtitle message not displayed");
+        }
     }
     @And("the user see error message when providing invalid age of onsets")
     public void theUserSeeErrorMessageWhenProvidingInvalidAgeOfOnsets(DataTable inputDetails) {
@@ -440,6 +463,9 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserAnswersThePhenotypicSex() {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PhenotypeSex.jpg");
+            Assert.fail("Phenotypic sex not answered");
+        }
     }
 }

@@ -47,7 +47,10 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserShouldBeAbleToSeeContinueButtonOnLandingPage() {
         boolean testResult = false;
         testResult = globalBehaviourPage.verifyTheContinueButtonOnLandingPage();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ContinueButton.jpg");
+            Assert.fail("No Continue Button present");
+        }
     }
 
     @When("the user should see previous labels replaced as current labels")
@@ -56,11 +59,11 @@ public class GlobalBehaviourSteps extends Pages {
         List<List<String>> labels = labelsList.asLists();
         for (int i = 1; i < labels.size(); i++) {
             testResult = globalBehaviourPage.verifyReplacedLabelsInTheCurrentPage(labels.get(i).get(0),labels.get(i).get(1));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NHSLabel.jpg");
+                Assert.fail("No NHS Label present");
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user checks for different screen width of {string}")
@@ -104,7 +107,10 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserFillsUsernameAndPasswordToLogin(String loginType) {
         boolean testResult = false;
         testResult = globalBehaviourPage.loginWithMicrosoftAccount(loginType);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TOLogin.jpg");
+            Assert.fail("Could login to TO");
+        }
     }
     @Then("the user should be able to see an error message {string}")
     public void theUserShouldBeAbleToSeeAnErrorMessage(String errMessage) {
