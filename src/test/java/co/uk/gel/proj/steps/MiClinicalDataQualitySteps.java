@@ -47,7 +47,7 @@ public class MiClinicalDataQualitySteps extends Pages {
             testResult = miClinicalDataQualityPage.selectClinicalDqFilterGlh(expectedDropDownValues.get(i).get(0));
             Assert.assertTrue(testResult);
         }
-        Debugger.println("The dropdown values are " + expectedDropDownValues);
+        //Debugger.println("The dropdown values are " + expectedDropDownValues);
     }
 
     @And("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
