@@ -76,7 +76,6 @@ public class SamplesPage {
     @FindBy(xpath = "//input[@placeholder='YYYY']")
     public WebElement sampleCollectionYear;
 
-
     @FindBy(xpath = "//*[contains(@id,'question-id-q327')]")
     public WebElement sampleCommentsField;
 
@@ -204,7 +203,6 @@ public class SamplesPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectSampleType:" + exp);
-            SeleniumLib.takeAScreenShot("selectSampleType.jpg");
             return false;
         }
     }
@@ -224,7 +222,6 @@ public class SamplesPage {
     }
 
     public boolean selectSpecificSampleState(String sampleStateValue) {
-
         try {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
                 Actions.scrollToTop(driver);
@@ -233,7 +230,6 @@ public class SamplesPage {
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("SampleState Drop values not loaded: ");
-                SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
                 return false;
             }
             Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
@@ -241,7 +237,6 @@ public class SamplesPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from SelectSpecificSampleState : " + exp);
-            SeleniumLib.takeAScreenShot("SelectSampleStateValue.jpg");
             return false;
         }
     }
@@ -260,7 +255,6 @@ public class SamplesPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInSampleID:" + exp);
-            SeleniumLib.takeAScreenShot("fillInSampleID.jpg");
             return false;
         }
     }
@@ -273,7 +267,7 @@ public class SamplesPage {
             Actions.selectRandomValueFromDropdown(dropdownValues);
             return true;
         } catch (Exception exp) {
-            Debugger.println(" Sample Topograhy value " + value + " is not displayed in the dynamic dropdown list");
+            Debugger.println(" Sample Topography value " + value + " is not displayed in the dynamic dropdown list");
             return false;
         }
     }
@@ -678,7 +672,6 @@ public class SamplesPage {
     public boolean verifyAddSampleButtonIsDisplayed() {
         if (!Wait.isElementDisplayed(driver, addSampleButton, 10)) {
             Debugger.println("Add Samples Button not displayed as expected.");
-            SeleniumLib.takeAScreenShot("AddSamplesButton.jpg");
             return false;
         }
         return true;

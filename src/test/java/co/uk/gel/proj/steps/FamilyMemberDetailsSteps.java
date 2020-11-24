@@ -445,7 +445,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Wait.seconds(5);
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
                 if (familyMember == null) {
-                    Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
                     SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                     Assert.fail("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
                 }
@@ -463,7 +462,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                 }
                 Wait.seconds(5);
                 if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
-                    Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                     SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
                     Assert.fail("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                 }
@@ -491,7 +489,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FamilyMembers");
             }
         } catch (Exception exp) {
-            Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: " + exp);
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FM.jpg");
             Assert.fail("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ");
         }

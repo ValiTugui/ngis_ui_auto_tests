@@ -885,7 +885,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInNonExistingPatientDetailsUsingNHSNumberAndDOB:" + exp);
-            //SeleniumLib.takeAScreenShot("fillInNonExistingPatientDetailsUsingNHSNumberAndDOB.jpg");
             return false;
         }
     }
@@ -904,7 +903,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInNonExistingPatientDetailsForChildReferral:" + exp);
-            //SeleniumLib.takeAScreenShot("fillInNonExistingPatientDetailsForChildReferral.jpg");
             return false;
         }
     }

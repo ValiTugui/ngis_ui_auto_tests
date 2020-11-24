@@ -183,7 +183,6 @@ public class ResponsibleClinicianPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in filling fillInClinicianFormFields:" + exp);
-            SeleniumLib.takeAScreenShot("fillInClinicianFormFields.jpg");
             return false;
         }
 
@@ -246,7 +245,8 @@ public class ResponsibleClinicianPage {
         Wait.forElementToBeDisplayed(driver, addAnotherClinicianButton);
         if (addAnotherClinicianButton.isDisplayed() && addAnotherClinicianButton.getText().contains(expectedHyperlinkText)) {
             return true;
-        } else return false;
+        }
+        return false;
     }
 
     public boolean verifyRemoveHyperlinkExists(String expectedHyperlinkText) {
@@ -266,7 +266,8 @@ public class ResponsibleClinicianPage {
         String redColour = StylesUtils.convertFontColourStringToCSSProperty(expectedColourUponError);
         if (lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)) {
             return true;
-        } else return false;
+        }
+        return false;
     }
 
     public boolean verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(String expectedColourUponError) {
@@ -658,7 +659,6 @@ public class ResponsibleClinicianPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in Filling ResponsibleClinician Information: " + exp + "\n" + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("ResponsibleClinician.jpg");
             return false;
         }
     }

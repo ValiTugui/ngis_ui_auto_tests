@@ -9,6 +9,7 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -34,7 +35,10 @@ public class PedigreeSteps extends Pages {
         }
 
         boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient, "NGIS");
-        Assert.assertTrue(testResult);
+        if(!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PedigreeNode.jpg");
+            Assert.fail("Could not click on specific node:"+patient);
+        }
     }
     @When("the user clicks on the proband node on the pedigree diagram for {string} and {string}")
     public void theUserClicksOnTheProbandNodeOnThePedigreeDiagram(String patientType,String gender) {
@@ -66,14 +70,20 @@ public class PedigreeSteps extends Pages {
     public void theUserWillSeeAWarningMessageOnThePatientChoiceInformationOption(String warningMessage) {
         boolean testResult = false;
         testResult = pedigreePage.pedigreeWarningMessage(warningMessage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeWarning.jpg");
+            Assert.fail("Pedigree warning message not displayed");
+        }
     }
 
     @Then("the user should be able to see a {string} on the pedigree page")
     public void theUserShouldBeAbleToSeeAOnThePedigreePage(String warningMessage) {
         boolean testResult = false;
         testResult = pedigreePage.infoMessagesInPedigreePage(warningMessage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeInfo.jpg");
+            Assert.fail("Pedigree Info message not displayed");
+        }
     }
 
     @Then("the user should see the below messages displayed in the pedigree page")
@@ -82,7 +92,10 @@ public class PedigreeSteps extends Pages {
         List<List<String>> messageDetails = messages.asLists();
         for (int i = 0; i < messageDetails.size(); i++) {
             testResult = pedigreePage.verifyPedigreeIntroMessages(messageDetails.get(i).get(0));
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeIntro.jpg");
+                Assert.fail("Pedigree Intro message not displayed");
+            }
         }
     }
 
@@ -91,7 +104,10 @@ public class PedigreeSteps extends Pages {
     public void theUserClicksTheSpecifiedOnTheNode(String value) {
         boolean testResult = false;
         testResult = pedigreePage.clickSpecificPedigreeTab(value);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeTab.jpg");
+            Assert.fail("Click on pedigree tab failed:"+value);
+        }
     }
 
     @Then("the user should see below fields on Clinical Tab with the given status")
@@ -101,7 +117,8 @@ public class PedigreeSteps extends Pages {
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsPresenceOnClinicalTab(fields.get(i).get(0));
             if (!testResult) {
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalTab.jpg");
+                Assert.fail("Clinical tab fields are not present");
             }
             testResult = pedigreePage.getDisableStatusOfClinicalTabField(fields.get(i).get(0));
             if (fields.get(i).get(1).equalsIgnoreCase("Non-Editable")) {
@@ -109,13 +126,11 @@ public class PedigreeSteps extends Pages {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Non-Editable,But actual Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                 }
-                Assert.assertTrue(testResult);
             } else {
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                 }
-                Assert.assertFalse(testResult);
             }
         }//for
     }
@@ -126,8 +141,9 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = fieldsDetails.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsPresenceOnPhenotypeTab(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PhenotypeTab.jpg");
+                Assert.fail("Phenotype tab not present:");
             }
             testResult = pedigreePage.getDisableStatusOfPhenotypeTabField(fields.get(i).get(0));
             if (fields.get(i).get(1).equalsIgnoreCase("Non-Editable")) {
@@ -135,16 +151,13 @@ public class PedigreeSteps extends Pages {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Non-Editable,But actual Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                 }
-                Assert.assertTrue(testResult);
             } else {
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                 }
-                Assert.assertFalse(testResult);
             }
         }//for
-        Assert.assertTrue(testResult);
     }
 
     @Then("the user should see below fields on Tumours Tab with the given status")
@@ -153,23 +166,22 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = fieldsDetails.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsPresenceOnTumoursTab(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TumourTab.jpg");
+                Assert.fail("Could not verify presence of Tumour tab:");
             }
 
             testResult = pedigreePage.getDisableStatusOfTumoursTabField(fields.get(i).get(0));
             if (fields.get(i).get(1).equalsIgnoreCase("Non-Editable")) {
                 if (!testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Non-Editable,But actual Editable.");
-                    SeleniumLib.takeAScreenShot("TumoursTab.jpg");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TumourTab.jpg");
                 }
-                Assert.assertTrue(testResult);
             } else {
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
-                    SeleniumLib.takeAScreenShot("TumoursTab.jpg");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TumourTab.jpg");
                 }
-                Assert.assertFalse(testResult);
             }
         }
     }
@@ -181,24 +193,30 @@ public class PedigreeSteps extends Pages {
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsValueOnClinicalTab(fields.get(i).get(0));
             if (!testResult) {
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClinicalTab.jpg");
+                Assert.fail("Filed on clinical tab is not present.");
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see (.*) button on Pedigree Page")
     public void theUserShouldBeAbleToSeeOnlySaveButton(String buttonName) {
         boolean testResult = false;
         testResult = pedigreePage.verifyPresenceOfButton(buttonName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeButton.jpg");
+            Assert.fail("Pedigree buttons not displayed");
+        }
     }
 
     @And("the user clicks on Save and Continue on Pedigree Page")
     public void theUserClicksOnSaveAndContinueOnPedigree() {
         boolean testResult = false;
         testResult = pedigreePage.saveAndContinueOnPedigree();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeSaveContinue.jpg");
+            Assert.fail("Pedigree Save and Continue not happened");
+        }
     }
 
     //This step introduced as navigating back from pedigree stage sometimes not working due to some overlay on other stage elements
@@ -217,7 +235,10 @@ public class PedigreeSteps extends Pages {
             Assert.assertTrue(testResult);
         }
         testResult = pedigreePage.verifyClinicalIndicationName(clinicalIndication);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeClinical.jpg");
+            Assert.fail("Pedigree Clinical Indication name not displayed");
+        }
     }
 
     @And("the user should be able to see following menu items in the diagram menus")
@@ -226,11 +247,11 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = menuItems.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyPedigreeDiagramMenu(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeMenu.jpg");
+                Assert.fail("Pedigree diagram not displayed.."+fields.get(i).get(0));
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see following controls to view the diagram")
@@ -239,11 +260,11 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = viewControls.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyPedigreeDiagramViewControls(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeViewControl.jpg");
+                Assert.fail("Pedigree diagram view control not displayed.."+fields.get(i).get(0));
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see the below tabs in the popup window")
@@ -268,14 +289,20 @@ public class PedigreeSteps extends Pages {
     public void theUserShouldSeeTheButtonStatusAs(String buttonName, String status) {
         boolean testResult = false;
         testResult = pedigreePage.verifyButtonStatus(buttonName, status);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeButton.jpg");
+            Assert.fail("Pedigree button status as not expected..");
+        }
     }
 
     @When("the user click on (.*) menu button")
     public void theUserClickOnButton(String buttonName) {
         boolean testResult = false;
         testResult = pedigreePage.clickOnMenuButton(buttonName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeButton.jpg");
+            Assert.fail("Pedigree diagram could not click on button."+buttonName);
+        }
     }
 
     @When("the user adds new parent node to proband {string}")
@@ -291,7 +318,10 @@ public class PedigreeSteps extends Pages {
         }
 
         testResult  = pedigreePage.addParentNodeToProband(patient);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ParentNode.jpg");
+            Assert.fail("Pedigree diagram could not add parent node"+patient);
+        }
     }
 
     @Then("the user sees two NON NGIS Patient ID nodes added to the patient {string}")
@@ -305,7 +335,10 @@ public class PedigreeSteps extends Pages {
             patient.setNGIS_ID(referralPage.getPatientNGISId());
         }
         boolean testResult = pedigreePage.verifyNonNGISNodesPresence(patient);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeNGISNode.jpg");
+            Assert.fail("Pedigree diagram NGIS Node not present.."+patient);
+        }
     }
 
     @Then("the user selects pedigree node for one of the Non NGIS family member for {string}")
@@ -327,13 +360,19 @@ public class PedigreeSteps extends Pages {
         boolean testResult = false;
         String[] year_months = ageOfOnset.split(",");
         testResult = pedigreePage.selectAgeOfOnset(year_months[0], year_months[1]);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeAgeOfOnset.jpg");
+            Assert.fail("Could not select Age of Onset..");
+        }
     }
     @Then("the user updates the parent date of year as {string}")
     public void theUserUpdatesTheParentDateOfYearAs(String yearOfBirth) {
         boolean testResult = false;
         testResult = pedigreePage.setYearOfBirth(yearOfBirth);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeYOB.jpg");
+            Assert.fail("Could not select Year of Birth..");
+        }
     }
 
     @Then("the user should see the hpo phenotypes {string} displayed")
@@ -341,16 +380,20 @@ public class PedigreeSteps extends Pages {
         boolean testResult = false;
         if(phenotypes.indexOf(",") == -1) {
             testResult = pedigreePage.verifyHPOPhenotype(phenotypes);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreePhenotype.jpg");
+                Assert.fail("Could not select Phenotype."+phenotypes);
+            }
         }else{
             String[] phenos = phenotypes.split(",");
             for(int i=0; i<phenos.length; i++){
                 testResult = pedigreePage.verifyHPOPhenotype(phenos[i]);
                 if(!testResult){
-                    Assert.assertTrue(testResult);
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreePhenotype.jpg");
+                    Assert.fail("Could not select Phenotype."+phenos[i]);
                 }
             }
         }
-        Assert.assertTrue(testResult);
     }
     @Then("the user should see the below options for (.*) field Personal tab")
     public void theUserShouldSeeTheBelowListedEthnicityEnumerationsLoadedInPedigree(String fieldName,DataTable enumerations) {
@@ -358,17 +401,20 @@ public class PedigreeSteps extends Pages {
         List<List<String>> enumerationsList = enumerations.asLists();
         for (int i = 0; i < enumerationsList.size(); i++) {
             testResult = pedigreePage.verifyPersonalTabDropDownOptions(fieldName,enumerationsList.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreePersonal.jpg");
+                Assert.fail("Could not see personal tab options.");
             }
         }
-        Assert.assertTrue(testResult);
     }
     @Then("the user enters age at death as {string}")
     public void theUserShouldNotSavePedigreeWithInvalidAgeAtDeath(String ageAtDeath) {
         boolean testResult = false;
         testResult = pedigreePage.setAgeAtDeath(ageAtDeath);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeAgeAtDeath.jpg");
+            Assert.fail("Could not set Age At Death ");
+        }
     }
 
     @And("the user should see diagnosis code options as below")
@@ -377,11 +423,11 @@ public class PedigreeSteps extends Pages {
         List<List<String>> disOrders = diagnosis.asLists();
         for (int i = 1; i < disOrders.size(); i++) {
             testResult = pedigreePage.verifyDiagnosisDisorders(disOrders.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeDiagnosis.jpg");
+                Assert.fail("Could not select Diagnosis disorder."+disOrders.get(i).get(0));
             }
         }
-        Assert.assertTrue(testResult);
     }
     @Then("the user should see below fields on Personal Tab with the given status")
     public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(DataTable fieldsDetails) {
@@ -389,8 +435,9 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = fieldsDetails.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsPresenceOnPersonalTab(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreePersonalTab.jpg");
+                Assert.fail("Could not see presence on personal tab."+fields.get(i).get(0));
             }
         }//for
     }
@@ -398,7 +445,10 @@ public class PedigreeSteps extends Pages {
     public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(String errorMessage) {
         boolean testResult = false;
         testResult = pedigreePage.verifyErrorMessageOnPopup(errorMessage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeErrorMsg.jpg");
+            Assert.fail("Could not verify error message "+errorMessage);
+        }
     }
 
     @And("the verify the Pedigree diagram is loaded with java script instead of iframe")
@@ -417,14 +467,20 @@ public class PedigreeSteps extends Pages {
             return;
         }
         boolean testResult = pedigreePage.verifyNonNGISPatientIDInPersonalTab(patient.getNON_NGIS_ID1());
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeNGSID.jpg");
+            Assert.fail("NonNGIS ID ni personal tab could not see ");
+        }
     }
 
     @And("the user enters tumour field values as {string}")
     public void theUserEntersTumourFieldValuesAs(String tumourValues) {
         boolean testResult = false;
         testResult = pedigreePage.setTumourValues(tumourValues);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeTumour.jpg");
+            Assert.fail("Could not set Tumour values "+tumourValues);
+        }
     }
 
     @And("the user should see HPO Present options as below")
@@ -433,33 +489,41 @@ public class PedigreeSteps extends Pages {
         List<List<String>> hpos = hpoOptions.asLists();
         for (int i = 1; i < hpos.size(); i++) {
             testResult = pedigreePage.verifyHPOPresentOptions(hpos.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeHPO.jpg");
+                Assert.fail("HPO not present "+(hpos.get(i).get(0)));
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to search disease {string} and codes in the pedigree and add to the selected nodes")
     public void theUserShouldBeAbleToSearchDiseaseAndCodesInThePedigreeAndAddToTheSelectedNodes(String disease) {
         boolean testResult = false;
         testResult = pedigreePage.searchAndAddDiseaseOrder(disease);
-        Assert.assertTrue(testResult);
-
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeDisease.jpg");
+            Assert.fail("Disease could not add. "+disease);
+        }
     }
 
     @Then("user should see the Participating in Test check box is (.*)")
     public void userShouldSeeTheParticipatingInTestCheckBoxIsNotSelected(String selectStatus) {
         boolean testResult = false;
         testResult = pedigreePage.verifyParticipateInSelectStatus(selectStatus);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreePID.jpg");
+            Assert.fail("Participant could not verify"+selectStatus);
+        }
     }
 
     @Then("the user selects the document evaluation option")
     public void theUserSelectsTheDocumentEvaluationOption() {
         boolean testResult =false;
         testResult=pedigreePage.selectDocumentEvaluationOption();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeDocEvaluate.jpg");
+            Assert.fail("Could not select Document Evaluation option.");
+        }
     }
 
     @When("the user clicks on the proband node on the pedigree for {string} and {string}")
@@ -467,7 +531,10 @@ public class PedigreeSteps extends Pages {
         boolean testResult = false;
         String ngisID=referralPage.getPatientNGISId();
         testResult = pedigreePage.clickProbandNodeOnPedigree(patientType,gender,ngisID);
-        Assert.assertTrue("Error from click specific node for member with NGIS:", testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeNode.jpg");
+            Assert.fail("Could not click on Pedigree Node ");
+        }
     }
 
     @When("the user clicks on the family member node on the pedigree diagram for {string} and {string}")
@@ -482,13 +549,19 @@ public class PedigreeSteps extends Pages {
     public void userShouldSeeTheMonozygoticTwinCheckboxIs(String selectStatus) {
         boolean testResult = false;
         testResult = pedigreePage.verifyMonozygoticTwinInSelectStatus(selectStatus);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeStatus.jpg");
+            Assert.fail("Could not verifyMonozygoticTwinInSelectStatus "+selectStatus);
+        }
     }
 
     @Then("The user should see the monozygotic twin check box status as (.*)")
     public void theUserShouldSeeTheMonoTwinCheckboxIsNotPresent(String status) {
         boolean testResult = false;
         testResult = pedigreePage.verifyMonozygoticTwinInSelectStatusAsNotSelected(status);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PedigreeStatus.jpg");
+            Assert.fail("Could not verifyMonozygoticTwinInSelectStatus "+status);
+        }
     }
 }//end

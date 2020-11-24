@@ -73,7 +73,6 @@ public class DashBoardPage {
             Wait.forElementToBeDisplayed(driver, resultsPanel);
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
-            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
         }
     }
 
@@ -136,35 +135,30 @@ public class DashBoardPage {
                     case 0:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Find a genomic test")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Find a genomic test");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 1:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Order a genomic test")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Order a genomic test");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 2:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Manage samples")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Manage samples");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 3:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Enter the Interpretation Portal")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Enter the Interpretation Portal");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 4:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Open PanelApp")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Open PanelApp");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
@@ -173,7 +167,6 @@ public class DashBoardPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception form verifyTheDashboardTabs :" + exp);
-            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
             return false;
         }
     }

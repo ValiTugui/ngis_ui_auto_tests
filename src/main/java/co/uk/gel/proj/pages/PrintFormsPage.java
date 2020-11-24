@@ -33,10 +33,6 @@ public class PrintFormsPage {
     }
 
     String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
-
-    String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
-
-    //@FindBy(xpath = "//strong[contains(text(),'Tumour')]")
     @FindBy(xpath = "//button[@aria-label='print button']")
     WebElement probandPrintFormDownloadLocator;
 
@@ -130,7 +126,7 @@ public class PrintFormsPage {
     public boolean downloadSpecificPrintFormForDOB(NGISPatientModel familyMember, String folder) {
         try {
             String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
-            Debugger.println("Family Member DOB to download form: " + dob);
+            //Debugger.println("Family Member DOB to download form: " + dob);
             String downloadButtonPath=familyFormDownloadButtonPath.replace("dummyDob",dob);
             WebElement familyFormDownloadButton= driver.findElement(By.xpath(downloadButtonPath));
             //Delete if File already present
@@ -151,11 +147,11 @@ public class PrintFormsPage {
     }
 
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember, String folder) {
-        Debugger.println("Family Member NGSID to be validated in PDF: " + familyMember.getNGIS_ID());
+        //Debugger.println("Family Member NGSID to be validated in PDF: " + familyMember.getNGIS_ID());
         String ngsId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getNGIS_ID(), "4");
         String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
         String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
-        Debugger.println("NG:" + ngsId + ",REF:" + referralId + ",dob:" + dob);
+        //Debugger.println("NG:" + ngsId + ",REF:" + referralId + ",dob:" + dob);
         String output;
         PDDocument document = null;
         try {
@@ -169,7 +165,7 @@ public class PrintFormsPage {
             document = PDDocument.load(new File(pathToFile));
             //Debugger.println("Reading PDF content....");
             if (familyMember.getREFERAL_ID() == null) {
-                Debugger.println("Referral ID Could not read: read as null....need to check it.");
+                //Debugger.println("Referral ID Could not read: read as null....need to check it.");
                 familyMember.setREFERAL_ID("");
             }
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
@@ -199,12 +195,12 @@ public class PrintFormsPage {
     public boolean downloadProbandPrintForm() {
         try {
             //Delete if File already present
-            Debugger.println("Deleting Files if Present...");
+            //Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", "");
-            Debugger.println("Attempting to download the Proband sample form");
+            //Debugger.println("Attempting to download the Proband sample form");
             if (!Wait.isElementDisplayed(driver, probandPrintFormDownloadLocator, 30)) {
-                Debugger.println("Proband Pritform download button not displayed.." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("probandPrintForm.jpg");
+                //Debugger.println("Proband Pritform download button not displayed.." + driver.getCurrentUrl());
+                //SeleniumLib.takeAScreenShot("probandPrintForm.jpg");
                 return false;
             }
             Actions.clickElement(driver, probandPrintFormDownloadLocator);
@@ -217,7 +213,7 @@ public class PrintFormsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Could not locate the print button ..... " + exp);
-                SeleniumLib.takeAScreenShot("ProbandPrintFormsDownload.jpg");
+                //SeleniumLib.takeAScreenShot("ProbandPrintFormsDownload.jpg");
                 return false;
             }
         }
@@ -228,15 +224,15 @@ public class PrintFormsPage {
         try {
 
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
-            Debugger.println("PDF file location: " + pathToFile);
+            //Debugger.println("PDF file location: " + pathToFile);
             // pdf file with full path name
             document = PDDocument.load(new File(pathToFile));
-            Debugger.println("Reading PDF content....");
+            //Debugger.println("Reading PDF content....");
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
             // outputData = outputData.replaceAll("/  +/g", " ");
             outputData = outputData.replaceAll("\\s+", " ");
-            Debugger.println("Actual Data from PDF sample form :\n" + outputData);
+            //Debugger.println("Actual Data from PDF sample form :\n" + outputData);
             boolean testResult = false;
             String expValue;
             for (String value : expValues) {
@@ -312,7 +308,6 @@ public class PrintFormsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Print Forms Page:Warning Message: " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormsPageWarningMessage.jpg");
             return false;
         }
     }
@@ -479,14 +474,12 @@ public class PrintFormsPage {
             String[] labName = selectedLaboratory.getText().split(" ");
             if (labName == null || labName.length < 1) {
                 Debugger.println("No lab details exists...");
-                SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
-                return null;
+               return null;
             }
             returnValue = labName[0];
             return returnValue;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readSelectedLabDetails: " + exp);
-            SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
             return null;
         }
     }

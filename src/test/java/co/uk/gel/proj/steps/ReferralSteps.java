@@ -372,8 +372,10 @@ public class ReferralSteps extends Pages {
         String actualAlertMessage;
         if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour"))))) {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
-            Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
-            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+            if(!actualAlertMessage.contains(partOfMessage)){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+                Assert.fail("Expected Message:"+partOfMessage+",Actual:"+actualAlertMessage);
+            }
         } else {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
             Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
@@ -384,7 +386,9 @@ public class ReferralSteps extends Pages {
     public void theUserClicksTheLogOutButton() {
         boolean testResult = false;
         testResult = referralPage.clickLogoutButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Logout.jpg");
+        }
     }
 
     @Then("the user sees a warning message {string} on the page")

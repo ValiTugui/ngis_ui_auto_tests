@@ -370,21 +370,30 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSubmitsThePatientChoiceWithSignature() {
         boolean testResult = false;
         testResult = patientChoicePage.submitPatientChoiceWithSignature();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSubmit.jpg");
+            Assert.fail("Patient Choice Could not submit with Signature.");
+        }
     }
 
     @Then("the user should be able to see the patient choice form with success message")
     public void theUserShouldBeAbleToSeeThePatientChoiceFormWithSuccessMessage() {
         boolean testResult = false;
         testResult = patientChoicePage.patientChoiceFormCompleted();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCForm.jpg");
+            Assert.fail("Patient Choice form could not complete.");
+        }
     }
 
     @And("the user should see patient choice submit button as (.*)")
     public void theUserShouldBeAbleToSeeTheHighlightedSubmitPatientChoiceButton(String status) {
         boolean testResult = false;
         testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus(status,"#f0f0f0");
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCSubmit.jpg");
+            Assert.fail("Patient Choice Submit button status is not as expected:"+status);
+        }
     }
     @And("the user should see form to follow button as (.*)")
     public void theUserShouldSeeHighlightedFormToFollowButton(String status) {
@@ -424,7 +433,10 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSeesABackButtonOnAddPatientChoiceInformationPage() {
         boolean testResult = false;
         testResult = patientChoicePage.backButtonOnPatientChoiceInformationPage();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCBackButton.jpg");
+            Assert.fail("Patient Choice back button could not click.");
+        }
     }
 
     @Then("the user will be able to see an error message as {string}")
@@ -438,7 +450,10 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldBeAbleToSeeEnabledContinueButton() {
         boolean testResult = false;
         testResult = patientChoicePage.enabledContinueButtonOnPatientChoiceFormPage();
-        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PC.jpg");
+            Assert.fail("Patient Choice continue button not enabled");
+        }
     }
 
     @When("the user clicks on submit patient choice Button")

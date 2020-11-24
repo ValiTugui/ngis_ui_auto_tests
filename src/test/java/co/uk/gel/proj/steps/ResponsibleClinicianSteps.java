@@ -27,10 +27,13 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserFillsInAllTheClinicianFormFields() {
         boolean testResult = false;
         testResult = responsibleClinicianPage.fillInClinicianFormFields();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ResponsibleClinician");
+            Assert.fail("Could not fill Clinical Form Fields.");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ResponsibleClinician");
         }
-        Assert.assertTrue(testResult);
     }
     @When("the user fills in {string} in clinician form fields")
     public void the_user_fills_in_in_clinician_form_fields(String emailValue) {
@@ -60,7 +63,11 @@ public class ResponsibleClinicianSteps extends Pages {
 
     @And("the user see the {string} displayed to add Additional clinician details")
     public void theUserSeeTheDisplayedToAddAdditionalClinicianDetails(String hyperlinkText) {
-        responsibleClinicianPage.verifyHyperlinkExists(hyperlinkText);
+        boolean testResult = responsibleClinicianPage.verifyHyperlinkExists(hyperlinkText);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_hyperLinkText.jpg");
+            Assert.fail("Could not see the hyper link text: "+hyperlinkText);
+        }
     }
 
     @Then("The Last name field should display an error message {string}")
@@ -70,7 +77,11 @@ public class ResponsibleClinicianSteps extends Pages {
 
     @And("The mandatory field Last name should be highlighted with a {string} red mark")
     public void theMandatoryFieldLastNameShouldBeHighlightedWithARedMark(String hexColourString) {
-        Assert.assertTrue(responsibleClinicianPage.verifyLastNameFieldIsHighlightedInRed(hexColourString));
+        boolean testResult = responsibleClinicianPage.verifyLastNameFieldIsHighlightedInRed(hexColourString);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"hexColourString.jpg");
+            Assert.fail("Could not see the hexColourString: "+hexColourString);
+        }
     }
 
     @And("the user see the field Department name and address is marked as mandatory")
@@ -287,6 +298,7 @@ public class ResponsibleClinicianSteps extends Pages {
         boolean testResult = false;
         testResult = responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ResponsibleClinician.jpg");
             Assert.fail("Responsible Clinician Details could not enter.");
         }
         if(AppConfig.snapshotRequired){
