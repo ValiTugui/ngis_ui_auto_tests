@@ -173,7 +173,6 @@ public class Pages implements Navigable {
             }
         }catch(UnhandledAlertException exp){
             Debugger.println("UnhandledAlertException in Navigating to URL: "+urlToNavigate);
-            SeleniumLib.takeAScreenShot("UnhandledAlertExp.jpg");
         }catch(Exception exp){
             Debugger.println("Exception in Navigating to URL: "+urlToNavigate+"\nExp:"+exp);
             Assert.fail("Exception in Navigating to URL: "+urlToNavigate+"Exp:"+exp);
@@ -219,7 +218,6 @@ public class Pages implements Navigable {
 
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException in Navigating to URL: " + urlToNavigate);
-            SeleniumLib.takeAScreenShot("UnhandledAlertExp.jpg");
         } catch (Exception exp) {
             Debugger.println("Exception in Navigating to URL: " + urlToNavigate + "\nExp:" + exp);
             Assert.fail("Exception in Navigating to URL: " + urlToNavigate + "Exp:" + exp);

@@ -32,7 +32,8 @@ public class PrintFormSteps extends Pages {
                 boolean testResult = false;
                 testResult = printFormsPage.downloadProbandPrintForm();
                 if(!testResult){
-                    Debugger.println("Proband PrintForms could not download.");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms.jpg");
+                    Assert.fail("Could not download proband print form.");
                 }
                 List<List<String>> memberDetails = inputDetails.asLists();
                 for (int i = 1; i < memberDetails.size(); i++) {
@@ -90,7 +91,7 @@ public class PrintFormSteps extends Pages {
                 Assert.assertTrue(testResult);
             } catch (Exception exp) {
                 Debugger.println("PrintFormSteps: Exception in downloading PrintForms: " + exp);
-                Assert.assertFalse("PrintFormSteps: Exception in downloading PrintForms: " + exp, true);
+                Assert.fail("PrintFormSteps: Exception in downloading PrintForms: " + exp);
             }
         }
     }
@@ -190,7 +191,10 @@ public class PrintFormSteps extends Pages {
     public void theUserShouldBeAbleToSeeAOnThePrintFormsPage(String warningMessage) {
         boolean testResult = false;
         testResult = printFormsPage.verifyWarningMessageOnPrintFormsPage(warningMessage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms");
+            Assert.fail("Could not see the warning message on print form:"+warningMessage);
+        }
     }
 
     @And("the print forms stage is (.*)")
@@ -268,12 +272,12 @@ public class PrintFormSteps extends Pages {
         } else if (fieldType.contains("laboratory")) {
             String labDetails = printFormsPage.readSelectedLabDetails();
             if (labDetails == null) {
-                Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LabelDetails.jpg");
+                Assert.fail("Label Details could not verify:"+labDetails);
             }
             //Debugger.println("Validate Laboratory: "+labDetails);
             testResult = printFormsPage.validatePDFContent(labDetails, fileName);
-            Assert.assertTrue(testResult);
+            Assert.fail("Could not verify PDF content details.");
         }
         else {
             Debugger.println("The section name in the step is Not correct.: " + fieldType);

@@ -79,10 +79,12 @@ public class ConcurrencyStepDefs extends Pages {
             }
         } else if (stageName.equalsIgnoreCase("Patient choice")) {
             testResult = patientChoicePage.theUserAnswersThePatientChoiceQuestionsWithPatientChoiceNotRequiredForRD(updateDetails);
-            referralPage.clickSaveAndContinueButton();
             if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PC.jpg");
                 Assert.fail("Patient Choice details could not be enter.");
             }
+            referralPage.clickSaveAndContinueButton();
+
         } else if (stageName.equalsIgnoreCase("Panels")) {
             testResult = panelsPage.updatePanelDetails(updateDetails);
         } else if (stageName.equalsIgnoreCase("Tumours")) {
@@ -142,6 +144,10 @@ public class ConcurrencyStepDefs extends Pages {
             testResult = patientDetailsPage.verifyPatientDetails(verifyDetails);
         } else if (stageName.equalsIgnoreCase("Requesting Organisation")) {
             testResult = requestingOrganisationPage.verifyOrganisationDetails(verifyDetails);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrgDetails.jpg");
+                Assert.fail("Organization details could not verify");
+            }
         } else if (stageName.equalsIgnoreCase("Test package")) {
             testResult = testPackagePage.verifyTestPackageDetails(verifyDetails);
         } else if (stageName.equalsIgnoreCase("Responsible clinician")) {
@@ -159,6 +165,10 @@ public class ConcurrencyStepDefs extends Pages {
             }
         } else if (stageName.equalsIgnoreCase("Patient choice")) {
             testResult = patientChoicePage.statusVerifiedCorrectlyForParticipants(verifyDetails);
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCLanding.jpg");
+                Assert.fail("PCLanding page verification failed.");
+            }
         } else if (stageName.equalsIgnoreCase("Panels")) {
             testResult = panelsPage.verifyPanelDetails(verifyDetails);
         } else if (stageName.equalsIgnoreCase("Tumours")) {

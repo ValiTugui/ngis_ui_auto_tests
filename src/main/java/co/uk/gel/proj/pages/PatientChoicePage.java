@@ -622,7 +622,6 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting ChildAssent:" + exp);
-            SeleniumLib.takeAScreenShot("ChildAssent.jpg");
             return false;
         }
     }
@@ -643,7 +642,6 @@ public class PatientChoicePage {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception from submitting Patient Choice...." + exp);
-                SeleniumLib.takeAScreenShot("submitPatientChoice.jpg");
                 return false;
             }
         }
@@ -682,7 +680,6 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on PatientChoiceInformation Links:" + exp);
-            SeleniumLib.takeAScreenShot("patientChoiceInformationLink.jpg");
             return false;
         }
     }
@@ -774,7 +771,6 @@ public class PatientChoicePage {
                     return true;
                 }
             }
-
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception validating warning message in PC: " + exp+"\n"+driver.getCurrentUrl());
@@ -790,7 +786,6 @@ public class PatientChoicePage {
                     return true;
                 }
             }
-
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
@@ -806,7 +801,6 @@ public class PatientChoicePage {
             if(!Wait.isElementDisplayed(driver, submitPatientChoiceButton1,15)){
                 if(!Wait.isElementDisplayed(driver, submitPatientChoiceButton,15)) {
                     Debugger.println("SubmitPatientChoiceButton No Present."+driver.getCurrentUrl());
-                    SeleniumLib.takeAScreenShot("PCSubmitPCButton.jpg");
                     return false;
                 }else{
                     actualColor = submitPatientChoiceButton.getCssValue("background-color");
@@ -819,7 +813,6 @@ public class PatientChoicePage {
                                 return true;
                             }else {
                                 Debugger.println("PCSubmit Choice:EXP:" + expectedColor+",ACT:"+actualColor+"\n"+driver.getCurrentUrl());
-                                SeleniumLib.takeAScreenShot("PCSubmitPCButtonStatus.jpg");
                                 return false;
                             }
                         }
@@ -836,7 +829,6 @@ public class PatientChoicePage {
                             return true;
                         }else {
                             Debugger.println("PCSubmit Choice:EXP:" + expectedColor+",ACT:"+actualColor+"\n"+driver.getCurrentUrl());
-                            SeleniumLib.takeAScreenShot("PCSubmitPCButtonStatus.jpg");
                             return false;
                         }
                     }
@@ -845,7 +837,6 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PCSubmitPCButton.jpg");
             return false;
         }
     }
@@ -948,16 +939,14 @@ public class PatientChoicePage {
                 Actions.scrollToTop(driver);
                 if (!Wait.isElementDisplayed(driver, patientChoiceFormCompletedMessage, 10)) {
                     Debugger.println("patientChoiceFormCompletedMessage not loaded...."+driver.getCurrentUrl());
-                    SeleniumLib.takeAScreenShot("patientChoiceFormCompletedMessage.jpg");
                     return false;
                 }
             }
-            Debugger.println("PC Complete Message:" + patientChoiceFormCompletedMessage.getText());
+            //Debugger.println("PC Complete Message:" + patientChoiceFormCompletedMessage.getText());
             Wait.seconds(5);
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page: patientChoiceFormCompleted: Form is not loaded: " + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("patientChoiceFormCompletedMessageExp.jpg");
             return false;
         }
     }
@@ -1153,7 +1142,7 @@ public class PatientChoicePage {
     public boolean submitPatientChoiceWithSignature() {
         try {
             Click.element(driver, submitSignatureButton);
-            Debugger.println("SC:" + saveAndContinuePC.isEnabled() + ",SC Color:" + saveAndContinuePC.getCssValue("background-color"));
+            //Debugger.println("SC:" + saveAndContinuePC.isEnabled() + ",SC Color:" + saveAndContinuePC.getCssValue("background-color"));
             Wait.seconds(10);
             return true;
         } catch (Exception exp) {
@@ -1164,7 +1153,6 @@ public class PatientChoicePage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from submitting Patient Choice with Signature...." + exp1);
-                SeleniumLib.takeAScreenShot("submitPatientChoiceWithSignature.jpg");
                 return false;
             }
         }
@@ -1242,13 +1230,11 @@ public class PatientChoicePage {
         try {
             if (!Wait.isElementDisplayed(driver, backButtonOnAddPatientChoiceInformationPage, 30)) {
                 Debugger.println("Back button link not present in Patient Choice Page.");
-                SeleniumLib.takeAScreenShot("PatientChoiceBackButtonPage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying backButtonOnPatientChoiceInformationPage:" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceBackButtonPage.jpg");
             return false;
         }
     }
@@ -1287,7 +1273,6 @@ public class PatientChoicePage {
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
                 if (!formToFollow.isEnabled()) {
                     Debugger.println("Add patient Choice Page:Recorded by:Form to follow Button Not found");
-                    SeleniumLib.takeAScreenShot("RecordByButton.jpg");
                     return false;
                 }
             }
@@ -1366,9 +1351,6 @@ public class PatientChoicePage {
                     isFound = true;
                     break;
                 }
-            }
-            if (!isFound) {
-                Debugger.println("Option: " + choiceOption + " not present for the question:" + question);
             }
             return isFound;
         } catch (Exception exp) {
@@ -1664,7 +1646,6 @@ public class PatientChoicePage {
         try {
             if (!Wait.isElementDisplayed(driver, fileTypeDropDownList.get(formNum), 30)) {
                 Debugger.println("Could not locate fileTypeDropdown for form number "+formNum+" in PC.");
-                SeleniumLib.takeAScreenShot("PCFileTypeDropdown.jpg");
                 return false;
             }
             Actions.clickElement(driver, fileTypeDropDownList.get(formNum));
@@ -1677,14 +1658,9 @@ public class PatientChoicePage {
                     break;
                 }
             }
-            if (!isSelected) {
-                Debugger.println("Could not select the dropdown value:" + dropdownValue + " for form number "+formNum+" from PC Filetype drop down.");
-                SeleniumLib.takeAScreenShot("PCRecordedByDropDown.jpg");
-            }
             return isSelected;
         } catch (Exception exp) {
             Debugger.println("Exception from selecting dropdown in recorded by" + exp);
-            SeleniumLib.takeAScreenShot("PCRecordedByDropDown.jpg");
             return false;
         }
     }
@@ -1730,7 +1706,6 @@ public class PatientChoicePage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
-                SeleniumLib.takeAScreenShot("PCDateofSignatureFilling.jpg");
                 return false;
             }
         }
@@ -1758,19 +1733,16 @@ public class PatientChoicePage {
         try {
             if(!Wait.isElementDisplayed(driver, fileUploadSuccessMsgList.get(elementNum),30)){
                 Debugger.println("Upload success message:" + expMessage + " not displayed."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
                 return false;
             }
             String actualMessage = fileUploadSuccessMsgList.get(elementNum).getText();
             if (!expMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Upload success message:EXP" + expMessage + ".Actual:"+actualMessage+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Verifying verifyFormUploadSuccessMessage for form number:" +elementNum+"; exception:"+ exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
             return false;
         }
     }
@@ -1860,7 +1832,7 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("PatientChoice page:uploadedfileNameIsDisplayedOnThePage :exception found " + exp);
+            Debugger.println("PatientChoice page:uploadedFileNameIsDisplayedOnThePage :exception found " + exp);
             return false;
         }
 
@@ -2090,7 +2062,6 @@ public class PatientChoicePage {
             Actions.scrollToTop(driver);
             if(!seleniumLib.isElementPresent(withdrawFromResearchButton)){
                 Debugger.println("Withdraw from research button is not displayed");
-                SeleniumLib.takeAScreenShot("NoWithdrawButton.jpg");
                 return false;
             }
             Actions.clickElement(driver, withdrawFromResearchButton);
@@ -2256,7 +2227,6 @@ public class PatientChoicePage {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception in enterRecordedByDetails:" + exp1);
-                SeleniumLib.takeAScreenShot("enterRecordedByDetails.jpg");
                 return false;
             }
         }
@@ -2264,7 +2234,6 @@ public class PatientChoicePage {
     public boolean theUserAnswersThePatientChoiceQuestionsWithPatientChoiceNotRequiredForRD(String recordedByName) {
         boolean testResult = false;
         try {
-//            Wait.seconds(20);
             selectMember(0);
             clickOnAmendPatientChoice();
             selectPatientChoiceCategory();
@@ -2285,7 +2254,6 @@ public class PatientChoicePage {
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from Submitting Patient Choice for :" +  "\n" + exp);
-            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
             return false;
         }
     }
@@ -2294,27 +2262,22 @@ public class PatientChoicePage {
         try {
             if (!Wait.isElementDisplayed(driver, landingPageList, 80)) {
                 Debugger.println("Patient Choice Landing Page not loaded.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
                 return false;
             }
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(status);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey){
-                Debugger.println("The key is "+key);
-                Debugger.println("The key value is "+paramNameValue.get(key));
                 String actualPCStatusPath = pcStatusPath.replace("dummyParticipant",key);
                 WebElement pcStatus = driver.findElement(By.xpath(actualPCStatusPath));
                 String pcStatusText = pcStatus.getText();
                 if (!pcStatusText.equalsIgnoreCase(paramNameValue.get(key))){
                     Debugger.println("Patient Choice Landing Page Status, Actual:" + pcStatusText + ",Expected:" + paramNameValue.get(key));
-                    SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from statusUpdatedCorrectly:" + exp);
-            SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");
             return false;
         }
     }

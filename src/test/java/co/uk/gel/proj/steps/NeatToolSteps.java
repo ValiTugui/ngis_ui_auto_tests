@@ -1,10 +1,12 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -209,7 +211,10 @@ public class NeatToolSteps extends Pages {
             //Log out from the test order
             Wait.seconds(2);
             testResult = referralPage.clickLogoutButton();
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Logout.jpg");
+                Assert.fail("Could not logout");
+            }
             //Log in to NEAT Tool
             List<String> neatLoginCredentials= new ArrayList<>(Arrays.asList("NEAT_URL", "find-patient-record", "GEL_SUPER_USER"));
             theUserLogsIntoTheNEATAdminToolWithTheFollowingCredentials(neatLoginCredentials);
@@ -243,7 +248,10 @@ public class NeatToolSteps extends Pages {
             theUserSeesTheNotification("This record is now inactive");
             //Logout from NEAT Tool
             testResult = referralPage.clickLogoutButton();
-            Assert.assertTrue(testResult);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Logout.jpg");
+                Assert.fail("Could not logout");
+            }
         }else if(actualBadge.equalsIgnoreCase("NHS Spine")){
             Debugger.println("This NHS patient is already SPINE, proceeding to next steps for referral creation...");
         }

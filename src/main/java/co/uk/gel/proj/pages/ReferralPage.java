@@ -538,7 +538,6 @@ public class ReferralPage<check> {
                 Actions.acceptAlert(driver);
             } catch (NoAlertPresentException ex) {
                 Debugger.println("Expected alert message, but not present.");
-                SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
             }
             //Debugger.println("Accepted the alert message :: " + actualAlertText);
             //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
@@ -550,8 +549,7 @@ public class ReferralPage<check> {
                 Actions.dismissAlert(driver);
             } catch (NoAlertPresentException ex) {
                 Debugger.println("Expected alert message, but not present.");
-                SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
-            }
+           }
             //Debugger.println("Dismissed the alert message :: " + actualAlertText);
             //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         }
@@ -563,8 +561,6 @@ public class ReferralPage<check> {
             Actions.clickElement(driver, logoutButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from clickLogoutButton:" + exp);
-            SeleniumLib.takeAScreenShot("clickLogoutButton.jpg");
             return false;
         }
     }
