@@ -28,7 +28,7 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Father          | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema |
     And the family member details on family Member landing page is correctly displayed
     And the user navigates to the "<stage>" stage
     And the user sees the data such as "<diseaseStatueValue>" "<hpoTerm1>" "<ClinicalQuestionDetails>" "<rareDiseaseValue>" phenotypic and karyotypic sex are saved
