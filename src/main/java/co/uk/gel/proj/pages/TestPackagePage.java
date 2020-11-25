@@ -149,12 +149,12 @@ public class TestPackagePage {
     public boolean verifyTestCardDetails(String testCardInfo) {
         boolean isPresent = false;
         try {
-            if (testCardInfo != null) {
-                // check for Default Test card details - Routine priority & Singleton test
-                if (testCardCategory.get(0).getText().contains(testCardInfo) &&
-                        testCardCategory.get(1).getText().contains(testCardInfo)) {
-                    isPresent = true;
-                }
+            // check for Default Test card details - Routine priority & Singleton test
+            if (testCardInfo.contains(testCardCategory.get(0).getText()) &&
+                  testCardInfo.contains(testCardCategory.get(1).getText())) {
+                 isPresent = true;
+            }else{
+                Debugger.println("Expected:"+testCardInfo+", but Actual:"+testCardCategory.get(0).getText()+","+testCardCategory.get(1).getText());
             }
             return isPresent;
         }catch(Exception exp){
@@ -300,13 +300,28 @@ public class TestPackagePage {
 
     public boolean verifyGivenPriorityIsSelected(String expectedPriority) {
         try {
-            Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+            if(!Wait.isElementDisplayed(driver, chosenPriorityButton, 30)){
+                return false;
+            }
             String actualText = Actions.getText(chosenPriorityButton);
-            //Debugger.println("Selected test Priority Actual: " + actualText+",Expected:"+expectedPriority);
             return actualText.contains(expectedPriority);
         }catch(Exception exp){
             Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
-            //SeleniumLib.takeAScreenShot("verifyGivenPriorityIsSelected.jpg");
+            return false;
+        }
+    }
+    public boolean verifyGivenPriorityIsDeSelected(String unSelectedPriority) {
+        try {
+            if(!Wait.isElementDisplayed(driver, chosenPriorityButton, 30)){
+                return false;
+            }
+            String actualText = Actions.getText(chosenPriorityButton);
+            if(actualText.contains(unSelectedPriority)) {
+                return false;//Should not contain
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
             return false;
         }
     }
