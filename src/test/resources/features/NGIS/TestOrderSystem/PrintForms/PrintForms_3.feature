@@ -77,22 +77,22 @@ Feature: TestOrder - Print Forms 3 - Validations
       | Reason  | CancellationReason                                 | CancellationSuccessMessage                                                                      |
       | Revoked | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
 
-  @NTS-4702  @Z-LOGOUT
-#    @E2EUI-1787
-  Scenario Outline:NTS-4702: scenario_2: View cancelled referral
-    Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | Rare Disease | GEL_SUPER_USER |
-    ##Patient Search Page
-    When the user is navigated to a page with title Find your patient
-    When the user types in valid details of a "NGIS" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    And the user clicks the Search button
-    And the user clicks the patient result card
-    ##Referral Details Page
-    Then the user should be able to see referral card status as cancelled with selected "<Reason>" reason
-
-    Examples:
-      | NhsNumber            | DOB            | Reason  |
-      | NHSNumber=2000003834 | DOB=10-05-2001 | Revoked |
+#  @NTS-4702 @Z-LOGOUT
+##    @E2EUI-1787
+#  Scenario Outline:NTS-4702: scenario_2: View cancelled referral
+#    Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | Rare Disease | GEL_SUPER_USER |
+#    ##Patient Search Page
+#    When the user is navigated to a page with title Find your patient
+#    When the user types in valid details of a "NGIS" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+#    And the user clicks the Search button
+#    And the user clicks the patient result card
+#    ##Referral Details Page
+#    Then the user should be able to see referral card status as cancelled with selected "<Reason>" reason
+#
+#    Examples:
+#      | NhsNumber            | DOB            | Reason  |
+#      | NHSNumber=2000003834 | DOB=10-05-2001 | Revoked |
 
   @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1212

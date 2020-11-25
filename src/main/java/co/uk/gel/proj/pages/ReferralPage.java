@@ -1499,17 +1499,14 @@ public class ReferralPage<check> {
             Wait.seconds(5);//To load the cancelled referrals if any
             if (referralCardHeaders.size() == 0) {
                 Debugger.println("No Cancelled referrals are listed...");
-                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
                 return false;
             }
             if (cancelledReferralStatus.size() == 0) {
                 Debugger.println("The referral cancelled status not found");
-                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
                 return false;
             }
             if (referralCancelReasonOnCard.size() == 0) {
                 Debugger.println("The referral cancelled reason not found");
-                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
                 return false;
             }
             String actStatus = "";
@@ -1521,15 +1518,9 @@ public class ReferralPage<check> {
                     break;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("The referral cancellation reason not found");
-                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
-                return false;
-            }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: referralCancelledStatusOnPatientCard: " + exp);
-            SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
             return false;
         }
     }

@@ -770,8 +770,6 @@ public class ReferralSteps extends Pages {
 
     @Given("the user search and select clinical indication test for the patient through to Test Order System online service patient search")
     public void theUserSearchAndSelectClinicalIndicationTestForThePatientThroughToTestOrderSystemOnlineServicePatientSearch(List<String> attributeOfURL) {
-
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);

@@ -274,6 +274,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             seleniumLib.clickOnWebElement(searchButtonByXpath);
+            seleniumLib.sleepInSeconds(2);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on Search Patient Button:" + exp + "\n" + driver.getCurrentUrl());
@@ -379,6 +380,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             email = AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME");
             password = AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD");
         }
+        Debugger.println("Email:"+email+",PWD:"+password);
         loginToTestOrderingSystem(email, password);
     }
 
@@ -469,10 +471,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickPatientCard() {
         try {
-            Wait.forElementToBeDisplayed(driver, patientCard);
-            if (!Wait.isElementDisplayed(driver, patientCard, 30)) {
-                return false;
-            }
             Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // patientCard.click();

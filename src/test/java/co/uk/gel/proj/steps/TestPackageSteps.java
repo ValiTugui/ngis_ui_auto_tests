@@ -171,7 +171,7 @@ public class TestPackageSteps extends Pages {
 
     @And("the Test Package page {string} is de-selected")
     public void theTestPackagePageIsDeSelected(String previousPriority) {
-       boolean testResult = testPackagePage.verifyGivenPriorityIsSelected(previousPriority);
+       boolean testResult = testPackagePage.verifyGivenPriorityIsDeSelected(previousPriority);
        if(!testResult){
            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestPackage.jpg");
            Assert.fail("Test package priority is deselected."+previousPriority);

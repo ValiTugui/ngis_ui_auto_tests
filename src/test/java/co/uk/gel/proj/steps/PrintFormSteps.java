@@ -264,11 +264,13 @@ public class PrintFormSteps extends Pages {
             String testType = printFormsPage.readSelectedTestDetails();
             if (testType == null) {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
-                Assert.assertTrue(testResult);
+                Assert.fail("No value present for " + fieldType + " on the Offline test order page ");
             }
             //Debugger.println("Validate Test Type: "+testType);
             testResult = printFormsPage.validatePDFContent(testType, fileName);
-            Assert.assertTrue(testResult);
+            if (!testResult) {
+                Assert.fail("Could not verify the PDF content details");
+            }
         } else if (fieldType.contains("laboratory")) {
             String labDetails = printFormsPage.readSelectedLabDetails();
             if (labDetails == null) {
@@ -277,11 +279,9 @@ public class PrintFormSteps extends Pages {
             }
             //Debugger.println("Validate Laboratory: "+labDetails);
             testResult = printFormsPage.validatePDFContent(labDetails, fileName);
-            Assert.fail("Could not verify PDF content details.");
-        }
-        else {
-            Debugger.println("The section name in the step is Not correct.: " + fieldType);
-            Assert.assertTrue(testResult);
+            if(!testResult) {
+                Assert.fail("Could not verify PDF content details.");
+            }
         }
     }
 
@@ -289,7 +289,10 @@ public class PrintFormSteps extends Pages {
     public void theUserShouldBeAbleToSeeReferralCardStatusAsCancelledWithSelectedReason(String reason) {
         boolean testResult = false;
         testResult = referralPage.verifyReferralCancelledStatusOnPatientCard(reason);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Revoke.jpg");
+            Assert.fail("Referral cancelled reason is not correctly displayed.");
+        }
     }
 
     @And("the user clicks the cancelled patient referral card")

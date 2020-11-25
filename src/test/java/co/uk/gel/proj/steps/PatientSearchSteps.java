@@ -93,7 +93,10 @@ public class PatientSearchSteps extends Pages {
     public void theUserClicksTheSearchButton() throws Throwable {
         boolean testResult = false;
         testResult = patientSearchPage.clickSearchButtonByXpath();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchButton.jpg");
+            Assert.fail("Could not click on Search Button");
+        }
     }
 
 
@@ -334,7 +337,10 @@ public class PatientSearchSteps extends Pages {
     public void theUserClicksThePatientResultCard() {
         boolean testResult = false;
         testResult = patientSearchPage.clickPatientCard();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientCard.jpg");
+            Assert.fail("Could not click on Patient Card");
+        }
     }
 
 
