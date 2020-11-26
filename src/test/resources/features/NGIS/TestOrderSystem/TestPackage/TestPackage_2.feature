@@ -22,8 +22,8 @@ Feature: TestOrder - Test Package 2 - RD
     And the test package page has Total number of participants drop down box
     And the test package page has Selected family members with the "<membersInfo>"
     Examples:
-      | stage        | title                    | priority        | helpText                                                                          | section        | text                         | testInfo           | membersInfo |
-      | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine, Singleton | Proband     |
+      | stage        | title                    | priority        | helpText                                                                          | section        | text                         | testInfo                  | membersInfo |
+      | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine,Trio or singleton | Proband     |
 
   @NTS-3156 @Z-LOGOUT
 #    @E2EUI-828 @E2EUI-1585
