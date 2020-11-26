@@ -64,14 +64,25 @@ public class SamplesSteps extends Pages {
     public void theUserClicksTheAddSampleButton() {
         boolean testResult = false;
         testResult = samplesPage.clickAddSampleButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_AddSample.jpg");
+            Assert.fail("Could not click on Add sample button");
+        }
     }
 
     @And("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state and filling SampleID")
     public void theUserAnswersTheQuestionsOnAddASamplePageBySelectingTheSampleTypeSampleStateAndFillingSampleID(String sampleType) {
-        samplesPage.selectSampleType(sampleType);
+        boolean testResult = samplesPage.selectSampleType(sampleType);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:"+sampleType);
+        }
         samplesPage.selectSampleState();
-        samplesPage.fillInSampleID();
+        testResult = samplesPage.fillInSampleID();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleID.jpg");
+            Assert.fail("Could not fillInSampleID");
+        }
         PatientDetailsPage.newPatient.setSampleType(sampleType);
     }
 
@@ -80,14 +91,19 @@ public class SamplesSteps extends Pages {
         boolean testResult = false;
         testResult = samplesPage.selectSampleType(sampleType);
         if(!testResult){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:"+sampleType);
         }
         testResult = samplesPage.selectSpecificSampleState(sampleState);
         if(!testResult){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleState.jpg");
+            Assert.fail("Could not Select Sample State:"+sampleState);
         }
         testResult = samplesPage.fillInSampleID();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleID.jpg");
+            Assert.fail("Could not fillInSampleID");
+        }
     }
     //Below step added to retry filling the sample details, if there is any error occurred before.
     @And("the user sees no error message on tumour page by selecting the sample type {string}, sample state {string} and filling SampleID")
@@ -101,14 +117,19 @@ public class SamplesSteps extends Pages {
 
         testResult = samplesPage.selectSampleType(sampleType);
         if(!testResult){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:"+sampleType);
         }
         testResult = samplesPage.selectSpecificSampleState(sampleState);
         if(!testResult){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleState.jpg");
+            Assert.fail("Could not Select Sample State:"+sampleState);
         }
         testResult = samplesPage.fillInSampleID();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleID.jpg");
+            Assert.fail("Could not fillInSampleID");
+        }
 
         testResult = referralPage.clickSaveAndContinueButton();
         Assert.assertTrue(testResult);
@@ -159,9 +180,17 @@ public class SamplesSteps extends Pages {
 
     @And("the user adds a tumour sample by providing sample type {string}")
     public void theUserAddsATumourSampleByProvidingSampleType(String sampleType) {
-        samplesPage.selectSampleType(sampleType);
+        boolean testResult = samplesPage.selectSampleType(sampleType);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:"+sampleType);
+        }
         samplesPage.selectSampleState();
-        samplesPage.fillInSampleID();
+        testResult = samplesPage.fillInSampleID();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleID.jpg");
+            Assert.fail("Could not fillInSampleID");
+        }
         referralPage.clickSaveAndContinueButton();
     }
 
@@ -172,14 +201,31 @@ public class SamplesSteps extends Pages {
 
     @And("the user answers the sample dynamic questions by providing topography {string} morphology {string}")
     public void theUserAnswersTheSampleDynamicQuestionsByProvidingTopographyMorphology(String topographyValue, String morphologyValue) {
-        samplesPage.answerSampleTopography(topographyValue);
-        samplesPage.answerSampleMorphology(morphologyValue);
+        boolean testResult = false;
+        testResult = samplesPage.answerSampleTopography(topographyValue);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Topography.jpg");
+            Assert.fail("Could not answer Sample topography."+topographyValue);
+        }
+        testResult = samplesPage.answerSampleMorphology(morphologyValue);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Morphology.jpg");
+            Assert.fail("Could not answer Sample Morphology."+morphologyValue);
+        }
         samplesPage.fillInPercentageOfMalignantNuclei();
         samplesPage.fillInNumberOfSlides();
         samplesPage.selectSampleCollectionDate();
         samplesPage.fillInSampleComments();
-        referralPage.clickSaveAndContinueButton();
-        Assert.assertTrue(samplesPage.newSampleIsDisplayedInLandingPage());
+        testResult = referralPage.clickSaveAndContinueButton();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SaveAndContinue.jpg");
+            Assert.fail("Could not Save And continue.");
+        }
+        testResult = samplesPage.newSampleIsDisplayedInLandingPage();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleNotSipsplayed.jpg");
+            Assert.fail("New sample not displayed in landing page.");
+        }
     }
 
     @Then("the new sample is displayed in the landing page")
@@ -207,7 +253,11 @@ public class SamplesSteps extends Pages {
                 break;
             }
             case "sampleState": {
-                samplesPage.selectSampleType("Normal or germline sample");
+                boolean testResult = samplesPage.selectSampleType("Normal or germline sample");
+                if(!testResult){
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+                    Assert.fail("Could not Select Sample Type:");
+                }
                 samplesPage.fillInSampleID();
                 break;
             }
@@ -286,7 +336,10 @@ public class SamplesSteps extends Pages {
     public void aSearchIconIsDisplayedInsideTheSampleStateDropDownField() {
         boolean testResult = false;
         testResult = samplesPage.verifySearchIconInsideSampleStateField();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleIcon.jpg");
+            Assert.fail("verifySearchIconInsideSampleStateField failed");
+        }
     }
 
     @And("fields and drops-downs are shown as mandatory with astericks star symbol")
@@ -316,7 +369,10 @@ public class SamplesSteps extends Pages {
     public void theSubPageTitleIsDisplayedOnAddASamplePage(String subPageTitle) {
         boolean testResult = false;
         testResult = samplesPage.verifyTheSubPageTitle(subPageTitle);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Subtitle.jpg");
+            Assert.fail("Page subtitle not present:"+subPageTitle);
+        }
     }
 
 
@@ -340,7 +396,10 @@ public class SamplesSteps extends Pages {
     public void theUserSelectsTheExistingSampleFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
         boolean testResult = false;
         testResult = samplesPage.selectSampleFromLandingPage();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditSample.jpg");
+            Assert.fail("Could not Edit Sample from Landing page :");
+        }
     }
 
     @And("the user edits the fields on Edit a Sample page by selecting the sample type {string}, sample state {string} and SampleID")
@@ -348,14 +407,19 @@ public class SamplesSteps extends Pages {
         boolean testResult = false;
         testResult = samplesPage.selectSampleType(sampleType);
         if(!testResult){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:"+sampleType);
         }
         testResult = samplesPage.selectSpecificSampleState(sampleState);
         if(!testResult){
-            Assert.assertTrue(testResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleState.jpg");
+            Assert.fail("Could not Select Sample State:"+sampleState);
         }
         testResult = samplesPage.fillInSampleID();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleID.jpg");
+            Assert.fail("Could not fillInSampleID");
+        }
     }
 
     @Then("the new edited sample details are displayed in the edit sample page")
@@ -446,7 +510,11 @@ public class SamplesSteps extends Pages {
 
     @When("the user selects a tumour sample type {string} from the system questions page on Add a Sample page")
     public void theUserSelectsATumourSampleTypeFromTheSystemQuestionsPageOnAddASamplePage(String sampleType) {
-        samplesPage.selectSampleType(sampleType);
+        boolean testResult = samplesPage.selectSampleType(sampleType);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:"+sampleType);
+        }
     }
 
     @Then("the Add tumour error message is displayed below Sample type field {string}")
@@ -528,7 +596,11 @@ public class SamplesSteps extends Pages {
         switch (stageStatus) {
             case "MandatoryToDo": {
                 //Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
-                Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
+                boolean testResult = referralPage.stageIsMandatoryToDo(stage);
+                if(!testResult){
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"StageNotMandatory.jpg");
+                    Assert.fail("Stage "+stage+" not marked as mandatory to do.");
+                }
                 break;
             }
             case "NotMandatoryToDo": {
@@ -576,19 +648,28 @@ public class SamplesSteps extends Pages {
     public void theUserEditsTheThAddedSample() {
         boolean testResult = false;
         testResult = samplesPage.editSpecificSample();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditSample.jpg");
+            Assert.fail("Could not Edit Sample:");
+        }
     }
     @Then("the user sees the Add sample button to add additional samples")
     public void theUserSeesTheAddSampleButtonToAddAdditionalSampleOnPage() {
         boolean testResult = false;
         testResult = samplesPage.verifyAddSampleButtonIsDisplayed();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Add Sample.jpg");
+            Assert.fail("Add Sample Button not displayed");
+        }
     }
 
     @When("the user edits the added sample (.*)")
     public void theUserEditsTheThAddedSample(String sampleNo) {
         boolean testResult = false;
         testResult = samplesPage.editSpecificSample(sampleNo);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditSample.jpg");
+            Assert.fail("Could not edit specific sample :");
+        }
     }
 }

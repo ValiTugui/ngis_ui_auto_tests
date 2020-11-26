@@ -75,7 +75,7 @@ public class PanelsPage {
     public List<WebElement> panelsPageIntroMessage;
 
     @FindBy(xpath = "//div[contains(@class,'styles_panel-assigner__intro_')]//div//ul")
-    public  WebElement panelsPageIntroMessage2;
+    public WebElement panelsPageIntroMessage2;
 
     @FindBy(xpath = "//h3[contains(@class,'subheader')]")
     public List<WebElement> panelSubtitles;
@@ -88,35 +88,27 @@ public class PanelsPage {
 
     @FindBy(xpath = "//h2[contains(text(),'Add panels')]/parent::div/following-sibling::p")
     public WebElement addPanelsMessage;
-    @FindBy (css = "[class*='button--selected']")
+    @FindBy(css = "[class*='button--selected']")
     public WebElement selectedPentrance;
 
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
             Wait.forElementToBeDisplayed(driver, addAnotherPanel);
-            if(!expTitle.isEmpty()) {
-                By titleElement = By.xpath(titleStringPath.replaceAll("dummyTitle",expTitle));
+            if (!expTitle.isEmpty()) {
+                By titleElement = By.xpath(titleStringPath.replaceAll("dummyTitle", expTitle));
                 if (!seleniumLib.isElementPresent(titleElement)) {
-                    Debugger.println("Panels Page: Title "+expTitle+" not present as expected.");
-                    SeleniumLib.takeAScreenShot("PanelsPage.jpg");
                     return false;
                 }
             }
-            if (!Wait.isElementDisplayed(driver,panelsSearchFieldPlaceHolder,10)) {
-                Debugger.println("Panels Page: Search field not present.");
-                SeleniumLib.takeAScreenShot("PanelsPage.jpg");
+            if (!Wait.isElementDisplayed(driver, panelsSearchFieldPlaceHolder, 10)) {
                 return false;
             }
-            if (!Wait.isElementDisplayed(driver,panelsSearchIcon,10)) {
-                Debugger.println("Panels Page: Search icon not present.");
-                SeleniumLib.takeAScreenShot("PanelsPage.jpg");
+            if (!Wait.isElementDisplayed(driver, panelsSearchIcon, 10)) {
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyPanelSearchFieldAndSearchIcon:" + exp);
-            SeleniumLib.takeAScreenShot("PanelsPage.jpg");
             return false;
         }
     }
@@ -124,24 +116,23 @@ public class PanelsPage {
     public boolean searchAndAddPanel(String panels) {
         try {
             Wait.forElementToBeDisplayed(driver, addAnotherPanel);
-            String [] panelList = null;
-            if(panels.indexOf(",") == -1){
+            String[] panelList = null;
+            if (panels.indexOf(",") == -1) {
                 panelList = new String[]{panels};
-            }else{
+            } else {
                 panelList = panels.split(",");
             }
-            for(int i=0; i<panelList.length; i++) {
+            for (int i = 0; i < panelList.length; i++) {
                 panelsSearchFieldPlaceHolder.clear();
                 panelsSearchFieldPlaceHolder.sendKeys(panelList[i]);
                 Wait.seconds(5);//Wait to load the related panel based on the search word
-                if(panelsSearchResultsList.size() == 0){
-                    Debugger.println("No matching Panels for the word: "+panelList[i]);
-                    SeleniumLib.takeAScreenShot("NoPanelsListed.jpg");
+                if (panelsSearchResultsList.size() == 0) {
+                    Debugger.println("No matching Panels for the word: " + panelList[i]);
                     return false;
                 }
                 try {
                     Click.element(driver, panelsSearchResultsList.get(0));
-                }catch(Exception exp1){
+                } catch (Exception exp1) {
                     seleniumLib.clickOnWebElement(panelsSearchResultsList.get(0));
                 }
                 Wait.seconds(2);//Waiting for 3 seconds after each panel adding
@@ -151,7 +142,6 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Search and selection of panel" + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageSearchResult.jpg");
             return false;
         }
     }
@@ -166,34 +156,28 @@ public class PanelsPage {
             expElements.add(incompleteButton);
             expElements.add(visitPanelApp);
             for (int i = 0; i < expElements.size(); i++) {
-                if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                    Debugger.println("Panels Page:verifyPanelsPageFields: Element not present " + expElements.get(i));
-                    SeleniumLib.takeAScreenShot("PanelsPageFieldsVerification.jpg");
+                if (!expElements.get(i).isDisplayed()) {
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Panels Page:verifyPanelsPageFields, Element not found. " + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageFieldsVerification.jpg");
             return false;
         }
     }
 
     public boolean clicksOnVisitPanelsAppLink() {
         if (!Wait.isElementDisplayed(driver, visitPanelApp, 100)) {
-            Debugger.println("Visit Panel App Link not displayed..."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("VisitPanelAppLink.jpg");
+            Debugger.println("Visit Panel App Link not displayed..." + driver.getCurrentUrl());
             return false;
         }
         try {
-        Actions.clickElement(driver,visitPanelApp);
-        }catch(Exception exp){
+            Actions.clickElement(driver, visitPanelApp);
+        } catch (Exception exp) {
             try {
                 seleniumLib.clickOnWebElement(visitPanelApp);
-            }catch(Exception exp1){
-                Debugger.println("Exception in Visiting Panelapp Link.."+exp1);
-                SeleniumLib.takeAScreenShot("VisitPanelAppLink.jpg");
+            } catch (Exception exp1) {
+                Debugger.println("Exception in Visiting Panelapp Link.." + exp1);
                 return false;
             }
         }
@@ -226,35 +210,28 @@ public class PanelsPage {
         try {
             seleniumLib.scrollToElement(penetranceTitle);
             if ("true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
-                Actions.clickElement(driver,completeButton);
+                Actions.clickElement(driver, completeButton);
             } else if ("true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
-                Actions.clickElement(driver,incompleteButton);
+                Actions.clickElement(driver, incompleteButton);
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("PanelsPage: Exception from changeTheStatusOfPenetrance " + exp);
-            SeleniumLib.takeAScreenShot("PanelsPagePenetranceStatus.jpg");
             return false;
         }
     }
 
     public boolean verifyThePresenceOfPenetranceOptions() {
         try {
-            if(!Wait.isElementDisplayed(driver,completeButton,10)){
-               Debugger.println("Complete button not found.");
-               SeleniumLib.takeAScreenShot("PanelsPagePentrance.jpg");
-               return false;
+            if (!Wait.isElementDisplayed(driver, completeButton, 10)) {
+                return false;
             }
-            if (!Wait.isElementDisplayed(driver,incompleteButton,10)) {
-                Debugger.println("Incomplete button not found.");
-                SeleniumLib.takeAScreenShot("PanelsPagePentrance.jpg");
+            if (!Wait.isElementDisplayed(driver, incompleteButton, 10)) {
                 return false;
             }
             return true;
 
         } catch (Exception exp) {
-            Debugger.println("PanelsPage: Complete and Incomplete buttons not found" + exp);
-            SeleniumLib.takeAScreenShot("PanelsPagePentrance.jpg");
             return false;
         }
     }
@@ -264,23 +241,17 @@ public class PanelsPage {
             if (expectedButton.equalsIgnoreCase("complete")) {
                 seleniumLib.clickOnWebElement(completeButton);
                 if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
-                    Debugger.println("Tick marked not found for " + expectedButton + completeButton.getAttribute("aria-pressed"));
-                    SeleniumLib.takeAScreenShot("PanelsPage.jpg");
                     return false;
                 }
             }
             if (expectedButton.equalsIgnoreCase("Incomplete")) {
                 seleniumLib.clickOnWebElement(incompleteButton);
                 if (!"true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
-                    Debugger.println("Tick marked not found for " + expectedButton + incompleteButton.getAttribute("aria-pressed"));
-                    SeleniumLib.takeAScreenShot("PanelsPage.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Panels page: verifyButtonAsCompletedByClickingInPanelsPage " + exp);
-            SeleniumLib.takeAScreenShot("PanelsPagePenetranceButtons.jpg");
             return false;
         }
     }
@@ -304,55 +275,41 @@ public class PanelsPage {
                     return false;
                 }
             }
-            Debugger.println("Deselect and verify successfully.");
+            //Debugger.println("Deselect and verify successfully.");
             return true;
         } catch (Exception exp) {
             Debugger.println("PanelsPage: deselectTheSelectedPanels, Deselected panels not found." + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageDeselectedPanels.jpg");
             return false;
         }
     }
 
     public boolean verifyPenetranceTitle(String expSubtitle) {
         try {
-            if(!Wait.isElementDisplayed(driver,penetranceTitle,10)){
-                Debugger.println("Section "+expSubtitle+" not present in Panels Landing Page\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
+            if (!Wait.isElementDisplayed(driver, penetranceTitle, 10)) {
                 return false;
             }
             String actualSubTitle = penetranceTitle.getText();
-            if(!actualSubTitle.equalsIgnoreCase(expSubtitle)){
-                Debugger.println("Section title mismatch Panels Landing Page:Actual:"+actualSubTitle+",Expected:"+expSubtitle);
-                SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
+            if (!actualSubTitle.equalsIgnoreCase(expSubtitle)) {
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying verifyPenetranceTitle:" + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
             return false;
         }
     }
 
     public boolean verifyPenetranceIntroMessage(String expMessage) {
         try {
-
-            if(!Wait.isElementDisplayed(driver,penetranceIntroMessage,10)){
-                Debugger.println("PanelAssignerIntroMessage Not displayed.");
-                SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
+            if (!Wait.isElementDisplayed(driver, penetranceIntroMessage, 10)) {
                 return false;
             }
             String actualMessage = penetranceIntroMessage.getText();
-            actualMessage=actualMessage.replaceAll("\\r?\\n"," ");
-            if(!actualMessage.contains(expMessage)){
-                Debugger.println("PenetranceIntoMessage mismatch. Expected:"+expMessage+"\nActual:"+actualMessage);
-                SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
+            actualMessage = actualMessage.replaceAll("\\r?\\n", " ");
+            if (!actualMessage.contains(expMessage)) {
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("PanelsPage: Penetrance IntroMessage" + exp);
-            SeleniumLib.takeAScreenShot("PenetranceIntroMessage.jpg");
             return false;
         }
     }
@@ -361,35 +318,33 @@ public class PanelsPage {
         try {
             if (suggestedPanelsList.size() == 0) {
                 Debugger.println("No panels have been suggested based on the CI search ");
-                SeleniumLib.takeAScreenShot("SuggestedPanels.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying verifySuggestedPanels:" + exp);
-            SeleniumLib.takeAScreenShot("SuggestedPanels.jpg");
             return false;
         }
     }
+
     public boolean verifySuggestedPanelsLinkToPanelApp() {
         try {
             if (suggestedPanelsLinkToPanelApp.size() == 0) {
                 Debugger.println("No panels have been suggested with link to PanelApp ");
-                SeleniumLib.takeAScreenShot("PanelsLinkToPanelApp.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying verifySuggestedPanelsLinkToPanelApp:" + exp);
-            SeleniumLib.takeAScreenShot("PanelsLinkToPanelApp.jpg");
             return false;
         }
     }
+
     public boolean verifyInAddedPanelsList(String addedPanel) {
         try {
             boolean isPresent = false;
             String actPanel = "";
-            if(addedPanelsList.size() < 1){
+            if (addedPanelsList.size() < 1) {
                 Wait.seconds(5);
             }
             for (int i = 0; i < addedPanelsList.size(); i++) {
@@ -399,13 +354,12 @@ public class PanelsPage {
                     break;
                 }
             }
-            if(!isPresent){
-                Debugger.println("Added Panel :"+addedPanel+" not present under Added Panels section."+driver.getCurrentUrl());
+            if (!isPresent) {
+                Debugger.println("Added Panel :" + addedPanel + " not present under Added Panels section." + driver.getCurrentUrl());
             }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Panels page: addedPanelsList, Element not found." + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageAddedPanels.jpg");
             return false;
         }
     }
@@ -414,21 +368,15 @@ public class PanelsPage {
         try {
             if (expectedButton.equalsIgnoreCase("complete")) {
                 if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
-                    Debugger.println("Complete Button expected as Selected, but not.");
-                    SeleniumLib.takeAScreenShot("PenatranceStatus.jpg");
                     return false;
                 }
-            }else if (expectedButton.equalsIgnoreCase("Incomplete")) {
+            } else if (expectedButton.equalsIgnoreCase("Incomplete")) {
                 if (!"true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
-                    Debugger.println("InComplete Button expected as Selected, but not.");
-                    SeleniumLib.takeAScreenShot("PenatranceStatus.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Panels page: verifyDefaultStatusOfPenetranceButton " + exp);
-            SeleniumLib.takeAScreenShot("PenatranceStatus.jpg");
             return false;
         }
     }
@@ -436,9 +384,7 @@ public class PanelsPage {
     public boolean verifyThePanelAssignerIntoMessage(String expMessage) {
         try {
             Wait.forElementToBeDisplayed(driver, panelsPageIntroMessage2);
-            if(!Wait.isElementDisplayed(driver,panelsPageIntroMessage2,10)){
-                Debugger.println("PanelAssignerIntoMessage Not displayed.");
-                SeleniumLib.takeAScreenShot("PanelsIntroMessage.jpg");
+            if (!Wait.isElementDisplayed(driver, panelsPageIntroMessage2, 10)) {
                 return false;
             }
             for (int i = 0; i < panelsPageIntroMessage.size(); i++) {
@@ -449,38 +395,33 @@ public class PanelsPage {
             return false;
 
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyThePanelAssignerIntoMessage:" + exp);
-            SeleniumLib.takeAScreenShot("PanelsIntroMessage.jpg");
             return false;
         }
     }
 
     public boolean verifyThePresenceOfSuggestedPanelsSection(String sectionTitle) {
         try {
-            if(panelSubtitles.size() == 0){
+            if (panelSubtitles.size() == 0) {
                 Debugger.println("PanelAssigner Suggestion Not displayed.");
-                SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
                 return false;
             }
             String actualMessage = "";
             boolean isPresent = false;
-            for(int i=0; i<panelSubtitles.size(); i++){
+            for (int i = 0; i < panelSubtitles.size(); i++) {
                 actualMessage = panelSubtitles.get(i).getText();
-                if(actualMessage.contains(sectionTitle)){
+                if (actualMessage.contains(sectionTitle)) {
                     isPresent = true;
                     break;
                 }
             }
-            if(!isPresent){
+            if (!isPresent) {
                 Debugger.println("PanelAssigner Suggestion Not displayed.");
-                SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
                 return false;
             }
             return isPresent;
 
         } catch (Exception exp) {
             Debugger.println("Exception in verifying verifyThePresenceOfSection:" + exp);
-            SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
             return false;
         }
     }
@@ -489,18 +430,16 @@ public class PanelsPage {
         try {
             if (!(suggestedPanelsList.size() == 0)) {
                 Debugger.println("Suggested Panels are displayed.");
-                SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver,noSuggestedPanels);
-            if(!noSuggestedPanels.getText().equalsIgnoreCase(message)){
+            Wait.forElementToBeDisplayed(driver, noSuggestedPanels);
+            if (!noSuggestedPanels.getText().equalsIgnoreCase(message)) {
                 Debugger.println("Panels have been suggested on Page.");
 
             }
-            return  true;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying verifyNoSuggestedPanels:" + exp);
-            SeleniumLib.takeAScreenShot("NoSuggestedPanels.jpg");
             return false;
         }
     }
@@ -510,18 +449,15 @@ public class PanelsPage {
         try {
             if (!seleniumLib.isElementPresent(addPanelsHeader)) {
                 Debugger.println("Add Panels header is not displayed.");
-                SeleniumLib.takeAScreenShot("AddPanelHeaderNotPresent.jpg");
                 return false;
             }
-            if(!addPanelsMessage.getText().equalsIgnoreCase(message)){
-                Debugger.println("Add Panels actual message "+addPanelsMessage.getText()+" but expected "+message);
-                SeleniumLib.takeAScreenShot("PanelMessageNotPresent.jpg");
+            if (!addPanelsMessage.getText().equalsIgnoreCase(message)) {
+                Debugger.println("Add Panels actual message " + addPanelsMessage.getText() + " but expected " + message);
                 return false;
             }
-            return  true;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyAddPanelsSection:" + exp);
-            SeleniumLib.takeAScreenShot("PanelMessageNotPresent.jpg");
             return false;
         }
     }
@@ -563,12 +499,12 @@ public class PanelsPage {
                 case "Penetrance":
                     String selectedPenetranceText = selectedPentrance.getText();
                     if (!selectedPenetranceText.equalsIgnoreCase(paramNameValue.get(key))) {
-                        if (paramNameValue.get(key).equalsIgnoreCase("Incomplete (suggested)")){
+                        if (paramNameValue.get(key).equalsIgnoreCase("Incomplete (suggested)")) {
                             seleniumLib.clickOnWebElement(incompleteButton);
-                        }else{
+                        } else {
                             seleniumLib.clickOnWebElement(completeButton);
                         }
-                    }else{
+                    } else {
                         Debugger.println("The Penetrance value selected and passed are same, Please pass a different value");
                     }
                     break;

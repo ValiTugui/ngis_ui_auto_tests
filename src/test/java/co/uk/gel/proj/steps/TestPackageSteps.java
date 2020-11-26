@@ -31,22 +31,38 @@ public class TestPackageSteps extends Pages {
 
     @And("the Test Package page has {string} under the priority buttons")
     public void theTestPackagePageHasUnderThePriorityButtons(String helpText) {
-        Assert.assertTrue(testPackagePage.verifyTheHelpText(helpText));
+        boolean testResult = testPackagePage.verifyTheHelpText(helpText);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HelpTxt.jpg");
+            Assert.fail("Help text has not been displayed:"+helpText);
+        }
     }
 
     @And("the Test package page has {string} header")
     public void theTestPackagePageHasHeader(String testsSection) {
-        Assert.assertTrue(testPackagePage.verifyTestsSection(testsSection));
+        boolean testResult = testPackagePage.verifyTestsSection(testsSection);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestSection.jpg");
+            Assert.fail("Test section has not been displayed:"+testsSection);
+        }
     }
 
     @And("the Test package page has Targeted genes section with the {string}")
     public void theTestPackagePageHasTargetedGenesSectionWithThe(String targetGenesSection) {
-        Assert.assertTrue(testPackagePage.verifyTargetedGenes(targetGenesSection));
+        boolean testResult = testPackagePage.verifyTargetedGenes(targetGenesSection);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_GeneSection.jpg");
+            Assert.fail("Test package does not display targeted genes section:"+targetGenesSection);
+        }
     }
 
     @And("the Test package page has test selected for the proband with {string}")
     public void theTestPackagePageHasTestSelectedForTheProbandWith(String testCard) {
-        Assert.assertTrue(testPackagePage.verifyTestCardDetails(testCard));
+        boolean testResult = testPackagePage.verifyTestCardDetails(testCard);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TCardInfo.jpg");
+            Assert.fail("Test card info not display targeted genes section:"+testCard);
+        }
     }
 
     @And("the test package page has Total number of participants drop down box")
@@ -62,19 +78,16 @@ public class TestPackageSteps extends Pages {
     @And("the user selects the number of participants as {string}")
     public void theUserSelectsTheNumberOfParticipantsAs(String numberOfParticipants) {
         boolean testResult = false;
-        try {
-            testResult = testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
-            if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
-            }
-            Assert.assertTrue(testResult);
-        }catch(Exception exp){
-            Debugger.println("Could not select test package: "+numberOfParticipants+", Trying with default 2...");
+        testResult = testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
+        if(!testResult){
             testResult = testPackagePage.selectNumberOfParticipants(2);
-            if(AppConfig.snapshotRequired){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
-            }
-            Assert.assertTrue(testResult);
+        }
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
+            Assert.fail("No Of Participants could not select");
+        }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
         }
     }
 
@@ -116,7 +129,9 @@ public class TestPackageSteps extends Pages {
 
     @And("the user clicks a test to de-select it")
     public void theUserClicksATestToDeSelectIt() {
-        if (testPackagePage.testIsSelected()) testPackagePage.clickTest();
+        if (testPackagePage.testIsSelected()){
+            testPackagePage.clickTest();
+        }
     }
 
     @Then("the user selects the {string}")
@@ -128,6 +143,7 @@ public class TestPackageSteps extends Pages {
             testResult = testPackagePage.clickRoutinePriority();
         }
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestPriority");
             Assert.fail("Test Package :"+testReferralUrgencyInfo+" could not select.");
         }
         if(AppConfig.snapshotRequired){
@@ -155,7 +171,11 @@ public class TestPackageSteps extends Pages {
 
     @And("the Test Package page {string} is de-selected")
     public void theTestPackagePageIsDeSelected(String previousPriority) {
-       Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
+       boolean testResult = testPackagePage.verifyGivenPriorityIsDeSelected(previousPriority);
+       if(!testResult){
+           SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestPackage.jpg");
+           Assert.fail("Test package priority is deselected."+previousPriority);
+       }
     }
 
     @And("the Test Package page has the help text as {string} on the page")
@@ -174,16 +194,28 @@ public class TestPackageSteps extends Pages {
     public void theDropDownBoxIsDisplayedAsEmptyByDefault() {
         boolean testResult = false;
         testResult = testPackagePage.verifyNumberOfParticipantsFieldDefaultValueIsEmpty();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TPNoOfParticipants.jpg");
+            Assert.fail("Test package drop down box for no of participants.");
+        }
     }
 
     @And("the user does not select one of the values")
     public void theUserDoesNotSelectOneOfTheValues() {
         boolean testResult = false;
         testResult = testPackagePage.selectNumberOfParticipants(2);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            testResult = testPackagePage.selectNumberOfParticipants(2);
+        }
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
+            Assert.fail("No Of Participants could not select");
+        }
         testResult = testPackagePage.clearNumberOfParticipants();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
+            Assert.fail("Could not clear number of participants");
+        }
 
     }
 
@@ -191,7 +223,10 @@ public class TestPackageSteps extends Pages {
     public void theUserSeesAnErrorMessage(String errorMessage) {
         boolean testResult = false;
         testResult = testPackagePage.verifyErrorMessageInTotalNumberOfParticipants(errorMessage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
+            Assert.fail("Could not see error message :"+errorMessage);
+        }
     }
 
     @When("the user clicks on the drop down box to see the values between {string} - {string} displayed")
@@ -250,7 +285,10 @@ public class TestPackageSteps extends Pages {
     public void theUserSelectsTheTestByClickingTheDeselectedTest() {
         boolean testResult = false;
         testResult =testPackagePage.selectTheDeselectedTestPackage();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoOfParticipants");
+            Assert.fail("NCould not select the test");
+        }
 
     }
 
@@ -258,20 +296,29 @@ public class TestPackageSteps extends Pages {
     public void theUserShouldBeAbleToSeesTrioFamilyIconInReviewTestSelection() {
         boolean testResult = false;
         testResult = testPackagePage.verifyTrioFamilyIcon();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TrioIcon.jpg");
+            Assert.fail("No Trio family icon present");
+        }
     }
 
     @And("the user should be able to see trio family icon in test package")
     public void theUserShouldBeAbleToSeeTrioFamilyIconInTestPackage() {
         boolean testResult = false;
         testResult = testPackagePage.verifyTrioFamilyIcon();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TrioIcon.jpg");
+            Assert.fail("No Trio family icon present");
+        }
     }
 
     @And("the User should be able to see the clinical indication code and name in the test package card")
     public void theUserShouldBeAbleToSeeTheClinicalIndicationCodeAndNameInTheTestPackageCard() {
         boolean testResult = false;
         testResult = testPackagePage.verifyCINameIDPresence();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CICode.jpg");
+            Assert.fail("CI Code not present");
+        }
     }
 }

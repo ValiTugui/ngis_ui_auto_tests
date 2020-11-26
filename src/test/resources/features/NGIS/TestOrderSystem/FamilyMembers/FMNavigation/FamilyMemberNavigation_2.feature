@@ -39,7 +39,7 @@ Feature: TestOrder - Family Members Navigation Stage 2 - Varying Members additio
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    And the "<FamilyMembers>" stage is NOT marked as Mandatory To Do
+    And the "<FamilyMembers>" stage is marked as Mandatory To Do
     And the user should "get" participant error message as "<ErrorMessage>"
     When the user clicks on participant amendment link to amend the number of participants
     Then the user is navigated to a page with title Confirm the test package

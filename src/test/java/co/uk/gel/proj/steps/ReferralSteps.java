@@ -50,11 +50,12 @@ public class ReferralSteps extends Pages {
         //Debugger.println("Stage: " + stage + " Starting.");
         boolean testResult = referralPage.navigateToStage(stage);
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Stage");
             Assert.fail("Could not navigate to stage:"+stage);
         }
-//        if(AppConfig.snapshotRequired){
-//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
-//        }
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stage," ")+"_Start");
+        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -74,17 +75,21 @@ public class ReferralSteps extends Pages {
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
 
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HomePageNotLoaded.jpg");
+            Assert.fail("Home page not loaded properly");
         }
         if (!homePage.typeInSearchField(searchTerm)) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TypeInSearch.jpg");
+            Assert.fail("Type In search field failed");
         }
         if (!homePage.clickSearchIconFromSearchField()) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ClickSearch.jpg");
+            Assert.fail("Click on search field icon failed");
         }
         homePage.closeCookiesBannerFromFooter();
         if (!homePage.selectFirstEntityFromResultList()) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchResultPanel.jpg");
+            Assert.fail("No Entity resulted as search outcome");
         }
         homePage.closeCookiesBannerFromFooter();
         if (!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()) {
@@ -119,9 +124,10 @@ public class ReferralSteps extends Pages {
         }
         //New flow observed for an existing patient - Spine
         if (patientSearchPage.isNotificationErrorPresent()) {
-            Debugger.println("Here yes...111111");
+            //Debugger.println("Here yes...111111");
             if (!patientSearchPage.editPatientDetails()) {
-                Assert.assertTrue(false);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EditPatient.jpg");
+                Assert.fail("Could not edit patient details");
             }
             if (!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")) {
                 Assert.assertTrue(false);
@@ -189,29 +195,30 @@ public class ReferralSteps extends Pages {
     public void theStageIsSelected(String newStage) {
         boolean testResult = false;
         testResult = referralPage.stageIsSelected(newStage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+newStage+"_Selection.jpg");
+            Assert.fail("Stage "+newStage+" is not selected.");
+        }
     }
 
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
         // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
         // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
-        Debugger.println("Verifying completion of Package:" + stage);
+        //Debugger.println("Verifying completion of Package:" + stage);
         Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
             if (!testResult) {
                 testResult = referralPage.stageIsCompleted(stage);
                 if (!testResult) {
-                    Debugger.println("Stage: " + stage + " NOT Completed.");
-                } else {
-                    Debugger.println("Stage: " + stage + " Completed.");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(stage," ")+"StageNotComplete.jpg");
+                    Assert.fail("Stage "+stage+" expected to be complete, but not.");
                 }
             }
             if(AppConfig.snapshotRequired){
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(stage," ")+"Stage.jpg");
             }
-            Assert.assertTrue(testResult);
         } catch (Exception exp) {
             Debugger.println("Exception in verifying the stage completed status for :" + stage + ":" + exp);
             Assert.fail("Exception in verifying the stage completed status for :" + stage + ":" + exp);
@@ -238,11 +245,13 @@ public class ReferralSteps extends Pages {
         boolean testResult = false;
         testResult = homePage.typeInSearchField(searchTerm);
         if (!testResult) {
-            Assert.assertTrue("Failed in typeInSearchField", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchFailed.jpg");
+            Assert.fail("could not enter value in search field "+searchTerm);
         }
         testResult = homePage.clickSearchIconFromSearchField();
         if (!testResult) {
-            Assert.assertTrue("Failed in clickSearchIconFromSearchField", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SearchClick.jpg");
+            Assert.fail("could not click on search icon ");
         }
 
         testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
@@ -300,9 +309,13 @@ public class ReferralSteps extends Pages {
 
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         if (actualNoPatientFoundLabel == null) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NoPatient.jpg");
+            Assert.fail("Expected no patient found message, but null.");
         }
-        Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
+        if(!actualNoPatientFoundLabel.equalsIgnoreCase("No patient found")){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SaveAndContinue.jpg");
+            Assert.fail("Expected no patient found message, but "+actualNoPatientFoundLabel);
+        }
         testResult = patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         if (!testResult) {
             Assert.assertTrue("Failed in checkCreateNewPatientLinkDisplayed", false);
@@ -335,12 +348,14 @@ public class ReferralSteps extends Pages {
         }
         testResult = patientDetailsPage.clickStartReferralButton();
         if (!testResult) {
-            Assert.assertTrue("Failed in clickStartReferralButton", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+            Assert.fail("Failed in clickStartReferralButton");
         }
 
         testResult = referralPage.checkThatReferralWasSuccessfullyCreated();
         if (!testResult) {
-            Assert.assertTrue("Failed in checkThatReferralWasSuccessfullyCreated", false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+            Assert.fail("Failed in checkThatReferralWasSuccessfullyCreated");
         }
 
         //To log the ReferralI in the Log.
@@ -357,8 +372,10 @@ public class ReferralSteps extends Pages {
         String actualAlertMessage;
         if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour"))))) {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
-            Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
-            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+            if(!actualAlertMessage.contains(partOfMessage)){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"PCNotCreated.jpg");
+                Assert.fail("Expected Message:"+partOfMessage+",Actual:"+actualAlertMessage);
+            }
         } else {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
             Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
@@ -369,7 +386,9 @@ public class ReferralSteps extends Pages {
     public void theUserClicksTheLogOutButton() {
         boolean testResult = false;
         testResult = referralPage.clickLogoutButton();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Logout.jpg");
+        }
     }
 
     @Then("the user sees a warning message {string} on the page")
@@ -392,11 +411,19 @@ public class ReferralSteps extends Pages {
 
     @And("the {string} stage is marked as Mandatory To Do")
     public void theStageIsMarkedAsMandatoryToDo(String stage) {
-        Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+        boolean testResult = referralPage.stageIsMandatoryToDo(stage);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"StageNotMandatory.jpg");
+            Assert.fail("Stage "+stage+" not marked as mandatory to do.");
+        }
     }
     @And("the {string} stage is NOT marked as Mandatory To Do")
     public void theStageIsNotMarkedAsMandatoryToDo(String stage) {
-        Assert.assertFalse(referralPage.stageIsMandatoryToDo(stage));
+        boolean testResult = referralPage.stageIsMandatoryToDo(stage);
+        if(testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"StageNotMandatory.jpg");
+            Assert.fail("Stage "+stage+" marked as mandatory to do.");
+        }
     }
 
     @And("Save and Continue button is displayed")
@@ -515,10 +542,13 @@ public class ReferralSteps extends Pages {
     public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(title);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(title," ")+".jpg");
+            Assert.fail("Could not navigate to page with title :"+title);
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(title," ")+".jpg");
         }
-        Assert.assertTrue(testResult);
     }
 
     //Added for user journey E2EUI-1800
@@ -531,7 +561,10 @@ public class ReferralSteps extends Pages {
     public void theUserClicksTheCancelReferralLink() {
         boolean testResult = false;
         testResult = referralPage.clicksOnCancelReferralLink();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CancelReferral.jpg");
+            Assert.fail("Cancel referral link not present.");
+        }
     }
 
     @Then("the message should display as {string}")
@@ -552,7 +585,10 @@ public class ReferralSteps extends Pages {
     public void theUserSelectsTheCancellationReasonFromTheModal(String cancellationReasonText) {
         boolean testResult = false;
         testResult = referralPage.selectCancellationReason(cancellationReasonText);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CancelReferral.jpg");
+            Assert.fail("Cancel reason for referral could not select."+cancellationReasonText);
+        }
     }
 
     @Then("the referral is successfully {string} with reason {string}")
@@ -574,8 +610,13 @@ public class ReferralSteps extends Pages {
         if (attributeOfURL.size() == 7) {
             userType = attributeOfURL.get(6);
         }
-        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        if(userType == null) {
+            NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        }else{
+            NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage,userType);
+        }
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HomePageContainer.jpg");
             Assert.fail("Home page result containers not loaded properly.");
         }
         if (!homePage.typeInSearchField(searchTerm)) {
@@ -729,8 +770,6 @@ public class ReferralSteps extends Pages {
 
     @Given("the user search and select clinical indication test for the patient through to Test Order System online service patient search")
     public void theUserSearchAndSelectClinicalIndicationTestForThePatientThroughToTestOrderSystemOnlineServicePatientSearch(List<String> attributeOfURL) {
-
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -790,16 +829,21 @@ public class ReferralSteps extends Pages {
         boolean stepResult = false;
         stepResult = homePage.searchForTheTest(searchTerm);
         if(!stepResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
+            Assert.fail("Failed in searching for the test.");
         }
         if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
         }
 
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        Assert.assertTrue(stepResult);
+        if(!stepResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StartTO.jpg");
+            Assert.fail("Start Test Order Referral Button not clicked.");
+        }
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
-            Assert.assertTrue(false);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SignInOnlineTO.jpg");
+            Assert.fail("Sign in to Online Service Button click failed..");
         }
         Debugger.println("User Type : " + userType);
         if (userType == null || userType.isEmpty()) {
@@ -807,7 +851,10 @@ public class ReferralSteps extends Pages {
         }
         switchToURL(driver.getCurrentUrl(), userType);
         stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
-        Assert.assertTrue(stepResult);
+        if(!stepResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FindYourPatient.jpg");
+            Assert.fail("Find your patient title not displayed.");
+        }
         //Create NGIS Patient with the given Details and the use for referral Creation
         NGISPatientModel searchPatient = new NGISPatientModel();
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
@@ -914,8 +961,8 @@ public class ReferralSteps extends Pages {
                 Assert.fail("ToDoList in Referral Page is not loaded even after the waiting time..");
             }
         } else {
-            Debugger.println("Search Result: " + searchResult);
-            Assert.fail(searchResult);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NotSearch.jpg");
+            Assert.fail("Could not search for patient:"+searchResult);
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
@@ -1065,10 +1112,10 @@ public class ReferralSteps extends Pages {
         for (int i = 1; i < messageDetails.size(); i++) {
             testResult = referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(0), messageDetails.get(i).get(1));
             if (!testResult) {
-                Assert.assertTrue(testResult);
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ErrorMsg.jpg");
+                Assert.fail("No Error message is displayed");
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @And("the DOB and age in the referral header bar are displayed in the expected format")
@@ -1299,8 +1346,6 @@ public class ReferralSteps extends Pages {
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
         List<String> actualMandatoryStages = referralPage.getTheListOfMandatoryStagesOnDialogBox();
         for (int i = 0; i < expectedList.size(); i++) {
-            //Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
-            //Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
             Assert.assertEquals(expectedList.get(i).get("MandatoryStagesToComplete"), actualMandatoryStages.get(i));
         }
     }
@@ -1309,14 +1354,20 @@ public class ReferralSteps extends Pages {
     public void theUserClicksOnTheMandatoryStageInTheDialogBox(String mandatoryStageTextLink) {
         boolean testResult = false;
         testResult = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MandatoryInDialog.jpg");
+            Assert.fail("Mandatory stage in dialog box not present:"+mandatoryStageTextLink);
+        }
     }
 
     @Then("the user should be able to see same referral id in the global banner and the url")
     public void theUserShouldBeAbleToSeeSameReferralIdInTheGlobalBannerAndTheUrl() {
         boolean testResult = false;
         testResult = referralPage.verifyPatientReferralIdInUrl();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralIDURL.jpg");
+            Assert.fail("Referral UID in global banner and url failed");
+        }
     }
 
     @And("the user should be able to see the active stage {string} in to-do list")
@@ -1374,7 +1425,10 @@ public class ReferralSteps extends Pages {
     public void theUserShouldBeAbleToClickOnIncompleteSection(String expStage) {
         boolean testResult = false;
         testResult = referralPage.clickOnIncompleteStageInDialogBox(expStage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_IncompleteStage.jpg");
+            Assert.fail("Could not click on incomplete stage:"+expStage);
+        }
     }
 
     @And("the user should be able to see a cancel referral link {string}")
@@ -1392,63 +1446,90 @@ public class ReferralSteps extends Pages {
     public void theUserVerifiesTheNgisIdAndReferralIdFromTheReferralBanner() {
         boolean testResult = false;
         testResult = referralPage.verifyNgisIdAndReferralId();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NGISReferralID.jpg");
+            Assert.fail("NGS ID referralID verification failed on Referral Head Banner");
+        }
     }
 
     @Then("user copies text from NgisId and verifies it with actual content")
     public void userCopiesTextFromNgisIdAndVerifiesItWithActualContent() {
         boolean testResult = false;
         testResult = referralPage.verifyTextFromReferralHeaderPatientNgisId();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralHeaderNGISID.jpg");
+            Assert.fail("NGISID on Referral header validation failed");
+        }
     }
 
     @Then("the user should be able to see the patient referral banner at the top")
     public void theUserShouldBeAbleToSeeThePatientBanner() {
         boolean testResult = false;
         testResult = referralPage.readTheReferralBannerLocation();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralHeader.jpg");
+            Assert.fail("Referral Header banner validation failed");
+        }
     }
 
     @Then("the user should be able to see the patient banner at same location")
     public void theUserShouldBeAbleToSeeThePatientBannerAtSameLocation() {
         boolean testResult = false;
         testResult = referralPage.verifyTheBannerLocationAtSameLocation();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralHeadLocation.jpg");
+            Assert.fail("Referral header location validation failed");
+        }
     }
 
     @Then("the user sees the color of feedback link as NHS Blue (.*)")
     public void theUserSeesTheColorOfFeedbackLinkAsNHSBlue(String colorValue) {
         boolean testResult = false;
         testResult = referralPage.verifyFeedbackLinkFontColor(colorValue);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReportIssue.jpg");
+            Assert.fail("Report an issue link colour validation failed");
+        }
     }
 
     @And("the user sees the color of privacy policy link as NHS Blue (.*)")
     public void theUserSeesTheColorOfPrivacyPolicyLinkAsNHSBlue(String colorValue) {
         boolean testResult = false;
         testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PolicyLink.jpg");
+            Assert.fail("policy link color verification failed.");
+        }
     }
 
     @Then("the user should be navigated to Microsoft login {string} page")
     public void theUserShouldBeNavigatedToMicrosoftLoginPage(String loginPageUrl) {
         boolean testResult = false;
         testResult = referralPage.verifyMicrosoftLoginPage(loginPageUrl);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MicrosoftPage.jpg");
+            Assert.fail("Microsoft loading page verification failed");
+        }
     }
 
     @Then("the user should see page is not loading")
     public void theUserShouldSeePageIsNotLoading() {
         boolean testResult = false;
         testResult = referralPage.verifyPageLoadingWithInvalidReferralURL();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PageLoading.jpg");
+            Assert.fail("Page loading with invalid URL not failed");
+        }
     }
 
     @Then("the user sees the {string} stage has no status indicator")
     public void theUserSeesTheStageHasNoStatusIndicator(String stage) {
         boolean testResult = false;
         testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_StatusIndicator.jpg");
+            Assert.fail("Status indicator could not alidate on stage "+stage);
+        }
     }
 
     //Notification popup
@@ -1456,6 +1537,9 @@ public class ReferralSteps extends Pages {
     public void theuserclickonReloadReferral() {
         boolean testResult = false;
         testResult = referralPage.acknowledgeThePromptPopup_ReferralSubmit();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ReferralAcknowledge.jpg");
+            Assert.fail("Reload referral button not validated");
+        }
     }
 }

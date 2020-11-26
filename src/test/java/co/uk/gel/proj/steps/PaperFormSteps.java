@@ -27,7 +27,10 @@ public class PaperFormSteps extends Pages {
         boolean eachElementIsLoaded;
         switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        if(!eachElementIsLoaded){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientSearchYes.jpg");
+            Assert.fail("Patient search with Yes.");
+        }
         Assert.assertTrue(referralPage.getTheCurrentPageTitle().matches(pageTitleText.get(0)));
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FindYourPatient.jpg");
@@ -44,10 +47,12 @@ public class PaperFormSteps extends Pages {
         boolean testResult = false;
         testResult = paperFormPage.fillInSpecificKeywordInSearchField(ordering_entity);
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrderEntity.jpg");
             Assert.fail("Could not search for Order entity.");
         }
         testResult = paperFormPage.checkThatEntitySuggestionsAreDisplayed();
         if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EntitySuggestion.jpg");
             Assert.fail("No suggestions listed for the order entity:"+ordering_entity);
         }
     }
@@ -59,7 +64,11 @@ public class PaperFormSteps extends Pages {
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
         }
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
+            Assert.fail("Could not select requesting organization.");
+        }
+
     }
 
     @And("the user selects the first entity from the suggestions list")

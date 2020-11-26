@@ -279,7 +279,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in patientDetailsPageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("PatientDetails.jpg");
             return false;
         }
     }
@@ -290,7 +289,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from newPatientPageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("newPatientPageIsDisplayed.jpg");
             return false;
         }
     }
@@ -301,7 +299,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from newFamilyMemberPageIsDisplayed:" + exp);
-            SeleniumLib.takeAScreenShot("newFamilyMemberPage.jpg");
             return false;
         }
     }
@@ -427,7 +424,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInAllNewPatientDetails:" + exp);
-            SeleniumLib.takeAScreenShot("fillInAllNewPatientDetails.jpg");
             return false;
         }
     }
@@ -571,15 +567,38 @@ public class PatientDetailsPage {
                     Debugger.println("Re-entering Gender.");
                     By ddByElement = By.xpath("//label[contains(@for,'administrativeGender')]/..//div[contains(@class,'placeholder')]");
                     WebElement ddWebElement = driver.findElement(ddByElement);
-                    editDropdownField(ddWebElement, "Male");
+                    selectGender(ddWebElement, "Male");
                 }
            }
             seleniumLib.clickOnWebElement(createRecord);
             SeleniumLib.sleepInSeconds(3);
+            //Checking again
             if (errorMessages.size() > 0) {
-                Debugger.println("Patient could not create...");
-                Actions.scrollToTop(driver);
-                return false;
+                for (int i = 0; i < errorMessages.size(); i++) {
+                    if (errorMessages.get(i).getText().contains("Life status is")) {
+                        Debugger.println("Re-entering Life status.");
+                        By ddByElement = By.xpath("//label[contains(@for,'lifeStatus')]/..//div[contains(@class,'placeholder')]");
+                        WebElement ddWebElement = driver.findElement(ddByElement);
+                        editDropdownField(ddWebElement, "Alive");
+                    }else if (errorMessages.get(i).getText().contains("Ethnicity")) {
+                        Debugger.println("Re-entering Ethnicity.");
+                        By ddByElement = By.xpath("//label[contains(@for,'ethnicity')]/..//div[contains(@class,'placeholder')]");
+                        WebElement ddWebElement = driver.findElement(ddByElement);
+                        editDropdownField(ddWebElement, "A - White - British");
+                    }else if (errorMessages.get(i).getText().contains("Gender")) {
+                        Debugger.println("Re-entering Gender.");
+                        By ddByElement = By.xpath("//label[contains(@for,'administrativeGender')]/..//div[contains(@class,'placeholder')]");
+                        WebElement ddWebElement = driver.findElement(ddByElement);
+                        selectGender(ddWebElement, "Male");
+                    }
+                }
+                seleniumLib.clickOnWebElement(createRecord);
+                SeleniumLib.sleepInSeconds(3);
+                if (errorMessages.size() > 0) {
+                    Debugger.println("Patient could not create...");
+                    Actions.scrollToTop(driver);
+                    return false;
+                }
             }
         }
         return true;
@@ -606,22 +625,15 @@ public class PatientDetailsPage {
     public boolean patientIsCreated() {
         try {
             if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
-                Debugger.println("NGIS Patient Created Message not displayed." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification.jpg");
-                Actions.scrollToTop(driver);
-                SeleniumLib.takeAScreenShot("PCCreatedSuccessNotification1.jpg");
                 return false;
             }
             String successMsg = Actions.getText(successNotification);
             if (successMsg.equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
-            Debugger.println("ActualMessage:" + successMsg + ",Expected:NGIS patient record created." + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception in creating the patient." + exp + "\n" + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("PCCreatedException.jpg");
             return false;
         }
     }
@@ -630,7 +642,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
                 Debugger.println("Start Referral Button not displayed.\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
             Actions.clickElement(driver, startReferralButton);
@@ -642,7 +653,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp1 + "\n" + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
         }
@@ -652,7 +662,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, CISearchStartReferral, 10)) {
                 Debugger.println("Start Referral Button not displayed.");
-                SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
             Actions.clickElement(driver, CISearchStartReferral);
@@ -663,7 +672,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);
-            SeleniumLib.takeAScreenShot("StartReferral.jpg");
             return false;
         }
     }
@@ -672,10 +680,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startNewReferralButton, 30)) {
                 Debugger.println("Start New Referral Button not displayed.");
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
-            Debugger.println("Status: " + startNewReferralButton.isEnabled());
+            //Debugger.println("Status: " + startNewReferralButton.isEnabled());
             if (!startNewReferralButton.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -688,7 +695,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
         }
@@ -698,47 +704,30 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, patientDetailsnotificationBanner, 30)) {
                 Debugger.println("Clinical Indication ID Missing message not displayed.");
-                SeleniumLib.takeAScreenShot("patientDetailsnotificationBanner.jpg");
                 return false;
             }
             String text = Actions.getText(patientDetailsnotificationBanner);
             if (text.isEmpty()) {
                 Debugger.println("Clinical Indication ID Missing message is EMPTY.");
-                SeleniumLib.takeAScreenShot("patientDetailsnotificationBanner.jpg");
                 return false;
             }
-            Debugger.println("TEXT:" + text);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from: clinicalIndicationIDMissingBannerIsDisplayed" + exp);
-            SeleniumLib.takeAScreenShot("patientDetailsnotificationBanner.jpg");
             return false;
         }
     }
 
-    public boolean startReferralButtonIsDisabled() {
-        try {
-            if (!Wait.isElementDisplayed(driver, startReferralButton, 30)) {
-                Debugger.println("startReferralButtonIsDisabled ot displayed");
-                SeleniumLib.takeAScreenShot("startReferralButton.jpg");
-                return false;
+    public boolean startNewReferralButtonIsDisabled() {
+        try{
+            String disable_attribute = startNewReferralButton.getAttribute("aria-disabled");
+            if(disable_attribute !=null && disable_attribute.equalsIgnoreCase("true")){
+                return true;
             }
-            if (startReferralButton.isEnabled()) {
-                Debugger.println("startReferralButton expected to be disabled. but enabled.");
-                SeleniumLib.takeAScreenShot("startReferralButton.jpg");
-                return false;
-            }
+            return false;
+        }catch(Exception exp) {
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in startReferralButtonIsDisabled:" + exp);
-            SeleniumLib.takeAScreenShot("startReferralButton.jpg");
-            return false;
         }
-    }
-
-    public void startNewReferralButtonIsDisabled() {
-        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
-        Assert.assertTrue(!startNewReferralButton.isEnabled());
     }
 
     public boolean clickTheGoBackLink(String expectedGoBackToPatientSearch) {
@@ -747,7 +736,6 @@ public class PatientDetailsPage {
             goBackLink = By.xpath("//a[contains(text(),'" + expectedGoBackToPatientSearch + "')]");
             if (!Wait.isElementDisplayed(driver, driver.findElement(goBackLink), 10)) {
                 Debugger.println("Link not present:" + expectedGoBackToPatientSearch);
-                SeleniumLib.takeAScreenShot("clickTheGoBackLink.jpg");
                 return false;
             }
             Actions.clickElement(driver, driver.findElement(goBackLink));
@@ -760,7 +748,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from clickTheGoBackLink:" + exp1);
-                SeleniumLib.takeAScreenShot("clickTheGoBackLink.jpg");
                 return false;
             }
         }
@@ -770,7 +757,6 @@ public class PatientDetailsPage {
     public boolean clickTheLinkOnNotificationBanner() {
         if (!Wait.isElementDisplayed(driver, testDirectoryLink, 30)) {
             Debugger.println("Test Directory Link is not present...");
-            SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
             return false;
         }
         try {
@@ -782,7 +768,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Test Directory Link is not shown on banner..." + exp1);
-                SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
                 return false;
             }
         }
@@ -800,7 +785,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, nhsNumber, 30)) {
                 Debugger.println("NHS number field not displayed");
-                SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
                 return false;
             }
             if (!nhsNumber.isEnabled()) {
@@ -810,7 +794,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from nhsNumberFieldIsEnabled:" + exp);
-            SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
             return false;
         }
     }
@@ -850,18 +833,15 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, referralLink, 60)) {
                 Debugger.println("Referral Link not displayed.");
-                SeleniumLib.takeAScreenShot("ReferralLink.jpg");
                 return false;
             }
             if (!Wait.isElementDisplayed(driver, referralCard, 60)) {
                 Debugger.println("Referral Card not displayed.");
-                SeleniumLib.takeAScreenShot("ReferralCard.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("No Referrals are found for the patient:" + exp);
-            SeleniumLib.takeAScreenShot("ReferralLinkCard.jpg");
             return false;
         }
     }
@@ -870,7 +850,6 @@ public class PatientDetailsPage {
         try {
             if (referralStatus.size() == 0) {
                 Debugger.println("Referral status is not displayed....");
-                SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
                 return false;
             }
             boolean isPresent = false;
@@ -880,14 +859,9 @@ public class PatientDetailsPage {
                     break;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("Referral status expected:" + expectedStatus + " not displayed.");
-                SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
-            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifyReferralStatus:" + exp);
-            SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
             return false;
         }
     }
@@ -895,7 +869,6 @@ public class PatientDetailsPage {
     public boolean verifyReferralReason(String expectedReason) {
         if (!Wait.isElementDisplayed(driver, referralCancelReason, 60)) {
             Debugger.println("referralCancelReason not displayed.");
-            SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
             return false;
         }
         return expectedReason.equalsIgnoreCase(Actions.getText(referralCancelReason));
@@ -1022,7 +995,7 @@ public class PatientDetailsPage {
         return newPatient;
     }
 
-    public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
+    public boolean editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
         try {
             if (Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
                 Actions.retryClickAndIgnoreElementInterception(driver, clearGenderDropDownValue);
@@ -1030,9 +1003,10 @@ public class PatientDetailsPage {
                 editDropdownField(lifeStatusButton, lifeStatus);
                 editDropdownField(ethnicityButton, ethnicity);
             }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from edit drop-down details " + exp);
-            SeleniumLib.takeAScreenShot("patientDetailsEditDropDownDetails.jpg");
+            return false;
         }
     }
 
@@ -1070,7 +1044,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, updateNGISRecordButton, 30)) {
                 Actions.scrollToBottom(driver);
-                SeleniumLib.takeAScreenShot("updateNGISRecordButton.jpg");
                 return false;
             }
             Actions.clickElement(driver, updateNGISRecordButton);
@@ -1081,7 +1054,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on UpdatePatientDetailsToNGISButton:" + exp);
-                SeleniumLib.takeAScreenShot("NoUpdatePatientDetailsToNGISButton.jpg");
                 return false;
             }
         }
@@ -1124,7 +1096,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillInLastName:" + exp);
-            SeleniumLib.takeAScreenShot("fillInLastName.jpg");
             return false;
         }
     }
@@ -1165,11 +1136,11 @@ public class PatientDetailsPage {
             Wait.seconds(10);//Wait for 10 seconds to create the new member
             //Removed isPatientCreated check for Family member addition as it is not needed
             FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
-            Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
+            //Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from adding mew family member:" + exp);
-            SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");
+            //SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");
             return false;
         }
     }
@@ -1180,7 +1151,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInNHSNumber:" + exp);
-            SeleniumLib.takeAScreenShot("fillInNHSNumber.jpg");
             return false;
         }
     }
@@ -1259,7 +1229,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in creating new Referral:" + exp);
-            SeleniumLib.takeAScreenShot("NewReferralCreationError.jpg");
             //Observed undefined attached in the URL sometime....This is to verify the URL the moment
             Debugger.println("NewReferralCreationError:URL:" + driver.getCurrentUrl());
             return false;
@@ -1374,7 +1343,6 @@ public class PatientDetailsPage {
             WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
             if (!Wait.isElementDisplayed(driver, relationToProbandElement, 10)) {
                 Debugger.println("Relation to Proband element not visible.");
-                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
                 return false;
             }
             return true;
@@ -1383,13 +1351,11 @@ public class PatientDetailsPage {
             WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
             if (!Wait.isElementDisplayed(driver, relationToProbandElement, 10)) {
                 Debugger.println("Relation to Proband element not visible.");
-                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion." + exp);
-            SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
             return false;
         }
     }
@@ -1400,25 +1366,21 @@ public class PatientDetailsPage {
             //List of Total Referrals submitted  - both proband and family members
             if (referralIDOfCreatedReferrals.size() == 0) {
                 Debugger.println("No referral created and submitted.");
-                SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
                 return false;
             }
             //List of  Referrals submitted  - only family members
             if (relationshipToProbandReferralID.size() == 0) {
                 Debugger.println("No family member added with all the referral present in the page.");
-                SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
                 return false;
             }
             if (referralIDOfCreatedReferrals.size() <= relationshipToProbandReferralID.size()) {
                 Debugger.println("Expected details of both proband and family referrals submitted.");
-                SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
                 return false;
             }
 
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheSubmittedReferrals: " + exp);
-            SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
             return false;
         }
     }
@@ -1426,19 +1388,13 @@ public class PatientDetailsPage {
     public boolean verifyTheSubmittedReferralCardsAreClickable() {
         try {
             if (submittedReferralCardsList.size() == 0) {
-                Debugger.println("No submitted referral card found.");
-                SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
                 return false;
             }
             if (!Actions.isTabClickable(driver, submittedReferralCardsList.size(), submittedReferralCardsList)) {
-                Debugger.println("Submitted referral cards are not clickable.");
-                SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
-                return false;
+               return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheSubmittedReferralCardsAreClickable: " + exp);
-            SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
             return false;
         }
     }
@@ -1447,24 +1403,20 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
                 Debugger.println("Create Record Button not displayed.");
-                SeleniumLib.takeAScreenShot("CreateButton.jpg");
                 return false;
             }
             String buttonBgColor = createRecord.getCssValue("background-color");
             if (buttonBgColor == null) {
                 Debugger.println("Button background color attribute is not present");
-                SeleniumLib.takeAScreenShot("CreateButton.jpg");
                 return false;
             }
             if (!buttonBgColor.equalsIgnoreCase(StylesUtils.convertFontColourStringToCSSProperty(expectedColor))) {
                 Debugger.println("Actual button color :" + buttonBgColor + ", But Excepted button color :" + expectedColor);
-                SeleniumLib.takeAScreenShot("CreateButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyColorOfCreateRecordButton. " + exp);
-            SeleniumLib.takeAScreenShot("CreateButton.jpg");
             return false;
         }
     }
@@ -1474,7 +1426,6 @@ public class PatientDetailsPage {
             //This is different from Referral page save nd Continue
             if (!Wait.isElementDisplayed(driver, saveAndContinue, 10)) {
                 Debugger.println("saveAndContinue button not exists.");
-                SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
                 return false;
             }
             Actions.clickElement(driver, saveAndContinue);
@@ -1485,7 +1436,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from saveAndContinue:" + exp);
-                SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
                 return false;
             }
         }
@@ -1495,7 +1445,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, postcodeField, 20)) {
                 Debugger.println("The Postcode field is not displayed in the edit patient details page." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("fillPostcode.jpg");
                 return false;
             }
             postcodeField.clear();
@@ -1503,7 +1452,6 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in filling the postcode: " + exp);
-            SeleniumLib.takeAScreenShot("fillPostcode.jpg");
             return false;
         }
     }
@@ -1512,19 +1460,16 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, addressField, 20)) {
                 Debugger.println("The address is not displayed." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
                 return false;
             }
             String actualAddress = addressField.getText();
             if (!actualAddress.contains(formattedPostcode)) {
                 Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual address is:" + actualAddress);
-                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
-                return false;
+               return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from checking the postcode format in address:" + exp);
-            SeleniumLib.takeAScreenShot("VerifyPostcodeFormatInFM.jpg");
             return false;
         }
     }
@@ -1533,19 +1478,16 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, postcodeField, 20)) {
                 Debugger.println("The address is not displayed." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
                 return false;
             }
             String actualPostcode = postcodeField.getAttribute("value");
             if (!actualPostcode.equalsIgnoreCase(formattedPostcode)) {
                 Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual is:" + actualPostcode);
-                SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from checking the postcode format in address:" + exp);
-            SeleniumLib.takeAScreenShot("VerifyPostcodeFormatPD.jpg");
             return false;
         }
     }
@@ -1638,30 +1580,25 @@ public class PatientDetailsPage {
     }
 
 
-    public boolean dayfield() {
+    public boolean dayField() {
         try {
             if (!Wait.isElementDisplayed(driver, dayfield, 10)) {
                 Debugger.println("dayfield not displayed.");
-                SeleniumLib.takeAScreenShot("dayfield.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp1) {
             Debugger.println("Exception from checking dayfield:" + exp1);
-            SeleniumLib.takeAScreenShot("subPageTitle.jpg");
             return false;
         }
     }
-
 
     public boolean clickDayinputfield() {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfBirthDay_patientsearch, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfBirthDay_patientsearch.isEnabled());
             if (!dateOfBirthDay_patientsearch.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1674,7 +1611,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
         }
@@ -1684,7 +1620,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfBirthDay, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
             Debugger.println("Status: " + dateOfBirthDay.isEnabled());
@@ -1700,7 +1635,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
         }
@@ -1710,13 +1644,11 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, monthfield, 10)) {
                 Debugger.println("monthfield not displayed.");
-                SeleniumLib.takeAScreenShot("monthfield.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp1) {
             Debugger.println("Exception from checking monthfield:" + exp1);
-            SeleniumLib.takeAScreenShot("monthTitle.jpg");
             return false;
         }
     }
@@ -1726,7 +1658,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfBirthMonth_patientsearch, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
             Debugger.println("Status: " + dateOfBirthMonth_patientsearch.isEnabled());
@@ -1742,7 +1673,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
         }
@@ -1752,10 +1682,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfBirthMonth, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfBirthMonth.isEnabled());
+            //Debugger.println("Status: " + dateOfBirthMonth.isEnabled());
             if (!dateOfBirthMonth.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1768,7 +1697,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
         }
@@ -1778,13 +1706,11 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, yearfield, 10)) {
                 Debugger.println("yearfield not displayed.");
-                SeleniumLib.takeAScreenShot("yearfield.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp1) {
             Debugger.println("Exception from checking yearfield:" + exp1);
-            SeleniumLib.takeAScreenShot("yearTitle.jpg");
             return false;
         }
     }
@@ -1794,10 +1720,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfBirthYear_patientsearch, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfBirthYear_patientsearch.isEnabled());
+            //Debugger.println("Status: " + dateOfBirthYear_patientsearch.isEnabled());
             if (!dateOfBirthYear_patientsearch.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1810,7 +1735,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
         }
@@ -1820,7 +1744,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfBirthYear, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
             Debugger.println("Status: " + dateOfBirthYear.isEnabled());
@@ -1836,7 +1759,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
         }
@@ -1846,7 +1768,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfDay_dateOfDiagnosis, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
             Debugger.println("Status: " + dateOfDay_dateOfDiagnosis.isEnabled());
@@ -1861,7 +1782,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
         }
@@ -1871,10 +1791,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfMonth_dateOfDiagnosis, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfMonth_dateOfDiagnosis.isEnabled());
+            //Debugger.println("Status: " + dateOfMonth_dateOfDiagnosis.isEnabled());
             if (!dateOfMonth_dateOfDiagnosis.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1886,7 +1805,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
         }
@@ -1896,10 +1814,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfYear_dateOfDiagnosis, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfYear_dateOfDiagnosis.isEnabled());
+            //Debugger.println("Status: " + dateOfYear_dateOfDiagnosis.isEnabled());
             if (!dateOfYear_dateOfDiagnosis.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1911,7 +1828,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
         }
@@ -1921,7 +1837,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfDay_SampleDetails, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
             Debugger.println("Status: " + dateOfDay_SampleDetails.isEnabled());
@@ -1936,7 +1851,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
         }
@@ -1946,7 +1860,6 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfMonth_SampleDetails, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
             Debugger.println("Status: " + dateOfMonth_SampleDetails.isEnabled());
@@ -1961,7 +1874,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
         }
@@ -1971,10 +1883,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfYear_SampleDetails, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfYear_SampleDetails.isEnabled());
+            //Debugger.println("Status: " + dateOfYear_SampleDetails.isEnabled());
             if (!dateOfYear_SampleDetails.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -1986,7 +1897,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
         }
@@ -1996,10 +1906,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfDay_dateOfSignature, 30)) {
                 Debugger.println("day of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfDay_dateOfSignature.isEnabled());
+            //Debugger.println("Status: " + dateOfDay_dateOfSignature.isEnabled());
             if (!dateOfDay_SampleDetails.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -2011,7 +1920,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickDayinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Dayinputfield.jpg");
                 return false;
             }
         }
@@ -2021,10 +1929,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfMonth_dateOfSignature, 30)) {
                 Debugger.println("Month of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
+                //SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfMonth_dateOfSignature.isEnabled());
             if (!dateOfMonth_dateOfSignature.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -2036,7 +1943,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickMonthinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Monthinputfield.jpg");
                 return false;
             }
         }
@@ -2046,10 +1952,9 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, dateOfYear_dateOfSignature, 30)) {
                 Debugger.println("Year of Birthday field not displayed.");
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
-            Debugger.println("Status: " + dateOfYear_dateOfSignature.isEnabled());
+            //Debugger.println("Status: " + dateOfYear_dateOfSignature.isEnabled());
             if (!dateOfYear_dateOfSignature.isEnabled()) {
                 Wait.seconds(3);
             }
@@ -2061,7 +1966,6 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("PatientDetailsPage: clickYearinputfield. Exception:" + exp);
-                SeleniumLib.takeAScreenShot("Yearinputfield.jpg");
                 return false;
             }
         }
@@ -2127,13 +2031,11 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, administrativeGenderButton, 5)) {
                 Debugger.println("GenderButton is not loaded.");
-                SeleniumLib.takeAScreenShot("readGenderValue.jpg");
                 return null;
             }
             return administrativeGenderButton.getText();
         } catch (Exception exp) {
             Debugger.println("Exception from readGenderValue:" + exp);
-            SeleniumLib.takeAScreenShot("readGenderValue.jpg");
             return null;
         }
     }
@@ -2242,20 +2144,17 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, ethnicityMissing, 10)) {
                 Debugger.println("Ethnicity field is not loaded.");
-                SeleniumLib.takeAScreenShot("readEthnicityStatusError.jpg");
                 return false;
             }
             Debugger.println("The status is-" + ethnicityMissing.getText());
             if (!ethnicityMissing.getText().equals("✱")) {
                 Debugger.println("Ethnicity field is not missing value.");
-                SeleniumLib.takeAScreenShot("readEthnicityStatusError.jpg");
                 return false;
             }
             Debugger.println("The ethnicity is mandatory status is-" + ethnicityMissing.getText());
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from readEthnicityStatus:" + exp);
-            SeleniumLib.takeAScreenShot("readEthnicityStatusError.jpg");
             return false;
         }
     }
@@ -2264,18 +2163,15 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startNewReferralButton, 30)) {
                 Debugger.println("Start new referral button not displayed");
-                SeleniumLib.takeAScreenShot("startNewReferralButtonError.jpg");
                 return false;
             }
             if (!startNewReferralButton.isEnabled()) {
                 Debugger.println("Start new referral button not enabled");
-                SeleniumLib.takeAScreenShot("startNewReferralButtonError.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Start new referral button not enabled");
-            SeleniumLib.takeAScreenShot("startNewReferralButtonError.jpg");
             return false;
         }
     }
@@ -2286,13 +2182,11 @@ public class PatientDetailsPage {
             goBackLink = By.xpath("//a[contains(text(),'" + expectedGoBackToPatientSearch + "')]");
             if (!Wait.isElementDisplayed(driver, driver.findElement(goBackLink), 10)) {
                 Debugger.println("Link not present:" + expectedGoBackToPatientSearch);
-                SeleniumLib.takeAScreenShot("verifyTheGoBackLink.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheGoBackLink:" + exp);
-            SeleniumLib.takeAScreenShot("verifyTheGoBackLink.jpg");
             return false;
         }
     }
@@ -2305,51 +2199,42 @@ public class PatientDetailsPage {
             String[] actualDOB = dateOfBirth.getText().trim().split(" ");
             if (!actualDOB[0].equalsIgnoreCase(expectedDobInMonth)) {
                 Debugger.println("Expected DOB: " + expectedDobInMonth + ",But Actual:" + actualDOB);
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             String expectedPatientName = newPatient.getLastName() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() + ")";
             if (!expectedPatientName.equalsIgnoreCase(patientName.getText().trim())) {
                 Debugger.println("Expected LastName: " + expectedPatientName + ",But Actual:" + patientName);
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             if (!newPatient.getGender().equalsIgnoreCase(gender.getText().trim())) {
                 Debugger.println("Expected Gender: " + newPatient.getGender() + ",But Actual:" + gender.getText().trim());
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             if (!newPatient.getLifeStatus().equalsIgnoreCase(lifeStatus.getText().trim())) {
                 Debugger.println("Expected LifeStatus: " + newPatient.getLifeStatus() + ",But Actual:" + lifeStatus.getText().trim());
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             if (!newPatient.getEthincity().equalsIgnoreCase(ethnicity.getText().trim())) {
                 Debugger.println("Expected Ethincity: " + newPatient.getEthincity() + ",But Actual:" + ethnicity.getText().trim());
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             String expReason = newPatient.getReasonForNoNHSNumber();
             if (!expReason.equalsIgnoreCase(NHSNumber.getText().trim())) {
                 Debugger.println("Expected NHSNumber: " + newPatient.getNhsNumber() + ",But Actual:" + NHSNumber.getText().trim());
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             if (!newPatient.getHospitalNumber().equalsIgnoreCase(hospitalNum.getText().trim())) {
                 Debugger.println("Expected HospitalNumber: " + newPatient.getHospitalNumber() + ",But Actual:" + hospitalNum.getText().trim());
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             String actualAddress = newPatient.getPatientAddress().get(0) + ", " + newPatient.getPatientAddress().get(1) + ", " + newPatient.getPatientAddress().get(2) + ", " + newPatient.getPatientAddress().get(3) + ", " + newPatient.getPatientAddress().get(4) + ", " + newPatient.getPostCode();
             if (!(address.getText().trim()).equalsIgnoreCase(actualAddress.trim())) {
                 Debugger.println("Expected Address: " + address.getText().trim() + ",But Actual:" + actualAddress);
-                SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Could not verify NGIS Patient Details in Patient Record Page:" + exp + "\n" + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("verifyPatientDetailsErrors.jpg");
             return false;
         }
     }
@@ -2358,13 +2243,11 @@ public class PatientDetailsPage {
         try {
             if (!Wait.isElementDisplayed(driver, patientNgisId, 10)) {
                 Debugger.println("Patient NGIS Id not displayed.");
-                SeleniumLib.takeAScreenShot("verifyPatientNgisId.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp1) {
             Debugger.println("Exception from verifyPatientNgisId:" + exp1);
-            SeleniumLib.takeAScreenShot("verifyPatientNgisId.jpg");
             return false;
         }
     }

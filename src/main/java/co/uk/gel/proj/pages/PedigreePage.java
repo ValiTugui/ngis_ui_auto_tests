@@ -173,10 +173,6 @@ public class PedigreePage {
     @FindBy(xpath = "//*[name()='tspan'][contains(text(),'NGIS Patient ID : ')]/..")
     List<WebElement> NGISPatientNodes;
 
-
-
-
-
     public PedigreePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -192,7 +188,6 @@ public class PedigreePage {
                 seleniumLib.clickOnWebElement(closePopup);
             }catch(Exception exp1) {
                 Debugger.println("Could not close the Popup." + exp);
-                SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
             }
         }
 
@@ -204,7 +199,6 @@ public class PedigreePage {
             WebElement selectTabOption = driver.findElement(By.xpath(selectedTab));
             if (!Wait.isElementDisplayed(driver, selectTabOption, 30)) {
                 Debugger.println("Expected Tab: " + tabName + " Not loaded in Pedigree popup.");
-                SeleniumLib.takeAScreenShot("NoTabLoadedInPedigree.jpg");
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, selectTabOption);
@@ -212,7 +206,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on Specific Tab" + tabName + "  in  Pedigree:" + exp);
-            SeleniumLib.takeAScreenShot("NoTabLoadedInPedigree.jpg");
             return false;
         }
     }
@@ -229,13 +222,11 @@ public class PedigreePage {
             }
             if (!isPresent) {
                 Debugger.println("Field " + fieldName + " not present in Tumours Tab.");
-                SeleniumLib.takeAScreenShot("NoFieldInTumoursTab.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field presence In Tumours Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldInTumoursTab.jpg");
             return false;
         }
     }
@@ -264,7 +255,6 @@ public class PedigreePage {
             return fieldDisableStatus;
         } catch (Exception exp) {
             Debugger.println("Exception in getting field status In Tumours Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldInTumoursTab.jpg");
             return false;
         }
     }
@@ -289,7 +279,6 @@ public class PedigreePage {
             return fieldDisableStatus;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Phenotype Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldInPhenotypeTab.jpg");
             return false;
         }
     }
@@ -306,13 +295,11 @@ public class PedigreePage {
             }
             if (!isPresent) {
                 Debugger.println("Field " + fieldName + " not present in Phenotype Tab.");
-                SeleniumLib.takeAScreenShot("NoFieldInPhenotyeTab.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field presence In Phenotype Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldInPhenotypeTab.jpg");
             return false;
         }
     }
@@ -328,13 +315,11 @@ public class PedigreePage {
             }
             if (!isPresent) {
                 Debugger.println("Field " + fieldName + " not present in Clinical Tab.");
-                SeleniumLib.takeAScreenShot("NoFieldInClinicalTab.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Clinical Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldInClinicalTab.jpg");
             return false;
         }
     }
@@ -398,7 +383,6 @@ public class PedigreePage {
             return fieldDisableStatus;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Clinical Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldInClinicalTab.jpg");
             return false;
         }
     }
@@ -415,21 +399,19 @@ public class PedigreePage {
             }
             if (!isPresent) {
                 Debugger.println("Field " + fieldName + " not present in Clinical Tab.");
-                SeleniumLib.takeAScreenShot("NoFieldPresentInClinicalTab.jpg");
                 return false;
             }
             //Verify the Value of each Field
             switch (fieldName) {
                 case "Clinical Indication Name": {
                     Wait.forElementToBeDisplayed(driver, clinicalTab_ClinicalIndicatorName);
-                    Debugger.println(fieldName + ":" + clinicalTab_ClinicalIndicatorName.getText());
+                    //Debugger.println(fieldName + ":" + clinicalTab_ClinicalIndicatorName.getText());
                     break;
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Clinical Tab :" + exp);
-            SeleniumLib.takeAScreenShot("NoFieldPresentInClinicalTab.jpg");
             return false;
         }
     }
@@ -469,26 +451,25 @@ public class PedigreePage {
             }
             if (patientType.equalsIgnoreCase("NGIS")) {
                 if (gender.equalsIgnoreCase("Male")) {
-                    Debugger.println("Clicking on NGIS:-Male Node");
+                    //Debugger.println("Clicking on NGIS:-Male Node");
                     return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                 } else if (gender.equalsIgnoreCase("Female")) {
-                    Debugger.println("Clicking on NGIS:-Female Node");
+                   // Debugger.println("Clicking on NGIS:-Female Node");
                     return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                 }
             } else {//Non-NGIS
                 int xLocation = Integer.parseInt(patientPedigreeNode.getAttribute("x"));
                 if (xLocation < 0) {//Left of the proband node - Male
-                    Debugger.println("Clicking on Non-NGIS:-Male Node");
+                    //Debugger.println("Clicking on Non-NGIS:-Male Node");
                     return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                 } else {
-                    Debugger.println("Clicking on Non-NGIS:-Female Node");
+                    //Debugger.println("Clicking on Non-NGIS:-Female Node");
                     return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
-            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
@@ -530,7 +511,7 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + NGISID + " could not locate.");
-            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
+            //SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
@@ -550,7 +531,7 @@ public class PedigreePage {
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
             String xCoordinate = null;
             String yCoordinate = null;
-            Debugger.println(patientType + ",MaleBase Node X Location:" + nodeX);
+            //Debugger.println(patientType + ",MaleBase Node X Location:" + nodeX);
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
                 for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
@@ -558,10 +539,10 @@ public class PedigreePage {
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate);
+                        //Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
-                        Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
+                        //Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
                     } catch (MoveTargetOutOfBoundsException mtobe) {
                         By ZoomOut = By.xpath("//div[@title='Zoom out']");
                         seleniumLib.clickOnElement(ZoomOut);
@@ -587,7 +568,7 @@ public class PedigreePage {
             }//for x-coordinate
             return diagramClicked;
         } catch (Exception exp) {
-            Debugger.println("Unable to click on Pedigree Node.\n" + exp);
+            //Debugger.println("Unable to click on Pedigree Node.\n" + exp);
             return false;
         }
     }
@@ -598,7 +579,7 @@ public class PedigreePage {
         try {
             String xCoordinate = null;
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
-            Debugger.println("FemaleNode: Base Calculated X:" + ngsIdX);
+            //Debugger.println("FemaleNode: Base Calculated X:" + ngsIdX);
             By female_node = null;
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(ngsIdX) + idx_array[i]);
@@ -608,10 +589,10 @@ public class PedigreePage {
                         try {
                             seleniumLib.moveMouseAndClickOnElement(female_node);
                             diagramClicked = true;
-                            Debugger.println("Female: " + patientType + ",Clicked On:" + xCoordinate);
+                            //Debugger.println("Female: " + patientType + ",Clicked On:" + xCoordinate);
                             break;
                         } catch (NoSuchElementException E) {
-                            Debugger.println("FemaleNode...X:" + xCoordinate);
+                           // Debugger.println("FemaleNode...X:" + xCoordinate);
                         }
                     }
                 } else {
@@ -654,7 +635,7 @@ public class PedigreePage {
             }
 
         } catch (Exception exp) {
-            Debugger.println("Unable to click on Pedigree Node.\n" + exp);
+            //Debugger.println("Unable to click on Pedigree Node.\n" + exp);
             return false;
         }
         return true;
@@ -668,12 +649,9 @@ public class PedigreePage {
                     return true;
                 }
             }
-            Debugger.println("Expected message:" + message + ", Not displayed in Patient Choice.");
-            SeleniumLib.takeAScreenShot("PedigreeWarning.jpg");
+            //Debugger.println("Expected message:" + message + ", Not displayed in Patient Choice.");
             return false;
         } catch (Exception exp) {
-            Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
-            SeleniumLib.takeAScreenShot("PedigreeWarning.jpg");
             return false;
         }
     }
@@ -684,13 +662,11 @@ public class PedigreePage {
             String actualMessage = warningMessageOnPedigreePage.getText();
             if (!warningMessage.equalsIgnoreCase(warningMessageOnPedigreePage.getText())) {
                 Debugger.println("Expected Message: " + warningMessage + ", but Actual Message is: " + actualMessage);
-                SeleniumLib.takeAScreenShot("PedigreeInfoMessage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Page:Info Message :not found " + exp);
-            SeleniumLib.takeAScreenShot("PedigreeInfoMessage.jpg");
             return false;
         }
     }
@@ -702,8 +678,7 @@ public class PedigreePage {
                     return true;
                 }
             }
-            Debugger.println("Pedigree section does not contains the expected message: " + expMessage+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("pedigreeMessage.jpg");
+            //Debugger.println("Pedigree section does not contains the expected message: " + expMessage+"\n"+driver.getCurrentUrl());
             return false;
         } catch (Exception exp) {
             return false;
@@ -724,14 +699,11 @@ public class PedigreePage {
             if (!isPresent) {
                 Debugger.println("Expected " + buttonName + " not present in Pedigree Stage.\n"+driver.getCurrentUrl());
                 Actions.scrollToBottom(driver);
-                SeleniumLib.takeAScreenShot("No" + buttonName + "InPedigree.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying " + buttonName + " in Pedigree Page." + exp+"\n"+driver.getCurrentUrl());
-            Actions.scrollToBottom(driver);
-            SeleniumLib.takeAScreenShot("No" + buttonName + "InPedigree.jpg");
             return false;
         }
     }
@@ -743,7 +715,6 @@ public class PedigreePage {
             }
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)) {
                 Debugger.println("SaveAndContinueButton on Pedigree diagram not loaded after waiting a minute.");
-                SeleniumLib.takeAScreenShot("NoSaveAndContinueInPedigree.jpg");
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
@@ -756,9 +727,7 @@ public class PedigreePage {
             return true;
 
         } catch (Exception exp) {
-            Debugger.println("Exception in clicking Save and Continue in Pedigree Page." + exp);
             Actions.scrollToBottom(driver);
-            SeleniumLib.takeAScreenShot("PedigreeSaveAndContinue.jpg");
             return false;
         }
     }
@@ -798,7 +767,6 @@ public class PedigreePage {
             }
             if (!Wait.isElementDisplayed(driver, clinicalIndicationName, 30)) {
                 Debugger.println("Clinical Indication Name not loaded in Pedigree Page.");
-                SeleniumLib.takeAScreenShot("PedigreeCIName.jpg");
                 return false;
             }
             String actualCiName = clinicalIndicationName.getText();
@@ -807,16 +775,14 @@ public class PedigreePage {
                 Wait.seconds(30);
                 actualCiName = clinicalIndicationName.getText();
                 if (!expectedCiName.equalsIgnoreCase(actualCiName)) {
-                    Debugger.println("Clinical Indication Name mismatch in Pedigree Page.Expected:" + expectedCiName + ",Actual:" + actualCiName);
+                    //Debugger.println("Clinical Indication Name mismatch in Pedigree Page.Expected:" + expectedCiName + ",Actual:" + actualCiName);
                     Actions.scrollToBottom(driver);
-                    SeleniumLib.takeAScreenShot("PedigreeCIName.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Verifying Clinical Indication Name in  Pedigree:" + exp);
-            SeleniumLib.takeAScreenShot("PedigreeCIName.jpg");
             return false;
         }
     }
@@ -861,14 +827,9 @@ public class PedigreePage {
                     break;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("Expected Menu Item:" + menuItem + ", not present in Pedigree Diagram Menu.");
-                SeleniumLib.takeAScreenShot("PedigreeMenu.jpg");
-            }
+
             return isPresent;
         } catch (Exception exp) {
-            Debugger.println("Exception from Verifying Pedigree Diagram Menus:" + exp);
-            SeleniumLib.takeAScreenShot("PedigreeMenu.jpg");
             return false;
         }
     }
@@ -910,14 +871,9 @@ public class PedigreePage {
                 }
 
             }
-            if (!isPresent) {
-                Debugger.println("Expected View Control:" + viewControl + ", not present in Pedigree Diagram.");
-                SeleniumLib.takeAScreenShot("PedigreeViewControl.jpg");
-            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception from Verifying Pedigree Diagram View Controls:" + exp);
-            SeleniumLib.takeAScreenShot("PedigreeViewControl.jpg");
             return false;
         }
     }
@@ -949,7 +905,6 @@ public class PedigreePage {
             }
         } catch (Exception exp) {
             Debugger.println("Exception in verifyButtonStatus:" + exp);
-            SeleniumLib.takeAScreenShot("ButtonStatus.jpg");
             return false;
         }
     }
@@ -986,7 +941,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in clicking on Button:" + buttonName + "," + exp);
-            SeleniumLib.takeAScreenShot("ButtonClick.jpg");
             return false;
         }
     }
@@ -1015,7 +969,6 @@ public class PedigreePage {
                     addParentNodeToProband(patient);
                 } else {
                     Debugger.println("Could find the Pedigree node for NGIS:" + patient.getNGIS_ID());
-                    SeleniumLib.takeAScreenShot("NoPedigreeNode.jpg");
                     return false;
                 }
             }
@@ -1029,7 +982,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
-            SeleniumLib.takeAScreenShot("Pedigree"+patient.getNGIS_ID()+".jpg");
             return false;
         }
     }
@@ -1053,7 +1005,7 @@ public class PedigreePage {
             int idy_array[] = {-1, 0, 1, 2, -2, 3, -3, 4, -4};
             String xCoordinate = null;
             String yCoordinate = null;
-            Debugger.println("Add Parent Nodes: Calculated Base: x,y..." + nodeX + "," + nodeY);
+            //Debugger.println("Add Parent Nodes: Calculated Base: x,y..." + nodeX + "," + nodeY);
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
                 for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
@@ -1063,10 +1015,10 @@ public class PedigreePage {
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        Debugger.println("NGIS:Proband:ClickedON:" + xCoordinate + "," + yCoordinate);
+                        //Debugger.println("NGIS:Proband:ClickedON:" + xCoordinate + "," + yCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
-                        Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
+                        //Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
                     } catch (MoveTargetOutOfBoundsException mtobe) {
                         By ZoomOut = By.xpath("//div[@title='Zoom out']");
                         seleniumLib.clickOnElement(ZoomOut);
@@ -1093,7 +1045,6 @@ public class PedigreePage {
             //Click On Parent Node, after clicking the Proband Node
             if (!diagramClicked) {
                 Debugger.println("Could find the Pedigree node for Pdoband");
-                SeleniumLib.takeAScreenShot("PedigreeProbandNode.jpg");
                 return diagramClicked;
             }
             try {
@@ -1104,13 +1055,11 @@ public class PedigreePage {
                 seleniumLib.clickOnElement(parentNode);
             } catch (Exception exp) {
                 Debugger.println("Could not click on Parent Node.");
-                SeleniumLib.takeAScreenShot("PedigreeParentNode.jpg");
                 diagramClicked = false;
             }
             return diagramClicked;
         } catch (Exception exp) {
             Debugger.println("Unable to click on Pedigree Node.\n" + exp);
-            SeleniumLib.takeAScreenShot("PedigreeProbandNode.jpg");
             return false;
         }
     }
@@ -1143,7 +1092,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception verifying NonNGIS Patient Node Presence:" + exp);
-            SeleniumLib.takeAScreenShot("NonNGIsPedigreeDiagram.jpg");
             return false;
         }
     }
@@ -1154,18 +1102,15 @@ public class PedigreePage {
             //Looks the type of dropdown is different here. So used another method existing in SeleniumLib and seems working
             if (!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetYears, years)) {
                 Debugger.println("Could not select the AgeOfOnset Years");
-                SeleniumLib.takeAScreenShot("AgeOfOnset.jpg");
                 return false;
             }
             if (!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetMonths, months)) {
                 Debugger.println("Could not select the AgeOfOnset Months");
-                SeleniumLib.takeAScreenShot("AgeOfOnset.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Could not select AgeOfOnset values :" + exp);
-            SeleniumLib.takeAScreenShot("AgeOfOnsetNotSelected.jpg");
             return false;
         }
     }
@@ -1173,13 +1118,11 @@ public class PedigreePage {
         try {
             if (!seleniumLib.selectFromListByText(personalTab_YearOfBirth, years)) {
                 Debugger.println("Could not select the Year Of Birth");
-                SeleniumLib.takeAScreenShot("YearOfBirth.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Could not select Year Of Birth values :" + exp);
-            SeleniumLib.takeAScreenShot("YearOfBirth.jpg");
             return false;
         }
     }
@@ -1187,21 +1130,17 @@ public class PedigreePage {
         boolean isPresent = false;
         try {
             for(int i=0; i<hpoSuggestedLists.size(); i++){
-                Debugger.println("HPO: "+hpoSuggestedLists.get(i).getText());
+                //Debugger.println("HPO: "+hpoSuggestedLists.get(i).getText());
                 if(hpoSuggestedLists.get(i).getText().contains(phenotype)){
                     isPresent = true;
                     break;
                 }
             }
-            if(!isPresent){
-                Debugger.println("Phenotype: "+phenotype+" not loaded in Pedigree diagram.");
-                SeleniumLib.takeAScreenShot("HPOPhenotype.jpg");
-            }
+
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Could not verifyHPOPhenotype :" + exp);
-            SeleniumLib.takeAScreenShot("HPOPhenotype.jpg");
-            return false;
+           return false;
         }
     }
 
@@ -1210,14 +1149,9 @@ public class PedigreePage {
         try {
             //Re-using an existing method in SeleniumLib for Select drop downs
             isPresent = seleniumLib.selectFromListByText(clinicalTab_disorderType,disorder);
-            if(!isPresent){
-                Debugger.println("Diagnosis disorder :"+disorder+" not present in Clinical Tab.");
-                SeleniumLib.takeAScreenShot("DiagnosisDisorder.jpg");
-            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying DiagnosisDisorders options.");
-            SeleniumLib.takeAScreenShot("DiagnosisDisorder.jpg");
             return false;
         }
     }
@@ -1231,15 +1165,9 @@ public class PedigreePage {
                     break;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("Field " + fieldName + " not present in Personal Tab.");
-                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-                return false;
-            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Personal Tab :" + exp);
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
             return false;
         }
     }
@@ -1265,14 +1193,10 @@ public class PedigreePage {
                     break;
 
             }
-            if(!isPresent){
-                Debugger.println(fieldName+" Option :"+option+" not present.");
-                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-            }
+
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying Personal Tab Filed Enumeration.");
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
             return false;
         }
     }
@@ -1298,17 +1222,12 @@ public class PedigreePage {
                     isPresent = true;
                 }
             }
-            if(!isPresent){
-                Debugger.println("Popup error message mismatch. Actual:"+actualMessage+",Expected:"+errorMessage);
-                SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
-            }
             Actions.clickElement(driver, confirmationYes);
             Wait.seconds(2);
             return isPresent;
 
         }catch(Exception exp){
             Debugger.println("Exception in validating Error popup:"+exp);
-            SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
             return false;
         }
     }
@@ -1320,7 +1239,6 @@ public class PedigreePage {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in setting AgeAtDeath:"+exp);
-            SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
             return false;
         }
     }
@@ -1338,14 +1256,12 @@ public class PedigreePage {
 
         if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,30)){
             Debugger.println("nonNgisPatientStableUid field not loaded under Personal Tab:");
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
             return false;
         }
         if(personalTab_nonNgisPatientStableUid.isEnabled()) {//Read and compare when the field is enabled
             String actualUid = personalTab_nonNgisPatientStableUid.getText();
             if (!actualUid.equalsIgnoreCase(nonNgisUID)) {
                 Debugger.println("Expected nonNgisPatientStableUid:" + nonNgisUID + ", but actual:" + actualUid);
-                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
                 return false;
             }
         }
@@ -1367,7 +1283,6 @@ public class PedigreePage {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in setting AgeAtDeath:"+exp);
-            SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
             return false;
         }
     }
@@ -1376,14 +1291,9 @@ public class PedigreePage {
         try {
             //Re-using an existing method in SeleniumLib for Select drop downs
             isPresent = seleniumLib.selectFromListByText(phenotypeTab_HPOPresent,hpo);
-            if(!isPresent){
-                Debugger.println("HPO Present :"+hpo+" not present in PhenoType Tab.");
-                SeleniumLib.takeAScreenShot("PhenoType.jpg");
-            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying HPO Present options.");
-            SeleniumLib.takeAScreenShot("PhenoType.jpg");
             return false;
         }
     }
@@ -1392,7 +1302,6 @@ public class PedigreePage {
         try {
             if(!Wait.isElementDisplayed(driver,clinicalTab_disOrders,10)){
                 Debugger.println("Disease disorder field not populated in Clinical Tab.");
-                SeleniumLib.takeAScreenShot("DiseaseOrder.jpg");
                 return false;
             }
             String[] diseaseList = null;
@@ -1406,7 +1315,6 @@ public class PedigreePage {
                 Wait.seconds(3);//To load the matching disOrders, if exists
                 if(!Wait.isElementDisplayed(driver,clinicalTab_disOrdersSuggestions,5)){
                     Debugger.println("No suggestions displayed for the disease :"+diseaseList[i]);
-                    SeleniumLib.takeAScreenShot("DiseaseOrderSuggestion.jpg");
                     return false;
                 }
                 Actions.retryClickAndIgnoreElementInterception(driver,clinicalTab_disOrdersSuggestions);
@@ -1415,7 +1323,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying HPO Present options.");
-            SeleniumLib.takeAScreenShot("PhenoType.jpg");
             return false;
         }
     }
@@ -1424,7 +1331,6 @@ public class PedigreePage {
         try {
             if(!Wait.isElementDisplayed(driver,personalTab_participatingInTest,10)){
                 Debugger.println("PArticipatingInTest feild not displayed in Personal Tab.");
-                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
                 return false;
             }
             boolean actStatus = personalTab_participatingInTest.isSelected();
@@ -1435,14 +1341,9 @@ public class PedigreePage {
                     isSelected = true;
                 }
             }
-            if(!isSelected){
-                Debugger.println("Expected Status of IsParticipatingTest:"+expStatus+", but actual:"+isSelected);
-                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
-            }
             return isSelected;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying DiagnosisDisorders options.");
-            SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
             return false;
         }
     }
@@ -1450,14 +1351,12 @@ public class PedigreePage {
         try {
             if (!Wait.isElementDisplayed(driver, clinicalTab__documentEvaluation, 30)) {
                 Debugger.println("Document Evalution Option not present.");
-                SeleniumLib.takeAScreenShot("EvaluateDocOption.jpg");
                 return false;
             }
             Actions.clickElement(driver, clinicalTab__documentEvaluation);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectDocumentEvaluationOption " + exp);
-            SeleniumLib.takeAScreenShot("EvaluateDocOption.jpg");
             return false;
         }
     }
@@ -1474,7 +1373,7 @@ public class PedigreePage {
                 String[] id = NgisId.split(":");
                 if (patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
                     SeleniumLib.scrollToElement(pedigreeWorkArea);
-                    Debugger.println("Clicking on Pedigree Node for NGIS: " + ngisId);
+                    //Debugger.println("Clicking on Pedigree Node for NGIS: " + ngisId);
                     if (id[1].contains(ngisId)) {
                         flag = 1;
                     }
@@ -1497,10 +1396,10 @@ public class PedigreePage {
                 }
                 if (patientType.equalsIgnoreCase("NGIS")) {
                     if (gender.equalsIgnoreCase("Male")) {
-                        Debugger.println("Clicking on NGIS:-Male Node");
+                        //Debugger.println("Clicking on NGIS:-Male Node");
                         return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                     } else if (gender.equalsIgnoreCase("Female")) {
-                        Debugger.println("Clicking on NGIS:-Female Node");
+                        //Debugger.println("Clicking on NGIS:-Female Node");
                         return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                     }
                 }
@@ -1508,7 +1407,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + ngisId + "could not locate.");
-            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
@@ -1562,7 +1460,6 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + ngisId + "could not locate.");
-            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
@@ -1572,7 +1469,6 @@ public class PedigreePage {
         try {
             if (!Wait.isElementDisplayed(driver, personalTabMonozygoticTwin, 10)) {
                 Debugger.println("Monozygotic Twin feild not displayed in Personal Tab.");
-                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
                 return false;
             }
             boolean actStatus = personalTabMonozygoticTwin.isSelected();
@@ -1583,14 +1479,9 @@ public class PedigreePage {
                     isSelected = true;
                 }
             }
-            if (!isSelected) {
-                Debugger.println("Expected Status of Monozygotic Twin:" + expStatus + ", but actual:" + isSelected);
-                SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
-            }
             return isSelected;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying Monozygotic Twin check box.");
-            SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
             return false;
         }
     }
@@ -1600,11 +1491,10 @@ public class PedigreePage {
         try {
             if (!Wait.isElementDisplayed(driver, personalTabMonozygoticTwin, 10)) {
                 Debugger.println("Monozygotic Twin feild not displayed in Personal Tab.");
-                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
                 return false;
             }
             boolean actStatus = personalTabMonozygoticTwin.isSelected();
-            System.out.print("***************************************************" + actStatus);
+            //System.out.print("***************************************************" + actStatus);
             if (expStatus.equalsIgnoreCase("Selected")) {
                 isSelected = actStatus;
             } else {
@@ -1612,14 +1502,10 @@ public class PedigreePage {
                     isSelected = true;
                 }
             }
-            if (!isSelected) {
-                Debugger.println("Expected Status of Monozygotic Twin:" + expStatus + ", but actual:" + isSelected);
-                SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
-            }
+
             return isSelected;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying Monozygotic Twin check box.");
-            SeleniumLib.takeAScreenShot("MonozygoticTwin.jpg");
             return false;
         }
     }

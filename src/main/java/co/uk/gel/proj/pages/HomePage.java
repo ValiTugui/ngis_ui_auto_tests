@@ -80,18 +80,15 @@ public class HomePage {
        try {
            if (!Wait.isElementDisplayed(driver, filtersPanel, 120)) {
                Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
-               SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
                return false;
            }
            if (!Wait.isElementDisplayed(driver, resultsPanel, 120)) {
                Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
-               SeleniumLib.takeAScreenShot("HomePageResultPanel.jpg");
                return false;
            }
            return true;
        }catch(Exception exp){
            Debugger.println("Exception:HomePage:waitUntilHomePageResultsContainerIsLoaded:"+exp);
-           SeleniumLib.takeAScreenShot("HomePagePanels.jpg");
            return false;
        }
     }
@@ -99,8 +96,7 @@ public class HomePage {
     public boolean typeInSearchField(String searchTerm) {
         try {
             if(!Wait.isElementDisplayed(driver,searchField,60)){
-                Debugger.println("searchField for present even after waiting period: ");
-                SeleniumLib.takeAScreenShot("typeInSearchField.jpg");
+                Debugger.println("searchField not present even after waiting period: ");
                 return false;
             }
             searchField.sendKeys(searchTerm);
@@ -111,7 +107,6 @@ public class HomePage {
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from entering the search Term: " + exp1);
-                SeleniumLib.takeAScreenShot("stypeInSearchField.jpg");
                 return false;
             }
         }
@@ -127,7 +122,6 @@ public class HomePage {
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from clickSearchIconFromSearchField:" + exp);
-                SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
                 return false;
             }
         }
@@ -142,7 +136,6 @@ public class HomePage {
     }
 
     public boolean selectFirstEntityFromResultList() {
-
         if(resultsPanels != null && resultsPanels.size() > 0){
             Click.element(driver, resultsPanels.get(0));
             return true;
@@ -154,11 +147,9 @@ public class HomePage {
                 return true;
             }else{
                 Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
                 return false;
             }
         }
-
     }
 
     public boolean TestDirectoryHomePageIsDisplayed() {
@@ -190,7 +181,7 @@ public class HomePage {
             Wait.seconds(10);
             String clinicalIndications = TestUtils.fetchNumberFromAGivenString(clinicalIndicationsTabValue.getText());
             String tests = TestUtils.fetchNumberFromAGivenString(testsTabValue.getText());
-            Debugger.println("RD: ClinicalIndications:"+clinicalIndications+",Tests:"+tests);
+            //Debugger.println("RD: ClinicalIndications:"+clinicalIndications+",Tests:"+tests);
             //Deselect
             Actions.clickElement(driver, rareAndInheritedDiseasesChkBox);
             Wait.seconds(2);
@@ -254,7 +245,6 @@ public class HomePage {
             Debugger.println("Logging Out from Application..");
             if(!Wait.isElementDisplayed(driver,logOutLink,60)){
                 Debugger.println("Could not locate Log out Link...");
-                SeleniumLib.takeAScreenShot("NoLogOutLink.jpg");
                 return;
             }
             Actions.clickElement(driver,logOutLink);

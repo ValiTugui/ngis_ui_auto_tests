@@ -33,10 +33,6 @@ public class PrintFormsPage {
     }
 
     String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
-
-    String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
-
-    //@FindBy(xpath = "//strong[contains(text(),'Tumour')]")
     @FindBy(xpath = "//button[@aria-label='print button']")
     WebElement probandPrintFormDownloadLocator;
 
@@ -130,7 +126,7 @@ public class PrintFormsPage {
     public boolean downloadSpecificPrintFormForDOB(NGISPatientModel familyMember, String folder) {
         try {
             String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
-            Debugger.println("Family Member DOB to download form: " + dob);
+            //Debugger.println("Family Member DOB to download form: " + dob);
             String downloadButtonPath=familyFormDownloadButtonPath.replace("dummyDob",dob);
             WebElement familyFormDownloadButton= driver.findElement(By.xpath(downloadButtonPath));
             //Delete if File already present
@@ -151,11 +147,11 @@ public class PrintFormsPage {
     }
 
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember, String folder) {
-        Debugger.println("Family Member NGSID to be validated in PDF: " + familyMember.getNGIS_ID());
+        //Debugger.println("Family Member NGSID to be validated in PDF: " + familyMember.getNGIS_ID());
         String ngsId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getNGIS_ID(), "4");
         String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
         String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
-        Debugger.println("NG:" + ngsId + ",REF:" + referralId + ",dob:" + dob);
+        //Debugger.println("NG:" + ngsId + ",REF:" + referralId + ",dob:" + dob);
         String output;
         PDDocument document = null;
         try {
@@ -169,7 +165,7 @@ public class PrintFormsPage {
             document = PDDocument.load(new File(pathToFile));
             //Debugger.println("Reading PDF content....");
             if (familyMember.getREFERAL_ID() == null) {
-                Debugger.println("Referral ID Could not read: read as null....need to check it.");
+                //Debugger.println("Referral ID Could not read: read as null....need to check it.");
                 familyMember.setREFERAL_ID("");
             }
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
@@ -199,12 +195,12 @@ public class PrintFormsPage {
     public boolean downloadProbandPrintForm() {
         try {
             //Delete if File already present
-            Debugger.println("Deleting Files if Present...");
+            //Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", "");
-            Debugger.println("Attempting to download the Proband sample form");
+            //Debugger.println("Attempting to download the Proband sample form");
             if (!Wait.isElementDisplayed(driver, probandPrintFormDownloadLocator, 30)) {
-                Debugger.println("Proband Pritform download button not displayed.." + driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("probandPrintForm.jpg");
+                //Debugger.println("Proband Pritform download button not displayed.." + driver.getCurrentUrl());
+                //SeleniumLib.takeAScreenShot("probandPrintForm.jpg");
                 return false;
             }
             Actions.clickElement(driver, probandPrintFormDownloadLocator);
@@ -217,7 +213,7 @@ public class PrintFormsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Could not locate the print button ..... " + exp);
-                SeleniumLib.takeAScreenShot("ProbandPrintFormsDownload.jpg");
+                //SeleniumLib.takeAScreenShot("ProbandPrintFormsDownload.jpg");
                 return false;
             }
         }
@@ -228,15 +224,15 @@ public class PrintFormsPage {
         try {
 
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
-            Debugger.println("PDF file location: " + pathToFile);
+            //Debugger.println("PDF file location: " + pathToFile);
             // pdf file with full path name
             document = PDDocument.load(new File(pathToFile));
-            Debugger.println("Reading PDF content....");
+            //Debugger.println("Reading PDF content....");
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
             // outputData = outputData.replaceAll("/  +/g", " ");
             outputData = outputData.replaceAll("\\s+", " ");
-            Debugger.println("Actual Data from PDF sample form :\n" + outputData);
+            //Debugger.println("Actual Data from PDF sample form :\n" + outputData);
             boolean testResult = false;
             String expValue;
             for (String value : expValues) {
@@ -312,7 +308,6 @@ public class PrintFormsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Print Forms Page:Warning Message: " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormsPageWarningMessage.jpg");
             return false;
         }
     }
@@ -322,7 +317,6 @@ public class PrintFormsPage {
             Debugger.println("validateLockIconInPrintFormsStage:Print form: " + driver.getCurrentUrl());
             if (!Wait.isElementDisplayed(driver, printFormsStage, 20)) {
                 Debugger.println("printFormsStage not displayed");
-                SeleniumLib.takeAScreenShot("PrintFormsStage.jpg");
                 return false;
             }
             if (lockStatus.equalsIgnoreCase("Locked")) {
@@ -338,7 +332,6 @@ public class PrintFormsPage {
             }
         } catch (Exception exp) {
             Debugger.println("PrintForms: validateLockIconInPrintFormsStage: " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
             return false;
         }
     }
@@ -353,7 +346,6 @@ public class PrintFormsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Print Forms :Back Button present" + exp);
-            SeleniumLib.takeAScreenShot("backButtonOnPrintForms.jpg");
             return false;
         }
     }
@@ -364,7 +356,7 @@ public class PrintFormsPage {
         try {
 
             if (SeleniumLib.skipIfBrowserStack("BROWSERSTACK")) {
-                Debugger.println("validatePDFContent: COPYING DOWNLOADED FILE FROM BROWSER STACK..." + fileName);
+                //Debugger.println("validatePDFContent: COPYING DOWNLOADED FILE FROM BROWSER STACK..." + fileName);
                 JavascriptExecutor javascript = (JavascriptExecutor) driver;
                 // get file content. The content is Base64 encoded
                 String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \"" + fileName + "\"}}");
@@ -395,7 +387,7 @@ public class PrintFormsPage {
             if (!fileLocation.exists()) {
                 pathToFile = defaultDownloadLocation + "RD" + File.separator + fileName;
             }
-            Debugger.println("PDF file location: " + pathToFile);
+            //Debugger.println("PDF file location: " + pathToFile);
             document = PDDocument.load(new File(pathToFile));
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
@@ -432,7 +424,7 @@ public class PrintFormsPage {
             TestUtils.deleteIfFilePresent(fileName, "");
             if (formSection.size() == 0) {
                 Debugger.println("No Form Sections present to download.");
-                SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
+                //SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
                 return false;
             }
             boolean isDownloaded = false;
@@ -441,7 +433,6 @@ public class PrintFormsPage {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     urlToDownload = downloadButton.get(i).getAttribute("href");
-                    Debugger.println("URL TO DOWNLOAD:" + urlToDownload);
                     if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
                         isDownloaded = true;
                         Wait.seconds(3);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
@@ -449,14 +440,9 @@ public class PrintFormsPage {
                     }
                 }
             }
-            if (!isDownloaded) {
-                Debugger.println("Could not download the form " + fileName + " for section :" + expectedFormSection);
-                SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
-            }
             return isDownloaded;
         } catch (Exception exp) {
             Debugger.println("Could not locate the form download button ..... " + exp);
-            SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
             return false;
         }
     }
@@ -471,14 +457,12 @@ public class PrintFormsPage {
             String[] selectedTestTypes = testTypes.split("\\.");
             if (selectedTestTypes == null || selectedTestTypes.length < 1) {
                 Debugger.println("No selected test exists...");
-                SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
                 return null;
             }
             returnValue = selectedTestTypes[0];
             return returnValue;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readSelectedTestType: " + exp);
-            SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
             return null;
         }
     }
@@ -490,14 +474,12 @@ public class PrintFormsPage {
             String[] labName = selectedLaboratory.getText().split(" ");
             if (labName == null || labName.length < 1) {
                 Debugger.println("No lab details exists...");
-                SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
-                return null;
+               return null;
             }
             returnValue = labName[0];
             return returnValue;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readSelectedLabDetails: " + exp);
-            SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
             return null;
         }
     }
@@ -507,14 +489,12 @@ public class PrintFormsPage {
             Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
             if (!Wait.isElementDisplayed(driver, startANewReferralButton, 30)) {
                 Debugger.println("Referral Submitted :Start New Referral Button Not found");
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage :startANewReferralButton: " + exp);
-            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
-            return false;
+           return false;
         }
     }
 
@@ -522,14 +502,12 @@ public class PrintFormsPage {
         try {
             if (!Wait.isElementDisplayed(driver, startANewReferralButton, 30)) {
                 Debugger.println("PrintFormsPage : Referral Submitted :Start New Referral Button Not found");
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
             Actions.clickElement(driver, startANewReferralButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);
-            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
             return false;
         }
     }
@@ -545,14 +523,9 @@ public class PrintFormsPage {
                     break;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("Guideline:" + expectedGuideLine + " Not present in the guideline list ");
-                SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
-            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: validateGuidelinesContent: " + exp);
-            SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
             return false;
         }
     }
@@ -561,7 +534,7 @@ public class PrintFormsPage {
         try {
             Wait.seconds(15); //wait for zip file download completion
             if (SeleniumLib.skipIfBrowserStack("BROWSERSTACK")) {
-                Debugger.println("extractAndValidateZipFile: COPYING DOWNLOADED FILE FROM BROWSER STACK..." + fileName);
+                //Debugger.println("extractAndValidateZipFile: COPYING DOWNLOADED FILE FROM BROWSER STACK..." + fileName);
                 JavascriptExecutor javascript = (JavascriptExecutor) driver;
                 // get file content. The content is Base64 encoded
                 String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \"" + fileName + "\"}}");
@@ -605,12 +578,10 @@ public class PrintFormsPage {
             String detailedAddress = detailedAddressText.getText();
             if (detailedAddress == null || detailedAddress.isEmpty()) {
                 Debugger.println("No detailed Address present.");
-                SeleniumLib.takeAScreenShot("LabAddress.jpg");
                 return null;
             }
             if (!detailedAddress.contains("Hide address")) {
                 Debugger.println("Laboratory address does not contain Hide Address option");
-                SeleniumLib.takeAScreenShot("LabAddress.jpg");
                 return null;
             }
 
@@ -618,7 +589,6 @@ public class PrintFormsPage {
             String[] labAddress = detailedAddress.split("\\n");
             if (labAddress == null || labAddress.length < 2) {
                 Debugger.println("Lab address is Not Shown");
-                SeleniumLib.takeAScreenShot("LabAddress.jpg");
                 return null;
             }
             //Debugger.println("lab Address to search in form: " + labAddress[1]);
@@ -626,7 +596,6 @@ public class PrintFormsPage {
             return labAddress[1];
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readLabAddress: " + exp);
-            SeleniumLib.takeAScreenShot("LabAddress.jpg");
             return null;
         }
     }
@@ -637,13 +606,11 @@ public class PrintFormsPage {
             String relationshipToProbandInPrintFormSection = relationshipToProbandField.getText();
             if (!relationToProband.equals(relationshipToProbandInPrintFormSection)) {
                 Debugger.println("The relationship to proband is not updated: " + relationshipToProbandInPrintFormSection);
-                SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Referral page: verifyRelationshipToProband : " + exp);
-            SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
             return false;
         }
     }
@@ -652,19 +619,16 @@ public class PrintFormsPage {
         try {
             if (!Wait.isElementDisplayed(driver, labNameField,10)){
                 Debugger.println("Lab Name not found");
-                SeleniumLib.takeAScreenShot("LabNameFieldError.jpg");
                 return false;
             }
             String labNameInPrintFormsStage = labNameField.getText();
             if (!labName.equals(labNameInPrintFormsStage)) {
                 Debugger.println("Expected lab name is:" +labName + "but actual present:"+labNameInPrintFormsStage);
-                SeleniumLib.takeAScreenShot("LabNameMismatch.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage getLabName: " + exp);
-            SeleniumLib.takeAScreenShot("LabNameFieldError.jpg");
             return false;
         }
     }

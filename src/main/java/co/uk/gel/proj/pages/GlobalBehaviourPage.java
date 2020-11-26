@@ -88,31 +88,32 @@ public class GlobalBehaviourPage {
         return privacyPolicyPageTitle.getText().matches(pageTitle);
     }
 
-    public void clickPrivacyPolicy() {
-        Click.element(driver, footerLinks.get(1));
-        Actions.switchTab(driver);
-        if (!(driver.getCurrentUrl().contains("privacy-policy"))) {
-            Wait.forElementToBeClickable(driver, emailAddressField);
-            emailAddressField.sendKeys(AppConfig.getApp_username());
-            nextButton.click();
-            Wait.seconds(2);
-            Wait.forElementToBeClickable(driver, passwordField);
-            passwordField.sendKeys(AppConfig.getApp_password());
-            nextButton.click();
+    public boolean clickPrivacyPolicy() {
+        try {
+            Click.element(driver, footerLinks.get(1));
+            Actions.switchTab(driver);
+            if (!(driver.getCurrentUrl().contains("privacy-policy"))) {
+                Wait.forElementToBeClickable(driver, emailAddressField);
+                emailAddressField.sendKeys(AppConfig.getApp_username());
+                nextButton.click();
+                Wait.seconds(2);
+                Wait.forElementToBeClickable(driver, passwordField);
+                passwordField.sendKeys(AppConfig.getApp_password());
+                nextButton.click();
+            }
+            return true;
+        }catch(Exception exp){
+            return false;
         }
     }
 
     public boolean verifyTheContinueButtonOnLandingPage() {
         try {
             if (!Wait.isElementDisplayed(driver, continueButtonOnLandingPage, 30)) {
-                Debugger.println("Continue button is not present on landing page");
-                SeleniumLib.takeAScreenShot("ContinueButtonNotPresent.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying verifyTheContinueButtonOnLandingPage:" + exp);
-            SeleniumLib.takeAScreenShot("ContinueButtonOnLandingPage");
             return false;
         }
     }
@@ -126,8 +127,6 @@ public class GlobalBehaviourPage {
             //Checking for Non-Presence
             for (int i = 0; i < notExpectedLabels.length; i++) {
                 if (bodyText.contains(notExpectedLabels[i])) {
-                    Debugger.println("Page contains Unexpected Label/Text :" + notExpectedLabels[i]);
-                    SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
                     return false;
                 }
             }
@@ -138,14 +137,9 @@ public class GlobalBehaviourPage {
                     isPresent = true;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("Page not contains Expected Label/Text :" + shouldPresent);
-                SeleniumLib.takeAScreenShot("NHSLabelNonPresence.jpg");
-            }
+
             return isPresent;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifyNHSLabelstInTheCurrentPage " + exp);
-            SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
             return false;
         }
     }
@@ -153,20 +147,20 @@ public class GlobalBehaviourPage {
     public boolean verifyDifferentScreenWidth(int widthValue) throws InterruptedException {
         try {
             Dimension initialSize = driver.manage().window().getSize();
-            Debugger.println(" During Launch  : Window Size is: " + initialSize);
+            //Debugger.println(" During Launch  : Window Size is: " + initialSize);
             Dimension newSize = new Dimension(widthValue, 696);
             driver.manage().window().setSize(newSize);
             Wait.seconds(6);//Waiting to resize and load new screen
             Dimension modifiedSize = driver.manage().window().getSize();
-            Debugger.println("After width change : Window Size " + modifiedSize);
+            //Debugger.println("After width change : Window Size " + modifiedSize);
             if (modifiedSize.equals(initialSize)) {
-                Debugger.println("The screen size is not modified; default size: " + initialSize + " ,but expected: " + newSize);
+                //Debugger.println("The screen size is not modified; default size: " + initialSize + " ,but expected: " + newSize);
                 SeleniumLib.takeAScreenShot("ScreenSize.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("GlobalBehaviourPage: verifyDifferentScreenWidth: " + exp);
+            //Debugger.println("GlobalBehaviourPage: verifyDifferentScreenWidth: " + exp);
             SeleniumLib.takeAScreenShot("ScreenSize.jpg");
             return false;
         }
@@ -250,21 +244,17 @@ public class GlobalBehaviourPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fill In User Name:" + exp);
-            SeleniumLib.takeAScreenShot("UserNameAndPasswordField.jpg");
+            //SeleniumLib.takeAScreenShot("UserNameAndPasswordField.jpg");
             return false;
         }
     }
     public boolean verifyMicrosoftLoginError(String errMessage) {
         try {
             if (!Wait.isElementDisplayed(driver, errorMessageOnLoginPage, 10)) {
-                Debugger.println("Error message not found :");
-                SeleniumLib.takeAScreenShot("LoginError.jpg");
                 return false;
             }
             String actualErrMessage = errorMessageOnLoginPage.getText();
             if (!actualErrMessage.contains(errMessage)) {
-                Debugger.println("Actual error message : " + actualErrMessage + ",Expected :" + errMessage);
-                SeleniumLib.takeAScreenShot("LoginError.jpg");
                 return false;
             }
             if(Wait.isElementDisplayed(driver,backToLoginPage,10)) {
@@ -272,8 +262,6 @@ public class GlobalBehaviourPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyMicrosoftLoginError : " + exp);
-            SeleniumLib.takeAScreenShot("LoginError.jpg");
             return false;
         }
     }

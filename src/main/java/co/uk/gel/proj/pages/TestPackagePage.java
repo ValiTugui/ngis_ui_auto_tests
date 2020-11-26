@@ -121,34 +121,45 @@ public class TestPackagePage {
     }
 
     public boolean verifyTheHelpText(String expectedHelpText) {
-        Wait.forElementToBeDisplayed(driver, priorityHintText);
-        String actualHelpText = Actions.getText(priorityHintText);
-        Debugger.println("Help text info : " + actualHelpText);
-        return actualHelpText.contains(expectedHelpText);
+        try {
+            Wait.forElementToBeDisplayed(driver, priorityHintText);
+            String actualHelpText = Actions.getText(priorityHintText);
+            //Debugger.println("Help text info : " + actualHelpText);
+            return actualHelpText.contains(expectedHelpText);
+        }catch(Exception exp){
+            return false;
+        }
     }
 
     public boolean verifyTestsSection(String expectedSectionText) {
-        return selectTestsHeader.getText().contains(expectedSectionText);
+        try {
+            return selectTestsHeader.getText().contains(expectedSectionText);
+        }catch(Exception exp){
+            return false;
+        }
     }
 
     public boolean verifyTargetedGenes(String expectedTargetedGenesText) {
-        boolean targetedGenesSectionIsCorrect = false;
         if (expectedTargetedGenesText != null) {
-            targetedGenesSectionIsCorrect = testTargetDescription.isDisplayed();
+            return testTargetDescription.isDisplayed();
         }
-        return targetedGenesSectionIsCorrect;
+        return false;
     }
 
     public boolean verifyTestCardDetails(String testCardInfo) {
-        boolean testCardDetailsAreCorrect = false;
-        if (testCardInfo != null) {
-            testCardDetailsAreCorrect = true;
+        boolean isPresent = false;
+        try {
             // check for Default Test card details - Routine priority & Singleton test
-            if (testCardCategory.get(0).getText().contains(testCardInfo) &&
-                    testCardCategory.get(1).getText().contains(testCardInfo)) {
+            if (testCardInfo.contains(testCardCategory.get(0).getText()) &&
+                  testCardInfo.contains(testCardCategory.get(1).getText())) {
+                 isPresent = true;
+            }else{
+                Debugger.println("Expected:"+testCardInfo+", but Actual:"+testCardCategory.get(0).getText()+","+testCardCategory.get(1).getText());
             }
+            return isPresent;
+        }catch(Exception exp){
+            return false;
         }
-        return testCardDetailsAreCorrect;
     }
 
     public boolean verifyTotalNumberOfParticipantsDropDownBox() {
@@ -163,7 +174,7 @@ public class TestPackagePage {
         try {
             if(!Wait.isElementDisplayed(driver,numberOfParticipants,30)){
                 Debugger.println("TestPackage Not loaded.");
-                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
             }
             numberOfParticipants.click();
             Wait.seconds(2);
@@ -182,7 +193,7 @@ public class TestPackagePage {
                 Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
                 Wait.seconds(4);
             }
-            Debugger.println("Selected TestPack: "+seleniumLib.getText(selectedPack));
+            //Debugger.println("Selected TestPack: "+seleniumLib.getText(selectedPack));
             return true;
         } catch (Exception exp) {
             try{
@@ -195,27 +206,29 @@ public class TestPackagePage {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("Exception in Selecting number of Participants in Test Package." + exp);
-                SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
                 return false;
             }
         }
     }
 
     public boolean testIsSelected() {
-        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-        Wait.forElementToBeDisplayed(driver, testCardBody);
-        return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
+        try {
+            Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+            Wait.forElementToBeDisplayed(driver, testCardBody);
+            return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
+        }catch(Exception exp){
+            return false;
+        }
     }
 
     public boolean testIsDeselected() {
         Wait.forElementToBeDisplayed(driver, testCardBody);
         boolean testCardIsSelected = testCheckBoxCard.getAttribute("class").contains(checkboxValue);
         boolean testIsSelected = testCheckMark.getAttribute("class").contains(checkboxValue);
-
         // ensure test card is deselected & test is deselected
         if (!testCardIsSelected && !testIsSelected) {
             //Selected tests for pro-band section should now be updated with 0 tests
-            Debugger.println(" HEADER text info ::::  " + selectTestsHeader.getText());
+            //Debugger.println(" HEADER text info ::::  " + selectTestsHeader.getText());
             return selectTestsHeader.getText().contains("0");
         } else {
             return false;
@@ -231,7 +244,6 @@ public class TestPackagePage {
         try {
             if(!Wait.isElementDisplayed(driver, urgentPriorityButton,30)){
                 Debugger.println("TestPackage Urgent not displayed.");
-                SeleniumLib.takeAScreenShot("TPUrgent.jpg");
             }
             urgentPriorityButton.click();
             return true;
@@ -241,7 +253,6 @@ public class TestPackagePage {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("TestPackage Urgent not displayed."+exp1);
-                SeleniumLib.takeAScreenShot("TPUrgent.jpg");
                 return false;
             }
         }
@@ -251,7 +262,6 @@ public class TestPackagePage {
         try {
             if(!Wait.isElementDisplayed(driver, routinePriorityButton,30)){
                 Debugger.println("TestPackage Routine not displayed.");
-                SeleniumLib.takeAScreenShot("TPRoutine.jpg");
             }
             routinePriorityButton.click();
             return true;
@@ -261,7 +271,6 @@ public class TestPackagePage {
                 return true;
             }catch(Exception exp1){
                 Debugger.println("TestPackage Routine not displayed."+exp1);
-                SeleniumLib.takeAScreenShot("TPRoutine.jpg");
                 return false;
             }
         }
@@ -285,19 +294,34 @@ public class TestPackagePage {
 
     public boolean verifyPrioritySectionHeaderText(String expectedHeaderText) {
         String actualHeaderText = Actions.getText(priorityLabel);
-        Debugger.println("Actual Priority label header text : " + actualHeaderText);
+        //Debugger.println("Actual Priority label header text : " + actualHeaderText);
         return actualHeaderText.contains(expectedHeaderText);
     }
 
     public boolean verifyGivenPriorityIsSelected(String expectedPriority) {
         try {
-            Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+            if(!Wait.isElementDisplayed(driver, chosenPriorityButton, 30)){
+                return false;
+            }
             String actualText = Actions.getText(chosenPriorityButton);
-            Debugger.println("Selected test Priority Actual: " + actualText+",Expected:"+expectedPriority);
             return actualText.contains(expectedPriority);
         }catch(Exception exp){
             Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
-            SeleniumLib.takeAScreenShot("verifyGivenPriorityIsSelected.jpg");
+            return false;
+        }
+    }
+    public boolean verifyGivenPriorityIsDeSelected(String unSelectedPriority) {
+        try {
+            if(!Wait.isElementDisplayed(driver, chosenPriorityButton, 30)){
+                return false;
+            }
+            String actualText = Actions.getText(chosenPriorityButton);
+            if(actualText.contains(unSelectedPriority)) {
+                return false;//Should not contain
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
             return false;
         }
     }
@@ -312,15 +336,13 @@ public class TestPackagePage {
         try {
             if(!Wait.isElementDisplayed(driver,numberOfParticipantsDropDown.get(0),10)){
                 Debugger.println("Participant dropdown list not displayed.");
-                SeleniumLib.takeAScreenShot("numberOfParticipantsDropDown.jpg");
                 return false;
             }
             String actValue = numberOfParticipantsDropDown.get(0).getText();
-            Debugger.println("ActValue:"+actValue+":");
+            //Debugger.println("ActValue:"+actValue+":");
             return numberOfParticipantsDropDown.get(0).getText().contains("");
         }catch(Exception exp){
             Debugger.println("Exception in verifyNumberOfParticipantsFieldDefaultValueIsEmpty:"+exp);
-            SeleniumLib.takeAScreenShot("numberOfParticipantsDropDown.jpg");
             return false;
         }
     }
@@ -336,13 +358,11 @@ public class TestPackagePage {
         try {
             if(!Wait.isElementDisplayed(driver, errorMessage,10)){
                 Debugger.println("Expected TestPackage Number of Participant Error, nit displayed.");
-                SeleniumLib.takeAScreenShot("TestPackageError.jpg");
                 return false;
             }
             return errorMessage.getText().contains(expectedErrorMessage);
         }catch(Exception exp){
             Debugger.println("Exception in verifyErrorMessageInTotalNumberOfParticipants:"+exp);
-            SeleniumLib.takeAScreenShot("verifyErrorMessageInTotalNumberOfParticipants.jpg");
             return false;
         }
     }
@@ -356,7 +376,6 @@ public class TestPackagePage {
                 Actions.clickElement(driver, selectTestsHeader);
                 if(!Wait.isElementDisplayed(driver, errorMessage,10)){
                     Debugger.println("Expected Error message to be displayed in TestPackage, but not.");
-                    SeleniumLib.takeAScreenShot("TestPackage.jpg");
                     return false;
                 }
             }
@@ -365,7 +384,6 @@ public class TestPackagePage {
             currentValue = getText(numberOfParticipants);
             if (!currentValue.contains("Select")) {
                 Debugger.println("Exception in clearNumberOfParticipants:" + exp);
-                SeleniumLib.takeAScreenShot("clearNumberOfParticipants.jpg");
                 return false;
             }
             return true;//If the value is selected as "Select", means, nothing selected
@@ -401,8 +419,7 @@ public class TestPackagePage {
         if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 30)) {
             return true;
         }
-        Debugger.println("RoutineButton expected to have tick mark. but not.");
-        SeleniumLib.takeAScreenShot("RoutineButtonTick.jpg");
+        //Debugger.println("RoutineButton expected to have tick mark. but not.");
         return false;
     }
 
@@ -412,7 +429,6 @@ public class TestPackagePage {
             return true;
         }
         Debugger.println("UrgentButton expected to have tick mark. but not.");
-        SeleniumLib.takeAScreenShot("UrgentButtonTick.jpg");
         return false;
     }
 
@@ -420,7 +436,6 @@ public class TestPackagePage {
         try {
             if (!Wait.isElementDisplayed(driver, testPackageCheckBox, 20)) {
                 Debugger.println("Expected status of Test is deSelected , but the current status is selected.");
-                SeleniumLib.takeAScreenShot("SelectTest.jpg");
                 return false;
             }
             try {
@@ -431,7 +446,6 @@ public class TestPackagePage {
             return true;
              }
         catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("testSelect.jpg");
             Debugger.println("SelectTheTest:Exception:" + exp);
             return false;
         }
@@ -442,14 +456,12 @@ public class TestPackagePage {
             if (!Wait.isElementDisplayed(driver, trioFamilyIcon, 30)) {
                 if(!Wait.isElementDisplayed(driver,trioFamilyIcon_TestOrder,30)) {
                     Debugger.println("Try family icon is not visible." + driver.getCurrentUrl());
-                    SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("try family icon is not visible : test package page : " + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
             return false;
         }
     }
@@ -459,18 +471,15 @@ public class TestPackagePage {
             Wait.forElementToBeDisplayed(driver, testCardBody);
             if (!Wait.isElementDisplayed(driver,testCardCIId,10)){
                 Debugger.println("Test Card CI ID not present ");
-                SeleniumLib.takeAScreenShot("TestPackage.jpg");
                 return false;
             }
             if (!Wait.isElementDisplayed(driver,testCardCIName,10)){
                 Debugger.println("Test Card CI Name not present ");
-                SeleniumLib.takeAScreenShot("TestPackage.jpg");
                 return false;
             }
             return true;
         }catch (Exception exp){
             Debugger.println(" Exception in verifyCINameIDPresence : "+exp);
-            SeleniumLib.takeAScreenShot("TestPackage.jpg");
             return false;
         }
     }

@@ -41,9 +41,6 @@ public class PaperFormPage {
     public WebElement orderEntitySearchInstructions;
 
     @FindBy(css = "li[class*='suggestion']")
-    public List<WebElement> orderEntitySearchSuggestionsPanel;
-
-    @FindBy(css = "li[class*='suggestion']")
     public List<WebElement> orderEntitySearchSuggestionsList;
 
     @FindBy(css = ".btn.btn-lg.btn-primary")
@@ -124,7 +121,7 @@ public class PaperFormPage {
         try {
             if (!Wait.isElementDisplayed(driver, orderEntitySearchField, 30)) {
                 Debugger.println("Could not find orderEntitySearchField..Trying with SeleniumLib.");
-                seleniumLib.sendValue(orderEntitySearchField,keyword);
+                seleniumLib.sendValue(orderEntitySearchField, keyword);
                 Wait.seconds(2);
                 return false;
             }
@@ -132,14 +129,13 @@ public class PaperFormPage {
             orderEntitySearchField.sendKeys(keyword);
             Wait.seconds(2);
             return true;
-        }catch(Exception exp){
-            try{
-                seleniumLib.sendValue(orderEntitySearchField,keyword);
+        } catch (Exception exp) {
+            try {
+                seleniumLib.sendValue(orderEntitySearchField, keyword);
                 Wait.seconds(2);
                 return true;
-            }catch(Exception exp1){
-                Debugger.println("Exception1 from orderEntitySearchField.."+exp1+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("OrderEntity.jpg");
+            } catch (Exception exp1) {
+                Debugger.println("Exception1 from orderEntitySearchField.." + exp1 + "\n" + driver.getCurrentUrl());
                 return false;
             }
         }
@@ -160,18 +156,17 @@ public class PaperFormPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception1 from orderEntitySearchField.." + exp + "\n" + driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("OrderEntity.jpg");
             return false;
         }
     }
+
     public boolean checkThatEntitySuggestionsAreDisplayed() {
         try {
             Wait.seconds(2);
             Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(entitySuggestionLocatior), 0);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in Order Entity Suggestion List display."+exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("OrderEntityDisplay.jpg");
+        } catch (Exception exp) {
+            Debugger.println("Exception in Order Entity Suggestion List display." + exp + "\n" + driver.getCurrentUrl());
             return false;
         }
     }
@@ -179,8 +174,8 @@ public class PaperFormPage {
     public boolean clickSignInToTheOnlineServiceButton() {
         try {
             //Debugger.println("clickSignInToTheOnlineServiceButton: ");
-            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,60)){
-                Debugger.println("Sign Into Online Service Button not displayed even after waiting time 60s...failing."+driver.getCurrentUrl());
+            if (!Wait.isElementDisplayed(driver, signInToOnlineServiceButton, 60)) {
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time 60s...failing." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
                 return false;
             }
@@ -196,21 +191,19 @@ public class PaperFormPage {
 
     public boolean selectRandomEntityFromSuggestionsList() {
         try {
-            if(orderEntitySearchSuggestionsList.size() == 0){
-                Debugger.println("No Organisation list loaded for the search."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("NoOgranisation.jpg");
+            if (orderEntitySearchSuggestionsList.size() == 0) {
+                Debugger.println("No Organisation list loaded for the search." + driver.getCurrentUrl());
                 return false;
             }
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             return true;
-        }catch(Exception exp){
-            try{
-              By firstElement = By.xpath("//div[contains(@class,'suggestions')]//ul/li[1]");
-              seleniumLib.clickOnElement(firstElement);
-              return true;
-            }catch(Exception exp1) {
-                Debugger.println("Exception from Selecting Requesting Organization: " + exp+"\n"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
+        } catch (Exception exp) {
+            try {
+                By firstElement = By.xpath("//div[contains(@class,'suggestions')]//ul/li[1]");
+                seleniumLib.clickOnElement(firstElement);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Selecting Requesting Organization: " + exp + "\n" + driver.getCurrentUrl());
                 return false;
             }
         }
@@ -230,22 +223,22 @@ public class PaperFormPage {
     }
 
     public boolean checkThatReviewTestSelectionIsOpened() {
-        try{
-        if(!Wait.isElementDisplayed(driver,testCardContainer,30)){
-            Debugger.println("The test card is not displayed."+driver.getCurrentUrl());
+        try {
+            if (!Wait.isElementDisplayed(driver, testCardContainer, 30)) {
+                Debugger.println("The test card is not displayed." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, paperFormHeader, 30)) {
+                Debugger.println("The page title is not displayed." + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checkThatReviewTestSelectionIsOpened: " + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
             return false;
-        }
-        if(!Wait.isElementDisplayed(driver,paperFormHeader,30)){
-            Debugger.println("The page title is not displayed."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
-            return false;
-        }
-        return true;
-    }catch (Exception exp){
-        Debugger.println("Exception from checkThatReviewTestSelectionIsOpened: "+exp+"\n"+driver.getCurrentUrl());
-        SeleniumLib.takeAScreenShot("ReviewTestSelection.jpg");
-        return false;
         }
     }
 
@@ -302,21 +295,21 @@ public class PaperFormPage {
     }
 
     public boolean checkThatDownloadButtonsAreDisplayed() {
-        if(!Wait.isElementDisplayed(driver,routedNextStepsContent,30)){
+        if (!Wait.isElementDisplayed(driver, routedNextStepsContent, 30)) {
             Debugger.println("routedNextStepsContent not present.");
             SeleniumLib.takeAScreenShot("DownloadButtonContainer.jpg");
             return false;
         }
-        if(downloadSections.size() != downloadButton.size()){
+        if (downloadSections.size() != downloadButton.size()) {
             Wait.seconds(10);//Wait 10 seconds for all sections download buttons are displayed
         }
         return (downloadSections.size() == downloadButton.size());
     }
 
-    public boolean verifyTheDownloadButtonLabel(String buttonName){
+    public boolean verifyTheDownloadButtonLabel(String buttonName) {
         for (int i = 0; i < downloadButton.size(); i++) {
-            if(!downloadButton.get(i).getText().matches(buttonName)){
-                Debugger.println("Download button label is not as expected:"+buttonName);
+            if (!downloadButton.get(i).getText().matches(buttonName)) {
+                Debugger.println("Download button label is not as expected:" + buttonName);
                 SeleniumLib.takeAScreenShot("DownLoadButtonName.jpg");
                 return false;
             }
@@ -347,8 +340,8 @@ public class PaperFormPage {
         Wait.forElementToBeClickable(driver, continueButton.get(0));
     }
 
-    public void clickOnUsePDFOrderFormButton(){
-        Actions.clickElement(driver,usePDFOrderFormButton);
+    public void clickOnUsePDFOrderFormButton() {
+        Actions.clickElement(driver, usePDFOrderFormButton);
     }
 
 }

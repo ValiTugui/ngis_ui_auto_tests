@@ -54,8 +54,8 @@ Feature: Family Members Details Page 4- Field Validation_4
     And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
     Then the user clicks the Add new patient to referral button
     Examples:
-      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |FamilyMemberDetails|
-      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Father                | NHSNumber=9449305327:DOB=14-02-2012                  |
+      | FamilyMember   | reason_for_no_nhsNumber                                     | RelationshipToProband | FamilyMemberDetails                 |
+      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Father                | NHSNumber=9449305327:DOB=14-02-2012 |
 
   @NTS-4053 @Z-LOGOUT
 #    @E2EUI-2474 @scenario_3
@@ -71,8 +71,8 @@ Feature: Family Members Details Page 4- Field Validation_4
     When the user navigates to the "<Panels>" stage
     Then User clicks on a field "panelsSearchBox" and auto-complete is disabled
     Examples:
-      | FamilyMembers  |Panels |
-      | Family members |Panels |
+      | FamilyMembers  | Panels |
+      | Family members | Panels |
 
   @NTS-4053 @Z-LOGOUT
 #    @E2EUI-2474 @scenario_5

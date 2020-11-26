@@ -64,7 +64,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 #    @E2EUI-1787
   Scenario Outline: NTS-4702: scenario_1: View cancelled referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=2000003834:DOB=10-05-2001 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=2000001130:DOB=08-11-1959 |
      ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
@@ -77,7 +77,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | Reason  | CancellationReason                                 | CancellationSuccessMessage                                                                      |
       | Revoked | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1787
   Scenario Outline:NTS-4702: scenario_2: View cancelled referral
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -92,7 +92,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 
     Examples:
       | NhsNumber            | DOB            | Reason  |
-      | NHSNumber=2000003834 | DOB=10-05-2001 | Revoked |
+      | NHSNumber=2000001130 | DOB=08-11-1959 | Revoked |
 
   @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1212

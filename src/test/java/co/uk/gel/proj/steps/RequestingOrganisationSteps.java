@@ -28,6 +28,7 @@ public class RequestingOrganisationSteps extends Pages {
         try {
             boolean testResult = requestingOrganisationPage.verifyOrganisationDetails();
             if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrderingEntity");
                 Assert.fail("Organisation details are not displayed properly.");
             }
             if(AppConfig.snapshotRequired){
@@ -92,7 +93,13 @@ public class RequestingOrganisationSteps extends Pages {
     @And("the message {string} displayed on the page")
     public void theMessageDisplayedOnThePage(String expMessage) {
         String actualMessage = requestingOrganisationPage.getNoResultMessage();
-        Assert.assertNotNull(actualMessage);
-        Assert.assertTrue(actualMessage.equalsIgnoreCase(actualMessage));
+        if(actualMessage == null){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Message.jpg");
+            Assert.fail("Message did not displayed:"+expMessage);
+        }
+        if(!actualMessage.equalsIgnoreCase(expMessage)){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Message.jpg");
+            Assert.fail("Message mismatch:Exp"+expMessage+",Actual:"+actualMessage);
+        }
     }
 }

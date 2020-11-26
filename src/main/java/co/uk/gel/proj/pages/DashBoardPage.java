@@ -73,16 +73,16 @@ public class DashBoardPage {
             Wait.forElementToBeDisplayed(driver, resultsPanel);
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
-            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
         }
     }
 
-    public void dashboardPageResultsIsLoaded() {
+    public boolean dashboardPageResultsIsLoaded() {
         try {
             Wait.forElementToBeClickable(driver, resultsPanel);
+            return true;
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
-            SeleniumLib.takeAScreenShot("DashboardPageNotLoaded.jpg");
+            return false;
         }
     }
 
@@ -91,7 +91,6 @@ public class DashBoardPage {
         if (actual.equalsIgnoreCase(titleText)) {
             return true;
         } else {
-            Debugger.println("Actual Title:"+actual);
             return false;
         }
     }
@@ -111,7 +110,6 @@ public class DashBoardPage {
             Wait.forElementToBeDisplayed(driver, NHSLogo);
             if (!NHSLogo.isDisplayed()) {
                 Debugger.println("NHS logo not present in the page.");
-                SeleniumLib.takeAScreenShot("DashboardNHSLogo.jpg");
                 return false;
             }
             Point nhsLogoLocation = NHSLogo.getLocation();
@@ -120,13 +118,11 @@ public class DashBoardPage {
             //Default logo position is x-59 and y=0
             if (xLocation != 59 && yLocation != 0) {
                 Debugger.println("NHS logo not present in the same location(x=59,y=0)");
-                SeleniumLib.takeAScreenShot("DashboardNHSLogo.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception form DashBoardPage, verifyTheNHSLogo " + exp);
-            SeleniumLib.takeAScreenShot("DashboardNHSLogo.jpg");
             return false;
         }
     }
@@ -139,35 +135,30 @@ public class DashBoardPage {
                     case 0:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Find a genomic test")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Find a genomic test");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 1:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Order a genomic test")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Order a genomic test");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 2:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Manage samples")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Manage samples");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 3:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Enter the Interpretation Portal")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Enter the Interpretation Portal");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
                     case 4:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Open PanelApp")) {
                             Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Open PanelApp");
-                            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
                             return false;
                         }
                         break;
@@ -176,7 +167,6 @@ public class DashBoardPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception form verifyTheDashboardTabs :" + exp);
-            SeleniumLib.takeAScreenShot("DashboardTabs.jpg");
             return false;
         }
     }
@@ -208,7 +198,6 @@ public class DashBoardPage {
             return true;
         } catch (Exception exp){
             Debugger.println("Exception form DashBoardPage, Click on Tab " + tabName + " " + exp);
-            SeleniumLib.takeAScreenShot(tabName + ".jpg");
             return false;
         }
     }
@@ -216,14 +205,10 @@ public class DashBoardPage {
     public boolean directedToTestSelectionPage() {
         try {
             if (driver.getCurrentUrl().contains("dashboard")) {
-                Debugger.println("Current URL still contains dashboard, which is not expected after re-direction.");
-                SeleniumLib.takeAScreenShot("TestSelectionRedirection.jpg");
                 return false;
             }
            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception form DashBoardPage, test selection page " + exp);
-            SeleniumLib.takeAScreenShot("TestSelectionRedirection.jpg");
             return false;
         }
     }
@@ -231,16 +216,11 @@ public class DashBoardPage {
     public boolean clickOnManageSampleTab() {
         try{
             if(!Wait.isElementDisplayed(driver, ManageSamplesTab, 30)){
-                Debugger.println("ManageSamplesTab is not displayed");
-                SeleniumLib.takeAScreenShot("manageSamplesTabNotFound.jpg");
                 return false;
             }
             ManageSamplesTab.click();
-            Debugger.println("Manage Samples Tab is selected");
             return true;
         } catch (Exception exp){
-            Debugger.println("Exception form DashBoardPage, clickOnManageSampleTab: " + exp);
-            SeleniumLib.takeAScreenShot("manageSamplesTabNotFound.jpg");
             return false;
         }
     }

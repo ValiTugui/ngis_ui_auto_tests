@@ -81,14 +81,12 @@ public class RequestingOrganisationPage {
     public boolean verifyOrganisationDetails() {
         if (!Wait.isElementDisplayed(driver, organisationDetailsContainer, 30)) {
             Debugger.println("organisationDetailsContainer not displayed.");
-            SeleniumLib.takeAScreenShot("organisationDetailsContainer.jpg");
             return false;
         }
         String containerText = organisationDetailsContainer.getText();
         String orgDetails = organisationDetailText.get(0).getText();
         if (!containerText.contains(orgDetails)) {
             Debugger.println("Organization Details not selected."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("organisationDetailText.jpg");
             return false;
         }
         return true;
@@ -97,13 +95,11 @@ public class RequestingOrganisationPage {
     public boolean verifyOrganisationDetails(String organisationName) {
         if (!Wait.isElementDisplayed(driver, organisationDetailsContainer, 30)) {
             Debugger.println("organisationDetailsContainer not displayed.");
-            SeleniumLib.takeAScreenShot("organisationDetailsContainer.jpg");
             return false;
         }
         String containerText = organisationDetailsContainer.getText();
         if (!containerText.contains(organisationName)) {
             Debugger.println("Organization Details not selected."+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("organisationDetailText.jpg");
             return false;
         }
         return true;
@@ -171,7 +167,6 @@ public class RequestingOrganisationPage {
             return Actions.getText(noSearchResult);
         } catch (Exception exp) {
             Debugger.println("Exception during RequestingOrganisationPage -> getNoResultMessage() : " + exp);
-            SeleniumLib.takeAScreenShot("NoResultMessage.jpg");
             return null;
         }
     }

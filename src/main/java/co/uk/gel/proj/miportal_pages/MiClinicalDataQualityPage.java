@@ -96,7 +96,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("clinicalDqReportHeaderIsNotMatched.jpg");
                 return false;
             }
-            Debugger.println("Clinical_dq_Report header is visible");
+            //Debugger.println("Clinical_dq_Report header is visible");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from : verifyClinicalDataQualityReport :  " + exp);
@@ -114,7 +114,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("reportGuidanceLinkNotPresent.jpg");
                 return false;
             }
-            Debugger.println("Report_Guidance link is present");
+            //Debugger.println("Report_Guidance link is present");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from : verifyReportGuidance :  " + exp);
@@ -140,7 +140,7 @@ public class MiClinicalDataQualityPage {
                 Debugger.println("The " + value + " is not present");
                 return seleniumLib.selectFromListByText(glhDropDown,value);
             }
-            Debugger.println("The " + value + " is selected");
+            //Debugger.println("The " + value + " is selected");
             return true;
         }
         catch (Exception exp) {
@@ -159,7 +159,7 @@ public class MiClinicalDataQualityPage {
             }
             Wait.seconds(5);//To load the dropdown elements
             Actions.clickElement(driver, orderingEntityDropdown);
-            Debugger.println("Ordering entity dropdown is clicked");
+            //Debugger.println("Ordering entity dropdown is clicked");
             return true;
         }catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnOrderingEntityDd: "+ exp);
@@ -176,7 +176,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             Actions.clickElement(driver, deselectAllButton);
-            Debugger.println("Deselected all the ordering entities");
+            //Debugger.println("Deselected all the ordering entities");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnDeselectAllButton: "+ exp);
@@ -193,7 +193,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             Actions.clickElement(driver, selectAllButton);
-            Debugger.println("Selected all the ordering entities");
+            //Debugger.println("Selected all the ordering entities");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnSelectAllButton: "+ exp);
@@ -210,7 +210,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             Actions.clickElement(driver, applyFiltersButton);
-            Debugger.println("Apply filters button clicked");
+            //Debugger.println("Apply filters button clicked");
             Wait.seconds(8); //This wait is for to load the apply filters table
             return true;
         } catch (Exception exp){
@@ -299,7 +299,7 @@ public class MiClinicalDataQualityPage {
             Wait.forElementToBeClickable(driver, driver.findElement(tabName));
             Click.element(driver, driver.findElement(tabName));
             Wait.seconds(5); // It is observed that particular tab is taking time to load
-            Debugger.println("The " + expectedTabName + " is clicked");
+            //Debugger.println("The " + expectedTabName + " is clicked");
             return true;
         } catch (Exception exp){
             Debugger.println("Exception from clickOnSpecifiedTab:" + exp);
@@ -342,7 +342,7 @@ public class MiClinicalDataQualityPage {
                         return false;
                     }else {
                         if (!cellValue.contains(expValue)){
-                            Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
+                            //Debugger.println("Column: " + colName + " value, Expected: " + expValue + ", Actual: " + cellValue);
                             return true;
                         }
                     }
@@ -363,7 +363,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             Actions.clickElement(driver, resetFiltersButton);
-            Debugger.println("Reset filters button is clicked");
+            //Debugger.println("Reset filters button is clicked");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalClinicalDataQuality:clickOnResetFiltersButton: " + exp);
@@ -380,7 +380,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             Actions.clickElement(driver, clinicalDqTab);
-            Debugger.println("Clinical Dq report tab is selected");
+            //Debugger.println("Clinical Dq report tab is selected");
             return true;
         } catch (Exception exp){
             Debugger.println("Exception in MIPortalClinicalDataQuality:navigateToClinicalDataQualityPage: " + exp);
@@ -425,7 +425,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("DQTabsNotPresent.jpg");
                 return false;
             }
-            Debugger.println("The Tab to check is: " + selectedTab.getText());
+            //Debugger.println("The Tab to check is: " + selectedTab.getText());
             seleniumLib.highLightWebElement(selectedTab);
             seleniumLib.clickOnWebElement(selectedTab);
             Wait.seconds(10);
@@ -514,7 +514,7 @@ public class MiClinicalDataQualityPage {
             }
             seleniumLib.clickOnWebElement(downloadDataButton);
             Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
-            Debugger.println("Form: " + clinical_dq_report_filtered + " ,downloaded from section: " + clinical_dq_report_filtered);
+            //Debugger.println("Form: " + clinical_dq_report_filtered + " ,downloaded from section: " + clinical_dq_report_filtered);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from checking CSV file download: " + exp);

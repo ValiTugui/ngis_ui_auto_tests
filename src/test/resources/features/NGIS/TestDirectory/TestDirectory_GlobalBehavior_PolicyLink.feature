@@ -1,13 +1,13 @@
 @01-TEST_DIRECTORY
-@SYSTEM_TEST
-Feature: Test Directory - Global Behaviour Page 1
+@SYSTEM_TEST1
+Feature: TestDirectory: Global Behaviour Page - Policy Link
 
   @NTS-3236
 #   @E2EUI-1658
   Scenario: NTS-3236 - Home Page - User is able to see the privacy policy link at the bottom of the page
-     Given a web browser is at the Private Test Selection homepage
-       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
-     And the user has scrolled down the page to the bottom (Footer)
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
     When the user clicks the privacy policy link
     Then the "Your privacy and data" page should be opened in the next tab

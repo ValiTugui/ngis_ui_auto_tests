@@ -23,34 +23,51 @@ public class PanelsSteps extends Pages {
     public void theUserShouldBeSeeAddAnotherPanelSearchFieldAndSearchIcon(String expectedTitle) {
         boolean testResult = false;
         testResult = panelsPage.verifyPanelSearchFieldAndSearchIcon(expectedTitle);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelsPage.jpg");
+            Assert.fail("Panels Search Page not displayed correctly");
+        }
     }
 
     @And("the user search and add the {string} panels")
     public void theUserShouldBeAbleToSearchAndAddThePanels(String searchPanel) {
         boolean testResult = false;
         testResult = panelsPage.searchAndAddPanel(searchPanel);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSearch.jpg");
+            Assert.fail("Could search Panel");
+        }
     }
 
     @And("the user should be able to see panels page is correctly displayed")
     public void theUserShouldBeAbleToSeePanelsPageIsCorrectlyDisplayed() {
-        Assert.assertTrue(panelsPage.verifyPanelsPageFields());
+        boolean testResult = panelsPage.verifyPanelsPageFields();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSearchPage.jpg");
+            Assert.fail("Panel search page not displayed");
+        }
     }
 
     @And("the user should be able to change the penetrance status")
     public void theUserShouldBeAbleToChangeThePenetranceStatus() {
-        Assert.assertTrue(panelsPage.changeTheStatusOfPenetrance());
+        boolean testResult = panelsPage.changeTheStatusOfPenetrance();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelPenetrance.jpg");
+            Assert.fail("Panel penetrance not selected");
+        }
     }
 
     @When("the user clicks on VisitPanelApp link")
     public void theUserClicksOnVisitPanelAppLink() {
         boolean testResult;
         testResult = panelsPage.clicksOnVisitPanelsAppLink();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelApplink.jpg");
+            Assert.fail("Panel app link not clcked");
+        }
         if(AppConfig.snapshotRequired){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Panels");
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("the user navigates to panelApp page")
@@ -63,7 +80,11 @@ public class PanelsSteps extends Pages {
 
     @And("the user clicks on (.*) button and button will show tick marked")
     public void theUserClicksOnButtonAndButtonWillShowTickMarked(String expectedButton) {
-        Assert.assertTrue(panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(expectedButton));
+        boolean testResult = panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(expectedButton);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Panels.jpg");
+            Assert.fail("Panels page button tick mark not correct");
+        }
     }
 
     @Then("the user should be able to deselect the selected panels")
@@ -76,15 +97,21 @@ public class PanelsSteps extends Pages {
     public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
         boolean testResult = false;
         testResult = panelsPage.verifyPenetranceTitle(subtitle);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PenetranceTitle.jpg");
+            Assert.fail("Panel penetrance title could not verify");
+        }
     }
 
     @Then("the user should be able to see an additional line {string} underneath the penetrance title")
     public void theUserShouldBeAbleToSeeAnAdditionalLineUnderneathThePenetranceTitle(String textLine) {
         boolean testResult = false;
         testResult = panelsPage.verifyPenetranceIntroMessage(textLine);
-        Assert.assertTrue(testResult);
-   }
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PenetranceIntro.jpg");
+            Assert.fail("Panel penetrance intro message not correct");
+        }
+    }
 
     @Then("the user sees the selected {string} panels under added panels")
     public void theUserSeesTheSelectedPanelsUnderAddedPanels(String selectedAddedPanels) {
@@ -101,18 +128,12 @@ public class PanelsSteps extends Pages {
 
     @And("the user should see the default status of penetrance button as (.*)")
     public void theUserShouldSeeTheDefaultStatusOfPenetranceButtonAs(String expectedButton) {
-        Assert.assertTrue(panelsPage.verifyDefaultStatusOfPenetranceButton(expectedButton));
+        boolean testResult = panelsPage.verifyDefaultStatusOfPenetranceButton(expectedButton);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PenetranceDefault.jpg");
+            Assert.fail("Panel penetrance default status not correct");
+        }
     }
-
-//    @And("the panels landing page displays the introduction message as {string}")
-//    public void thePanelsLandingPageDisplaysTheIntroductionMessageAs(DataTable introMessage) {
-//        boolean testResult = false;
-//        List<List<String>> messages = introMessage.asLists();
-//        for (int i = 0; i < messages.size(); i++) {
-//            testResult = panelsPage.verifyThePanelAssignerIntoMessage(messages.get(i).get(0));
-//            Assert.assertTrue(testResult);
-//        }
-//    }
 
     @And("the panels landing page displays the introduction message as shown below")
     public void thePanelsLandingPageDisplaysTheIntroductionMessageAsShownBelow(DataTable introMessage) {
@@ -128,42 +149,60 @@ public class PanelsSteps extends Pages {
     public void theUserShouldBeAbleToSeeTheButtonOptionsPresent() {
         boolean testResult = false;
         testResult = panelsPage.verifyThePresenceOfPenetranceOptions();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PenetranceOption.jpg");
+            Assert.fail("Panel penetrance option not present");
+        }
     }
 
     @And("the user should see the section with title (.*)")
     public void theUserShouldSeeTheSectionWithTitleSuggestionsBasedOnTheClinicalInformation(String sectionName) {
         boolean testResult = false;
         testResult = panelsPage.verifyThePresenceOfSuggestedPanelsSection(sectionName);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
+            Assert.fail("Suggested Panel section not present");
+        }
     }
 
     @And("the user sees suggested panels under the section Suggestions based on the clinical information")
     public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection() {
         boolean testResult = false;
         testResult = panelsPage.verifySuggestedPanels();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
+            Assert.fail("Suggested Panel section not present");
+        }
     }
 
     @And("the user sees link with title View On PanelApp attached to all the suggested panels")
     public void theUserSeesLinkWithTitleViewOnPanelAppAttachedToAllTheSuggestedPanels() {
         boolean testResult = false;
         testResult =  panelsPage.verifySuggestedPanelsLinkToPanelApp();
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
+            Assert.fail("Suggested Panel section not present");
+        }
     }
 
     @And("the user sees the (.*) message on the page")
     public void theUserSeesTheStringMessageOnThePage(String message) {
         boolean testResult = false;
         testResult =  panelsPage.verifyNoSuggestedPanels(message);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
+            Assert.fail("Suggested Panel section not present");
+        }
     }
 
     @And("the user should see the Add Panels section with the (.*)")
     public void theUserShouldSeeTheAddPanelsSectionWithThe(String message) {
         boolean testResult = false;
         testResult =  panelsPage.verifyMessageInAddPanels(message);
-        Assert.assertTrue(testResult);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
+            Assert.fail("Suggested Panel section not present");
+        }
     }
 
 }//end
