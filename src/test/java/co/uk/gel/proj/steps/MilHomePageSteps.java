@@ -662,4 +662,31 @@ public class MilHomePageSteps extends Pages {
         testResult =  miPortalHomePage.validateDataInAllReports(fileName,sheetName);
         Assert.assertTrue(testResult);
     }
+
+    @When("the user should be able to see sample failures menu is displayed")
+    public void theUserShouldBeAbleToSeeSampleFailuresMenuIsDisplayed() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyThePresenceOfSampleFailureMenu();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see the below header sections in sample failures")
+    public void theUserShouldBeAbleToSeeTheBelowHeaderSectionsInSampleFailures(DataTable inputSections) {
+        try {
+            Wait.seconds(10);
+            boolean testResult = false;
+            List<List<String>> linkDetails = inputSections.asLists();
+            for (int i = 1; i < linkDetails.size(); i++) {
+                testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderSampleFailures(linkDetails.get(i).get(0));
+                if (!testResult) {
+                    Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Sample Failures Section.");
+                    Assert.fail(linkDetails.get(i).get(0) + " Could not verify in Sample Failures Section");
+                }
+                Wait.seconds(2);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from Sample Failures Section Header " + exp);
+            Assert.assertFalse("MiHomePageSteps: Exception from Sample Failures Section Header " + exp, true);
+        }
+    }
 }

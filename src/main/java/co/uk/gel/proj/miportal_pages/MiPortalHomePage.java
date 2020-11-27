@@ -176,6 +176,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//ul[contains(string(),'Participant NHS Spine Data')]")
     public WebElement nhsSpineData;
 
+    @FindBy(xpath = "//ul[contains(string(),'Sample Failures')]")
+    public WebElement sampleFailures;
+
+    @FindBy(xpath = "//span[contains(string(),'Sample Failures')]/../..//a")
+    public WebElement sampleFailures2;
+
+    @FindBy(xpath = "//ul[contains(string(),' Sample Failures')]//ul/li/a")
+    public List<WebElement> subMenusOfsampleFailures;
+
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
         try {
@@ -2082,5 +2091,45 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean verifyThePresenceOfSampleFailureMenu() {
+        try {
+            if (!Wait.isElementDisplayed(driver, sampleFailures, 60)) {
+                Debugger.println("Sample Failures section header is not displayed even after 60 seconds.");
+                SeleniumLib.takeAScreenShot("SampleFailuresMenu.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(sampleFailures2);
+            seleniumLib.sleepInSeconds(3);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfSampleFailuresMenu:" + exp);
+            SeleniumLib.takeAScreenShot("SampleFailuresMenu.jpg");
+            return false;
+        }
+
+    }
+
+    public boolean verifyThePresenceOfSectionHeaderUnderSampleFailures(String sectionHeader) {
+        try {
+            boolean isPresent = false;
+            for (int i = 0; i < subMenusOfsampleFailures.size(); i++) {
+                String actualMenuItems = subMenusOfsampleFailures.get(i).getText();
+                Debugger.println("actualMenuItems: "+actualMenuItems);
+                if (actualMenuItems.equalsIgnoreCase(sectionHeader)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Section header " + sectionHeader + " not present under the Sample Failures section.");
+                SeleniumLib.takeAScreenShot("SampleFailuresSectionHeaderNotPresent.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfSectionHeaderSampleFailures:" + exp);
+            SeleniumLib.takeAScreenShot("SampleFailuresHeaderNotPresent.jpg");
+            return false;
+        }
+    }
 }//end
 
