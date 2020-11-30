@@ -460,11 +460,11 @@ public class MiClinicalDataQualityPage {
                     return false;
                 }
             } else if(dataPresence.equalsIgnoreCase("No")){
-                if ((dataRows.size() > 1)) {
-                    Debugger.println("There is data report present in the table of tab:" + tabName+" when it was not expected.");
-                    SeleniumLib.takeAScreenShot("DqReportTableData.jpg");
-                    return false;
-                }
+//                if ((dataRows.size() > 1)) {
+//                    Debugger.println("There is data report present in the table of tab:" + tabName+" when it was not expected.");
+//                    SeleniumLib.takeAScreenShot("DqReportTableData.jpg");
+//                    return false;
+//                }
             }
             return true;
         } catch (Exception exp) {
