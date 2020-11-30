@@ -633,7 +633,7 @@ public class ReferralSteps extends Pages {
         }
         homePage.closeCookiesBannerFromFooter();
         if (!homePage.selectFirstEntityFromResultList()) {
-            Assert.fail("Could not select the first entitry from CI Search Result.");
+            Assert.fail("Could not select the first entity from CI Search Result.");
         }
         homePage.closeCookiesBannerFromFooter();
         if (!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()) {
