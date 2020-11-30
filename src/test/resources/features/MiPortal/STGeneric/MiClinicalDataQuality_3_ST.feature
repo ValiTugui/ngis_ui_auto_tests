@@ -73,5 +73,6 @@ Feature: MIPORTAL ST - Clinical Data Quality - 3
       | Clinical Data Quality | Clinical Data Quality Report | London North                  | Test order link |
       | Clinical Data Quality | Clinical Data Quality Report | London South                  | Test order link |
       | Clinical Data Quality | Clinical Data Quality Report | North West                    | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | South West                    | Test order link |
       | Clinical Data Quality | Clinical Data Quality Report | Wessex & West Midlands        | Test order link |
       | Clinical Data Quality | Clinical Data Quality Report | Yorkshire & North East        | Test order link |
