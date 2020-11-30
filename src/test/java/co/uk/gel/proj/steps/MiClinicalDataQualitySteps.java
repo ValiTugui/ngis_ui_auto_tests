@@ -144,7 +144,6 @@ public class MiClinicalDataQualitySteps extends Pages {
         boolean testResult = false;
         List<List<String>> data = tabNameAndFields.cells();
         Debugger.println("The number of data tabs to be checked:" + data.size());
-        Debugger.println("The num of data tabs to be checked:" + data.size());
         for (int i = 0; i < data.size(); i++) {
             String tabName = data.get(i).get(0);
             String headerValues = data.get(i).get(1);
