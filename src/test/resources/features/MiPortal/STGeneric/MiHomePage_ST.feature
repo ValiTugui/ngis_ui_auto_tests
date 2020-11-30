@@ -112,7 +112,7 @@ Feature:  MIPORTAL ST -  Home Page
       | order_tracking | glh_samples | plater_samples | pick_lists | sequencer_samples |
       | Order Tracking | GLH Samples | Plater Samples | Picklists  | Sequencer Samples |
 
-  @NTS-4975 @test5
+  @NTS-4975
   #@E2EUI-2704
   Scenario:NTS-4975:E2EUI-2704: Implement sql-performance recommendations for miportalsampleview
     Given a web browser is at the mi-portal home page
