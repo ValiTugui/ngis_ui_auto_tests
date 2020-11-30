@@ -81,8 +81,9 @@ public class MiClinicalDataQualityPage {
     String link="//a[text()='dummyLink']";
     String dummyTabPath = "//*[@class='nav nav-tabs']//a[text()='dummyTab']";
 
-    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
-    WebElement clinicalDqReportTable;
+//    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
+//    WebElement clinicalDqReportTable;
+    String clinicalDqReportTable ="//div[@class='tab-pane active' and @data-value='dummyTab']//div[contains(@id,'clinical_dq-dq')]//table";
 
     String dqReportTabTableHeaders = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollHeadInner']/table[@class='display dataTable no-footer']/thead/tr/th";
     String dqReportTabTableRows = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollBody']/table[@class='display dataTable no-footer']/tbody/tr/td";
@@ -428,9 +429,11 @@ public class MiClinicalDataQualityPage {
             //Debugger.println("The Tab to check is: " + selectedTab.getText());
             seleniumLib.highLightWebElement(selectedTab);
             seleniumLib.clickOnWebElement(selectedTab);
-            Wait.seconds(10);
+            Wait.seconds(20);
             String[] headerNames = headerValues.split(",");
-            if (!Wait.isElementDisplayed(driver, clinicalDqReportTable, 30)) {
+            String tableElePath=clinicalDqReportTable.replace("dummyTab", tabName);
+            WebElement tableEle = driver.findElement(By.xpath(tableElePath));
+            if (!Wait.isElementDisplayed(driver, tableEle, 30)) {
                 Debugger.println("The clinical DQ report table is not present.");
                 SeleniumLib.takeAScreenShot("DqReportTableNotPresent.jpg");
                 return false;
