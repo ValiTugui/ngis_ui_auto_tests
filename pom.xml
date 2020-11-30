@@ -32,6 +32,17 @@
         <rerunOption>No</rerunOption>
         <parallelScheme>FEATURE</parallelScheme>
     </properties>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>sonatype-releases</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -68,7 +79,7 @@
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
                             <featuresDirectory>src/test/resources/features/${features}</featuresDirectory>
-                            <tags>@BVT_UI_SMOKE_TEST_PACK</tags>
+                            <tags>@NTS-1234</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
@@ -184,7 +195,6 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/zap-api-2.4-v6.jar</systemPath>
         </dependency>
-
 
         <dependency>
             <groupId>net.continuumsecurity</groupId>
@@ -467,11 +477,48 @@
             <version>1.1.1</version>
         </dependency>
         <!--Pdf file reading dependencies End-->
+        <dependency>
+            <groupId>org.gel.models</groupId>
+            <artifactId>gel-models</artifactId>
+            <version>7.4.1</version>
+            <exclusions>
+                <exclusion>
+                    <!-- avro-tools includes slf4j-simple classes internally. -->
+                    <groupId>org.apache.avro</groupId>
+                    <artifactId>avro-tools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-yaml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.module</groupId>
+                    <artifactId>jackson-module-jaxb-annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.opencb.biodata</groupId>
+                    <artifactId>biodata-models</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.opencb.ga4gh</groupId>
+                    <artifactId>ga4gh</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- jsu to comment-->
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>1.9.2</version>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>sonatype-releases</id>
-            <url>https://oss.sonatype.org/content/repositories/releases/</url>
-        </repository>
-    </repositories>
+
 </project>
