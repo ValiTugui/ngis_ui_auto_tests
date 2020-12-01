@@ -11,7 +11,9 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM', branches: [[name: 'develop']],
-                    userRemoteConfigs: [[url: 'ssh://git@github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'bd67b9d5-5ccb-4aae-9596-a37284f02405']]
+                    //userRemoteConfigs: [[url: 'ssh://git@github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'bd67b9d5-5ccb-4aae-9596-a37284f02405']]
+                      userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'7f90912e-1e7e-48dd-81b4-3ff5da62ed7d']]
+
                 ])
             }
         }
