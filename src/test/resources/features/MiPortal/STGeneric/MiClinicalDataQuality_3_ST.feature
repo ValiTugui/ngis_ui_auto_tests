@@ -42,11 +42,10 @@ Feature: MIPORTAL ST - Clinical Data Quality - 3
       | 100        | 100           |
 
     Examples:
-      | mi_stage              | header                       |  glh_name               |
-      | Clinical Data Quality | Clinical Data Quality Report |  Yorkshire & North East |
+      | mi_stage              | header                       | glh_name               |
+      | Clinical Data Quality | Clinical Data Quality Report | Yorkshire & North East |
 
-
-    @NTS-6097 @MI-LOGOUT
+  @NTS-6097 @MI-LOGOUT
   Scenario Outline:NTS-6097:Scenario-2:User is able to verify the data present in each tabs for every GLH
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -66,7 +65,8 @@ Feature: MIPORTAL ST - Clinical Data Quality - 3
 
     And the user clicks the "<linkName>" link in the "Full Output" tab which opens "ngis" url
     And the user clicks the "<linkName>" link in the "Streamline Output" tab which opens "ngis" url
-    And the user should be able to download the filtered DQ report
+    Then the user should be able to download the filtered DQ report
+
     Examples:
       | mi_stage              | header                       | glh_name                      | linkName        |
       | Clinical Data Quality | Clinical Data Quality Report | East Mids and East of England | Test order link |
