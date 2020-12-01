@@ -7,6 +7,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -47,5 +48,9 @@ public class NotesSteps extends Pages {
         testResult = notesPage.verifyInfoMessageOnNotesPage(infoMessage);
         Assert.assertTrue(testResult);
     }
-
+    //Created as part of Demo
+    @And("the user should see the text {string} in the Notes Page")
+    public void theUserShouldSeeTheTextInTheNotesPage(String textInfo) {
+        notesPage.validateTextInformation(textInfo);
+    }
 }

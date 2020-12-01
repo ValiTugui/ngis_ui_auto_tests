@@ -143,7 +143,7 @@ public class MiClinicalDataQualitySteps extends Pages {
     public void theUserSeesTheColumnHeadersPresentInTheTabs(DataTable tabNameAndFields) {
         boolean testResult = false;
         List<List<String>> data = tabNameAndFields.cells();
-        Debugger.println("The number of data tabs to be checked:" + data.size());
+        Debugger.println("The data row size:" + data.size());
         for (int i = 0; i < data.size(); i++) {
             String tabName = data.get(i).get(0);
             String headerValues = data.get(i).get(1);

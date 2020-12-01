@@ -8,7 +8,7 @@ Feature: Family Members Details Page 1- Field Validation_1
 #    @E2EUI-908
   Scenario Outline: NTS-3235:E2EUI-908: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a new patient referral is created with associated tests in Test Order System online service
-  | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1971:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1971:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -23,7 +23,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
       | Last name               | label      | ✱      | #dd2509      |
-      | Date of birth           | legend      | ✱      | #dd2509      |
+      | Date of birth           | legend     | ✱      | #dd2509      |
       | Gender                  | label      | ✱      | #dd2509      |
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |
@@ -89,7 +89,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
       | Last name               | label      | ✱      | #dd2509      |
-      | Date of birth           | legend      | ✱      | #dd2509      |
+      | Date of birth           | legend     | ✱      | #dd2509      |
       | Gender                  | label      | ✱      | #dd2509      |
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |
