@@ -81,9 +81,8 @@ public class MiClinicalDataQualityPage {
     String link="//a[text()='dummyLink']";
     String dummyTabPath = "//*[@class='nav nav-tabs']//a[text()='dummyTab']";
 
-//    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
-//    WebElement clinicalDqReportTable;
-    String clinicalDqReportTable ="//div[@class='tab-pane active' and @data-value='dummyTab']//div[contains(@id,'clinical_dq-dq')]//table";
+    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
+    WebElement clinicalDqReportTable;
 
     String dqReportTabTableHeaders = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollHeadInner']/table[@class='display dataTable no-footer']/thead/tr/th";
     String dqReportTabTableRows = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollBody']/table[@class='display dataTable no-footer']/tbody/tr/td";
@@ -267,28 +266,25 @@ public class MiClinicalDataQualityPage {
             return false;
         }
     }
-
-    //After clicking on select all button all the ordering entities should select
+//After clicking on deselect all button all the ordering entities should deselect
     public boolean orderingEntitiesDeselect() {
         //Check mark should not be present
-        //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-        if(orderingEntitySelections.size()==6) {
-            return true;
+        if(orderingEntitySelections.size() > 1){
+            Debugger.println("Ordering entity is shown as selected, but not expected to be selected.");
+            SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
+            return false;
         }
-        Debugger.println("Ordering entity is shown as selected, but not expected to be deselected.");
-        SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
-        return false;
+        return true;
     }
 //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
         //Check mark should be present
-        //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-        if(orderingEntitySelections.size() > 6){
-            return true;
+        if(orderingEntitySelections.size() < 1){
+            Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
+            SeleniumLib.takeAScreenShot("OrderingEntityDeselected.jpg");
+            return false;
         }
-        Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
-        SeleniumLib.takeAScreenShot("OrderingEntityDeselected.jpg");
-        return false;
+        return true;
     }
 
     public boolean clickOnSpecifiedTab(String expectedTabName) {
@@ -432,11 +428,9 @@ public class MiClinicalDataQualityPage {
             //Debugger.println("The Tab to check is: " + selectedTab.getText());
             seleniumLib.highLightWebElement(selectedTab);
             seleniumLib.clickOnWebElement(selectedTab);
-            Wait.seconds(20);
+            Wait.seconds(10);
             String[] headerNames = headerValues.split(",");
-            String tableElePath=clinicalDqReportTable.replace("dummyTab", tabName);
-            WebElement tableEle = driver.findElement(By.xpath(tableElePath));
-            if (!Wait.isElementDisplayed(driver, tableEle, 30)) {
+            if (!Wait.isElementDisplayed(driver, clinicalDqReportTable, 30)) {
                 Debugger.println("The clinical DQ report table is not present.");
                 SeleniumLib.takeAScreenShot("DqReportTableNotPresent.jpg");
                 return false;
@@ -466,6 +460,11 @@ public class MiClinicalDataQualityPage {
                     return false;
                 }
             } else if(dataPresence.equalsIgnoreCase("No")){
+                if ((dataRows.size() > 1)) {
+                    Debugger.println("There is data report present in the table of tab:" + tabName+" when it was not expected.");
+                    SeleniumLib.takeAScreenShot("DqReportTableData.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
