@@ -267,17 +267,7 @@ public class MiClinicalDataQualityPage {
             return false;
         }
     }
-//After clicking on deselect all button all the ordering entities should deselect
-public boolean orderingEntitiesDeselect() {
-    //Check mark should not be present
-    //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-    if(orderingEntitySelections.size()==6) {
-        return true;
-    }
-    Debugger.println("Ordering entity is shown as selected, but not expected to be deselected.");
-    SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
-    return false;
-}
+
     //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesDeselect() {
         //Check mark should not be present
