@@ -33,10 +33,10 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//button[@data-id='clinical_dq-filter_ordering_entity']")
     public WebElement orderingEntityDropdown;
 
-    @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
+    @FindBy(xpath = "//*[@id=\"shiny-tab-clinical_dq_tab\"]//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
     public WebElement deselectAllButton;
 
-    @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][1]")
+    @FindBy(xpath = "//*[@id=\"shiny-tab-clinical_dq_tab\"]//div[@class='btn-group btn-group-sm btn-block']//button[text()][1]")
     public WebElement selectAllButton;
 
     @FindBy(xpath = "//button[@id='clinical_dq-apply_filters']")
