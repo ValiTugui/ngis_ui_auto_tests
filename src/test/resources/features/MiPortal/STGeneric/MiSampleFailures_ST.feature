@@ -1,5 +1,6 @@
 @Sample_Failures_System_Testing
-
+@MIPORTAL_ST
+@SYSTEM_TEST
 Feature: MIPORTAL ST - Sample Failures - 1
 
 
