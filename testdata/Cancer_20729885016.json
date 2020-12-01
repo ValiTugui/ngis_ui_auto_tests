@@ -1,0 +1,147 @@
+{
+    "cancerParticipant": {
+        "participantId": "p48222208911",
+        "participantUid": "d0668291-88df-4280-bed4-565c16a65db6",
+        "readyForAnalysis": true,
+        "sex": "MALE",
+        "tumours": [
+            {
+                "primaryOrMetastatic": "PRIMARY",
+                "tumourDiagnosisDate": {
+                    "day": 2,
+                    "month": 7,
+                    "year": 2020
+                },
+                "tumourId": "d4941109-f42a-4aa1-96f0-f67a822f4a51",
+                "tumourLocalId": "S20-005K",
+                "tumourPresentation": "UNKNOWN",
+                "tumourType": "BRAIN_TUMOUR"
+            }
+        ],
+        "yearOfBirth": 2007
+    },
+    "clinicalIndication": {
+        "clinicalIndicationCode": "M139",
+        "clinicalIndicationFullName": "Glioblastoma - Paediatric",
+        "clinicalIndicationUid": "56faa750-b73a-48b4-89d1-4c473f85bd01",
+        "clinicalIndicationVersionNumber": "V0.0"
+    },
+    "orderingDate": {
+        "day": 20,
+        "month": 7,
+        "year": 2020
+    },
+    "pedigree": {
+        "familyId": "r20729885016",
+        "members": [
+            {
+                "adoptedStatus": "notadopted",
+                "affectionStatus": "AFFECTED",
+                "disorderList": [
+                    {
+                        "specificDisease": "M139"
+                    }
+                ],
+                "isProband": true,
+                "lastMenstrualPeriod": "None",
+                "lifeStatus": "ALIVE",
+                "participantId": "p48222208911",
+                "participantQCState": "passedMedicalReviewReadyForInterpretation",
+                "participantUid": "d0668291-88df-4280-bed4-565c16a65db6",
+                "pedigreeId": 1,
+                "personKaryotypicSex": "UNKNOWN",
+                "sex": "MALE",
+                "yearOfBirth": 2007
+            }
+        ],
+        "readyForAnalysis": true
+    },
+    "referralId": "r20729885016",
+    "referralTests": [
+        {
+            "clinicalIndicationTest": {
+                "clinicalIndicationTestTypeCode": "M139.16",
+                "clinicalIndicationTestTypeId": "8da3a221-ad3e-4711-b98a-814e611f85c9",
+                "technology": {
+                    "testTechnologyDescription": "WGS",
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                },
+                "testTypeId": "3e17bc09-e381-4feb-84b3-47de4be1ce47",
+                "testTypeName": "WGS Germline and Tumour"
+            },
+            "germlineSamples": [
+                {
+                    "labSampleId": 1043938392,
+                    "maskedPid": "PID:1:1:0GaCkYjfQoC+1FZcFqZdtg==:8N1Az4li10CvHVH7CxPPPKX+Aw9ML0OIsfmMw9ZDdsAdCxR8k3sWXYbeO7RrOvjORmmTTXQi42LfN/SClXq1vlmcG5Ky0EugpNJ80GBn9sc7ym9HfuQeMzrmziI2d7d8O6cvQ8PX06dYeonkkGzjOVWIdVefg1s0osoumoq0SZi8+T4ttrE2sPhSZiZ2szQZbDJHxNbnGEIscEx+WdjJiWJiodyVglo9cqraj1vrIw23wIUFZicllNUAOWGn1bCact6MVoMX0FgQi6PzUKvPlBo8/4c7lOVrX19B+Tmyj+OyhXdr81SBdZqTN2L9RV2rabRgGDFxY0onBnoYwl2ApGrWxuqD+eJICUpVoh2Z+oUDvk8KxktPm/p13iYwiBktIQqP/+sUqZQ8FUZIW9udhIrWv1j2OFXSqghfiUf0f5/OkcbQo3qkojBm2xwBotuMaorFPf7lsxwllK9PMwGPrM2RjgCRyD5j06DMzrtrXM+c1hCZ9jzyqVR+TS6rIxBST4TbHVyfu6qHyrQF0A1+7bcJ5lIn7RBl3V9Xr5wmsAJ19meegK2Un6rILmc9n8o7iWl6oCaHGt0dY+lfH1gYujtjwg+ckDMwzgH2cq0VN5ZX6JopkUxMoSH5pk1dIYVWwx4Qi7d/l95fu5cHAC4I2zPFM67Nd9NW4+SeUK6xdXZ+eFhyr2OJrLW44vclG5psiN4Nb5VtTCZqMs/35OzxXC5knOhmI4wcj/95VqKVCOKY6blrzcXRSX6H4rItP+We1hAeKwWAB3/ohc5y25kPW7n7CDjYDnf/YNACuWn/UGu1TUB7CnZfWJ305VSCo5Jr3JcyGe9cF5KMtpSbdtTzh2E4s5z0givC/R+PGEZiQIaWhMICrCBVx8Thj9LYmHQwBXLRdLELlsCe8S/48Xyw+yqW2YxKbZorTsz4BE97GnCxnUxJknJTcKSivq2iJZQ+qn6xs6N5oz+ZMdww2opiOP1/59T7MXzI1S42SCkxNjqOiXMyZ/O0IrxaGbPFYnjBG9E8tNp+IBFR3t+ulcOTyi+qden3ZISkHygETIGEbSFP2yGPONBkzjcBGlGRm/HyaKw94Nldbq1g0oma7jUt20rqs/YDPBC1JAmFg6o2MLELizn7G5H6eLDe04XZKeaQF/Vn3E1INI64fQDRmkm7zENT9dYZFwkXi2tx/ruokwO6/Wl1ejMCJBsW+wHEHZ4NkqBLjNWSapadwlkwmby/flY9AQi5yUez1E4uOHolYfZ9+BZcyVdSGtgh3TyubDTsRkcBmRm65BKDsqebW1JQc2zjEP5Sm1v9nAAqy//wE5n+N2njXKjDhHuuZqBQVYFg8FH4E39+5cD11rv28Xokp0gjb3pNlEdkOcV5VNSs3aI=",
+                    "method": "NOT_APPLICABLE",
+                    "participantId": "p48222208911",
+                    "participantUid": "d0668291-88df-4280-bed4-565c16a65db6",
+                    "product": "DNA",
+                    "programmePhase": "MAIN",
+                    "sampleId": "LP5000087-DNA_A01",
+                    "sampleState": "blood_unsorted_edta",
+                    "sampleType": "Normal or Germline sample",
+                    "sampleUid": "LP5000087-DNA_A01",
+                    "source": "BLOOD",
+                    "storageMedium": "EDTA"
+                }
+            ],
+            "interpreter": {
+                "organisationCode": "699X0",
+                "organisationId": "3c8ef843-8040-be49-a647-725d98f0c689",
+                "organisationName": "North West",
+                "organisationNationalGroupingId": "699X0",
+                "organisationNationalGroupingName": "North West"
+            },
+            "matchedSamples": [
+                {
+                    "germlineSampleId": "LP5000087-DNA_A01",
+                    "tumourSampleId": "LP5000088-DNA_A01"
+                }
+            ],
+            "priority": "routine",
+            "processingLab": {
+                "organisationCode": "699X0",
+                "organisationId": "70e640c9-2fa3-8947-a657-6965c884380e",
+                "organisationName": "North West GLH",
+                "organisationNationalGroupingId": "699X0",
+                "organisationNationalGroupingName": "North West"
+            },
+            "referralTestId": "0c55976a-8498-4047-81f0-d08fdcc0b359",
+            "referralTestOrderingDate": {
+                "day": 23,
+                "month": 7,
+                "year": 2020
+            },
+            "tumourSamples": [
+                {
+                    "haematologicalCancer": false,
+                    "labSampleId": 1043938407,
+                    "maskedPid": "PID:1:1:0GaCkYjfQoC+1FZcFqZdtg==:8N1Az4li10CvHVH7CxPPPKX+Aw9ML0OIsfmMw9ZDdsAdCxR8k3sWXYbeO7RrOvjORmmTTXQi42LfN/SClXq1vlmcG5Ky0EugpNJ80GBn9sc7ym9HfuQeMzrmziI2d7d8O6cvQ8PX06dYeonkkGzjOVWIdVefg1s0osoumoq0SZi8+T4ttrE2sPhSZiZ2szQZbDJHxNbnGEIscEx+WdjJiWJiodyVglo9cqraj1vrIw23wIUFZicllNUAOWGn1bCact6MVoMX0FgQi6PzUKvPlBo8/4c7lOVrX19B+Tmyj+OyhXdr81SBdZqTN2L9RV2rabRgGDFxY0onBnoYwl2ApGrWxuqD+eJICUpVoh2Z+oUDvk8KxktPm/p13iYwiBktIQqP/+sUqZQ8FUZIW9udhIrWv1j2OFXSqghfiUf0f5/OkcbQo3qkojBm2xwBotuMaorFPf7lsxwllK9PMwGPrM2RjgCRyD5j06DMzrtrXM+c1hCZ9jzyqVR+TS6rIxBST4TbHVyfu6qHyrQF0A1+7bcJ5lIn7RBl3V9Xr5wmsAJ19meegK2Un6rILmc9n8o7iWl6oCaHGt0dY+lfH1gYujtjwg+ckDMwzgH2cq0VN5ZX6JopkUxMoSH5pk1dIYVWwx4Qi7d/l95fu5cHAC4I2zPFM67Nd9NW4+SeUK6xdXZ+eFhyr2OJrLW44vclG5psiN4Nb5VtTCZqMs/35OzxXC5knOhmI4wcj/95VqKVCOKY6blrzcXRSX6H4rItP+We1hAeKwWAB3/ohc5y25kPW7n7CDjYDnf/YNACuWn/UGu1TUB7CnZfWJ305VSCo5Jr3JcyGe9cF5KMtpSbdtTzh2E4s5z0givC/R+PGEZiQIaWhMICrCBVx8Thj9LYmHQwBXLRdLELlsCe8S/48Xyw+yqW2YxKbZorTsz4BE97GnCxnUxJknJTcKSivq2iJZQ+qn6xs6N5oz+ZMdww2opiOP1/59T7MXzI1S42SCkxNjqOiXMyZ/O0IrxaGbPFYnjBG9E8tNp+IBFR3t+ulcOTyi+qden3ZISkHygETIGEbSFP2yGPONBkzjcBGlGRm/HyaKw94Nldbq1g0oma7jUt20rqs/YDPBC1JAmFg6o2MLELizn7G5H6eLDe04XZKeaQF/Vn3E1INI64fQDRmkm7zENT9dYZFwkXi2tx/ruokwO6/Wl1ejMCJBsW+wHEHZ4NkqBLjNWSapadwlkwmby/flY9AQi5yUez1E4uOHolYfZ9+BZcyVdSGtgh3TyubDTsRkcBmRm65BKDsqebW1JQc2zjEP5Sm1v9nAAqy//wE5n+N2njXKjDhHuuZqBQVYFg8FH4E39+5cD11rv28Xokp0gjb3pNlEdkOcV5VNSs3aI=",
+                    "method": "UNKNOWN",
+                    "participantId": "p48222208911",
+                    "participantUid": "d0668291-88df-4280-bed4-565c16a65db6",
+                    "product": "DNA",
+                    "programmePhase": "MAIN",
+                    "sampleId": "LP5000088-DNA_A01",
+                    "sampleState": "tumour_freshFrozen",
+                    "sampleType": "Solid tumour sample",
+                    "sampleUid": "LP5000088-DNA_A01",
+                    "source": "TUMOUR",
+                    "storageMedium": "FF",
+                    "tumourContent": "Medium",
+                    "tumourContentPercentage": 40,
+                    "tumourId": "d4941109-f42a-4aa1-96f0-f67a822f4a51"
+                }
+            ]
+        }
+    ],
+    "referralUid": "ce5767d0-39a7-48f3-bde4-15db3b9d7013",
+    "requester": {
+        "organisationCode": "RXL",
+        "organisationId": "57cc97a6-69c0-994b-94ee-3ec493797eb0",
+        "organisationName": "Blackpool Teaching Hospitals NHS Foundation Trust",
+        "organisationNationalGroupingId": "699X0",
+        "organisationNationalGroupingName": "North West"
+    }
+}
