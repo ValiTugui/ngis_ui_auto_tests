@@ -19,6 +19,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.gel.models.participant.avro.Referral;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 
@@ -1542,4 +1543,5 @@ public class ReferralSteps extends Pages {
             Assert.fail("Reload referral button not validated");
         }
     }
-}
+
+}//end

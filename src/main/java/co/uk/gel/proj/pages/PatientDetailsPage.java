@@ -11,6 +11,7 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.gel.models.participant.avro.Referral;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -2248,6 +2249,54 @@ public class PatientDetailsPage {
             return true;
         } catch (Exception exp1) {
             Debugger.println("Exception from verifyPatientNgisId:" + exp1);
+            return false;
+        }
+    }
+    //From JSON
+    public boolean fillInPatientDetailsFromJson(String reason, Referral referralObject) {
+        try {
+            newPatient.setTitle("Mr");
+            String firstNameValue = TestUtils.getRandomFirstName();
+            String lastNameValue = TestUtils.getRandomLastName();
+            newPatient.setFirstName(firstNameValue);
+            newPatient.setLastName(lastNameValue);
+            String dayOfBirth = PatientSearchPage.testData.getDay();
+            String monthOfBirth = PatientSearchPage.testData.getMonth();
+            String yearOfBirth = PatientSearchPage.testData.getYear();
+            newPatient.setDay(dayOfBirth);
+            newPatient.setMonth(monthOfBirth);
+            newPatient.setYear(yearOfBirth);
+            String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
+            newPatient.setNhsNumber(nhsNumber);
+            String gender = referralObject.getCancerParticipant().getSex().name();
+            newPatient.setGender(gender);
+            String hospitalId = faker.numerify("A#R##BB##");
+            newPatient.setHospitalNumber(hospitalId);
+            newPatient.setPostCode(getRandomUKPostCode());
+            //Fill in the values
+            title.sendKeys("Mr");
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            Actions.fillInValue(familyName, newPatient.getLastName());
+            selectMissingNhsNumberReason(reason);
+            selectGender(administrativeGenderButton, gender);
+            editDropdownField(lifeStatusButton, referralObject.getPedigree().getMembers().get(0).getLifeStatus().name());
+            editDropdownField(ethnicityButton, "A - White - British");
+            selectMissingNhsNumberReason(reason);
+            if (reason.equalsIgnoreCase("Other (please provide reason)")) {
+                Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+                otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+            }
+            Actions.fillInValue(hospitalNumber, hospitalId);
+            Actions.fillInValue(addressLine0, faker.address().buildingNumber());
+            Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
+            Actions.fillInValue(addressLine2, faker.address().streetName());
+            Actions.fillInValue(addressLine3, faker.address().cityName());
+            Actions.fillInValue(addressLine4, faker.address().state());
+            Actions.fillInValue(postcode, newPatient.getPostCode());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from fillInPatientDetailsFromJson:" + exp);
+            SeleniumLib.takeAScreenShot("fillInPatientDetailsFromJson.jpg");
             return false;
         }
     }

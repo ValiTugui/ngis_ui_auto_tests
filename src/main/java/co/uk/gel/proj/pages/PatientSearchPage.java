@@ -1318,7 +1318,24 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
-
+    //From JSON
+    public boolean searchParticipantFromJson(String nhs,String day,String month,String year) {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            testData.setNhsNumber(nhs);
+            testData.setDay(day);
+            testData.setMonth(month);
+            testData.setYear(year);
+            //Enter the values to teh search fields
+            nhsNumber.sendKeys(testData.getNhsNumber());
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from searchParticipantFromJson:" + exp);
+            return false;
+        }
+    }
 }//end
 
