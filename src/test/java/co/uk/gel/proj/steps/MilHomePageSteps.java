@@ -689,4 +689,21 @@ public class MilHomePageSteps extends Pages {
             Assert.assertFalse("MiHomePageSteps: Exception from Sample Failures Section Header " + exp, true);
         }
     }
+
+    @When("the user should be able to see sample failures report menu is displayed")
+    public void theUserShouldBeAbleToSeeSampleFailuresReportMenuIsDisplayed() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyThePresenceOfSampleFailuresMenu();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user navigates to the {string} stage in mi-portal")
+    public void theUserNavigatesToTheStageInMiPortal(String miPage1) {
+        boolean testResult = false;
+        testResult = miPortalHomePage.navigateToSampleFailuresPage(miPage1);
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_MIPageNavigation.jpg");
+            Assert.fail("Could not navigate to MI Page");
+        }
+    }
 }

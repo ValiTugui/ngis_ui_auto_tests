@@ -2131,5 +2131,50 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    public boolean verifyThePresenceOfSampleFailuresMenu() {
+        try {
+            if (!Wait.isElementDisplayed(driver, sampleFailures, 60)) {
+                Debugger.println("Sample Failures section header is not displayed even after 60 seconds.");
+                SeleniumLib.takeAScreenShot("SampleFailuresMenu.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(sampleFailures2);
+            seleniumLib.sleepInSeconds(3);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfSampleFailuresMenu:" + exp);
+            SeleniumLib.takeAScreenShot("SampleFailuresMenu.jpg");
+            return false;
+        }
+    }
+
+    public boolean navigateToSampleFailuresPage(String expectedMipage1) {
+        By miStage = null;
+        try {
+            if(!Wait.isElementDisplayed(driver,sampleProcessingMenuLink,40)){
+                return false;
+            }
+            miStage = By.xpath("//ul[@class='treeview-menu menu-open']//child::li/a[contains(string(),'" + expectedMipage1 + "')]");
+            if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 20)) {
+                return false;
+            }
+            try {
+                Actions.clickElement(driver, driver.findElement(miStage));
+            } catch (Exception exp) {
+                Debugger.println("MIPortal Menu accessing via SeleniumLib:");
+                try {
+                    seleniumLib.clickOnElement(miStage);
+                    return true;
+                }catch(Exception exp1){
+                    return false;
+                }
+            }
+            Wait.seconds(2);
+            return true;
+        } catch (Exception exp) {
+            return false;
+        }
+    }
 }//end
 
