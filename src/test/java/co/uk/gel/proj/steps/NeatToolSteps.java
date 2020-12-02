@@ -169,6 +169,17 @@ public class NeatToolSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the blank mandatory field labels highlighted in red color")
+    public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
+        boolean testResult = false;
+        List<List<String>> messageDetails = fields.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            testResult = neatPatientRecordPage.mandatoryfieldvalidation(messageDetails.get(i).get(0), messageDetails.get(i).get(1));
+            Debugger.println("Test check");
+            Assert.assertTrue(testResult);
+        }
+    }
+
     @And("the user searches the {string}")
     public void theUserSearchesThe(String ngisID) {
         boolean testResult = false;
