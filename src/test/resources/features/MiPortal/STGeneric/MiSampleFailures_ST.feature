@@ -1,6 +1,5 @@
-@Sample_Failures_System_Testing
-@MIPORTAL_ST
-@SYSTEM_TEST
+@DQ_Report_System_Testing
+
 Feature: MIPORTAL ST - Sample Failures - 1
 
 
