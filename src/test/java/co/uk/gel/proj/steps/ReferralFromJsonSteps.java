@@ -1,10 +1,10 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.ReferralFromJson;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
@@ -18,6 +18,7 @@ import org.gel.models.participant.avro.Referral;
 import org.junit.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ReferralFromJsonSteps extends Pages {
@@ -187,42 +188,42 @@ public class ReferralFromJsonSteps extends Pages {
         verifyAndSubmitReferral();
     }
 
-    private void fillStageRequestingOrganisation(Referral referralObject){
+    private void fillStageRequestingOrganisation(Referral referralObject) {
         String stageName = "Requesting organisation";
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
         testResult = paperFormPage.fillInSpecificKeywordInSearchField(referralObject.getRequester().getOrganisationName());
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_RequestingOrg.jpg");
             Assert.fail("Could not search for Order entity.");
         }
         testResult = paperFormPage.checkThatEntitySuggestionsAreDisplayed();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_RequestingOrg.jpg");
             Assert.fail("No suggestions listed for the order entity.");
         }
         testResult = paperFormPage.selectRandomEntityFromSuggestionsList();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_RequestingOrg.jpg");
             Assert.fail("Could not select requesting organization.");
         }
         testResult = referralPage.clickSaveAndContinueButton();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_RequestingOrg.jpg");
             Assert.fail("Could not save requesting organization.");
         }
     }
 
-    private void fillStageTestPackage(Referral referralObject){
+    private void fillStageTestPackage(Referral referralObject) {
         String stageName = "Test package";
-        String numberOfTests= String.valueOf(referralObject.getReferralTests().size());
+        String numberOfTests = String.valueOf(referralObject.getReferralTests().size());
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
 //        Selecting "Routine" priority as default option
 //        String testReferralUrgencyInfo= "Routine";
@@ -231,25 +232,25 @@ public class ReferralFromJsonSteps extends Pages {
 //        } else {
         testResult = testPackagePage.clickRoutinePriority();
 //        }
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestPriority.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TestPriority.jpg");
             Assert.fail("Test Package: Routine priority could not select.");
 //            Assert.fail("Test Package :"+testReferralUrgencyInfo+" could not select.");
         }
         //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
         Wait.seconds(5);
         testResult = referralPage.clickSaveAndContinueButton();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_TestPackage.jpg");
             Assert.fail("Could not save Test package.");
         }
-        testResult=referralPage.navigateToStage(stageName);
-        if(!testResult){
+        testResult = referralPage.navigateToStage(stageName);
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_TestPackage.jpg");
             Assert.fail("Could not navigate to Test package after saving priority.");
         }
-        testResult=testPackagePage.verifyTheTestsList(numberOfTests);
-        if(!testResult){
+        testResult = testPackagePage.verifyTheTestsList(numberOfTests);
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_TestPackage.jpg");
             Assert.fail("Could not verify the selected number of Tests in Test package stage.");
         }
@@ -258,24 +259,22 @@ public class ReferralFromJsonSteps extends Pages {
     private void fillStageResponsibleClinician(Referral referralObject) {
         String stageName = "Responsible clinician";
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
         testResult = referralPage.verifyThePageTitlePresence("Add clinician information");
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Add clinician information not present.");
         }
-        //fill clinician info from a separate method by reading data from JSON
-//        fillInClinicianFormFields(referralObject);
         testResult = responsibleClinicianPage.fillInClinicianFormFields();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ResponsibleClinician.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ResponsibleClinician.jpg");
             Assert.fail("Could not fill Clinical Form Fields.");
         }
         testResult = referralPage.clickSaveAndContinueButton();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_ResponsibleClinician.jpg");
             Assert.fail("Could not save Responsible Clinician information.");
         }
@@ -285,9 +284,9 @@ public class ReferralFromJsonSteps extends Pages {
         String stageName = "Tumours";
 
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
         testResult = tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         if (!testResult) {
@@ -302,11 +301,10 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDOD.jpg");
             Assert.fail("Could not fill Tumour Page Date Of Diagnosis.");
         }
-        //tumour name and type where to read from in JSON ?
-        int numOfTumours=referralObject.getReferralTests().size();
-        for(int i=0;i<numOfTumours;i++){
+        int numOfTumours = referralObject.getCancerParticipant().getTumours().size();
+        for (int i = 0; i < numOfTumours; i++) {
 //            String tumourType = referralObject.getReferralTests().get(i).getTumourSamples();
-            String tumourType = referralObject.getCancerParticipant().getTumourSamples().get(i).getSampleType();
+            String tumourType = String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourType());
             String tumour = tumoursPage.selectTumourType(tumourType);
             if (tumour == null) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourType.jpg");
@@ -320,29 +318,40 @@ public class ReferralFromJsonSteps extends Pages {
 //        }
         Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
         testResult = referralPage.clickSaveAndContinueButton();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
             Assert.fail("Could not save Tumours information.");
         }
         testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue("Recurrence");
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourFirstPresentation.jpg");
             Assert.fail("Could not select tumour first presentation");
         }
         testResult = tumoursPage.answerTumourDiagnosisQuestions("test");
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDiagnosis.jpg");
             Assert.fail("Could not select tumour diagnosis SnomedCT");
         }
         testResult = referralPage.clickSaveAndContinueButton();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
             Assert.fail("Could not save Tumours information.");
         }
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
-        if(numberOfTumours < 1) {
+        if (numberOfTumours < 1) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NumTumours.jpg");
             Assert.fail("Numbers of Tumours displayed should be 1 or greater than 1");
+        }
+        testResult = tumoursPage.tumourIsNotHighlighted();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourHighlight.jpg");
+            Assert.fail("Tumors are not highlighted");
+        }
+
+        testResult = tumoursPage.warningMessageIsNotDisplayed();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourWarning.jpg");
+            Assert.fail("Warning messages displayed, but not expected");
         }
         //need to check if required to verify as per step - the new tumour is not highlighted
         String actualNotificationText = referralPage.successNotificationIsDisplayed();
@@ -350,15 +359,19 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.assertTrue("Expected Notification not displayed", false);
         }
         Assert.assertEquals("Tumour added", actualNotificationText);
-
+        testResult = referralPage.clickSaveAndContinueButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
+            Assert.fail("Could not save Tumours information.");
+        }
     }
 
     private void fillStageSamples(Referral referralObject) {
         String stageName = "Samples";
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
 
         testResult = referralPage.verifyThePageTitlePresence("Manage samples");
@@ -367,8 +380,8 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Page title- Manage Samples not present.");
         }
         testResult = samplesPage.clickAddSampleButton();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_AddSample.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_AddSample.jpg");
             Assert.fail("Could not click on Add sample button");
         }
         testResult = referralPage.verifyThePageTitlePresence("Add a sample");
@@ -376,20 +389,20 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Add a sample not present.");
         }
-        String sampleType="Solid tumour sample";
+        String sampleType = "Solid tumour sample";
         testResult = samplesPage.selectSampleType(sampleType);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleType.jpg");
-            Assert.fail("Could not Select Sample Type:"+sampleType);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleType.jpg");
+            Assert.fail("Could not Select Sample Type:" + sampleType);
         }
         samplesPage.selectSampleState();
         testResult = samplesPage.fillInSampleID();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_SampleID.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleID.jpg");
             Assert.fail("Could not fillInSampleID");
         }
         PatientDetailsPage.newPatient.setSampleType(sampleType);
-
+//
         List<String> expectedTumourTestData;
         expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
         List<String> actualTumourTestDetailsOnAddSamplePage;
@@ -398,7 +411,7 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.assertEquals(expectedTumourTestData.get(i), actualTumourTestDetailsOnAddSamplePage.get(i));
         }
         testResult = referralPage.clickSaveAndContinueButton();
-        if(!testResult){
+        if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_Samples.jpg");
             Assert.fail("Could not save Samples information.");
         }
@@ -408,44 +421,243 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Manage Samples not present.");
         }
+        samplesPage.answerSampleTopography("test");
+        samplesPage.answerSampleMorphology("test");
+        samplesPage.fillInPercentageOfMalignantNuclei();
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+        testResult = referralPage.clickSaveAndContinueButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot("Ref_Samples.jpg");
+            Assert.fail("Could not save Samples information.");
+        }
+        String actualNotificationText = referralPage.successNotificationIsDisplayed();
+        if (actualNotificationText == null) {
+            Assert.assertTrue("Expected Notification not displayed", false);
+        }
+        Assert.assertEquals("Sample added", actualNotificationText);
 
+        testResult = referralPage.verifyThePageTitlePresence("Manage samples");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+        }
+        Assert.assertTrue(testResult);
 
+        int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord("Organization", " ") + "_Added");
+        }
+        Assert.assertTrue("Numbers of samples displayed should 1 or great than 1", numberOfSamples > 0);
+
+        List<String> expectedHeaders = new ArrayList<>(Arrays.asList("Sample type", "State", "Sample ID", "Parent ID", "Tumour description"));
+        List actualHeaders = referralPage.getTableColumnHeaders();
+        for (int i = 0; i < expectedHeaders.size(); i++) {
+            Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
+        }
+        Assert.assertEquals(expectedHeaders, actualHeaders);
     }
 
     private void fillStageNotes(Referral referralObject) {
         String stageName = "Notes";
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
+        testResult = notesPage.fillInAddNotesField();
+        if (!testResult) {
+            Assert.fail("Could not fill Notes Details.");
+        }
+        testResult = referralPage.clickSaveAndContinueButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot("Ref_Notes.jpg");
+            Assert.fail("Could not save Notes information.");
+        }
+
     }
 
     private void fillStagePatientChoice(Referral referralObject) {
         String stageName = "Patient choice";
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
         }
+        testResult = referralPage.verifyThePageTitlePresence("Patient choice");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+            Assert.fail("Page title- Patient choice not present.");
+        }
+        testResult = patientChoicePage.selectMember(0);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_Edit");
+            Assert.fail("Could not Edit member ");
+        }
+        answerPatientChoiceWithAgreeingToTestingAndPatientChoiceYes();
+        testResult = patientChoicePage.submitPatientChoiceWithSignature();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSubmit.jpg");
+            Assert.fail("Patient Choice Could not submit with Signature.");
+        }
+        testResult = patientChoicePage.clickOnSaveAndContinueButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
+            Assert.fail("Could not click on Save and Continue.");
+        }
+        testResult = referralPage.verifyThePageTitlePresence("Patient choice");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+            Assert.fail("Page title- Patient choice not present.");
+        }
+        //agreed to test for Proband
+        testResult = patientChoicePage.statusUpdatedCorrectly("Agreed to testing", 0);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCStatus.jpg");
+            Assert.fail("Proband Patient Choice could not complete.");
+        }
+        testResult = referralPage.clickSaveAndContinueButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
+            Assert.fail("Could not click on Save and Continue.");
+        }
+    }
+
+    //method for Patient Choice
+    private void answerPatientChoiceWithAgreeingToTestingAndPatientChoiceYes() {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectPatientChoiceCategory();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PatientChoiceProband");
+            Assert.fail("Cancer : Failure from patientChoicePage.selectPatientChoiceCategory.");
+        }
+        Wait.seconds(2);
+        testResult = patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCTestType");
+            Assert.fail("Cancer: Failure from patientChoicePage.selectTestType.");
+        }
+        Wait.seconds(2);
+        testResult = patientChoicePage.enterRecordedByDetails();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCRecordDetail");
+            Assert.fail("Cancer: Failure from patientChoicePage.enterRecordedByDetails.");
+        }
+        Wait.seconds(2);
+        testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCChoice");
+            Assert.fail("Cancer: Failure from patientChoicePage.selectChoicesWithAgreeingTesting.");
+        }
+        Wait.seconds(2);
+        testResult = patientChoicePage.drawSignature();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSignature");
+            Assert.fail("Cancer:Failure from patientChoicePage.drawSignature.");
+        }
+        Wait.seconds(2);
     }
 
     private void fillStagePrintForms(Referral referralObject) {
         String stageName = "Print forms";
         boolean testResult = referralPage.navigateToStage(stageName);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+TestUtils.removeAWord(stageName," ")+".jpg");
-            Assert.fail("Could not navigate to stage:"+stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
+        }
+        testResult = referralPage.verifyThePageTitlePresence("Print sample forms");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+            Assert.fail("Page title- Print sample forms not present.");
+        }
+        //steps to download sample form and verify details.
+        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
+            Debugger.println("Downloading and verifying PrintForm PDF content...");
+
+            try {
+                PatientDetailsPage.newPatient.setOrderingEntity(printFormsPage.getLaboratoryAddress());
+                PatientDetailsPage.newPatient.setSampleType(printFormsPage.getSampleInfo());
+                PatientDetailsPage.newPatient.setTumourType(printFormsPage.getTumourInfo());
+            } catch (Exception exp) {
+                Debugger.println("Exception in setting printform details to Patient.." + exp + "\n" + driver.getCurrentUrl());
+            }
+            //Debugger.println("Downloading ........");
+            if (!printFormsPage.downloadProbandPrintForm()) {
+                Debugger.println("Could not download form for proband");
+                Assert.assertTrue("Could not download print form for proband", false);
+            }
+
+            //Debugger.println("Verifying content....");
+            NewPatient newlyCreatedPatientRecord = patientDetailsPage.getNewlyCreatedPatientData();
+            String patientName = newlyCreatedPatientRecord.getPatientFullName();
+            String dateOfBirth = newlyCreatedPatientRecord.getPatientDOBInMonthFormat();
+            String gender = newlyCreatedPatientRecord.getGender();
+            String patientNGISId = newlyCreatedPatientRecord.getReferralHumanReadableID();
+            // Formatted patient NGIS Id
+            patientNGISId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(patientNGISId, "4");
+            String patientReferralId = newlyCreatedPatientRecord.getPatientHumanReadableID();
+            // Formatted patient Referral Id
+            patientReferralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(patientReferralId, "4");
+
+            String clinicalIndication = newlyCreatedPatientRecord.getClinicalIndication();
+            String hospitalNumber = newlyCreatedPatientRecord.getHospitalNumber();
+
+            String requestingOrg = newlyCreatedPatientRecord.getOrderingEntity();
+
+            String responsibleClinicianName = newlyCreatedPatientRecord.getResponsibleClinicianName();
+            String responsibleClinicianEmail = newlyCreatedPatientRecord.getResponsibleClinicianEmail();
+            String responsibleClinicianContact = newlyCreatedPatientRecord.getResponsibleClinicianContactNumber();
+
+            String tumourInfo = newlyCreatedPatientRecord.getTumourType();
+            String sampleInfo = newlyCreatedPatientRecord.getSampleType();
+            String[] tumours = tumourInfo.split(" •");
+            if (tumours.length > 0) {
+                Debugger.println("Tumour Type to verify in the downloaded PDF file  : " + tumours[0]);
+            }
+            String[] samples = sampleInfo.split("sample required");
+            if (samples.length > 0) {
+                Debugger.println("Sample info to verify in the downloaded PDF file  : " + samples[0]);
+            }
+
+            List<String> expectedValuesToBeVerifiedInPDF = new ArrayList<>();
+            expectedValuesToBeVerifiedInPDF.add(patientName);
+            expectedValuesToBeVerifiedInPDF.add(dateOfBirth);
+            expectedValuesToBeVerifiedInPDF.add(gender);
+
+            expectedValuesToBeVerifiedInPDF.add(patientNGISId);
+            expectedValuesToBeVerifiedInPDF.add(patientReferralId);
+
+            expectedValuesToBeVerifiedInPDF.add(clinicalIndication);
+            expectedValuesToBeVerifiedInPDF.add(requestingOrg);
+
+            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianName);
+            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianEmail);
+            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianContact);
+            if (tumours.length > 0) {
+                expectedValuesToBeVerifiedInPDF.add(tumours[0]);
+            }
+            if (samples.length > 0) {
+                expectedValuesToBeVerifiedInPDF.add(samples[0]);
+            }
+            testResult = printFormsPage.openAndVerifyPDFContent(expectedValuesToBeVerifiedInPDF);
+            Assert.assertTrue(testResult);
         }
     }
 
     private void verifyAndSubmitReferral() {
+        referralPage.submitReferral();
+        String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
+        if (actualMessage == null) {
+            Assert.assertTrue(false);
+        }
+        Assert.assertTrue(actualMessage.contains("Your referral has been submitted"));
+        boolean testResult = referralPage.verifyReferralButtonStatus("Submitted");
+        if (!testResult) {
+            Assert.fail("Referral could not submit successfully.");
+        }
+        referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
+
     }
-
-
-
-
-
 
 
 }//end
