@@ -278,6 +278,16 @@ public class TumoursPage {
             return null;
         }
     }
+    public String fillInSpecimenID(String ID) {
+        try {
+            Actions.fillInValue(pathologyReportId, ID);
+//            tumourDetails.setTumourSpecimenID(ID);
+            return ID;
+        } catch (Exception exp) {
+            Debugger.println("Exception in fillInSpecimenID:" + exp);
+            return null;
+        }
+    }
 
     public boolean selectTumourFirstPresentationOrOccurrenceValue(String value) {
         Wait.seconds(2);

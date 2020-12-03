@@ -2269,7 +2269,13 @@ public class PatientDetailsPage {
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
             String gender = referralObject.getCancerParticipant().getSex().name();
-            newPatient.setGender(gender);
+            //modify the values from JSON to convert from Uppercase to lower case
+            char firstChar=gender.charAt(0);
+            int length=gender.length();
+            String valueWithoutFirstChar=gender.substring(1,length);
+            String newGenderValue=firstChar+valueWithoutFirstChar.toLowerCase();
+            Debugger.println("Gender value old:- "+gender+" new- "+newGenderValue);
+            newPatient.setGender(newGenderValue);
             String hospitalId = faker.numerify("A#R##BB##");
             newPatient.setHospitalNumber(hospitalId);
             newPatient.setPostCode(getRandomUKPostCode());
@@ -2278,8 +2284,15 @@ public class PatientDetailsPage {
             Actions.fillInValue(firstName, newPatient.getFirstName());
             Actions.fillInValue(familyName, newPatient.getLastName());
             selectMissingNhsNumberReason(reason);
-            selectGender(administrativeGenderButton, gender);
-            editDropdownField(lifeStatusButton, referralObject.getPedigree().getMembers().get(0).getLifeStatus().name());
+            selectGender(administrativeGenderButton, newGenderValue);
+            String lifeStatus=referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
+            char firstCharInLifeStatus=lifeStatus.charAt(0);
+            int stringLength=lifeStatus.length();
+            String lifeStatusWithoutFirstChar=lifeStatus.substring(1,stringLength);
+            String newlifeStatus=firstCharInLifeStatus+lifeStatusWithoutFirstChar.toLowerCase();
+            Debugger.println("Life status is- "+lifeStatus+" corrected value- "+newlifeStatus);
+            editDropdownField(lifeStatusButton, newlifeStatus);
+
             editDropdownField(ethnicityButton, "A - White - British");
             selectMissingNhsNumberReason(reason);
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {

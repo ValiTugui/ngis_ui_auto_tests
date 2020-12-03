@@ -14,6 +14,7 @@ import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.gel.models.participant.avro.Date;
 import org.gel.models.participant.avro.Referral;
 import org.junit.Assert;
 
@@ -293,22 +294,56 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourNavigate.jpg");
             Assert.fail("Could not navigate to Tumour Page.");
         }
-        if (tumoursPage.fillInTumourDescription() == null) {
-            Assert.assertTrue(false);
-        }
-        testResult = tumoursPage.fillInDateOfDiagnosis();
-        if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDOD.jpg");
-            Assert.fail("Could not fill Tumour Page Date Of Diagnosis.");
-        }
         int numOfTumours = referralObject.getCancerParticipant().getTumours().size();
+
         for (int i = 0; i < numOfTumours; i++) {
-//            String tumourType = referralObject.getReferralTests().get(i).getTumourSamples();
+            if (tumoursPage.fillInTumourDescription() == null) {
+                Assert.assertTrue(false);
+            }
+            Date tumourDiagnosisDate = referralObject.getCancerParticipant().getTumours().get(i).getTumourDiagnosisDate();
+            testResult = tumoursPage.fillInDateOfDiagnosis(String.valueOf(tumourDiagnosisDate.getDay()),String.valueOf(tumourDiagnosisDate.getMonth()),String.valueOf(tumourDiagnosisDate.getYear()));
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDOD.jpg");
+                Assert.fail("Could not fill Tumour Page Date Of Diagnosis.");
+            }
+
             String tumourType = String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourType());
-            String tumour = tumoursPage.selectTumourType(tumourType);
+            tumourType=tumourType.replace("_"," ");
+            char firstChar=tumourType.charAt(0);
+            int length=tumourType.length();
+            String tumourTypeWithoutFirstChar=tumourType.substring(1,length);
+            String newTumourType=firstChar+tumourTypeWithoutFirstChar.toLowerCase();
+            Debugger.println("The lower case tumour type is: "+newTumourType);
+            String tumour = tumoursPage.selectTumourType(newTumourType);
             if (tumour == null) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourType.jpg");
                 Assert.fail("Could not fill tumour type.");
+            }
+            String specimenLabId=referralObject.getCancerParticipant().getTumours().get(i).getTumourLocalId();
+            if (tumoursPage.fillInSpecimenID(specimenLabId) == null) {
+                Assert.fail("Could not fill Histopathology or SIHMDS Lab ID.");
+            }
+            Wait.seconds(5);//Observed timeout in next step, so introducing a wait of 5 seconds.
+            testResult = referralPage.clickSaveAndContinueButton();
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
+                Assert.fail("Could not save Tumours information.");
+            }
+            testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue("Recurrence");
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourFirstPresentation.jpg");
+                Assert.fail("Could not select tumour first presentation");
+            }
+//            testResult = tumoursPage.answerTumourDiagnosisQuestions("test");
+            tumoursPage.answerTumourDiagnosisQuestionsBasedOnTumourType(newTumourType,"test");
+//            if (!testResult) {
+//                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDiagnosis.jpg");
+//                Assert.fail("Could not select tumour diagnosis SnomedCT");
+//            }
+            testResult = referralPage.clickSaveAndContinueButton();
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
+                Assert.fail("Could not save Tumours information.");
             }
         }
 
@@ -316,27 +351,27 @@ public class ReferralFromJsonSteps extends Pages {
 //        if (tumoursPage.fillInSpecimenID() == null) {
 //            Assert.assertTrue(false);
 //        }
-        Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
-        testResult = referralPage.clickSaveAndContinueButton();
-        if (!testResult) {
-            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
-            Assert.fail("Could not save Tumours information.");
-        }
-        testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue("Recurrence");
-        if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourFirstPresentation.jpg");
-            Assert.fail("Could not select tumour first presentation");
-        }
-        testResult = tumoursPage.answerTumourDiagnosisQuestions("test");
-        if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDiagnosis.jpg");
-            Assert.fail("Could not select tumour diagnosis SnomedCT");
-        }
-        testResult = referralPage.clickSaveAndContinueButton();
-        if (!testResult) {
-            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
-            Assert.fail("Could not save Tumours information.");
-        }
+//        Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
+//        testResult = referralPage.clickSaveAndContinueButton();
+//        if (!testResult) {
+//            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
+//            Assert.fail("Could not save Tumours information.");
+//        }
+//        testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue("Recurrence");
+//        if (!testResult) {
+//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourFirstPresentation.jpg");
+//            Assert.fail("Could not select tumour first presentation");
+//        }
+//        testResult = tumoursPage.answerTumourDiagnosisQuestions("test");
+//        if (!testResult) {
+//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDiagnosis.jpg");
+//            Assert.fail("Could not select tumour diagnosis SnomedCT");
+//        }
+//        testResult = referralPage.clickSaveAndContinueButton();
+//        if (!testResult) {
+//            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
+//            Assert.fail("Could not save Tumours information.");
+//        }
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         if (numberOfTumours < 1) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NumTumours.jpg");
@@ -395,14 +430,16 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleType.jpg");
             Assert.fail("Could not Select Sample Type:" + sampleType);
         }
+        //correct the sample state filling method
         samplesPage.selectSampleState();
+//        check sample id which field needs to be read
         testResult = samplesPage.fillInSampleID();
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleID.jpg");
             Assert.fail("Could not fillInSampleID");
         }
-        PatientDetailsPage.newPatient.setSampleType(sampleType);
-//
+//        PatientDetailsPage.newPatient.setSampleType(sampleType);
+//  verification in progress for steps from here on ...
         List<String> expectedTumourTestData;
         expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
         List<String> actualTumourTestDetailsOnAddSamplePage;
