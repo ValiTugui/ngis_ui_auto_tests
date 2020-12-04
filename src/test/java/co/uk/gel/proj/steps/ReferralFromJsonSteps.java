@@ -15,7 +15,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.gel.models.participant.avro.Date;
+import org.gel.models.participant.avro.GermlineSample;
 import org.gel.models.participant.avro.Referral;
+import org.gel.models.participant.avro.TumourSample;
 import org.junit.Assert;
 
 import java.util.ArrayList;
@@ -236,7 +238,6 @@ public class ReferralFromJsonSteps extends Pages {
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TestPriority.jpg");
             Assert.fail("Test Package: Routine priority could not select.");
-//            Assert.fail("Test Package :"+testReferralUrgencyInfo+" could not select.");
         }
         //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
         Wait.seconds(5);
@@ -347,31 +348,6 @@ public class ReferralFromJsonSteps extends Pages {
             }
         }
 
-//        PatientDetailsPage.newPatient.setTumourType(tumour);
-//        if (tumoursPage.fillInSpecimenID() == null) {
-//            Assert.assertTrue(false);
-//        }
-//        Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
-//        testResult = referralPage.clickSaveAndContinueButton();
-//        if (!testResult) {
-//            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
-//            Assert.fail("Could not save Tumours information.");
-//        }
-//        testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue("Recurrence");
-//        if (!testResult) {
-//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourFirstPresentation.jpg");
-//            Assert.fail("Could not select tumour first presentation");
-//        }
-//        testResult = tumoursPage.answerTumourDiagnosisQuestions("test");
-//        if (!testResult) {
-//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDiagnosis.jpg");
-//            Assert.fail("Could not select tumour diagnosis SnomedCT");
-//        }
-//        testResult = referralPage.clickSaveAndContinueButton();
-//        if (!testResult) {
-//            SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
-//            Assert.fail("Could not save Tumours information.");
-//        }
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         if (numberOfTumours < 1) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NumTumours.jpg");
@@ -408,12 +384,119 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
             Assert.fail("Could not navigate to stage:" + stageName);
         }
-
         testResult = referralPage.verifyThePageTitlePresence("Manage samples");
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Manage Samples not present.");
         }
+
+        String sampleType="";
+        String sampleState="";
+        String labSampleID="";
+        int germlineSampleSize=referralObject.getReferralTests().get(0).getGermlineSamples().size();
+        int tumourSampleSize=referralObject.getReferralTests().get(0).getTumourSamples().size();
+        for(int i=0;i<germlineSampleSize;i++){
+            Debugger.println("Selecting Germline sample....");
+            GermlineSample germlineSample = referralObject.getReferralTests().get(0).getGermlineSamples().get(i);
+            sampleType = germlineSample.getSampleType();
+            String updatedSampleType = convertJsonDataUpperCaseToLowerCase(sampleType);
+            sampleState = germlineSample.getSampleState();
+            String updatedSampleState= sampleStateNameConversion(sampleState);
+            if(updatedSampleState==null){
+                SeleniumLib.takeAScreenShot("Ref_SamplesStage.jpg");
+                Assert.fail("Could not get sample state information for: "+sampleState);
+            }
+            labSampleID = String.valueOf(germlineSample.getLabSampleId());
+            //method to complete all the steps of adding a sample
+            addSample(updatedSampleType, updatedSampleState, labSampleID);
+        }
+        for(int j=0;j<tumourSampleSize;j++){
+            Debugger.println("Selecting Tumour sample....");
+            TumourSample tumourSample = referralObject.getReferralTests().get(0).getTumourSamples().get(j);
+            sampleType = tumourSample.getSampleType();
+            sampleState = tumourSample.getSampleState();
+            labSampleID = String.valueOf(tumourSample.getLabSampleId());
+            String updatedSampleType = convertJsonDataUpperCaseToLowerCase(sampleType);
+            String updatedSampleState= sampleStateNameConversion(sampleState);
+            if(updatedSampleState==null){
+                SeleniumLib.takeAScreenShot("Ref_SamplesStage.jpg");
+                Assert.fail("Could not get sample state information for: "+sampleState);
+            }
+            //method to complete all the steps of adding a sample
+            addSample(updatedSampleType, updatedSampleState, labSampleID);
+        }
+        testResult = referralPage.verifyThePageTitlePresence("Manage samples");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+        }
+        Assert.assertTrue(testResult);
+
+        int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord("Organization", " ") + "_Added");
+        }
+        Assert.assertTrue("Numbers of samples displayed should be 1 or greater than 1", numberOfSamples > 0);
+
+        List<String> expectedHeaders = new ArrayList<>(Arrays.asList("Sample type", "State", "Sample ID", "Parent ID", "Tumour description"));
+        List actualHeaders = referralPage.getTableColumnHeaders();
+        for (int i = 0; i < expectedHeaders.size(); i++) {
+            Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
+        }
+        Assert.assertEquals(expectedHeaders, actualHeaders);
+    }
+
+        //Convert sample state from JSON data to TOMS UI compatible names.
+    private String sampleStateNameConversion(String sampleState) {
+        switch (sampleState) {
+            case "amnioticFluid_freshFrozen": {
+                return "Amniotic fluid";
+            }
+            case "blood_unsorted_edta": {
+                return "Blood (EDTA)";
+            }
+            case "boneMarrow_unsorted_edta": {
+                return "Bone marrow";
+            }
+            case "chorionicVillusSample_freshFrozen": {
+                return "Chorionic villus sample";
+            }
+            case "fetalBlood_edta": {
+                return "Fetal blood (EDTA)";
+            }
+            case "fibroblast_freshFrozen": {
+                return "Fibroblasts";
+            }
+            case "saliva_oragene": {
+                return "Saliva";
+            }
+            case "tissue_freshFrozen": {
+                return "Fresh tissue (not tumour)";
+            }
+            case "tissueInCultureMedium_freshFrozen": {
+                return "Skin biopsy";
+            }
+            case "tumour_freshFrozen": {
+                return "Fresh frozen tumour";
+            }
+            case "tumour_unsorted_freshFluid": {
+                return "Tumour fresh fluid";
+            }
+        }
+        return null;
+    }
+        // method to convert sample type names from Upper case to Lower case UI compatible names
+    private String convertJsonDataUpperCaseToLowerCase(String inputValue) {
+        inputValue = inputValue.replace("_", " ");
+        char firstChar = inputValue.charAt(0);
+        int length = inputValue.length();
+        String inputValueWithoutFirstChar = inputValue.substring(1, length);
+        String outputValue = firstChar + inputValueWithoutFirstChar.toLowerCase();
+        Debugger.println("The lower case corrected value is: " + outputValue);
+        return outputValue;
+    }
+        // all steps of adding a sample performed here
+    private void addSample(String sampleType, String sampleState, String labSampleID) {
+        boolean testResult = false;
         testResult = samplesPage.clickAddSampleButton();
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_AddSample.jpg");
@@ -424,29 +507,22 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Add a sample not present.");
         }
-        String sampleType = "Solid tumour sample";
         testResult = samplesPage.selectSampleType(sampleType);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleType.jpg");
             Assert.fail("Could not Select Sample Type:" + sampleType);
         }
-        //correct the sample state filling method
-        samplesPage.selectSampleState();
-//        check sample id which field needs to be read
-        testResult = samplesPage.fillInSampleID();
+        testResult = samplesPage.selectSpecificSampleState(sampleState);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleType.jpg");
+            Assert.fail("Could not Select Sample state:" + sampleState);
+        }
+        testResult = samplesPage.fillInSampleID(labSampleID);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SampleID.jpg");
-            Assert.fail("Could not fillInSampleID");
+            Assert.fail("Could not fill In SampleID" + labSampleID);
         }
-//        PatientDetailsPage.newPatient.setSampleType(sampleType);
-//  verification in progress for steps from here on ...
-        List<String> expectedTumourTestData;
-        expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
-        List<String> actualTumourTestDetailsOnAddSamplePage;
-        actualTumourTestDetailsOnAddSamplePage = samplesPage.getTheTumourDetailsValuesFromAddSamplePage();
-        for (int i = 0; i < expectedTumourTestData.size(); i++) {
-            Assert.assertEquals(expectedTumourTestData.get(i), actualTumourTestDetailsOnAddSamplePage.get(i));
-        }
+
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_Samples.jpg");
@@ -458,10 +534,13 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Manage Samples not present.");
         }
-        samplesPage.answerSampleTopography("test");
-        samplesPage.answerSampleMorphology("test");
-        samplesPage.fillInPercentageOfMalignantNuclei();
-        samplesPage.fillInNumberOfSlides();
+        // Non Mandatory steps
+//        samplesPage.answerSampleTopography("test");
+//        samplesPage.answerSampleMorphology("test");
+        if (sampleType.equalsIgnoreCase("Solid tumour sample")) {
+            samplesPage.fillInPercentageOfMalignantNuclei();
+        }
+//        samplesPage.fillInNumberOfSlides();
         samplesPage.selectSampleCollectionDate();
         samplesPage.fillInSampleComments();
         testResult = referralPage.clickSaveAndContinueButton();
@@ -474,25 +553,6 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.assertTrue("Expected Notification not displayed", false);
         }
         Assert.assertEquals("Sample added", actualNotificationText);
-
-        testResult = referralPage.verifyThePageTitlePresence("Manage samples");
-        if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
-        }
-        Assert.assertTrue(testResult);
-
-        int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
-        if (AppConfig.snapshotRequired) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord("Organization", " ") + "_Added");
-        }
-        Assert.assertTrue("Numbers of samples displayed should 1 or great than 1", numberOfSamples > 0);
-
-        List<String> expectedHeaders = new ArrayList<>(Arrays.asList("Sample type", "State", "Sample ID", "Parent ID", "Tumour description"));
-        List actualHeaders = referralPage.getTableColumnHeaders();
-        for (int i = 0; i < expectedHeaders.size(); i++) {
-            Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
-        }
-        Assert.assertEquals(expectedHeaders, actualHeaders);
     }
 
     private void fillStageNotes(Referral referralObject) {
@@ -511,7 +571,6 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot("Ref_Notes.jpg");
             Assert.fail("Could not save Notes information.");
         }
-
     }
 
     private void fillStagePatientChoice(Referral referralObject) {
@@ -560,7 +619,7 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
-    //method for Patient Choice
+    //method for selecting Patient Choice Yes
     private void answerPatientChoiceWithAgreeingToTestingAndPatientChoiceYes() {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory();
@@ -693,7 +752,6 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Referral could not submit successfully.");
         }
         referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
-
     }
 
 

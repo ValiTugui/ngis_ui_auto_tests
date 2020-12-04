@@ -259,6 +259,23 @@ public class SamplesPage {
         }
     }
 
+    public boolean fillInSampleID(String labSampleId) {
+        try {
+            Wait.forElementToBeDisplayed(driver, labId);
+            if (Actions.getValue(labId).isEmpty()) {
+                Actions.fillInValue(labId, labSampleId);
+            } else {
+                Actions.clearTextField(labId);
+                Actions.fillInValue(labId, labSampleId);
+            }
+//            sampleDetails.setSampleID(labSampleId);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in fillInSampleID:" + exp);
+            return false;
+        }
+    }
+
     public boolean answerSampleTopography(String value) {
         try {
             Wait.forElementToBeDisplayed(driver, sampleTopographyField);
