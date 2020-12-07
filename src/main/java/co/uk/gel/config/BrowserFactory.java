@@ -267,6 +267,8 @@ public class BrowserFactory {
         chromeOptions.setCapability("os_version", getOsVersion());
         chromeOptions.setCapability("resolution", resolution);
         chromeOptions.setCapability("name", strDate);
+        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--no-sandbox");
         return chromeOptions;
     }
 
