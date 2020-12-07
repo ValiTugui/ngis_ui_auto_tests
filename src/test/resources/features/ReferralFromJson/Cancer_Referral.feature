@@ -2,9 +2,8 @@
 Feature: Create Referrals by reading details from Json file
 
   @CancerReferral
-#  @Z-LOGOUT
-   @NTS-RefJson
-  Scenario Outline: Read the details from Json file and create Cancer referrals
+#@Z-LOGOUT
+   Scenario Outline: Read the details from Json file and create Cancer referrals
     ##Note that the json file is expected to be present in testdata folder
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
