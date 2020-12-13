@@ -9,6 +9,8 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 import org.apache.commons.io.FileUtils;
+import org.gel.models.participant.avro.PedigreeMember;
+import org.gel.models.participant.avro.Referral;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
@@ -537,6 +539,43 @@ public class TestUtils {
         }catch(Exception exp){
 
         }
+    }
+
+    public static List<Integer> getMemberPositionDetailsFromJson(Referral referralObject, String memberType) {
+        try {
+            int numOfParticipants = referralObject.getPedigree().getMembers().size();
+            List<Integer> memberPositions = new ArrayList<Integer>();
+            for (int i = 0; i < numOfParticipants; i++) {
+                PedigreeMember member = referralObject.getPedigree().getMembers().get(i);
+                boolean probandStatus = member.getIsProband();
+
+                if (memberType.equalsIgnoreCase("Proband")) {
+                    if (probandStatus) {
+                        Debugger.println("Adding proband position " + i);
+                        memberPositions.add(i);
+                        return memberPositions;
+                    }
+                } else {
+                    if (!probandStatus) {
+                        Debugger.println("Adding member position " + i);
+                        memberPositions.add(i);
+                    }
+                }
+            }
+            Debugger.println("The member positions added " + memberPositions.toString());
+            return memberPositions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting member position details from JSON: " + exp);
+            return null;
+        }
+    }
+     // to convert JSON data from all upper case to 1st char in UpperCase and remaining lower case.
+    public static String convertUpperCaseJSONDataToProperFormat(String inputText) {
+        char firstChar=inputText.charAt(0);
+        int lengthOfText=inputText.length();
+        String textWithoutFirstChar=inputText.substring(1,lengthOfText);
+        String outputText=firstChar+textWithoutFirstChar.toLowerCase();
+        return outputText;
     }
 
 }

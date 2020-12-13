@@ -11,6 +11,7 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.gel.models.participant.avro.PedigreeMember;
 import org.gel.models.participant.avro.Referral;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -2253,7 +2254,7 @@ public class PatientDetailsPage {
         }
     }
     //From JSON
-    public boolean fillInPatientDetailsFromJson(String reason, Referral referralObject) {
+    public boolean fillInPatientDetailsFromJson(String caseType,String reason, Referral referralObject) {
         try {
             newPatient.setTitle("Mr");
             String firstNameValue = TestUtils.getRandomFirstName();
@@ -2268,14 +2269,34 @@ public class PatientDetailsPage {
             newPatient.setYear(yearOfBirth);
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
-            String gender = referralObject.getCancerParticipant().getSex().name();
+            String gender = null;
+            String lifeStatus = null;
+            if (caseType.equalsIgnoreCase("Cancer")) {
+                gender = referralObject.getCancerParticipant().getSex().name();
+                lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
+            } else {
+                List<Integer> probandMemberNum = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Proband");
+//                TestUtils.getNtsTag(TestHooks.currentTagName) +
+                if (probandMemberNum == null) {
+                    SeleniumLib.takeAScreenShot("NoProbandDetails.jpg");
+                    Assert.fail("Could not get member details from JSON.");
+                }
+                Debugger.println("The position of proband member participant is " + probandMemberNum.toString());
+                PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
+                gender= probandMember.getSex().name();
+                Debugger.println("The Gender value "+gender);
+                lifeStatus=probandMember.getLifeStatus().name();
+                Debugger.println("The life status value "+lifeStatus);
+            }
             //modify the values from JSON to convert from Uppercase to lower case
-            char firstChar=gender.charAt(0);
-            int length=gender.length();
-            String valueWithoutFirstChar=gender.substring(1,length);
-            String newGenderValue=firstChar+valueWithoutFirstChar.toLowerCase();
+            //for Gender
+            String newGenderValue=TestUtils.convertUpperCaseJSONDataToProperFormat(gender);
             Debugger.println("Gender value old:- "+gender+" new- "+newGenderValue);
             newPatient.setGender(newGenderValue);
+            //for life status
+            String newlifeStatus=TestUtils.convertUpperCaseJSONDataToProperFormat(lifeStatus);
+            Debugger.println("Life status is- "+lifeStatus+" corrected value- "+newlifeStatus);
+
             String hospitalId = faker.numerify("A#R##BB##");
             newPatient.setHospitalNumber(hospitalId);
             newPatient.setPostCode(getRandomUKPostCode());
@@ -2285,12 +2306,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(familyName, newPatient.getLastName());
             selectMissingNhsNumberReason(reason);
             selectGender(administrativeGenderButton, newGenderValue);
-            String lifeStatus=referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
-            char firstCharInLifeStatus=lifeStatus.charAt(0);
-            int stringLength=lifeStatus.length();
-            String lifeStatusWithoutFirstChar=lifeStatus.substring(1,stringLength);
-            String newlifeStatus=firstCharInLifeStatus+lifeStatusWithoutFirstChar.toLowerCase();
-            Debugger.println("Life status is- "+lifeStatus+" corrected value- "+newlifeStatus);
+
             editDropdownField(lifeStatusButton, newlifeStatus);
 
             editDropdownField(ethnicityButton, "A - White - British");
