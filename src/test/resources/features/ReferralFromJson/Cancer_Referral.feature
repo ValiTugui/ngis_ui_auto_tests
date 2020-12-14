@@ -1,8 +1,7 @@
 @ReferralFromJson
 Feature: Create Referrals by reading details from Json file
 
-  @CancerReferral
-#@Z-LOGOUT
+  @CancerReferral @Z-LOGOUT
    Scenario Outline: Read the details from Json file and create Cancer referrals
     ##Note that the json file is expected to be present in testdata folder
     Given the json file <JSONFileName> with referral information is available in the specified location
