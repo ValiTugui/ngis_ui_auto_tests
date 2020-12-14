@@ -13,7 +13,6 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
-import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -968,12 +967,12 @@ public class ReferralFromJsonSteps extends Pages {
             List<String> familyMemberDetails = new ArrayList<>();
             int familyMemberPositionInJson = positionOfTestParticipants.get(i);
             PedigreeMember familyMember = referralObject.getPedigree().getMembers().get(familyMemberPositionInJson);
+
             String yearOfBirth = String.valueOf(familyMember.getYearOfBirth());
             Debugger.println("The value for YOB is " + yearOfBirth);
-            Faker fakeDob=new Faker();
-            Debugger.println("The fake Dob "+fakeDob.date());
-            String dob = "01-01-" + yearOfBirth;
-            Debugger.println("The dob " + dob);
+            String dob = TestUtils.getRandomDobFromYear(yearOfBirth);
+            Debugger.println("The dob- " + dob);
+
             String phenotypicSex = String.valueOf(familyMember.getSex());
             String gender = convertJsonDataUpperCaseToLowerCase(phenotypicSex);
 
@@ -982,11 +981,12 @@ public class ReferralFromJsonSteps extends Pages {
 
             String karyotypicSex = String.valueOf(familyMember.getPersonKaryotypicSex()).toLowerCase();
             String lifeStatus = String.valueOf(familyMember.getLifeStatus());
+            lifeStatus = TestUtils.convertUpperCaseJSONDataToProperFormat(lifeStatus);
 
-            Debugger.println("disease status " + diseaseStatus);
-            Debugger.println("karyotypic sex " + karyotypicSex);
-            Debugger.println("sex " + gender);
-            Debugger.println("life status " + lifeStatus);
+//            Debugger.println("disease status " + diseaseStatus);
+//            Debugger.println("karyotypic sex " + karyotypicSex);
+//            Debugger.println("sex " + gender);
+//            Debugger.println("life status " + lifeStatus);
             String familyRelation = null;
             if (gender.equalsIgnoreCase("Male")) {
                 familyRelation = "Father";
@@ -995,8 +995,8 @@ public class ReferralFromJsonSteps extends Pages {
             } else {
                 familyRelation = "Other";
             }
-            String familyMemberData = "NHSNumber=NA:DOB=" + dob + ":Gender=" + gender + ":Relationship=" + familyRelation;
-            String clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ":AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=" + phenotypicSex + ":KaryotypicSex=" + karyotypicSex;
+            String familyMemberData = "NHSNumber=NA:DOB=" + dob + ":Gender=" + gender + ":Relationship=" + familyRelation+":LifeStatus="+lifeStatus;
+            String clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ":AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=" + gender + ":KaryotypicSex=" + karyotypicSex;
             familyMemberDetails.add(familyMemberData);
             familyMemberDetails.add(familyRelation);
             familyMemberDetails.add(clinicalQuesAnswers);

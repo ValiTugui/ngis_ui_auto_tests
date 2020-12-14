@@ -578,4 +578,18 @@ public class TestUtils {
         return outputText;
     }
 
+    // generates random DOB in dd-MM-yyyy format with only year provided
+    public static String getRandomDobFromYear(String yearOfBirth) {
+        try{
+            Faker fakeDate=new Faker();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date startDate = sdf.parse("01-01-" + yearOfBirth);
+            Date endDate = sdf.parse("31-12-" + yearOfBirth);
+            Date date = fakeDate.date().between(startDate,endDate);
+            return sdf.format(date);
+        }catch (Exception exp){
+            exp.printStackTrace();
+            return "01-07-"+yearOfBirth;
+        }
+    }
 }
