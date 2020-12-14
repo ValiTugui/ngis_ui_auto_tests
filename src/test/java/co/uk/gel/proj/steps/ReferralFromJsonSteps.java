@@ -1224,9 +1224,9 @@ public class ReferralFromJsonSteps extends Pages {
             }
             Debugger.println("The PC choices are " + familyMemberPC.toString());
             for (int j = 0; j < familyMemberPC.size(); j++) {
-
-                Debugger.println("Patient Choice for Member: " + j);
-                if (!patientChoicePage.selectMember(j)) {
+                    // doing for 1st family member so add 1
+                Debugger.println("Patient Choice for Member: " + j+1);
+                if (!patientChoicePage.selectMember(j+1)) {
                     Assert.fail("Could not select the member to complete PC");
                 }
                 Wait.seconds(2);
