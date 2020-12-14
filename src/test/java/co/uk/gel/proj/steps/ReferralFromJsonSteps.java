@@ -13,6 +13,7 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -215,12 +216,13 @@ public class ReferralFromJsonSteps extends Pages {
             fillStageFamilyMembers(referralObject);
             //Patient Choice
             fillStagePatientChoice(referralObject);
+            fillStagePatientChoiceForFamilyMembers(referralObject);
             //Panels
             fillStagePanels(referralObject);
             //Pedigree
             fillStagePedigree(referralObject);
             //Print Forms
-            fillStagePrintForms(referralObject);
+            fillStagePrintFormsForRD(referralObject);
             //Submit Referral
             verifyAndSubmitReferral();
         }
@@ -325,14 +327,14 @@ public class ReferralFromJsonSteps extends Pages {
             List<Integer> positionOfTestParticipants = new ArrayList<>();
             for (int i = 0; i < nonProbandMembers.size(); i++) {
                 int memberPosititon = nonProbandMembers.get(i);
-                Debugger.println("The member position "+memberPosititon);
+//                Debugger.println("The member position "+memberPosititon);
                 PedigreeMember member = referralObject.getPedigree().getMembers().get(memberPosititon);
-                Debugger.println("The member JSON: "+member.toString());
+//                Debugger.println("The member JSON: "+member.toString());
                 // Convert to Json type to check for a node's presence
                 JSONParser parser=new JSONParser();
                 org.json.simple.JSONObject simpleJsonObj= (org.json.simple.JSONObject) parser.parse(String.valueOf(member));
                 JSONObject memberJson = new JSONObject( simpleJsonObj);
-                Debugger.println("The JSON: "+memberJson.toString());
+//                Debugger.println("The JSON: "+memberJson.toString());
                 if (!memberJson.isNull("yearOfBirth")) {
                     positionOfTestParticipants.add(i);
                 }
@@ -828,6 +830,20 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
+    private void fillStagePrintFormsForRD(Referral referralObject) {
+        String stageName = "Print forms";
+        boolean testResult = referralPage.navigateToStage(stageName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+            Assert.fail("Could not navigate to stage:" + stageName);
+        }
+        testResult = referralPage.verifyThePageTitlePresence("Print sample forms");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+            Assert.fail("Page title- Print sample forms not present.");
+        }
+    }
+
     private void verifyAndSubmitReferral() {
         referralPage.submitReferral();
         String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
@@ -920,6 +936,8 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
+    private static  List<List<String>> familyDetails = new ArrayList<>();
+
     private void fillStageFamilyMembers(Referral referralObject) {
         String stageName = "Family members";
         boolean testResult = referralPage.navigateToStage(stageName);
@@ -937,20 +955,23 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
             Assert.fail("Error in reading family Participants from JSON file.");
         }
-        Debugger.println("The participants to be selected " + positionOfTestParticipants.toString());
-        Debugger.println("The number of participants to be selected " + positionOfTestParticipants.size());
+        Debugger.println("The participants to be selected: " + positionOfTestParticipants.toString());
+        Debugger.println("The number of participants to be selected: " + positionOfTestParticipants.size());
         int numberOfTestParticipants = positionOfTestParticipants.size();
 //        if(numberOfTestParticipants==0){
 //            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
 //            Assert.fail("No Of Participants should be more than zero, but found to be: "+numberOfTestParticipants);
 //        }
-        List<List<String>> familyDetails = new ArrayList<>();
-        List<String> familyMemberDetails = new ArrayList<>();
+//        List<List<String>> familyDetails = new ArrayList<>();
+
         for (int i = 0; i < numberOfTestParticipants; i++) {
+            List<String> familyMemberDetails = new ArrayList<>();
             int familyMemberPositionInJson = positionOfTestParticipants.get(i);
             PedigreeMember familyMember = referralObject.getPedigree().getMembers().get(familyMemberPositionInJson);
             String yearOfBirth = String.valueOf(familyMember.getYearOfBirth());
             Debugger.println("The value for YOB is " + yearOfBirth);
+            Faker fakeDob=new Faker();
+            Debugger.println("The fake Dob "+fakeDob.date());
             String dob = "01-01-" + yearOfBirth;
             Debugger.println("The dob " + dob);
             String phenotypicSex = String.valueOf(familyMember.getSex());
@@ -994,148 +1015,145 @@ public class ReferralFromJsonSteps extends Pages {
     }
 
     private void enterFamilyMembersForRDReferral(List<List<String>> memberDetails){
-            try {
-
-//                int noOfParticipants = Integer.parseInt(noOfParticipant);
-//                List<List<String>> memberDetails = inputDetails.asLists();
-                String nhsNumber = "";
-                for (int i = 0; i < memberDetails.size(); i++) {
-                    Debugger.println("\nAdding Family Member: " + i);
-                    if (!referralPage.navigateToFamilyMemberSearchPage()) {
-                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                        Assert.fail("Could not click on Add Family Member Button.");
-                    }
-                    HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
-                    //Verify whether the search with or without NHS
-                    nhsNumber = paramNameValue.get("NHSNumber");
-                    if (nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")) {
-                        NGISPatientModel familyMember = new NGISPatientModel();
-                        familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
-                        familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
-                        familyMember.setGENDER(paramNameValue.get("Gender"));
-                        familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
-                        familyMember.setNO_NHS_REASON("Patient not eligible for NHS number (e.g. foreign national)");
-                        if (paramNameValue.get("Ethnicity") != null) {
-                            familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
-                        } else {
-                            familyMember.setETHNICITY("A - White - British");
-                        }
-                        if (paramNameValue.get("LifeStatus") != null) {
-                            familyMember.setLIFE_STATUS(paramNameValue.get("LifeStatus"));
-                        } else {
-                            familyMember.setLIFE_STATUS("Alive");
-                        }
-                        if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + ": fillInNHSNumberAndDateOfBirth Failed");
-                        }
-                        if (!patientSearchPage.clickSearchButtonByXpath()) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + ": fillInNHSNumberAndDateOfBirth Failed");
-                        }
-                        if (patientSearchPage.getPatientSearchNoResult() == null) {//Got error saying invalid NHS number, proceeding with No search in that case
-                            if (patientSearchPage.fillInPatientSearchWithNoFields(familyMember)) {
-                                patientSearchPage.clickSearchButtonByXpath();
-                            }
-                        }
-                        if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickCreateNewPatientLinkFromNoSearchResultsPage Failed");
-                        }
-                        if (!familyMemberNewPatientPage.newFamilyMemberPageIsDisplayed()) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + ": new Family Member URL not displayed");
-                        }
-                        if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + "createNewFamilyMember Failed");
-                        }
-                        if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
-                            if (!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
-                                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                                Assert.fail("FM:" + memberDetails.get(i).get(0) + "verifyThePageTitlePresence Failed");
-                            }
-                        }
-                        referralPage.updatePatientNGSID(familyMember);
-                        if (!referralPage.clickSaveAndContinueButton()) {
-                            if (!referralPage.clickSaveAndContinueButton()) {//Again Clicking
-                                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                                Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickSaveAndContinueButton Failed");
-                            }
-                        }
+        try {
+            String nhsNumber = "";
+            for (int i = 0; i < memberDetails.size(); i++) {
+                Debugger.println("\nAdding Family Member: " + i);
+                if (!referralPage.navigateToFamilyMemberSearchPage()) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                    Assert.fail("Could not click on Add Family Member Button.");
+                }
+                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
+                //Verify whether the search with or without NHS
+                nhsNumber = paramNameValue.get("NHSNumber");
+                if (nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")) {
+                    NGISPatientModel familyMember = new NGISPatientModel();
+                    familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+                    familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
+                    familyMember.setGENDER(paramNameValue.get("Gender"));
+                    familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+                    familyMember.setNO_NHS_REASON("Patient not eligible for NHS number (e.g. foreign national)");
+                    if (paramNameValue.get("Ethnicity") != null) {
+                        familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
                     } else {
-                        if (!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))) {
+                        familyMember.setETHNICITY("A - White - British");
+                    }
+                    if (paramNameValue.get("LifeStatus") != null) {
+                        familyMember.setLIFE_STATUS(paramNameValue.get("LifeStatus"));
+                    } else {
+                        familyMember.setLIFE_STATUS("Alive");
+                    }
+                    if (!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + ": fillInNHSNumberAndDateOfBirth Failed");
+                    }
+                    if (!patientSearchPage.clickSearchButtonByXpath()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + ": fillInNHSNumberAndDateOfBirth Failed");
+                    }
+                    if (patientSearchPage.getPatientSearchNoResult() == null) {//Got error saying invalid NHS number, proceeding with No search in that case
+                        if (patientSearchPage.fillInPatientSearchWithNoFields(familyMember)) {
+                            patientSearchPage.clickSearchButtonByXpath();
+                        }
+                    }
+                    if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickCreateNewPatientLinkFromNoSearchResultsPage Failed");
+                    }
+                    if (!familyMemberNewPatientPage.newFamilyMemberPageIsDisplayed()) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + ": new Family Member URL not displayed");
+                    }
+                    if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + "createNewFamilyMember Failed");
+                    }
+                    if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
+                        if (!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
                             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + "searchFamilyMemberWithGivenParams Failed");
+                            Assert.fail("FM:" + memberDetails.get(i).get(0) + "verifyThePageTitlePresence Failed");
                         }
-                        if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
-                            Debugger.println("Patient already added...continuing with next.");
-                            continue;
-                        }
-                        if (!familyMemberDetailsPage.clickPatientCard()) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + ": clickPatientCard Failed");
-                        }
-                        if (!familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1))) {
-                            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                            Assert.fail("FM:" + memberDetails.get(i).get(0) + "fillTheRelationshipToProband Failed");
-                        }
-                        if (!referralPage.clickSaveAndContinueButton()) {
+                    }
+                    referralPage.updatePatientNGSID(familyMember);
+                    if (!referralPage.clickSaveAndContinueButton()) {
+                        if (!referralPage.clickSaveAndContinueButton()) {//Again Clicking
                             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
                             Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickSaveAndContinueButton Failed");
                         }
                     }
-                    Wait.seconds(5);
-                    NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
-                    if (familyMember == null) {
+                } else {
+                    if (!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))) {
                         SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                        Assert.fail("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + "searchFamilyMemberWithGivenParams Failed");
                     }
-                    Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
-                    if (!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)) {
-                        Assert.fail("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg");
+                    if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
+                        Debugger.println("Patient already added...continuing with next.");
+                        continue;
+                    }
+                    if (!familyMemberDetailsPage.clickPatientCard()) {
                         SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + ": clickPatientCard Failed");
                     }
-                    Wait.seconds(5);
-                    if (memberDetails.get(i).size() < 3) {
-                        continue;//Some times the Disease status not passing
+                    if (!familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1))) {
+                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + "fillTheRelationshipToProband Failed");
                     }
                     if (!referralPage.clickSaveAndContinueButton()) {
-                        Assert.assertTrue(false);
-                    }
-                    Wait.seconds(5);
-                    if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
                         SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                        Assert.fail("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
+                        Assert.fail("FM:" + memberDetails.get(i).get(0) + "clickSaveAndContinueButton Failed");
                     }
-                    Wait.seconds(5);
-                    if (!referralPage.clickSaveAndContinueButton()) {
-                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                        Assert.assertTrue(false);
-                    }
-                    Wait.seconds(5);
-                    if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
-                        Wait.seconds(10);
-                        if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
-                            Wait.seconds(20);
-                        }
-                    }
-
-                    if (!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))) {
-                        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                        Assert.fail("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
-                    }
-                    Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " Added Successfully.\n");
-                    Wait.seconds(5);
-                }//end
-                if (AppConfig.snapshotRequired) {
-                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FamilyMembers");
                 }
-            } catch (Exception exp) {
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
-                Assert.fail("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ");
+                Wait.seconds(5);
+                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
+                if (familyMember == null) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                    Assert.fail("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
+                }
+                Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
+                if (!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)) {
+                    Assert.fail("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                }
+                Wait.seconds(5);
+                if (memberDetails.get(i).size() < 3) {
+                    continue;//Some times the Disease status not passing
+                }
+                if (!referralPage.clickSaveAndContinueButton()) {
+                    Assert.assertTrue(false);
+                }
+                Wait.seconds(5);
+                if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                    Assert.fail("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
+                }
+                Wait.seconds(5);
+                if (!referralPage.clickSaveAndContinueButton()) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                    Assert.assertTrue(false);
+                }
+                Wait.seconds(5);
+                if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
+                    Wait.seconds(10);
+                    if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
+                        Wait.seconds(20);
+                    }
+                }
+
+                if (!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+                    Assert.fail("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
+                }
+                Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " Added Successfully.\n");
+                Wait.seconds(5);
+            }//end
+            if (AppConfig.snapshotRequired) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FamilyMembers");
             }
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
+            Assert.fail("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ");
         }
+    }
 
     private void fillStagePanels(Referral referralObject) {
         String stageName = "Panels";
@@ -1175,5 +1193,73 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
+    private void fillStagePatientChoiceForFamilyMembers(Referral referralObject) {
+        try {
+            String stageName = "Patient choice";
+            boolean testResult = referralPage.navigateToStage(stageName);
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
+                Assert.fail("Could not navigate to stage:" + stageName);
+            }
+            testResult = referralPage.verifyThePageTitlePresence("Patient choice");
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+                Assert.fail("Page title- Patient choice not present.");
+            }
+
+            List<List<String>> familyMemberDetails = familyDetails;
+            List<List<String>> familyMemberPC = new ArrayList<>();
+            for (int i = 0; i < familyMemberDetails.size(); i++) {
+                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails.get(i).get(0));
+                String dob = paramNameValue.get("DOB");
+                String familyMember = "NHSNumber=NA:DOB=" + dob;
+                String category = "Adult (With Capacity)";
+                String recordedBy = "ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf";
+
+                List<String> patientChoiceDetails = new ArrayList<>();
+                patientChoiceDetails.add(familyMember);
+                patientChoiceDetails.add(category);
+                patientChoiceDetails.add(recordedBy);
+                familyMemberPC.add(patientChoiceDetails);
+            }
+            Debugger.println("The PC choices are " + familyMemberPC.toString());
+            for (int j = 0; j < familyMemberPC.size(); j++) {
+
+                Debugger.println("Patient Choice for Member: " + j);
+                if (!patientChoicePage.selectMember(j)) {
+                    Assert.fail("Could not select the member to complete PC");
+                }
+                Wait.seconds(2);
+                if (!patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(familyMemberPC.get(j).get(0), familyMemberPC.get(j).get(1), familyMemberPC.get(j).get(2))) {
+                    Assert.fail("Could not complete PC for the member " + j);
+                }
+                Wait.seconds(5);//After submitting PC
+                if (!patientChoicePage.clickOnSaveAndContinueButton()) {
+                    Assert.fail("Could not proceed from PC after submitting Patient Choice..");
+                }
+                Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+            }
+
+//            testResult = patientChoicePage.clickOnSaveAndContinueButton();
+//            if (!testResult) {
+//                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
+//                Assert.fail("Could not click on Save and Continue.");
+//            }
+            testResult = referralPage.verifyThePageTitlePresence("Patient choice");
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
+                Assert.fail("Page title- Patient choice not present after selecting PC for family members.");
+            }
+
+            testResult = referralPage.clickSaveAndContinueButton();
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
+                Assert.fail("Could not click on Save and Continue.");
+            }
+        } catch (Exception exp) {
+//            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+            Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp, false);
+        }
+    }
 
 }//end
