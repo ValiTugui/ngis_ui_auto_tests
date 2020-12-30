@@ -20,7 +20,7 @@
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
-        <forkCount>5</forkCount>
+        <forkCount>1</forkCount>
         <reportName>test</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
         <browser>Chrome</browser>
