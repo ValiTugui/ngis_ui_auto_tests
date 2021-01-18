@@ -452,7 +452,9 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user should be able to see data quality menu is displayed")
+    @Given("the user is able to see data quality menu is displayed")
+    @When("the user sees the data quality menu is displayed")
+    @Then("the user should be able to see data quality menu is displayed")
     public void theUserShouldBeAbleToSeeDataQualityMenuIsDisplayed() {
         boolean testResult = false;
         testResult = miPortalHomePage.verifyThePresenceOfDataQualityMenu();
