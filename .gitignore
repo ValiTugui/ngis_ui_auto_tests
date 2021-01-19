@@ -88,8 +88,6 @@ buildNumber.properties
 ngis_ui_auto_tests.iml
 *.iml
 logs/
-log/
-downloads/
 navigateToStage.jpg
 downloads/SampleForm.pdf
 navigateToStage.jpg
