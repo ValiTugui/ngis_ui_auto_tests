@@ -175,4 +175,10 @@ public class MiClinicalDataQualitySteps extends Pages {
         testResult = TestUtils.isFilePresent("Data_quality_report","");
         Assert.assertTrue(testResult);
     }
+
+    @Then("the last updated date is displayed in the {string} format")
+    public void theLastUpdatedDateIsDisplayedInTheFormat(String dateFormat){
+        boolean testResult = miClinicalDataQualityPage.verifyDQDateFormat(dateFormat);
+        Assert.assertTrue(testResult);
+    }
 }//end
