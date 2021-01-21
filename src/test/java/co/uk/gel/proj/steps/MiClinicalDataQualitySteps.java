@@ -9,8 +9,9 @@ import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class MiClinicalDataQualitySteps extends Pages {
         super(driver);
     }
 
-    @And("the user sees a header as Clinical Data Quality Report on {string} stage")
+    @When("the user sees a header as Clinical Data Quality Report on {string} stage")
     public void theUserSeesAHeaderAsClinicalDataQualityReportOnStage(String exp_value) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.verifyClinicalDataQualityReport(exp_value);
@@ -30,7 +31,7 @@ public class MiClinicalDataQualitySteps extends Pages {
 
     }
 
-    @And("the user sees a link (.*) under the Clinical Data Quality Report header")
+    @Given("the user sees a link (.*) under the Clinical Data Quality Report header")
     public void theUserSeesALinkUnderTheClinicalDataQualityReportHeader(String exp_value) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.verifyReportGuidance(exp_value);
@@ -50,35 +51,35 @@ public class MiClinicalDataQualitySteps extends Pages {
         //Debugger.println("The dropdown values are " + expectedDropDownValues);
     }
 
-    @And("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
+    @When("the user selects (.*) as the Clinical Dq Filter Glh drop-down menu")
     public void theUserSelectsspecifiedvalueAsTheClinicalDqFilterGlhDropDownMenu(String value) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.selectValueInGlhDropDown(value);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user selects on ordering entity drop-down")
+    @When("the user selects on ordering entity drop-down")
     public void theUserSelectsOnOrderingEntityDropDown() {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.clickOnOrderingEntityDd();
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Deselect All button by default all the ordering entities should select")
+    @When("the user click on Deselect All button by default all the ordering entities should select")
     public void theUserClickOnDeselectAllButtonByDefaultAllTheOrderingEntitiesShouldSelect() {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.clickOnDeselectAllButton();
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Select All button")
+    @When("the user click on Select All button")
     public void theUserClickOnSelectAllButton() {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.clickOnSelectAllButton();
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Apply Filters button")
+    @When("the user click on Apply Filters button")
     public void theUserClickOnApplyFiltersButton() {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.clickOnApplyFiltersButton();
@@ -106,21 +107,21 @@ public class MiClinicalDataQualitySteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Reset Filters Button")
+    @When("the user click on Reset Filters Button")
     public void theUserClickOnResetFiltersButton() {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.clickOnResetFiltersButton();
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the column (.*) is displayed with data (.*)")
+    @Then("the user sees the column (.*) is displayed with data (.*)")
     public void theUserSeesTheColumnIsDisplayedWithDataNonEmptyData(String ColName, String ColValue) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.verifyTheColumnValuesUnderSpecifiedTab(ColName, ColValue);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user click on Clinical Data Quality section select the filters (.*) and click on Add Filters button and verify the table loaded")
+    @When("the user click on Clinical Data Quality section select the filters (.*) and click on Add Filters button and verify the table loaded")
     public void theUserClickOnClinicalDataQualitySectionSelectTheFiltersAndClickOnAddFiltersButtonAndVerifyTheTableLoaded(String value) {
         Assert.assertTrue(miClinicalDataQualityPage.navigateToClinicalDataQualityPage());
         Assert.assertTrue(miClinicalDataQualityPage.selectValueInGlhDropDown(value));
@@ -132,14 +133,14 @@ public class MiClinicalDataQualitySteps extends Pages {
         Debugger.println("The Elements Present In Apply Filters Section are verified");
     }
 
-    @And("the user clicks the {string} link to open the document in a new tab having {string} url")
+    @When("the user clicks the {string} link to open the document in a new tab having {string} url")
     public void theUserClicksTheReportGuidanceLinkToOpenTheDocumentInANewTabHavingUrl(String linkName,String linkURL) {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.openReportGuidance(linkName,linkURL);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the column headers of each of the tables with data present in the tabs")
+    @Given("the user sees the column headers of each of the tables with data present in the tabs")
     public void theUserSeesTheColumnHeadersPresentInTheTabs(DataTable tabNameAndFields) {
         boolean testResult = false;
         List<List<String>> data = tabNameAndFields.cells();
@@ -153,21 +154,21 @@ public class MiClinicalDataQualitySteps extends Pages {
         }
     }
 
-    @And("the user selects the tab {string}")
+    @Given("the user selects the tab {string}")
     public void theUserSelectsTheTab(String tabName) {
         boolean testResult=false;
         testResult=miClinicalDataQualityPage.clickOnSpecifiedTab(tabName);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user clicks the {string} link in the {string} tab which opens {string} url")
+    @Given("the user clicks the {string} link in the {string} tab which opens {string} url")
     public void theUserClicksTheLinkInTheTabWhichOpensUrl(String linkName, String tabName, String linkUrl) {
         boolean testResult=false;
         testResult=miClinicalDataQualityPage.openTestOrderLink(linkName,tabName,linkUrl);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to download the filtered DQ report")
+    @Then("the user should be able to download the filtered DQ report")
     public void theUserShouldBeAbleToDownloadTheFilteredDQReport() {
         boolean testResult = false;
         testResult = miClinicalDataQualityPage.downloadDqCSVFile("Data_quality_report");
@@ -177,7 +178,9 @@ public class MiClinicalDataQualitySteps extends Pages {
     }
 
     @Then("the last updated date is displayed in the {string} format")
+
     public void theLastUpdatedDateIsDisplayedInTheFormat(String dateFormat){
+
         boolean testResult = miClinicalDataQualityPage.verifyDQDateFormat(dateFormat);
         Assert.assertTrue(testResult);
     }

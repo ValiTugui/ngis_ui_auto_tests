@@ -78,7 +78,9 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download Data')]")
     public WebElement downloadDataButton;
 
+
     @FindBy(id="clinical_dq-dq_summary-timestamp")
+
     public WebElement dqlastUpdatedTimeStampLabel;
 
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
@@ -535,6 +537,7 @@ public class MiClinicalDataQualityPage {
         try
         {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+
             String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:","").replace("UTC","").trim();
             LocalDateTime.parse(dqDate, dtf);
             return true;
@@ -543,7 +546,9 @@ public class MiClinicalDataQualityPage {
         {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
+
             Debugger.println("ExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
+
             SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
             return false;
         }
@@ -551,9 +556,12 @@ public class MiClinicalDataQualityPage {
         {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
+
             Debugger.println("UnexpectedExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
+
             return false;
         }
     }
+
 
 }//class End

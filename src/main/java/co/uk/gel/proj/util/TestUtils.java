@@ -458,7 +458,6 @@ public class TestUtils {
             Wait.seconds(5);
             return "Success";
         } catch (Exception exp) {
-            Debugger.println("Exception from downloading File: "+url);
             return "Exception from downloadFile:" + exp;
         }
     }
