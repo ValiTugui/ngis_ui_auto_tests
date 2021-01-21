@@ -552,6 +552,7 @@ public class MiClinicalDataQualityPage {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
             Debugger.println("Unexpected Exception verifying DQR screen last updated date format: " + exp);
+            SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
             return false;
         }
     }

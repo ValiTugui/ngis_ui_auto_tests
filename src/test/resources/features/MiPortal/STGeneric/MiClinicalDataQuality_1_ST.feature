@@ -8,7 +8,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     #This latest change is applied for Nana release only in e2elatest
-    Given the user is able to see data quality menu displayed
+    Given the user is able to see data quality menu is displayed
 #    When the user should be able to see data quality menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a header as Clinical Data Quality Report on "<header>" stage
