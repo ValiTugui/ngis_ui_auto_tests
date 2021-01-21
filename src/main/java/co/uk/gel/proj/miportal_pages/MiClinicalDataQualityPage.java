@@ -13,6 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +77,9 @@ public class MiClinicalDataQualityPage {
 
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download Data')]")
     public WebElement downloadDataButton;
+
+    @FindBy(id = "clinical_dq-dq_summary-timestamp")
+    public WebElement dqlastUpdatedTimeStampLabel;
 
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
@@ -523,4 +529,33 @@ public class MiClinicalDataQualityPage {
             return false;
         }
     }
+
+    public boolean verifyDQDateFormat(String dateFormat)
+    {
+        try
+        {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+            String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated: ","").replace("UTC","").trim();
+            LocalDateTime.parse(dqDate, dtf);
+            return true;
+        }
+        catch(DateTimeParseException | IllegalArgumentException exp)
+        {
+            System.err.println(exp.getMessage());
+            exp.printStackTrace();
+            Debugger.println("Exception verifying DQR screen last updated date format: " + exp);
+            SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
+            return false;
+        }
+        catch(Exception exp)
+        {
+            System.err.println(exp.getMessage());
+            exp.printStackTrace();
+            Debugger.println("Unexpected Exception verifying DQR screen last updated date format: " + exp);
+            SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
+            return false;
+        }
+    }
+
+
 }//class End

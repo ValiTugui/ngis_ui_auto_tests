@@ -98,7 +98,7 @@ Feature: NEAT application login and Patient search
     And the user clicks on the status button "Confirm"
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the notification "This record is now inactive"
-    And the user clicks on the link "Back to patient record"
+   # And the user clicks on the link "Back to patient search"
     Then the user is navigated to a page with title Edit this patient record
     And the user clicks on the link "Back to patient search"
 #    And the user clicks on the status button "Change merge status"
