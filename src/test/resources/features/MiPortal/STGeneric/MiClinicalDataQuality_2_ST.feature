@@ -25,7 +25,14 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
 
   @NTS-6097 @MI-LOGOUT
   Scenario Outline: Validating Ordering entities deselect and select actions
-    Given the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
+
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    #This latest change is applied for Nana release only in e2e latest
+    When the user should be able to see data quality menu is displayed
+    And the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a header as Clinical Data Quality Report on "<header>" stage
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Deselect All button by default all the ordering entities should select
     Then the user able to see all the ordering entities should deselect
@@ -37,7 +44,14 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
 
   @NTS-6097 @MI-LOGOUT
   Scenario Outline: Tabs displayed in search result table in Clinical Data Quality page
-    Given the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
+
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    #This latest change is applied for Nana release only in e2e latest
+    When the user should be able to see data quality menu is displayed
+    And the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a header as Clinical Data Quality Report on "<header>" stage
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Select All button
     And the user click on Apply Filters button
@@ -59,3 +73,20 @@ Feature: MIPORTAL ST - Clinical Data Quality - 2
       | glh_name       |
       | London South   |
 
+  @NTS-6861 @MI-LOGOUT
+  Scenario Outline: The last updated date is in the correct format on the Clinical Data Quality page
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    #This latest change is applied for Nana release only in e2e latest
+    When the user should be able to see data quality menu is displayed
+    And the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a header as Clinical Data Quality Report on "<header>" stage
+    And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
+    And the user selects on ordering entity drop-down
+    And the user click on Select All button
+    And the user click on Apply Filters button
+    Then the last updated date is displayed in the "d/MM/yyyy HH:mm" format
+
+    Examples:
+      | mi_stage              | header                       | glh_name     |
+      | Clinical Data Quality | Clinical Data Quality Report | London South |
