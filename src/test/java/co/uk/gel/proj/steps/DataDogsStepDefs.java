@@ -62,7 +62,7 @@ public class DataDogsStepDefs extends Pages {
         //Get the URL from Properties file
         String requiredPage = AppConfig.getPropertyValueFromPropertyFile(baseURL);
         driver.get(requiredPage);
-        String testResult = dataDogPage.loginToDataDogApplication(driver, userType);
+        String testResult = dataDogPage.loginToDataDogApplication(driver);
         if(!testResult.equalsIgnoreCase("Success")) {
             Assert.fail(testResult);
         }
