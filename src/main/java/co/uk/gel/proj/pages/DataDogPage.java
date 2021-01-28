@@ -76,7 +76,7 @@ public class DataDogPage {
     public List<WebElement> coreSections;
 
 
-    public String loginToDataDogApplication(WebDriver driver, String userType) {
+    public String loginToDataDogApplication(WebDriver driver) {
         try {
             if (!Wait.isElementDisplayed(driver,emailAddressField,60)) { //If the element is not displayed, even after the waiting time
                 return "Email Address Field is not visible, even after the waiting period of 60 seconds. Looks like Datadog page is not accessible.";
