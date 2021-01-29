@@ -169,7 +169,7 @@ public class NeatToolSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the blank mandatory field labels highlighted in red color")
+  /*  @Then("the blank mandatory field labels highlighted in red color")
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
         boolean testResult = false;
         List<List<String>> messageDetails = fields.asLists();
@@ -178,7 +178,7 @@ public class NeatToolSteps extends Pages {
             Debugger.println("Test check");
             Assert.assertTrue(testResult);
         }
-    }
+    }*/
 
     @And("the user searches the {string}")
     public void theUserSearchesThe(String ngisID) {

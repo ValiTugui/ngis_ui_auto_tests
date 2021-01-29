@@ -1084,6 +1084,16 @@ public class ReferralSteps extends Pages {
         SeleniumLib.sleepInSeconds(10);
     }
 
+    @And("the blank mandatory field labels highlighted in red color")
+    public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
+        String testResult = "";
+        List<List<String>> fieldDetails = fields.asLists();
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            testResult = referralPage.verifyBlankMandatoryFieldLabelColor(fieldDetails.get(i).get(0), fieldDetails.get(i).get(1));
+            Assert.assertEquals("Success",testResult);
+            Wait.seconds(2);
+        }
+    }
     @And("^the mandatory fields shown with the symbol in red color$")
     public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {
 
