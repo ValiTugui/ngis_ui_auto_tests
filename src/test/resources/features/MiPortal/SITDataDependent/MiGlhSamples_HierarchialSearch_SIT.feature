@@ -3,7 +3,7 @@
 
 Feature: MIPORTAL SIT - Implement hierarchical search terms for GLH/Ordering entity.
 
-  @NTS-5721 @Scenario1
+  @NTS-5721
    ## @E2EUI-2886
   Scenario Outline: NTS-5721:E2EUI-2886: As a user, I want to see the ordering entities for the respective GLH are matching to document in Order Tracking & Plater Samples sections.
 

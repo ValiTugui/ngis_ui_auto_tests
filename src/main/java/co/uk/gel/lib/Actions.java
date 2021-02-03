@@ -192,9 +192,9 @@ public class Actions {
                 Wait.seconds(2);
             }
         }
-    catch (Exception exp) {
+        catch (Exception exp) {
             Debugger.println("Exception while accepting the alert");
-    }
+        }
     }
 
     public static void dismissAlert(WebDriver driver) {

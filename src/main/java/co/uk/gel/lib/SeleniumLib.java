@@ -17,6 +17,8 @@ import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -548,7 +550,7 @@ public class SeleniumLib {
     /**
      *
      */
-    public void ChangeWindow() {
+    public static void ChangeWindow() {
         Set<String> windows = driver.getWindowHandles();
         for (String window : windows) {
             driver.switchTo().window(window);
@@ -601,12 +603,30 @@ public class SeleniumLib {
         }
     }
 
-    static boolean isAlertPresent() {
+    public static boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
         } catch (NoAlertPresentException ex) {
             return false;
+        }
+    }
+
+    public static void authenticateWithAlert(String userName, String password) {
+        try {
+            ChangeWindow();
+            Debugger.println("User name is " + userName);
+            Debugger.println("Password is " + password);
+            Robot robot = null;
+            robot = new Robot();
+            driver.findElement(By.id("username")).sendKeys(userName);
+            robot.keyPress(KeyEvent.VK_TAB);
+            driver.findElement(By.id("password")).sendKeys(password);
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+        } catch (Exception ex) {
+            Debugger.println("Exception in switching to new Tab: " + ex);
         }
     }
 
