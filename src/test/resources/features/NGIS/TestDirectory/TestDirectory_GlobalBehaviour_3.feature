@@ -4,6 +4,7 @@
 @SYSTEM_TEST
 Feature: Test Directory - Global Behaviour Page 3
 
+
   @NTS-3501 @Z-LOGOUT
 #    @E2EUI-1761
   Scenario Outline:NTS-3501:Validating NGIS Id and Referral Id and web element text

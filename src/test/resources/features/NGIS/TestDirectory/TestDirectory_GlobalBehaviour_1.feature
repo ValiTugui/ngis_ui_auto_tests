@@ -1,7 +1,8 @@
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory - Global Behaviour Page 1
-
+#pass
+  @test-3236
   @NTS-3236
 #   @E2EUI-1658
   Scenario: NTS-3236 - Home Page - User is able to see the privacy policy link at the bottom of the page

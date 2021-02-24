@@ -3,7 +3,7 @@
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory: ClinicalIndicationSelect_4
-
+@Test-4710
   @NTS-4710 @Z-LOGOUT
 #    @E2EUI-1573
   Scenario Outline: NTS-4710:E2EUI-1573: test environment content consistency: update save and continue
