@@ -4,8 +4,8 @@
 
 Feature: Family Members Navigation Stage 1 - FM Stage Navigation
 
-  @NTS-3292 @Z-LOGOUT
-#    @E2EUI-1331 @E2EUI-1485 @E2EUI-1639
+  @NTS-3292 @NTS-4100 @Z-LOGOUT
+#    @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @E2EUI-1540
   Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1973:Gender=Male |
@@ -28,6 +28,7 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=14-05-1928:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     ##Step for E2EUI-1485
+    ##Below line also covered NTS-4100 E2EUI-1540
     And the family member details on family Member landing page is correctly displayed
     ##Step for 1331 and 1639
     When the user removes the family member

@@ -30,8 +30,8 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
       | PatientChoice  | ClinicianName                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3389
-    #@E2EUI-2039 @scenario_01
+  @NTS-3389 @NTS-3411 @NTS-3478
+   #@E2EUI-2039 @scenario_01  #@E2EUI-1960  @E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is in the section Patient choices
     Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?

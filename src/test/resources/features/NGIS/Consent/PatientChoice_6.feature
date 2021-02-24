@@ -2,6 +2,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@Test01
 Feature: Patient Choice-6 - File uploads
 
   @NTS-3440 @Z-LOGOUT
@@ -83,37 +84,8 @@ Feature: Patient Choice-6 - File uploads
       | testfile_11MB.jpg   | Failed to upload testfile_11MB.jpg. Maximum file size is 10 MB. |
 
     Examples:
-      | PatientChoice  | ClinicianName                            |
+      | PatientChoice  | ClinicianName                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
-
-  @NTS-3483 @Z-LOGOUT
-    #@E2EUI-1890 @E2EUI-1950 @E2EUI-1826
-  Scenario Outline: NTS-3483: Remove the option for consultee from the document upload enumeration - Child flow
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2008:Gender=Male |
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    Then the user is navigated to a page with title Add patient choice information
-    And the user is in the section Patient choice category
-    When the user selects the option Child in patient choice category
-    Then the Patient choice category option is marked as completed
-    And the option Child displayed with edit option in Patient choice category
-    When the user selects the option Rare & inherited diseases – WGS in section Test type
-    Then the Test type option is marked as completed
-    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
-    And the user is in the section Recorded by
-    When the user fills "<RecordedByWithoutFormSelection>" details in recorded by
-    Then the file type dropdown options loaded with below details
-      | Record of Discussion Form |
-      | Deceased Form             |
-      | Assent Form               |
-    When the user selects Deceased Form from dropdown option in recorded by
-    Then the Date of Signature fields are displayed as enabled
-    Examples:
-      | PatientChoice  | RecordedByWithoutFormSelection                                              |
-      | Patient choice | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=testfile.pdf |
 
   @NTS-4603 @Z-LOGOUT
     #@E2EUI-1856

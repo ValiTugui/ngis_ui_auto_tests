@@ -1,9 +1,10 @@
 @05-CONSENT
 @SYSTEM_TEST
+@Test01
 Feature: Patient Choice-1 - Adult with Capacity
 
-  @NTS-3434
-    #@E2EUI-1447 @E2EUI-2034
+  @NTS-3434 @NTS-3409
+    #@E2EUI-1447 @E2EUI-2034 @E2EUI-1824
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1992:Gender=Male |
@@ -19,6 +20,7 @@ Feature: Patient Choice-1 - Adult with Capacity
     Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
     Then the Test type option is marked as completed
     When the user is in the section Recorded by
+    ##This line added for NTS-3409
     When the user fills "<RecordedBy>" details in recorded by
     Then the user will see a warning message "<WarningMessage>"
     And the user sees a success message after form upload in recorded by as Successfully Uploaded
@@ -29,12 +31,12 @@ Feature: Patient Choice-1 - Adult with Capacity
       | PatientChoice  | RecordedBy                                                                                                           | FormSuccessMessage    | WarningMessage                                                                                                                                                                                                                                           | Message                                                                                                                                                                              |
       | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Successfully Uploaded | You are the appointed administrator for ensuring that the Patient's Genomic Test decisions are accurately reproduced in this digital form. Please ensure that you take care to enter the answers as described on the paper record of decisions attached. | Your file may take a minute to upload, depending on its size. You can continue to fill out this form, but will not be able to complete and submit it until the upload has completed. |
 
-  @NTS-3434
-    #@E2EUI-1447
+  @NTS-3434 @NTS-3415
+    #@E2EUI-1447 @E2EUI-1627
   Scenario Outline: NTS-3434: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is in the section Patient choices
-    Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    And the options displayed as below for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    Then the options displayed as below for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
       | Patient has agreed to the test                                     |
       | Patient conversation happened; form to follow                      |
       | Patient changed their mind about the clinical test                 |
@@ -47,8 +49,9 @@ Feature: Patient Choice-1 - Adult with Capacity
       | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient changed their mind about the clinical test |
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage2>"
+    #Below steps for NTS-3415
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
@@ -155,8 +158,8 @@ Feature: Patient Choice-1 - Adult with Capacity
       | WarningMessage                                                                                                                                                      | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3434 @Z-LOGOUT
-    #@E2EUI-1447
+  @NTS-3434 @NTS-3480 @Z-LOGOUT
+    #@E2EUI-1447 @E2EUI-2154
   Scenario Outline: NTS-3434: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -185,7 +188,6 @@ Feature: Patient Choice-1 - Adult with Capacity
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
-
 
    @NTS-3449 @Z-LOGOUT
     #@E2EUI-989

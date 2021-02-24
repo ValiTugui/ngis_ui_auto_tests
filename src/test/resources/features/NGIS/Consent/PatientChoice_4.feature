@@ -2,6 +2,8 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@Test01
+
 Feature: Patient Choice-4 Edit Paper Form - Child
 
   @NTS-3428
@@ -70,8 +72,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @NTS-3428
-    #@E2EUI-2041 @scenario_2
+  @NTS-3428 @NTS-3472
+    #@E2EUI-2041 @scenario_2 @E2EUI-2149
   Scenario Outline: NTS-3428: scenario 2 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened

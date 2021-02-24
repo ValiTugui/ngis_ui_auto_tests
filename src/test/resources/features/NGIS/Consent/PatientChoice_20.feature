@@ -1,5 +1,5 @@
 #@patientChoice
-@05-CONSENT
+@05-CONSENT_NotPartOfSTPAck
 
 Feature: Patient Choice-20 - History - Withdrawal - Form
 

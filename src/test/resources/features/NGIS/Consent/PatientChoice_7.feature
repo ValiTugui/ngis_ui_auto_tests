@@ -2,27 +2,8 @@
 @SYSTEM_TEST
 Feature: Patient Choice-7 - Form Library
 
-  @NTS-3435 @Z-LOGOUT
-    #@E2EUI-2180
-  Scenario Outline: NTS-3435: Upload the latest 'Opt-in' form to the form library
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<Patient choice stage>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
-    Then the user is navigated to a page with title Add patient choice information
-    When the user selects the Form library tab in patient choice page
-    Then the user should see the supporting information links under the section Patient choice forms
-      | FormName                             |
-      | Agreement to Participate in Research |
-
-    Examples:
-      | Patient choice stage |
-      | Patient choice       |
-
-  @NTS-3382 @Z-LOGOUT
-    #@E2EUI-2110 @E2EUI-1889
+  @NTS-3382 @NTS-3435 @Z-LOGOUT
+    #@E2EUI-2110 @E2EUI-1889 @E2EUI-2180
   Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1990:Gender=Male |

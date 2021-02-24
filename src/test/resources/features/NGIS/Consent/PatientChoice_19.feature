@@ -2,8 +2,8 @@
 @SYSTEM_TEST
 Feature: Patient Choice-19 - Different types of Form File upload and removal in recorded by section.
 
-  @NTS-6024 @Z-LOGOUT
-    #@E2EUI-2341
+  @NTS-6024 @NTS-3483 @Z-LOGOUT
+    #@E2EUI-2341 @E2EUI-1890 @E2EUI-1950 @E2EUI-1826
   Scenario Outline: NTS-6024:E2EUI-2341:Scenario-1:Only one of each form type can be uploaded in the recorded by section for Adult(With Capacity) patient .
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |

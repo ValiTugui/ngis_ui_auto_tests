@@ -2,9 +2,10 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@Test01
 Feature: Patient Choice-2 ConsentScenario - Child
 
-  @NTS-3441
+  @NTS-3441 @Test
     #@E2EUI-1215
   Scenario Outline: NTS-3441: Verify the relevant Patient choice for a Child paper form
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -32,8 +33,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | PatientChoice  | RecordedBy                                                                                                           | FormSuccessMessage    | WarningMessage                                                                                                                                                                                                                                           | Message                                                                                                                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Successfully Uploaded | You are the appointed administrator for ensuring that the Patient's Genomic Test decisions are accurately reproduced in this digital form. Please ensure that you take care to enter the answers as described on the paper record of decisions attached. | Please make sure you have uploaded all required forms (child assent, consultee, etc.), you currently have uploaded the files... |
 
-  @NTS-3441
-    #@E2EUI-1215 @scenario_1
+  @NTS-3441 @NTS-3411
+    #@E2EUI-1215 @scenario_1 @E2EUI-1960
   Scenario Outline: NTS-3441: scenario 1 - Verify the relevant Patient choice for a Child paper form
     When the user is in the section Patient choices
     Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -95,8 +96,9 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3441
-    #@E2EUI-1215 @scenario_3
+  ##NTS-3471 covered in this scenario so we removed the main scenario
+  @NTS-3441 @NTS-3471
+    #@E2EUI-1215 @scenario_3 @E2EUI-2155
   Scenario Outline: NTS-3441: scenario 3 - Verify the relevant Patient choice for a Child paper form
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened
@@ -236,44 +238,3 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3471 @Z-LOGOUT
-    #@E2EUI-2155
-  Scenario Outline: NTS-3471: Verify the child assent question content
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<Patient choice stage>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    Then the user is navigated to a page with title Add patient choice information
-    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
-    When the user selects the option Child in section Patient choice category
-    Then the option Child displayed with edit option in Patient choice category
-    And the Patient choice category option is marked as completed
-    When the user selects the option Rare & inherited diseases – WGS in section Test type
-    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
-    And the Test type option is marked as completed
-    When the user fills "<RecordedBy>" details in recorded by
-    And the user clicks on Continue Button
-    And the Recorded by option is marked as completed
-    When the user is in the section Patient choices
-    Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    When the user selects the option Parent(s) / guardian have agreed to the test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    Then the user should see the question displayed as Has research participation been discussed?
-    And the options displayed as below for the question Has research participation been discussed?
-      | Yes |
-      | No  |
-    When the user selects the option No for the question Has research participation been discussed?
-    Then the user should see the question displayed as Why has research participation not been discussed?
-    When the user selects the option Parent(s) / guardian would like to revisit at a later date for the question Why has research participation not been discussed?
-    And the user clicks on Continue Button
-    When the user is in the section Child assent
-    Then the user should see the question displayed as Does the child agree to participate in research?
-    And the options displayed as below for the question Does the child agree to participate in research?
-      | Yes            |
-      | No             |
-      | Not applicable |
-
-    Examples:
-      | Patient choice stage | RecordedBy                                                                                                           |
-      | Patient choice       | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
