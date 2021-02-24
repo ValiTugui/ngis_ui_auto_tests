@@ -1,5 +1,6 @@
 @DQ_Report_System_Testing
 
+  @DQ_Report
   ##This feature has been moved to @DQ_Report_System_Testing tag as this will be maintained by DDF Squad
 Feature: MIPORTAL ST - Clinical Data Quality - 1
 
