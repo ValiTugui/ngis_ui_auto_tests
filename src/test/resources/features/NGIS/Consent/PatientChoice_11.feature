@@ -3,39 +3,67 @@
 @SYSTEM_TEST
 Feature: Patient Choice-11 - validations
 
+
+ ###New scenarios
+
   @NTS-3478 @Z-LOGOUT
     #@E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3478: Patient choice option content has changed to Record of Discussion form not currently available
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<Patient choice stage>" stage
+    ##NTS-3387
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user should see patient choice submit button as disabled
+    ##NTS-3378
+    When the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button on the patient choice
+    ##Below step is for E2EUI-1752
+    And the user should able to see TO DO list even after clicking the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    Then the option Adult (With Capacity) displayed with edit option in Patient choice category
-    Then the Patient choice category option is marked as completed
+    ##NTS-3385
+    And the user sees a back button on Add patient choice information page
+    When the user clicks on the Back link
+    Then the user is navigated to a page with title Patient choice
+    And the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    ##Below step is for E2EUI-880
+    ##NTS-3436
+    And the user will see a notification warning message "A laboratory cannot start a test without patient choice information"
+    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
+    When the user selects the option Child in section Patient choice category
+    Then the option Child displayed with edit option in Patient choice category
+    And the Patient choice category option is marked as completed
     When the user selects the option Rare & inherited diseases – WGS in section Test type
     Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
-    Then the Test type option is marked as completed
+    And the Test type option is marked as completed
+    When the user is in the section Recorded by
     When the user fills "<RecordedBy>" details in recorded by
-    ##For E2EUI-1677
-    Then the user should be able to see patient hospital number
     And the user clicks on Continue Button
-    Then the option Recorded by: displayed with edit option in Recorded by
-    Then the Recorded by option is marked as completed
+    And the Recorded by option is marked as completed
     When the user is in the section Patient choices
-    Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    And the options displayed as below for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-      | Patient has agreed to the test                                     |
-      | Patient conversation happened; form to follow                      |
-      | Patient changed their mind about the clinical test                 |
-      | Clinician has agreed to the test (in the Patient's best interests) |
+    Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Parent(s) / guardian have agreed to the test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Child assent
+    Then the user should see the question displayed as Does the child agree to participate in research?
+    When the user selects the option Not applicable for the question Does the child agree to participate in research?
+    Then the user should be able to see enabled continue button
 
     Examples:
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
+
 
   @NTS-3436 @Z-LOGOUT
     #@E2EUI-1704

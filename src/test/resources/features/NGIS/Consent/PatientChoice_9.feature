@@ -3,8 +3,8 @@
 @SYSTEM_TEST
 Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
 
-  @NTS-3389
-    #@E2EUI-2039 @E2EUI-1100
+  @NTS-3389 @NTS-3478
+    #@E2EUI-2039 @E2EUI-1100 @E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1992:Gender=Male |
