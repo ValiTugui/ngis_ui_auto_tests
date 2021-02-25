@@ -1,6 +1,7 @@
 #@regression
 @03-TEST_ORDER
 @SYSTEM_TEST
+@ReqOrg
 Feature: TestOrder - Requesting Organisation page 1
 
   Background:
