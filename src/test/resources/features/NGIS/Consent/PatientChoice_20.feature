@@ -1,5 +1,5 @@
 #@patientChoice
-@05-CONSENT
+@05-CONSENT_NotST
 
 Feature: Patient Choice-20 - History - Withdrawal - Form
 
