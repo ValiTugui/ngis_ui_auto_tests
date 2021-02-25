@@ -5,7 +5,7 @@
 Feature: Pedigree - Pedigree Flow 4
 
   @NTS-3386 @Z-LOGOUT
-#    @E2EUI-1373 @E2EUI-836 @E2EUI-1269
+#    @E2EUI-1373 @E2EUI-836 @E2EUI-1269 @E2EUI-1854
   Scenario Outline: NTS-3386 :E2EUI-1373,836,1269: Test with a trio (mother & father)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Female |
