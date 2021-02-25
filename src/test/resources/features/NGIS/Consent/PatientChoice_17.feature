@@ -1,5 +1,5 @@
 #@patientChoice
-@05-CONSENT
+@05-CONSENT_NotInST
 Feature: Patient Choice-17- Document upload section should be open by default
 
   @E2EUI-2555

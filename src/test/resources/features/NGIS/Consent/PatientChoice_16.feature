@@ -1,5 +1,5 @@
 #@patientChoice
-@05-CONSENT
+@05-CONSENTNotInST
 Feature: Patient Choice-16 - History - Withdrawal - Form
 
   @NTS-6427
