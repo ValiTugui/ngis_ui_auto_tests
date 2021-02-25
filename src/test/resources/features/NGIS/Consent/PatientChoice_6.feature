@@ -2,7 +2,6 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-@Test01
 Feature: Patient Choice-6 - File uploads
 
   @NTS-3440 @Z-LOGOUT

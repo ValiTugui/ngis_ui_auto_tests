@@ -1,6 +1,5 @@
 @05-CONSENT
 @SYSTEM_TEST
-
 Feature: Patient Choice-1 - Adult with Capacity
 
   @NTS-3434 @NTS-3409
@@ -77,7 +76,7 @@ Feature: Patient Choice-1 - Adult with Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
@@ -114,7 +113,7 @@ Feature: Patient Choice-1 - Adult with Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                         | WarningMessage2                                                                                                                                                                                                                                                                                          |
@@ -153,7 +152,8 @@ Feature: Patient Choice-1 - Adult with Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
+
     Examples:
       | WarningMessage                                                                                                                                                      | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
@@ -184,7 +184,8 @@ Feature: Patient Choice-1 - Adult with Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
+
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
@@ -215,8 +216,8 @@ Feature: Patient Choice-1 - Adult with Capacity
     Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the test badge status for family member as Not being tested
     When the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    And the user sees the test badge status for family member as Not being tested
+    And the user is navigated to a page with title Patient choice
+    Then the user sees the test badge status for family member as Not being tested
     ##Family member details validation covered in E2EUI-1583
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | PatientChoice  |

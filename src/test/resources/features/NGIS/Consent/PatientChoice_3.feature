@@ -79,7 +79,8 @@ Feature: Patient Choice -3 - Navigation
     When the user selects the option Cancer (paired tumour normal) – WGS in section Test type
     Then the option Cancer (paired tumour normal) – WGS displayed with edit option in Test type
     And the Test type option is marked as completed
-    And the user is in the section Recorded by
+    Then the user is in the section Recorded by
+
     Examples:
       | Patient choice stage |
       | Patient choice       |
@@ -103,4 +104,3 @@ Feature: Patient Choice -3 - Navigation
 #    Examples:
 #      | PatientChoice  |
 #      | Patient choice |
-#

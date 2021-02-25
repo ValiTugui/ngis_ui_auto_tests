@@ -2,7 +2,6 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-
 Feature: Patient Choice-4 Edit Paper Form - Child
 
   @NTS-3428
@@ -24,8 +23,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     And the Test type option is marked as completed
     When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
-    Then the option Recorded by: displayed with edit option in Recorded by
-    And the Recorded by option is marked as completed
+    And the option Recorded by: displayed with edit option in Recorded by
+    Then the Recorded by option is marked as completed
 
     Examples:
       | PatientChoice  | ClinicianName                         |
@@ -65,7 +64,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                                                                                                                                          |
@@ -91,7 +90,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
@@ -148,7 +147,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | Parent/Guardian last name  | label      | ✱      | #dd2509      |
     And the user fills "<Parent/Guardian signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                         | Parent/Guardian signature          |
@@ -208,13 +207,14 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | Parent/Guardian last name  | label      | ✱      | #dd2509      |
     And the user fills "<Parent/Guardian signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
+
     Examples:
       | WarningMessage                                                                                                                                                      | Parent/Guardian signature          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
 
-    ### Parent(s) / guardian have agreed to the test  - Yes - Yes
-    ### Child Assent - Yes
+  ### Parent(s) / guardian have agreed to the test  - Yes - Yes
+  ### Child Assent - Yes
   @NTS-3428 @Z-LOGOUT
     #@E2EUI-2041 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
@@ -268,7 +268,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | Parent/Guardian last name  | label      | ✱      | #dd2509      |
     And the user fills "<Parent/Guardian signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Parent/Guardian signature          |
@@ -317,7 +317,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     And the user clicks on Continue Button
     When the user is in the section Patient signature
     And the user fills PatientSignature details in patient signature
-    And the user clicks on submit patient choice Button
+    Then the user clicks on submit patient choice Button
 
     Examples:
       | Patient choice stage | RecordedBy                              | WarningMessage                                                                                                                                                                              |

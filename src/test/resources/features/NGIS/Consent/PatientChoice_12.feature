@@ -29,8 +29,8 @@ Feature: Patient Choice-12 - Adult with Capacity
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=14-05-1943 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
-    Then the user is navigated to a page with title Patient choice
-    And the user sees the patient choice status for family member 1 as Agreed to testing
+    And the user is navigated to a page with title Patient choice
+    Then the user sees the patient choice status for family member 1 as Agreed to testing
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants |
       | Family members | Test package | 2                |
@@ -76,6 +76,7 @@ Feature: Patient Choice-12 - Adult with Capacity
     Then the "<Notes>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
+    And the "<FamilyMembers>" stage is marked as Mandatory To Do
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
@@ -92,7 +93,6 @@ Feature: Patient Choice-12 - Adult with Capacity
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-    And the "<FamilyMembers>" stage is marked as Mandatory To Do
     And the "<PatientChoice>" stage is marked as Mandatory To Do
     #Patient Choice - Family Details Provided below should be same as above
     When the user navigates to the "<PatientChoice>" stage
@@ -108,6 +108,7 @@ Feature: Patient Choice-12 - Adult with Capacity
     And the "<TestPackage>" stage is marked as Completed
     ##Adding Additional Family Member
     When the user navigates to the "<FamilyMembers>" stage
+    And the "<FamilyMembers>" stage is marked as Mandatory To Do
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |

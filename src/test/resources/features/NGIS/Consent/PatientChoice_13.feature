@@ -1,8 +1,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-
-Feature: Patient Choice -13  - Page - FamilyMemberAddition
+Feature: Patient Choice-13  - Page - FamilyMemberAddition
 
   @NTS-3411 @Z-LOGOUT
     #@E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570
@@ -28,8 +27,8 @@ Feature: Patient Choice -13  - Page - FamilyMemberAddition
       | NHSNumber=NA:DOB=14-05-1928:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=NA:DOB=10-11-1929:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     When the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    And the user should see the details of family members displayed in patient choice landing page
+    And the user is navigated to a page with title Patient choice
+    Then the user should see the details of family members displayed in patient choice landing page
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=14-05-1928 |
       | NHSNumber=NA:DOB=10-11-1929 |

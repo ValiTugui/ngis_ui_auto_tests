@@ -23,7 +23,7 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
     Then the Test type option is marked as completed
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    Then the option Recorded by: displayed with edit option in Recorded by
+    And the option Recorded by: displayed with edit option in Recorded by
     Then the Recorded by option is marked as completed
 
     Examples:
@@ -93,7 +93,7 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |
@@ -131,7 +131,7 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |
@@ -169,7 +169,7 @@ Feature: Patient Choice-15 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |

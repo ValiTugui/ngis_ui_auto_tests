@@ -115,10 +115,10 @@ Feature: Patient Choice-8 - History - Preference
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     ### this will fail since  Patient consent category: is present in rendered form
-    Then the user should be able to see the patient choice form with success message
+    When the user should be able to see the patient choice form with success message
     And the user selects the Preferences tab in patient choice page
-    Then the user will see a warning message "<WarningMessage2>"
-    And the user selects the New patient choice tab in patient choice page
+    And the user will see a warning message "<WarningMessage2>"
+    Then the user selects the New patient choice tab in patient choice page
 
     Examples:
       | PatientChoice  | WarningMessage2                                                                                                         | WarningMessage1                                                                                    |

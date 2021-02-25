@@ -3,7 +3,6 @@
 @SYSTEM_TEST
 Feature: Patient Choice-11 - validations
 
-
   @NTS-3436 @NTS-4307 @Z-LOGOUT
    #@E2EUI-1704 @E2EUI-880
   Scenario Outline: NTS-3436: No question is populated for the Not applicable case under child assent in patient choice questions.
@@ -37,6 +36,7 @@ Feature: Patient Choice-11 - validations
     Then the user should see the question displayed as Does the child agree to participate in research?
     When the user selects the option Not applicable for the question Does the child agree to participate in research?
     Then the user should be able to see enabled continue button
+
     Examples:
       | PatientChoiceStage | RecordedBy                                                                                                     | WarningMessage                                                      |
       | Patient choice     | RecordingClinicianName=John Doe:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | A laboratory cannot start a test without patient choice information |
@@ -84,6 +84,7 @@ Feature: Patient Choice-11 - validations
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on the Back link
     Then the user is navigated to a page with title Patient choice
+
     Examples:
       | PatientChoiceStage | RecordedBy                            | ErrorMessage                                                                           |
       | Patient choice     | ClinicianName=John:HospitalNumber=123 | Please complete the required field Clinician Name (Admin support user ID is optional): |
@@ -108,8 +109,8 @@ Feature: Patient Choice-11 - validations
     Then the user sees a prompt alert "<UnsavedMessage>" after clicking "refresh" button and "<Dismiss>" it
     And the user is navigated to a page with title Add patient choice information
     When the user clicks the Log out button
-    Then the user sees a prompt alert "<UnsavedMessage>" after clicking "logout" button and "<Dismiss>" it
-    And the user is navigated to a page with title Add patient choice information
+    And the user sees a prompt alert "<UnsavedMessage>" after clicking "logout" button and "<Dismiss>" it
+    Then the user is navigated to a page with title Add patient choice information
 
     Examples:
       | PatientChoice  | Panels | DiscardMessage                                              | Dismiss|UnsavedMessage                    |

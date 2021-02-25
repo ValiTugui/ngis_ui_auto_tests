@@ -30,7 +30,7 @@ Feature: Patient Choice-7 - Form Library
 #      | Annotated National Genomic Research Library Young Person's Assent Form |
 #      | Annotated Consultee Declaration Regarding Whole Genome Sequencing      |
 #      | Annotated Withdrawal from the National Genomic Research Library        |
-    And the user should see the supporting information links under the section Supporting information
+    Then the user should see the supporting information links under the section Supporting information
       | FormName                                             |
       | Clinician's Guide Cancer                             |
       | Clinician's Guide RD                                 |
@@ -42,6 +42,7 @@ Feature: Patient Choice-7 - Form Library
       | Patient Information for Cancer - Easy Read           |
       | Patient Information for Rare Disease                 |
       | Patient Information for Rare Disease - Easy Read     |
+
     Examples:
       | Patient choice stage |
       | Patient choice       |
