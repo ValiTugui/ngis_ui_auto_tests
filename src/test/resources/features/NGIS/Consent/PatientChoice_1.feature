@@ -1,6 +1,6 @@
 @05-CONSENT
 @SYSTEM_TEST
-@Test01
+
 Feature: Patient Choice-1 - Adult with Capacity
 
   @NTS-3434 @NTS-3409
@@ -54,7 +54,7 @@ Feature: Patient Choice-1 - Adult with Capacity
     Then Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3434
@@ -189,7 +189,7 @@ Feature: Patient Choice-1 - Adult with Capacity
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-   @NTS-3449 @Z-LOGOUT
+  @NTS-3449 @Z-LOGOUT
     #@E2EUI-989
   Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

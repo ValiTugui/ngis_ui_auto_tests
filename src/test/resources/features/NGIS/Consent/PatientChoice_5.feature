@@ -2,10 +2,8 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-@Test01
 Feature: Patient Choice -5 - Page - FamilyMemberAddition
 
-##New Merged Scenario
   @NTS-3435 @NTS-3341 @NTS-3450 @NTS-3409 @NTS-3410 @Z-LOGOUT
     #@E2EUI-1877 @E2EUI-1822 @E2EUI-1127 @E2EUI-1934
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package

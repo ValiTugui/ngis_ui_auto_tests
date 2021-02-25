@@ -1,5 +1,5 @@
 #@patientChoice
-@05-CONSENT_NotPartOfSTPAck
+@05-CONSENT
 
 Feature: Patient Choice- Document upload section should be open by default
 

@@ -2,10 +2,9 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-@Test01
 Feature: Patient Choice-2 ConsentScenario - Child
 
-  @NTS-3441 @Test
+  @NTS-3441
     #@E2EUI-1215
   Scenario Outline: NTS-3441: Verify the relevant Patient choice for a Child paper form
     Given a new patient referral is created with associated tests in Test Order System online service
