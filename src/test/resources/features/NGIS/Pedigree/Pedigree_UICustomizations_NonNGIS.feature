@@ -131,4 +131,4 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
     Examples:
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
-      | Family members | NHSNumber=NA:DOB=25-11-2004 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | Family members | NHSNumber=NA:DOB=25-11-1990 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
