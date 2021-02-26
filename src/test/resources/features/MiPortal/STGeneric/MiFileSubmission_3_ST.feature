@@ -51,12 +51,25 @@ Feature: MIPORTAL ST - File Submission 3
     And the user clicks on Add criteria button
     When the user click on the Search button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-
     And the table column Field Warnings is displayed with data non-empty-data
     Then the table column Status is displayed with data valid_with_warnings
+    And  the selected search option is reset after test
+    When the user selects Status as the search column dropdown
+    And the user selects is as the search operator dropdown
+    And the user selects <value> as the search value dropdown
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed in table format with display options button
+    And the column(s) field "<columnHeader>" in the search result table displayed the only filtered "<fieldValue>"
+    And the selected search option is reset after test
+
     Examples:
-      | mi_stage         |
-      | File Submissions |
+      | value   | columnHeader | fieldValue |mi_stage         |   mi_stage         |
+      | Valid   | Status       | valid      |File Submissions | File Submissions |
+      | Invalid | Status       | invalid    |File Submissions | File Submissions |
+
+
 
     ##Commenting as , after the database clean up, no data related to duplicate search exists
 #  @NTS-5031
@@ -79,39 +92,40 @@ Feature: MIPORTAL ST - File Submission 3
 #    Then search results are displayed in table format with display options button
 #    And the table column Status is displayed with data duplicate
 
-  @NTS-5177
-    #@E2EUI-2578
-  Scenario Outline: NTS-5177:@E2EUI-2578: MIS - Add "Status" search filter to File Submissions
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    When the selected search option is reset after test
-    When the user selects Created as the search column dropdown
-    And the user selects on or after as the search operator dropdown
-    And the user enters a date future_date in the file-submission date field
-    And the user clicks on Add criteria button
-    Then file submission search criteria badge information is displayed below drop-down buttons
-    When the user click on the Search button
-    Then the user sees the message No results found for these search terms. below the search container
-    And the selected search option is reset after test
-    And the user selects Status as the search column dropdown
-    Then the user sees the below values in the file-submission search operator drop-down menu
-      | is                                  |
-      | is one of                           |
-    And the user selects is as the search operator dropdown
-    Then the user sees the below values in the file-submission search value drop-down menu
-      | Duplicate                        |
-      | In Progress                      |
-      | Invalid                          |
-      | Valid                            |
-      | Valid with Warnings              |
-    And the user selects Valid as the search value dropdown
-    And the user clicks on Add criteria button
-    Then file submission search criteria badge information is displayed below drop-down buttons
-    When the user click on the Search button
-    Then search results are displayed in table format with display options button
-    And the selected search option is reset after test
-
-    Examples:
-      | mi_stage         |
-      | File Submissions |
+  #Covered in NTS-5016 and future date verification is covered in NTS-3390 in File submission 1 feature file
+#  @NTS-5177
+#    #@E2EUI-2578
+#  Scenario Outline: NTS-5177:@E2EUI-2578: MIS - Add "Status" search filter to File Submissions
+#    Given a web browser is at the mi-portal home page
+#      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+#    When the user navigates to the mi-portal "<mi_stage>" stage
+#    When the selected search option is reset after test
+#    When the user selects Created as the search column dropdown
+#    And the user selects on or after as the search operator dropdown
+#    And the user enters a date future_date in the file-submission date field
+#    And the user clicks on Add criteria button
+#    Then file submission search criteria badge information is displayed below drop-down buttons
+#    When the user click on the Search button
+#    Then the user sees the message No results found for these search terms. below the search container
+#    And the selected search option is reset after test
+#    And the user selects Status as the search column dropdown
+#    Then the user sees the below values in the file-submission search operator drop-down menu
+#      | is                                  |
+#      | is one of                           |
+#    And the user selects is as the search operator dropdown
+#    Then the user sees the below values in the file-submission search value drop-down menu
+#      | Duplicate                        |
+#      | In Progress                      |
+#      | Invalid                          |
+#      | Valid                            |
+#      | Valid with Warnings              |
+#    And the user selects Valid as the search value dropdown
+#    And the user clicks on Add criteria button
+#    Then file submission search criteria badge information is displayed below drop-down buttons
+#    When the user click on the Search button
+#    Then search results are displayed in table format with display options button
+#    And the selected search option is reset after test
+#
+#    Examples:
+#      | mi_stage         |
+#      | File Submissions |

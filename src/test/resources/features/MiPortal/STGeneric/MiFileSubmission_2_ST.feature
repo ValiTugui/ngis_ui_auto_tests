@@ -229,6 +229,10 @@ Feature: MIPORTAL ST - File Submission 2
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
       | ID           |
+    When the user drag the column header "Path" from the section "Hide" to "Show" section
+    And the user sees the displayed fields-columns under "Show" section
+      | HeaderColumnOrderingList |
+      | Path                     |
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
     And the columns fields are not displayed in the list of columns headers of the search result table
