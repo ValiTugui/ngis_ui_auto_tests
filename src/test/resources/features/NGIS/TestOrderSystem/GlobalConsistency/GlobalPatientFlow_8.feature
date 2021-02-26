@@ -1,5 +1,5 @@
 #@regression
-#@GlobalFlow
+@GlobalFlow
 #@GlobalFlow_Validations_Tumour
 @03-TEST_ORDER
 @SYSTEM_TEST

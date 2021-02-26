@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@NotesAndPrintForms
 Feature: Print Forms 4 - Field name consistency in Print Forms
 
   @NTS-3414

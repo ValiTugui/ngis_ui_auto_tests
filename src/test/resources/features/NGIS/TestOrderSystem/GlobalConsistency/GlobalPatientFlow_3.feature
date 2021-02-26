@@ -1,4 +1,4 @@
-#@GlobalFlow
+@GlobalFlow
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour

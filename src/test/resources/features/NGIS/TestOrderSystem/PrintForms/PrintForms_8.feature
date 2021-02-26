@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@NotesAndPrintForms
 Feature: TestOrder - Print Forms 8 - User flows
 
   @NTS-4746 @Z-LOGOUT

@@ -1,7 +1,8 @@
 #@regression
-#@responsibleClinicianOrg
+@responsibleClinicianOrg
 @03-TEST_ORDER
 @SYSTEM_TEST
+
 Feature: TestOrder - Responsible Clinician 3
 
   @NTS-3324 @Z-LOGOUT

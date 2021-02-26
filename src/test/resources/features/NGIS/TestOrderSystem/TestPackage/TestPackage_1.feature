@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@TestPackage
 Feature: Test Package 1  - Cancer
 
   @NTS-3073 @Z-LOGOUT

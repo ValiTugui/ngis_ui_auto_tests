@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@NotesAndPrintForms
 Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
 
   @NTS-4802 @Z-LOGOUT

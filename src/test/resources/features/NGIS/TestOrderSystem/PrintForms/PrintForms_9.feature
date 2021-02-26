@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@NotesAndPrintForms
 Feature: Print Forms 9 - Offline Orders
 
   @NTS-5928
