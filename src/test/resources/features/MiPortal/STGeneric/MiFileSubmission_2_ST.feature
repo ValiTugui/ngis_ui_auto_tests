@@ -238,6 +238,17 @@ Feature: MIPORTAL ST - File Submission 2
     And the columns fields are not displayed in the list of columns headers of the search result table
       | columnHeaders |
       | ID |
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees the checkboxes with the label names Compact grid and Truncate columns
+    And the user click on the "Compact grid" check box on the modal content page
+    And the user save the changes on modal content by clicking Save and Close button
+    And the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees the checkboxes with the label names Compact grid and Truncate columns
+    And the user click on the "Truncate columns" check box on the modal content page
+    And the user save the changes on modal content by clicking Save and Close button
     And the selected search option is reset after test
 
     Examples:

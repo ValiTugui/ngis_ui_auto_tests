@@ -165,4 +165,16 @@ public class MiPortalGlhSamplesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user sees the below values in the glh samples search operator dropdown")
+    public void theUserSeesTheBelowValuesInTheGlhSamplesSearchOperatorDropdown(DataTable dataTable) {
+            boolean testResult = false;
+    List<List<String>> expectedDropDownValues = dataTable.asLists();
+            Wait.seconds(5);
+            for (int i = 0; i < expectedDropDownValues.size(); i++) {
+        testResult = miGlhSamplesPage.selectGlhDropDownSearchOperator(expectedDropDownValues.get(i).get(0));
+        if(!testResult){
+            Assert.fail(expectedDropDownValues.get(i).get(0)+" not present in GLH Samples Search Operator Drop Down.");
+        }
+    }
+    }
 }
