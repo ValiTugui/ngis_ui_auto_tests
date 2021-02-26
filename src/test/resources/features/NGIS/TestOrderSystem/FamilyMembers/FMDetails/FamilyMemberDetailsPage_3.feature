@@ -2,6 +2,7 @@
 #@FamilyMembersDetailsPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@FamilyMember
 Feature: Family Members Details Page 3- Field Validation_3
 
   @NTS-4612 @Z-LOGOUT
