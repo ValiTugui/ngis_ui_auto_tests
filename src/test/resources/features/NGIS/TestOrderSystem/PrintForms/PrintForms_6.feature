@@ -1,7 +1,8 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
-@NotesAndPrintForms
+@PrintForms
 Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
+
 
   @NTS-4802 @Z-LOGOUT
 #    @E2EUI-1789 @E2EUI-1262 @E2EUI-826
@@ -56,7 +57,7 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    When the user is navigated to a page with title Patient choice
+#    When the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<ThreeParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=14-05-1976 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |

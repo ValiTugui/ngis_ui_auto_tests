@@ -1,6 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
-@NotesAndPrintForms
+@PrintForms
 Feature: TestOrder - Print Forms 8 - User flows
 
   @NTS-4746 @Z-LOGOUT
@@ -58,11 +58,12 @@ Feature: TestOrder - Print Forms 8 - User flows
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
+#    Then the user is navigated to a page with title Patient choice
 #    When the user clicks on Continue Button
     And the user clicks the Save and Continue button
     ###Print Forms
     And the user is navigated to a page with title Print sample forms
+    ## Covered @E2EUI-2094
     Then the user should be able to see a "<WarningMessage>" on the print forms page
 
     Examples:
@@ -114,7 +115,7 @@ Feature: TestOrder - Print Forms 8 - User flows
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
+#    Then the user is navigated to a page with title Patient choice
 #    And the user clicks on Continue Button
     And the user clicks the Save and Continue button
     ###Panels
