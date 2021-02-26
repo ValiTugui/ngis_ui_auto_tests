@@ -1,5 +1,6 @@
 #@regression
 @03-TEST_ORDER
+@Tumours
 @SYSTEM_TEST
 Feature: TestOrder - Tumours Page - 1
 
