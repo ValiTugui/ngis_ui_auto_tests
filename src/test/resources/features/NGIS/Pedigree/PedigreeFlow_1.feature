@@ -12,7 +12,7 @@ Feature: Pedigree - Pedigree Flow 1
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Requesting Organisation
-    When the user navigates to the "<Requesting organisation>" stage
+    When the user navigates to the "<Requesting_organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
@@ -85,5 +85,5 @@ Feature: Pedigree - Pedigree Flow 1
     And the user should see the referral submit button as enabled
 
     Examples:
-      | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
+      | Requesting_organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
       | Requesting organisation | Maidstone            | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |
