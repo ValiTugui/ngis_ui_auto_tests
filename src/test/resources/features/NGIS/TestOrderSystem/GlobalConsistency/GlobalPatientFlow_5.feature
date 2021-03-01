@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 5 - Global Patient Information Bar on Family Members Navigation Stage Navigation
 
   @NTS-3329 @Z-LOGOUT

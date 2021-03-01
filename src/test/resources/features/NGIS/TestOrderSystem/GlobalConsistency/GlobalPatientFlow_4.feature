@@ -2,6 +2,7 @@
 #@noComponent
 @03-TEST_ORDER
 @SYSTEM_TEST
+@GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
 
   @NTS-4692 @Z-LOGOUT
@@ -32,14 +33,31 @@ Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
     Then the user clicks the Save and Continue button
 ##examples changed below a/c to Gonzalo release
     Examples:
-      | Stage   | sampleType                | sampleState        | sampleType1            | sampleState1            |
+      | Stage   | sampleType                | sampleState        | sampleType1               | sampleState1   |
       | Samples | Normal or germline sample | Fetal blood (EDTA) | Normal or germline sample | Amniotic fluid |
 
   @NTS-4621 @Z-LOGOUT
+#    @NTS-4673 @E2EUI-1492
+#    @NTS-4689  @E2EUI-1152
 #    @E2EUI-1191
   Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+
+    ### @E2EUI-1492
+    And the user has scrolled down the page to the bottom (Footer)
+    And the NHS logo is displayed in the footer of Test Ordering
+    And the Genomics England logo is displayed in the footer of Test Ordering
+    And the Report an issue or provide feedback text link is displayed in the footer of Test Ordering
+    And the Privacy Policy text link is displayed in the footer of Test Ordering
+    And the copyright text is displayed in the footer of Test Ordering
+#    @NTS-4673 @E2EUI-1492
+    And the Genomic Medicine Service logo "<genomicsEnglandLogo>" is displayed in the header of Test Ordering
+#    @NTS-4689  @E2EUI-1152
+    And the username "<userType>" is displayed in the header of Test Ordering
+    And the logout "<logoutText>" text is displayed in the header of Test Ordering
+    Then the NHS logo is displayed in the header of Test Ordering
+
     When the user is navigated to a page with title Find your patient
     And the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
@@ -52,5 +70,5 @@ Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
     Then the user sees the Create Record button highlighted with color as "<ButtonColor>"
 
     Examples:
-      | hyperlinkText               | ButtonColor |
-      | create a new patient record | #005eb8     |
+      | hyperlinkText               | ButtonColor | genomicsEnglandLogo      | logoutText | userType        |
+      | create a new patient record | #005eb8     | Genomic Medicine Service | Log out    | GEL_NORMAL_USER |

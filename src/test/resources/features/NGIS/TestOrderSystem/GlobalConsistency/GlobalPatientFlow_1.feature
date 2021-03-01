@@ -1,37 +1,63 @@
 #@GlobalFlow
 @03-TEST_ORDER
 @SYSTEM_TEST
+@GlobalConsistency
 Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
-  @NTS-4320 @Z-LOGOUT
-#    @E2EUI-1065
-  Scenario Outline: NTS-4320: Verify continue button
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2010:Gender=Male |
-    ##Patient Details Page
-    When the user is navigated to a page with title Add a requesting organisation
-    ##Family Member Landing Page
-    And the user navigates to the "<FamilyMembers>" stage
-    And the user is navigated to a page with title Add a family member to this referral
-    Then the user should be able to see continue button on landing page
-    When the user clicks on Continue Button
-    ##Patient Choice Landing Page
-    And the user is navigated to a page with title Patient choice
-    Then the user should be able to see continue button on landing page
-    Examples:
-      | FamilyMembers  |
-      | Family members |
 
-  @NTS-3497 @Z-LOGOUT
+  @NTS-349722 @Z-LOGOUT
+### fail
+#    @NTS-4813 @E2EUI-1005
+#    @NTS-4562 @E2EUI-1088
 #    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
+
+    When the user submits the referral
+    Then the user sees a dialog box with a title "<dialogTitle>"
+    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+      | MandatoryStagesToComplete |
+      | Requesting organisation   |
+      | Test package              |
+      | Responsible clinician     |
+      | Clinical questions        |
+      | Patient choice            |
+    And the user should be able to close the pop up dialog box
+#    When the user clicks on the mandatory stage "<stage2>" in the dialog box
+#    Then the "<stage2>" stage is selected
     And the user enters the keyword "South Warwickshire NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
-    And the user clicks the Save and Continue button
+#    @NTS-4813 @E2EUI-1005
+#    When the user submits the referral
+#    Then the user sees a dialog box with a title "<dialogTitle>"
+#    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+#      | MandatoryStagesToComplete |
+#      | Requesting organisation   |
+#      | Test package              |
+#      | Responsible clinician     |
+#      | Clinical questions        |
+#      | Patient choice            |
+
+#    And the user is navigated to a page with title Add a requesting organisation
+#    And the user enters the keyword "<ordering_entity_name>" in the search field
+#    And the user selects a random entity from the suggestions list
+#    Then the details of the new organisation are displayed
+    And  the user clicks the Save and Continue button
+    And the "<stage3>" stage is selected
+    When the user submits the referral
+    And the user sees a dialog box with a title "<dialogTitle>"
+    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+      | MandatoryStagesToComplete |
+      | Test package              |
+      | Responsible clinician     |
+      | Clinical questions        |
+      | Patient choice            |
+    And the user clicks on the mandatory stage "<stage3>" in the dialog box
+    And the "<stage3>" stage is selected
+#    And the user clicks the Save and Continue button
     ##Test Package Page
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -45,12 +71,21 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     And the user submits the cancellation
     Then the message should display as "<RevokeMessage>"
     Then the user verifies that the revoke message doesn't overlap any other element
+#    @NTS-4562 @E2EUI-1088
+    And the user clicks the Log out button
+#    Then the user is successfully logged out
 
     Examples:
-      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |
-      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |
+      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |dialogTitle                  | stage2                  | ordering_entity_name | stage3|
+      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |There is missing information | Requesting organisation | Maidstone            | Test package |
 
-  @NTS-4711 @Z-LOGOUT
+  @test-4711
+    @NTS-4711 @Z-LOGOUT
+#    @NTS-5068 @E2EUI-1841
+#    @NTS-3497 @E2EUI-1995
+#    @NTS-3498 @E2EUI-1701
+#   @NTS-3329
+
 #    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -77,20 +112,29 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
 #    ##Patient Details Page
+
      ##Requesting Organisation Page
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "UNIVERSITY HOSPITAL" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
+###GPF_5 @NTS-3329
+    And the referral submit button is not enabled
+
     And the user clicks the Save and Continue button
     ##Test Package Page
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "1"
     And the user clicks the Save and Continue button
+###GPF_5 @NTS-3329
+    And the referral submit button is not enabled
+
     ##Responsible Clinician Page
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMembers>" stage
+###GPF_5 @NTS-3329
+    And the referral submit button is not enabled
     ##Family Members Page
     Then the user is navigated to a page with title Add a family member to this referral
     And the user should see previous labels replaced as current labels
@@ -105,19 +149,30 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>" in patient card
+###GPF_5 @NTS-3329
+    And the referral submit button is not enabled
     ###Print forms
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
+#    Then the user should be able to see the patient banner at same location
     And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
+###GPF_5 @NTS-3329
+    And the referral submit button is not enabled
+#   Added @NTS-5068
+    When the user provides an invalid referral id in the url "<invalidReferralURL>"
+    Then the user should see page is not loading
+
+
 
     Examples:
-      | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  |
-      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms |
+      | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  | invalidReferralURL                                                                |
+      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | https://test-ordering.int.ngis.io/test-order/referral/r5E$&%5E943/patient-details |
 
   @NTS-3498 @Z-LOGOUT
+#    @NTS-4320 @E2EUI-1065
 #    @E2EUI-1701
   Scenario Outline: NTS-3498: Verify Global patient information bar component
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -125,6 +180,9 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     ###Patient Details
     And the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see the patient referral banner at the top
+    Then the user should see previous labels replaced as current labels
+      | PreviousLabel      | CurrentLabel      |
+      | NHS number,NHS no. | NHS Number,NHS No |
     ###Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -151,6 +209,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     ###Family Members
     When the user navigates to the "<Family members>" stage
     And the user is navigated to a page with title Add a family member to this referral
+ ###   @NTS-4320 @E2EUI-1065
+    Then the user should be able to see continue button on landing page
     Then the user should be able to see the patient banner at same location
     ###Patient Choice
     When the user navigates to the "<Patient choice>" stage
@@ -170,8 +230,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should be able to see the patient banner at same location
 
     Examples:
-      | Requesting organisation | ordering_entity_name | NoOfParticipants | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
-      | Requesting organisation | Maidstone            | 1                | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
+      | Requesting organisation | ordering_entity_name | NoOfParticipants | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms | RevokeMessage                                                             |
+      | Requesting organisation | Maidstone            | 1                | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
 
   @NTS-3498 @Z-LOGOUT
 #  @E2EUI-1850
