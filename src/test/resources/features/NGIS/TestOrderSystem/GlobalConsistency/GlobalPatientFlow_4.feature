@@ -4,12 +4,12 @@
 @SYSTEM_TEST
 @GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
-
+  @testABC
   @NTS-4692 @Z-LOGOUT
 #    @E2EUI-1176
   Scenario Outline: NTS-4692: Copy & Design only - Create or update copy on Add a sample/Edit a sample
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=11-07-1981:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1971:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<Stage>" stage
