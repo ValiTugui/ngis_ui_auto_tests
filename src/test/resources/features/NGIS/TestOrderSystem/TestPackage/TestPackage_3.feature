@@ -1,5 +1,4 @@
 @03-TEST_ORDER
-@TestPackage
 @SYSTEM_TEST
 @TestPackage
 

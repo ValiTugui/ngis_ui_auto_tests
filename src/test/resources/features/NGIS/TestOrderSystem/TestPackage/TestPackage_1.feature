@@ -1,7 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
 @TestPackage
-
 Feature: Test Package 1  - Cancer
 
   @NTS-3080 @NTS-3156 @NTS-325 @NTS-4700 @Z-LOGOUT
@@ -37,7 +36,6 @@ Feature: Test Package 1  - Cancer
       | stage        | title                    | priorityButtons | helpText                                                                          | section        | TargetedGenes                | testInfo                  | membersInfo | priority | count | new_stage             | number_of |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine,Trio or singleton | Proband     | Urgent   | 2     | Responsible clinician | 1         |
 
-
   @NTS-3073 @NTS-3156 @Z-LOGOUT
 # @E2EUI-911 @E2EUI-828
   Scenario Outline: NTS-3073 - Test package - Page Layout - Cancer
@@ -62,7 +60,6 @@ Feature: Test Package 1  - Cancer
     Examples:
       | stage        | title                    | priorityButtons | helpText                                                                          | section        | text                                                                | testInfo           | new_stage             | number_of | priority |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | All including burden / signature, This test is for one person only. | Routine, Singleton | Responsible clinician | 1         | Routine  |
-
 
   @NTS-3109 @NTS-3258 @Z-LOGOUT
 #    @E2EUI-2139 @E2EUI-1900

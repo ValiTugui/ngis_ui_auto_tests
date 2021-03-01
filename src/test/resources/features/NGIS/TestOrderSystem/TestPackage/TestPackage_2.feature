@@ -3,7 +3,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
 @TestPackage
-
 Feature: TestOrder - Test Package 2 - RD
 
   @NTS-3177 @Z-LOGOUT
