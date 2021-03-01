@@ -25,7 +25,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     And the user clicks the Save and Continue button
     ##Requesting Organisation Page
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "UNIVERSITY HOSPITAL AINTREE" in the search field
+    And the user enters the keyword "HOSPITAL" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     ##Navigating By Logout
