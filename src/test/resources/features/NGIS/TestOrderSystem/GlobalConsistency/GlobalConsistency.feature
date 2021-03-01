@@ -2,7 +2,7 @@
 @SYSTEM_TEST
 @GlobalConsistency
 Feature: TestOrder - Global Consistency
-@testABC
+
     @NTS-5069
     #@E2EUI-875
   Scenario Outline: NTS-5069:E2EUI-875: Microsoft Login / Authentication

@@ -4,7 +4,6 @@
 @SYSTEM_TEST
 @GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
-  @testABC
   @NTS-4692 @Z-LOGOUT
 #    @E2EUI-1176
   Scenario Outline: NTS-4692: Copy & Design only - Create or update copy on Add a sample/Edit a sample
