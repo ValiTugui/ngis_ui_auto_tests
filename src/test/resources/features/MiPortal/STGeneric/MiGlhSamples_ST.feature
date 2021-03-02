@@ -80,16 +80,6 @@ Feature: MIPORTAL ST -  Glh Samples
       | is exactly       |
       | is one of |
 
-    When the user selects Batch Import Filename as the glh search column dropdown
-    And the user selects matches as the glh search operator dropdown
-    And the user enters gel in the glh search value box
-    And the user clicks on Add criteria button
-    Then file submission search criteria badge information is displayed below drop-down buttons
-    When the user click on the Search button
-    Then search results are displayed in table format with display options button
-    And the glh search result table column GEL1001 Filename is displayed with data gel
-
-
     Examples:
       | mi_stage    |
       | GLH Samples |
