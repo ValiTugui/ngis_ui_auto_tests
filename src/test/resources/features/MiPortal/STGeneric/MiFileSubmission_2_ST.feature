@@ -38,7 +38,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-3390
+  @NTS-3390 @test1
     #@E2EUI-1283,2513
   Scenario Outline: NTS-3390:E2EUI-1283,2513:verify the defaults elements on File Submission search page
     Given a web browser is at the mi-portal home page

@@ -2176,5 +2176,29 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    @FindBy(xpath = "//select[@id='file_submissions-search-col']")
+    public WebElement fileSubmissionSearchColumn;
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, fileSubmissionSearchColumn, 10)) {
+                Debugger.println("Filter values are not matching");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return allOptions;
+            }
+            Select searchColumnSelect = new Select(fileSubmissionSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return allOptions;
+        }
+    }
 }//end
 
