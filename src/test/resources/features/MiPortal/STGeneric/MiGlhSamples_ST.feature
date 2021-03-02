@@ -4,7 +4,7 @@
 @glh_samples
 Feature: MIPORTAL ST -  Glh Samples
 
-  @NTS-5190
+  @NTS-5190  @MI-LOGOUT
     # NTS-5178 is covered here in this scenario
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     Given a web browser is at the mi-portal home page
@@ -85,7 +85,7 @@ Feature: MIPORTAL ST -  Glh Samples
       | GLH Samples |
 
   #  Covered in NTS-5190
-  @NTS-5036
+  @NTS-5036  @MI-LOGOUT
 #   # @E2EUI-2486
   Scenario Outline: NTS-5036:E2EUI-2486: The GLH Samples section is having a new Filename filter and verify the columns present in the GLH Samples
     Given a web browser is at the mi-portal home page
