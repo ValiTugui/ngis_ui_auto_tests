@@ -3,7 +3,7 @@
 @07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - UI Customizations - Non NGIS-2
-
+@test123
   @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1138 @E2EUI-933   @E2EUI-1348 @E2EUI-1230
   Scenario Outline: NTS-4796:(E2EUI-1138,933): editing panel – Personal tab
@@ -83,9 +83,6 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | None      |
       | Childless |
       | Infertile |
-    ##@E2EUI-1074
-    And the user select the pedigree tab Clinical
-    Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
 
     Examples:
       | FamilyMember   | ProbandDetails              |Disease| WarningMessage                                                                                |
@@ -113,9 +110,9 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FieldName                            | FieldStatus |
       | Number Of Colorectal Polyps Total    | Editable    |
       | Number of Colorectal Polyps Adenomas | Editable    |
-#    ##@E2EUI-1074
-#    And the user select the pedigree tab Clinical
-#    Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
+    ##@E2EUI-1074
+    And the user select the pedigree tab Clinical
+    Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
     ##E2EUI-1160
     And the user enters tumour field values as "<TumourFieldValues>"
     And the user is able to close the popup by clicking on the close icon
