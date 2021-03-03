@@ -172,7 +172,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
+#    Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for the newly added family member
     Then the user is navigated to a page with title Add family member patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
@@ -229,5 +229,5 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | PatientDetails  | warningMessage                    | FamilyMembers| warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | ordering_entity_name | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
-      | Patient details | Changes you made may not be saved |Family members| This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | Greater              | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
+      | PatientDetails  | warningMessage                    | FamilyMembers  | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | ordering_entity_name                                  | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
+      | Patient details | Changes you made may not be saved | Family members | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | Greater Manchester Mental Health NHS Foundation Trust | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
