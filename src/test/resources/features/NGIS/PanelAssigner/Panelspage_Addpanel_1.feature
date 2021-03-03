@@ -79,18 +79,18 @@ Feature: Submitting the referral after saving the Panels stage
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-        ##Requesting Organisation
     When the user is navigated to a page with title Add a requesting organisation
+    And the user clicks the Save and Continue button
+    ##Requesting Organisation
+    And the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-         ##Test Package -1 participants
+    ##Test Package -1 participants
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-     ##Responsible Clinician
+    ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
@@ -99,14 +99,14 @@ Feature: Submitting the referral after saving the Panels stage
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-     #Notes
+    ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
-     ##Patient Choice
+    ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
@@ -133,13 +133,12 @@ Feature: Submitting the referral after saving the Panels stage
 
   @NTS-5947 @Z-LOGOUT @Scenario3
   Scenario Outline:NTS-5947:Saving unselected panel suggestions(Disease status= unaffected),if the panels are not previously saved.
-
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
-        ##Requesting Organisation
+    ##Requesting Organisation
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

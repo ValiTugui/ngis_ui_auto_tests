@@ -44,6 +44,7 @@ Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggeste
       | Panels                    |
 
     And the user should be able to click on incomplete "<Panels>" section
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
@@ -63,15 +64,10 @@ Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggeste
 
     And the user should be able to click on incomplete "<Panels>" section
     Then the user is navigated to a page with title Manage panels
-    Then the user should see the section with title Suggestions based on the clinical information
-    And the user sees suggested panels under the section Suggestions based on the clinical information
-    When the user search and add the "<searchPanels>" panels
-    And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
 
     Examples:
-      | Panels | Message                      | searchPanels |
-      | Panels | There is missing information | cardiac arr  |
+      | Panels | Message                      |
+      | Panels | There is missing information |
 
 
 #  @NTOS-5043 @Z-LOGOUT
