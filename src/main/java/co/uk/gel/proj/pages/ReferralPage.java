@@ -461,7 +461,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsSelected(String expStage) {
         try {
-            Wait.seconds(2);
+            Wait.seconds(5);
             if (!Wait.isElementDisplayed(driver, activeStage, 30)) {
                 Debugger.println("No stage is marked as active.\n"+driver.getCurrentUrl());
                 return false;
