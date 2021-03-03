@@ -126,13 +126,19 @@ public class MiPortalGlhSamplesSteps extends Pages {
 
     @And("the user sees the below values in the glh samples search column drop-down menu")
     public void theUserSeesBelowValuesInTheGlhSamplesSearchColumnDropDownMenu(DataTable dataTable) {
-        boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         Wait.seconds(5);
+        List actualDropDownValues = miGlhSamplesPage.searchColumnDropDownMenu();
+        if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+            Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
+        String actValue = "", expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miGlhSamplesPage.selectGlhDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            if(!testResult){
-                Assert.fail(expectedDropDownValues.get(i).get(0)+" not present in GLH Samples Search Column Drop Down.");
+            actValue = actualDropDownValues.get(i).toString();
+            expValue = expectedDropDownValues.get(i).get(0);
+            if (!actValue.equalsIgnoreCase(expValue)) {
+                Assert.assertTrue(false);
             }
         }
     }
