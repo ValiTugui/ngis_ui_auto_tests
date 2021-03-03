@@ -134,7 +134,6 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Family Members Clinical Questions Page
-    When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     ##Navigating By Logout
