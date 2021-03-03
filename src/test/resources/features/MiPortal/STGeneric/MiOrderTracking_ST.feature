@@ -94,32 +94,32 @@ Feature: MIPORTAL ST - Order_Tracking
     When the user clicks on the button "Show all"
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-  |GEL1001 GLH Laboratory ID |
-  |GEL1001 Patient NGIS ID   |
-  |GEL1001 Referral ID       |
- | GEL1001 Primary Sample Received Date|
-  |GEL1001 Dispatched Sample Lsid       |
-  |GEL1001 GLH Sample Dispatch Date     |
- | GEL1005 Sample Received Datetime    |
-  |GEL1008 Plate ID                     |
-  |GEL1008 Well ID                      |
-  |GEL1008 Plate Date of Dispatch       |
-  |GEL1010 Illumina QC Status           |
-  |GEL1001 GLH QC Status                |
-  |GEL1006 Biorepository QC Status      |
-  |Test Name                            |
-  |Clinical Indication Name             |
-  |Date Request Submitted               |
-  |GEL1001 Ordering Entity ID           |
-  |GEL1001 Ordering Entity              |
- |GEL1001 Clinical Indication Test Type ID|
- | GEL1001 Dispatched Sample ID GLH Lims  |
- | GEL1001 Primary Sample ID Received GLH |
-  |GEL1001 Dispatched Sample State         |
- | GEL1001 Approved By                    |
-  |Test Code                               |
- | Priority Flag                          |
- | Status                                 |
+      |GEL1001 GLH Laboratory ID |
+      |GEL1001 Patient NGIS ID   |
+      |GEL1001 Referral ID       |
+      | GEL1001 Primary Sample Received Date|
+      |GEL1001 Dispatched Sample Lsid       |
+      |GEL1001 GLH Sample Dispatch Date     |
+      | GEL1005 Sample Received Datetime    |
+      |GEL1008 Plate ID                     |
+      |GEL1008 Well ID                      |
+      |GEL1008 Plate Date of Dispatch       |
+      |GEL1010 Illumina QC Status           |
+      |GEL1001 GLH QC Status                |
+      |GEL1006 Biorepository QC Status      |
+      |Test Name                            |
+      |Clinical Indication Name             |
+      |Date Request Submitted               |
+      |GEL1001 Ordering Entity ID           |
+      |GEL1001 Ordering Entity              |
+      |GEL1001 Clinical Indication Test Type ID|
+      | GEL1001 Dispatched Sample ID GLH Lims  |
+      | GEL1001 Primary Sample ID Received GLH |
+      |GEL1001 Dispatched Sample State         |
+      | GEL1001 Approved By                    |
+      |Test Code                               |
+      | Priority Flag                          |
+      | Status                                 |
     And the user save the changes on modal content by clicking Save and Close button
     Then the selected search option is reset after test
 

@@ -104,36 +104,36 @@ Feature: MIPORTAL ST -  Glh Samples
     When the user clicks on the button "Show all"
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-  |GEL1001 Filename          |
- | GEL1001 Patient NHS Number|
- | GEL1001 Patient NGIS ID   |
-|  GEL1001 Ordering Entity ID|
- | GEL1001 Primary Sample Received Date|
- | GEL1001 Primary Sample ID GLH Lims  |
- | GEL1001 Dispatched Sample Lsid      |
- | GEL1001 Dispatched Sample Volume ul |
-  |GEL1001 GLH Concentration ng ul      |
- | GEL1001 GLH QC Status               |
- |GEL1001 GLH Sample Dispatch Date     |
- | GEL1001 GMC Rack ID                 |
- | GEL1001 GMC Rack Well               |
-  |GEL1001 Referral ID                  |
-  |GEL1001 GLH Laboratory ID            |
-  |GEL1001 Dispatched Sample Type       |
- | GEL1001 GLH Sample Consignment Number|
- | GEL1001 Created                      |
-|  GEL1001 Primary Sample ID Received GLH|
- | GEL1001 Dispatched Sample ID GLH Lims  |
-  |GEL1001 Dispatched Sample State         |
- | GEL1001 Laboratory Remaining Volume Banked ul|
-  |GEL1001 GLH OD 260 280                        |
- | GEL1001 GLH Din Value                        |
- | GEL1001 GLH Percentage DNA                   |
-  |GEL1001 DNA Extraction Protocol               |
- | GEL1001 Prolonged Sample Storage             |
-|  GEL1001 Retrospective Sample                |
-|  GEL1001 Approved By                         |
- | GEL1001 Clinical Indication Test Type ID     |
+      |GEL1001 Filename          |
+      | GEL1001 Patient NHS Number|
+      | GEL1001 Patient NGIS ID   |
+      |  GEL1001 Ordering Entity ID|
+      | GEL1001 Primary Sample Received Date|
+      | GEL1001 Primary Sample ID GLH Lims  |
+      | GEL1001 Dispatched Sample Lsid      |
+      | GEL1001 Dispatched Sample Volume ul |
+      |GEL1001 GLH Concentration ng ul      |
+      | GEL1001 GLH QC Status               |
+      |GEL1001 GLH Sample Dispatch Date     |
+      | GEL1001 GMC Rack ID                 |
+      | GEL1001 GMC Rack Well               |
+      |GEL1001 Referral ID                  |
+      |GEL1001 GLH Laboratory ID            |
+      |GEL1001 Dispatched Sample Type       |
+      | GEL1001 GLH Sample Consignment Number|
+      | GEL1001 Created                      |
+      |  GEL1001 Primary Sample ID Received GLH|
+      | GEL1001 Dispatched Sample ID GLH Lims  |
+      |GEL1001 Dispatched Sample State         |
+      | GEL1001 Laboratory Remaining Volume Banked ul|
+      |GEL1001 GLH OD 260 280                        |
+      | GEL1001 GLH Din Value                        |
+      | GEL1001 GLH Percentage DNA                   |
+      |GEL1001 DNA Extraction Protocol               |
+      | GEL1001 Prolonged Sample Storage             |
+      |  GEL1001 Retrospective Sample                |
+      |  GEL1001 Approved By                         |
+      | GEL1001 Clinical Indication Test Type ID     |
 
     And the user closes the modal content by clicking on the reset-button
 
