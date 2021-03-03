@@ -145,10 +145,10 @@ Feature: Submitting the referral after saving the Panels stage
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-         ##Test Package -1 participants
+    ##Test Package -1 participants
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-     ##Responsible Clinician
+    ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
@@ -198,37 +198,37 @@ Feature: Submitting the referral after saving the Panels stage
       | OneParticipant | RecordedBy                            | ClinicalQuestion   | ClinicalQuestionDetails                                           | Panels | Title                        | ResponsibleClinicianDetails                               |
       | 1              | ClinicianName=John:HospitalNumber=123 | Clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | There is missing information | FirstName=Karen:LastName=Smith:Department=Victoria Street |
 
-  @NTS-5947 @Z-LOGOUT @Scenario4
-  #as per the discussion with manual team it is not feasible for automation since required dev tools interaction
-  Scenario Outline:NTS-5947:Message has to be displayed to alert the user if auto-save fails,when panels are not previously saved.
-
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
-    ##Patient Details Page
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
-    ##Clinical Questions
-    When the user navigates to the "<ClinicalQuestion>" stage
-    Then the user is navigated to a page with title Answer clinical questions
-    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
-    ##Panels Page
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage panels
-    And the panels landing page displays the introduction message as shown below
-      | The test package requires:         |
-      | confirmation of disease penetrance |
-      | addition of at least one panel     |
-    And the user should be able to see a sub title Confirm disease penetrance on panels page
-    And Penetrance section with options Complete and Incomplete
-    And the user should be able to see an additional line "<penetranceIntro>" underneath the penetrance title
-    And the user should see the section with title Suggestions based on the clinical information
-    And the user sees suggested panels under the section Suggestions based on the clinical information
-#    And the user sees suggested panels are coming as selected by default under the section Suggestions based on the clinical information
-    When the user submits the referral
-#    And the saving of the panels fails for any reason
-#    Then the referral is not submitted
-#    And a message is shown to alert the user
-    Examples:
-      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | penetranceIntro                                                                                                                                                           |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
+#  @NTS-5947 @Z-LOGOUT @Scenario4
+#  #as per the discussion with manual team it is not feasible for automation since required dev tools interaction
+#  Scenario Outline:NTS-5947:Message has to be displayed to alert the user if auto-save fails,when panels are not previously saved.
+#
+#    Given a new patient referral is created with associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
+#    ##Patient Details Page
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the user clicks the Save and Continue button
+#    ##Clinical Questions
+#    When the user navigates to the "<ClinicalQuestion>" stage
+#    Then the user is navigated to a page with title Answer clinical questions
+#    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+#    And the user clicks the Save and Continue button
+#    ##Panels Page
+#    When the user navigates to the "<Panels>" stage
+#    Then the user is navigated to a page with title Manage panels
+#    And the panels landing page displays the introduction message as shown below
+#      | The test package requires:         |
+#      | confirmation of disease penetrance |
+#      | addition of at least one panel     |
+#    And the user should be able to see a sub title Confirm disease penetrance on panels page
+#    And Penetrance section with options Complete and Incomplete
+#    And the user should be able to see an additional line "<penetranceIntro>" underneath the penetrance title
+#    And the user should see the section with title Suggestions based on the clinical information
+#    And the user sees suggested panels under the section Suggestions based on the clinical information
+##    And the user sees suggested panels are coming as selected by default under the section Suggestions based on the clinical information
+#    When the user submits the referral
+##    And the saving of the panels fails for any reason
+##    Then the referral is not submitted
+##    And a message is shown to alert the user
+#    Examples:
+#      | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | penetranceIntro                                                                                                                                                            |
+#      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |

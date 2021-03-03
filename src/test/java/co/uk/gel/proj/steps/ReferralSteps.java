@@ -4,11 +4,9 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.proj.neatPages.NeatPatientRecordPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.ConcurrencyTest;
@@ -23,7 +21,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -1531,7 +1528,7 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_StatusIndicator.jpg");
-            Assert.fail("Status indicator could not alidate on stage " + stage);
+            Assert.fail("Status indicator could not validate on stage " + stage);
         }
     }
 
