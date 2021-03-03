@@ -1,55 +1,8 @@
 @MIPORTAL
 @MIPORTAL_ST
 @SYSTEM_TEST
-
+@MI_Generic
 Feature:  MIPORTAL ST -  Home Page
-
-#  @NTS-5180
-#    #@E2EUI-2328
-#  Scenario Outline: NTS-5180:E2EUI-2328: Feedback Link removed from Mi Portal
-#    Given a web browser is at the mi-portal home page
-#      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage1>" stage
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage2>" stage
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage3>" stage
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage4>" stage
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage5>" stage
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage6>" stage
-#    Then the user validates there is no feedback link on the page
-#    When the user navigates to the mi-portal "<mi_stage7>" stage
-#    Then the user validates there is no feedback link on the page
-#
-#    Examples:
-#      | mi_stage1        | mi_stage2      | mi_stage3   | mi_stage4      | mi_stage5 | mi_stage6         | mi_stage7     |
-#      | File Submissions | Order Tracking | GLH Samples | Plater Samples | Picklists | Sequencer Samples | New Referrals |
-
-  @NTS-4985
-   ## @E2EUI-2772 @E2EUI-2329
-  Scenario Outline: NTS-4985:E2EUI-2772,2329:Standardized MI portal name
-    When the user navigates to the mi-portal "<mi_stage1>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-    When the user navigates to the mi-portal "<mi_stage2>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-    When the user navigates to the mi-portal "<mi_stage3>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-    When the user navigates to the mi-portal "<mi_stage4>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-    When the user navigates to the mi-portal "<mi_stage5>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-    When the user navigates to the mi-portal "<mi_stage6>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-    When the user navigates to the mi-portal "<mi_stage7>" stage
-    Then the user sees the "MI Portal" logo and environment name at their position
-
-    Examples:
-      | mi_stage1        | mi_stage2      | mi_stage3   | mi_stage4      | mi_stage5 | mi_stage6         | mi_stage7     |
-      | File Submissions | Order Tracking | GLH Samples | Plater Samples | Picklists | Sequencer Samples | New Referrals |
 
   @NTS-5038 @MI-LOGOUT
    # @E2EUI-2355
@@ -118,11 +71,26 @@ Feature:  MIPORTAL ST -  Home Page
       | order_tracking | glh_samples | plater_samples | pick_lists | sequencer_samples |
       | Order Tracking | GLH Samples | Plater Samples | Picklists  | Sequencer Samples |
 
-  @NTS-4975
-  #@E2EUI-2704
-  Scenario:NTS-4975:E2EUI-2704: Implement sql-performance recommendations for miportalsampleview
+  @NTS-4975 @MI-LOGOUT
+  #@E2EUI-2704 NTS-4985:E2EUI-2772,2329:
+  Scenario Outline:NTS-4975:E2EUI-2704: Implement sql-performance recommendations for miportalsampleview and Standardized MI portal name
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+    When the user navigates to the mi-portal "<mi_stage1>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+    When the user navigates to the mi-portal "<mi_stage2>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+    When the user navigates to the mi-portal "<mi_stage3>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+    When the user navigates to the mi-portal "<mi_stage4>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+    When the user navigates to the mi-portal "<mi_stage5>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+    When the user navigates to the mi-portal "<mi_stage6>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+    When the user navigates to the mi-portal "<mi_stage7>" stage
+    Then the user sees the "MI Portal" logo and environment name at their position
+
     When the user should be able to see sample processing menu is displayed
     Then the user should be able to see the below header sections in Sample Processing
       | HeaderSection         |
@@ -145,3 +113,6 @@ Feature:  MIPORTAL ST -  Home Page
 
   #The menu Participant NHS Spine Data has been removed from the MI Portal
 #    And the user should be able to see Participant NHS Spine Data menu is displayed
+    Examples:
+      | mi_stage1        | mi_stage2      | mi_stage3   | mi_stage4      | mi_stage5 | mi_stage6         | mi_stage7     |
+      | File Submissions | Order Tracking | GLH Samples | Plater Samples | Picklists | Sequencer Samples | New Referrals |
