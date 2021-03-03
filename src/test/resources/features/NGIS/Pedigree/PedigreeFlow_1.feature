@@ -8,7 +8,7 @@ Feature: Pedigree - Pedigree Flow 1
 #    @E2EUI-1994 @E2EUI-1728 @E2EUI-2148 @E2EUI-1996
   Scenario Outline: NTS-3458 :E2EUI-1994,1728,2148,1996: Validating Pedigree section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2007:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=11-07-2000:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     ##Requesting Organisation
