@@ -2,7 +2,7 @@
 #@panelsPage_LandingPage
 @06-PANEL_ASSIGNER
 @SYSTEM_TEST
-   ##This feature files have to be re-implemented based on new/modified tickets for Panel App.
+  ##This feature files have to be re-implemented based on new/modified tickets for Panel App.
   ##This changes are from Hanna Release
 Feature: PanelAssigner: Panels Page Landing Page
 
