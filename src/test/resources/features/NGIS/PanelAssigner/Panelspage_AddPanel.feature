@@ -72,7 +72,7 @@ Feature: Submitting the referral after saving the Panels stage
       | PatientDetails  | OneParticipant | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | RecordedBy                            |
       | Patient details | 1              | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Panels | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-59471 @Z-LOGOUT @Scenario2
+  @NTS-5947 @Z-LOGOUT @Scenario2
   Scenario Outline:NTS-5947:Saving selected panel suggestions(Disease status=affected),if the panels are not previously saved.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
