@@ -40,8 +40,7 @@ public class PaperFormPage {
     @FindBy(css = "p[class*='instructions']")
     public WebElement orderEntitySearchInstructions;
 
-//    @FindBy(css = "li[class*='suggestion']")
-    @FindBy(css = "//li[contains(@class,'autoSuggest_suggestion')]")
+    @FindBy(css = "li[class*='suggestion']")
     public List<WebElement> orderEntitySearchSuggestionsList;
 
     @FindBy(css = ".btn.btn-lg.btn-primary")
