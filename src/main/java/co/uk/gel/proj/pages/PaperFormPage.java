@@ -127,12 +127,12 @@ public class PaperFormPage {
             }
             orderEntitySearchField.clear();
             orderEntitySearchField.sendKeys(keyword);
-            Wait.seconds(2);
+            Wait.seconds(4);
             return true;
         } catch (Exception exp) {
             try {
                 seleniumLib.sendValue(orderEntitySearchField, keyword);
-                Wait.seconds(2);
+                Wait.seconds(4);
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception1 from orderEntitySearchField.." + exp1 + "\n" + driver.getCurrentUrl());
