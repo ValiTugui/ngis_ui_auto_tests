@@ -192,6 +192,9 @@ public class PaperFormPage {
     public boolean selectRandomEntityFromSuggestionsList() {
         try {
             if (orderEntitySearchSuggestionsList.size() == 0) {
+                SeleniumLib.sleepInSeconds(3);
+            }
+            if (orderEntitySearchSuggestionsList.size() == 0) {
                 Debugger.println("No Organisation list loaded for the search." + driver.getCurrentUrl());
                 return false;
             }
