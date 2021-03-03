@@ -134,6 +134,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Family Members Clinical Questions Page
+    When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     ##Navigating By Logout
@@ -229,5 +230,5 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | ordering_entity_name | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
-      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | Greater              | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
+      | PatientDetails  | warningMessage                    | FamilyMembers| warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | ordering_entity_name | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
+      | Patient details | Changes you made may not be saved |Family members| This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | Greater              | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
