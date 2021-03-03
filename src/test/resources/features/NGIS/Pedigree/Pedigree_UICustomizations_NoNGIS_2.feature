@@ -110,11 +110,11 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FieldName                            | FieldStatus |
       | Number Of Colorectal Polyps Total    | Editable    |
       | Number of Colorectal Polyps Adenomas | Editable    |
+    ##E2EUI-1160
+    And the user enters tumour field values as "<TumourFieldValues>"
     ##@E2EUI-1074
     And the user select the pedigree tab Clinical
     Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
-    ##E2EUI-1160
-    And the user enters tumour field values as "<TumourFieldValues>"
     And the user is able to close the popup by clicking on the close icon
     When the user click on Save menu button
     Then the user should see error pop up message displayed as "<ErrorMessage>"
