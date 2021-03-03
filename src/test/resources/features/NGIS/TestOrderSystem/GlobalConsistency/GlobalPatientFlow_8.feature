@@ -28,7 +28,7 @@ Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
     ##Requesting Organisation Page
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "UNIVERSITY HOSPITAL AINTREE" in the search field
-    And the user selects a random entity from the suggestions list
+    And the user selects the first entity from the suggestions list
     Then the details of the new organisation are displayed
     ##Navigating By Logout
     When the user clicks the Log out button
