@@ -25,8 +25,8 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     And the user clicks the Save and Continue button
     ##Requesting Organisation Page
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Maidstone" in the search field
-    And the user selects a random entity from the suggestions list
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects the first entity from the suggestions list
     Then the details of the new organisation are displayed
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -229,5 +229,5 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
-      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
+      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | ordering_entity_name | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
+      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | Maidstone            | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
