@@ -1,6 +1,5 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST
 @Picklists
 Feature: MIPORTAL ST - PickLists 1
 

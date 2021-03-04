@@ -1,6 +1,5 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST
 @glh_samples
 Feature: MIPORTAL ST -  Glh Samples
 

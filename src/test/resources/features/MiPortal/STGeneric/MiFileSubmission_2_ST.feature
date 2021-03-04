@@ -1,6 +1,5 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST
 @file_submission
 Feature: MIPORTAL ST - File Submission 2
 

@@ -1,6 +1,5 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST
 @Sequencer_samples
 Feature:  MIPORTAL ST -  Sequencer Samples
 

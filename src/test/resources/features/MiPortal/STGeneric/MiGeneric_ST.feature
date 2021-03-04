@@ -1,8 +1,7 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST
 @MI_Generic
-Feature:  MIPORTAL ST -  Home Page
+Feature:  MIPORTAL ST -  Generic
 
   @NTS-5038 @MI-LOGOUT
    # @E2EUI-2355

@@ -1,6 +1,5 @@
 @MIPORTAL
 @MIPORTAL_ST
-@SYSTEM_TEST
 @Order_tracking
 Feature: MIPORTAL ST - Order_Tracking
 
