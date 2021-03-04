@@ -5,8 +5,7 @@
 Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
 
-  @NTS-349722 @Z-LOGOUT
-### fail
+  @NTS-3497 @Z-LOGOUT
 #    @NTS-4813 @E2EUI-1005
 #    @NTS-4562 @E2EUI-1088
 #    @E2EUI-1995
@@ -24,28 +23,11 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | Responsible clinician     |
       | Clinical questions        |
       | Patient choice            |
-#    And the user should be able to close the pop up dialog box
     When the user clicks on the mandatory stage "<RequestingOrganisation>" in the dialog box
     And the user is navigated to a page with title Add a requesting organisation
-  #    Then the "<stage2>" stage is selected
     And the user enters the keyword "South Warwickshire NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
-#    @NTS-4813 @E2EUI-1005
-#    When the user submits the referral
-#    Then the user sees a dialog box with a title "<dialogTitle>"
-#    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
-#      | MandatoryStagesToComplete |
-#      | Requesting organisation   |
-#      | Test package              |
-#      | Responsible clinician     |
-#      | Clinical questions        |
-#      | Patient choice            |
-
-#    And the user is navigated to a page with title Add a requesting organisation
-#    And the user enters the keyword "<ordering_entity_name>" in the search field
-#    And the user selects a random entity from the suggestions list
-#    Then the details of the new organisation are displayed
     And  the user clicks the Save and Continue button
     And the "<stage3>" stage is selected
     When the user submits the referral
@@ -80,7 +62,6 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |dialogTitle                  | stage2                  | ordering_entity_name | stage3|
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |There is missing information | Requesting organisation | Maidstone            | Test package |
 
-  @test-4711
     @NTS-4711 @Z-LOGOUT
 #    @NTS-5068 @E2EUI-1841
 #    @NTS-3497 @E2EUI-1995

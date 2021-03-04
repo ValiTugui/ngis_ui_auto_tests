@@ -108,7 +108,6 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Continue with this family member
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
-
     And the user fill in the last name field
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -123,7 +122,6 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     ##Family Members Test Package Page
     Then the user is navigated to a page with title Continue with this family member
     When the user clicks the Save and Continue button
-
     Then the user is navigated to a page with title Select tests for
     And the user selects the test by clicking the deselected test
     ##Navigating By Logout

@@ -59,7 +59,7 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 #      | stage           |
 #      | Patient details |
 
-  @NTS-472899  @NTS-4673 @Z-LOGOUT
+  @NTS-4728  @NTS-4673 @Z-LOGOUT
 #    @NTS-4793 @E2EUI-1008
 #    @E2EUI-1250 @E2EUI-1368
 #    @NTS-4809 @E2EUI-1324
@@ -111,8 +111,6 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
       | Patient choice            |
     And the user clicks on the mandatory stage "<stage3>" in the dialog box
     And the "<stage3>" stage is selected
-
-
 #    @NTS-4689 @E2EUI-1152
     And the username "<userType>" is displayed in the header of Test Ordering
     And the logout "<logoutText>" text is displayed in the header of Test Ordering

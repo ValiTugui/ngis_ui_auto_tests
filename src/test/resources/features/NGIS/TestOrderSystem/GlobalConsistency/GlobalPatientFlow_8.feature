@@ -6,7 +6,7 @@
 @GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
 
-  @NTS-473122 @Z-LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731:E2EUI-1087,873: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
