@@ -7,9 +7,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -56,7 +54,6 @@ public class PanelsPage {
     @FindBy(xpath = "//button[contains(text(),'Incomplete')]")
     public WebElement incompleteButton;
 
-    //    @FindBy(xpath = "//a[contains(@class,'styles_panel-assigner__panelapp-link__2u0t7')]")
     @FindBy(xpath = "//span[contains(text(),'Visit PanelApp')]")
     public WebElement visitPanelApp;
 
