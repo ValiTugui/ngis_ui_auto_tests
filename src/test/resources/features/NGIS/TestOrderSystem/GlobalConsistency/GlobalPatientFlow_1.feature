@@ -14,7 +14,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
     When the user is navigated to a page with title Add a requesting organisation
-
+#    @NTS-4813 @E2EUI-1005
     When the user submits the referral
     Then the user sees a dialog box with a title "<dialogTitle>"
     And the user sees a list of outstanding mandatory stages to be completed in the dialog box
@@ -24,9 +24,10 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | Responsible clinician     |
       | Clinical questions        |
       | Patient choice            |
-    And the user should be able to close the pop up dialog box
-#    When the user clicks on the mandatory stage "<stage2>" in the dialog box
-#    Then the "<stage2>" stage is selected
+#    And the user should be able to close the pop up dialog box
+    When the user clicks on the mandatory stage "<RequestingOrganisation>" in the dialog box
+    And the user is navigated to a page with title Add a requesting organisation
+  #    Then the "<stage2>" stage is selected
     And the user enters the keyword "South Warwickshire NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
