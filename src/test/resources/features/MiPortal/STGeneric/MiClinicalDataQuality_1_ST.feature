@@ -52,7 +52,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a header as Clinical Data Quality Report on "<header>" stage
     And the user sees a link <report_guidance> under the Clinical Data Quality Report header
-    And the user clicks the "<report_guidance>" link to open the document in a new tab having "huddle" url
+    And the user clicks the "<report_guidance>" link to open the document in a new tab having "nhs" url
     And the user selects <glh_name> as the Clinical Dq Filter Glh drop-down menu
     And the user selects on ordering entity drop-down
     And the user click on Select All button
