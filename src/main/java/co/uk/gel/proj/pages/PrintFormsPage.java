@@ -435,7 +435,12 @@ public class PrintFormsPage {
                     urlToDownload = downloadButton.get(i).getAttribute("href");
                     if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
                         isDownloaded = true;
-                        Wait.seconds(3);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
+                        Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
+                        break;
+                    }else{
+                        Actions.retryClickAndIgnoreElementInterception(driver,downloadButton.get(i));
+                        isDownloaded = true;
+                        Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
                         break;
                     }
                 }
