@@ -85,7 +85,6 @@ public class MiClinicalDataQualityPage {
     public List<WebElement> orderingEntitySelectedAll;
 
     @FindBy(id="clinical_dq-dq_summary-timestamp")
-
     public WebElement dqlastUpdatedTimeStampLabel;
 
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
@@ -541,8 +540,8 @@ public class MiClinicalDataQualityPage {
     {
         try
         {
+            Wait.seconds(5);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
-
             String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:","").replace("UTC","").trim();
             LocalDateTime.parse(dqDate, dtf);
             return true;
