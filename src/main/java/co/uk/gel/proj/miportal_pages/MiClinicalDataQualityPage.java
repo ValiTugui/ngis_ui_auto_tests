@@ -78,6 +78,11 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download Data')]")
     public WebElement downloadDataButton;
 
+    @FindBy(xpath = "//div/label[text()='Ordering Entity']/..//a[@role='option'][@aria-selected='false']")
+    public List<WebElement> orderingEntityDeselectedAll;
+
+    @FindBy(xpath = "//div/label[text()='Ordering Entity']/..//a[@role='option'][@aria-selected='true']")
+    public List<WebElement> orderingEntitySelectedAll;
 
     @FindBy(id="clinical_dq-dq_summary-timestamp")
 
@@ -280,18 +285,18 @@ public class MiClinicalDataQualityPage {
     public boolean orderingEntitiesDeselect() {
         //Check mark should not be present
         //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-        if(orderingEntitySelections.size()==6) {
+        if(orderingEntityDeselectedAll.size()<=30) {
             return true;
         }
-        Debugger.println("Ordering entity is shown as selected, but not expected to be deselected.");
-        SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
+        Debugger.println("Ordering entity is shown as selected, but expected to be deselected.");
+        SeleniumLib.takeAScreenShot("OrderingEntityDeSelectedError.jpg");
         return false;
     }
 //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
         //Check mark should be present
         //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-        if(orderingEntitySelections.size() > 6){
+        if(orderingEntitySelectedAll.size() <= 30){
             return true;
         }
         Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
