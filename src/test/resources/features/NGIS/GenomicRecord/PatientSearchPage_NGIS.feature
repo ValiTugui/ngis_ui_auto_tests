@@ -130,17 +130,17 @@ Feature: GenomicRecord: Patient search page_NGIS
       | stage           | patient-type |
       | Patient details | NGIS         |
 
-  @NTS-4503 @Z-LOGOUT
-#      @E2EUI-1130
-  Scenario Outline: NTS-4503:E2EUI-1130:- NHSNumber field - maximum length validation
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
-    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
-
-    Examples:
-      | NHSNumber        |
-      | 9449310602111111 |
+#  @NTS-4503 @Z-LOGOUT
+##      @E2EUI-1130
+#  Scenario Outline: NTS-4503:E2EUI-1130:- NHSNumber field - maximum length validation
+#    Given a web browser is at the patient search page
+#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+#    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
+#    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
+#
+#    Examples:
+#      | NHSNumber        |
+#      | 9449310602111111 |
 
   @NTS-3477 @Z-LOGOUT
 #    @E2EUI-1692
