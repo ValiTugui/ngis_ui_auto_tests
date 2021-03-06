@@ -52,63 +52,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber       | patient-search-type |
       | Create a record for this patient | Find your patient | Other (please provide reason) | NGIS                |
 
-#  @NTS-3068 @Z-LOGOUT
-##    @E2EUI-1182
-#  Scenario Outline: NTS-3068: The user can return to the patient search page by clicking the Back link
-#    Given a web browser is at create new patient page
-#      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
-#    Then the "<pageTitle>" page is displayed
-#    When the user clicks the - "Back to patient search" - link
-#    Then the Patient Search page is displayed
-#
-#    Examples:
-#      | pageTitle                        |
-#      | Create a record for this patient |
-
-#  @NTS-3067 @Z-LOGOUT
-##    @E2EUI-1128
-#  Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
-#    Given a web browser is at the patient search page
-#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-#    When the user types in invalid details of a patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
-#    And the clinical indication ID missing banner is displayed
-#    And the Start New Referral button is disabled
-#
-#    Examples:
-#      | hyperlinkText               | reason_for_no_nhsNumber                                     |
-#      | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-
-#  @NTS-3067 @Z-LOGOUT
-##    @E2EUI-1128
-#  Scenario Outline: NTS-3067: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
-#    Given a web browser is at the patient search page
-#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-#    When the user types in invalid details of a patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
-#    And the clinical indication ID missing banner is displayed
-#    When the user clicks the "Test Directory" link on the notification banner
-#    Then the Test Directory homepage is displayed
-#
-#    Examples:
-#      | hyperlinkText               | reason_for_no_nhsNumber                                     |
-#      | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-
-#  @NTS-3346 @Z-LOGOUT
-##    @E2EUI-995
-#  Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
-#    Given a web browser is at create new patient page
-#      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
-#    Then the "<pageTitle>" page is displayed
-#    And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
-#
-#    Examples:
-#      | pageTitle                        | maximumAllowedValues |
-#      | Create a record for this patient | 50                   |
-
-  @NTS-34381 @Z-LOGOUT
+  @NTS-3438 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
 #    @NTS-3848 @E2EUI-1609
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
@@ -148,35 +92,6 @@ Feature: GenomicRecord: Patient details page 1
     Examples:
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
-
-#  @NTS-3454 @Z-LOGOUT
-##    @E2EUI-893
-#  Scenario Outline: NTS-3454:E2EUI-893: Verify the elements and mandatory fields on patient detail page
-#    Given a web browser is at create new patient page
-#      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
-#    Then the "<pageTitle>" page is displayed
-#    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-#    And the user clicks the - "Back to patient search" - link
-#    Then the "<pageTitle2>" page is displayed
-#    And the YES button is selected by default on patient search
-#    And the user clicks the NO button
-#    And the user search for the new patient using date of birth, first name, last name and gender
-#    And the user clicks the Search button
-#    Then a "<patient-search-type>" result is successfully returned
-#    And the user clicks the patient result card
-#    Then the Patient Details page is displayed
-#    And the user clicks on edit patient details
-#    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-#      | labelHeader     |
-#      | First name ✱    |
-#      | Last name ✱     |
-#      | Date of birth ✱ |
-#      | Gender ✱        |
-#      | Life status ✱   |
-#
-#    Examples:
-#      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber                                     |
-#      | Create a record for this patient | Find your patient | NGIS                | Patient not eligible for NHS number (e.g. foreign national) |
 
   @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538

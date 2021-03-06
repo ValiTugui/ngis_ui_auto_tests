@@ -100,24 +100,6 @@ Feature: GenomicRecord: Patient details page 4
       | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Patient details | 20-10-2010  | refresh       | may not be saved. | Dismiss            | patient            | logout        |
 
-#  @NTS-4055 @Z-LOGOUT
-##    @E2EUI-1904
-#  Scenario Outline: NTS-4055:E2EUI-1904: The patient record should be saved without entering "DATE OF DEATH", As a user I want to save a new patient record without date of death.
-#    Given a web browser is at the patient search page
-#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-#    And the user is navigated to a page with title Find your patient
-#    When the user types in invalid details of a patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    Then the message "No patient found" is displayed below the search button
-#    When the user clicks on the hyper link
-#    Then the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
-#      | labelHeader   |
-#      | Date of death |
-#    And the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-#    Examples:
-#      | reason_for_no_nhsNumber                                     |
-#      | Patient not eligible for NHS number (e.g. foreign national) |
-
   @NTS-3557 @Z-LOGOUT
 #  @E2EUI-1809 @scenario_1
   Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user

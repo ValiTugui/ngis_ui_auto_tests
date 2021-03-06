@@ -284,64 +284,6 @@ Feature: GenomicRecord: New Patient page
       | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
 
-
-#  @NTS-3507 @Z-LOGOUT
-##    @E2EUI-1649 @E2EUI-1584
-#  Scenario Outline:NTS-3507:(E2EUI-1649,1584):Super-user - Hospital number is conditionally non-nullable if NHS number is null
-#    Given a web browser is at the patient search page
-#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
-#    When the user is navigated to a page with title Find your patient
-#    And the user types in invalid details of a patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    And the user clicks the "<hyperlinkText>" link from the No Search Results page
-#    Then the new patient page is opened
-#    And the No button is selected by default for the question - Do you have the NHS Number?
-#    Then the user fills in all fields without NHS number, enters a reason for noNhsNumber "<reason_for_no_nhsNumber>" and leaves HospitalNo field blank
-#    When the user clicks the Save patient details to NGIS button
-#    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-#      | labelHeader       | errorMessageHeader           | messageColourHeader |
-#      | Hospital number ✱ | Hospital number is required. | #dd2509             |
-#    And the user fills in the HospitalNo field
-#    When the user clicks the Save patient details to NGIS button
-#    Then the patient is successfully created with a message "NGIS patient record created"
-#
-#    Examples:
-#      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       |
-#      | create a new patient record | Create a record for this patient | Other (please provide reason) |
-
-#  @NTS-3507 @Z-LOGOUT - Not relevant for Gonzalo
-##    @E2EUI-1649 @E2EUI-1584
-#  Scenario Outline:NTS-3507:(E2EUI-1649,1584) Super-user - Hospital number is conditionally non-nullable if NHS number is null
-#    Given a web browser is at the patient search page
-#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
-#    When the user is navigated to a page with title Find your patient
-#    When the user types in invalid details of a patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    And the user clicks the "<hyperlinkText>" link from the No Search Results page
-#    Then the new patient page is opened
-#    And the No button is selected by default for the question - Do you have the NHS Number?
-#    When the user click YES button for the question - Do you have the NHS no?
-#    And the NHS number field is displayed
-#    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-#      | labelHeader                    |
-#      | Hospital number ✱              |
-#    Then the user fills in all fields and leaves NHS Number and HospitalNo fields blank
-#    When the user clicks the Save patient details to NGIS button
-#    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-#      | labelHeader       | errorMessageHeader           | messageColourHeader |
-#      | NHS Number ✱      | NHS Number is required.      | #dd2509             |
-#      | Hospital number ✱ | Hospital number is required. | #dd2509             |
-#    When the user fills in the NHS Number field
-#    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
-#      | labelHeader     |
-#      | Hospital number |
-#    When the user clicks the Save patient details to NGIS button
-#    Then the patient is successfully updated with a message "NGIS patient record created"
-#
-#    Examples:
-#      | hyperlinkText               | pageTitle                         |
-#      | create a new patient record | Create a record for this patient |
-
   @NTS-3508 @Z-LOGOUT
 #  @NTS-6043
 #     @E2EUI-1660
