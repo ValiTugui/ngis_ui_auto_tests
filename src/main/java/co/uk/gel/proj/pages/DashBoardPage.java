@@ -26,7 +26,8 @@ public class DashBoardPage {
 
     public String tabTitle = "Genomic Medicine Service | Dashboard - NGIS";
 
-    @FindBy(css = "div[class*='multiCard']")
+//    @FindBy(css = "div[class*='multiCard']")
+    @FindBy(xpath = "//h1[text()='Welcome to the National Genomic Informatics System']")
     public WebElement resultsPanel;
 
     @FindBy(xpath = "//div/div[1]/h1")
@@ -79,10 +80,10 @@ public class DashBoardPage {
 
     public boolean dashboardPageResultsIsLoaded() {
         try {
-            SeleniumLib.sleep(5);
-            Wait.forElementToBeClickable(driver, resultsPanel);
-            if (!seleniumLib.isElementPresent(resultsPanel)){
-                SeleniumLib.sleep(5);
+            try{
+                Wait.forElementToBeClickable(driver, resultsPanel);
+            }catch (Exception exp){
+                Wait.forElementToBeClickable(driver, resultsPanel);
             }
             return true;
         }catch(Exception exp){

@@ -1070,10 +1070,12 @@ public class PatientDetailsPage {
 
     public String getNotificationMessageForPatientCreatedOrUpdated() {
         try {
-//            Wait.forElementToBeDisplayed(driver, successNotification);
-            if (seleniumLib.isElementPresent(successNotification)){
-                SeleniumLib.sleep(5);
+            try{
+                Wait.forElementToBeDisplayed(driver, successNotification);
+            }catch (Exception exp){
+                Wait.forElementToBeDisplayed(driver, successNotification);
             }
+
             return Actions.getText(successNotification);
         } catch (Exception exp) {
             try {
