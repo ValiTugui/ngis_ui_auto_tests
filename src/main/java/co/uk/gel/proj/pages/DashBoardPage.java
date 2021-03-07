@@ -79,7 +79,8 @@ public class DashBoardPage {
 
     public boolean dashboardPageResultsIsLoaded() {
         try {
-//            Wait.forElementToBeClickable(driver, resultsPanel);
+            SeleniumLib.sleep(5);
+            Wait.forElementToBeClickable(driver, resultsPanel);
             if (!seleniumLib.isElementPresent(resultsPanel)){
                 SeleniumLib.sleep(5);
             }
