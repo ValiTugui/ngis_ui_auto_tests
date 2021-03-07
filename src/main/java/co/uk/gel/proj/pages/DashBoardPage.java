@@ -17,10 +17,11 @@ import java.util.List;
 public class DashBoardPage {
 
     WebDriver driver;
-
+    SeleniumLib seleniumLib;
     public DashBoardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     public String tabTitle = "Genomic Medicine Service | Dashboard - NGIS";
@@ -78,7 +79,10 @@ public class DashBoardPage {
 
     public boolean dashboardPageResultsIsLoaded() {
         try {
-            Wait.forElementToBeClickable(driver, resultsPanel);
+//            Wait.forElementToBeClickable(driver, resultsPanel);
+            if (!seleniumLib.isElementPresent(resultsPanel)){
+                SeleniumLib.sleep(5);
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
