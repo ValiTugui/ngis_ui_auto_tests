@@ -26,8 +26,7 @@ public class DashBoardPage {
 
     public String tabTitle = "Genomic Medicine Service | Dashboard - NGIS";
 
-//    @FindBy(css = "div[class*='multiCard']")
-    @FindBy(xpath = "//h1[text()='Welcome to the National Genomic Informatics System']")
+    @FindBy(css = "div[class*='multiCard']")
     public WebElement resultsPanel;
 
     @FindBy(xpath = "//div/div[1]/h1")
