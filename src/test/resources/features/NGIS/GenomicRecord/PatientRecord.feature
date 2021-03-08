@@ -291,7 +291,7 @@ Feature: GenomicRecord: Patient Record
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save patient details to NGIS button
-#    Then the patient is successfully created with a message "NGIS patient record created"
+    Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
       | pageTitle                        | reason_for_no_nhsNumber       | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
