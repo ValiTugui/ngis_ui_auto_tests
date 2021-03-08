@@ -1,10 +1,12 @@
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questionnaire- Rare Disease/Cancer.
 
-  @NTS-5183 @Z-LOGOUT
+  @NTS-51831 @Z-LOGOUT
    #@E2EUI-1042
+#    @NTS-4624  @E2EUI-1299
+#    @NTS-4631  @E2EUI-1514
   Scenario Outline:NTS-5183:E2EUI-1042:Scenario-1: Validation of dynamic questions in Questionnaire- Rare Disease
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1999:Gender=Male |
@@ -45,6 +47,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | mandatory_field               | field_type | symbol | symbol color |
       | Disease status                | label      | ✱      | #dd2509      |
       | Find an HPO phenotype or code | label      | ✱      | #dd2509      |
+##    @NTS-4624  @E2EUI-1299
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
       | labelHeader    |
       | Age of onset   |
@@ -53,6 +56,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | Phenotypic sex |
       | Karyotypic sex |
      ### Min/Max validation
+##   @NTS-4631  @E2EUI-1514
     And the user see error message when providing invalid age of onsets
       | year | month | errorMessage                                      |
       | -2.4 | 0     | Please enter whole years and months               |
@@ -63,6 +67,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | 24   | -1    | Only prenatal cases can have a negative number    |
       | 0    | -10   | Patient cannot be younger than -9 months          |
       | 0    | 1501  | Patient age cannot exceed 1500 months             |
+
     When the user provided the values "<yearvalue1>" "<monthvalue1>" for Age of onset fields
     Then the user sees an error "<errorMessage1>" message on the page
     And the user clicks the Save and Continue button
@@ -72,8 +77,8 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     And the user clicks the Save and Continue button
 
     Examples:
-      | error_info            | red_color_hex_code | TestPackage  | ordering_entity_name | NoOfParticipants | DiseaseStatus | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | hpoTerm                |
-      | Last name is required | #dd2509            | Test package | Queen                | 1                | Affected      | 130        | 0           | Patient age cannot exceed 125 years | 5          | 8           | Phenotypic abnormality |
+      | error_info            | red_color_hex_code | TestPackage  | ordering_entity_name | NoOfParticipants | DiseaseStatus | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | hpoTerm                |rareDiseaseValue1         | diagnosisTypeValue1 | statusValue1 | TermPresence |
+      | Last name is required | #dd2509            | Test package | Queen                | 1                | Affected      | 130        | 0           | Patient age cannot exceed 125 years | 5          | 8           | Phenotypic abnormality |BASAL CELL NEVUS SYNDROME | Omim                | Confirmed    | Present      |
 
   @NTS-5183 @Z-LOGOUT
   Scenario Outline:NTS-5183:E2EUI-1042:scenario-2: Validation of dynamic questions in Questionnaire- Cancer

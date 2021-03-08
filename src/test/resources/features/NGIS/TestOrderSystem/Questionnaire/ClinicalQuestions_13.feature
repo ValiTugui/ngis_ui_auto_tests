@@ -1,4 +1,4 @@
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 13 - Page Validation
@@ -41,56 +41,56 @@ Feature: ClinicalQuestions 13 - Page Validation
       | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | rareDiseaseValue1         | diagnosisTypeValue1 | statusValue1 | TermPresence |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XYY | BASAL CELL NEVUS SYNDROME | Omim                | Confirmed    | Present      |
 
-  @NTS-4624 @Z-LOGOUT
-#    @E2EUI-1299
-  Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Add a requesting organisation
-    And the "Patient details" stage is marked as Completed
-    And the user navigates to the "<stage>" stage
-    When the user is navigated to a page with title Answer clinical questions
-    And the mandatory fields shown with the symbol in red color
-      | mandatory_field | field_type | symbol | symbol color |
-      | Disease status  | label      | ✱      | #dd2509      |
-    When the user selects "<DiseaseStatus>"
-    And the mandatory fields shown with the symbol in red color
-      | mandatory_field               | field_type | symbol | symbol color |
-      | Disease status                | label      | ✱      | #dd2509      |
-      | Find an HPO phenotype or code | label      | ✱      | #dd2509      |
-    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
-      | labelHeader    |
-      | Age of onset   |
-      | Phenotypic sex |
-      | Karyotypic sex |
+#  @NTS-4624 @Z-LOGOUT
+##    @E2EUI-1299
+#  Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
+#    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
+#    And the user navigates to the "<stage>" stage
+#    When the user is navigated to a page with title Answer clinical questions
+#    And the mandatory fields shown with the symbol in red color
+#      | mandatory_field | field_type | symbol | symbol color |
+#      | Disease status  | label      | ✱      | #dd2509      |
+#    When the user selects "<DiseaseStatus>"
+#    And the mandatory fields shown with the symbol in red color
+#      | mandatory_field               | field_type | symbol | symbol color |
+#      | Disease status                | label      | ✱      | #dd2509      |
+#      | Find an HPO phenotype or code | label      | ✱      | #dd2509      |
+#    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
+#      | labelHeader    |
+#      | Age of onset   |
+#      | Phenotypic sex |
+#      | Karyotypic sex |
+#
+#    Examples:
+#      | stage              | DiseaseStatus |
+#      | Clinical questions | Affected      |
 
-    Examples:
-      | stage              | DiseaseStatus |
-      | Clinical questions | Affected      |
-
-  @NTS-4631 @Z-LOGOUT
-#    @E2EUI-1514
-  Scenario Outline: NTS-4631: Updating age of onset in Clinical Questions
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1999:Gender=Male |
-    ##Clinical questions Stage
-    And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    When the user selects "<diseaseStatueValue>"
-    When the user provided the values "<yearvalue1>" "<monthvalue1>" for Age of onset fields
-    Then the user sees an error "<errorMessage1>" message on the page
-    When the user provided the values "<yearvalue2>" "<monthvalue2>" for Age of onset fields
-    Then the user sees an error "<errorMessage2>" message on the page
-    When the user provided the values "<yearvalue3>" "<monthvalue3>" for Age of onset fields
-    Then the user sees an error "<errorMessage3>" message on the page
-    When the user provided the values "<yearvalue4>" "<monthvalue4>" for Age of onset fields
-    Then the user sees an error "<errorMessage4>" message on the page
-    When the user provided the values "<yearvalue5>" "<monthvalue5>" for Age of onset fields
-    Then the user sees an error "<errorMessage5>" message on the page
-
-    Examples:
-      | stage              | title                     | diseaseStatueValue | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | errorMessage2                         | yearvalue3 | monthvalue3 | errorMessage3                                     | yearvalue4 | monthvalue4 | errorMessage4                                | yearvalue5 | monthvalue5 | errorMessage5                            |
-      | Clinical questions | Answer clinical questions | Affected           | 130        | 0           | Patient age cannot exceed 125 years | 0          | 1501        | Patient age cannot exceed 1500 months | 1          | 12          | Number of months can only exceed 11 if years is 0 | -1         | 0           | Please enter prenatal age in negative months | 0          | -10         | Patient cannot be younger than -9 months |
+#  @NTS-4631 @Z-LOGOUT
+##    @E2EUI-1514
+#  Scenario Outline: NTS-4631: Updating age of onset in Clinical Questions
+#    Given a new patient referral is created with associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1999:Gender=Male |
+#    ##Clinical questions Stage
+#    And the user navigates to the "<stage>" stage
+#    Then the "<title>" page is displayed
+#    When the user selects "<diseaseStatueValue>"
+#    When the user provided the values "<yearvalue1>" "<monthvalue1>" for Age of onset fields
+#    Then the user sees an error "<errorMessage1>" message on the page
+#    When the user provided the values "<yearvalue2>" "<monthvalue2>" for Age of onset fields
+#    Then the user sees an error "<errorMessage2>" message on the page
+#    When the user provided the values "<yearvalue3>" "<monthvalue3>" for Age of onset fields
+#    Then the user sees an error "<errorMessage3>" message on the page
+#    When the user provided the values "<yearvalue4>" "<monthvalue4>" for Age of onset fields
+#    Then the user sees an error "<errorMessage4>" message on the page
+#    When the user provided the values "<yearvalue5>" "<monthvalue5>" for Age of onset fields
+#    Then the user sees an error "<errorMessage5>" message on the page
+#
+#    Examples:
+#      | stage              | title                     | diseaseStatueValue | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | errorMessage2                         | yearvalue3 | monthvalue3 | errorMessage3                                     | yearvalue4 | monthvalue4 | errorMessage4                                | yearvalue5 | monthvalue5 | errorMessage5                            |
+#      | Clinical questions | Answer clinical questions | Affected           | 130        | 0           | Patient age cannot exceed 125 years | 0          | 1501        | Patient age cannot exceed 1500 months | 1          | 12          | Number of months can only exceed 11 if years is 0 | -1         | 0           | Please enter prenatal age in negative months | 0          | -10         | Patient cannot be younger than -9 months |
 
   @NTS-3346 @Z-LOGOUT
 #    @E2EUI-995

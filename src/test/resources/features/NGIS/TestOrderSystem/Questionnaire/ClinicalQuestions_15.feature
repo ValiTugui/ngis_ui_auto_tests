@@ -1,9 +1,10 @@
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 15 - RD Questionnaire
 
   @NTS-3433 @Z-LOGOUT
+##   @NTS-3433  @E2EUI-1546
 #    @E2EUI-1546
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -14,10 +15,12 @@ Feature: ClinicalQuestions 15 - RD Questionnaire
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
+#    @NTS-3433  @E2EUI-1546
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestions>" stage is marked as Completed
+    And the "<notes>" stage is selected
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
@@ -25,5 +28,5 @@ Feature: ClinicalQuestions 15 - RD Questionnaire
       | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Full Sibling          | AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the user is navigated to a page with title Add a family member to this referral
     Examples:
-      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |
-      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |notes|
+      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |Notes|

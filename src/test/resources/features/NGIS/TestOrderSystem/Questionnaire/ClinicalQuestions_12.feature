@@ -1,4 +1,5 @@
 #@regression
+@clinicalQuestions
 #@CancerQuestionnaire
 @03-TEST_ORDER
 @SYSTEM_TEST
