@@ -53,11 +53,12 @@ Feature: Responsible Clinician - 1
     And the user is navigated to a page with title Add a requesting organisation
 #NTS-3895(scenario 3)
     And the "Patient details" stage is marked as Completed
+    And the user is navigated to a page with title Add a requesting organisation
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
     And the user should be able to close the pop up dialog box
 #    When the user clicks outside of the modal
-    And the user should be able to close the pop up dialog box
+
 
     And the user navigates to the "<stage>" stage
     When the user fills in all clinician form fields except the mandatory fields Last name , Department name and address
