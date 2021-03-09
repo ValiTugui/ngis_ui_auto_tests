@@ -30,7 +30,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
       | SearchDetails                                                            | ErrorMessage1                                      | ErrorMessage2                                       |
       | DOB=18-03-1967:FirstName=MADELINE:LastName=LENNON:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
 
-  @NTS-5810 @Test1
+  @NTS-5810
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field - Search family member with Postcode.
     Given a new patient referral is created with associated tests in Test Order System online service

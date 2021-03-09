@@ -28,28 +28,28 @@ Feature: Family Members Navigation Stage 4 - Member additions
 #      | FamilyMembers  | TestPackage  | Two |
 #      | Family members | Test package | 2   |
 
-  @NTS-3301 @Z-LOGOUT
-#    @E2EUI-1291
-  Scenario Outline: NTS-3301:E2EUI-1291: Verify the current additional family member information
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-09-2011:Gender=Male |
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    Then the user is navigated to a page with title Find a family member
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Continue with this family member
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
-    And the user clicks the Save and Continue button
-    When the user navigates to the "<FamilyMembers>" stage
-    And the color of referral name for "<FamilyMemberDetails>" displays as "<ReferralColor>"
-
-    Examples:
-      | FamilyMembers  | FamilyMemberDetails                                               | ReferralColor |
-      | Family members | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | #da291c       |
+#  @NTS-3301 @Z-LOGOUT
+##    @E2EUI-1291
+#  Scenario Outline: NTS-3301:E2EUI-1291: Verify the current additional family member information
+#    Given a new patient referral is created with associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-09-2011:Gender=Male |
+#    Then the user is navigated to a page with title Add a requesting organisation
+#    When the user navigates to the "<FamilyMembers>" stage
+#    Then the user is navigated to a page with title Add a family member to this referral
+#    And the user clicks on Add family member button
+#    Then the user is navigated to a page with title Find a family member
+#    And the user search the family member with the specified details "<FamilyMemberDetails>"
+#    Then the user is navigated to a page with title Continue with this family member
+#    And the user clicks the Save and Continue button
+#    Then the user is navigated to a page with title Select tests for
+#    And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
+#    And the user clicks the Save and Continue button
+#    When the user navigates to the "<FamilyMembers>" stage
+#    And the color of referral name for "<FamilyMemberDetails>" displays as "<ReferralColor>"
+#
+#    Examples:
+#      | FamilyMembers  | FamilyMemberDetails                                               | ReferralColor |
+#      | Family members | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | #da291c       |
 
   @NTS-3322 @NTS-4801 @Z-LOGOUT
 #    @E2EUI-1509 @E2EUI-1106
