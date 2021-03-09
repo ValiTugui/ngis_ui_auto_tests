@@ -64,8 +64,3 @@ Feature: Family Members Details Page 7- Post Code validation_1
     Examples:
       | FamilyMember   | FamilyMemberDetails                 | RelationshipToProband | Postcode1 | Postcode2 | Postcode3 | Postcode4 | Postcode5 | Postcode6 | PostcodeFormat1 | PostcodeFormat2 |
       | Family members | NHSNumber=2000004296:DOB=24-09-2011 | Full Sibling          | AB12CD    | AB1 2CD   | AB1  2CD  | ab12cd    | ab1 2cd   | ab1  2cd  | AB1 2CD         | ab1 2cd         |
-#      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB1 2CD  | Full Sibling          | AB1 2CD        |
-#      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB1  2CD | Full Sibling          | AB1 2CD        |
-#      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab12cd   | Full Sibling          | ab1 2cd        |
-#      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab1 2cd  | Full Sibling          | ab1 2cd        |
-#      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab1  2cd | Full Sibling          | ab1 2cd        |

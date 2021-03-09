@@ -67,8 +67,3 @@ Feature: Family Members Details Page 8- Post Code validation_2
     Examples:
       | FamilyMember   | RelationshipToProband | FamilyMemberDetails | Postcode1 | Postcode2 | Postcode3 | Postcode4 | Postcode5 | Postcode6 | PostcodeFormat1 | PostcodeFormat2 |
       | Family members | Son                   | null                | AB1 2CD   | AB12CD    | AB1  2CD  | ab12cd    | ab1 2cd   | ab1  2cd  | AB1 2CD         | ab1 2cd         |
-#      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Father                | null                | AB1  2CD | AB1 2CD        |
-#      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Mother                | null                | AB12CD   | AB1 2CD        |
-#      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Daughter              | null                | ab12cd   | ab1 2cd        |
-#      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Full Sibling          | null                | ab1 2cd  | ab1 2cd        |
-#      | Family members | Patient not eligible for NHS number (e.g. foreign national) | Other                 | null                | ab1  2cd | ab1 2cd        |

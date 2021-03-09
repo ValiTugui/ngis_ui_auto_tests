@@ -51,28 +51,3 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | SuccessDeleteMessage                |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Family member removed from referral |
-
-#  @NTS-3337 @Z-LOGOUT
-##    @E2EUI-1326 @E2EUI-1770
-#  Scenario Outline:NTS-3337: Verify the family members test package are selected by default
-#    Given a new patient referral is created with associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1981:Gender=Male |
-#    Then the user is navigated to a page with title Add a requesting organisation
-#    When the user navigates to the "<FamilyMembers>" stage
-#    Then the user is navigated to a page with title Add a family member to this referral
-#    And the user clicks on Add family member button
-#    When the user search the family member with the specified details "<FamilyMemberDetails>"
-#    Then the user is navigated to a page with title Continue with this family member
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Select tests for
-#    And the user deselects the test
-#    And  the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add family member details
-#    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-#    And  the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add a family member to this referral
-#    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
-#
-#    Examples:
-#      | FamilyMembers  | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           |
-#      | Family members | NHSNumber=NA:DOB=25-12-2000:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested |

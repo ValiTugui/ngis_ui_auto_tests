@@ -4,46 +4,6 @@
 @FamilyMember
 Feature: Family Members Navigation Stage 3 - Patient Identifiers
 
-#  @NTS-3243 @Z-LOGOUT
-##    @E2EUI-1287
-#  Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow
-#    Given a new patient referral is created with associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2007:Gender=Male |
-#    Then the user is navigated to a page with title Add a requesting organisation
-#    When the user navigates to the "<TestPackage>" stage
-#    Then the user is navigated to a page with title Confirm the test package
-#    And the user selects the number of participants as "<NoOfParticipants>"
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add clinician information
-#    When the user navigates to the "<ClinicalQuestions>" stage
-#    Then the user is navigated to a page with title Answer clinical questions
-#    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the "<ClinicalQuestions>" stage is marked as Completed
-#    And the user is navigated to a page with title Add clinical notes
-#    When the user navigates to the "<FamilyMembers>" stage
-#    Then the user is navigated to a page with title Add a family member to this referral
-#    And the user clicks on Add family member button
-#    Then the user is navigated to a page with title Find a family member
-#    And the user search the family member with the specified details "<FamilyMemberDetails>"
-#    Then the user is navigated to a page with title Continue with this family member
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Select tests for
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add family member details
-#    And the user clicks on back button
-#    Then the user is navigated to a page with title Select tests for
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add family member details
-#    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add a family member to this referral
-#    And the user clicks on Continue Button
-#    Then the user is navigated to a page with title Patient choice
-#    Examples:
-#      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                                               | DiseaseStatusDetails                                            |
-#      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=NA:DOB=11-02-2004:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-
   @NTS-3291 @NTS-3243 @NTS-3295 @Z-LOGOUT
 #    @E2EUI-1604 @E2EUI-1287 @E2EUI-1279 @E2EUI-1362 @E2EUI-1581
   Scenario Outline: NTS-3291: Verify that Indicate family members with outstanding questions to answer
