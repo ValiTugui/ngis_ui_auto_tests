@@ -56,7 +56,6 @@ Feature: Responsible Clinician - 1
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
     #When the user clicks outside of the modal
-    Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks outside of the modal
     And the user should be able to close the pop up dialog box
 
