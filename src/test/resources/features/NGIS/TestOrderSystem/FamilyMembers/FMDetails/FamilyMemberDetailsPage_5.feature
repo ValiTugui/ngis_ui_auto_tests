@@ -135,5 +135,5 @@ Feature: Family Members Details Page 5- Field Validation_5
       | field_name              | color   |
       | Relationship to proband | #dd2509 |
     Examples:
-      | FamilyMembers  | TestPackage  | NoOfParticipants | reason_for_no_nhsNumber                                     | SearchDetails                                                                   | patient-search-type |
-      | Family members | Test package | 2                | Patient not eligible for NHS number (e.g. foreign national) | DOB=13-03-2010:FirstName=NELLY:LastName=StschitZ:Gender=Female:Postcode=R2E40BE | NGIS                |
+      | FamilyMembers  | TestPackage  | NoOfParticipants | reason_for_no_nhsNumber                                     | SearchDetails                                                   | patient-search-type |
+      | Family members | Test package | 2                | Patient not eligible for NHS number (e.g. foreign national) | DOB=13-03-2010:FirstName=NELLY:LastName=StschitZ:Gender=Female: | NGIS                |

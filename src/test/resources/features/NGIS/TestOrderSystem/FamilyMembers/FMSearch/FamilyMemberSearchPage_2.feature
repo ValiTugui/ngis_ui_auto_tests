@@ -68,6 +68,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
     ##By Providing PostCode only
     When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
+    And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<searchWithPostcode>"
     Then the user will see error messages highlighted in red colour
       | Date of birth is required. | #dd2509 |

@@ -5,7 +5,7 @@
 @FamilyMember
 Feature: Family Members Details Page 4- Field Validation_4
 
-  @NTS-4380 @Z-LOGOUT
+  @NTS-43801 @Z-LOGOUT
 #    @E2EUI-859
   Scenario Outline:NTS-4380: Validate the Relationship to proband drop down values to check the order of the drop down is logical
     Given a new patient referral is created with associated tests in Test Order System online service
