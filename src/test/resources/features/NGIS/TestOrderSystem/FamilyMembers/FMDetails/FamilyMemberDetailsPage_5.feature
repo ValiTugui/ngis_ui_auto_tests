@@ -79,34 +79,34 @@ Feature: Family Members Details Page 5- Field Validation_5
       | patient-search-type | FamilyMembers  | NhsNumber  | DOB        | error_message                  | DOB2       |
       | NGIS                | Family members | 2000003834 | 20-13-2000 | Enter a month between 1 and 12 | 10-05-2001 |
 
-  @NTS-4054 @Z-LOGOUT
-#    @E2EUI-1882
-  Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add clinician information
-    When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    And the patient card displays with Born,Gender and NHS No details
-    And the user clicks on the patient card
-    Then the user is navigated to a page with title Add missing family member details
-    When the user clicks on edit patient details
-    Then the user is navigated to a page with title Edit patient details
-    And the user clicks the Save and Continue button
-    Then the user will see error messages highlighted in red colour
-      | message                              | color   |
-      | Relationship to proband is required. | #dd2509 |
-    And the blank mandatory field labels highlighted in red color
-      | field_name              | color   |
-      | Relationship to proband | #dd2509 |
-    Examples:
-      | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 |
-      | Family members | Test package | 2                | NHSNumber=2000004083:DOB=06-10-2011 |
+#  @NTS-4054 @Z-LOGOUT
+##    @E2EUI-1882
+#  Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
+#    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
+#    Then the user is navigated to a page with title Add a requesting organisation
+#    When the user navigates to the "<TestPackage>" stage
+#    And the user selects the number of participants as "<NoOfParticipants>"
+#    And the user clicks the Save and Continue button
+#    Then the user is navigated to a page with title Add clinician information
+#    When the user navigates to the "<FamilyMembers>" stage
+#    And the user clicks on Add family member button
+#    And the user search the family member with the specified details "<FamilyMemberDetails>"
+#    And the patient card displays with Born,Gender and NHS No details
+#    And the user clicks on the patient card
+#    Then the user is navigated to a page with title Add missing family member details
+#    When the user clicks on edit patient details
+#    Then the user is navigated to a page with title Edit patient details
+#    And the user clicks the Save and Continue button
+#    Then the user will see error messages highlighted in red colour
+#      | message                              | color   |
+#      | Relationship to proband is required. | #dd2509 |
+#    And the blank mandatory field labels highlighted in red color
+#      | field_name              | color   |
+#      | Relationship to proband | #dd2509 |
+#    Examples:
+#      | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 |
+#      | Family members | Test package | 2                | NHSNumber=2000004083:DOB=06-10-2011 |
 
   @NTS-4054 @Z-LOGOUT
 #    @E2EUI-1882 @scenario_2
