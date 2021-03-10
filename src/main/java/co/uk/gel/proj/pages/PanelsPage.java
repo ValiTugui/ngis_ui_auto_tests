@@ -54,7 +54,7 @@ public class PanelsPage {
     @FindBy(xpath = "//button[contains(text(),'Incomplete')]")
     public WebElement incompleteButton;
 
-    @FindBy(xpath = "//a[contains(@class,'styles_panel-assigner__panelapp-link__2u0t7')]")
+    @FindBy(xpath = "//span[contains(text(),'Visit PanelApp')]")
     public WebElement visitPanelApp;
 
     @FindBy(xpath = "//h1[contains(text(),'panels')]")

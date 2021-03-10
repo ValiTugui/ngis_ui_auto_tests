@@ -2,6 +2,7 @@
 #@notes
 @03-TEST_ORDER
 @SYSTEM_TEST
+@PrintForms
 Feature: TestOrder - Notes page
 
   @NTS-4503 @Z-LOGOUT
@@ -20,17 +21,3 @@ Feature: TestOrder - Notes page
     Examples:
       | stage |
       | Notes |
-
- ## @NTS-4375 This NTS can be re-used for any new Notes Tickets
-#  @NTS-ForDemo
-#  Scenario Outline: Validating for extra clinical information text on Notes page
-#    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-#    And the "Patient details" stage is marked as Completed
-#    And the user navigates to the "<stage>" stage
-#    Then the "<stage>" stage is selected
-#    And the user should see the text "<TextToValidate>" in the Notes Page
-#
-#    Examples:
-#      | stage | TextToValidate               |
-#      | Notes | extra elinical information |
