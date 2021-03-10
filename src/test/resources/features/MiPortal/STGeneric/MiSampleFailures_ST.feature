@@ -53,7 +53,7 @@ Feature: MIPORTAL ST - Sample Failures - 1
   @NTS-6850 @MI-LOGOUT
   Scenario Outline: Validating the data table populated after clicking on apply filters in Sample failures page
     Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io |  |
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user should be able to see sample failures report menu is displayed
     And the user navigates to the "<mi_stage>" stage in mi-portal
     Then the user sees a header as Sample Failures Report on "<header>" stage
