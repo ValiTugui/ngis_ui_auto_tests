@@ -51,13 +51,13 @@ Feature: MIPORTAL ST - File Submission 1
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the columns fields are  displayed in the list of columns headers of the search result table
       | columnHeaders     |
-      | Filename                 |
-      | Status                   |
-      | Errors     |
-      | Warnings   |
-      | Created                  |
-      |Submitted By Code |
-      | ID                       |
+      | Filename          |
+      | Status            |
+      | Errors            |
+      | Warnings          |
+      | Created           |
+      | Submitted By Code |
+      | ID                |
 
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
@@ -65,9 +65,9 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
       | ID                       |
-      |Submitted By Code |
-      | Errors     |
-      | Warnings   |
+      | Submitted By Code        |
+      | Errors                   |
+      | Warnings                 |
       | Filename                 |
       | Created                  |
       | Status                   |
@@ -79,9 +79,9 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
       | ID                       |
-      |Submitted By Code |
-      | Errors     |
-      | Warnings   |
+      | Submitted By Code        |
+      | Errors                   |
+      | Warnings                 |
       | Filename                 |
       | Created                  |
       | Status                   |
@@ -92,9 +92,9 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
       | ID                       |
-      |Submitted By Code |
-      | Errors     |
-      | Warnings   |
+      | Submitted By Code        |
+      | Errors                   |
+      | Warnings                 |
       | Filename                 |
       | Created                  |
       | Status                   |
@@ -108,7 +108,7 @@ Feature: MIPORTAL ST - File Submission 1
     When the user drag the column header "ID" from the section "Show" to "Hide" section
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | ID           |
+      | ID                       |
     When the user drag the column header "Path" from the section "Hide" to "Show" section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
@@ -117,7 +117,7 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees a search box container section for "<mi_stage>" page
     And the columns fields are not displayed in the list of columns headers of the search result table
       | columnHeaders |
-      | ID |
+      | ID            |
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user sees the checkboxes with the label names Compact grid and Truncate columns
@@ -165,11 +165,11 @@ Feature: MIPORTAL ST - File Submission 1
     When the user selects Status as the search column dropdown
     And the user selects is as the search operator dropdown
     Then the user sees the below values in the file-submission search value drop-down menu
-      | Duplicate                        |
-      | In Progress                      |
-      | Invalid                          |
-      | Valid                            |
-      | Valid with Warnings              |
+      | Duplicate           |
+      | In Progress         |
+      | Invalid             |
+      | Valid               |
+      | Valid with Warnings |
     And the user selects Valid with Warnings as the search value dropdown
     And the user clicks on Add criteria button
     When the user click on the Search button
@@ -195,5 +195,5 @@ Feature: MIPORTAL ST - File Submission 1
     And  the selected search option is reset after test
 
     Examples:
-      |mi_stage         |
-      |File Submissions |
+      | mi_stage         |
+      | File Submissions |
