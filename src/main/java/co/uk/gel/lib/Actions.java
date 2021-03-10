@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.text.DateFormatSymbols;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class Actions {
 
@@ -111,6 +111,7 @@ public class Actions {
 
 
     public static void fillInValue(WebElement element, String value) {
+        Actions.clearInputField(element);
         element.sendKeys(value);
     }
 

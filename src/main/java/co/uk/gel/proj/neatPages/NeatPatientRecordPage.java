@@ -1,6 +1,5 @@
 package co.uk.gel.proj.neatPages;
 
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
@@ -209,6 +208,7 @@ public class NeatPatientRecordPage {
     public boolean clickReasonButton(String buttonText) {
         try {
             Wait.seconds(3);
+            SeleniumLib.scrollToElement(reasonMandatoryFieldCheck);
             if (buttonText.equalsIgnoreCase("Duplicate")) {
                 duplicateButton.click();
             } else {

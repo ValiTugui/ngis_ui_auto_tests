@@ -88,7 +88,7 @@ Feature: GenomicRecord: Patient details page 2
       | patient-search-type | NhsNumber  | DOB        | error_message                     | DOB2       |
       | NGIS                | 9449305935 | 30-02-2000 | Check the day and month are valid | 19-03-2000 |
 
-  @NTS-58101 @Z-LOGOUT
+  @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- create a new patient by passing Postcode.
     Given a web browser is at the patient search page
