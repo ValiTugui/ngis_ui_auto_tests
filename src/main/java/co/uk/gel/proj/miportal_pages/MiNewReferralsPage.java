@@ -8,7 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +27,9 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='new_referrals-search-col']")
     public WebElement newReferralsSearchColumn;
+
+    @FindBy(xpath = "//button[@data-id='new_referrals-search-col']")
+    public WebElement newReferralsSearchColumnDropDownBtn;
 
     @FindBy(xpath = "//input[@id='new_referrals-search-value']")
     public WebElement newReferralsSearchInput;
@@ -124,6 +129,28 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Exception in MIPortalNewReferrals:newReferralsSearchInput: "+ exp);
             SeleniumLib.takeAScreenShot("newReferralsSearchInput.jpg");
             return false;
+        }
+    }
+
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, newReferralsSearchColumnDropDownBtn, 10)) {
+                Debugger.println("New Referrals search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(newReferralsSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
         }
     }
 }

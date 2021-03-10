@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@NotesAndPrintForms
 Feature: TestOrder - Print Forms 3 - Validations
 
   @NTS-4702 @Z-LOGOUT

@@ -1450,7 +1450,7 @@ public class PatientDetailsPage {
                 Debugger.println("The Postcode field is not displayed in the edit patient details page." + driver.getCurrentUrl());
                 return false;
             }
-            postcodeField.clear();
+            Actions.clearInputField(postcodeField);
             postcodeField.sendKeys(postcode);
             return true;
         } catch (Exception exp) {

@@ -1,3 +1,4 @@
+@GlobalFlow
 #@regression
 #@noComponent
 @03-TEST_ORDER
