@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@FamilyMember
 Feature: Family Members Search Page - Field Validation_1
 
   @NTS-3302 @Z-LOGOUT

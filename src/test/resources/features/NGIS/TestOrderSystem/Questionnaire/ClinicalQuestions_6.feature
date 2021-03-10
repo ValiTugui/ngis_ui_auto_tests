@@ -1,4 +1,4 @@
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 6 - RD Questionnaire

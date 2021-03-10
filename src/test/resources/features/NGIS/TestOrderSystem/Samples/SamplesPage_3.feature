@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@Sample
 
 Feature: Samples Page -3
 

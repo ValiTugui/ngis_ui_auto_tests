@@ -1,3 +1,4 @@
+@GlobalFlow
 #@regression
 #@referral
 @03-TEST_ORDER

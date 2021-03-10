@@ -1,6 +1,7 @@
 #@FamilyMembersDetailsPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@FamilyMember
 Feature: Family Members Details Page 8- Post Code validation_2
 
   @NTS-5810 @Z-LOGOUT

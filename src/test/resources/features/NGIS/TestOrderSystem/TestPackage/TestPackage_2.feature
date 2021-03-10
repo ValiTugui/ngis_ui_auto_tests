@@ -1,6 +1,7 @@
 #@regression
 #@testPackageRD
 @03-TEST_ORDER
+@TestPackage
 @SYSTEM_TEST
 
 Feature: TestOrder - Test Package 2 - RD

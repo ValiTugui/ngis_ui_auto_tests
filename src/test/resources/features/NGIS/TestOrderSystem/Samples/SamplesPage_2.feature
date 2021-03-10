@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@Sample
 Feature: Samples Page -2
 
   @NTS-3272 @Z-LOGOUT

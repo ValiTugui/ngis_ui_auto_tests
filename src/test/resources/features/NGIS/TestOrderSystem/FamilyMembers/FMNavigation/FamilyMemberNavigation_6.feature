@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@FamilyMember
 Feature: TestOrder - Family Members Navigation Stage 6 - Varying Members addition and removal
 
   @NTS-3309 @Z-LOGOUT

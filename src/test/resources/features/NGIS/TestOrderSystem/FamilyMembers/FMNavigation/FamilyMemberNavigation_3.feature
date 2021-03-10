@@ -1,7 +1,7 @@
 #@FamilyMemberStageNavigation
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@FamilyMember
 Feature: Family Members Navigation Stage 3 - Patient Identifiers
 
   @NTS-3243 @Z-LOGOUT

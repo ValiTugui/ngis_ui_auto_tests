@@ -1,4 +1,5 @@
 @03-TEST_ORDER
+@TestPackage
 @SYSTEM_TEST
 
 Feature: TestOrder - Test Package 3 - RD
