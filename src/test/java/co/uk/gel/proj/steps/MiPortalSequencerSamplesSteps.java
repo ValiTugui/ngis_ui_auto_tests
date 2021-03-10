@@ -72,9 +72,19 @@ public class MiPortalSequencerSamplesSteps extends Pages {
     public void theUserSeesBelowValuesInTheSequencerSamplesSearchColumnDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        List actualDropDownValues = miSequencerSamplesPage.searchColumnDropDownMenu();
+        if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+            Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
+        String actValue = "", expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miSequencerSamplesPage.selectSequencerSamplesDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            actValue = actualDropDownValues.get(i).toString();
+            expValue = expectedDropDownValues.get(i).get(0);
+            if (!actValue.equalsIgnoreCase(expValue)) {
+                Assert.assertTrue(false);
+            }
         }
     }
     @And("the user verify the date format displayed in sequencer samples result table under column (.*)")
@@ -91,5 +101,16 @@ public class MiPortalSequencerSamplesSteps extends Pages {
         boolean testResult = false;
         testResult = miSequencerSamplesPage.verifyListOfColumnsInHeaderShowOrHidden(expColumnHeaderStatus,expectedListOfColumnHeaders);
         Assert.assertFalse(testResult);
+    }
+
+    @And("the user sees the below values in the sequencer samples search operator dropdown")
+    public void theUserSeesTheBelowValuesInTheSequencerSamplesSearchOperatorDropdown(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miSequencerSamplesPage.verifySequencerSamplesDropDownSearchOperator(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
     }
 }

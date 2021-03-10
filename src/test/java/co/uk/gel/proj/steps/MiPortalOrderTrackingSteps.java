@@ -109,11 +109,21 @@ public class MiPortalOrderTrackingSteps extends Pages {
     public void theUserSeesBelowValuesInTheOrderTrackingSearchColumnDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        List actualDropDownValues = miOrderTrackingPage.searchColumnDropDownMenu();
+        if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+            Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
+        String actValue = "", expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            actValue = actualDropDownValues.get(i).toString();
+            expValue = expectedDropDownValues.get(i).get(0);
+            if (!actValue.equalsIgnoreCase(expValue)) {
+                Assert.assertTrue(false);
+            }
         }
     }
+
     @Then("the order tracking search result table column (.*) is displayed with data (.*)")
     public void theOrderTrackingSearchResultIsDisplayedWithData(String columnName,String columnValue) {
         boolean testResult = false;
@@ -148,5 +158,16 @@ public class MiPortalOrderTrackingSteps extends Pages {
         boolean testResult = false;
         testResult = miOrderTrackingPage.verifyColumnDropdownInOrderTrackingSearchOptions(glhName, fileName);
         Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees the below values in the order tracking search operator dropdown")
+    public void theUserSeesTheBelowValuesInTheOrderTrackingSearchOperatorDropdown(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miOrderTrackingPage.verifyOrderTrackingDropDownSearchOperator(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
     }
 }
