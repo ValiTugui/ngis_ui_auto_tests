@@ -71,6 +71,9 @@ public class MiSampleFailuresPage {
     @FindBy(xpath = "//span[text()='Hide replaced samples']/../input")
     public WebElement hideReplacedSamplesCheckBox;
 
+    @FindBy(xpath = "//span[text()='Hide closed failures']/../input")
+    public WebElement hideClosedFailuresCheckBox;
+
     @FindBy(xpath = "//span[text()='Over 14 days old only']/../input")
     public WebElement overDaysOldOnlyCheckBox;
 
@@ -570,6 +573,40 @@ public class MiSampleFailuresPage {
         } catch (Exception exp) {
             Debugger.println("Exception from MIPortalSampleFailures:downloadSampleFailuresReport: " + exp);
             SeleniumLib.takeAScreenShot("noDownloadData.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnHideClosedFailuresCheckBoxToDeselect() {
+        try {
+            if (!Wait.isElementDisplayed(driver, hideClosedFailuresCheckBox, 10)) {
+                Debugger.println("Hide Closed Failures Check Box option is not displayed.");
+                SeleniumLib.takeAScreenShot("noClosedFailuresCheckBox.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(hideClosedFailuresCheckBox);
+//            Debugger.println("Hide Closed Failures CheckBox is clicked");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalSampleFailures:clickOnHideClosedFailuresCheckBoxToDeselect: " + exp);
+            SeleniumLib.takeAScreenShot("noClosedFailuresCheckBox.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnHideClosedFailuresCheckBoxToSelect() {
+        try {
+            if (!Wait.isElementDisplayed(driver, hideClosedFailuresCheckBox, 10)) {
+                Debugger.println("Hide Closed Failures Check Box option is not displayed.");
+                SeleniumLib.takeAScreenShot("hideClosedFailuresCheckBoxIsNotPresent.jpg");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(hideClosedFailuresCheckBox);
+//            Debugger.println("Hide Closed Failures CheckBox is clicked");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalSampleFailures:clickOnHideClosedFailuresCheckBoxToSelect: " + exp);
+            SeleniumLib.takeAScreenShot("noHideClosedFailuresCheckBox.jpg");
             return false;
         }
     }

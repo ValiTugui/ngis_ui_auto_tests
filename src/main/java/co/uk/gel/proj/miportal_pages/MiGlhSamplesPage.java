@@ -10,7 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -43,6 +45,9 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='glh_samples-search-operator']")
     public WebElement glhSearchOperator;
+
+    @FindBy(xpath = "//button[@data-id='glh_samples-search-col']")
+    public WebElement glhSearchColumnDropDown;
 
     @FindBy(xpath = "//select[@id='glh_samples-search-col']")
     public WebElement glhSearchColumn;
@@ -244,4 +249,25 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, glhSearchColumnDropDown, 10)) {
+                Debugger.println("GLH Samples search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(glhSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
+        }
+    }
 }

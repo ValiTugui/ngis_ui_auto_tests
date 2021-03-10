@@ -209,4 +209,18 @@ public class MiSampleFailuresSteps extends Pages {
         testResult = miSampleFailuresPage.sampleFailuresAllValueDeselect();
         Assert.assertTrue(testResult);
     }
+
+    @And("the user click on Hide closed failures check box to deselect by default it is selected")
+    public void theUserClickOnHideClosedFailuresCheckBoxToDeselectByDefaultItIsSelected() {
+        boolean testResult = false;
+        testResult = miSampleFailuresPage.clickOnHideClosedFailuresCheckBoxToDeselect();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Hide closed failures check box to select")
+    public void theUserClickOnHideClosedFailuresCheckBoxToSelect() {
+        boolean testResult = false;
+        testResult = miSampleFailuresPage.clickOnHideClosedFailuresCheckBoxToSelect();
+        Assert.assertTrue(testResult);
+    }
 }
