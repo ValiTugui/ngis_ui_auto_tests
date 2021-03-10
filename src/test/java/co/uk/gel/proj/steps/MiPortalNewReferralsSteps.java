@@ -67,11 +67,20 @@ public class MiPortalNewReferralsSteps extends Pages {
 
     @And("the user sees the below values in the new referrals search column drop-down menu")
     public void theUserSeesBelowValuesInTheNewReferralsSearchColumnDropDownMenu(DataTable dataTable) {
-        boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        List actualDropDownValues = miNewReferralsPage.searchColumnDropDownMenu();
+        if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+            Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
+        String actValue = "", expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miSequencerSamplesPage.selectSequencerSamplesDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            actValue = actualDropDownValues.get(i).toString();
+            expValue = expectedDropDownValues.get(i).get(0);
+            if (!actValue.equalsIgnoreCase(expValue)) {
+                Assert.assertTrue(false);
+            }
         }
     }
 

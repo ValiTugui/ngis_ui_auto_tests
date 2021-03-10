@@ -93,9 +93,18 @@ public class MiPortalPickListsSteps extends Pages {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
         Wait.seconds(5);
+        List actualDropDownValues = miPickListsPage.searchColumnDropDownMenu();
+        if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+            Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
+        String actValue = "", expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miPickListsPage.selectPickListsDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+            actValue = actualDropDownValues.get(i).toString();
+            expValue = expectedDropDownValues.get(i).get(0);
+            if (!actValue.equalsIgnoreCase(expValue)) {
+                Assert.assertTrue(false);
+            }
         }
     }
 
@@ -113,4 +122,15 @@ public class MiPortalPickListsSteps extends Pages {
         testResult = miPickListsPage.verifyColumnValueInPickListsSearchResultTable(columnName,columnValue);
         Assert.assertTrue(testResult);
     }
-}
+
+    @And("the user sees the below values in the pick lists search operator dropdown menu")
+    public void theUserSeesTheBelowValuesInThePickListsSearchOperatorDropdownMenu(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miPickListsPage.verifyPicklistsDropDownSearchOperator(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
+    }
+    }

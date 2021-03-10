@@ -6,10 +6,12 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,9 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='plater_samples-search-col']")
     public WebElement platerSampleSearchColumn;
+
+    @FindBy(xpath = "//button[@data-id='plater_samples-search-col']")
+    public WebElement platerSampleSearchColumnDropDownBtn;
 
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='plater_samples-search-value']")
     public WebElement getPlaterSamplesDate;
@@ -57,23 +62,23 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             String actualDate = getPlaterSamplesDate.getAttribute("data-shinyjs-resettable-value");
             if (date.equals("today") && !actualDate.isEmpty()) {
                 Debugger.println("today's date " + getPlaterSamplesDate.getAttribute("data-shinyjs-resettable-value"));
-            } else if (date.equalsIgnoreCase("future_date")     ){
+            } else if (date.equalsIgnoreCase("future_date")) {
                 String dateToday = TestUtils.todayInDDMMYYYFormat();
                 Debugger.println("today's date in dd/mm/yyyy " + dateToday);
                 dateToday = dateToday.replace("/", "-");
                 Debugger.println("today's date in dd-mm-yyyy " + dateToday);
-                String updatedFutureDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1,0, 0); //Add future day +1
+                String updatedFutureDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1, 0, 0); //Add future day +1
                 Debugger.println("future date in dd-mm-yyyy " + updatedFutureDate);
                 Actions.clickElement(driver, getPlaterSamplesDate);
                 Actions.clearInputField(getPlaterSamplesDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getPlaterSamplesDate,updatedFutureDate);
-            } else{
+                Actions.fillInValue(getPlaterSamplesDate, updatedFutureDate);
+            } else {
                 Wait.seconds(1);
                 Actions.clickElement(driver, getPlaterSamplesDate);
                 Actions.clearInputField(getPlaterSamplesDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getPlaterSamplesDate,date);
+                Actions.fillInValue(getPlaterSamplesDate, date);
             }
             return true;
         } catch (Exception exp) {
@@ -82,75 +87,80 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
     public boolean fillInPastDateInThePlaterSampleDate(String noOfDays) {
         String pastDate = "";
         try {
-            if(!Wait.isElementDisplayed(driver, getPlaterSamplesDate,30)){
+            if (!Wait.isElementDisplayed(driver, getPlaterSamplesDate, 30)) {
                 Debugger.println("fillInPastDateInThePlaterSampleDate not displayed.");
                 SeleniumLib.takeAScreenShot("fillInPastDateInThePlaterSampleDate.jpg");
                 return false;
             }
-            int daysBefore = -1*Integer.parseInt(noOfDays);
+            int daysBefore = -1 * Integer.parseInt(noOfDays);
             String dateToday = TestUtils.todayInDDMMYYYFormat();
             dateToday = dateToday.replace("/", "-");
-            pastDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore,0, 0); //Add future day +1
+            pastDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore, 0, 0); //Add future day +1
             Actions.clickElement(driver, getPlaterSamplesDate);
             Actions.clearInputField(getPlaterSamplesDate);
             Wait.seconds(2);
-            Actions.fillInValue(getPlaterSamplesDate,pastDate);
+            Actions.fillInValue(getPlaterSamplesDate, pastDate);
             return true;
 
         } catch (Exception exp) {
-            try{
-                seleniumLib.sendValue(getPlaterSamplesDate,pastDate);
+            try {
+                seleniumLib.sendValue(getPlaterSamplesDate, pastDate);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in fillInPastDateInThePlaterSampleDate:" + exp);
                 SeleniumLib.takeAScreenShot("fillInPastDateInThePlaterSampleDate.jpg");
                 return false;
             }
         }
     }
+
     public boolean selectPlaterSamplesDropDownSearchColumn(String value) {
         try {
-            if(!seleniumLib.selectFromListByText(platerSampleSearchColumn,value)){
+            if (!seleniumLib.selectFromListByText(platerSampleSearchColumn, value)) {
                 Wait.seconds(5);
-                return seleniumLib.selectFromListByText(platerSampleSearchColumn,value);
+                return seleniumLib.selectFromListByText(platerSampleSearchColumn, value);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchColumn: "+ exp);
+            Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchColumn: " + exp);
             SeleniumLib.takeAScreenShot("platerSampleSearchColumn.jpg");
             return false;
         }
     }
+
     public boolean selectPlaterSamplesDropDownSearchOperator(String value) {
         try {
-            if(!seleniumLib.selectFromListByText(platerSampleSearchOperator,value)){
+            if (!seleniumLib.selectFromListByText(platerSampleSearchOperator, value)) {
                 Wait.seconds(5);
-                return seleniumLib.selectFromListByText(platerSampleSearchOperator,value);
+                return seleniumLib.selectFromListByText(platerSampleSearchOperator, value);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchOperator: "+ exp);
+            Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchOperator: " + exp);
             SeleniumLib.takeAScreenShot("platerSampleSearchOperator.jpg");
             return false;
         }
     }
+
     public boolean selectPlaterSamplesDropDownSearchValue(String value) {
         try {
-            if(!seleniumLib.selectFromListByText(platerSampleSearchValue,value)){
+            if (!seleniumLib.selectFromListByText(platerSampleSearchValue, value)) {
                 Wait.seconds(5);
-                return seleniumLib.selectFromListByText(platerSampleSearchValue,value);
+                return seleniumLib.selectFromListByText(platerSampleSearchValue, value);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in platerSampleSearchValue:selectDropDownSearchValue: "+ exp);
+            Debugger.println("Exception in platerSampleSearchValue:selectDropDownSearchValue: " + exp);
             SeleniumLib.takeAScreenShot("platerSampleSearchValue.jpg");
             return false;
         }
     }
-    public boolean verifyColumnValueInPlaterSamplesSearchResultTable(String columnName,String expValue) {
+
+    public boolean verifyColumnValueInPlaterSamplesSearchResultTable(String columnName, String expValue) {
         Wait.seconds(3);
         try {
             if (!Wait.isElementDisplayed(driver, searchResults, 20)) {
@@ -159,15 +169,15 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             int noOfFilteredRows = seleniumLib.getNoOfRows(platerSamplesTableRows);
-            if(noOfFilteredRows == 0){
+            if (noOfFilteredRows == 0) {
                 Debugger.println("No search result found in PlaterSamples Search Result Table");
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
                 return false;
             }
             List<WebElement> colHeads = driver.findElements(platerSamplesTableHead);
-            int colIndex = seleniumLib.getColumnIndex(colHeads,columnName);
-            if(colIndex == -1){
-                Debugger.println("Specified column "+columnName+" not present in the Plater Samples Search Result Table.");
+            int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
+            if (colIndex == -1) {
+                Debugger.println("Specified column " + columnName + " not present in the Plater Samples Search Result Table.");
                 SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
                 return false;
             }
@@ -175,17 +185,17 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             //Verify value in each column value as expected.
             By cellPath = null;
             String cellValue = "";
-            for(int i=0; i<noOfFilteredRows;i++){
+            for (int i = 0; i < noOfFilteredRows; i++) {
                 //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
-                cellPath = By.xpath(platerSamplesTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+                cellPath = By.xpath(platerSamplesTableRows + "[" + (i + 1) + "]/td[" + colIndex + "]");
                 cellValue = seleniumLib.getText(cellPath);
-                if(expValue.equalsIgnoreCase("non-empty-data")){
-                    if(cellValue.isEmpty()){
+                if (expValue.equalsIgnoreCase("non-empty-data")) {
+                    if (cellValue.isEmpty()) {
                         Debugger.println("Column:" + columnName + " value supposed to be non-empty, but Actual is empty");
                         SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
                         return false;
                     }
-                }else {
+                } else {
                     if (!cellValue.contains(expValue)) {
                         Debugger.println("Column:" + columnName + " value, Expected:" + expValue + ",Actual:" + cellValue);
                         SeleniumLib.takeAScreenShot("platerSamplesTable.jpg");
@@ -200,27 +210,28 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
     public boolean enterPlaterSampleTextSearchValue(String value) {
         try {
             Wait.seconds(2);
-            seleniumLib.sendValue(platerSampleSearchInput,value);
+            seleniumLib.sendValue(platerSampleSearchInput, value);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in MIPortalOrderTracking:enterPlaterSampleTextSearchValue: "+ exp);
+            Debugger.println("Exception in MIPortalOrderTracking:enterPlaterSampleTextSearchValue: " + exp);
             SeleniumLib.takeAScreenShot("enterPlaterSampleTextSearchValue.jpg");
             return false;
         }
     }
 
     public boolean verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown(String expectedDropdownValue) {
-        try{
+        try {
             List<String> actualDropdownValueList = new ArrayList<>();
             Wait.seconds(5);
             for (WebElement dropDownValues : searchColumnDropdownValues) {
                 actualDropdownValueList.add(dropDownValues.getText().trim());
             }
             boolean isPresent = false;
-            for (int i=0; i <= actualDropdownValueList.size(); i++) {
+            for (int i = 0; i <= actualDropdownValueList.size(); i++) {
                 if (!actualDropdownValueList.get(i).equalsIgnoreCase(expectedDropdownValue)) {
                     isPresent = true;
                     break;
@@ -235,9 +246,53 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown: " +exp);
+            Debugger.println("Exception from verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown: " + exp);
             SeleniumLib.takeAScreenShot("ExpectedColumnPresent.jpg");
             return false;
+        }
+    }
+
+    public boolean verifyPlaterSampleDropDownSearchOperator(String value) {
+        Wait.seconds(3); // To load the dropdown values
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.selectFromListByText(platerSampleSearchOperator, value)) {
+                Wait.seconds(5);
+                if (!seleniumLib.selectFromListByText(platerSampleSearchOperator, value)) {
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'" + value + "')]");
+                    seleniumLib.clickOnElement(optionPath);
+                }
+            }
+            return true;
+        } catch (StaleElementReferenceException exp) {
+            By searchOperator = By.xpath("//select[@id='plater_samples-search-operator']");
+            return seleniumLib.optionFromListByText(searchOperator, value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalPlaterSamples:selectDropDownSearchOperator: " + exp);
+            SeleniumLib.takeAScreenShot("platerSamplesSearchOperator.jpg");
+            return false;
+        }
+    }
+
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, platerSampleSearchColumnDropDownBtn, 10)) {
+                Debugger.println("Plater Samples search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(platerSampleSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
         }
     }
 }

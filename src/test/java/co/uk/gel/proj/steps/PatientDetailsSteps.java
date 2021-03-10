@@ -385,6 +385,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user click YES button for the question - Do you have the NHS no?")
     public void theUserClickYESButtonForTheQuestionDoYouHaveTheNHSNo() {
+        Actions.scrollToTop(driver);
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.yesButton);
         patientDetailsPage.yesButton.click();
     }

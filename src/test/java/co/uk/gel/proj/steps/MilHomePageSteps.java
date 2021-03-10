@@ -467,6 +467,12 @@ public class MilHomePageSteps extends Pages {
             Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
+            int actualSize=miPortalHomePage.getNumberOfSectionHeader();
+            //actualSize -2 is given since the xpath counts the total number of menus in the landing page which is 10 but as per the scenario
+            //below Sample processsing menu there is only 8 sections
+            if((actualSize-2) != (linkDetails.size()-1)){
+                Assert.fail("Mismatch observed in the number of section headers");
+            }
             for (int i = 1; i < linkDetails.size(); i++) {
                 testResult = miPortalHomePage.verifyThePresenceOfSectionHeader(linkDetails.get(i).get(0));
                 if (!testResult) {
@@ -493,19 +499,25 @@ public class MilHomePageSteps extends Pages {
             Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
-            for (int i = 1; i < linkDetails.size(); i++) {
-                testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderDataQuality(linkDetails.get(i).get(0));
-                if (!testResult) {
-                    Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Data Quality Section.");
-                    Assert.fail(linkDetails.get(i).get(0)+" Could not verify in Data Quality Section");
-                }
-                Wait.seconds(2);
+            int actualSize = miPortalHomePage.getNumberOfDataQualitySectionHeader();
+            //actualSize -9 is given since the xpath counts the total number of menus in the landing page which is 10 but as per the scenario
+            //below Data Quality section there is only 1 report
+            if((actualSize-9) != (linkDetails.size()-1)){
+                Assert.fail("Mismatch observed in the number of section headers");
             }
-        } catch (Exception exp) {
-            Debugger.println("Exception from Data Quality Section Header " + exp);
-            Assert.assertFalse("MiHomePageSteps: Exception from Data Quality Section Header " + exp, true);
+                for (int i = 1; i < linkDetails.size(); i++) {
+                    testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderDataQuality(linkDetails.get(i).get(0));
+                    if (!testResult) {
+                        Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Data Quality Section.");
+                        Assert.fail(linkDetails.get(i).get(0) + " Could not verify in Data Quality Section");
+                    }
+                    Wait.seconds(2);
+                }
+            } catch(Exception exp){
+                Debugger.println("Exception from Data Quality Section Header " + exp);
+                Assert.assertFalse("MiHomePageSteps: Exception from Data Quality Section Header " + exp, true);
+            }
         }
-    }
 
     @And("the user should be able to see {string} search boxes in the {string} page")
     public void theUserShouldBeAbleToSeeSearchBoxesInThePage(String numberOfSearchField, String section) {
@@ -678,6 +690,12 @@ public class MilHomePageSteps extends Pages {
             Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
+            int actualSize=miPortalHomePage.getNumberOfSampleFailureSectionHeader();
+            //actualSize -9 is given since the xpath counts the total number of menus in the landing page which is 10 but as per the scenario
+            //below Sample Failures section there is only 1 report
+            if((actualSize-9) != (linkDetails.size()-1)){
+                Assert.fail("Mismatch observed in the number of section headers");
+            }
             for (int i = 1; i < linkDetails.size(); i++) {
                 testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderSampleFailures(linkDetails.get(i).get(0));
                 if (!testResult) {
