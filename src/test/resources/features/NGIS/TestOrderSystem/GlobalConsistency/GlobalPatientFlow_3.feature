@@ -1,6 +1,7 @@
 @GlobalFlow
 @03-TEST_ORDER
 @SYSTEM_TEST
+@GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
   @NTS-4711 @Z-LOGOUT

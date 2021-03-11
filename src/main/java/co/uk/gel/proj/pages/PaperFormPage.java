@@ -124,12 +124,12 @@ public class PaperFormPage {
             }
             Actions.clearInputField(orderEntitySearchField);
             orderEntitySearchField.sendKeys(keyword);
-            Wait.seconds(2);
+            Wait.seconds(4);
             return true;
         } catch (Exception exp) {
             try {
                 seleniumLib.sendValue(orderEntitySearchField, keyword);
-                Wait.seconds(2);
+                Wait.seconds(4);
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception1 from orderEntitySearchField.." + exp1 + "\n" + driver.getCurrentUrl());
@@ -188,6 +188,9 @@ public class PaperFormPage {
 
     public boolean selectRandomEntityFromSuggestionsList() {
         try {
+            if (orderEntitySearchSuggestionsList.size() == 0) {
+                SeleniumLib.sleepInSeconds(3);
+            }
             if (orderEntitySearchSuggestionsList.size() == 0) {
                 Debugger.println("No Organisation list loaded for the search." + driver.getCurrentUrl());
                 return false;

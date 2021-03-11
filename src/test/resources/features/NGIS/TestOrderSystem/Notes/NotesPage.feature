@@ -2,7 +2,6 @@
 #@notes
 @03-TEST_ORDER
 @SYSTEM_TEST
-@PrintForms
 Feature: TestOrder - Notes page
 
   @NTS-4503 @Z-LOGOUT

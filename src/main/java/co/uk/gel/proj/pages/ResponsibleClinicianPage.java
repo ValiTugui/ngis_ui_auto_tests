@@ -254,8 +254,11 @@ public class ResponsibleClinicianPage {
         return removeClinicianButton.get(0).isDisplayed() && Actions.getText(removeClinicianButton.get(0)).contains(expectedHyperlinkText);
     }
 
+    @FindBy(xpath = "//label[text()='Last name']")
+    public List<WebElement> lastNameLabel;
     public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
-        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+        int latestLastName= lastNameLabel.size()-1;
+        return clinicianErrorMessages.get(latestLastName).getText().contains(expectedErrorMessage);
     }
 
     public boolean verifyLastNameFieldIsHighlightedInRed(String expectedColourUponError) {

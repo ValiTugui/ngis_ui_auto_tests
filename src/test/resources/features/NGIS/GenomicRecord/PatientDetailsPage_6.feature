@@ -97,22 +97,6 @@ Feature: GenomicRecord: Patient details page 6
       | Patient details | NGIS                | 2000004083 | 06-10-2011 |
 
   @NTS-6343 @Z-LOGOUT
-  Scenario Outline: NTS-6343 - Scenario2
-    Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
-    Then the "<pageTitle>" page is displayed
-    And the user view the day field
-    Then the user clicks in the birthday field in patient details page
-    And the user view the month field
-    Then the user clicks in the birthmonth in patient details page
-    And the user view the year field
-    Then the user clicks in the birthyear in patient details page
-
-    Examples:
-      | pageTitle                        |
-      | Create a record for this patient |
-
-  @NTS-6343 @Z-LOGOUT
   Scenario Outline:  NTS-6343 - Scenario3
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1971:Gender=Male |
@@ -181,17 +165,7 @@ Feature: GenomicRecord: Patient details page 6
     Then the user clicks in the dateOfDiagnosis month field
     And the user view the year field
     Then the user clicks in the dateOfDiagnosis year field
-    Examples:
-      | stage   |
-      | Tumours |
-
-
-  @NTS-6343 @Z-LOGOUT
-  Scenario Outline:  NTS-6343 - Scenario4
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-    And the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<stage>" stage
+    When the user navigates to the "<Samples>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
@@ -204,10 +178,9 @@ Feature: GenomicRecord: Patient details page 6
     Then the user clicks in the Sample Details month field
     And the user view the year field
     Then the user clicks in the Sample Details year field
-
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     |
-      | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample |
+      | stage   | Samples | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample |
 
   @NTS-6343 @Z-LOGOUT
   Scenario Outline:  NTS-6343 - Scenario5

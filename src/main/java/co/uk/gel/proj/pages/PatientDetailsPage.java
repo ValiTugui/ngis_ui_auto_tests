@@ -415,12 +415,18 @@ public class PatientDetailsPage {
             patientAddressDetails.add(faker.address().state());
             newPatient.setPatientAddress(patientAddressDetails);
 
+            addressLine0.clear();
             Actions.fillInValue(addressLine0, patientAddressDetails.get(0));
+            addressLine1.clear();
             Actions.fillInValue(addressLine1, patientAddressDetails.get(1));
+            addressLine2.clear();
             Actions.fillInValue(addressLine2, patientAddressDetails.get(2));
+            addressLine3.clear();
             Actions.fillInValue(addressLine3, patientAddressDetails.get(3));
+            addressLine4.clear();
             Actions.fillInValue(addressLine4, patientAddressDetails.get(4));
             newPatient.setPostCode(getRandomUKPostCode());
+            postcode.clear();
             Actions.fillInValue(postcode, newPatient.getPostCode());
             //Debugger.println("Expected patient address - List " + patientAddressDetails + " : " + newPatient.getPatientAddress());
             return true;
@@ -1064,7 +1070,12 @@ public class PatientDetailsPage {
 
     public String getNotificationMessageForPatientCreatedOrUpdated() {
         try {
-            Wait.forElementToBeDisplayed(driver, successNotification);
+            try{
+                Wait.forElementToBeDisplayed(driver, successNotification);
+            }catch (Exception exp){
+                Wait.forElementToBeDisplayed(driver, successNotification);
+            }
+
             return Actions.getText(successNotification);
         } catch (Exception exp) {
             try {

@@ -3,21 +3,9 @@
 #@referral
 @03-TEST_ORDER
 @SYSTEM_TEST
+@GlobalConsistency
 Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 
-  @NTS-4728 @Z-LOGOUT
-#   @E2EUI-1250 @E2EUI-1368
-  Scenario Outline: Referral: Date of Birth and Age format in the referral header bar
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    When the user navigates to the "<stage>" stage
-    Then the "<stage>" stage is marked as Completed
-    And the referral submit button is not enabled
-    And the DOB and age in the referral header bar are displayed in the expected format
-
-    Examples:
-      | stage           |
-      | Patient details |
 
 # Awaiting review from Manual Testers
 #  @Z-LOGOUT  @ignore @NTS_todo
@@ -72,106 +60,63 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 #      | stage           |
 #      | Patient details |
 
-  @NTS-4673 @Z-LOGOUT
-#   @E2EUI-1492
-  Scenario Outline: Patient Search - The correct elements are displayed in the header of Test Ordering
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    And the Genomic Medicine Service logo "<genomicsEnglandLogo>" is displayed in the header of Test Ordering
-    And the username "<userType>" is displayed in the header of Test Ordering
-    And the logout "<logoutText>" text is displayed in the header of Test Ordering
-    Then the NHS logo is displayed in the header of Test Ordering
-
-    Examples:
-      | genomicsEnglandLogo      | logoutText | userType        |
-      | Genomic Medicine Service | Log out    | GEL_NORMAL_USER |
-
-   @NTS-4673 @Z-LOGOUT
+  @NTS-4728  @NTS-4673 @Z-LOGOUT
+#    @NTS-4793 @E2EUI-1008
+#    @E2EUI-1250 @E2EUI-1368
+#    @NTS-4809 @E2EUI-1324
+#    @NTS-4689 @E2EUI-1152
 #    @E2EUI-1492
   Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     When the user navigates to the "Patient details" stage
     Then the "Patient details" stage is marked as Completed
+#    @NTS-4793 @E2EUI-1008
+    And the "<patient-search-type>" patient details searched for are the same in the referral header bar
+    ### @NTS-4728
+    And the referral submit button is not enabled
+    And the DOB and age in the referral header bar are displayed in the expected format
+###  @E2EUI-1492
+    And the user has scrolled down the page to the bottom (Footer)
+    And the NHS logo is displayed in the footer of Test Ordering
+    And the Genomics England logo is displayed in the footer of Test Ordering
+    And the Report an issue or provide feedback text link is displayed in the footer of Test Ordering
+    And the Privacy Policy text link is displayed in the footer of Test Ordering
+    And the copyright text is displayed in the footer of Test Ordering
     And the Genomic Medicine Service logo "<genomicsEnglandLogo>" is displayed in the header of Test Ordering
+#    @NTS-4813 @Z-LOGOUT @E2EUI-1005
+    When the user submits the referral
+    And the user sees a dialog box with a title "<dialogTitle>"
+    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+      | MandatoryStagesToComplete |
+      | Requesting organisation   |
+      | Test package              |
+      | Responsible clinician     |
+      | Tumours                   |
+      | Patient choice            |
+    And the user clicks on the mandatory stage "<stage2>" in the dialog box
+    And the "<stage2>" stage is selected
+    Then the "<pageTitle>" page is displayed
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And  the user clicks the Save and Continue button
+    And the "<stage3>" stage is selected
+    When the user submits the referral
+    And the user sees a dialog box with a title "<dialogTitle>"
+    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+      | MandatoryStagesToComplete |
+      | Test package              |
+      | Responsible clinician     |
+      | Tumours                   |
+      | Patient choice            |
+    And the user clicks on the mandatory stage "<stage3>" in the dialog box
+    And the "<stage3>" stage is selected
+#    @NTS-4689 @E2EUI-1152
     And the username "<userType>" is displayed in the header of Test Ordering
     And the logout "<logoutText>" text is displayed in the header of Test Ordering
     Then the NHS logo is displayed in the header of Test Ordering
-
-    Examples:
-      | genomicsEnglandLogo      | logoutText | userType        |
-      | Genomic Medicine Service | Log out    | GEL_SUPER_USER |
-
-   @NTS-4673 @Z-LOGOUT
-#  @E2EUI-1492
-  Scenario: The correct elements are displayed in the footer of Test Ordering
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    And the user has scrolled down the page to the bottom (Footer)
-    And the NHS logo is displayed in the footer of Test Ordering
-    And the Genomics England logo is displayed in the footer of Test Ordering
-    And the Report an issue or provide feedback text link is displayed in the footer of Test Ordering
-    And the Privacy Policy text link is displayed in the footer of Test Ordering
-    And the copyright text is displayed in the footer of Test Ordering
-
-   @NTS-4673 @Z-LOGOUT
-#  @E2EUI-1492
-  Scenario: Referral footer Page -  The correct elements are displayed in the footer of Test Ordering
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    When the user navigates to the "Patient details" stage
-    Then the "Patient details" stage is marked as Completed
-    And the user has scrolled down the page to the bottom (Footer)
-    And the NHS logo is displayed in the footer of Test Ordering
-    And the Genomics England logo is displayed in the footer of Test Ordering
-    And the Report an issue or provide feedback text link is displayed in the footer of Test Ordering
-    And the Privacy Policy text link is displayed in the footer of Test Ordering
-    And the copyright text is displayed in the footer of Test Ordering
-
-
-  @NTS-4689 @Z-LOGOUT
-    #@E2EUI-1152
-  Scenario Outline: Patient Search - Show user account information in Test Order Management System
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    And the username "<userType>" is displayed in the header of Test Ordering
-
-    Examples:
-      | userType        |
-      | GEL_NORMAL_USER |
-
-  @NTS-4689 @Z-LOGOUT
-    #@E2EUI-1152
-  Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    When the user navigates to the "Patient details" stage
-    Then the "Patient details" stage is marked as Completed
-    And the username "<userType>" is displayed in the header of Test Ordering
-
-    Examples:
-      | userType       |
-      | GEL_SUPER_USER |
-
-  @NTS-4793 @Z-LOGOUT
-    #@E2EUI-1008
-  Scenario Outline: NTS-4793:Re-order data in referral banner
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage1>" stage
-    And the "<stage1>" stage is marked as Completed
-    And the "<patient-search-type>" patient details searched for are the same in the referral header bar
-
-    Examples:
-      | patient-search-type | stage1          |
-      | NGIS                | Patient details |
-
-  @NTS-4809 @Z-LOGOUT
-    #@E2EUI-1324
-  Scenario Outline: NTS-4809: Header bar for a referral
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the "<stage1>" stage is marked as Completed
+#    @NTS-4809 @E2EUI-1324
     And the user retrieve the referral HumanReadable-ID from the referral page url
     When the user navigates back to patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -184,7 +129,10 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
     And the user click on the referral card on patient details page to navigate to referral page
     And the user sees the patient details on the referral header of each referral component page "<PageTitle>"
       | PatientName | PatientDOB | PatientGender | PatientNHSNo | PatientNgisId | ClinicalIndicationName | PatientReferralID | ReferralStatus | ReferralSubmitButton |
+#    @NTS-4562 @E2EUI-1088
+    And the user clicks the Log out button
+    Then the user is successfully logged out
 
     Examples:
-      | stage1          | PageTitle                    |
-      | Patient details | Check your patient's details |
+      | genomicsEnglandLogo      | stage2                  | pageTitle                     | ordering_entity_name | stage3       | logoutText | userType       | dialogTitle                  | patient-search-type | PageTitle                    |
+      | Genomic Medicine Service | Requesting organisation | Add a requesting organisation | Maidstone            | Test package | Log out    | GEL_SUPER_USER | There is missing information | NGIS                | Check your patient's details |
