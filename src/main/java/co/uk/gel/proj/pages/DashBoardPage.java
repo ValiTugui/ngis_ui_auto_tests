@@ -82,7 +82,9 @@ public class DashBoardPage {
             try{
                 Wait.forElementToBeClickable(driver, resultsPanel);
             }catch (Exception exp){
-                Actions.refreshBrowser(driver);
+                SeleniumLib.refreshPage();
+                SeleniumLib.sleep(5);
+//                Actions.refreshBrowser(driver);
                 Wait.forElementToBeClickable(driver, resultsPanel);
             }
             return true;
