@@ -2176,5 +2176,38 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    public int getNumberOfSectionHeader() {
+        try {
+           return subMenusOfSimpleProcessing.size();
+
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheNumberOfSectionHeader:" + exp);
+            SeleniumLib.takeAScreenShot("SampleProcessingHeaderNotPresent.jpg");
+            return -1;
+        }
+    }
+
+
+    public int getNumberOfDataQualitySectionHeader() {
+        try {
+            return subMenusOfDataQuality.size();
+
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheNumberOfSectionHeaderInDataQuality:" + exp);
+            SeleniumLib.takeAScreenShot("DataQualityHeaderNotPresent.jpg");
+            return -1;
+        }
+    }
+    public int getNumberOfSampleFailureSectionHeader() {
+        try {
+            return subMenusOfsampleFailures.size();
+
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheNumberOfSectionHeaderInSampleFailures:" + exp);
+            SeleniumLib.takeAScreenShot("DataQualityHeaderNotPresent.jpg");
+            return -1;
+        }
+    }
 }//end
 

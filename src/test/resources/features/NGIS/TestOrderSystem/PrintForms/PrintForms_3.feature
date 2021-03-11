@@ -132,7 +132,6 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the user clicks the Save and Continue button
     ###Print Forms
     When the user navigates to the "<PrintForms>" stage
-    Then the user is navigated to a page with title Print sample forms
     And the user verifies that the relationship to proband "<RelationshipToProband>" is updated in Print forms section
     ###Family Members for modification
     When the user navigates to the "<FamilyMembers>" stage

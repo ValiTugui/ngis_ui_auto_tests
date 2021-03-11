@@ -1,15 +1,12 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -803,7 +800,13 @@ public class ReferralPage<check> {
         try {
             if (Wait.isElementDisplayed(driver, submitReferralButton, 100)) {
                 Actions.clickElement(driver, submitReferralButton);
-                Debugger.println("Referral submitted...");
+                if (seleniumLib.isElementPresent(mandatoryStageDialogBox)) {
+                    Actions.refreshBrowser(driver);
+                    Wait.isElementDisplayed(driver, submitReferralButton, 100);
+                    Actions.clickElement(driver, submitReferralButton);
+                    Debugger.println("Clicked on referral submit after refresh the page");
+                }
+                Debugger.println("Clicked on referral submit");
             }
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Referral " + exp);

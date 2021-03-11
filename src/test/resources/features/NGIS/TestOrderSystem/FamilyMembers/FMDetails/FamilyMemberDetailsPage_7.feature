@@ -1,6 +1,7 @@
 #@FamilyMembersDetailsPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@FamilyMember
 Feature: Family Members Details Page 7- Post Code validation_1
 
   @NTS-5810 @Z-LOGOUT
@@ -19,16 +20,47 @@ Feature: Family Members Details Page 7- Post Code validation_1
     Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
-    And the user fills in the Postcode field box with "<Postcode>"
+    And the user fills in the Postcode field box with "<Postcode1>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Continue with this family member
-    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat>" format
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat1>" format
+
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
+    And the user fills in the Postcode field box with "<Postcode2>"
+    Then the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat1>" format
+
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
+    And the user fills in the Postcode field box with "<Postcode3>"
+    Then the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat1>" format
+
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
+    And the user fills in the Postcode field box with "<Postcode4>"
+    Then the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat2>" format
+
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
+    And the user fills in the Postcode field box with "<Postcode5>"
+    Then the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat2>" format
+
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
+    And the user fills in the Postcode field box with "<Postcode6>"
+    Then the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat2>" format
+
 
     Examples:
-      | FamilyMember   | FamilyMemberDetails                 | Postcode | RelationshipToProband | PostcodeFormat |
-      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB12CD   | Full Sibling          | AB1 2CD        |
-      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB1 2CD  | Full Sibling          | AB1 2CD        |
-      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | AB1  2CD | Full Sibling          | AB1 2CD        |
-      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab12cd   | Full Sibling          | ab1 2cd        |
-      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab1 2cd  | Full Sibling          | ab1 2cd        |
-      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | ab1  2cd | Full Sibling          | ab1 2cd        |
+      | FamilyMember   | FamilyMemberDetails                 | RelationshipToProband | Postcode1 | Postcode2 | Postcode3 | Postcode4 | Postcode5 | Postcode6 | PostcodeFormat1 | PostcodeFormat2 |
+      | Family members | NHSNumber=2000004296:DOB=24-09-2011 | Full Sibling          | AB12CD    | AB1 2CD   | AB1  2CD  | ab12cd    | ab1 2cd   | ab1  2cd  | AB1 2CD         | ab1 2cd         |

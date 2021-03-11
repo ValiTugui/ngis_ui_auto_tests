@@ -31,7 +31,7 @@ Feature: GenomicRecord: Patient details page 2
       | patient-search-type |
       | NGIS                |
 
-  @NTS-31511 @Z-LOGOUT
+  @NTS-3151 @Z-LOGOUT
 #    @E2EUI-1047
   Scenario Outline: NTS-3151:E2EUI-1047:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -47,7 +47,6 @@ Feature: GenomicRecord: Patient details page 2
     And the user clicks the patient result card
     Then the Patient Details page is displayed
     And the user clicks on edit patient details
-
     ##Below two steps not valid for Gonzalo
 #    And the user click on the referral card on patient details page to navigate to referral page
 #    And the "<patient-search-type>" patient details searched for are the same in the referral header bar

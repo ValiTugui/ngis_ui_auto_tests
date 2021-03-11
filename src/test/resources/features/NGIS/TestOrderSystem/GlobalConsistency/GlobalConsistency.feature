@@ -1,6 +1,5 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
-@GlobalConsistency
 Feature: TestOrder - Global Consistency
 
     @NTS-5069

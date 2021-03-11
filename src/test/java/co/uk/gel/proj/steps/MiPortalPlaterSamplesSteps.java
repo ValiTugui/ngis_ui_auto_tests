@@ -102,12 +102,19 @@ public class MiPortalPlaterSamplesSteps extends Pages {
     public void theUserSeesBelowValuesInThePlaterSamplesSearchColumnDropDownMenu(DataTable dataTable) {
         boolean testResult = false;
         List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        List actualDropDownValues = miPlaterSamplesPage.searchColumnDropDownMenu();
+        if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+            Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
+        String actValue = "", expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miPlaterSamplesPage.selectPlaterSamplesDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            if(!testResult) {
-                Assert.assertTrue(expectedDropDownValues.get(i).get(0) + "not present in plater samples.", testResult);
+            actValue = actualDropDownValues.get(i).toString();
+            expValue = expectedDropDownValues.get(i).get(0);
+            if (!actValue.equalsIgnoreCase(expValue)) {
+                Assert.assertTrue(false);
             }
-            Wait.seconds(2);
         }
     }
 
@@ -124,4 +131,15 @@ public class MiPortalPlaterSamplesSteps extends Pages {
         testResult = miPlaterSamplesPage.verifyExpectedColumnNameInPlaterSamplesSearchColumnDropdown(expectedHeaderValue);
         Assert.assertTrue(testResult);
     }
-}
+
+    @And("the user sees the below values in the plater samples search operator drop-down menu")
+    public void theUserSeesTheBelowValuesInThePlaterSamplesSearchOperatorDropDownMenu(DataTable dataTable) {
+        boolean testResult = false;
+        List<List<String>> expectedDropDownValues = dataTable.asLists();
+        Wait.seconds(5);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = miPlaterSamplesPage.verifyPlaterSampleDropDownSearchOperator(expectedDropDownValues.get(i).get(0));
+            Assert.assertTrue(testResult);
+        }
+    }
+    }

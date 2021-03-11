@@ -34,6 +34,8 @@ Feature: Pedigree - Diagram Layout
       | MoveHome    |
       | ZoomIn      |
       | ZoomOut     |
+
+    #    @E2EUI-1457
     And the user should see the Undo button status as disabled
     And the user should see the Redo button status as disabled
     When the user click on Reset menu button
@@ -54,25 +56,3 @@ Feature: Pedigree - Diagram Layout
     Examples:
       | FamilyMemberDetails         | Pedigree | WarningMessage                                                                                |
       | NHSNumber=NA:DOB=25-10-2008 | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
-
-  @NTS-3304 @Z-LOGOUT
-#    @E2EUI-1457
-  Scenario Outline: NTS-3304 :E2EUI-1457: Pedigree Diagram layout
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2009:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-     ##Pedigree
-    When the user navigates to the "<Pedigree>" stage
-    Then the user is navigated to a page with title Build a pedigree
-    And the user should be able to see a "<WarningMessage>" on the pedigree page
-    And the user should see the Undo button status as disabled
-    And the user should see the Redo button status as disabled
-    When the user click on Reset menu button
-    Then the user should see the Undo button status as enabled
-    When the user click on Undo menu button
-    Then the user should see the Redo button status as enabled
-
-    Examples:
-      | Pedigree | WarningMessage                                                                                |
-      | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |

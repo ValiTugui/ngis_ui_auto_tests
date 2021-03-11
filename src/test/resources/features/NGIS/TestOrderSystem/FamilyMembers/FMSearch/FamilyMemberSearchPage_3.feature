@@ -1,7 +1,7 @@
 #@FamilyMemberSearchPage
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@FamilyMember
 Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
 
   @NTS-3227
@@ -30,7 +30,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
       | SearchDetails                                                            | ErrorMessage1                                      | ErrorMessage2                                       |
       | DOB=18-03-1967:FirstName=MADELINE:LastName=LENNON:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
 
-  @NTS-5810 @Z-LOGOUT
+  @NTS-5810
 #    @E2EUI-3018
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field - Search family member with Postcode.
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -47,6 +47,23 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat>" format
 
     Examples:
-      | stage          | SearchDetails                                                                      | ResultMessage          | PostcodeFormat |
-      | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=LE17 2RJ    | 1 patient record found | LE17 2RJ      |
-      | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=le17 2rj    | 1 patient record found | LE17 2RJ       |
+      | stage          | SearchDetails                                                                   | ResultMessage          | PostcodeFormat |
+      | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=LE17 2RJ | 1 patient record found | LE17 2RJ       |
+
+  @NTS-5810 @Z-LOGOUT
+#    @E2EUI-3018
+  Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field - Search family member with Postcode.
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
+    And the display question for NHS Number of the family member search page is Do you have the family member’s NHS Number?
+    When the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ResultMessage>" result found
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Add missing family member details
+    And the user is able to see the entered postcode value in the address field in correct "<PostcodeFormat>" format
+
+    Examples:
+      | stage          | SearchDetails                                                                   | ResultMessage          | PostcodeFormat |
+      | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=le17 2rj | 1 patient record found | LE17 2RJ       |
