@@ -79,13 +79,21 @@ public class DashBoardPage {
 
     public boolean dashboardPageResultsIsLoaded() {
         try {
-            try{
-                Wait.forElementToBeClickable(driver, resultsPanel);
-            }catch (Exception exp){
-                SeleniumLib.refreshPage();
-                SeleniumLib.sleep(5);
-//                Actions.refreshBrowser(driver);
-                Wait.forElementToBeClickable(driver, resultsPanel);
+            for (int i=0;i<3;i++) {
+                try {
+                    Wait.forElementToBeClickable(driver, resultsPanel);
+                    if (seleniumLib.isElementPresent(resultsPanel)){
+                        return true;
+                    }
+                } catch (Exception exp) {
+                    SeleniumLib.refreshPage();
+                    SeleniumLib.sleep(5);
+                    Wait.forElementToBeClickable(driver, resultsPanel);
+                }
+            }
+            if (!seleniumLib.isElementPresent(resultsPanel)){
+                Debugger.println("The Dashboard result page is not loaded");
+                return false;
             }
             return true;
         }catch(Exception exp){
