@@ -110,10 +110,6 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FieldName                            | FieldStatus |
       | Number Of Colorectal Polyps Total    | Editable    |
       | Number of Colorectal Polyps Adenomas | Editable    |
-
-    And the user select the pedigree tab Clinical
-    Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
-
     ##E2EUI-1160
     And the user enters tumour field values as "<TumourFieldValues>"
     ##@E2EUI-1074
@@ -126,4 +122,3 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     Examples:
       | FamilyMember   | ProbandDetails              | Disease   | TumourFieldValues | ErrorMessage                                                                                                                                                                   | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-1991 | carcinoid | 123abc,234jut     | Invalid value entered for 'Number Of Colorectal Polyps Total' for Participant with id,Invalid value entered for 'Number of Colorectal Polyps Adenomas' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
-
