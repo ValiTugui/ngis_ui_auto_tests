@@ -60,9 +60,10 @@ Feature: UserJourney_CAN_NGIS_Proband_1 - UC21- E2EUI-1636
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
+#    Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
+    Then the "<PatientChoiceStage>" stage is marked as Completed
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"

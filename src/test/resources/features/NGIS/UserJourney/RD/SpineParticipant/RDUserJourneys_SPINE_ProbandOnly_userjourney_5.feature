@@ -21,31 +21,31 @@ Feature: Create Referrals for SPINE Patient
 
     #Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
+#    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
+#    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
@@ -67,18 +67,28 @@ Feature: Create Referrals for SPINE Patient
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
+#    Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
+#    Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
+#    Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ResponsibleClinician>   |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <PatientChoiceStage>     |
+      | <Panels>                 |
+      | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
@@ -104,32 +114,32 @@ Feature: Create Referrals for SPINE Patient
 
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Croydon Health Services NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
+#    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package -
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
+#    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
@@ -153,26 +163,37 @@ Feature: Create Referrals for SPINE Patient
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
+#    Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     Then the user is navigated to a page with title Manage panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<SearchPanels>" panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
+#    Then the "<Panels>" stage is marked as Completed
     ##Pedigree -  Modify pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
+#    Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
+    ## Stages Marked as completed validation
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ResponsibleClinician>   |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <PatientChoiceStage>     |
+      | <Panels>                 |
+      | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
     Examples:
-      | NhsNumber  | DOB       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | ClinicianName         | Panels | Pedigree | SearchPanels |
-      | 2000005403 | 23-02-1973| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree | SearchPanels |
+      | 2000005403 | 23-02-1973 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
 
   @NTS-4575 @Z-LOGOUT
 #    @E2EUI-1059 @UseCase04
@@ -254,8 +275,8 @@ Feature: Create Referrals for SPINE Patient
     Then the referral status is set to "Submitted"
 
     Examples:
-      | NhsNumber  | DOB       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
-      | 2000000592 | 23-05-1973| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | 2000000592 | 23-05-1973 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4554 @Z-LOGOUT
 #    @E2EUI-1383 @UseCase05
@@ -273,32 +294,32 @@ Feature: Create Referrals for SPINE Patient
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
+#    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only - No of participants -1
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
+#    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes automatically filling notes with some random data
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
@@ -318,24 +339,34 @@ Feature: Create Referrals for SPINE Patient
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
+#    Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
+#    Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
+#    Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ResponsibleClinician>   |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <PatientChoiceStage>     |
+      | <Panels>                 |
+      | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
     Examples:
-      | NhsNumber  | DOB       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName                            | Panels | searchPanels | Pedigree |
-      | 2000001874 | 04-09-2011| Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName                         | Panels | searchPanels | Pedigree |
+      | 2000001874 | 04-09-2011 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
   @NTS-4571 @Z-LOGOUT
 #    @E2EUI-907 @UseCase06
@@ -417,8 +448,8 @@ Feature: Create Referrals for SPINE Patient
     Then the referral status is set to "Submitted"
 
     Examples:
-    | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName         | Panels | Pedigree |
-    | 2000001815 | 05-09-2011 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
+      | 2000001815 | 05-09-2011 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4561 @Z-LOGOUT
 #    @E2EUI-977 @UseCase07
@@ -436,32 +467,32 @@ Feature: Create Referrals for SPINE Patient
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "The Whittington Hospital NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     When the user clicks the Save and Continue button
-    Then the "<RequestingOrganisation>" stage is marked as Completed
+#    Then the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - Proband only
     When the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     When the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     When the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     When the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
+#    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
@@ -482,22 +513,32 @@ Feature: Create Referrals for SPINE Patient
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
+#    Then the "<PatientChoiceStage>" stage is marked as Completed
      ##Panels
     Then the user is navigated to a page with title Manage panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
+#    Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
+#    Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ResponsibleClinician>   |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <PatientChoiceStage>     |
+      | <Panels>                 |
+      | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
     Examples:
-      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | ClinicianName                           | Panels | searchPanels | Pedigree |
+      | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | ClinicianName                         | Panels | searchPanels | Pedigree |
       | 2000001882 | 25-05-1973 | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |

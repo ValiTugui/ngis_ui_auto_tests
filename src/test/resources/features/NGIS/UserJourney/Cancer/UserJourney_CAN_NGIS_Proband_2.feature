@@ -10,17 +10,17 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
     ##Requesting Organisation
     And the user navigates to the "<stage2>" stage
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<stage2>" stage is marked as Completed
+#    And the "<stage2>" stage is marked as Completed
     ##Test Package
     And the user navigates to the "<stage3>" stage
     And the user selects the "Routine"
     And the user clicks the Save and Continue button
-    And the "<stage3>" stage is marked as Completed
+#    And the "<stage3>" stage is marked as Completed
     And the "<stage4>" stage is selected
     And the correct "1" tests are saved to the referral in  "<stage3>"
     ##Responsible Clinician
@@ -28,7 +28,7 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     And the "Add clinician information" page is displayed
     And the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
-    And the "<stage4>" stage is marked as Completed
+#    And the "<stage4>" stage is marked as Completed
     ##Tumour
     And the "<stage5>" stage is selected
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
@@ -38,12 +38,12 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     And the user clicks the Save and Continue button
     Then the new tumour is displayed in the landing page for the existing patient with tumour list
     And the new tumour is not highlighted
-    And the "<stage5>" stage is marked as Completed
+#    And the "<stage5>" stage is marked as Completed
     And the success notification is displayed "Tumour added"
     ##Samples
     And the user navigates to the "<stage6>" stage
     Then the user is navigated to a page with title Manage samples
-    And the "<stage6>" stage is selected
+#    And the "<stage6>" stage is selected
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state and filling SampleID
@@ -58,13 +58,13 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
-    And the "<stage6>" stage is marked as Completed
+#    And the "<stage6>" stage is marked as Completed
     ##Notes
     And the user navigates to the "<stage7>" stage
     Then the "<stage7>" stage is selected
     When the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    And the "<stage7>" stage is marked as Completed
+#    And the "<stage7>" stage is marked as Completed
     ##Patient Choice
     And the user navigates to the "<stage8>" stage
     When the user selects the proband
@@ -74,6 +74,14 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     Then the Patient Choice landing page is updated to "Authorised by clinician" for the proband
     When the user clicks the Save and Continue button
     Then the "<stage9>" stage is selected
+    And the below stages marked as completed
+      | <PatientDetails> |
+      | <stage2>         |
+      | <stage3>         |
+      | <stage4>         |
+      | <stage5>         |
+      | <stage6>         |
+      | <stage7>         |
     #checking forms in stage9
     When the user clicks the Cancel referral link
     And the user selects the cancellation reason "An uneditable mistake was made in creation (“Mark in error”)" from the modal
