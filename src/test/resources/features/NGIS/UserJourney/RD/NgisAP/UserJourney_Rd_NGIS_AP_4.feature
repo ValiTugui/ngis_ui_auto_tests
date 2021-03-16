@@ -2,7 +2,7 @@
 #@userJourneysRD_NgisAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_4 - UC15 - E2EUI-1048
-
+  @SYSTEM_INTEGRATION_Temp
   @NTS-3328 @Z-LOGOUT
 #     @E2EUI-1048
   Scenario Outline: NTS-3328: Use Case#15 Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search NGIS Patient

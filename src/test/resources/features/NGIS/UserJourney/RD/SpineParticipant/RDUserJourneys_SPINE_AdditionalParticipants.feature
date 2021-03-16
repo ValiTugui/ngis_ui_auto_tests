@@ -5,7 +5,7 @@
 
 Feature: Create Referrals for SPINE Patient - Additional Participant
   @Spine2
-
+    @SYSTEM_INTEGRATION_Temp
     @NTS-4591 @Z-LOGOUT
 #    @E2EUI-1264 @UseCase14
   Scenario Outline: NTS-4591: Use Case#14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search Spine Patient
@@ -22,7 +22,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-#    And the "<PatientDetails>" stage is marked as Completed
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

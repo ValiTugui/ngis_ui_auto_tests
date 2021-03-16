@@ -2,7 +2,7 @@
 #@userJourneysRD_NewFM
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_2 - UC10 - E2EUI-1251
-
+  @SYSTEM_INTEGRATION_Temp
   @NTS-4576 @Z-LOGOUT
 #    @E2EUI-1251 @UseCase10
   Scenario Outline: NTS:4576: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Non Spine/NGIS Patient

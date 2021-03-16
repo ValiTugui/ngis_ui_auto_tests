@@ -2,7 +2,7 @@
 #@userJourneysRD_NewAP
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_AP_5 - UC17 - E2EUI-1207
-
+  @SYSTEM_INTEGRATION_Temp
   @NTS-4604 @Z-LOGOUT
 #    @E2EUI-1207 @UseCase17
   Scenario Outline: NTS:4604: Use Case#17: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice No - Search Non Spine/NGIS Patient

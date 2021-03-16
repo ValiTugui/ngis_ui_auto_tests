@@ -194,7 +194,7 @@ Feature: Create Referrals for SPINE Patient
     Examples:
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree | SearchPanels |
       | 2000005403 | 23-02-1973 | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
-
+  @SYSTEM_INTEGRATION_Temp
   @NTS-4575 @Z-LOGOUT
 #    @E2EUI-1059 @UseCase04
   Scenario Outline: NTS-4575: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Spine Patient
