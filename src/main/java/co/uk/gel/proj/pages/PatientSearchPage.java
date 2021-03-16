@@ -350,6 +350,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, nextButton);
             }
             Wait.seconds(2);
+            //if click not happened button will be displayed, trying again
+            if (nextButton.isDisplayed()){
+                try {
+                    seleniumLib.clickOnWebElement(nextButton);
+                } catch (Exception exp1) {
+                    Actions.clickElement(driver, nextButton);
+                }
+            }
+            Wait.seconds(2);
             try {
                 if (loginPassWordError.isDisplayed()) {
                     Debugger.println("Login Password Error.......");
