@@ -341,6 +341,10 @@ Feature: GenomicRecord: New Patient page
     ##   @NTS-3067  @E2EUI-1128
 #    @NTS-3346 @E2EUI-995
   Scenario Outline:NTS-6043:Scenario_01:Find and select patient record (New patient record) without selecting CI
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    ###Patient Search Page Title
+    When the user is navigated to a page with title Find your patient
     Given a web browser is at the dashboard page
     And User should be able to see my Dashboard
     Then The user should see the Page title as "Welcome to the National Genomic Informatics System"
