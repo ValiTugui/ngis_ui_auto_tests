@@ -4,7 +4,7 @@
 @GlobalConsistency
 Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 
-  @NTS-47311 @Z-LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -28,6 +28,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     And the "<PatientDetails>" stage is marked as Completed
     Then the patient is successfully updated with a message "Patient details updated"
     When the user attempts to navigate away by clicking "refresh"
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Grea" in the search field
     And the user selects the first entity from the suggestions list
     Then the details of the new organisation are displayed
