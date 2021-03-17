@@ -348,7 +348,7 @@ public class PatientDetailsPage {
         }
     }
 
-    @FindBy(xpath = "//label[text()='Ethnicity']/..//div[@class='css-ljit9a-placeholder']")
+    @FindBy(xpath = "//label[text()='Ethnicity']/..//div[@class='css-1hwfws3']")
     public WebElement ethnicityFieldStatus;
     public boolean fillInNewPatientDetailsWithoutAddressFields() {
         try {
