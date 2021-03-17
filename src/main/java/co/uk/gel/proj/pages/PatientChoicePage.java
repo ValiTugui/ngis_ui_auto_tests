@@ -1393,6 +1393,7 @@ public class PatientChoicePage {
                         break;
                 }//switch
             }//for
+            SeleniumLib.scrollToElement(signaturePad);
             seleniumLib.clickOnWebElement(signaturePad);
             SeleniumLib.drawSignature(signaturePad);
             return true;
