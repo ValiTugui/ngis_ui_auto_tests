@@ -348,6 +348,8 @@ public class PatientDetailsPage {
         }
     }
 
+    @FindBy(xpath = "//label[text()='Ethnicity']/..//div[@class='css-ljit9a-placeholder']")
+    public WebElement ethnicityFieldStatus;
     public boolean fillInNewPatientDetailsWithoutAddressFields() {
         try {
             Wait.forElementToBeDisplayed(driver, title);
@@ -394,6 +396,10 @@ public class PatientDetailsPage {
             // if life status is not select it will re-try to select
             if (lifeStatusFieldStatus.getText().contains("Select...")){
                 editDropdownField(lifeStatusButton, "Alive");
+            }
+            // if Ethnicity is not select it will re-try to select
+            if (ethnicityFieldStatus.getText().contains("Select...")){
+                editDropdownField(ethnicityButton, "A - White - British");
             }
             newPatient.setHospitalNumber(hospitalNumberFake);
             newPatient.setGender(gender);
@@ -1245,6 +1251,10 @@ public class PatientDetailsPage {
             }
             editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
+            // if Ethnicity is not select it will re-try to select
+            if (ethnicityFieldStatus.getText().contains("Select...")){
+                editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
+            }
             //Address
             Actions.fillInValue(addressLine0, referralDetails.getADDRESS_LINE0());
             Actions.fillInValue(addressLine1, referralDetails.getADDRESS_LINE1());
