@@ -273,6 +273,11 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'styles_error-message')]")
     public List<WebElement> errorMessages;
 
+    @FindBy(xpath = "//input[@id='administrativeGender']/../div")
+    public WebElement genderFieldStatus;
+
+    @FindBy(xpath = "//input[@id='lifeStatus']/../div")
+    public WebElement lifeStatusFieldStatus;
 
     public boolean patientDetailsPageIsDisplayed() {
         try {
@@ -566,18 +571,18 @@ public class PatientDetailsPage {
                     By ddByElement = By.xpath("//label[contains(@for,'lifeStatus')]/..//div[contains(@class,'placeholder')]");
                     WebElement ddWebElement = driver.findElement(ddByElement);
                     editDropdownField(ddWebElement, "Alive");
-                }else if (errorMessages.get(i).getText().contains("Ethnicity")) {
+                } else if (errorMessages.get(i).getText().contains("Ethnicity")) {
                     Debugger.println("Re-entering Ethnicity.");
                     By ddByElement = By.xpath("//label[contains(@for,'ethnicity')]/..//div[contains(@class,'placeholder')]");
                     WebElement ddWebElement = driver.findElement(ddByElement);
                     editDropdownField(ddWebElement, "A - White - British");
-                }else if (errorMessages.get(i).getText().contains("Gender")) {
+                } else if (errorMessages.get(i).getText().contains("Gender")) {
                     Debugger.println("Re-entering Gender.");
                     By ddByElement = By.xpath("//label[contains(@for,'administrativeGender')]/..//div[contains(@class,'placeholder')]");
                     WebElement ddWebElement = driver.findElement(ddByElement);
                     selectGender(ddWebElement, "Male");
                 }
-           }
+            }
             seleniumLib.clickOnWebElement(createRecord);
             SeleniumLib.sleepInSeconds(3);
             //Checking again
@@ -588,12 +593,12 @@ public class PatientDetailsPage {
                         By ddByElement = By.xpath("//label[contains(@for,'lifeStatus')]/..//div[contains(@class,'placeholder')]");
                         WebElement ddWebElement = driver.findElement(ddByElement);
                         editDropdownField(ddWebElement, "Alive");
-                    }else if (errorMessages.get(i).getText().contains("Ethnicity")) {
+                    } else if (errorMessages.get(i).getText().contains("Ethnicity")) {
                         Debugger.println("Re-entering Ethnicity.");
                         By ddByElement = By.xpath("//label[contains(@for,'ethnicity')]/..//div[contains(@class,'placeholder')]");
                         WebElement ddWebElement = driver.findElement(ddByElement);
                         editDropdownField(ddWebElement, "A - White - British");
-                    }else if (errorMessages.get(i).getText().contains("Gender")) {
+                    } else if (errorMessages.get(i).getText().contains("Gender")) {
                         Debugger.println("Re-entering Gender.");
                         By ddByElement = By.xpath("//label[contains(@for,'administrativeGender')]/..//div[contains(@class,'placeholder')]");
                         WebElement ddWebElement = driver.findElement(ddByElement);
@@ -611,6 +616,7 @@ public class PatientDetailsPage {
         }
         return true;
     }
+
     public boolean clickSavePatientDetailsToNGISButton() {
         try {
             if (!Wait.isElementDisplayed(driver, createRecord, 30)) {
@@ -728,13 +734,13 @@ public class PatientDetailsPage {
     }
 
     public boolean startNewReferralButtonIsDisabled() {
-        try{
+        try {
             String disable_attribute = startNewReferralButton.getAttribute("aria-disabled");
-            if(disable_attribute !=null && disable_attribute.equalsIgnoreCase("true")){
+            if (disable_attribute != null && disable_attribute.equalsIgnoreCase("true")) {
                 return true;
             }
             return false;
-        }catch(Exception exp) {
+        } catch (Exception exp) {
             return true;
         }
     }
@@ -1070,9 +1076,9 @@ public class PatientDetailsPage {
 
     public String getNotificationMessageForPatientCreatedOrUpdated() {
         try {
-            try{
+            try {
                 Wait.forElementToBeDisplayed(driver, successNotification);
-            }catch (Exception exp){
+            } catch (Exception exp) {
                 Wait.forElementToBeDisplayed(driver, successNotification);
             }
 
@@ -1197,6 +1203,10 @@ public class PatientDetailsPage {
             if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
                 referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             }
+            // if gender is null or empty then set gender
+            if (referralDetails.getGENDER() == null || referralDetails.getGENDER().isEmpty()) {
+                referralDetails.setGENDER("Male");
+            }
             if (referralDetails.getLIFE_STATUS() == null || referralDetails.getLIFE_STATUS().isEmpty()) {
                 referralDetails.setLIFE_STATUS("Alive");
             }
@@ -1217,7 +1227,15 @@ public class PatientDetailsPage {
             Actions.fillInValue(firstName, referralDetails.getFIRST_NAME());
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
             selectGender(administrativeGenderButton, referralDetails.getGENDER());
+            // if gender is not select it will re-try to select
+            if (genderFieldStatus.getText().contains("Select...")){
+                selectGender(administrativeGenderButton, referralDetails.getGENDER());
+            }
             editDropdownField(lifeStatusButton, referralDetails.getLIFE_STATUS());
+            // if life status is not select it will re-try to select
+            if (lifeStatusFieldStatus.getText().contains("Select...")){
+                editDropdownField(lifeStatusButton, referralDetails.getLIFE_STATUS());
+            }
             editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
             //Address
@@ -1405,7 +1423,7 @@ public class PatientDetailsPage {
                 return false;
             }
             if (!Actions.isTabClickable(driver, submittedReferralCardsList.size(), submittedReferralCardsList)) {
-               return false;
+                return false;
             }
             return true;
         } catch (Exception exp) {
@@ -1479,7 +1497,7 @@ public class PatientDetailsPage {
             String actualAddress = addressField.getText();
             if (!actualAddress.contains(formattedPostcode)) {
                 Debugger.println("The postcode format expected is:" + formattedPostcode + " But actual address is:" + actualAddress);
-               return false;
+                return false;
             }
             return true;
         } catch (Exception exp) {
