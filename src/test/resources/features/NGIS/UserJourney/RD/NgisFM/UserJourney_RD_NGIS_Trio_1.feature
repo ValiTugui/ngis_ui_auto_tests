@@ -86,7 +86,6 @@ Feature: UserJourney_RD_NGIS_Trio_1 - UC08 - E2EUI-1329,905
       | <Notes>                  |
       | <FamilyMembers>          |
       | <PatientChoice>          |
-      | <Panels>                 |
       | <Pedigree>               |
     ###Submitting Referral
     When the user submits the referral
