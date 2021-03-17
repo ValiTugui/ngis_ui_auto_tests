@@ -110,6 +110,7 @@ public class NeatToolSteps extends Pages {
     public void theUserSeesTheNotification(String notificationText) {
         boolean testResult = false;
         testResult = neatPatientRecordPage.validateNotification(notificationText);
+        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheNotification_NEAT.jpg");
         Assert.assertTrue(testResult);
     }
 
