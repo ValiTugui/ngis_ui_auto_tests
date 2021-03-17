@@ -381,13 +381,20 @@ public class PatientDetailsPage {
 
             String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
             newPatient.setNhsNumber(nhsNumber);
-
             String gender = "Male";
             selectGender(administrativeGenderButton, gender);
             editDropdownField(lifeStatusButton, "Alive");
             editDropdownField(ethnicityButton, "A - White - British");
             String hospitalNumberFake = faker.numerify("A#R##BB##");
             Actions.fillInValue(hospitalNumber, hospitalNumberFake);
+            // if gender is not select it will re-try to select
+            if (genderFieldStatus.getText().contains("Select...")){
+                selectGender(administrativeGenderButton, gender);
+            }
+            // if life status is not select it will re-try to select
+            if (lifeStatusFieldStatus.getText().contains("Select...")){
+                editDropdownField(lifeStatusButton, "Alive");
+            }
             newPatient.setHospitalNumber(hospitalNumberFake);
             newPatient.setGender(gender);
             newPatient.setLifeStatus("Alive");
