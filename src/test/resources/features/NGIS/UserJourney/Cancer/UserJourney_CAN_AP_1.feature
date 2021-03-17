@@ -47,7 +47,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state and filling SampleID
-    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+#    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
