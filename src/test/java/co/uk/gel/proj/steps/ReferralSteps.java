@@ -1400,7 +1400,7 @@ public class ReferralSteps extends Pages {
             testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
             if (!testResult) {
                 Debugger.println("Stage: " + stages.get(i).get(0) + " expected to be complete, but not.");
-                SeleniumLib.takeAScreenShot("completedStage.jpg");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_completeStage.jpg");
                 Assert.assertTrue(testResult);
             }
             Assert.assertTrue(testResult);
