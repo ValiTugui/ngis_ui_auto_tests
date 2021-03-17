@@ -1132,6 +1132,8 @@ public class PatientDetailsPage {
             return false;
         }
     }
+    @FindBy(xpath = "//label[contains(@for,'relationship')]/..//div[@class='css-1hwfws3']")
+    public WebElement relationShipStatus;
 
     public boolean createNewFamilyMember(NGISPatientModel familyMember) {
         try {
@@ -1158,6 +1160,10 @@ public class PatientDetailsPage {
             editDropdownField(ethnicityButton, familyMember.getETHNICITY());
             editDropdownField(relationshipButton, familyMember.getRELATIONSHIP_TO_PROBAND());
             Actions.fillInValue(hospitalNumber, familyMember.getHOSPITAL_NO());
+            // if relation ship to proband is not select it will re-try again
+            if (relationShipStatus.getText().contains("Select...")){
+                editDropdownField(relationshipButton, familyMember.getRELATIONSHIP_TO_PROBAND());
+            }
             //Address
             Actions.fillInValue(addressLine0, familyMember.getADDRESS_LINE0());
             Actions.fillInValue(addressLine1, familyMember.getADDRESS_LINE1());
