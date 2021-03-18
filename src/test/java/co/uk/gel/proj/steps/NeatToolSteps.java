@@ -110,8 +110,8 @@ public class NeatToolSteps extends Pages {
     public void theUserSeesTheNotification(String notificationText) {
         boolean testResult = false;
         testResult = neatPatientRecordPage.validateNotification(notificationText);
-        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheNotification_NEAT.jpg");
-        Assert.assertTrue(testResult);
+//        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheNotification_NEAT.jpg");
+//        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks on the reason button {string}")
