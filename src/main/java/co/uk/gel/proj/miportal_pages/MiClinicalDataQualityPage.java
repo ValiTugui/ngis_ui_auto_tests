@@ -436,7 +436,7 @@ public class MiClinicalDataQualityPage {
         try {
             String tabPath = dummyTabPath.replace("dummyTab", tabName);
             WebElement selectedTab = driver.findElement(By.xpath(tabPath));
-            if (!Wait.isElementDisplayed(driver, selectedTab, 20)) {
+            if (!Wait.isElementDisplayed(driver, selectedTab, 30)) {
                 Debugger.println("The " + tabName + " Tab is not present.");
                 SeleniumLib.takeAScreenShot("DQTabsNotPresent.jpg");
                 return false;
@@ -444,7 +444,7 @@ public class MiClinicalDataQualityPage {
             //Debugger.println("The Tab to check is: " + selectedTab.getText());
             seleniumLib.highLightWebElement(selectedTab);
             seleniumLib.clickOnWebElement(selectedTab);
-            Wait.seconds(20);
+            Wait.seconds(30);
             String[] headerNames = headerValues.split(",");
             String tableElePath=clinicalDqReportTable.replace("dummyTab", tabName);
             WebElement tableEle = driver.findElement(By.xpath(tableElePath));

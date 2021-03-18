@@ -4,17 +4,14 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.ExcelDataRead;
 import co.uk.gel.proj.util.TestUtils;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -737,7 +734,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public List<String> getAllThePaginationEntryDropDownValues() {
         List<String> allOptions = new ArrayList<>();
         try {
-            Wait.seconds(3);
+            Wait.seconds(10);
             if (!Wait.isElementDisplayed(driver, defaultPaginationEntryOptionsValue, 10)) {
                 Debugger.println("No defaultPaginationEntryOptionsValue element displayed.");
                 SeleniumLib.takeAScreenShot("AllPaginationValues.jpg");
