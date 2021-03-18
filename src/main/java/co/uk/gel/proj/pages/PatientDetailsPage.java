@@ -496,7 +496,7 @@ public class PatientDetailsPage {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp1);
-                SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+                SeleniumLib.takeAScreenShot("PC_editDropdownField.jpg");
                 return false;
             }
         }
@@ -532,7 +532,8 @@ public class PatientDetailsPage {
             return false;
         }
     }
-
+    @FindBy(xpath = "//input[@id='noNhsNumberReason']/parent::*[1]")
+    public  WebElement reasonHhsNumberMissingFieldStatus;
     public boolean selectMissingNhsNumberReason(String reason) {
         try {
             if (!Wait.isElementDisplayed(driver, noNhsNumberReasonDropdown, 15)) {
@@ -547,6 +548,15 @@ public class PatientDetailsPage {
             if (reason.equalsIgnoreCase("Other (please provide reason)")) {
                 if (Wait.isElementDisplayed(driver, otherReasonExplanation, 20)) {
                     otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+                }
+            }
+            // if Reason NHS Missing dropdown Box is not select it will retry again
+            if (reasonHhsNumberMissingFieldStatus.getText().contains("Select...")){
+                Actions.selectValueFromDropdown(noNhsNumberReasonDropdown, reason);
+                if (reason.equalsIgnoreCase("Other (please provide reason)")) {
+                    if (Wait.isElementDisplayed(driver, otherReasonExplanation, 20)) {
+                        otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+                    }
                 }
             }
             newPatient.setReasonForNoNHSNumber(reason);
@@ -948,7 +958,18 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             String postcodeValue = newPatient.getPostCode();
             Actions.fillInValue(postcode, postcodeValue);
-
+            // if gender field is empty then it is retry again
+            if (genderFieldStatus.getText().contains("Select...")){
+                selectGender(administrativeGenderButton, gender);
+            }
+            // if life status field is empty then it is retry again
+            if (lifeStatusFieldStatus.getText().contains("Select...")){
+                editDropdownField(lifeStatusButton, "Alive");
+            }
+            // if Ethnicity field is empty then it is retry again
+            if (ethnicityFieldStatus.getText().contains("Select...")){
+                editDropdownField(ethnicityButton, "A - White - British");
+            }
             //Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             //Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
@@ -1007,7 +1028,18 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine3, faker.address().cityName());
             Actions.fillInValue(addressLine4, faker.address().state());
             Actions.fillInValue(postcode, postcodeValue);
-
+            // if gender field is empty then it is retry again
+            if (genderFieldStatus.getText().contains("Select...")){
+                selectGender(administrativeGenderButton, gender);
+            }
+            // if life status field is empty then it is retry again
+            if (lifeStatusFieldStatus.getText().contains("Select...")){
+                editDropdownField(lifeStatusButton, "Alive");
+            }
+            // if Ethnicity field is empty then it is retry again
+            if (ethnicityFieldStatus.getText().contains("Select...")){
+                editDropdownField(ethnicityButton, "A - White - British");
+            }
             //Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
             //Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
             return true;
