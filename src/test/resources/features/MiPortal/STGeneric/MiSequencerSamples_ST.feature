@@ -25,23 +25,23 @@ Feature:  MIPORTAL ST -  Sequencer Samples
     And the user selects GLH as the sequencer samples search column dropdown
     And the user selects is as the sequencer samples search operator dropdown
     And the user sees the below values in the sequencer samples search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
      And the user selects is one of as the sequencer samples search operator dropdown
      And the user sees the below values in the sequencer samples search value drop-down menu
-       | East Mids and East of England |
-       | London North                  |
-       | London South                  |
-       | North West                    |
-       | South West                    |
-       | Wessex & West Midlands        |
-       | Yorkshire & North East        |
+       | Central and South Genomic Laboratory Hub        |
+       | East Genomic Laboratory Hub                     |
+       | North East and Yorkshire Genomic Laboratory Hub |
+       | North Thames Genomic Laboratory Hub             |
+       | North West Genomic Laboratory Hub               |
+       | South East Genomic Laboratory Hub               |
+       | South West Genomic Laboratory Hub               |
 
     And the user selects Ordering Entity as the sequencer samples search column dropdown
     And the user sees the below values in the sequencer samples search operator dropdown

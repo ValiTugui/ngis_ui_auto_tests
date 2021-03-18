@@ -21,7 +21,7 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
     Then the user able to see all the ordering entities should select
     Examples:
       | mi_stage              | header                       | glh_name     |
-      | Clinical Data Quality | Clinical Data Quality Report | East Mids and East of England |
+      | Clinical Data Quality | Clinical Data Quality Report | East Genomic Laboratory Hub |
 
 
   @NTS-6861 @MI-LOGOUT
@@ -40,8 +40,8 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
    # And the last updated date matches date in the DQR schema
 
     Examples:
-      | mi_stage              | header                       | glh_name     |
-      | Clinical Data Quality | Clinical Data Quality Report | London South |
+      | mi_stage              | header                       | glh_name                          |
+      | Clinical Data Quality | Clinical Data Quality Report | South East Genomic Laboratory Hub |
 
 
   @NTS-6097 @MI-LOGOUT
@@ -73,8 +73,8 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
       | 100        | 100           |
 
     Examples:
-      | mi_stage              | header                       | report_guidance |glh_name               |
-      | Clinical Data Quality | Clinical Data Quality Report | Report Guidance |Yorkshire & North East |
+      | mi_stage              | header                       | report_guidance | glh_name                                        |
+      | Clinical Data Quality | Clinical Data Quality Report | Report Guidance | North East and Yorkshire Genomic Laboratory Hub |
 
   @NTS-6097 @MI-LOGOUT
   Scenario Outline:NTS-6097:Scenario-3:User is able to verify the data present in each tabs for every GLH and verify the GLH drop down values
@@ -99,12 +99,12 @@ Feature: MIPORTAL ST - Clinical Data Quality - 1
     Then the user should be able to download the filtered DQ report
 
     Examples:
-      | mi_stage              | header                       | glh_name                      | linkName        |
-      | Clinical Data Quality | Clinical Data Quality Report | East Mids and East of England | Test order link |
-      | Clinical Data Quality | Clinical Data Quality Report | London North                  | Test order link |
-      | Clinical Data Quality | Clinical Data Quality Report | London South                  | Test order link |
-      | Clinical Data Quality | Clinical Data Quality Report | North West                    | Test order link |
-      | Clinical Data Quality | Clinical Data Quality Report | South West                    | Test order link |
-      | Clinical Data Quality | Clinical Data Quality Report | Wessex & West Midlands        | Test order link |
-      | Clinical Data Quality | Clinical Data Quality Report | Yorkshire & North East        | Test order link |
+      | mi_stage              | header                       | glh_name                                        | linkName        |
+      | Clinical Data Quality | Clinical Data Quality Report | Central and South Genomic Laboratory Hub        | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | East Genomic Laboratory Hub                     | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | North East and Yorkshire Genomic Laboratory Hub | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | North Thames Genomic Laboratory Hub             | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | North West Genomic Laboratory Hub               | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | South East Genomic Laboratory Hub               | Test order link |
+      | Clinical Data Quality | Clinical Data Quality Report | South West Genomic Laboratory Hub               | Test order link |
 

@@ -1,26 +1,25 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.MIPortalTestData;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.internal.common.assertion.AssertionSupport;
 import org.junit.Assert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 public class MilHomePageSteps extends Pages {
@@ -273,7 +272,7 @@ public class MilHomePageSteps extends Pages {
     @And("the user sees all the drop-down values in the search results pagination entry selection")
     public void theUserSeesAllTheDropDownValuesInTheSearchResultsPaginationEntrySelection(DataTable dataTable) {
         List<Map<String, String>> expectedPaginationDropDownValues = dataTable.asMaps(String.class, String.class);
-        Wait.seconds(5);
+        Wait.seconds(10);
         List actualPaginationDropDownValues = miPortalHomePage.getAllThePaginationEntryDropDownValues();
         if(expectedPaginationDropDownValues.size() != actualPaginationDropDownValues.size()){
             Assert.assertTrue(false);
