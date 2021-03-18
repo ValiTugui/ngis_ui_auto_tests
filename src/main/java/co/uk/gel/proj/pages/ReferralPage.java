@@ -2083,6 +2083,16 @@ public class ReferralPage<check> {
     public void verifyFindYourPatientPageTitle() {
         try {
             Wait.forElementToBeDisplayed(driver, findYourPatientPageTitle, 60);
+            if (!findYourPatientPageTitle.getText().contains("Find your patient")){
+                //if password submit click not happened button will be displayed, trying again
+                if (PasswordSubmitButton.isDisplayed()) {
+                    try {
+                        seleniumLib.clickOnWebElement(PasswordSubmitButton);
+                    } catch (Exception exp1) {
+                        Actions.clickElement(driver, PasswordSubmitButton);
+                    }
+                }
+            }
         }catch (Exception exp){
             //if password submit click not happened button will be displayed, trying again
                 if (PasswordSubmitButton.isDisplayed()) {
