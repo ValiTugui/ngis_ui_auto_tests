@@ -18,28 +18,28 @@ Feature: MIPORTAL ST -  Glh Samples
       | Batch Import Filename         |
       | Dispatched Sample Type        |
       | GLH Sample Consignment Number |
-      |LSID                           |
+      | LSID                          |
 
     When the user selects GLH as the glh search column dropdown
     And the user selects is as the glh search operator dropdown
     Then the user sees the below values in the glh samples search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
     When the user selects is one of as the glh search operator dropdown
     Then the user sees the below values in the glh samples search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
     When the user selects Ordering Entity as the glh search column dropdown
     Then the user sees the below values in the glh samples search operator dropdown
@@ -147,7 +147,7 @@ Feature: MIPORTAL ST -  Glh Samples
     When the user navigates to the mi-portal "<mi_stage>" stage
     When the user selects GLH as the glh search column dropdown
     And the user selects is as the glh search operator dropdown
-    And the user selects <any> as the glh search value dropdown
+    And the user selects South East Genomic Laboratory Hub as the search value dropdown
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -158,5 +158,5 @@ Feature: MIPORTAL ST -  Glh Samples
     And the user clicks on the pop up close icon
 
     Examples:
-      | mi_stage   | any          |
-      | GLH Samples| London South |
+      | mi_stage    |
+      | GLH Samples |

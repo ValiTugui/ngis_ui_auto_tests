@@ -144,7 +144,7 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects Submitted By as the search column dropdown
     And the user selects is one of as the search operator dropdown
-    And the user selects London South as the search value dropdown
+    And the user selects South East Genomic Laboratory Hub as the search value dropdown
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button

@@ -23,23 +23,23 @@ Feature: MIPORTAL ST - PickLists 1
     And the user selects GLH as the pick lists search column dropdown
     And the user selects is as the pick lists search operator dropdown
     And the user sees the below values in the pick lists search value drop-down menu
-      | East Mids and East of England    |
-      | London North                     |
-      | London South                     |
-      | North West                       |
-      | South West                       |
-      | Wessex & West Midlands           |
-      | Yorkshire & North East           |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
     And the user selects is one of as the pick lists search operator dropdown
     And the user sees the below values in the pick lists search value drop-down menu
-      | East Mids and East of England    |
-      | London North                     |
-      | London South                     |
-      | North West                       |
-      | South West                       |
-      | Wessex & West Midlands           |
-      | Yorkshire & North East           |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
     And the user selects Ordering Entity as the pick lists search column dropdown
     And the user sees the below values in the pick lists search operator dropdown menu
@@ -97,7 +97,7 @@ Feature: MIPORTAL ST - PickLists 1
 #    When the user click on the Search button
 #    Then the user sees an error message "Select a valid choice. That choice is not one of the available choices." on the page
 
-@NTS-6703 @MI-LOGOUT
+  @NTS-6703 @MI-LOGOUT @test8
   Scenario Outline:NTS-6703:Remove extraneous field gel1008__plate__warning_msgs from Picklists Report and verify the fields present in the Picklists section
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
@@ -105,7 +105,7 @@ Feature: MIPORTAL ST - PickLists 1
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects GLH as the pick lists search column dropdown
     And the user selects is as the pick lists search operator dropdown
-    And the user selects GLHName as the pick lists search value dropdown
+    And the user selects East Genomic Laboratory Hub as the search value dropdown
     And the user clicks on Add criteria button
     And the user click on the Search button
     Then the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
