@@ -2,6 +2,7 @@
 #@paperForm
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: TestDirectory: Paper Form
 
 

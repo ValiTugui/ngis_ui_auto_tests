@@ -2,15 +2,16 @@
 #@globalBehaviour
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Test Directory - Global Behaviour Page 2
 
-  @NTS-3194 @E2EUI-1502
-  @NTS-3195 @E2EUI-1506
-  @NTS-3193  @E2EUI-1756
-  @NTS-3200  @E2EUI-1470
-  @NTS-3237 @E2EUI-1541
-  @NTS-3169 @E2EUI-1755
-  @NTS-3236  @E2EUI-1658
+#  @NTS-3194 @E2EUI-1502
+#  @NTS-3195 @E2EUI-1506
+#  @NTS-3193  @E2EUI-1756
+#  @NTS-3200  @E2EUI-1470
+#  @NTS-3237 @E2EUI-1541
+#  @NTS-3169 @E2EUI-1755
+#  @NTS-3236  @E2EUI-1658
   @NTS-3169  @NTS-3237   @NTS-3200  @NTS-3193 @NTS-3195 @NTS-3194
   @Z-LOGOUT
   Scenario: NTS-3169 - Home Page - User is able to see the version of NGIS at the bottom of the page

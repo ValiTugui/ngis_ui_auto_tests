@@ -2,6 +2,7 @@
 #@pedigree_diagramLayout
 @07-PEDIGREE
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Pedigree - Diagram Layout
 
   @NTS-3304 @Z-LOGOUT

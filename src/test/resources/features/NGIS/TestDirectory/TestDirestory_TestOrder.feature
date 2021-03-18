@@ -1,8 +1,8 @@
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Test Directory: TestOrder
-#fail
-  @test-3493
+
   @NTS-3493 @Z-LOGOUT
 # @E2EUI-2015 @scenario_01
   Scenario Outline: NTS-3493: Restricted access to navigate to cancelled referrals

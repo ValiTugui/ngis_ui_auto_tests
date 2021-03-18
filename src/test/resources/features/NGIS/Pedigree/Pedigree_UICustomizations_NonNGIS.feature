@@ -1,6 +1,7 @@
 #@pedigree_uiCustomizationNonNGIS
 @07-PEDIGREE
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT

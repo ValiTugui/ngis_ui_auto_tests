@@ -2,11 +2,11 @@
 #@requestingOrganisationTestDirectory
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: TestDirectory: Requesting Organisation page
-  @NTS-3161 @E2EUI-2091
-  @NTS-3315
+#  @NTS-3161 @E2EUI-2091
+  @NTS-3315 @Z-LOGOUT
 #      @E2EUI-916 @E2EUI-1456 @E2EUI-978 @E2EUI-951   @E2EUI-916 @E2EUI-1019 @E2EUI-1442
-    @Z-LOGOUT
   Scenario Outline: NTS-3315:E2EUI-916,1456,978,951 - Find/Select Ordering Entity - With Valid Search Term
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |

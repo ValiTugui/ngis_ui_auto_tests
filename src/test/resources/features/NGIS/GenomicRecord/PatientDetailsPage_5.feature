@@ -1,5 +1,6 @@
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: GenomicRecord: Patient details page 5
 
   @NTS-5810 @Z-LOGOUT

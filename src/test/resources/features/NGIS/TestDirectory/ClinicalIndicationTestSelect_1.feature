@@ -2,15 +2,16 @@
 #@clinicalIndicationTestSelect
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Test Directory : ClinicalIndicationTestSelect_1
 
-  @NTS-3161 @E2EUI-2093
-  @NTS-3244 @E2EUI-1501 @E2EUI-1033
-  @NTS-3251 @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069 @E2EUI-1695
-  @NTS-3254 @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242  @E2EUI-1849
-  @NTS-3262 @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
+#  @NTS-3161 @E2EUI-2093
+#  @NTS-3244 @E2EUI-1501 @E2EUI-1033
+#  @NTS-3251 @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069 @E2EUI-1695
+#  @NTS-3254 @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242  @E2EUI-1849
+#  @NTS-3262 @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
   @NTS-3238   @E2EUI-1530
-  @NTS-3205    @E2EUI-1500
+#  @NTS-3205    @E2EUI-1500
   Scenario: NTS-3238:E2EUI-1530 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
   As a user when I start the test order I want that action to be my confirmation that I agree to the patient eligibility criteria, so that I don't have to re-read it in a modal
     Given a web browser is at the Private Test Selection homepage
@@ -52,9 +53,9 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
 
 
     @NTS-3260 @E2EUI-1003 @E2EUI-1174
-    @NTS-3262 @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
-    @NTS-3265 @E2EUI-1063
-    @NTS-3268  @E2EUI-948
+#    @NTS-3262 @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
+#    @NTS-3265 @E2EUI-1063
+#    @NTS-3268  @E2EUI-948
   Scenario Outline: NTS-3260:E2EUI-1003,1174: - Clinical Indication Page - Display additional details on who can order card.
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |

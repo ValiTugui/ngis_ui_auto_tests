@@ -1,5 +1,6 @@
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: GenomicRecord: Patient search page_NGIS
 
   @NTS-2780 @Z-LOGOUT

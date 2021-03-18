@@ -2,6 +2,7 @@
 #@pedigree_flow
 @07-PEDIGREE
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Pedigree - Pedigree Flow 1
 
   @NTS-3458 @Z-LOGOUT

@@ -1,9 +1,10 @@
 #@homePage
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: TestDirectory : Home Page
 
-  @NTS-3160 @E2EUI-1366
+#  @NTS-3160 @E2EUI-1366
   @NTS-3168 @E2EUI-1793
   Scenario: NTS-3168:E2EUI-1793 Home Page - The tests from Tests tab are loaded properly
     Given a web browser is at the Private Test Selection homepage
@@ -15,8 +16,7 @@ Feature: TestDirectory : Home Page
     Then the search results have been displayed
     And the number of results shown in each filters & total results should match
 
-  @Test-4725
-    @NTS-4725 @E2EUI-879
+#    @NTS-4725 @E2EUI-879
     @NTS-4726 @E2EUI-1155
     @Z-LOGOUT
   Scenario Outline: NTS-4726:E2EUI-1155: Displaying the current state for each stage

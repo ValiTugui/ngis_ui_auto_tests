@@ -2,6 +2,7 @@
 #@globalBehaviour
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Test Directory - Global Behaviour Page 3
 
 

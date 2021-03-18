@@ -1,7 +1,7 @@
 #@regression
 @06-PANEL_ASSIGNER
 @SYSTEM_TEST
-
+@SYSTEM_TEST_2
 Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggested panels and no selected panels
 
   @NTOS-5043 @Z-LOGOUT

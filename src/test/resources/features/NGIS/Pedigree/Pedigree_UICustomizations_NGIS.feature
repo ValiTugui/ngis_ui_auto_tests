@@ -1,6 +1,7 @@
 #@pedigree_uiCustomizationNGIS
 @07-PEDIGREE
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Pedigree - UI Customizations - NGIS
 
 

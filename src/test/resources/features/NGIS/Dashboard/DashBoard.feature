@@ -1,6 +1,7 @@
 #@regression
 @02-DASHBOARD
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: DashBoard - Dashboard Page
 
   @NTS-3158
