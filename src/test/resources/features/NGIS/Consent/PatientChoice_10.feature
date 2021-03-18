@@ -1,6 +1,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
 
   @NTS-3417

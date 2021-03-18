@@ -3,6 +3,7 @@
 #@FamilyMemberStageNavigation_mismatchFM
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 @FamilyMember
 Feature: TestOrder - Family Members Navigation Stage 2 - Varying Members addition and removal
 

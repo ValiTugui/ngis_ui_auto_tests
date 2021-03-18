@@ -1,6 +1,7 @@
 #@FamilyMemberSearchPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 @FamilyMember
 Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
 

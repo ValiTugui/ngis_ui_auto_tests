@@ -2,6 +2,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 Feature: Patient Choice -3 - Navigation
 
   @NTS-3418 @Z-LOGOUT

@@ -1,6 +1,7 @@
 #@FamilyMemberStageNavigation
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 @FamilyMember
 Feature: Family Members Navigation Stage 5 - Patient Identifiers
 

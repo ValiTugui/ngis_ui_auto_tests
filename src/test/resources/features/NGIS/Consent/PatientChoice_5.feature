@@ -2,6 +2,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 Feature: Patient Choice -5 - Page - FamilyMemberAddition
 
   @NTS-3435 @NTS-3341 @NTS-3450 @NTS-3409 @NTS-3410 @Z-LOGOUT

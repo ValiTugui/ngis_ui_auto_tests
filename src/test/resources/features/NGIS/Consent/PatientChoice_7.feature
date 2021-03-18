@@ -1,5 +1,6 @@
 @05-CONSENT
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 Feature: Patient Choice-7 - Form Library
 
   @NTS-3382 @NTS-3435 @Z-LOGOUT

@@ -1,6 +1,7 @@
 #@FamilyMembersDetailsPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 @FamilyMember
 Feature: Family Members Details Page 8- Post Code validation_2
 
