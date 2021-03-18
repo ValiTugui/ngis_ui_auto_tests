@@ -709,14 +709,6 @@ public class ReferralPage<check> {
             }
             if (titleElements.size() == 0) {
                 Debugger.println("Title Elements Still not loaded.");
-                //if password submit click not happened button will be displayed, trying again
-//                if (PasswordSubmitButton.isDisplayed()) {
-//                    try {
-//                        seleniumLib.clickOnWebElement(PasswordSubmitButton);
-//                    } catch (Exception exp1) {
-//                        Actions.clickElement(driver, PasswordSubmitButton);
-//                    }
-//                }
                 //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
                 Wait.seconds(8);
                 if (titleElements.size() == 0) {
@@ -2083,6 +2075,23 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("ReferralBanner:PatientTitle:Exception " + exp);
             return false;
+        }
+    }
+
+    @FindBy(xpath = "//h1[text()='Find your patient']")
+    public WebElement findYourPatientPageTitle;
+    public void verifyFindYourPatientPageTitle() {
+        try {
+            Wait.forElementToBeDisplayed(driver, findYourPatientPageTitle, 60);
+        }catch (Exception exp){
+            //if password submit click not happened button will be displayed, trying again
+                if (PasswordSubmitButton.isDisplayed()) {
+                    try {
+                        seleniumLib.clickOnWebElement(PasswordSubmitButton);
+                    } catch (Exception exp1) {
+                        Actions.clickElement(driver, PasswordSubmitButton);
+                    }
+                }
         }
     }
 }
