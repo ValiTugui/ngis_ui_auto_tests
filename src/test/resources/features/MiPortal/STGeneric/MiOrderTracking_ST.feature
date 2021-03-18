@@ -20,23 +20,23 @@ Feature: MIPORTAL ST - Order_Tracking
     And the user selects GLH as the order tracking search column dropdown
     And the user selects is as the order tracking search operator dropdown
     And the user sees the below values in the order tracking search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
     And the user selects is one of as the order tracking search operator dropdown
     And the user sees the below values in the order tracking search value drop-down menu
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
 
     When the user selects Ordering Entity as the order tracking search column dropdown
     Then the user sees the below values in the order tracking search operator dropdown

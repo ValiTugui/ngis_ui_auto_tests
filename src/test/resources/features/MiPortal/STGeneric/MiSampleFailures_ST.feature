@@ -13,13 +13,14 @@ Feature: MIPORTAL ST - Sample Failures - 1
     And the user sees a link <report_guidance> under the Sample Failures Report header
     And the user clicks the "<report_guidance>" link to open the document in a new tab having "nhs" in the url
     And the user sees the below values in the GLH search column drop-down menu on Sample Failures section
-      | East Mids and East of England |
-      | London North                  |
-      | London South                  |
-      | North West                    |
-      | South West                    |
-      | Wessex & West Midlands        |
-      | Yorkshire & North East        |
+      | Central and South Genomic Laboratory Hub        |
+      | East Genomic Laboratory Hub                     |
+      | North East and Yorkshire Genomic Laboratory Hub |
+      | North Thames Genomic Laboratory Hub             |
+      | North West Genomic Laboratory Hub               |
+      | South East Genomic Laboratory Hub               |
+      | South West Genomic Laboratory Hub               |
+
     And the user selects on Sample Failures GLH drop-down
     #Verifying the Select All and Deselect All button functionality validation
     And the user click on Select All button for Sample Failures GLH drop-down
@@ -46,8 +47,8 @@ Feature: MIPORTAL ST - Sample Failures - 1
     And the user click on Over 14 days old only check box to select
 
     Examples:
-      | mi_stage        | header                 | report_guidance | glh_name               | Programme_name | Failure_Type          |
-      | Sample Failures | Sample Failures Report | Report Guidance | Yorkshire & North East | Rare diseases  | JIRA Complex ID Fails |
+      | mi_stage        | header                 | report_guidance | glh_name                                        | Programme_name | Failure_Type          |
+      | Sample Failures | Sample Failures Report | Report Guidance | North East and Yorkshire Genomic Laboratory Hub | Rare diseases  | JIRA Complex ID Fails |
 
 
   @NTS-6850 @MI-LOGOUT
