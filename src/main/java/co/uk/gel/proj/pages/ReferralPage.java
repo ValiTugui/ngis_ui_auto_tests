@@ -710,13 +710,13 @@ public class ReferralPage<check> {
             if (titleElements.size() == 0) {
                 Debugger.println("Title Elements Still not loaded.");
                 //if password submit click not happened button will be displayed, trying again
-                if (PasswordSubmitButton.isDisplayed()) {
-                    try {
-                        seleniumLib.clickOnWebElement(PasswordSubmitButton);
-                    } catch (Exception exp1) {
-                        Actions.clickElement(driver, PasswordSubmitButton);
-                    }
-                }
+//                if (PasswordSubmitButton.isDisplayed()) {
+//                    try {
+//                        seleniumLib.clickOnWebElement(PasswordSubmitButton);
+//                    } catch (Exception exp1) {
+//                        Actions.clickElement(driver, PasswordSubmitButton);
+//                    }
+//                }
                 //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
                 Wait.seconds(8);
                 if (titleElements.size() == 0) {
