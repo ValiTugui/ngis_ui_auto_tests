@@ -526,7 +526,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             seleniumLib.clickOnWebElement(downloadDataButton);
-            Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
+            Wait.seconds(20);//Wait for 20 seconds to ensure file got downloaded, large file taking time to download
             //Debugger.println("Form: " + clinical_dq_report_filtered + " ,downloaded from section: " + clinical_dq_report_filtered);
             return true;
         } catch (Exception exp) {
@@ -538,31 +538,38 @@ public class MiClinicalDataQualityPage {
 
     public boolean verifyDQDateFormat(String dateFormat)
     {
-        try
-        {
-            Wait.seconds(5);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
-            String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:","").replace("UTC","").trim();
-            LocalDateTime.parse(dqDate, dtf);
+        try {
+            if (!Wait.isElementDisplayed(driver, dqlastUpdatedTimeStampLabel, 60)) {
+                Debugger.println("Last updated time stamp on DQ report not visible even after 30 sec");
+                SeleniumLib.takeAScreenShot("LastUpdatedTime.jpg");
+                return false;
+            }
+            DateTimeFormatter expFormat = DateTimeFormatter.ofPattern(dateFormat);
+            String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:", "").replace("UTC", "").trim();
+            Debugger.println("Dq_Date1 " + dqDate);
+            if (dqDate.isEmpty()) {
+                dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:", "").replace("UTC", "").trim();
+            }
+            LocalDateTime dateInDQ = LocalDateTime.parse(dqDate, expFormat);
+            Debugger.println("date-" + dateInDQ);
+            String dateValue = dateInDQ.format(expFormat);
+            Debugger.println("Date after format " + dateValue);
+            if (!dateValue.equals(dqDate)) {
+                Debugger.println("Expected-" + dateValue + " ,Actual-" + dqDate);
+                return false;
+            }
+            Debugger.println("The parsed date is " + LocalDateTime.parse(dqDate, expFormat).toString());
             return true;
-        }
-        catch(DateTimeParseException | IllegalArgumentException exp)
-        {
+        } catch (DateTimeParseException | IllegalArgumentException exp) {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
-
-            Debugger.println("ExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
-
+            Debugger.println("Exception in verifying DQR screen last updated date format:" + exp);
             SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
             return false;
-        }
-        catch(Exception exp)
-        {
+        } catch (Exception exp) {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
-
-            Debugger.println("UnexpectedExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
-
+            Debugger.println("Unexpected Exception verifyingDQRscreenlastupdateddateformat:" + exp);
             return false;
         }
     }
