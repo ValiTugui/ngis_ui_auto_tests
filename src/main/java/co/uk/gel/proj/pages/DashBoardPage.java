@@ -72,18 +72,11 @@ public class DashBoardPage {
      public void waitUntilDashboardPageResultsContainerIsLoaded() {
         try {
             Wait.forElementToBeDisplayed(driver, resultsPanel);
-            for (int i=0;i<3;i++) {
                 try {
                     Wait.forElementToBeClickable(driver, resultsPanel);
-                    if (seleniumLib.isElementPresent(resultsPanel)){
-                        break;
-                    }
                 } catch (Exception exp) {
-                    SeleniumLib.refreshPage();
-                    SeleniumLib.sleep(5);
                     Wait.forElementToBeClickable(driver, resultsPanel);
                 }
-            }
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
         }
