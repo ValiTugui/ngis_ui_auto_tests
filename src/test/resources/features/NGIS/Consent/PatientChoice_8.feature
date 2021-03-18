@@ -98,11 +98,11 @@ Feature: Patient Choice-8 - History - Preference
       | PatientChoice  | RequestingOrganisation  | expectedText                                                   | placeholderText                                                                         |
       | Patient choice | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
 
-  @NTS-3415 @Z-LOGOUT
+  @NTS-34151 @Z-LOGOUT
     #@E2EUI-1678
-  Scenario Outline:Remove word consent from UI
+  Scenario Outline: NTS-3415 Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     #patient choice for the proband
