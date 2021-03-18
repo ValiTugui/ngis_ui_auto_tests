@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 
 Feature: Create Referrals for SPINE Patient - Additional Participant
-  @Spine2
+
     @SYSTEM_INTEGRATION_Temp
     @NTS-4591 @Z-LOGOUT
 #    @E2EUI-1264 @UseCase14
@@ -101,6 +101,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
       | <ResponsibleClinician>   |
       | <ClinicalQuestion>       |
       | <Notes>                  |
+      | <FamilyMemberStage>      |
       | <PatientChoiceStage>     |
       | <Panels>                 |
       | <Pedigree>               |

@@ -45,7 +45,7 @@ Feature: Responsible Clinician - 1
       | Responsible clinician | Patient choice | This section contains unsaved information. Discard changes? |
 
 
-  @NTS-31751 @Z-LOGOUT
+  @NTS-3175 @Z-LOGOUT
 #    @NTS-3175_3895
 #    @E2EUI-956 @Z-LOGOUT
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User selects 'Save and continue' button without providing inputs in mandatory fields
@@ -59,8 +59,6 @@ Feature: Responsible Clinician - 1
     Then the user should see a new popup dialog with title "<Title>"
     And the user should be able to close the pop up dialog box
 #    When the user clicks outside of the modal
-
-
     And the user navigates to the "<stage>" stage
     When the user fills in all clinician form fields except the mandatory fields Last name , Department name and address
     And the user see the "<hyperlinkText>" displayed to add Additional clinician details
