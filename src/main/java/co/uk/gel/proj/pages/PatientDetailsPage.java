@@ -106,7 +106,7 @@ public class PatientDetailsPage {
     public WebElement nhsNumberLabel;
 
 //    @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
-    @FindBy(xpath = "//input[@id='administrativeGender']/parent::*[div]")
+    @FindBy(xpath = "//input[@id='administrativeGender']//following::div[1]")
     public WebElement administrativeGenderButton;
 
     @FindBy(css = "*[data-testid*='notification-warning']")
