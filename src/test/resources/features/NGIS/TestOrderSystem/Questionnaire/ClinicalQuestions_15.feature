@@ -1,10 +1,10 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 15 - RD Questionnaire
 
   @NTS-3433 @Z-LOGOUT
-##   @NTS-3433  @E2EUI-1546
 #    @E2EUI-1546
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

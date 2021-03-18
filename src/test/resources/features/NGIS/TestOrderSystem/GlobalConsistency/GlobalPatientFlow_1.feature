@@ -1,13 +1,12 @@
 @GlobalFlow
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @GlobalConsistency
 Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
 
   @NTS-3497 @Z-LOGOUT
-#    @NTS-4813 @E2EUI-1005
-#    @NTS-4562 @E2EUI-1088
 #    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -63,11 +62,6 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |There is missing information | Requesting organisation | Maidstone            | Test package |
 
     @NTS-4711 @Z-LOGOUT
-#    @NTS-5068 @E2EUI-1841
-#    @NTS-3497 @E2EUI-1995
-#    @NTS-3498 @E2EUI-1701
-#   @NTS-3329
-
 #    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -154,7 +148,6 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | https://test-ordering.int.ngis.io/test-order/referral/r5E$&%5E943/patient-details |
 
   @NTS-3498 @Z-LOGOUT
-#    @NTS-4320 @E2EUI-1065
 #    @E2EUI-1701
   Scenario Outline: NTS-3498: Verify Global patient information bar component
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

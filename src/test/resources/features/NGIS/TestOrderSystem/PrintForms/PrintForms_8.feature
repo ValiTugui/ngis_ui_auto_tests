@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @PrintForms
 Feature: TestOrder - Print Forms 8 - User flows
 

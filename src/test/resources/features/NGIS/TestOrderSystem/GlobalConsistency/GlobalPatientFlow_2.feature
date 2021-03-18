@@ -1,6 +1,7 @@
 @GlobalFlow
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @GlobalConsistency
 Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 

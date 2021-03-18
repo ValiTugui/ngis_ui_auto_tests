@@ -1,6 +1,7 @@
 @responsibleClinicianOrg
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
 
 

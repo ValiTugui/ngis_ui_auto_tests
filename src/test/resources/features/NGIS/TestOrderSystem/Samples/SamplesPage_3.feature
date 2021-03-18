@@ -1,11 +1,11 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @Sample
 
 Feature: Samples Page -3
 
   @NTS-3365 @Z-LOGOUT
-    @test-6
 #    @E2EUI-2359 @E2EUI-1302 @E2EUI-842
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -26,7 +26,6 @@ Feature: Samples Page -3
 
 
   @NTS-3408 @Z-LOGOUT
-    @test-7
 #    @E2EUI-2143 @E2EUI-2108 @E2EUI-2106 @E2EUI-2098
   Scenario Outline: NTS-3408: Add sample details - Sample Type Tumour "<sampleType-tumour>" - Verify Tumour content value field is mandatory for Only Solid tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

@@ -1,11 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @Sample
 Feature: Samples Page -1
 
-
   @NTS-3287 @Z-LOGOUT
-    @test-1
 #    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-962
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type - sample's details are displayed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -33,7 +32,6 @@ Feature: Samples Page -1
 
 
   @NTS-3287  @Z-LOGOUT
-    @test-2
 #    @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample - sample's details are displayed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

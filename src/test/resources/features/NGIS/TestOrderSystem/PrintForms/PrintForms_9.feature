@@ -1,5 +1,6 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @PrintForms
 Feature: Print Forms 9 - Offline Orders
 

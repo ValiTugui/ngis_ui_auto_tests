@@ -1,24 +1,8 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 5 - RD Questionnaire
-
-#  @NTS-3433 @Z-LOGOUT
-##    @E2EUI-1546
-#  Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory
-#    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-#    When the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
-#    And the user navigates to the "<ClinicalQuestions>" stage
-#    When the user is navigated to a page with title Answer clinical questions
-#    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-#    Then the user clicks the Save and Continue button
-#    And the "<ClinicalQuestions>" stage is marked as Completed
-#    And the "<notes>" stage is selected
-#    Examples:
-#      | ClinicalQuestions  | ClinicalQuestionDetails                  | notes |
-#      | Clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
   @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1894

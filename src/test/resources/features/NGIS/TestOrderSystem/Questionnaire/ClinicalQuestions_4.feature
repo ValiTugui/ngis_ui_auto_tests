@@ -2,6 +2,7 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 4 - RD Questionnaire
 
   @NTS-3240 @Z-LOGOUT

@@ -1,6 +1,7 @@
 @03-TEST_ORDER
 @Tumours
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: Tumours Page - 5
 
   @NTS-3176 @NTS-3190 @Z-LOGOUT

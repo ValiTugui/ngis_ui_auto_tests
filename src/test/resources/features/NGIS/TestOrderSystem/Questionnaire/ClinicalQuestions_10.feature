@@ -1,28 +1,8 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 10 - Page Validation
-
-#  @NTS-4438 @Z-LOGOUT
-##    @E2EUI-1273 @E2EUI-1198
-#  Scenario Outline: NTS-4438: Field headers on clinical questions page
-#    Given a new patient referral is created with associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-#    When the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
-#    And the user navigates to the "<Stage>" stage
-#    And the user is navigated to a page with title Answer clinical questions
-#    And the user should be able to see the field headers on Clinical questions page
-#      | labelHeader                   |
-#      | Disease status details        |
-#      | HPO phenotype details         |
-#      | Rare disease diagnoses        |
-#      | Phenotypic and karyotypic Sex |
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Add clinical notes
-#    Examples:
-#      | Stage              |
-#      | Clinical questions |
 
   @NTS-4631 @Z-LOGOUT
 #    @E2EUI-1169

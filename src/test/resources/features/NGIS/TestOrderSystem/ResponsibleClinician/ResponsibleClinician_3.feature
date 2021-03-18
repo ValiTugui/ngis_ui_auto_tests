@@ -2,10 +2,10 @@
 @responsibleClinicianOrg
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@SYSTEM_TEST_3
 Feature: TestOrder - Responsible Clinician 3
 
-  @NTS-33241 @Z-LOGOUT
+  @NTS-3324 @Z-LOGOUT
 #    @NTS-3324_3895_3895_3286_4503_4696
 #    @E2EUI-1014
   Scenario Outline: NTS-3324 - Responsible Clinician Page - Verify the mandatory fields validations under 'Add Another Clinician' section
@@ -19,7 +19,6 @@ Feature: TestOrder - Responsible Clinician 3
 #NTS-3895
     And the user should be able to close the pop up dialog box
     Then the user is navigated to a page with title Add a requesting organisation
-
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user is navigated to a page with title <pageTitle>

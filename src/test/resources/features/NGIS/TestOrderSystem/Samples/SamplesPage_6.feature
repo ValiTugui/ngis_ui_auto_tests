@@ -1,10 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @Sample
 Feature: Samples Page -6
 
   @NTS-3345 @Z-LOGOUT
-    @test-16
 #    @E2EUI-838 @E2EUI-857
   Scenario Outline: NTS-3345:E2EUI-838,857:Edit a non tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

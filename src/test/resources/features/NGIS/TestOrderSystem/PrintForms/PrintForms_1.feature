@@ -1,9 +1,9 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @PrintForms
 Feature: Print Forms 1 - Offline Orders
 
-#  @NTS-4713 @NTS-5191 @NTS-3414
     @NTS-4703 @E2EUI-957
 #    @E2EUI-1795
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
@@ -32,7 +32,6 @@ Feature: Print Forms 1 - Offline Orders
       | Text                                                                                           | RequestingOrganisation                                  |
       | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-#  @NTS-5191 @NTS-4703
 
   @NTS-4713
 #    @E2EUI-1795

@@ -1,10 +1,10 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 3 - RD Questionnaire
 
   @NTS-35061 @Z-LOGOUT
-#    @NTS-32451 @E2EUI-1610
 #    @E2EUI-999
   Scenario Outline: NTS-3506 - Clinical Questions -  scenario 2 - Present recommended answers to some questions and select if they apply
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -13,7 +13,7 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     When the user is navigated to a page with title Answer clinical questions
-##    @NTS-32451 @E2EUI-1610
+##    @NTS-3245 @E2EUI-1610
     And the phenotype label marked as mandatory based on the disease status selection
       | diseaseStatueValue             | phenotypeMandatory |
       | USER_DOES_NOT_SELECT_ANY_VALUE | true               |
@@ -35,24 +35,3 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
     Examples:
       | stage              | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | karyotypicSexValue | rareDiseaseValue | diseaseStatueValue |
       | Clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | XXXY               | CEREBRAL SARCOMA | Affected           |
-
-#  @NTS-3245 @Z-LOGOUT
-##    @E2EUI-1610
-#  Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
-#    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-#    When the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
-#    And the user navigates to the "<stage>" stage
-#    When the user is navigated to a page with title Answer clinical questions
-#    And the phenotype label marked as mandatory based on the disease status selection
-#      | diseaseStatueValue             | phenotypeMandatory |
-#      | USER_DOES_NOT_SELECT_ANY_VALUE | true               |
-#      | Unaffected                     | false              |
-#      | Uncertain                      | false              |
-#      | Unknown                        | false              |
-#      | Affected                       | true               |
-#
-#    Examples:
-#      | stage              |
-#      | Clinical questions |

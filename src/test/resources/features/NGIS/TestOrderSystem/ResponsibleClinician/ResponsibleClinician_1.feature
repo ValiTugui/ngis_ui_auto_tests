@@ -2,6 +2,7 @@
 @responsibleClinicianOrg
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: Responsible Clinician - 1
 
   @NTS-3166  @Z-LOGOUT

@@ -1,10 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @Sample
 Feature: Samples Page -7
 
   @NTS-4734 @Z-LOGOUT
-    @test-17
 #    @E2EUI-1342 @E2EUI-1440
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -46,7 +46,6 @@ Feature: Samples Page -7
 
 
   @NTS-3376 @Z-LOGOUT
-    @test-18
 #    @E2EUI-1490
   Scenario Outline:  NTS-3376: Add Sample Details - Sample Tumour type -  Verify the fields elements are displayed on Add Sample Details page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

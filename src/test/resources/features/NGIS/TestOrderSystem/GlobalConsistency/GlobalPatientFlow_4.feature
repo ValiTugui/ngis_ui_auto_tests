@@ -3,6 +3,7 @@
 #@noComponent
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
   @NTS-4692 @Z-LOGOUT
@@ -37,8 +38,6 @@ Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
       | Samples | Normal or germline sample | Fetal blood (EDTA) | Normal or germline sample | Amniotic fluid |
 
   @NTS-4621 @Z-LOGOUT
-#    @NTS-4673 @E2EUI-1492
-#    @NTS-4689  @E2EUI-1152
 #    @E2EUI-1191
   Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
     Given a web browser is at the patient search page

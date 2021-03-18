@@ -2,6 +2,7 @@
 @03-TEST_ORDER
 @Tumours
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: Tumours Page - 4
 
   #noinspection NonAsciiCharacters

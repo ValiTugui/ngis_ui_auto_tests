@@ -1,12 +1,11 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @Sample
 Feature: Samples Page -5
 
-
   @NTS-3312 @Z-LOGOUT
-    @NTS-3312 @NTS-3332 @NTS-3333 @NTS-3308
-    @test-15
+#    @NTS-3312 @NTS-3332 @NTS-3333 @NTS-3308
 #    @E2EUI-868 @@E2EUI-1261 @E2EUI-887 @E2EUI-943 @E2EUI-2338 @E2EUI-1232 @E2EUI-1446 @E2EUI-1272 @E2EUI-1252
   Scenario Outline: NTS-3312:E2EUI-868,1261,887: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

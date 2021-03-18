@@ -1,10 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @PrintForms
 Feature: TestOrder - Print Forms 3 - Validations
 
   @NTS-4702 @Z-LOGOUT
-#    @NTS-4703 @E2EUI-1993
 #    @E2EUI-1306
   Scenario Outline: NTS-4702: As a user I want to see some advisory notice on the PDFs that says Not for Clinical use
     Given a new patient referral is created with associated tests in Test Order System online service

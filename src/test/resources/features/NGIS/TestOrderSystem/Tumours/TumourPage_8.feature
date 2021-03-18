@@ -1,6 +1,7 @@
 @03-TEST_ORDER
 @Tumours
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: TestOrder - Tumours Page - 9
 
 

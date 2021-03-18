@@ -3,6 +3,7 @@
 #@referral
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @GlobalConsistency
 Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 
@@ -61,10 +62,6 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 #      | Patient details |
 
   @NTS-4728  @NTS-4673 @Z-LOGOUT
-#    @NTS-4793 @E2EUI-1008
-#    @E2EUI-1250 @E2EUI-1368
-#    @NTS-4809 @E2EUI-1324
-#    @NTS-4689 @E2EUI-1152
 #    @E2EUI-1492
   Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

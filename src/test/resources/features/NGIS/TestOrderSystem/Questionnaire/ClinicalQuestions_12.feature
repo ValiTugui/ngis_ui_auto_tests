@@ -3,6 +3,7 @@
 #@CancerQuestionnaire
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 12 - Tumour Questionnaire
 
   @NTS-3266 @Z-LOGOUT

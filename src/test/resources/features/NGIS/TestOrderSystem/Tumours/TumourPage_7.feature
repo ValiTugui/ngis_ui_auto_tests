@@ -2,6 +2,7 @@
 @03-TEST_ORDER
 @Tumours
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: Tumours Page - 7
 
   @NTS-3225 @NTS-3204 @NTS-3154 @NTS-3431 @Z-LOGOUT

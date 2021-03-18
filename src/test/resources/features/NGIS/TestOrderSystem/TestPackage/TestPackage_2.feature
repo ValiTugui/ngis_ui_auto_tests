@@ -2,6 +2,7 @@
 #@testPackageRD
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @TestPackage
 Feature: TestOrder - Test Package 2 - RD
 

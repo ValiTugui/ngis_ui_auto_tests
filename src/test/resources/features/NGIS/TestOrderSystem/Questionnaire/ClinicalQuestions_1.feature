@@ -2,7 +2,7 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@SYSTEM_TEST_3
 Feature: Clinical Question Page 1 - Family Members
 
   @NTS-4735 @Z-LOGOUT

@@ -3,6 +3,7 @@
 #@GlobalFlow_Validations_Tumour
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @GlobalConsistency
 Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
 

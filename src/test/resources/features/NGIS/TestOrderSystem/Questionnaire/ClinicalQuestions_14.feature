@@ -1,12 +1,11 @@
 @clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questionnaire- Rare Disease/Cancer.
 
-  @NTS-51831 @Z-LOGOUT
+  @NTS-5183 @Z-LOGOUT
    #@E2EUI-1042
-#    @NTS-4624  @E2EUI-1299
-#    @NTS-4631  @E2EUI-1514
   Scenario Outline:NTS-5183:E2EUI-1042:Scenario-1: Validation of dynamic questions in Questionnaire- Rare Disease
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1999:Gender=Male |

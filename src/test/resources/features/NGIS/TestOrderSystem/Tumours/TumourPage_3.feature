@@ -1,6 +1,7 @@
 #@tumoursPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 @Tumours
 Feature: Tumours Page - 3
 
