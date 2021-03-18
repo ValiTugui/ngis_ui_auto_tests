@@ -81,8 +81,6 @@ Feature: UserJourney_RD_NEW_AP_4 - UC15 - E2EUI-832
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
 #    Then the "<Pedigree>" stage is marked as Completed
-   ###Print forms
-    Then the user is navigated to a page with title Print sample forms
     And the below stages marked as completed
       | <PatientDetails>         |
       | <RequestingOrganisation> |
