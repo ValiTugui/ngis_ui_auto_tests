@@ -12,14 +12,14 @@ Feature: Patient Choice-13  - Page - FamilyMemberAddition
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -33,7 +33,9 @@ Feature: Patient Choice-13  - Page - FamilyMemberAddition
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=14-05-1928 |
       | NHSNumber=NA:DOB=10-11-1929 |
-
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <TestPackage>            |
     Examples:
       | PatientDetails  | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Patient details | Test package | 3                | Family members | Patient choice |

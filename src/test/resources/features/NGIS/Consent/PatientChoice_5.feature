@@ -13,21 +13,21 @@ Feature: Patient Choice -5 - Page - FamilyMemberAddition
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     ##Test Package - No of participants -2
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                               | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=14-05-2003:Gender=Male:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
+#    Then the "<FamilyMembers>" stage is marked as Completed
     And the user sees the patient choice status for proband as Not entered
     And the user sees the patient choice status for family member 1 as Not entered
     #patient choice for the proband
@@ -56,7 +56,7 @@ Feature: Patient Choice -5 - Page - FamilyMemberAddition
     Then the user is navigated to a page with title Patient choice
     And the user sees the patient choice status for proband as Agreed to testing
     And the user sees the patient choice status for family member 1 as Agreed to testing
-    Then the "<PatientChoice>" stage is marked as Completed
+#    Then the "<PatientChoice>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status for proband as Agreed to testing
@@ -67,6 +67,11 @@ Feature: Patient Choice -5 - Page - FamilyMemberAddition
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on the Back link
     Then the user is navigated to a page with title Patient choice
+    And the below stages marked as completed
+      | <PatientDetails> |
+      | <TestPackage>    |
+      | <FamilyMembers>  |
+      | <PatientChoice>  |
 
     Examples:
       | PatientDetails  | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |

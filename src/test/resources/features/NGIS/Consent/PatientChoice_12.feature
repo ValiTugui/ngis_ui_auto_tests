@@ -16,7 +16,7 @@ Feature: Patient Choice-12 - Adult with Capacity
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -32,6 +32,8 @@ Feature: Patient Choice-12 - Adult with Capacity
       | NHSNumber=NA:DOB=14-05-1943 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
     And the user is navigated to a page with title Patient choice
     Then the user sees the patient choice status for family member 1 as Agreed to testing
+    And the below stages marked as completed
+      | <TestPackage> |
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants |
       | Family members | Test package | 2                |
@@ -50,14 +52,14 @@ Feature: Patient Choice-12 - Adult with Capacity
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
+#    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<TwoParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
@@ -67,14 +69,14 @@ Feature: Patient Choice-12 - Adult with Capacity
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     When the user navigates to the "<Notes>" stage
     #Then the user is navigated to a page with title Add notes to this referral
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
     And the "<FamilyMembers>" stage is marked as Mandatory To Do
@@ -82,7 +84,7 @@ Feature: Patient Choice-12 - Adult with Capacity
     When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=12-05-1932:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
+#    Then the "<FamilyMembers>" stage is marked as Completed
     #patient choice for the proband
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
@@ -101,7 +103,15 @@ Feature: Patient Choice-12 - Adult with Capacity
     When the user edits patient choice for "<TwoParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=12-05-1932 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
-    Then the "<PatientChoice>" stage is marked as Completed
+#    Then the "<PatientChoice>" stage is marked as Completed
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <FamilyMembers>          |
+      | <PatientChoice>          |
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<ThreeParticipants>"
