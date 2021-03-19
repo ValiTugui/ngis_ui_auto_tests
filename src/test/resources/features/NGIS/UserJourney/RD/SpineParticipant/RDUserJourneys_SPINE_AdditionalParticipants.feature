@@ -103,7 +103,6 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
       | <Notes>                  |
       | <FamilyMemberStage>      |
       | <PatientChoiceStage>     |
-      | <Panels>                 |
       | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
