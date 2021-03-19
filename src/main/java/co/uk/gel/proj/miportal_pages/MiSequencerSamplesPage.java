@@ -80,7 +80,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectSequencerSamplesDropDownSearchValue(String value) {
         try {
             if(!seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value)){
-                Wait.seconds(5);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
             }
             return true;

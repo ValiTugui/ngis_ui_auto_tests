@@ -149,7 +149,7 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectPlaterSamplesDropDownSearchValue(String value) {
         try {
             if (!seleniumLib.selectFromListByText(platerSampleSearchValue, value)) {
-                Wait.seconds(5);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(platerSampleSearchValue, value);
             }
             return true;
