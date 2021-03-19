@@ -1588,7 +1588,7 @@ public class PatientDetailsPage {
             String actualFirstName = firstName.getAttribute("value");
             String actualLastName = familyName.getAttribute("value");
             String actualFullDOB = dateOfBirthDay.getAttribute("value") + "/" + dateOfBirthMonth.getAttribute("value") + "/" + dateOfBirthYear.getAttribute("value");
-            String actualGender = administrativeGenderButton.getText().trim();
+            String actualGender = genderFieldStatus.getText();
             String actualNHSNumber = nhsNumber.getAttribute("value");
 
             NewPatient newPatient = getNewlyCreatedPatientData();

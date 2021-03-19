@@ -338,9 +338,9 @@ public class PatientDetailsSteps extends Pages {
     @And("the newly edited patient's Gender {string}, Life Status {string} and Ethnicity {string} are displayed in Patient Details page")
     public void theNewlyEditedPatientSGenderLifeStatusAndEthnicityAreDisplayedInPatientDetailsPage(String expectedGender, String expectedLifeStatus, String expectedEthnicity) {
 
-        String actualGender = Actions.getText(patientDetailsPage.administrativeGenderButton);
-        String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusButton);
-        String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityButton);
+        String actualGender = Actions.getText(patientDetailsPage.genderFieldStatus);
+        String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusFieldStatus);
+        String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityFieldStatus);
         Assert.assertEquals(expectedGender, actualGender);
         Assert.assertEquals(expectedLifeStatus, actualLifeStatus);
         Assert.assertEquals(expectedEthnicity, actualEthnicity);
