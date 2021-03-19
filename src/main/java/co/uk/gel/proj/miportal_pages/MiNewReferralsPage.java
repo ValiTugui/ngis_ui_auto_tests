@@ -67,7 +67,7 @@ public class MiNewReferralsPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean selectNewReferralsDropDownSearchValue(String value) {
         try {
-            Wait.seconds(5);
+            Wait.seconds(2);
             return seleniumLib.selectFromListByText(newReferralsSearchValue,value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalNewReferrals:selectDropDownSearchValue: "+ exp);
