@@ -3,7 +3,7 @@
 @file_submission
 Feature: MIPORTAL ST - File Submission 2
 
-  @NTS-3390
+  @NTS-3390 @MI-LOGOUT
     #@E2EUI-1283 NTS-5054:E2EUI-2471
   Scenario Outline: NTS-3390: Verify the Pagination drop-down options shown in search result table and Sort file submissions results by created date descending
     Given a web browser is at the mi-portal home page
@@ -37,7 +37,7 @@ Feature: MIPORTAL ST - File Submission 2
       | mi_stage         |
       | File Submissions |
 
-  @NTS-3390
+  @NTS-3390 @MI-LOGOUT
     #@E2EUI-1283,2513
   Scenario Outline: NTS-3390:E2EUI-1283,2513:verify the defaults elements on File Submission search page
     Given a web browser is at the mi-portal home page

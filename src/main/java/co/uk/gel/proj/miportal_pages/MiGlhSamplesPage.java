@@ -4,7 +4,6 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -99,7 +98,7 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean selectGlhDropDownSearchValue(String value) {
         try {
-            Wait.seconds(2);
+            Wait.seconds(10);
             return seleniumLib.selectFromListByText(glhSearchValue,value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalGlhSamples:selectDropDownSearchValue: "+ exp);

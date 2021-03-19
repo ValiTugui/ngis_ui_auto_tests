@@ -135,7 +135,7 @@ Feature: MIPORTAL ST - File Submission 1
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5018
+  @NTS-5018 @MI-LOGOUT
     # @E2EUI-2503
   Scenario Outline: NTS-5018:E2EUI-2503:Validate 'is one of' filter working and standardized date search to a single 'Created' filter
     Given a web browser is at the mi-portal home page
@@ -155,7 +155,7 @@ Feature: MIPORTAL ST - File Submission 1
       | mi_stage         |
       | File Submissions |
 
-  @NTS-5016
+  @NTS-5016 @MI-LOGOUT
     #@E2EUI-2224
   Scenario Outline: NTS-5016:E2EUI-2224,2470: No warnings are displayed for files with status valid_with_warning
     Given a web browser is at the mi-portal home page
