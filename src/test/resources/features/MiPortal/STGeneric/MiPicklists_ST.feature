@@ -7,7 +7,6 @@ Feature: MIPORTAL ST - PickLists 1
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of Picklists search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    And the user should be able to see sample processing menu is displayed
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user sees the below values in the pick lists search column drop-down menu
@@ -97,7 +96,7 @@ Feature: MIPORTAL ST - PickLists 1
 #    When the user click on the Search button
 #    Then the user sees an error message "Select a valid choice. That choice is not one of the available choices." on the page
 
-  @NTS-6703 @MI-LOGOUT @test8
+  @NTS-6703 @MI-LOGOUT
   Scenario Outline:NTS-6703:Remove extraneous field gel1008__plate__warning_msgs from Picklists Report and verify the fields present in the Picklists section
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

@@ -7,7 +7,6 @@ Feature: MIPORTAL ST - Order_Tracking
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of Order Tracking search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    And the user should be able to see sample processing menu is displayed
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user sees the below values in the order tracking search column drop-down menu

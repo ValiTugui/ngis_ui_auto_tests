@@ -8,7 +8,6 @@ Feature:  MIPORTAL ST - Plater Samples
   Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of Plater Samples search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    And the user should be able to see sample processing menu is displayed
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user sees the below values in the plater samples search column drop-down menu
@@ -119,7 +118,6 @@ Feature:  MIPORTAL ST - Plater Samples
   Scenario Outline: NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    And the user should be able to see sample processing menu is displayed
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     When the user selects GEL1005 Sample Received Datetime as the plater samples search column dropdown
