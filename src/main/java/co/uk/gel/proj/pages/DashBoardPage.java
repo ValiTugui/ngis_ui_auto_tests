@@ -68,15 +68,11 @@ public class DashBoardPage {
             nextButton.click();
         }
     }
-
+    @FindBy(xpath = "//h1[contains(text(),'Welcome to the National')]")
+    public WebElement resultsPanelPageTitle;
      public void waitUntilDashboardPageResultsContainerIsLoaded() {
         try {
-            Wait.forElementToBeDisplayed(driver, resultsPanel);
-                try {
-                    Wait.forElementToBeClickable(driver, resultsPanel);
-                } catch (Exception exp) {
-                    Wait.forElementToBeClickable(driver, resultsPanel);
-                }
+            Wait.forElementToBeDisplayed(driver, resultsPanelPageTitle, 60);
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
         }
@@ -84,7 +80,8 @@ public class DashBoardPage {
 
     public boolean dashboardPageResultsIsLoaded() {
         try {
-            Wait.forElementToBeClickable(driver, resultsPanel);
+            Wait.forElementToBeDisplayed(driver, resultsPanelPageTitle, 60);
+//            Wait.forElementToBeClickable(driver, resultsPanel);
             return true;
         }catch(Exception exp){
             Debugger.println("Dashboard page not loaded."+exp);
