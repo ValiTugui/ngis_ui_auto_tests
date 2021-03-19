@@ -5,7 +5,7 @@ Feature:  MIPORTAL ST -  New Referrals ST
 
   @NTS-5190 @MI-LOGOUT
     # NTS-5066 is covered here
-  Scenario Outline:NTS-5190:E2EUI-2770:When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline:NTS-5190:E2EUI-2770:When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of New Referrals search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage

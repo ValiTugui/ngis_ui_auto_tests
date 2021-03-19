@@ -5,7 +5,7 @@ Feature: MIPORTAL ST -  Glh Samples
 
   @NTS-5190  @MI-LOGOUT
     # NTS-5178 is covered here in this scenario
-  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of GLH Samples search values
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
