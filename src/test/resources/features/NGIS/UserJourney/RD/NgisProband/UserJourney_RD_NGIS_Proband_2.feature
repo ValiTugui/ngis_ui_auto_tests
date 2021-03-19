@@ -75,7 +75,6 @@ Feature: UserJourney_RD_NGIS_Proband_2 - UC04 - E2EUI-1466
       | <ClinicalQuestion>       |
       | <Notes>                  |
       | <PatientChoiceStage>     |
-      | <Panels>                 |
       | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
