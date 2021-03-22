@@ -437,7 +437,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsInTheSearchResultSection() {
         try {
-            Wait.seconds(5);
+            Wait.seconds(15); //Taking more time to load the results
             if(!Wait.isElementDisplayed(driver,searchResultTitle,60)){
                 Debugger.println("Search results are not displayed");
                 return false;
