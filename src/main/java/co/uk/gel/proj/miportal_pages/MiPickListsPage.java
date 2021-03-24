@@ -74,7 +74,7 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectPickListsDropDownSearchValue(String value) {
         try {
             if(!seleniumLib.selectFromListByText(pickListsSearchValue,value)){
-                Wait.seconds(5);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(pickListsSearchValue,value);
             }
             return true;
