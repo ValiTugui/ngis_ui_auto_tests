@@ -4,7 +4,7 @@
 @PrintForms
 Feature: Print Forms 1 - Offline Orders
 
-    @NTS-4703 @E2EUI-957
+  @NTS-4703 @E2EUI-957
 #    @E2EUI-1795
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
     Given a web browser is at the Private Test Selection homepage
@@ -24,13 +24,13 @@ Feature: Print Forms 1 - Offline Orders
     And the user is able to download form of the "Referral" section and validate the text "<Text>" in the file "ReferralForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "ReferralForm.pdf"
    ## Covered @NTS-5191
-    And the user is able to download form of the "Additional family members" section and validate the text "<Text>" in the file "AdditionalParticipantForm.pdf"
+    And the user is able to download form of the "Additional family members" section and validate the text "<Text1>" in the file "AdditionalParticipantForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "AdditionalParticipantForm.pdf"
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                           | RequestingOrganisation                                  |
-      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                                                                                                                                                                                                      | Text1                                                                                                                                                                                                                                                                       | RequestingOrganisation                                  |
+      | RARE AND INHERITED,QR06_G v1.21,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | RARE AND INHERITED,QR06_F_G v1.21,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
 
   @NTS-4713
@@ -57,5 +57,5 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                | RequestingOrganisation                                  |
-      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C linical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                                                                                                                                                                                                                                                                                           | RequestingOrganisation                                  |
+      | CANCER,QT04_G v1.20,Liverpool Heart and Chest Hospital NHS Foundation Trust,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other,N ot for C linical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
