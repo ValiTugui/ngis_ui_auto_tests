@@ -4,7 +4,7 @@
 @PrintForms
 Feature: Print Forms 1 - Offline Orders
 
-  @NTS-4703 @E2EUI-957
+  @NTS-4713 @E2EUI-957
 #    @E2EUI-1795
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
     Given a web browser is at the Private Test Selection homepage
