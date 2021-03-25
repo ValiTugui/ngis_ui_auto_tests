@@ -124,4 +124,30 @@ public class DashBoardSteps extends Pages {
     public void userNavigatesBackToDashboard() {
         driver.navigate().back();
     }
+
+    @Given("a web browser is at the dashboard page with super user")
+    public void aWebBrowserIsAtTheDashboardPageWithSuperUser() {
+        dashBoardPage.navigateToDashboardPageWithSuperUser();
+        SeleniumLib.sleepInSeconds(10);
+        dashBoardPage.waitUntilDashboardPageResultsContainerIsLoaded();
+        if(!driver.getTitle().equalsIgnoreCase(dashBoardPage.tabTitle)) {
+            Debugger.println("Dashboard Page title is not as expected.");
+            SeleniumLib.takeAScreenShot("DBTitleMismatch.jpg");
+            Assert.fail("Expected DB PageTitle:"+dashBoardPage.tabTitle+", Actual:"+driver.getTitle());
+        }
+    }
+
+    @And("the user should be able to clicks on {string}")
+    public void theUserShouldBeAbleToClicksOnTabs(String inputTabs) {
+        boolean testResult = false;
+        String[] inp_tabs = inputTabs.split(",");
+        for (String inp_tab : inp_tabs) {
+           testResult = dashBoardPage.clickOnTabsAndVerifyTheUrl(inp_tab);
+           if (!testResult){
+               Debugger.println("Could not click on tab : "+inp_tab);
+               SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"CouldNotClickOnTab_"+inp_tab+".jpg");
+               Assert.assertTrue(testResult);
+           }
+        }
+    }
 }
