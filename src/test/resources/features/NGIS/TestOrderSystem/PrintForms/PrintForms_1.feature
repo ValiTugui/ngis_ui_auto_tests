@@ -5,7 +5,8 @@
 Feature: Print Forms 1 - Offline Orders
 
   @NTS-4713 @E2EUI-957
-#    @E2EUI-1795
+    #@E2EUI-1795
+    #NTS-5965
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -34,7 +35,8 @@ Feature: Print Forms 1 - Offline Orders
 
 
   @NTS-4713
-#    @E2EUI-1795
+    #@E2EUI-1795
+    #NTS-5965
   Scenario Outline: scenario_2: PDFs: Implement Generic PDF forms-Cancer
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
