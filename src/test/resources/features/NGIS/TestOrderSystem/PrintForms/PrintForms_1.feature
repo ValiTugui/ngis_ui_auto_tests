@@ -5,7 +5,8 @@
 Feature: Print Forms 1 - Offline Orders
 
   @NTS-4713 @E2EUI-957
-#    @E2EUI-1795
+    #@E2EUI-1795
+    #NTS-5965
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -29,12 +30,13 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                                                                                                                                                                                      | Text1                                                                                                                                                                                                                                                                       | RequestingOrganisation                                  |
-      | RARE AND INHERITED,QR06_G v1.21,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | RARE AND INHERITED,QR06_F_G v1.21,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                                                                                                                                                                                                                                                                                                                          | Text1                                                                                                                                                                                                                                                                                                                                                                                           | RequestingOrganisation                                  |
+      | RARE AND INHERITED,QR06_G v1.21,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national),Other (provide reason):,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | RARE AND INHERITED,QR06_F_G v1.21,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national),Other (provide reason):,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
 
   @NTS-4713
-#    @E2EUI-1795
+    #@E2EUI-1795
+    #NTS-5965
   Scenario Outline: scenario_2: PDFs: Implement Generic PDF forms-Cancer
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -57,5 +59,5 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                                                                                                                                                                                                                                                                           | RequestingOrganisation                                  |
-      | CANCER,QT04_G v1.20,Liverpool Heart and Chest Hospital NHS Foundation Trust,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other,N ot for C linical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | RequestingOrganisation                                  |
+      | CANCER,QT04_G v1.20,Liverpool Heart and Chest Hospital NHS Foundation Trust,Complete for tumour samples (being sent to GLH DNA extraction lab),Complete for germline samples (being sent to GLH DNA extraction lab),Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national),Other (provide reason):,Sample ID,Primary,Metastatic,Unknown,Lymphoma,Haemato-oncology liquid tumour,AML,ALL,Other (please specify),Date of this diagnosis,Blood (EDTA),Saliva,Fibroblasts,Skin biopsy,Other,N ot for C linical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
