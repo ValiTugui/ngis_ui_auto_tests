@@ -18,6 +18,7 @@ public class DashBoardPage {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
+
     public DashBoardPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -58,7 +59,7 @@ public class DashBoardPage {
 
     public void navigateToDashboardPage() {
         driver.get(AppConfig.getTo_dashboard_url());
-        if ((driver.getCurrentUrl().contains("login.microsoft"))){
+        if ((driver.getCurrentUrl().contains("login.microsoft"))) {
             Wait.forElementToBeClickable(driver, emailAddressField);
             emailAddressField.sendKeys(AppConfig.getApp_username());
             nextButton.click();
@@ -68,13 +69,15 @@ public class DashBoardPage {
             nextButton.click();
         }
     }
+
     @FindBy(xpath = "//h1[contains(text(),'Welcome to the National')]")
     public WebElement resultsPanelPageTitle;
-     public void waitUntilDashboardPageResultsContainerIsLoaded() {
+
+    public void waitUntilDashboardPageResultsContainerIsLoaded() {
         try {
             Wait.forElementToBeDisplayed(driver, resultsPanelPageTitle, 60);
-        }catch(Exception exp){
-            Debugger.println("Dashboard page not loaded."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Dashboard page not loaded." + exp);
         }
     }
 
@@ -83,8 +86,8 @@ public class DashBoardPage {
             Wait.forElementToBeDisplayed(driver, resultsPanelPageTitle, 60);
 //            Wait.forElementToBeClickable(driver, resultsPanel);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Dashboard page not loaded."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Dashboard page not loaded." + exp);
             return false;
         }
     }
@@ -98,17 +101,17 @@ public class DashBoardPage {
         }
     }
 
-    public void clickOrderAGenomicTest(){
+    public void clickOrderAGenomicTest() {
         Wait.forElementToBeDisplayed(driver, testOrderLocator);
         Actions.clickElement(driver, testOrderLocator);
     }
 
-    public void clickFindAGenomicTest(){
+    public void clickFindAGenomicTest() {
         Wait.forElementToBeDisplayed(driver, testSelectionLocator);
         Actions.clickElement(driver, testSelectionLocator);
     }
 
-      public boolean verifyTheNHSLogo() {
+    public boolean verifyTheNHSLogo() {
         try {
             Wait.forElementToBeDisplayed(driver, NHSLogo);
             if (!NHSLogo.isDisplayed()) {
@@ -137,31 +140,38 @@ public class DashBoardPage {
                 switch (i) {
                     case 0:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Find a genomic test")) {
-                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Find a genomic test");
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText() + ",Expected:Find a genomic test");
                             return false;
                         }
+
                         break;
                     case 1:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Order a genomic test")) {
-                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Order a genomic test");
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText() + ",Expected:Order a genomic test");
                             return false;
                         }
                         break;
                     case 2:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Manage samples")) {
-                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Manage samples");
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText() + ",Expected:Manage samples");
                             return false;
                         }
                         break;
                     case 3:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Enter the Interpretation Portal")) {
-                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Enter the Interpretation Portal");
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText() + ",Expected:Enter the Interpretation Portal");
                             return false;
                         }
                         break;
                     case 4:
                         if (!nhsTabs.get(i).getText().equalsIgnoreCase("Open PanelApp")) {
-                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText()+",Expected:Open PanelApp");
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText() + ",Expected: Open PanelApp");
+                            return false;
+                        }
+                        break;
+                    case 5:
+                        if (!nhsTabs.get(i).getText().equalsIgnoreCase("Access the service admin tool")) {
+                            Debugger.println(i + ".Actual tab:" + nhsTabs.get(i).getText() + ",Expected: Access the service admin tool");
                             return false;
                         }
                         break;
@@ -175,31 +185,31 @@ public class DashBoardPage {
     }
 
     public boolean clickOnTab(String tabName) {
-        try{
+        try {
             switch (tabName) {
-                    case "Find a genomic test" :
-                        Wait.isElementDisplayed(driver, nhsTabs.get(0), 60);
-                        nhsTabs.get(0).click();
-                        break;
-                    case "Order a genomic test" :
-                        Wait.isElementDisplayed(driver, nhsTabs.get(1), 60);
-                        nhsTabs.get(1).click();
-                        break;
-                    case "Manage samples" :
-                        Wait.isElementDisplayed(driver, nhsTabs.get(2), 60);
-                        nhsTabs.get(2).click();
-                        break;
-                    case "Enter the Interpretation Portal" :
-                        Wait.isElementDisplayed(driver, nhsTabs.get(3), 60);
-                        nhsTabs.get(3).click();
-                        break;
-                    case "Open PanelApp" :
-                        Wait.isElementDisplayed(driver, nhsTabs.get(4), 60);
-                        nhsTabs.get(4).click();
-                        break;
-                }
+                case "Find a genomic test":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(0), 60);
+                    nhsTabs.get(0).click();
+                    break;
+                case "Order a genomic test":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(1), 60);
+                    nhsTabs.get(1).click();
+                    break;
+                case "Manage samples":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(2), 60);
+                    nhsTabs.get(2).click();
+                    break;
+                case "Enter the Interpretation Portal":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(3), 60);
+                    nhsTabs.get(3).click();
+                    break;
+                case "Open PanelApp":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(4), 60);
+                    nhsTabs.get(4).click();
+                    break;
+            }
             return true;
-        } catch (Exception exp){
+        } catch (Exception exp) {
             Debugger.println("Exception form DashBoardPage, Click on Tab " + tabName + " " + exp);
             return false;
         }
@@ -210,20 +220,118 @@ public class DashBoardPage {
             if (driver.getCurrentUrl().contains("dashboard")) {
                 return false;
             }
-           return true;
+            return true;
         } catch (Exception exp) {
             return false;
         }
     }
 
     public boolean clickOnManageSampleTab() {
-        try{
-            if(!Wait.isElementDisplayed(driver, ManageSamplesTab, 30)){
+        try {
+            if (!Wait.isElementDisplayed(driver, ManageSamplesTab, 30)) {
                 return false;
             }
             ManageSamplesTab.click();
             return true;
-        } catch (Exception exp){
+        } catch (Exception exp) {
+            return false;
+        }
+    }
+
+    public void navigateToDashboardPageWithSuperUser() {
+        driver.get(AppConfig.getTo_dashboard_url());
+        if ((driver.getCurrentUrl().contains("login.microsoft"))) {
+            Wait.forElementToBeClickable(driver, emailAddressField);
+//            emailAddressField.sendKeys(AppConfig.getApp_username());
+            emailAddressField.sendKeys(AppConfig.getApp_superUsername());
+            nextButton.click();
+            Wait.seconds(2);
+            Wait.forElementToBeClickable(driver, passwordField);
+            passwordField.sendKeys(AppConfig.getApp_superPassword());
+//            passwordField.sendKeys(AppConfig.getApp_password());
+            nextButton.click();
+        }
+    }
+
+    public boolean clickOnTabsAndVerifyTheUrl(String tabName) {
+        try {
+            String url = "";
+            switch (tabName) {
+                case "Find a genomic test":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(0), 60);
+                    nhsTabs.get(0).click();
+                    SeleniumLib.sleepInSeconds(2);
+                    url = driver.getCurrentUrl();
+//                    Debugger.println("Current URL " + url);
+                    if (!url.contains("test-selection")){
+                        Debugger.println("the user in wrong page : "+url);
+                        return false;
+                    }
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                    break;
+                case "Order a genomic test":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(1), 60);
+                    nhsTabs.get(1).click();
+                    SeleniumLib.sleepInSeconds(2);
+                    url = driver.getCurrentUrl();
+//                    Debugger.println("Current URL " + url);
+                    if (!url.contains("test-order")){
+                        Debugger.println("the user in wrong page : "+url);
+                        return false;
+                    }
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                    break;
+                case "Manage samples":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(2), 60);
+                    nhsTabs.get(2).click();
+                    SeleniumLib.sleepInSeconds(2);
+                    url = driver.getCurrentUrl();
+//                    Debugger.println("Current URL " + url);
+                    if (!url.contains("miportal")){
+                        Debugger.println("the user in wrong page : "+url);
+                        return false;
+                    }
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                    break;
+                case "Enter the Interpretation Portal":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(3), 60);
+                    nhsTabs.get(3).click();
+                    url = driver.getCurrentUrl();
+//                    Debugger.println("Current URL " + url);
+                    if (!url.contains("cipapi-gms-test")){
+                        Debugger.println("the user in wrong page : "+url);
+                        return false;
+                    }
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                    break;
+                case "Open PanelApp":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(4), 60);
+                    nhsTabs.get(4).click();
+                    SeleniumLib.sleepInSeconds(2);
+                    url = driver.getCurrentUrl();
+//                    Debugger.println("Current URL " + url);
+                    if (!url.contains("panelapp")){
+                        Debugger.println("the user in wrong page : "+url);
+                        return false;
+                    }
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                    break;
+                case "Access the service admin tool":
+                    Wait.isElementDisplayed(driver, nhsTabs.get(5), 60);
+                    nhsTabs.get(5).click();
+                    SeleniumLib.sleepInSeconds(2);
+                    url = driver.getCurrentUrl();
+//                    Debugger.println("Current URL " + url);
+                    if (!url.contains("entity-admin-tool")){
+                        Debugger.println("the user in wrong page : "+url);
+                        return false;
+                    }
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                    break;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception form DashBoardPage, Click on Tab " + tabName + " " + exp);
             return false;
         }
     }
