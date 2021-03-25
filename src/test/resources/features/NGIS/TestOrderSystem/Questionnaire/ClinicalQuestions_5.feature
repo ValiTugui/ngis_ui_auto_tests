@@ -23,7 +23,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
       | ClinicalQuestions  | title                     | ClinicalQuestionDetails                  | notes |
       | Clinical questions | Answer clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
-  @NTS-34331 @Z-LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1625 @E2EUI-1068 @E2EUI-842
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
