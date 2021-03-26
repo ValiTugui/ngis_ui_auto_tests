@@ -5,7 +5,7 @@
 Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
 
 
-  @NTS-4802  @NTS-6040 @Z-LOGOUT
+  @NTS-4802 @Z-LOGOUT
 #    @E2EUI-1789 @E2EUI-1262 @E2EUI-826
   Scenario Outline: NTS-4802:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -79,3 +79,28 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     Examples:
       | ThreeParticipants | ClinicalQuestionDetails                   | ResponsibleClinicianDetails                | ClinicianName                           | PrintForms  |
       | 3                 | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | LastName=Barick:Department=Victoria Street | ClinicianName=Deepak:HospitalNumber=123 | Print forms |
+
+  @NTS-6040
+  Scenario Outline: NTS-4802:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R85 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=15-10-2001:Gender=Female |
+     ###Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "<Requesting_Organisation_key>" in the search field
+    And the user selects the first entity from the suggestions list
+    And the user clicks the Save and Continue button
+    ###Test Package
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<ThreeParticipants>"
+    And the user clicks the Save and Continue button
+
+    When the user navigates to the "<PrintForms>" stage
+    And the user is navigated to a page with title Print sample forms
+    And the user is able to download print form for the proband
+    ###Covering E2EUI-826
+    And the user should be able to click "Show address" link to verify the address of the lab in the downloaded file
+    Examples:
+      | ThreeParticipants | Requesting_Organisation_key               | PrintForms  |
+      | 1                 | Sheffield Children's NHS Foundation Trust | Print forms |
+      | 1                 | Gateshead Health NHS Foundation Trust     | Print forms |
+      | 1                 | Leeds Community Healthcare NHS Trust      | Print forms |
