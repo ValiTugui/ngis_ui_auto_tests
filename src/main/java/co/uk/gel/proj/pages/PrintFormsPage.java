@@ -673,6 +673,9 @@ public class PrintFormsPage {
     //new
     String[] labAddress = {};
 
+    @FindBy(xpath = "//h3[contains(@class,'downloads__lab-name')]")
+    public WebElement labName;
+
     public String readLabAddress(String showAddress) {
         labAddress = null;
         try {
@@ -681,7 +684,7 @@ public class PrintFormsPage {
                 seleniumLib.clickOnWebElement(showLabAddressLinkButton);
             }
             Wait.forElementToBeDisplayed(driver, detailedAddressText);
-            String detailedAddress = detailedAddressText.getText();
+            String detailedAddress = detailedAddressText.getText()+"\n"+labName.getText();
             if (detailedAddress == null || detailedAddress.isEmpty()) {
                 Debugger.println("No detailed Address present.");
                 return null;
