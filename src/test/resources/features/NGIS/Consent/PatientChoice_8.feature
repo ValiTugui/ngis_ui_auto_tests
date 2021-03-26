@@ -98,7 +98,7 @@ Feature: Patient Choice-8 - History - Preference
       | PatientChoice  | RequestingOrganisation  | expectedText                                                   | placeholderText                                                                         |
       | Patient choice | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
 
-  @NTS-34151 @Z-LOGOUT
+  @NTS-3415 @Z-LOGOUT
     #@E2EUI-1678
   Scenario Outline: NTS-3415 Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
