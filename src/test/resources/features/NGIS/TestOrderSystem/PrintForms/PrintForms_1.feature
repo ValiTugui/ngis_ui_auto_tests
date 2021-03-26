@@ -4,7 +4,7 @@
 @PrintForms
 Feature: Print Forms 1 - Offline Orders
 
-  @NTS-4713 @E2EUI-957
+  @NTS-4713 @E2EUI-957  @NTS-6619
     #@E2EUI-1795
     #NTS-5965
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
@@ -34,7 +34,7 @@ Feature: Print Forms 1 - Offline Orders
       | RARE AND INHERITED,QR06_G v1.21,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national),Other (provide reason):,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | RARE AND INHERITED,QR06_F_G v1.21,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national),Other (provide reason):,Liverpool Heart and Chest Hospital NHS Foundation Trust,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid,Fetal blood (EDTA),Chorionic Villus,Fresh Tissue (not tumour),Stored DNA,Sample ID,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
 
-  @NTS-4713
+  @NTS-4713  @NTS-6619
     #@E2EUI-1795
     #NTS-5965
   Scenario Outline: scenario_2: PDFs: Implement Generic PDF forms-Cancer

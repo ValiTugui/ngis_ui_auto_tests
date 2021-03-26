@@ -5,7 +5,7 @@
 Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
 
 
-  @NTS-4802 @Z-LOGOUT
+  @NTS-4802  @NTS-6040 @Z-LOGOUT
 #    @E2EUI-1789 @E2EUI-1262 @E2EUI-826
   Scenario Outline: NTS-4802:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
     Given a new patient referral is created with associated tests in Test Order System online service
