@@ -1440,6 +1440,7 @@ public class ReferralSteps extends Pages {
         if (cancelReferral.equals("present")) {
             Assert.assertTrue(testResult);
         } else {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_cancelReferralNotPresent.jpg");
             Assert.assertFalse(testResult);
         }
     }
