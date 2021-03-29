@@ -98,9 +98,10 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     And the user is navigated to a page with title Print sample forms
     And the user is able to download print form for the proband
     ###Covering E2EUI-826
+    And the user verifies the lab name "<labName>" is updated in Print forms stage
     And the user should be able to click "Show address" link to verify the address of the lab in the downloaded file
     Examples:
-      | ThreeParticipants | Requesting_Organisation_key               | PrintForms  |
-      | 1                 | Sheffield Children's NHS Foundation Trust | Print forms |
-      | 1                 | Gateshead Health NHS Foundation Trust     | Print forms |
-      | 1                 | Leeds Community Healthcare NHS Trust      | Print forms |
+      | ThreeParticipants | Requesting_Organisation_key               | PrintForms  | labName            |
+      | 1                 | Sheffield Children's NHS Foundation Trust | Print forms | NE&Y GLH Sheffield |
+      | 1                 | Gateshead Health NHS Foundation Trust     | Print forms | NE&Y GLH Newcastle |
+      | 1                 | Leeds Community Healthcare NHS Trust      | Print forms | NE&Y GLH Leeds     |
