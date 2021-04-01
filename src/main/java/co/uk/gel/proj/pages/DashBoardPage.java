@@ -67,6 +67,10 @@ public class DashBoardPage {
             Wait.forElementToBeClickable(driver, passwordField);
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
+            Wait.seconds(2);
+            if (driver.getCurrentUrl().contains("/Error")){
+                driver.navigate().to(AppConfig.getTo_dashboard_url());
+            }
         }
     }
 
