@@ -78,10 +78,10 @@
                     "participantUid": "d0668291-88df-4280-bed4-565c16a65db6",
                     "product": "DNA",
                     "programmePhase": "MAIN",
-                    "sampleId": "LP5000087-DNA_A01",
+                    "sampleId": "LP5000187-DNA_A01",
                     "sampleState": "blood_unsorted_edta",
                     "sampleType": "Normal or Germline sample",
-                    "sampleUid": "LP5000087-DNA_A01",
+                    "sampleUid": "LP5000187-DNA_A01",
                     "source": "BLOOD",
                     "storageMedium": "EDTA"
                 }
@@ -95,8 +95,8 @@
             },
             "matchedSamples": [
                 {
-                    "germlineSampleId": "LP5000087-DNA_A01",
-                    "tumourSampleId": "LP5000088-DNA_A01"
+                    "germlineSampleId": "LP5000187-DNA_A01",
+                    "tumourSampleId": "LP5000188-DNA_A01"
                 }
             ],
             "priority": "routine",
@@ -123,10 +123,10 @@
                     "participantUid": "d0668291-88df-4280-bed4-565c16a65db6",
                     "product": "DNA",
                     "programmePhase": "MAIN",
-                    "sampleId": "LP5000088-DNA_A01",
+                    "sampleId": "LP5000188-DNA_A01",
                     "sampleState": "tumour_freshFrozen",
                     "sampleType": "Solid tumour sample",
-                    "sampleUid": "LP5000088-DNA_A01",
+                    "sampleUid": "LP5000188-DNA_A01",
                     "source": "TUMOUR",
                     "storageMedium": "FF",
                     "tumourContent": "Medium",
