@@ -592,4 +592,14 @@ public class TestUtils {
             return "01-07-"+yearOfBirth;
         }
     }
-}
+
+    public static HashMap<String, String> splitAndGetParamsByDelimiter(String combinedInput,String regex) {
+        HashMap<String, String> paramNameValue = new HashMap<>();
+        String[] allParams = combinedInput.split(regex);
+        for (String param : allParams) {
+            paramNameValue.put(param.split("=")[0], param.split("=")[1]);
+        }
+        return paramNameValue;
+    }
+
+}//end

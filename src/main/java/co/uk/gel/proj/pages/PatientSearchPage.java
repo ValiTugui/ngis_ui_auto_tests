@@ -367,7 +367,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n" + exp);
             SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
-            Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser" + exp);
+            Assert.fail("Exception from loginToTestOrderingSystemAsStandardUser " + exp);
         }
     }
 

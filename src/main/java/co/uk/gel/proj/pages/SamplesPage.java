@@ -861,4 +861,21 @@ public class SamplesPage {
         }
         return true;
     }
+
+    public void selectSampleCollectionDateAsDate(String day,String month, String year) {
+//        sampleDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
+//        sampleDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
+//        sampleDetails.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+//        seleniumLib.sendValue(sampleCollectionDay, sampleDetails.getDay());
+//        seleniumLib.sendValue(sampleCollectionMonth, sampleDetails.getMonth());
+//        seleniumLib.sendValue(sampleCollectionYear, sampleDetails.getYear());
+
+        sampleDetails.setDay(day);
+        sampleDetails.setMonth(month);
+        sampleDetails.setYear(year);
+        seleniumLib.sendValue(sampleCollectionDay, sampleDetails.getDay());
+        seleniumLib.sendValue(sampleCollectionMonth, sampleDetails.getMonth());
+        seleniumLib.sendValue(sampleCollectionYear, sampleDetails.getYear());
+    }
+
 }//

@@ -17,14 +17,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.gel.models.participant.avro.*;
+import org.gel.models.participant.avro.Date;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ReferralFromJsonSteps extends Pages {
     ReferralFromJson referralFromJson = new ReferralFromJson();
@@ -225,6 +224,7 @@ public class ReferralFromJsonSteps extends Pages {
             //Submit Referral
             verifyAndSubmitReferral();
         }
+        referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
     }
 
     private void fillStageRequestingOrganisation(Referral referralObject) {
@@ -270,6 +270,7 @@ public class ReferralFromJsonSteps extends Pages {
 //        if (testReferralUrgencyInfo.contains("Urgent")) {
 //            testResult = testPackagePage.clickUrgentPriority();
 //        } else {
+        //Add reading priority from json and then selecting
         testResult = testPackagePage.clickRoutinePriority();
 //        }
         if (!testResult) {
@@ -418,13 +419,15 @@ public class ReferralFromJsonSteps extends Pages {
                 SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
                 Assert.fail("Could not save Tumours information.");
             }
-            testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue("Recurrence");
+            String tumourPresentation= String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourPresentation());
+            tumourPresentation = TestUtils.convertUpperCaseJSONDataToProperFormat(tumourPresentation);
+            testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
             if (!testResult) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourFirstPresentation.jpg");
                 Assert.fail("Could not select tumour first presentation");
             }
 //            testResult = tumoursPage.answerTumourDiagnosisQuestions("test");
-            tumoursPage.answerTumourDiagnosisQuestionsBasedOnTumourType(newTumourType,"test");
+//            tumoursPage.answerTumourDiagnosisQuestionsBasedOnTumourType(newTumourType,"test");
 //            if (!testResult) {
 //                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDiagnosis.jpg");
 //                Assert.fail("Could not select tumour diagnosis SnomedCT");
@@ -629,7 +632,14 @@ public class ReferralFromJsonSteps extends Pages {
             samplesPage.fillInPercentageOfMalignantNuclei();
         }
 //        samplesPage.fillInNumberOfSlides();
-        samplesPage.selectSampleCollectionDate();
+//        samplesPage.selectSampleCollectionDate();
+
+        Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DATE, -1);
+        calendarDate.getTime();
+        String receivedSampleCollectionDate = new SimpleDateFormat("dd/MM/yyyy").format(calendarDate.getTime());
+        String[] dateArr = receivedSampleCollectionDate.split("/");
+        samplesPage.selectSampleCollectionDateAsDate(dateArr[0],dateArr[1],dateArr[2]);
         samplesPage.fillInSampleComments();
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
@@ -869,8 +879,8 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Answer clinical questions not present.");
         }
-//        List<Integer> memberList = memberDetails(referralObject, "Non Proband");
-//        Debugger.println("The number of member participants are " + memberList.toString());
+        List<Integer> memberList = memberDetails(referralObject, "Non Proband");
+        Debugger.println("The number of member participants are " + memberList.toString());
         List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
         if(probandMemberNum==null){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ClinicalQuestions.jpg");
@@ -887,14 +897,24 @@ public class ReferralFromJsonSteps extends Pages {
         phenotypicSex=convertJsonDataUpperCaseToLowerCase(phenotypicSex);
         String lifeStatus = String.valueOf(probandMember.getLifeStatus());
 
+        List<HpoTerm> hpoList = probandMember.getHpoTermList();
+        List<String> hpoTermList=new ArrayList<>();
+
+        for(HpoTerm hpo:hpoList){
+            String hpoData=hpo.getTerm()+"-"+ hpo.getTermPresence();
+//            Debugger.println("The HPO data - "+hpoData);
+            hpoTermList.add(hpoData);
+        }
+//        Debugger.println("The hpoTerm list: "+hpoTermList.toString());
+
         Debugger.println("disease status " + diseaseStatus);
         Debugger.println("karyotypic sex " + karyotypicSex);
         Debugger.println("sex " + phenotypicSex);
         Debugger.println("life status " + lifeStatus);
 
-        String clinicalQuesAnswers="DiseaseStatus="+diseaseStatus+":AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex="+phenotypicSex+":KaryotypicSex="+karyotypicSex;
+        String clinicalQuesAnswers="DiseaseStatus="+diseaseStatus+";AgeOfOnset=01,02;HpoPhenoType="+ hpoTermList.toString() +";PhenotypicSex="+phenotypicSex+";KaryotypicSex="+karyotypicSex;
         Debugger.println("The answers are "+clinicalQuesAnswers);
-        testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(clinicalQuesAnswers);
+        testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTermFromJson(clinicalQuesAnswers);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ClinicalQuestions.jpg");
             Assert.fail("Clinical Questions could not enter.");
@@ -1167,9 +1187,27 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Manage panels not present.");
         }
+        int numOfPanels = referralObject.getReferralTests().get(0).getAnalysisPanels().size();
+        List<AnalysisPanel> panelsList=referralObject.getReferralTests().get(0).getAnalysisPanels();
+        Debugger.println("The panels to be added are-"+panelsList.toString());
+        for(int i=0;i<numOfPanels;i++){
+            String panelName = panelsList.get(i).getPanelName();
+            testResult = panelsPage.searchAndAddPanel(panelName);
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsAdding");
+                Assert.fail("Could not add panels."+panelName);
+            }
+        }
+        String penetrance = referralObject.getReferralTests().get(0).getDiseasePenetrances().get(0).getPenetrance().toString();
+        Debugger.println("Penetrance-"+penetrance);
+        testResult = panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(penetrance);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsSaveAndContinue");
+            Assert.fail("Could not click on Penetrance.");
+        }
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsSaveAndContinue");
             Assert.fail("Could not click on Save and Continue.");
         }
     }
