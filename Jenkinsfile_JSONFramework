@@ -33,7 +33,8 @@ pipeline {
 
         stage('Publish and Archive Results') {
             steps {
-                  archiveArtifacts artifacts:'JsonReferralID.text','JsonReferrals.json ' , allowEmptyArchive: true
+                  archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
+                  archiveArtifacts artifacts:'JsonReferrals.json ' , allowEmptyArchive: true
             }
         }
     }
