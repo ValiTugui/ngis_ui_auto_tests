@@ -27,7 +27,13 @@ pipeline {
                   echo "Archiving build ran at ${BUILD_TIMESTAMP}"
                   fileOperations([fileZipOperation('target'), fileRenameOperation(destination: 'NGIS_UI_JSON_ReferralCreation_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
                   archiveArtifacts "NGIS_UI_JSON_ReferralCreation_${BUILD_TIMESTAMP}.zip"
-                  archiveArtifacts artifacts: 'JsonReferralID.text','JsonReferrals.json'
+
+            }
+        }
+
+        stage('Publish and Archive Results') {
+            steps {
+                  archiveArtifacts artifacts:'JsonReferralID.text','JsonReferrals.json ' , allowEmptyArchive: true
             }
         }
     }
