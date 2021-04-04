@@ -2,7 +2,7 @@ pipeline {
     agent { label 'chrome' }
     //tools { maven 'maven' }
     parameters {
-            choice(name: 'TestEnvironment', choices: "e2elatest\ne2e\nuat\nbeta", description: 'Defines the environment on which the test will be run')
+            choice(name: 'TestEnvironment', choices: "e2elatest\ne2e", description: 'Defines the environment on which the test will be run')
             choice(name: 'tags', choices: ['@RDReferralFromJson','@CancerReferralFromJson'], description: 'tags of test to execute')
     }
     
@@ -11,7 +11,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM', branches: [[name: 'ReferralFromJson']],
-                    userRemoteConfigs: [[url: 'ssh://git@github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'bd67b9d5-5ccb-4aae-9596-a37284f02405']]
+                    userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'bd67b9d5-5ccb-4aae-9596-a37284f02405']]
                 ])
             }
         }
