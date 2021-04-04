@@ -892,5 +892,50 @@ public class SeleniumLib {
         }
     }
 
+    public static void writeToTextFileOfName (String fileName,String dataToWrite) {
+        try {
+            FileWriter file = new FileWriter(fileName, true);
+            file.write(dataToWrite);
+            file.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeToJsonFileOfName (String fileName, String dataToWrite) {
+        String nameRead;
+        try {
+            JsonParser parser = new JsonParser();
+            Object obj = parser.parse(new FileReader(fileName));
+            JsonObject jsonObject = (JsonObject) obj;
+            JsonArray msg = (JsonArray)jsonObject.get("referrals");
+            Iterator<JsonElement> iterator = msg.iterator();
+            while(iterator.hasNext()) {
+                nameRead = iterator.next().toString();
+            }
+            ReferralID referralID = new ReferralID();
+
+            referralID.setReferralID(dataToWrite);
+            Gson gson = new Gson();
+            String json = gson.toJson(referralID);
+
+            FileWriter file = new FileWriter(fileName, false);
+            JsonWriter jw = new JsonWriter(file);
+            iterator = msg.iterator();
+
+            Referrals referrals = new Referrals();
+
+            while(iterator.hasNext()) {
+                referrals.addReferrals(gson.fromJson(iterator.next().toString(), ReferralID.class));
+            }
+            referrals.addReferrals(referralID);
+            gson.toJson(referrals, Referrals.class, jw);
+            file.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }//end
 

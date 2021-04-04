@@ -224,7 +224,7 @@ public class ReferralFromJsonSteps extends Pages {
             //Submit Referral
             verifyAndSubmitReferral();
         }
-        referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
+        referralPage.saveJsonReferralID(caseType);
     }
 
     private void fillStageRequestingOrganisation(Referral referralObject) {
