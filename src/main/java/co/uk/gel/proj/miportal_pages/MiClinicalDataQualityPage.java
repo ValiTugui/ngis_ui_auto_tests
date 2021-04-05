@@ -13,6 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +36,10 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//button[@data-id='clinical_dq-filter_ordering_entity']")
     public WebElement orderingEntityDropdown;
 
-    @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
+    @FindBy(xpath = "//*[@id=\"shiny-tab-clinical_dq_tab\"]//div[@class='btn-group btn-group-sm btn-block']//button[text()][2]")
     public WebElement deselectAllButton;
 
-    @FindBy(xpath = "//div[@class='btn-group btn-group-sm btn-block']//button[text()][1]")
+    @FindBy(xpath = "//*[@id=\"shiny-tab-clinical_dq_tab\"]//div[@class='btn-group btn-group-sm btn-block']//button[text()][1]")
     public WebElement selectAllButton;
 
     @FindBy(xpath = "//button[@id='clinical_dq-apply_filters']")
@@ -75,14 +78,19 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download Data')]")
     public WebElement downloadDataButton;
 
+
+    @FindBy(id="clinical_dq-dq_summary-timestamp")
+    public WebElement dqlastUpdatedTimeStampLabel;
+
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
     String clinicalDqReportTableRows = "//div[@class='dataTables_scrollBody']//table[@class='display dataTable no-footer']/tbody/tr";
 
     String link="//a[text()='dummyLink']";
     String dummyTabPath = "//*[@class='nav nav-tabs']//a[text()='dummyTab']";
 
-    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
-    WebElement clinicalDqReportTable;
+//    @FindBy(xpath = "//div[@class='tab-pane active']/div[contains(@id,'clinical_dq-dq')]//table")
+//    WebElement clinicalDqReportTable;
+    String clinicalDqReportTable ="//div[@class='tab-pane active' and @data-value='dummyTab']//div[contains(@id,'clinical_dq-dq')]//table";
 
     String dqReportTabTableHeaders = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollHeadInner']/table[@class='display dataTable no-footer']/thead/tr/th";
     String dqReportTabTableRows = "//div[@data-value='dummyTab']//div[@class='dataTables_scrollBody']/table[@class='display dataTable no-footer']/tbody/tr/td";
@@ -266,25 +274,28 @@ public class MiClinicalDataQualityPage {
             return false;
         }
     }
-//After clicking on deselect all button all the ordering entities should deselect
+
+    //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesDeselect() {
         //Check mark should not be present
-        if(orderingEntitySelections.size() > 1){
-            Debugger.println("Ordering entity is shown as selected, but not expected to be selected.");
-            SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
-            return false;
+        //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
+        if(orderingEntitySelections.size()==6) {
+            return true;
         }
-        return true;
+        Debugger.println("Ordering entity is shown as selected, but not expected to be deselected.");
+        SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
+        return false;
     }
 //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
         //Check mark should be present
-        if(orderingEntitySelections.size() < 1){
-            Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
-            SeleniumLib.takeAScreenShot("OrderingEntityDeselected.jpg");
-            return false;
+        //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
+        if(orderingEntitySelections.size() > 6){
+            return true;
         }
-        return true;
+        Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
+        SeleniumLib.takeAScreenShot("OrderingEntityDeselected.jpg");
+        return false;
     }
 
     public boolean clickOnSpecifiedTab(String expectedTabName) {
@@ -428,9 +439,11 @@ public class MiClinicalDataQualityPage {
             //Debugger.println("The Tab to check is: " + selectedTab.getText());
             seleniumLib.highLightWebElement(selectedTab);
             seleniumLib.clickOnWebElement(selectedTab);
-            Wait.seconds(10);
+            Wait.seconds(20);
             String[] headerNames = headerValues.split(",");
-            if (!Wait.isElementDisplayed(driver, clinicalDqReportTable, 30)) {
+            String tableElePath=clinicalDqReportTable.replace("dummyTab", tabName);
+            WebElement tableEle = driver.findElement(By.xpath(tableElePath));
+            if (!Wait.isElementDisplayed(driver, tableEle, 30)) {
                 Debugger.println("The clinical DQ report table is not present.");
                 SeleniumLib.takeAScreenShot("DqReportTableNotPresent.jpg");
                 return false;
@@ -460,11 +473,6 @@ public class MiClinicalDataQualityPage {
                     return false;
                 }
             } else if(dataPresence.equalsIgnoreCase("No")){
-                if ((dataRows.size() > 1)) {
-                    Debugger.println("There is data report present in the table of tab:" + tabName+" when it was not expected.");
-                    SeleniumLib.takeAScreenShot("DqReportTableData.jpg");
-                    return false;
-                }
             }
             return true;
         } catch (Exception exp) {
@@ -522,4 +530,37 @@ public class MiClinicalDataQualityPage {
             return false;
         }
     }
+
+    public boolean verifyDQDateFormat(String dateFormat)
+    {
+        try
+        {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
+
+            String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:","").replace("UTC","").trim();
+            LocalDateTime.parse(dqDate, dtf);
+            return true;
+        }
+        catch(DateTimeParseException | IllegalArgumentException exp)
+        {
+            System.err.println(exp.getMessage());
+            exp.printStackTrace();
+
+            Debugger.println("ExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
+
+            SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
+            return false;
+        }
+        catch(Exception exp)
+        {
+            System.err.println(exp.getMessage());
+            exp.printStackTrace();
+
+            Debugger.println("UnexpectedExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
+
+            return false;
+        }
+    }
+
+
 }//class End

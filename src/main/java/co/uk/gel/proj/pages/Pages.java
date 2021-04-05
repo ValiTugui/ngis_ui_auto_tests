@@ -68,7 +68,6 @@ public class Pages implements Navigable {
     protected KibanaPage kibanaPage;
     protected DataDogPage dataDogPage;
 
-
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
         PageObjects();
@@ -139,6 +138,7 @@ public class Pages implements Navigable {
         try {
             //Debugger.println("Pages:login:Navigating to URL: " + urlToNavigate + ",\n Page:" + pageToNavigate);
             driver.get(urlToNavigate);
+//            driver.get("https://test-ordering.e2e-latest.ngis.io/test-order/referral/r20837059601/requesting-organisation?newReferral=true");
             Wait.seconds(5);//Wait for 5 Seconds
             String navigatedURL = driver.getCurrentUrl();
             //Debugger.println("Current URL before LOGIN is :"+navigatedURL);

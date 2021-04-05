@@ -239,10 +239,8 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
-//        chromeLocalOptions.addArguments("--disable-gpu");
-//        chromeLocalOptions.addArguments("--no-sandbox");
-//        chromeLocalOptions.setHeadless(true);
-//        chromeLocalOptions.addArguments("--whitelisted-ips");
+        chromeLocalOptions.addArguments("--disable-gpu");
+        chromeLocalOptions.addArguments("--no-sandbox");
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
@@ -269,6 +267,8 @@ public class BrowserFactory {
         chromeOptions.setCapability("os_version", getOsVersion());
         chromeOptions.setCapability("resolution", resolution);
         chromeOptions.setCapability("name", strDate);
+        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--no-sandbox");
         return chromeOptions;
     }
 
@@ -389,6 +389,9 @@ public class BrowserFactory {
         profile.shouldLoadNoFocusLib();
         profile.setAssumeUntrustedCertificateIssuer(true);
         profile.setPreference("javascript.enabled", javascriptEnabled);
+        profile.setPreference("network.proxy.type", 1);
+        profile.setPreference("network.proxy.http", "proxy-dmz.gel.zone");
+        profile.setPreference("network.proxy.http_port", "80");
         String downloadFilepath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
         try {
             File download_loc = new File(downloadFilepath);

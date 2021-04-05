@@ -79,8 +79,7 @@ Feature:  MIPORTAL ST -  Home Page
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-#      | GEL1004 Clinic Sample Type            |
-       ## As part of SALLY release the field/filter "gel1004 Clinic Sample Type" has been removed
+      | GEL1004 Clinic Sample Type            |
       | GEL1004 Disease Area                  |
       | GEL1004 GLH Sample Consignment Number |
       | GEL1004 Laboratory ID                 |
@@ -132,4 +131,8 @@ Feature:  MIPORTAL ST -  Home Page
     Then the user should be able to see the below header sections in Data Quality
       | HeaderSection         |
       | Clinical Data Quality |
+    When the user should be able to see sample failures menu is displayed
+    Then the user should be able to see the below header sections in sample failures
+      | HeaderSection         |
+      | Sample Failures |
     And the user should be able to see Participant NHS Spine Data menu is displayed

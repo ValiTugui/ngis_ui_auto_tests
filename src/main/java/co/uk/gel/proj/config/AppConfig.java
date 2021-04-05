@@ -1,6 +1,5 @@
 package co.uk.gel.proj.config;
 
-import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 
 import java.io.File;

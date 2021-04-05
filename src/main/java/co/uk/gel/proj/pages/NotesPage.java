@@ -6,6 +6,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -35,6 +36,9 @@ public class NotesPage {
 
     @FindBy(xpath = "//p[contains(@class,'notes__count--warning')]/span")
     public List<WebElement> warningMessages;
+
+    @FindBy(xpath = "//div[contains(@class,'paragraph')]")
+    public List<WebElement> textInformation;
 
 
     public NotesPage(WebDriver driver) {
@@ -156,6 +160,29 @@ public class NotesPage {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyInfoMessageOnNotesPage ." + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateTextInformation(String textInfo){
+        try{
+            //1. heck the list of text information contains the given text
+            String info = "";
+            boolean isPresent = false;
+            for (int i = 0; i < textInformation.size(); i++) {
+                info = textInformation.get(i).getText();
+                Debugger.println("Message: "+info);
+                if (info.equalsIgnoreCase(textInfo)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                SeleniumLib.takeAScreenShot("NotesPageInfo.jpg");
+                Assert.fail("Expected Message:"+textInfo+" not present in the Notes Page");
+            }
+            return isPresent;
+        }catch(Exception exp){
             return false;
         }
     }

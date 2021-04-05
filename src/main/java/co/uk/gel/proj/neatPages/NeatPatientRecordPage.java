@@ -1,9 +1,11 @@
 package co.uk.gel.proj.neatPages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.By;
@@ -16,8 +18,58 @@ import java.util.List;
 
 public class NeatPatientRecordPage {
 
+
+    @FindBy(xpath = "//table[@data-testid='status-history']//th")
+    public List<WebElement> tableFields;
+    @FindBy(xpath = "//table[@data-testid='status-history']")
+    public WebElement table;
+    @FindBy(xpath = "//span[@aria-labelledby='isActive']//span")
+    public WebElement recordStatus;
+    @FindBy(xpath = "//span[contains(@class,'withErrorContainerCss')]//h2")
+    public WebElement patientName;
+    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[text()='Born']")
+    public WebElement born;
+    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='dateOfBirth_1']")
+    public WebElement bornDate;
+    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[contains(@aria-labelledby,'humanReadableId')]")
+    public WebElement patientNGISID;
+    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='nhsNumber_1']")
+    public WebElement nhsNum;
+    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='address_1']")
+    public WebElement patientAddress;
+    @FindBy(xpath = "//li//div[2]/span")
+    public WebElement reasonStatus;
+    @FindBy(xpath = "//span[text()='Current status']/parent::div//span[@class='child-element']")
+    public WebElement currentStatus;
+    @FindBy(xpath = "//span[text()='Updated status']/parent::div//span[@class='child-element']")
+    public WebElement updatedStatus;
+    @FindBy(xpath = "//span[contains(text(),'You cannot reactivate this patient record.')]")
+    public WebElement warningNotification;
+    @FindBy(xpath = "//a[contains(text(),'An active record')]")
+    public WebElement anActiveRecordLink;
     WebDriver driver;
     SeleniumLib seleniumLib;
+    //WebElements
+    String linkPathDummy = "//a[text()='dummyText']";
+    String buttonPathDummy = "//button[contains(@class,'sharedByAllButtons')]/span[text()='dummyText']";
+    @FindBy(xpath = "//div[@role='dialog']")
+    WebElement dialogBox;
+    @FindBy(xpath = "//div[@role='dialog']/h1")
+    WebElement dialogBoxHeader;
+    @FindBy(xpath = "//div/textarea[@id='statusUpdateSource_id']")
+    WebElement justificationTextBox;
+    @FindBy(xpath = "//div[contains(@data-testid,'notification')]")
+    WebElement inactiveNotification;
+
+    @FindBy(xpath = "//span[contains(text(),'Reason')]")
+    WebElement reasonMandatoryFieldCheck;
+    @FindBy(xpath = "//span[contains(text(),'Justification')]")
+    WebElement justificationMandatoryFieldCheck;
+
+    @FindBy(xpath = "(//label)[2]")
+    WebElement errorButton;
+    @FindBy(xpath = "(//label)[1]")
+    WebElement duplicateButton;
 
     public NeatPatientRecordPage(WebDriver driver) {
         this.driver = driver;
@@ -25,66 +77,33 @@ public class NeatPatientRecordPage {
         PageFactory.initElements(driver, this);
     }
 
-    //WebElements
-    String linkPathDummy = "//a[text()='dummyText']";
-    String buttonPathDummy = "//button[contains(@class,'sharedByAllButtons')]/span[text()='dummyText']";
+    public Boolean mandatoryfieldvalidation(String fieldlabel, String fieldcolor) {
+        try {
+            String actColor = "";
+            String expColor = "";
 
-    @FindBy(xpath = "//div[@role='dialog']")
-    WebElement dialogBox;
-    @FindBy(xpath = "//div[@role='dialog']/h1")
-    WebElement dialogBoxHeader;
-    @FindBy(xpath = "//div/textarea[@id='statusUpdateSource_id']")
-    WebElement justificationTextBox;
+            if (fieldlabel.equals(reasonMandatoryFieldCheck.getText())) {
+                actColor = reasonMandatoryFieldCheck.getCssValue("color");
+                expColor = StylesUtils.convertFontColourStringToCSSProperty(fieldcolor);
+            } else if (fieldlabel.equals(justificationMandatoryFieldCheck.getText())) {
+                actColor = justificationMandatoryFieldCheck.getCssValue("color");
+                expColor = StylesUtils.convertFontColourStringToCSSProperty(fieldcolor);
 
-    @FindBy(xpath = "//div[contains(@data-testid,'notification')]")
-    WebElement inactiveNotification;
+            }
 
-    @FindBy(xpath = "(//label)[2]")
-    WebElement errorButton;
-    @FindBy(xpath = "(//label)[1]")
-    WebElement duplicateButton;
+            if (!actColor.isEmpty() && actColor.equalsIgnoreCase(expColor)) {
+                return true;
+            }
+            Debugger.println(" fields section is not displayed");
+            SeleniumLib.takeAScreenShot(fieldlabel + ".jpg");
+            return false;
 
-    @FindBy(xpath = "//table[@data-testid='status-history']//th")
-    public List<WebElement> tableFields;
-
-    @FindBy(xpath = "//table[@data-testid='status-history']")
-    public WebElement table;
-
-    @FindBy(xpath = "//span[@aria-labelledby='isActive']//span")
-    public WebElement recordStatus;
-
-    @FindBy(xpath = "//span[contains(@class,'withErrorContainerCss')]//h2")
-    public WebElement patientName;
-
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[text()='Born']")
-    public WebElement born;
-
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='dateOfBirth_1']")
-    public WebElement bornDate;
-
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[contains(@aria-labelledby,'humanReadableId')]")
-    public WebElement patientNGISID;
-
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='nhsNumber_1']")
-    public WebElement nhsNum;
-
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='address_1']")
-    public WebElement patientAddress;
-
-    @FindBy(xpath = "//li//div[2]/span")
-    public WebElement reasonStatus;
-
-    @FindBy(xpath = "//span[text()='Current status']/parent::div//span[@class='child-element']")
-    public WebElement currentStatus;
-
-    @FindBy(xpath = "//span[text()='Updated status']/parent::div//span[@class='child-element']")
-    public WebElement updatedStatus;
-
-    @FindBy(xpath = "//span[contains(text(),'You cannot reactivate this patient record.')]")
-    public WebElement warningNotification;
-
-    @FindBy(xpath = "//a[contains(text(),'An active record')]")
-    public WebElement anActiveRecordLink;
+        } catch (Exception exp) {
+            Debugger.println("Exception from finding mandatory fields" + exp);
+            SeleniumLib.takeAScreenShot("Mandatory fields.jpg");
+            return false;
+        }
+    }
 
     //Validation Methods
     public boolean clickOnLink(String linkText) {
@@ -354,7 +373,6 @@ public class NeatPatientRecordPage {
         }
     }
 
-
     public boolean verifyTheReasonInPatientRecordStatus(String reason) {
         try {
             if (!Wait.isElementDisplayed(driver, reasonStatus, 3)) {
@@ -390,5 +408,6 @@ public class NeatPatientRecordPage {
             return false;
         }
     }
+
 
 }//end class

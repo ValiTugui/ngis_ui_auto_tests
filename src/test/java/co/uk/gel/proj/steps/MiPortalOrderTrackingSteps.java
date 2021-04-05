@@ -16,7 +16,6 @@ public class MiPortalOrderTrackingSteps extends Pages {
 
     CSVFileReader csvFileReader = new CSVFileReader();
 
-
     public MiPortalOrderTrackingSteps(SeleniumDriver driver) {
         super(driver);
     }
@@ -24,35 +23,35 @@ public class MiPortalOrderTrackingSteps extends Pages {
     @And("the user selects (.*) as the order tracking search value dropdown")
     public void theUserSelectSpecifiedOrderTrackingSearchValue(String searchValue) {
         boolean testResult = false;
-        if (searchValue.equalsIgnoreCase("GLHName")) {
+        if(searchValue.equalsIgnoreCase("GLHName")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
                 Debugger.println("No Data exists in the test data file provided.");
                 Assert.assertTrue("No Data exists in the test data file provided.", false);
             }
             searchValue = mipData.getGlh_name();
-        } else if (searchValue.equalsIgnoreCase("OrderingEntity")) {
+        }else if(searchValue.equalsIgnoreCase("OrderingEntity")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
                 Debugger.println("No Data exists in the test data file provided.");
                 Assert.assertTrue("No Data exists in the test data file provided.", false);
             }
             searchValue = mipData.getOrdering_entity();
-        } else if (searchValue.equalsIgnoreCase("Test Type")) {
+        }else if(searchValue.equalsIgnoreCase("Test Type")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
                 Debugger.println("No Data exists in the test data file provided.");
                 Assert.assertTrue("No Data exists in the test data file provided.", false);
             }
             searchValue = mipData.getTest_type();
-        } else if (searchValue.indexOf(",") != -1) {
+        }else if(searchValue.indexOf(",") != -1){
             String[] values = searchValue.split(",");
             Wait.seconds(3);
-            for (int i = 0; i < values.length; i++) {
+            for(int i=0; i<values.length; i++){
                 testResult = miOrderTrackingPage.selectOrderTrackingDropDownSearchValue(values[i]);
-                if (!testResult) {
-                    Debugger.println("URL:" + driver.getCurrentUrl());
-                    Assert.fail(values[i] + " not found in Order Tracking Search Value DropDown.");
+                if(!testResult){
+                    Debugger.println("URL:"+driver.getCurrentUrl());
+                    Assert.fail(values[i]+" not found in Order Tracking Search Value DropDown.");
                 }
                 Wait.seconds(3);
             }
@@ -91,14 +90,14 @@ public class MiPortalOrderTrackingSteps extends Pages {
     @And("the user selects (.*) as the order tracking search input value")
     public void theUserSelectSpecifiedOrderTrackingSearchInputValue(String searchValue) {
         boolean testResult = false;
-        if (searchValue.equalsIgnoreCase("Referral ID")) {
+        if(searchValue.equalsIgnoreCase("Referral ID")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
                 Debugger.println("No Data exists in the test data file provided.");
                 Assert.assertTrue("No Data exists in the test data file provided.", false);
             }
             searchValue = mipData.getReferral_id();
-        } else if (searchValue.equalsIgnoreCase("Patient NGIS ID")) {
+        }else if(searchValue.equalsIgnoreCase("Patient NGIS ID")) {
             MIPortalTestData mipData = csvFileReader.getRandomTestData();
             if (mipData == null) {
                 Debugger.println("No Data exists in the test data file provided.");
@@ -140,7 +139,7 @@ public class MiPortalOrderTrackingSteps extends Pages {
         boolean testResult = false;
         testResult = miPortalHomePage.downloadMiCSVFile("order_tracking_filtered");
         Assert.assertTrue(testResult);
-        testResult = TestUtils.isFilePresent("order_tracking_filtered", "");
+        testResult = TestUtils.isFilePresent("order_tracking_filtered","");
         Assert.assertTrue(testResult);
     }
 

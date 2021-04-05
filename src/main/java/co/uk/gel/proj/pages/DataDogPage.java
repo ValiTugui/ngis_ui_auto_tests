@@ -25,14 +25,17 @@ public class DataDogPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//input[@id='username']")
+    @FindBy(xpath = "//input[@type='email']")
     public WebElement emailAddressField;
 
-    @FindBy(xpath = "//input[@id='password']")
+    @FindBy(xpath = "//input[@type='password']")
     public WebElement passwordField;
 
     @FindBy(xpath = "//button[contains(text(),'Log in')]")
     public WebElement loginButton;
+
+    @FindBy(xpath = "//input[@type='submit']")
+    public WebElement submitButton;
 
     @FindBy(xpath = "//span[contains(text(),'New Stuff!')]")
     public WebElement newStuffHeader;
@@ -73,16 +76,19 @@ public class DataDogPage {
     public List<WebElement> coreSections;
 
 
-    public String loginToDataDogApplication(WebDriver driver, String userType) {
+    public String loginToDataDogApplication(WebDriver driver) {
         try {
             if (!Wait.isElementDisplayed(driver,emailAddressField,60)) { //If the element is not displayed, even after the waiting time
                 return "Email Address Field is not visible, even after the waiting period of 60 seconds. Looks like Datadog page is not accessible.";
             }
             seleniumLib.sendValue(emailAddressField,AppConfig.getDataDog_userName());
             seleniumLib.sleepInSeconds(2);
+            seleniumLib.clickOnWebElement(submitButton);
             seleniumLib.sendValue(passwordField,AppConfig.getDataDog_password());
             seleniumLib.sleepInSeconds(2);
-            seleniumLib.clickOnWebElement(loginButton);
+            seleniumLib.clickOnWebElement(submitButton);
+            seleniumLib.sleepInSeconds(5);
+            seleniumLib.clickOnWebElement(submitButton);
             seleniumLib.sleepInSeconds(5);
             return "Success";
         } catch (Exception exp){

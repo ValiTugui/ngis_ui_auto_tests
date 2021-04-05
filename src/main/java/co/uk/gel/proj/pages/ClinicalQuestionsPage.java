@@ -1218,6 +1218,7 @@ public class ClinicalQuestionsPage {
         }
     }
 
+    //Method for JSON Framework
     //Method added by @Stag for filling the ClinicalQuestionsPage after reading data from JSON
     public boolean fillDiseaseStatusAgeOfOnsetAndHPOTermFromJson(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParamsByDelimiter(searchParams, ";");

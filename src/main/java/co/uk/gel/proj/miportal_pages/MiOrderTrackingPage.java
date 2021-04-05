@@ -31,7 +31,6 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
-
     }
 
     @FindBy(xpath = "//input[@id='order_tracking-search-value']")
@@ -58,9 +57,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectOrderTrackingDropDownSearchColumn(String value) {
         try {
             if (!seleniumLib.selectFromListByText(orderTrackSearchColumn, value)) {
-                Wait.seconds(3);
+                Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchColumn, value);
-
             }
             return true;
         } catch (Exception exp) {
@@ -71,9 +69,9 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean selectOrderTrackingDropDownSearchOperator(String value) {
-       try {
-           Wait.seconds(3);
-           if (!seleniumLib.selectFromListByText(orderTrackSearchOperator, value)) {
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.selectFromListByText(orderTrackSearchOperator, value)) {
                 Wait.seconds(5);
                 return seleniumLib.selectFromListByText(orderTrackSearchOperator, value);
             }
@@ -88,10 +86,11 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         Wait.seconds(3); // To load the dropdown values
         try {
+            Wait.seconds(3);
             if (!seleniumLib.selectFromListByText(orderTrackSearchValue, value)) {
                 Wait.seconds(5);
-                if(!seleniumLib.selectFromListByText(orderTrackSearchValue, value)){
-                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'"+value+"')]");
+                if (!seleniumLib.selectFromListByText(orderTrackSearchValue, value)) {
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'" + value + "')]");
                     seleniumLib.clickOnElement(optionPath);
                 }
             }
@@ -104,7 +103,6 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
-
     }
 
     public boolean enterOrderTrackingTextSearchValue(String value) {
@@ -122,7 +120,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-  
+
     public boolean verifyColumnValueInOrderTrackingSearchResultTable(String columnName, String expValue) {
         Wait.seconds(5);// To load the table elements
         try {
@@ -137,6 +135,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
+
             List<WebElement> colHeads = driver.findElements(orderTrackingTableHead);
             int colIndex = seleniumLib.getColumnIndex(colHeads, columnName);
             if (colIndex == -1) {
@@ -162,7 +161,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                     if (!cellValue.contains(expValue)) {
                         Debugger.println("Column:" + columnName + " value, Expected:" + expValue + ",Actual:" + cellValue);
                         SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
-                        return true;
+                        return false;
                     }
                 }
             }
@@ -188,6 +187,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("orderTrackingTable.jpg");
                 return false;
             }
+
             List<WebElement> colHeads = driver.findElements(orderTrackingTableHead);
             int colIndex1 = seleniumLib.getColumnIndex(colHeads, columnName1);
             if (colIndex1 == -1) {
@@ -205,7 +205,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             By cellPath = null;
             String cellValue1 = "", cellValue2 = "";
             for (int i = 0; i < noOfFilteredRows; i++) {
-
+                //Debugger.println("PATH:"+fileSubmissionTableRows+"["+(i+1)+"]/td["+colIndex+"]");
                 cellPath = By.xpath(orderTrackingTableRows + "[" + (i + 1) + "]/td[" + colIndex1 + "]");
                 cellValue1 = seleniumLib.getText(cellPath);
                 cellPath = By.xpath(orderTrackingTableRows + "[" + (i + 1) + "]/td[" + colIndex2 + "]");

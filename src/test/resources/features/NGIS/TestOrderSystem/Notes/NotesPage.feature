@@ -4,11 +4,11 @@
 @SYSTEM_TEST
 Feature: TestOrder - Notes page
 
- @NTS-4503 @Z-LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #   @E2EUI-1130 @E2EUI-1172 @E2EUI-1213 @E2EUI-834 @E2EUI-1488
   Scenario Outline: Responsible Clinician Page - Phone number field - maximum length validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user is navigated to a page with title Add clinical notes
@@ -22,3 +22,15 @@ Feature: TestOrder - Notes page
       | Notes |
 
  ## @NTS-4375 This NTS can be re-used for any new Notes Tickets
+#  @NTS-ForDemo
+#  Scenario Outline: Validating for extra clinical information text on Notes page
+#    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+#    And the "Patient details" stage is marked as Completed
+#    And the user navigates to the "<stage>" stage
+#    Then the "<stage>" stage is selected
+#    And the user should see the text "<TextToValidate>" in the Notes Page
+#
+#    Examples:
+#      | stage | TextToValidate               |
+#      | Notes | extra elinical information |

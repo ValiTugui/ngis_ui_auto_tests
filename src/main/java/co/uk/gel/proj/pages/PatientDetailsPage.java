@@ -2253,7 +2253,7 @@ public class PatientDetailsPage {
             return false;
         }
     }
-    //From JSON
+    //From JSON data for JSON Framework
     public boolean fillInPatientDetailsFromJson(String caseType,String reason, Referral referralObject) {
         try {
             newPatient.setTitle("Mr");

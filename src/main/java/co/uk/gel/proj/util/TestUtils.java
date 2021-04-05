@@ -541,6 +541,7 @@ public class TestUtils {
         }
     }
 
+    //For Use in JSON Framework
     public static List<Integer> getMemberPositionDetailsFromJson(Referral referralObject, String memberType) {
         try {
             int numOfParticipants = referralObject.getPedigree().getMembers().size();

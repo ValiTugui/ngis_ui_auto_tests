@@ -432,10 +432,25 @@ public class PrintFormsPage {
             for (int i = 0; i < formSection.size(); i++) {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
+                    Actions.scrollToTop(driver);
+                    if(!seleniumLib.isElementPresent(downloadButton.get(i))){
+                        SeleniumLib.takeAScreenShot("OfflinePrintFormDownloadBtnError.jpg");
+                        Debugger.println("The download button is not present.");
+                        return false;
+                    }
                     urlToDownload = downloadButton.get(i).getAttribute("href");
-                    if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
+                    Debugger.println(urlToDownload);
+                    String result = TestUtils.downloadFile(urlToDownload, fileName, "");
+                    Debugger.println("The result from download action -" + result);
+//                    if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
+                    if (result.equalsIgnoreCase("Success")) {
                         isDownloaded = true;
-                        Wait.seconds(3);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
+                        Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
+                        break;
+                    }else{
+                        Actions.retryClickAndIgnoreElementInterception(driver,downloadButton.get(i));
+                        isDownloaded = true;
+                        Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
                         break;
                     }
                 }

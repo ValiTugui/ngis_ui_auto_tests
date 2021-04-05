@@ -1318,7 +1318,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-    //From JSON
+
+    //From JSON for JSON Framework
     public boolean searchParticipantFromJson(String nhs,String day,String month,String year) {
         try {
             Wait.forElementToBeDisplayed(driver, nhsNumber);
@@ -1337,5 +1338,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
 }//end
 

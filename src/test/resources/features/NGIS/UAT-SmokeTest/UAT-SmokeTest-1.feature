@@ -38,15 +38,15 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     And User should be able to see my Dashboard
     And the user clicks on "Manage samples" Tab
     And the user logs in to the "MI Portal" system
-    And the user click on "File Submissions" section select the filters "Valid" and click on Add and Search buttons and verify the table loaded
-    And the user click on "Order Tracking" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
-    And the user click on "GLH Samples" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
-    And the user click on "Plater Samples" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
-    And the user click on "Picklists" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
-    And the user click on "Sequencer Samples" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
-    And the user click on "New Referrals" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
-    When the user should be able to see data quality menu is displayed
-    Then the user click on Clinical Data Quality section select the filters Yorkshire & North East and click on Add Filters button and verify the table loaded
+    #And the user click on "File Submissions" section select the filters "Valid" and click on Add and Search buttons and verify the table loaded
+#    And the user click on "Order Tracking" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
+#    And the user click on "GLH Samples" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
+#    And the user click on "Plater Samples" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
+#    And the user click on "Picklists" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
+#    And the user click on "Sequencer Samples" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
+#    And the user click on "New Referrals" section select the filters "Yorkshire & North East" and click on Add and Search buttons and verify the table loaded
+#    When the user should be able to see data quality menu is displayed
+#    Then the user click on Clinical Data Quality section select the filters Yorkshire & North East and click on Add Filters button and verify the table loaded
     When the user clicks the MIPortal Log out button
     When a web browser is at the dashboard page
     And User should be able to see my Dashboard
@@ -64,5 +64,6 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     ##Interpretation Portal from Dashboard
     Then the user clicks on "Enter the Interpretation Portal" Tab
     And the user logs in to the Interpretation Portal system
+
     And the user is navigated to a page with title GMS: Interpretation Portal
-    When the user clicks the Log out button
+    When the user clicks the Log out buttons
