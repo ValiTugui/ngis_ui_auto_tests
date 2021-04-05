@@ -20,7 +20,7 @@ pipeline {
         stage('UI Referral Creation') {
             steps {
                 wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0,screen: '1920x1080x24']) {
-                   sh "mvn -f pom.xml -Dcucumber.options='--tags ${tags}' clean verify -DTestEnvironment=${TestEnvironment} -ntp"
+                   sh "mvn -f pom.xml -s settings.xml -Dcucumber.options='--tags ${tags}' clean verify -DTestEnvironment=${TestEnvironment} -ntp"
                 }
             }
         }
