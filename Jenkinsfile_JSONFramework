@@ -3,7 +3,7 @@ pipeline {
     //tools { maven 'maven' }
     parameters {
             choice(name: 'TestEnvironment', choices: "e2elatest\ne2e", description: 'Defines the environment on which the test will be run')
-            choice(name: 'tags', choices: ['@RDReferralFromJson','@CancerReferralFromJson'], description: 'tags of test to execute')
+            choice(name: 'Tags', choices: ['@RDReferralFromJson','@CancerReferralFromJson'], description: 'tags of test to execute')
     }
     
     stages {
@@ -20,22 +20,22 @@ pipeline {
         stage('UI Referral Creation') {
             steps {
                 wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0,screen: '1920x1080x24']) {
-                   sh "mvn -f pom.xml -s settings.xml -Dcucumber.options='--tags ${tags}' clean verify -DTestEnvironment=${TestEnvironment} -ntp"
+                   sh "mvn -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tags}' clean verify -DTestEnvironment=${TestEnvironment} -ntp"
                 }
             }
         }
-        stage('Zip and Archive') {
-            steps {
-                  echo "Archiving build ran at ${BUILD_TIMESTAMP}"
-                  fileOperations([fileZipOperation('target'), fileRenameOperation(destination: 'NGIS_UI_JSON_ReferralCreation_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
-                  archiveArtifacts "NGIS_UI_JSON_ReferralCreation_${BUILD_TIMESTAMP}.zip"
-
-            }
-        }
+//        stage('Zip and Archive') {
+//            steps {
+//                  echo "Archiving build ran at ${BUILD_TIMESTAMP}"
+//                  fileOperations([fileZipOperation('target'), fileRenameOperation(destination: 'NGIS_UI_JSON_ReferralCreation_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
+//                  archiveArtifacts "NGIS_UI_JSON_ReferralCreation_${BUILD_TIMESTAMP}.zip"
+//
+//            }
+//        }
 
         stage('Publish and Archive Results') {
             steps {
-                  archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
+                 // archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
                   archiveArtifacts artifacts:'JsonReferrals.json ' , allowEmptyArchive: true
             }
         }

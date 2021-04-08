@@ -2070,12 +2070,15 @@ public class ReferralPage<check> {
         }
     }
 
-    public void saveJsonReferralID(String caseType) {
-        SeleniumLib.writeToJsonFileOfName("JsonReferrals.json",referralHeaderReferralId.getText());
-        String referralID = caseType + " --> " + referralHeaderReferralId.getText() + "\n";
-//        SeleniumLib.writeToJsonFileOfName("JsonReferrals.json","r21882659138");
-//        String referralID = caseType + " --> " + "r21882659138" + "\n";
-        SeleniumLib.writeToTextFileOfName("JsonReferralID.txt",referralID);
+    public String returnReferralID() {
+        try {
+            String referralId = referralHeaderReferralId.getText();
+            Debugger.println("The referral Id found is- " + referralId);
+            return referralId;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Reading the referral ID: " + exp);
+            return null;
+        }
     }
 
 }

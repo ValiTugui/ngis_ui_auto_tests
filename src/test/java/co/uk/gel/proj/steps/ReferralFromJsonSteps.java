@@ -224,7 +224,8 @@ public class ReferralFromJsonSteps extends Pages {
             //Submit Referral
             verifyAndSubmitReferral();
         }
-        referralPage.saveJsonReferralID(caseType);
+        String referralID = referralPage.returnReferralID();
+        saveJsonCreatedReferralID(caseType,referralID);
     }
 
     private void fillStageRequestingOrganisation(Referral referralObject) {
@@ -1297,6 +1298,43 @@ public class ReferralFromJsonSteps extends Pages {
         } catch (Exception exp) {
 //            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp, false);
+        }
+    }
+
+    public List<String> getSampleWellIdFromJson(String caseType) {
+        try {
+            Referral referralObject = referralFromJson.getReferralObject();
+            if (referralObject == null) {
+                Assert.fail("Referral Object is not initialized.");
+            }
+            List<String> sampleWellIdList = new ArrayList<>();
+            if (caseType.equalsIgnoreCase("Cancer")) {
+                sampleWellIdList.add(referralObject.getReferralTests().get(0).getGermlineSamples().get(0).getSampleId());
+                sampleWellIdList.add(referralObject.getReferralTests().get(0).getTumourSamples().get(0).getSampleId());
+            } else {
+                for (GermlineSample germlineSample : referralObject.getReferralTests().get(0).getGermlineSamples()) {
+                    sampleWellIdList.add(germlineSample.getSampleId());
+                }
+            }
+            return sampleWellIdList;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting Sample Well ID from Json: " + exp);
+            return null;
+        }
+    }
+
+    public void saveJsonCreatedReferralID(String caseType, String referralIdData) {
+        try {
+            List<String> sampleWellIdList = getSampleWellIdFromJson(caseType);
+            Debugger.println("Samples list- " + sampleWellIdList);
+            String referralID = caseType + " --> " + referralIdData + "\n";
+            SeleniumLib.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList);
+            Debugger.println(referralID);
+//        SeleniumLib.writeToTextFileOfName("JsonReferralID.txt",referralID);
+            Assert.assertTrue("JSON file with referral Id, case type, sample well details created successfully.",true);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Saving the referral Id: " + exp);
+            Assert.fail("FAILURE in creating JSON file with referral Id, case type, sample well details.");
         }
     }
 

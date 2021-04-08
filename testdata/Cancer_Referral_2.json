@@ -86,7 +86,7 @@
                     "participantUid": "1SS0CUDO7E95",
                     "product": "DNA",
                     "programmePhase": "MAIN",
-                    "sampleId": "LP3000364-DNA_E05",
+                    "sampleId": "LP3001364-DNA_E05",
                     "sampleState": "blood_unsorted_edta",
                     "sampleType": "Normal or Germline sample",
                     "sampleUid": "SNHEQXW5-OCGQ-WL95-8VVI-PJ8IF4I7T2K0",
@@ -103,8 +103,8 @@
             },
             "matchedSamples": [
                 {
-                    "germlineSampleId": "LP3000364-DNA_E05",
-                    "tumourSampleId": "LP3000367-DNA_F07"
+                    "germlineSampleId": "LP3001364-DNA_E05",
+                    "tumourSampleId": "LP3001367-DNA_F07"
                 }
             ],
             "priority": "urgent",
@@ -131,7 +131,7 @@
                     "participantUid": "1SS0CUDO7E95",
                     "product": "DNA",
                     "programmePhase": "MAIN",
-                    "sampleId": "LP3000367-DNA_F07",
+                    "sampleId": "LP3001367-DNA_F07",
                     "sampleMorphologies": [
                         {
                             "id": "SCTID:87784001"

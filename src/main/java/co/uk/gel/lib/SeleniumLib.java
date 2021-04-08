@@ -1,16 +1,17 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.BrowserConfig;
+import co.uk.gel.models.ReferralDataModel;
 import co.uk.gel.models.ReferralID;
 import co.uk.gel.models.Referrals;
+import co.uk.gel.models.ReferralsList;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
@@ -22,10 +23,10 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkArgument;
+import java.util.Set;
 
 public class SeleniumLib {
 
@@ -923,37 +924,46 @@ public class SeleniumLib {
         }
     }
 
-    public static void writeToJsonFileOfName (String fileName, String dataToWrite) {
-        String nameRead;
+    public static void writeToJsonFileOfName(String fileName, String caseType, String referralIdData, List<String> sampleWellIdList) {
         try {
+            File jsonFile = new File(fileName);
             JsonParser parser = new JsonParser();
-            Object obj = parser.parse(new FileReader(fileName));
-            JsonObject jsonObject = (JsonObject) obj;
-            JsonArray msg = (JsonArray)jsonObject.get("referrals");
-            Iterator<JsonElement> iterator = msg.iterator();
-            while(iterator.hasNext()) {
-                nameRead = iterator.next().toString();
-            }
-            ReferralID referralID = new ReferralID();
-
-            referralID.setReferralID(dataToWrite);
+            Iterator<JsonElement> iterator;
+            ReferralsList referralsList = new ReferralsList();
+            FileWriter fileWriter; //= new FileWriter(fileName, false);
+            JsonWriter jWriter;//= new JsonWriter(fileWriter);
             Gson gson = new Gson();
-            String json = gson.toJson(referralID);
 
-            FileWriter file = new FileWriter(fileName, false);
-            JsonWriter jw = new JsonWriter(file);
-            iterator = msg.iterator();
-
-            Referrals referrals = new Referrals();
-
-            while(iterator.hasNext()) {
-                referrals.addReferrals(gson.fromJson(iterator.next().toString(), ReferralID.class));
+            if (!jsonFile.exists()) {
+                jsonFile.createNewFile();
+                System.out.println(" Creating file..........");
+            } else {
+                System.out.println(" File exists..........");
+                Object obj = parser.parse(new FileReader(fileName));
+//                System.out.println("The current file contents as object-" + obj.toString());
+                JsonObject jObject = (JsonObject) obj;
+                Debugger.println("The current file contents as Json Object-" + jObject);
+                JsonArray existingData = (JsonArray) jObject.get("referralsList");
+                iterator = existingData.iterator();
+                while (iterator.hasNext()) {
+                    referralsList.addReferralsInList(gson.fromJson(iterator.next().toString(), ReferralDataModel.class));
+                }
             }
-            referrals.addReferrals(referralID);
-            gson.toJson(referrals, Referrals.class, jw);
-            file.close();
-        } catch(Exception e) {
-            e.printStackTrace();
+
+            fileWriter = new FileWriter(fileName, false);
+            jWriter = new JsonWriter(fileWriter);
+        /// Sort the data in proper Format
+            ReferralDataModel newReferralData = new ReferralDataModel();
+            newReferralData.setCaseType(caseType);
+            newReferralData.setReferralId(referralIdData);
+            newReferralData.setSampleWellIdList(sampleWellIdList);
+
+            referralsList.addReferralsInList(newReferralData);
+            //Writing in the file
+            gson.toJson(referralsList, ReferralsList.class, jWriter);
+            fileWriter.close();
+        } catch (Exception exp) {
+            Debugger.println("Exception from Writing to JSON file: "+exp);
         }
     }
 

@@ -11,5 +11,5 @@ Feature: Create Referrals by reading details from Json file
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
 
     Examples:
-      | JSONFileName      |
-      | RD_210011926.json |
+      | JSONFileName       |
+      | RD_Referral_1.json |
