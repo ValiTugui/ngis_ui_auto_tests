@@ -39,7 +39,7 @@ pipeline {
 
         stage('Publish and Archive Results') {
             steps {
-                ``archiveArtifacts artifacts:'target/generated-report/*.*' , allowEmptyArchive: true
+                  archiveArtifacts artifacts:'target/generated-report/*.*' , allowEmptyArchive: true
                   archiveArtifacts artifacts:'target/*' , allowEmptyArchive: true
                  // archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
                   archiveArtifacts artifacts:'JsonReferrals.json ' , allowEmptyArchive: true
