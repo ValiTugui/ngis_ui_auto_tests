@@ -57,7 +57,10 @@ pipeline {
              sh 'echo Attempt to run CSV generation'
              build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2e'), string(name: 'Tag', value:'@CancerReferralFromJson' )]
             }
-            else if (params.TestEnvironment == 'e2elatest') {
+            else if (params.TestEnvironment == 'e2elatest' && params.Tag == '@RDReferralFromJson') {
+             sh 'echo Attempt to run CSV generation'
+             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2elatest'), string(name: 'Tag', value:'@RDReferralFromJson' )]
+            }else if (params.TestEnvironment == 'e2elatest' && params.Tag == '@CancerReferralFromJson') {
              sh 'echo Attempt to run CSV generation'
              build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2elatest'), string(name: 'Tag', value:'@CancerReferralFromJson' )]
             }
