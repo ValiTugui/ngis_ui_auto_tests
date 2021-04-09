@@ -8,6 +8,8 @@ public class ReferralDataModel {
     private String referralId;
     private String caseType;
     private List<String> sampleWellIdList = new ArrayList<>();
+    private String cohortId;
+
 
     public String getReferralId() {
         return referralId;
@@ -31,5 +33,13 @@ public class ReferralDataModel {
 
     public void setSampleWellIdList(List<String> sampleWellIdList) {
         this.sampleWellIdList = sampleWellIdList;
+    }
+
+    public String getCohortId() {
+        return cohortId;
+    }
+
+    public void setCohortId(String cohortId) {
+        this.cohortId = cohortId;
     }
 }
