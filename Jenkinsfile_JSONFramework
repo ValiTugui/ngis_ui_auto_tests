@@ -52,10 +52,10 @@ pipeline {
             sh 'echo success'
             if (params.TestEnvironment == 'e2e') {
              sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2e'), string(name: 'Tag', value: '${Tag}')]
+             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2e'), string(name: 'Tag', value: ${Tag})]
             }else if (params.TestEnvironment == 'e2elatest') {
              sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2elatest'), string(name: 'Tag', value: '${Tag}')]
+             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2elatest'), string(name: 'Tag', value: ${Tag})]
             }
          }
         }
