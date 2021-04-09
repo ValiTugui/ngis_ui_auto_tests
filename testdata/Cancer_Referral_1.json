@@ -81,7 +81,7 @@
                     "sampleId": "LP5000387-DNA_A01",
                     "sampleState": "blood_unsorted_edta",
                     "sampleType": "Normal or Germline sample",
-                    "sampleUid": "LP5000287-DNA_A01",
+                    "sampleUid": "LP5000387-DNA_A01",
                     "source": "BLOOD",
                     "storageMedium": "EDTA"
                 }
@@ -126,7 +126,7 @@
                     "sampleId": "LP5000388-DNA_A01",
                     "sampleState": "tumour_freshFrozen",
                     "sampleType": "Solid tumour sample",
-                    "sampleUid": "LP5000288-DNA_A01",
+                    "sampleUid": "LP5000388-DNA_A01",
                     "source": "TUMOUR",
                     "storageMedium": "FF",
                     "tumourContent": "Medium",
