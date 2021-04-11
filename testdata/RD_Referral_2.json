@@ -1,0 +1,301 @@
+{
+    "clinicalIndication": {
+        "clinicalIndicationCode": "R29", 
+        "clinicalIndicationFullName": "\"Intellectual disability - microarray, fragile X and sequencing\"", 
+        "clinicalIndicationUid": "template"
+    }, 
+    "orderingDate": {
+        "day": 30, 
+        "month": 6, 
+        "year": 2019
+    }, 
+    "pedigree": {
+        "familyId": "IAINOD9A3OYD", 
+        "familyQCState": "passedMedicalReviewReadyForInterpretation", 
+        "members": [
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "AFFECTED", 
+                "consanguineousParents": "unknown", 
+                "disorderList": [
+                    {
+                        "specificDisease": "R29"
+                    }
+                ], 
+                "fatherId": 1839335, 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839338, 
+                "participantId": "Q4LATOW9Q4MD", 
+                "pedigreeId": 1839334, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNAFFECTED", 
+                "consanguineousParents": "unknown", 
+                "fatherId": 1839336, 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839337, 
+                "participantId": "WKI65KSD9QKW", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "WKI65KSD9QKW", 
+                "pedigreeId": 1839335, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE", 
+                "yearOfBirth": 1986
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNCERTAIN", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "JHRA15YMRV59", 
+                "pedigreeId": 1839336, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNCERTAIN", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "UY7VNOD6FQX9", 
+                "pedigreeId": 1839337, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNAFFECTED", 
+                "consanguineousParents": "unknown", 
+                "fatherId": 1839339, 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839340, 
+                "participantId": "VK1ZUZOU21D9", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "VK1ZUZOU21D9", 
+                "pedigreeId": 1839338, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE", 
+                "yearOfBirth": 1987
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNCERTAIN", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "Z2JPRSQHMF86", 
+                "pedigreeId": 1839339, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNCERTAIN", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "7VPGWJ4LORYO", 
+                "pedigreeId": 1839340, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNAFFECTED", 
+                "consanguineousParents": "unknown", 
+                "fatherId": 1839335, 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839338, 
+                "participantId": "9HWHNOQJTFSG", 
+                "pedigreeId": 1839342, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNAFFECTED", 
+                "consanguineousParents": "unknown", 
+                "fatherId": 1839335, 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839338, 
+                "participantId": "YUYPKKIL7XEA", 
+                "pedigreeId": 1839343, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "AFFECTED", 
+                "consanguineousParents": "unknown", 
+                "disorderList": [
+                    {
+                        "specificDisease": "R29"
+                    }
+                ], 
+                "fatherId": 1839335, 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839338, 
+                "participantId": "N279LGHBZ0F0", 
+                "pedigreeId": 1839344, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE"
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "AFFECTED", 
+                "consanguineousParents": "unknown", 
+                "disorderList": [
+                    {
+                        "specificDisease": "R29"
+                    }
+                ], 
+                "fatherId": 1839335, 
+                "hpoTermList": [
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0001250", 
+                        "termPresence": "no"
+                    }, 
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0001561", 
+                        "termPresence": "no"
+                    }, 
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0002011", 
+                        "termPresence": "yes"
+                    }
+                ], 
+                "isProband": true, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 1839338, 
+                "participantId": "IQ8SZOOP7IP0", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "IQ8SZOOP7IP0", 
+                "pedigreeId": 1839346, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE", 
+                "yearOfBirth": 2013
+            }
+        ], 
+        "readyForAnalysis": true
+    }, 
+    "referralId": "MORDZ8NN3D5R", 
+    "referralTests": [
+        {
+            "analysisPanels": [
+                {
+                    "multipleGeneticOrigins": "no", 
+                    "panelId": "285", 
+                    "panelName": "Intellectual disability", 
+                    "panelVersion": "3.276",
+                    "specificDisease": "R29"
+                }
+            ], 
+            "clinicalIndicationTest": {
+                "clinicalIndicationTestTypeCode": "template", 
+                "clinicalIndicationTestTypeId": "template", 
+                "technology": {
+                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation", 
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                }, 
+                "testTypeId": "template", 
+                "testTypeName": "template"
+            }, 
+            "diseasePenetrances": [
+                {
+                    "penetrance": "complete", 
+                    "specificDisease": "R29"
+                }
+            ], 
+            "germlineSamples": [
+                {
+                    "labSampleId": 1027321122, 
+                    "maskedPid": "D5R7X7DJ-ZEH6-S2H2-562W-8JC24HH1MIEA", 
+                    "method": "NOT_APPLICABLE", 
+                    "participantId": "WKI65KSD9QKW", 
+                    "participantUid": "WKI65KSD9QKW", 
+                    "product": "DNA", 
+                    "programmePhase": "MAIN", 
+                    "sampleId": "LP3005236-DNA_G02",
+                    "sampleState": "saliva_oragene", 
+                    "sampleType": "Normal or Germline sample", 
+                    "sampleUid": "IADNKFFU-3LGK-J6C6-AU6Y-SP5MI6NOZ1VG", 
+                    "source": "SALIVA", 
+                    "storageMedium": "ORAGENE"
+                }, 
+                {
+                    "labSampleId": 1027321101, 
+                    "maskedPid": "L8YLSTMY-4HHS-R216-754J-BVHHV5B78WUD", 
+                    "method": "BIOPSY", 
+                    "participantId": "VK1ZUZOU21D9", 
+                    "participantUid": "VK1ZUZOU21D9", 
+                    "product": "DNA", 
+                    "programmePhase": "MAIN", 
+                    "sampleId": "LP3005232-DNA_G09",
+                    "sampleState": "tissue_freshFrozen", 
+                    "sampleType": "Normal or Germline sample", 
+                    "sampleUid": "FCXV8ZKA-EE5U-3TQR-QEUW-2DQ0B7U1YMCP", 
+                    "source": "TISSUE", 
+                    "storageMedium": "FF"
+                }, 
+                {
+                    "labSampleId": 1027320900, 
+                    "maskedPid": "F751I98M-T080-7TBG-459P-X3T1XU4NAW6S", 
+                    "method": "ASPIRATE", 
+                    "participantId": "IQ8SZOOP7IP0", 
+                    "participantUid": "IQ8SZOOP7IP0", 
+                    "product": "DNA", 
+                    "programmePhase": "MAIN", 
+                    "sampleId": "LP3005230-DNA_H11",
+                    "sampleState": "boneMarrow_unsorted_edta", 
+                    "sampleType": "Normal or Germline sample", 
+                    "sampleUid": "ISEU8A71-D7HV-B6D1-Q0TC-RE91WXP6TH3S", 
+                    "source": "BONE_MARROW", 
+                    "storageMedium": "EDTA"
+                }
+            ], 
+            "interpreter": {
+                "organisationCode": "69KQD", 
+                "organisationId": "template", 
+                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE", 
+                "organisationNationalGroupingId": "69A70", 
+                "organisationNationalGroupingName": "London North"
+            }, 
+            "priority": "routine", 
+            "processingLab": {
+                "organisationCode": "69KQD", 
+                "organisationId": "template", 
+                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE", 
+                "organisationNationalGroupingId": "69A70", 
+                "organisationNationalGroupingName": "London North"
+            }, 
+            "referralTestId": "OFLPLNU8P8U1", 
+            "referralTestOrderingDate": {
+                "day": 30, 
+                "month": 6, 
+                "year": 2019
+            }
+        }
+    ], 
+    "referralUid": "CYAG7UH2-7GWW-NG80-GMJO-7GB04Q08NZTV", 
+    "requester": {
+        "organisationCode": "RAS", 
+        "organisationId": "RAS", 
+        "organisationName": "The Hillingdon Hospitals NHS Foundation Trust", 
+        "organisationNationalGroupingId": "69A70", 
+        "organisationNationalGroupingName": "London North"
+    }
+}
