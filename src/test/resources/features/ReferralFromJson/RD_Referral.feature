@@ -12,4 +12,4 @@ Feature: Create Referrals by reading details from Json file
 
     Examples:
       | JSONFileName       |
-      | RD_Referral_1.json |
+      | RD_Referral_2.json |
