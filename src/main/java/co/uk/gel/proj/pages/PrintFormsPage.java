@@ -89,6 +89,7 @@ public class PrintFormsPage {
 
     @FindBy(xpath = "//span[text()='Show address']")
     WebElement showLabAddressLink;
+
     @FindBy(xpath = "//span[text()='Show address']/../child::*[@class='css-ajdsat-Svg']")
     WebElement showLabAddressLinkButton;
 
@@ -637,44 +638,6 @@ public class PrintFormsPage {
             return false;
         }
     }
-
-//    public String readLabAddress(String showAddress) {
-//        try {
-//            Wait.forElementToBeDisplayed(driver, showLabAddressLink);
-//            if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
-//                seleniumLib.clickOnWebElement(showLabAddressLink);
-//            }
-//            Wait.forElementToBeDisplayed(driver, detailedAddressText);
-//            String detailedAddress = detailedAddressText.getText();
-//            if (detailedAddress == null || detailedAddress.isEmpty()) {
-//                Debugger.println("No detailed Address present.");
-//                return null;
-//            }
-//            if (!detailedAddress.contains("Hide address")) {
-//                Debugger.println("Laboratory address does not contain Hide Address option");
-//                return null;
-//            }
-//
-//            //Debugger.println("The lab address is: " + detailedAddressText.getText());
-//            String[] labAddress = detailedAddress.split("\\n");
-//            if (labAddress == null || labAddress.length < 2) {
-//                Debugger.println("Lab address is Not Shown");
-//                return null;
-//            }
-//            //Debugger.println("lab Address to search in form: " + labAddress[1]);
-//            hideLabAddressLink.click();
-//            return labAddress[1];
-//        } catch (Exception exp) {
-//            Debugger.println("PrintFormsPage: readLabAddress: " + exp);
-//            return null;
-//        }
-//    }
-
-    //new
-    String[] labAddress = {};
-
-    @FindBy(xpath = "//h3[contains(@class,'downloads__lab-name')]")
-    public WebElement labName;
 
     public String readLabAddress(String showAddress) {
         labAddress = null;
