@@ -1,6 +1,9 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
+@PrintForms
 Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
+
 
   @NTS-4802 @Z-LOGOUT
 #    @E2EUI-1789 @E2EUI-1262 @E2EUI-826
@@ -55,7 +58,7 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    When the user is navigated to a page with title Patient choice
+#    When the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<ThreeParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=14-05-1976 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
@@ -76,3 +79,29 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     Examples:
       | ThreeParticipants | ClinicalQuestionDetails                   | ResponsibleClinicianDetails                | ClinicianName                           | PrintForms  |
       | 3                 | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | LastName=Barick:Department=Victoria Street | ClinicianName=Deepak:HospitalNumber=123 | Print forms |
+
+  @NTS-6040 @Z-LOGOUT
+  Scenario Outline: NTS-6040:  As a user viewing the print forms section, I should be able to see routing lab details correctly
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R85 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=15-10-2001:Gender=Female |
+     ###Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "<Requesting_Organisation_key>" in the search field
+    And the user selects the first entity from the suggestions list
+    And the user clicks the Save and Continue button
+    ###Test Package
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<ThreeParticipants>"
+    And the user clicks the Save and Continue button
+
+    When the user navigates to the "<PrintForms>" stage
+    And the user is navigated to a page with title Print sample forms
+    And the user is able to download print form for the proband
+    ###Covering E2EUI-826
+    And the user verifies the lab name "<labName>" is updated in Print forms stage
+    And the user should be able to click "Show address" link to verify the address of the lab in the downloaded file
+    Examples:
+      | ThreeParticipants | Requesting_Organisation_key               | PrintForms  | labName            |
+      | 1                 | Sheffield Children's NHS Foundation Trust | Print forms | NE&Y GLH Sheffield |
+      | 1                 | Gateshead Health NHS Foundation Trust     | Print forms | NE&Y GLH Newcastle |
+      | 1                 | Leeds Community Healthcare NHS Trust      | Print forms | NE&Y GLH Leeds     |

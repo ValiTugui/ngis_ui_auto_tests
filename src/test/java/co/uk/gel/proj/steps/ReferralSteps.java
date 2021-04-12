@@ -4,11 +4,9 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.proj.neatPages.NeatPatientRecordPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.ConcurrencyTest;
@@ -23,7 +21,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -852,6 +849,8 @@ public class ReferralSteps extends Pages {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
         }
         switchToURL(driver.getCurrentUrl(), userType);
+        //if password submit click not happened button will be displayed, trying again
+        referralPage.verifyFindYourPatientPageTitle();
         stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
         if (!stepResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FindYourPatient.jpg");
@@ -1403,7 +1402,7 @@ public class ReferralSteps extends Pages {
             testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
             if (!testResult) {
                 Debugger.println("Stage: " + stages.get(i).get(0) + " expected to be complete, but not.");
-                SeleniumLib.takeAScreenShot("completedStage.jpg");
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + " : "+ stages.get(i).get(0)+ "_Stage_Not_complete.jpg");
                 Assert.assertTrue(testResult);
             }
             Assert.assertTrue(testResult);
@@ -1441,6 +1440,7 @@ public class ReferralSteps extends Pages {
         if (cancelReferral.equals("present")) {
             Assert.assertTrue(testResult);
         } else {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_cancelReferralNotPresent.jpg");
             Assert.assertFalse(testResult);
         }
     }
@@ -1531,7 +1531,7 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyStageHasNoStatusIndicator(stage);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_StatusIndicator.jpg");
-            Assert.fail("Status indicator could not alidate on stage " + stage);
+            Assert.fail("Status indicator could not validate on stage " + stage);
         }
     }
 

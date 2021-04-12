@@ -78,9 +78,13 @@ public class MiClinicalDataQualityPage {
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download Data')]")
     public WebElement downloadDataButton;
 
+    @FindBy(xpath = "//div/label[text()='Ordering Entity']/..//a[@role='option'][@aria-selected='false']")
+    public List<WebElement> orderingEntityDeselectedAll;
+
+    @FindBy(xpath = "//div/label[text()='Ordering Entity']/..//a[@role='option'][@aria-selected='true']")
+    public List<WebElement> orderingEntitySelectedAll;
 
     @FindBy(id="clinical_dq-dq_summary-timestamp")
-
     public WebElement dqlastUpdatedTimeStampLabel;
 
     By clinicalDqReportTableHead = By.xpath("//div[@class='dataTables_scrollHeadInner']//table[@class='display dataTable no-footer']/thead/tr/th") ;
@@ -280,18 +284,18 @@ public class MiClinicalDataQualityPage {
     public boolean orderingEntitiesDeselect() {
         //Check mark should not be present
         //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-        if(orderingEntitySelections.size()==6) {
+        if(orderingEntityDeselectedAll.size()<=30) {
             return true;
         }
-        Debugger.println("Ordering entity is shown as selected, but not expected to be deselected.");
-        SeleniumLib.takeAScreenShot("OrderingEntitySelected.jpg");
+        Debugger.println("Ordering entity is shown as selected, but expected to be deselected.");
+        SeleniumLib.takeAScreenShot("OrderingEntityDeSelectedError.jpg");
         return false;
     }
 //After clicking on select all button all the ordering entities should select
     public boolean orderingEntitiesSelect() {
         //Check mark should be present
         //Ordering Entity Selections size is 6 without tick mark, and size will increase as per the selection
-        if(orderingEntitySelections.size() > 6){
+        if(orderingEntitySelectedAll.size() <= 30){
             return true;
         }
         Debugger.println("Ordering entity is shown as deselected, but expected to be selected.");
@@ -432,7 +436,7 @@ public class MiClinicalDataQualityPage {
         try {
             String tabPath = dummyTabPath.replace("dummyTab", tabName);
             WebElement selectedTab = driver.findElement(By.xpath(tabPath));
-            if (!Wait.isElementDisplayed(driver, selectedTab, 20)) {
+            if (!Wait.isElementDisplayed(driver, selectedTab, 30)) {
                 Debugger.println("The " + tabName + " Tab is not present.");
                 SeleniumLib.takeAScreenShot("DQTabsNotPresent.jpg");
                 return false;
@@ -440,7 +444,7 @@ public class MiClinicalDataQualityPage {
             //Debugger.println("The Tab to check is: " + selectedTab.getText());
             seleniumLib.highLightWebElement(selectedTab);
             seleniumLib.clickOnWebElement(selectedTab);
-            Wait.seconds(20);
+            Wait.seconds(30);
             String[] headerNames = headerValues.split(",");
             String tableElePath=clinicalDqReportTable.replace("dummyTab", tabName);
             WebElement tableEle = driver.findElement(By.xpath(tableElePath));
@@ -522,7 +526,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             seleniumLib.clickOnWebElement(downloadDataButton);
-            Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
+            Wait.seconds(20);//Wait for 20 seconds to ensure file got downloaded, large file taking time to download
             //Debugger.println("Form: " + clinical_dq_report_filtered + " ,downloaded from section: " + clinical_dq_report_filtered);
             return true;
         } catch (Exception exp) {
@@ -534,31 +538,38 @@ public class MiClinicalDataQualityPage {
 
     public boolean verifyDQDateFormat(String dateFormat)
     {
-        try
-        {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern(dateFormat);
-
-            String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:","").replace("UTC","").trim();
-            LocalDateTime.parse(dqDate, dtf);
+        try {
+            if (!Wait.isElementDisplayed(driver, dqlastUpdatedTimeStampLabel, 60)) {
+                Debugger.println("Last updated time stamp on DQ report not visible even after 30 sec");
+                SeleniumLib.takeAScreenShot("LastUpdatedTime.jpg");
+                return false;
+            }
+            DateTimeFormatter expFormat = DateTimeFormatter.ofPattern(dateFormat);
+            String dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:", "").replace("UTC", "").trim();
+            Debugger.println("Dq_Date1 " + dqDate);
+            if (dqDate.isEmpty()) {
+                dqDate = this.dqlastUpdatedTimeStampLabel.getText().replace("Last Updated:", "").replace("UTC", "").trim();
+            }
+            LocalDateTime dateInDQ = LocalDateTime.parse(dqDate, expFormat);
+            Debugger.println("date-" + dateInDQ);
+            String dateValue = dateInDQ.format(expFormat);
+            Debugger.println("Date after format " + dateValue);
+            if (!dateValue.equals(dqDate)) {
+                Debugger.println("Expected-" + dateValue + " ,Actual-" + dqDate);
+                return false;
+            }
+            Debugger.println("The parsed date is " + LocalDateTime.parse(dqDate, expFormat).toString());
             return true;
-        }
-        catch(DateTimeParseException | IllegalArgumentException exp)
-        {
+        } catch (DateTimeParseException | IllegalArgumentException exp) {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
-
-            Debugger.println("ExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
-
+            Debugger.println("Exception in verifying DQR screen last updated date format:" + exp);
             SeleniumLib.takeAScreenShot("verifyDQDateFormat.jpg");
             return false;
-        }
-        catch(Exception exp)
-        {
+        } catch (Exception exp) {
             System.err.println(exp.getMessage());
             exp.printStackTrace();
-
-            Debugger.println("UnexpectedExceptionverifyingDQRscreenlastupdateddateformat:"+exp);
-
+            Debugger.println("Unexpected Exception verifyingDQRscreenlastupdateddateformat:" + exp);
             return false;
         }
     }

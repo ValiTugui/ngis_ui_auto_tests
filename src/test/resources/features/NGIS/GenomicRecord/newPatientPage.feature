@@ -1,6 +1,6 @@
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
-
+@SYSTEM_TEST_2
 Feature: GenomicRecord: New Patient page
 
   @NTS-3072
@@ -55,11 +55,14 @@ Feature: GenomicRecord: New Patient page
 
    @NTS-3456 @Z-LOGOUT
 #    @E2EUI-1134 @E2EUI-1067
+#   @NTS-3454  @E2EUI-893
+#     @NTS-4055 @E2EUI-1904
   Scenario Outline: NTS-3456:(E2EUI-1134,1067) Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user is navigated to a page with title Find your patient
     And the user clicks the NO button
+#     @NTS-4055 @E2EUI-1904
     And the user types in invalid details of a patient in the NO fields
     When the user clicks the Search button
     Then the message "<message>" is displayed below the search button
@@ -236,6 +239,7 @@ Feature: GenomicRecord: New Patient page
       | No patient found | create a new patient record | Create a record for this patient |
 
   @NTS-3468 @Z-LOGOUT
+##   @NTS-3507  @E2EUI-1649 @E2EUI-1584
 #    @E2EUI-1196
   Scenario Outline: NTS-3468:E2EUI-1196: new patient page with no NHsNumber- when last name is filled and all mandatory fields are left blank
     Given a web browser is at the patient search page
@@ -265,6 +269,7 @@ Feature: GenomicRecord: New Patient page
     When the user clears the date of birth field
     And the user fill in the last name field
     And the user clicks the Save patient details to NGIS button
+##   @NTS-3507  @E2EUI-1649 @E2EUI-1584
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
       | labelHeader                    | errorMessageHeader                  | messageColourHeader |
       | First name ✱                   | First name is required.             | #dd2509             |
@@ -279,65 +284,8 @@ Feature: GenomicRecord: New Patient page
       | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
 
-
-  @NTS-3507 @Z-LOGOUT
-#    @E2EUI-1649 @E2EUI-1584
-  Scenario Outline:NTS-3507:(E2EUI-1649,1584):Super-user - Hospital number is conditionally non-nullable if NHS number is null
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
-    When the user is navigated to a page with title Find your patient
-    And the user types in invalid details of a patient in the NHS number and DOB fields
-    And the user clicks the Search button
-    And the user clicks the "<hyperlinkText>" link from the No Search Results page
-    Then the new patient page is opened
-    And the No button is selected by default for the question - Do you have the NHS Number?
-    Then the user fills in all fields without NHS number, enters a reason for noNhsNumber "<reason_for_no_nhsNumber>" and leaves HospitalNo field blank
-    When the user clicks the Save patient details to NGIS button
-    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader       | errorMessageHeader           | messageColourHeader |
-      | Hospital number ✱ | Hospital number is required. | #dd2509             |
-    And the user fills in the HospitalNo field
-    When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "NGIS patient record created"
-
-    Examples:
-      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber       |
-      | create a new patient record | Create a record for this patient | Other (please provide reason) |
-
-#  @NTS-3507 @Z-LOGOUT - Not relevant for Gonzalo
-##    @E2EUI-1649 @E2EUI-1584
-#  Scenario Outline:NTS-3507:(E2EUI-1649,1584) Super-user - Hospital number is conditionally non-nullable if NHS number is null
-#    Given a web browser is at the patient search page
-#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
-#    When the user is navigated to a page with title Find your patient
-#    When the user types in invalid details of a patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    And the user clicks the "<hyperlinkText>" link from the No Search Results page
-#    Then the new patient page is opened
-#    And the No button is selected by default for the question - Do you have the NHS Number?
-#    When the user click YES button for the question - Do you have the NHS no?
-#    And the NHS number field is displayed
-#    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-#      | labelHeader                    |
-#      | Hospital number ✱              |
-#    Then the user fills in all fields and leaves NHS Number and HospitalNo fields blank
-#    When the user clicks the Save patient details to NGIS button
-#    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-#      | labelHeader       | errorMessageHeader           | messageColourHeader |
-#      | NHS Number ✱      | NHS Number is required.      | #dd2509             |
-#      | Hospital number ✱ | Hospital number is required. | #dd2509             |
-#    When the user fills in the NHS Number field
-#    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
-#      | labelHeader     |
-#      | Hospital number |
-#    When the user clicks the Save patient details to NGIS button
-#    Then the patient is successfully updated with a message "NGIS patient record created"
-#
-#    Examples:
-#      | hyperlinkText               | pageTitle                         |
-#      | create a new patient record | Create a record for this patient |
-
   @NTS-3508 @Z-LOGOUT
+#  @NTS-6043
 #     @E2EUI-1660
   Scenario Outline: NTS-3508:E2EUI-1660: Super User - Create a new patient record with an NHS Number
     Given a web browser is at the patient search page
@@ -390,6 +338,8 @@ Feature: GenomicRecord: New Patient page
       | create a new patient record | Create a record for this patient | Other (please provide reason) | NGIS         |
 
   @NTS-6043 @Z-LOGOUT
+    ##   @NTS-3067  @E2EUI-1128
+#    @NTS-3346 @E2EUI-995
   Scenario Outline:NTS-6043:Scenario_01:Find and select patient record (New patient record) without selecting CI
     Given a web browser is at the dashboard page
     And User should be able to see my Dashboard
@@ -403,17 +353,21 @@ Feature: GenomicRecord: New Patient page
     Then the message "No patient found" is displayed below the search button
     When the user clicks on the hyper link
     Then the "Create a record for this patient" page is displayed
+##    @NTS-3346 @E2EUI-995
+    And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
     And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
     And the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks the Save patient details to NGIS button
     And the patient is successfully created with a message "NGIS patient record created"
+    ### @E2EUI-1128
     And the clinical indication ID missing banner is displayed
+    And the Start New Referral button is disabled
     And the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
 
     Examples:
-      | reason_for_no_nhsNumber       |
-      | Other (please provide reason) |
+      | reason_for_no_nhsNumber       | maximumAllowedValues |
+      | Other (please provide reason) | 50                   |
 
   @NTS-6043 @Z-LOGOUT
   Scenario Outline:NTS-6043:Scenario_02:Find and select patient record (New patient record)

@@ -99,6 +99,7 @@ public class HomePage {
                 Debugger.println("searchField not present even after waiting period: ");
                 return false;
             }
+            searchField.clear();
             searchField.sendKeys(searchTerm);
             return true;
         }catch(Exception exp){

@@ -1,10 +1,11 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
 
-  @NTS-3389
-    #@E2EUI-2039 @E2EUI-1100
+  @NTS-3389 @NTS-3478
+    #@E2EUI-2039 @E2EUI-1100 @E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1992:Gender=Male |
@@ -30,8 +31,8 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
       | PatientChoice  | ClinicianName                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3389
-    #@E2EUI-2039 @scenario_01
+  @NTS-3389 @NTS-3411 @NTS-3478
+   #@E2EUI-2039 @scenario_01  #@E2EUI-1960  @E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is in the section Patient choices
     Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -49,16 +50,15 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
     And the user should see selected details displayed under the section Patient choices
       | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient changed their mind about the clinical test |
     When the user is in the section Review and submit
-    Then the user will see a warning message "<WarningMessage2>"
+    And the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 #      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                          |
 #      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
-
 
   @NTS-3389
     #@E2EUI-2039  @scenario_02
@@ -80,9 +80,9 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
     And the user should see selected details displayed under the section Patient choices
       | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient conversation happened; form to follow |
     When the user is in the section Review and submit
-    Then the user will see a warning message "<WarningMessage>"
+    And the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
@@ -126,7 +126,7 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
     When the user is in the section Patient signature
     And the user fills PatientSignature details in patient signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                         |
@@ -166,7 +166,7 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
     When the user is in the section Patient signature
     And the user fills PatientSignature details in patient signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                      | Question2                                                                                      |
@@ -203,6 +203,6 @@ Feature: Patient Choice-9 - Edit Paper Form - Adult With Capacity
       | The patient agrees that their data and samples may be used for research, separate to NHS care.::Yes                                                       |
     When the user is in the section Patient signature
     And the user fills PatientSignature details in patient signature
-    Then the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    And the user should see patient choice submit button as enabled
+    Then Save and continue button is displayed as disabled
     ##E2EUI-2039: Scenario 6 is covered with above scenarios

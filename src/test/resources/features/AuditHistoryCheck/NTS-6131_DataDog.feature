@@ -1,4 +1,4 @@
-@SYSTEM_TEST
+@SYSTEM_TEST_DataDog
 
 Feature: Login to Datadog application
 

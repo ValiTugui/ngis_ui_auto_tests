@@ -2,6 +2,7 @@
 #@clinicalIndicationTestSelect
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Test Directory: ClinicalIndicationSelect_4
 
   @NTS-4710 @Z-LOGOUT

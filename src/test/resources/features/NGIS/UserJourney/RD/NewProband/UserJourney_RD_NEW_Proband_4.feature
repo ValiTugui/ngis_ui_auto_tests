@@ -10,32 +10,32 @@ Feature: UserJourney_RD_NEW_Proband_4 - UC26 - E2EUI-1801
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-06-2011:Gender=Male |
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
+#    And the "<RequestingOrganisation>" stage is marked as Completed
     ###Test Package - Proband only - No of participants 1
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ###Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
+#    And the "<ResponsibleClinician>" stage is marked as Completed
     ###Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    And the "<ClinicalQuestion>" stage is marked as Completed
+#    And the "<ClinicalQuestion>" stage is marked as Completed
     ###Notes
     And the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ###Family Members -No members required and this stage will not be marked as completed
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
@@ -47,13 +47,22 @@ Feature: UserJourney_RD_NEW_Proband_4 - UC26 - E2EUI-1801
     ###Panels - no need to check for its completion
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
+#    Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed, no need to click on save and continue
     And the user is navigated to a page with title Build a pedigree
-    Then the "<Pedigree>" stage is marked as Completed
+#    Then the "<Pedigree>" stage is marked as Completed
     ###Print forms - only Proband
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ResponsibleClinician>   |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <Panels>                 |
+      | <Pedigree>               |
     ###Cancel Referral (without submitting)
     And the user clicks the Cancel referral link
     And the user selects the cancellation reason "The referral has been paused or stopped (“Revoke”)" from the modal

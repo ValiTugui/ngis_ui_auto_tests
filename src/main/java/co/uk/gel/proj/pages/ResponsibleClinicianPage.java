@@ -255,7 +255,8 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
-        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+        int latestLastNameError= clinicianErrorMessages.size()-1;
+        return clinicianErrorMessages.get(latestLastNameError).getText().contains(expectedErrorMessage);
     }
 
     public boolean verifyLastNameFieldIsHighlightedInRed(String expectedColourUponError) {

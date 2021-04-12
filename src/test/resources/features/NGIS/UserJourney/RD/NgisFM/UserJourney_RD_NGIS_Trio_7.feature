@@ -10,32 +10,32 @@ Feature: UserJourney_RD_NGIS_Trio_7 - UC13 - E2EUI-975
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000000290:DOB=31-05-2001 |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Wye Valley NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
+#    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only - No of participants -3
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
+#    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-    And the "<ResponsibleClinician>" stage is marked as Completed
+#    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the "<ClinicalQuestion>" stage is marked as Completed
+#    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-    Then the "<Notes>" stage is marked as Completed
+#    Then the "<Notes>" stage is marked as Completed
     ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
@@ -43,7 +43,7 @@ Feature: UserJourney_RD_NGIS_Trio_7 - UC13 - E2EUI-975
       | NHSNumber=NA:DOB=11-01-1971:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Unaffected:AgeOfOnset=02,02:HpoPhenoType=Dystonia |
       | NHSNumber=NA:DOB=13-10-1973:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Unknown:AgeOfOnset=03,02:HpoPhenoType=Trichiasis  |
     And the user clicks the Save and Continue button
-    Then the "<FamilyMembers>" stage is marked as Completed
+#    Then the "<FamilyMembers>" stage is marked as Completed
     ##Patient Choice - Proband
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -68,22 +68,33 @@ Feature: UserJourney_RD_NGIS_Trio_7 - UC13 - E2EUI-975
       | NHSNumber=NA:DOB=13-10-1973 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-    Then the "<PatientChoiceStage>" stage is marked as Completed
+#    Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
+#    Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
-    Then the "<Pedigree>" stage is marked as Completed
+#    Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=11-01-1971 |
       | NHSNumber=NA:DOB=13-10-1973 |
+    And the below stages marked as completed
+      | <PatientDetails>         |
+      | <RequestingOrganisation> |
+      | <TestPackage>            |
+      | <ResponsibleClinician>   |
+      | <ClinicalQuestion>       |
+      | <Notes>                  |
+      | <FamilyMembers>          |
+      | <PatientChoiceStage>     |
+      | <Panels>                 |
+      | <Pedigree>               |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"

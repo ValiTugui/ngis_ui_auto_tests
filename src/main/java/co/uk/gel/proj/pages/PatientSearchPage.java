@@ -736,6 +736,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
+        //if password next button click not happened. still button is still visible try again
+        if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)) {
+            if (nextButton.isDisplayed()) {
+                try {
+                    seleniumLib.clickOnWebElement(nextButton);
+                } catch (Exception exp1) {
+                    Actions.clickElement(driver, nextButton);
+                }
+            }
+        }
         // Find elements
         if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)) {
             return false;

@@ -493,7 +493,7 @@ public class FamilyMemberDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in editDropdownField:" + value + " on:" + element + "\n" + exp);
-            SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+            SeleniumLib.takeAScreenShot("FM_editDropdownField.jpg");
             return false;
         }
     }

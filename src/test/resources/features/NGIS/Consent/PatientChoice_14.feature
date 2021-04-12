@@ -1,75 +1,150 @@
-#@regression
-#@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
-Feature: Patient Choice-14 - ConsentScenario - Child
+@SYSTEM_TEST_1
+Feature: Patient Choice-14 - Different types of Form File upload and removal in recorded by section.
 
-  @NTS-3415 @Z-LOGOUT
-    #@E2EUI-1627
-  Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
+  @NTS-6024 @NTS-3483 @Z-LOGOUT
+    #@E2EUI-2341 @E2EUI-1890 @E2EUI-1950 @E2EUI-1826
+  Scenario Outline: NTS-6024:E2EUI-2341:Scenario-1:Only one of each form type can be uploaded in the recorded by section for Adult(With Capacity) patient .
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1991:Gender=Male |
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Add missing family member details
-    When the user clicks on edit patient details
-    Then the user is navigated to a page with title Edit patient details
-    And the user selects the Relationship to proband as "Full Sibling" for family member "<FamilyMemberDetails>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Continue with this family member
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add family member details
-    When the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Continue Button
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
+    When the user is navigated to a page with title Add a requesting organisation
+    And the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
+    And the user is in the section Patient choice category
     When the user selects the option Adult (With Capacity) in patient choice category
-    Then the option Adult (With Capacity) displayed with edit option in Patient choice category
     Then the Patient choice category option is marked as completed
+    And the option Adult (With Capacity) displayed with edit option in Patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
     Then the Test type option is marked as completed
-    When the user fills "<RecordedBy>" details in recorded by
+    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the user is in the section Recorded by
+    When the user fills "<ClinicianNameWithFile>" details in recorded by
+    Then the file type dropdown options loaded with below details
+      | Record of Discussion Form |
+      | Deceased Form             |
+    Then the user sees a success message after form upload in recorded by as Successfully Uploaded
+    And the user selects Record of Discussion Form from dropdown option in recorded by
+    And the Date of Signature fields are displayed as enabled
+    Then the user fills current date as Date of Signature
+     ###2nd form upload
+    When the user fills "<FormUpload>" details in recorded by
+    Then the file type dropdown options loaded with below details for "2nd" form type
+      | Deceased Form |
+    Then the user sees a success message for "2nd" form type upload in recorded by as "Successfully Uploaded"
+    And the user selects "Deceased Form" from the "2nd" form type dropdown option in recorded by
+    And the Date of Signature fields for the "2nd" form type are displayed as "enabled"
+    Then the user fills current date as Date of Signature in the "2nd" form type
+    And the user will see a warning message "The maximum number of form types has been reached"
     And the user clicks on Continue Button
-    Then the option Recorded by: displayed with edit option in Recorded by
     Then the Recorded by option is marked as completed
-    When the user is in the section Patient choices
-    Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    Then the user should see the question displayed as Has research participation been discussed?
-    And the options displayed as below for the question Has research participation been discussed?
-      | Yes |
-      | No  |
-    And the user should see Continue button as disabled
-    When the user selects the option No for the question Has research participation been discussed?
-    Then the user should see the question displayed as Why has research participation not been discussed?
-    And the options displayed as below for the question Why has research participation not been discussed?
-      | Inappropriate to have discussion                  |
-      | Patient would like to revisit at a later date     |
-      | Patient lacks capacity and no consultee available |
-      | Other                                             |
-    And the user will see a warning message "<WarningMessage>"
-    And the user should see Continue button as disabled
-    When the user selects the option Patient would like to revisit at a later date for the question Why has research participation not been discussed?
-    And the user clicks on Continue Button
-    Then the user should see selected details displayed under the section Patient choices
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient has agreed to the test |
-      | Has research participation been discussed?::No                                                                                                            |
-      | Why has research participation not been discussed?::Patient would like to revisit at a later date                                                         |
-    When the user is in the section Patient signature
-    And the user fills PatientSignature details in patient signature
-    And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                                         | WarningMessage                                                                                                         | RecordedBy                            |
-      | Family members | NHSNumber=9449303959:DOB=14-09-2005 | DiseaseStatus=Affected:AgeOfOnset=02,02:HpoPhenoType=Lymphedema | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | ClinicianName=John:HospitalNumber=123 |
+      | PatientChoice  | ClinicianNameWithFile                                                               | FormUpload                                   |
+      | Patient choice | ClinicianName=Arthur:HospitalNumber=123:Action=UploadDocument:FileName=testfile.pdf | Action=UploadDocument:FileName=testfile2.pdf |
+
+  @NTS-6024 @Z-LOGOUT
+    #@E2EUI-2341
+  Scenario Outline: NTS-6024:E2EUI-2341:Scenario-2:Only one of each form type can be uploaded in the recorded by section for Adult (Without Capacity) patient.
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    And the user is in the section Patient choice category
+    When the user selects the option Adult (Without Capacity) in patient choice category
+    Then the Patient choice category option is marked as completed
+    And the option Adult (Without Capacity) displayed with edit option in Patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the Test type option is marked as completed
+    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the user is in the section Recorded by
+    When the user fills "<ClinicianNameWithFile>" details in recorded by
+    Then the file type dropdown options loaded with below details
+      | Record of Discussion Form |
+      | Deceased Form             |
+      | Consultee Form            |
+    And the user sees a success message after form upload in recorded by as Successfully Uploaded
+    And the user selects Record of Discussion Form from dropdown option in recorded by
+    And the Date of Signature fields are displayed as enabled
+    Then the user fills current date as Date of Signature
+     ###2nd form upload
+    When the user fills "<FormUpload>" details in recorded by
+    Then the file type dropdown options loaded with below details for "2nd" form type
+      | Deceased Form  |
+      | Consultee Form |
+    Then the user sees a success message for "2nd" form type upload in recorded by as "Successfully Uploaded"
+    And the user selects "Deceased Form" from the "2nd" form type dropdown option in recorded by
+    And the Date of Signature fields for the "2nd" form type are displayed as "enabled"
+    Then the user fills current date as Date of Signature in the "2nd" form type
+     ###3rd form upload
+    When the user fills "<FormUpload2>" details in recorded by
+    Then the file type dropdown options loaded with below details for "3rd" form type
+      | Consultee Form |
+    Then the user sees a success message for "3rd" form type upload in recorded by as "Successfully Uploaded"
+    And the user selects "Consultee Form" from the "3rd" form type dropdown option in recorded by
+    And the Date of Signature fields for the "3rd" form type are displayed as "enabled"
+    Then the user fills current date as Date of Signature in the "3rd" form type
+    And the user will see a warning message "The maximum number of form types has been reached"
+    When the user clicks on Continue Button
+    Then the Recorded by option is marked as completed
+
+    Examples:
+      | PatientChoice  | ClinicianNameWithFile                                                              | FormUpload                                      | FormUpload2                                      |
+      | Patient choice | ClinicianName=Henry:HospitalNumber=123:Action=UploadDocument:FileName=testfile.pdf | Action=UploadDocument:FileName=deceasedform.pdf | Action=UploadDocument:FileName=consulteeform.pdf |
+
+  @NTS-6024 @Z-LOGOUT
+    #@E2EUI-2341
+  Scenario Outline: NTS-6024:E2EUI-2341:Scenario-3:Only one of each form type can be uploaded in the recorded by section for Child patient.
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2008:Gender=Male |
+    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    And the user is in the section Patient choice category
+    When the user selects the option Child in patient choice category
+    Then the Patient choice category option is marked as completed
+    And the option Child displayed with edit option in Patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the Test type option is marked as completed
+    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the user is in the section Recorded by
+    When the user fills "<ClinicianNameWithFile>" details in recorded by
+    Then the file type dropdown options loaded with below details
+      | Record of Discussion Form |
+      | Deceased Form             |
+      | Assent Form               |
+    Then the user sees a success message after form upload in recorded by as Successfully Uploaded
+    And the user selects Record of Discussion Form from dropdown option in recorded by
+    And the Date of Signature fields are displayed as enabled
+    Then the user fills current date as Date of Signature
+     ###2nd form upload
+    When the user fills "<FormUpload>" details in recorded by
+    Then the file type dropdown options loaded with below details for "2nd" form type
+      | Deceased Form |
+      | Assent Form   |
+    Then the user sees a success message for "2nd" form type upload in recorded by as "Successfully Uploaded"
+    And the user selects "Deceased Form" from the "2nd" form type dropdown option in recorded by
+    And the Date of Signature fields for the "2nd" form type are displayed as "enabled"
+    Then the user fills current date as Date of Signature in the "2nd" form type
+     ###3rd form upload
+    When the user fills "<FormUpload2>" details in recorded by
+    Then the file type dropdown options loaded with below details for "3rd" form type
+      | Assent Form |
+    Then the user sees a success message for "3rd" form type upload in recorded by as "Successfully Uploaded"
+    And the user selects "Assent Form" from the "3rd" form type dropdown option in recorded by
+    And the Date of Signature fields for the "3rd" form type are displayed as "enabled"
+    Then the user fills current date as Date of Signature in the "3rd" form type
+    And the user will see a warning message "The maximum number of form types has been reached"
+    When the user clicks on Continue Button
+    Then the Recorded by option is marked as completed
+
+    Examples:
+      | PatientChoice  | ClinicianNameWithFile                                                             | FormUpload                                      | FormUpload2                                   |
+      | Patient choice | ClinicianName=Hank:HospitalNumber=123:Action=UploadDocument:FileName=testfile.pdf | Action=UploadDocument:FileName=deceasedform.pdf | Action=UploadDocument:FileName=assentform.pdf |

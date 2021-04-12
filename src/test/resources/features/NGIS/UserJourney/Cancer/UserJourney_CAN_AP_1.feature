@@ -6,21 +6,21 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
   # @E2EUI-905
   Scenario Outline: NTS-3347 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     ##Requesting Organisation
     And the user navigates to the "<requestingOrganisation>" stage
-    And the "<patientDetails>" stage is marked as Completed
+#    And the "<patientDetails>" stage is marked as Completed
     And the referral status from the card is "Created"
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<requestingOrganisation>" stage is marked as Completed
+#    And the "<requestingOrganisation>" stage is marked as Completed
     ##Test Package
     And the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
     And the user clicks the Save and Continue button
-    And the "<testPackage>" stage is marked as Completed
+#    And the "<testPackage>" stage is marked as Completed
     And the "<responsibleClinician>" stage is selected
     And the correct "1" tests are saved to the referral in  "<testPackage>"
     ##Responsible Clinician
@@ -28,7 +28,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And the "Add clinician information" page is displayed
     And the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
-    And the "<responsibleClinician>" stage is marked as Completed
+#    And the "<responsibleClinician>" stage is marked as Completed
     ##Tumour
     And the user navigates to the "<tumours>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
@@ -38,7 +38,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And the user clicks the Save and Continue button
     Then the new tumour is displayed in the landing page for the existing patient with tumour list
     And the new tumour is not highlighted
-    And the "<tumours>" stage is marked as Completed
+#    And the "<tumours>" stage is marked as Completed
     And the success notification is displayed "Tumour added"
     And the user navigates to the "<samples>" stage
     ##Samples
@@ -47,7 +47,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state and filling SampleID
-    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+#    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
@@ -58,7 +58,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
-    And the "<samples>" stage is marked as Completed
+#    And the "<samples>" stage is marked as Completed
     ##Notes
     And the user navigates to the "<notes>" stage
     Then the "<notes>" stage is selected
@@ -66,7 +66,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And the user clicks the Save and Continue button
     And the user navigates to the "<patientChoice>" stage
     ##Patient Choice
-    And the "<notes>" stage is marked as Completed
+#    And the "<notes>" stage is marked as Completed
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
@@ -80,6 +80,15 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
+    And the below stages marked as completed
+      | <patientDetails>         |
+      | <requestingOrganisation> |
+      | <testPackage>            |
+      | <responsibleClinician>   |
+      | <tumours>                |
+      | <notes>                  |
+      | <samples>                |
+      | <patientChoice>          |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"

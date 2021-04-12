@@ -4,11 +4,14 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +28,9 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='picklists-search-operator']")
     public WebElement pickListsSearchOperator;
+
+    @FindBy(xpath = "//button[@data-id='picklists-search-col']")
+    public WebElement pickListsSearchColumnDropDownBtn;
 
     @FindBy(xpath = "//select[@id='picklists-search-col']")
     public WebElement pickListsSearchColumn;
@@ -68,7 +74,7 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectPickListsDropDownSearchValue(String value) {
         try {
             if(!seleniumLib.selectFromListByText(pickListsSearchValue,value)){
-                Wait.seconds(5);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(pickListsSearchValue,value);
             }
             return true;
@@ -153,6 +159,49 @@ public class MiPickListsPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Exception from verifyColumnValueInPickListsSearchResultTable:" + exp);
             SeleniumLib.takeAScreenShot("PickListsResultException.jpg");
             return false;
+        }
+    }
+    public boolean verifyPicklistsDropDownSearchOperator(String value) {
+        Wait.seconds(3); // To load the dropdown values
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.selectFromListByText(pickListsSearchOperator, value)) {
+                Wait.seconds(5);
+                if (!seleniumLib.selectFromListByText(pickListsSearchOperator, value)) {
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'" + value + "')]");
+                    seleniumLib.clickOnElement(optionPath);
+                }
+            }
+            return true;
+        } catch (StaleElementReferenceException exp) {
+            By searchOperator = By.xpath("//select[@id='picklists-search-operator']");
+            return seleniumLib.optionFromListByText(searchOperator, value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPicklists:selectDropDownSearchOperator: " + exp);
+            SeleniumLib.takeAScreenShot("PicklsistSearchOperator.jpg");
+            return false;
+        }
+    }
+
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, pickListsSearchColumnDropDownBtn, 10)) {
+                Debugger.println("Picklists search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(pickListsSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
         }
     }
 }

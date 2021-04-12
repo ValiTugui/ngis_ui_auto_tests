@@ -1,6 +1,7 @@
 #@patientChoice
 @05-CONSENT
 @SYSTEM_TEST
+@SYSTEM_TEST_1
 Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
 
   @NTS-3417
@@ -23,7 +24,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     And the user is in the section Recorded by
     When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
-    Then the option Recorded by: displayed with edit option in Recorded by
+    And the option Recorded by: displayed with edit option in Recorded by
     Then the Recorded by option is marked as completed
 
     Examples:
@@ -73,7 +74,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
@@ -102,7 +103,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
@@ -131,7 +132,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
@@ -159,7 +160,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     When the user is in the section Review and submit
     Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
@@ -233,7 +234,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     And the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |
@@ -271,7 +272,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |
@@ -309,7 +310,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |
@@ -381,7 +382,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                | WarningMessage                                                                                                                                                      |
@@ -419,7 +420,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |
@@ -457,7 +458,7 @@ Feature: Patient Choice-10 - Edit Paper Form - Adult Without Capacity
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
-    And Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as disabled
 
     Examples:
       | Consultee signature                |

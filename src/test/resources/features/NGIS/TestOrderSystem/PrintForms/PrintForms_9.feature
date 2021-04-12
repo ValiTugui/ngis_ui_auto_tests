@@ -1,8 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
+@PrintForms
 Feature: Print Forms 9 - Offline Orders
 
-  @NTS-5928
+  @NTS-5928 @NTS-6015
 #    @NDGS-53
   Scenario Outline: NTS-5928: User visits offline order page for form download for Rare Disease
     Given a web browser is at the Private Test Selection homepage
@@ -22,10 +24,10 @@ Feature: Print Forms 9 - Offline Orders
     And the user is able to download form of the "Additional family members" section and validate the text "<TextToValidate>" in the file "AdditionalParticipantForm.pdf"
 
     Examples:
-      | TextToValidate                                                                                                                                                                                          |
-      | RARE AND INHERITED,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):|
+      | TextToValidate                                                                                                                                                                                                                                               |
+      | RARE AND INHERITED,Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):,Viapath (GSTT),Viapath Genetics,Guy’s Hospital,Great Maze Pond,London,SE1 9RT,Surrey and Sussex Healthcare NHS Trust |
 
-  @NTS-5928
+  @NTS-5928 @NTS-6015
 #    @NDGS-53
   Scenario Outline: NTS-5928: scenario-2:User visits offline order page for form download for Cancer
     Given a web browser is at the Private Test Selection homepage
@@ -44,5 +46,5 @@ Feature: Print Forms 9 - Offline Orders
     And the user is able to download form of the "Referral" section and validate the text "<TextToValidate>" in the file "ReferralForm.pdf"
 
     Examples:
-      | TextToValidate                                                                                                                                                                                          |
-      | Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):|
+      | TextToValidate                                                                                                                                                                                                                            |
+      | Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):,Viapath (GSTT),Viapath Genetics,Guy’s Hospital,Great Maze Pond,London,SE1 9RT,Surrey and Sussex Healthcare NHS Trust |

@@ -1,6 +1,6 @@
 #@regression
 #@patientSearchSPINE
-@04-GENOMIC_RECORD
+@04-GENOMIC_RECORD_SPINE
 @SYSTEM_TEST_SPINE
 Feature: Patient search page_SPINE
 

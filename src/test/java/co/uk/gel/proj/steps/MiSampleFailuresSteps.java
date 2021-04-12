@@ -2,7 +2,6 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.miportal_pages.MiClinicalDataQualityPage;
 import co.uk.gel.proj.miportal_pages.MiSampleFailuresPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -13,7 +12,6 @@ import io.cucumber.java.en.Then;
 import org.junit.Assert;
 
 import java.util.List;
-import java.util.Map;
 
 public class MiSampleFailuresSteps extends Pages {
     MiSampleFailuresPage miSampleFailuresPage = new MiSampleFailuresPage(driver);
@@ -190,9 +188,9 @@ public class MiSampleFailuresSteps extends Pages {
     @And("the user should be able to download the filtered Sample failures report")
     public void theUserShouldBeAbleToDownloadTheFilteredSampleFailuresReport() {
         boolean testResult = false;
-        testResult = miSampleFailuresPage.downloadSampleFailuresReport("eme-lnn-lns-now-sow-wwm-yne");
+        testResult = miSampleFailuresPage.downloadSampleFailuresReport("wwm-eme-yne-lnn-now-lns-sow");
         Assert.assertTrue(testResult);
-        testResult = TestUtils.isFilePresent("eme-lnn-lns-now-sow-wwm-yne","");
+        testResult = TestUtils.isFilePresent("wwm-eme-yne-lnn-now-lns-sow", "");
         Assert.assertTrue(testResult);
     }
 
@@ -207,6 +205,20 @@ public class MiSampleFailuresSteps extends Pages {
     public void theUserShouldSeeAllTheValuesShouldDeselect() {
         boolean testResult = false;
         testResult = miSampleFailuresPage.sampleFailuresAllValueDeselect();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Hide closed failures check box to deselect by default it is selected")
+    public void theUserClickOnHideClosedFailuresCheckBoxToDeselectByDefaultItIsSelected() {
+        boolean testResult = false;
+        testResult = miSampleFailuresPage.clickOnHideClosedFailuresCheckBoxToDeselect();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user click on Hide closed failures check box to select")
+    public void theUserClickOnHideClosedFailuresCheckBoxToSelect() {
+        boolean testResult = false;
+        testResult = miSampleFailuresPage.clickOnHideClosedFailuresCheckBoxToSelect();
         Assert.assertTrue(testResult);
     }
 }
