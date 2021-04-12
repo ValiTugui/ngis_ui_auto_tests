@@ -639,6 +639,11 @@ public class PrintFormsPage {
         }
     }
 
+    String[] labAddress = {};
+
+    @FindBy(xpath = "//h3[contains(@class,'downloads__lab-name')]")
+    public WebElement labName;
+
     public String readLabAddress(String showAddress) {
         labAddress = null;
         try {
