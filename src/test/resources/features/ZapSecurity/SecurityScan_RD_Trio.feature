@@ -1,17 +1,15 @@
 @SecurityScan
 @SecurityScan_RD_Trio
-Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Patient Choice Yes
+Feature: UserJourney_RD_NEW_Trio_4 - UC09 - E2EUI-940- RD Trio
   @Z-LOGOUT
     #@E2EUI-895
-  Scenario Outline: NTS-4954 : #09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes
+  Scenario Outline:NTS:4573: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Non-Spine/Non-NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-05-2000:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-05-2000:Gender=Male |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "South London and Maudsley NHS Foundation Trust" in the search field
+    And the "<PatientDetails>" stage is marked as Completed
+    And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -40,9 +38,9 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                                                                                |
-      | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=0,02:HpoPhenoType=Bladder diverticulum:PhenotypicSex=Male:Karyotypic sex=XX       |
-      | NHSNumber=NA:DOB=12-02-1979:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Unaffected:AgeOfOnset=0,01:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=Female:Karyotypic sex=XY |
+      | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                           |
+      | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
+      | NHSNumber=NA:DOB=12-02-1979:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
     Then the "<FamilyMembers>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##patient choice for the proband-YES
@@ -59,7 +57,7 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
       | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=NA:DOB=11-03-1978 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=12-03-1978 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
       | NHSNumber=NA:DOB=12-02-1979 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
@@ -74,12 +72,6 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms - No
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print form for the proband
-    And the user is able to download print forms for "<TwoFamilyMember>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=12-02-1979 |
-      | NHSNumber=NA:DOB=11-03-1978 |
-
     ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
@@ -87,5 +79,5 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
     When user run security scan
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                            | ClinicalQuestion   | ClinicalQuestionDetails                                                                                     | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | searchPanels | TwoFamilyMember |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=George:LastName=Williams:Department=Cleaning | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=0,11:HpoPhenoType=Renal insufficiency:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members | Patient choice | Panels | Pedigree | Amyloidosis  | 2               |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | searchPanels        |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | Cardiac arrhythmias |
