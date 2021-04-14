@@ -58,10 +58,10 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    Then the user is successfully logged out
 
     Examples:
-      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |dialogTitle                  | stage2                  | ordering_entity_name | stage3|
-      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |There is missing information | Requesting organisation | Maidstone            | Test package |
+      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  | dialogTitle                  | stage2                  | ordering_entity_name | stage3       |
+      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation | There is missing information | Requesting organisation | Maidstone            | Test package |
 
-    @NTS-4711 @Z-LOGOUT
+  @NTS-4711 @Z-LOGOUT
 #    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -141,11 +141,9 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     When the user provides an invalid referral id in the url "<invalidReferralURL>"
     Then the user should see page is not loading
 
-
-
     Examples:
-      | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  | invalidReferralURL                                                                |
-      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | https://test-ordering.int.ngis.io/test-order/referral/r5E$&%5E943/patient-details |
+      | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  | invalidReferralURL                                                                       |
+      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | https://test-ordering.e2e-latest.ngis.io/test-order/referral/r5E$&%5E943/patient-details |
 
   @NTS-3498 @Z-LOGOUT
 #    @E2EUI-1701
