@@ -3,7 +3,7 @@ pipeline {
     //tools { maven 'maven' }
     parameters {
             choice(name: 'TestEnvironment', choices: "e2e\ne2elatest", description: 'Defines the environment on which the test will be run')
-            choice(name: 'Tag', choices: ['@RDReferralFromJson','@CancerReferralFromJson'], description: 'Tag of test to execute')
+            choice(name: 'Tag', choices: ['@ReferralFromJson','@RDReferralFromJson','@CancerReferralFromJson'], description: 'Tag of test to execute')
     }
 
     options {
