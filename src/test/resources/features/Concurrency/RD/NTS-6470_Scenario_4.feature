@@ -12,11 +12,11 @@ Feature: NTS-6470: Family member details updated and same Family member patient 
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and validate the data updated, when B is updating every stage upon referral submission by A.
    #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Neonatal diabetes | CONCURRENT_USER1_NAME |r20402921182| NTS-6470_Scenario4 |
+      | Neonatal diabetes | CONCURRENT_USER1_NAME | r21320083539 | NTS-6470_Scenario4 |
     Then the user updates the file NTS-6470_Scenario4 with Mandatory Stages Completed by User1
     ##FamilyMembers - Verify
     And the user waits max 15 minutes for the update Family Member details Updated by User2 in the file NTS-6470_Scenario4
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<FamilyMembers>" stage
     Then the user verifies the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdated>"
@@ -29,7 +29,7 @@ Feature: NTS-6470: Family member details updated and same Family member patient 
   @NTS-6470 @NTS-6470_Scenario4 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME |r20166772380| NTS-6470_Scenario4 |
+      | CONCURRENT_USER2_NAME | r21083934738 | NTS-6470_Scenario4 |
     And the user waits max 10 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6470_Scenario4
     ##FamilyMembers - Update
     When the user navigates to the "<FamilyMembers>" stage

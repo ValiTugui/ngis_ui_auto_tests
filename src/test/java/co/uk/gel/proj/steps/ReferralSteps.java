@@ -1545,4 +1545,9 @@ public class ReferralSteps extends Pages {
             Assert.fail("Reload referral button not validated");
         }
     }
+
+    @And("the user submits the referral for Concurrency")
+    public void theUserSubmitsTheReferralForConcurrency() {
+        referralPage.submitReferralConcurrency();
+    }
 }

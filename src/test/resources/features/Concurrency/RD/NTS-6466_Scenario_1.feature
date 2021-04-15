@@ -60,14 +60,14 @@ Feature: NTS-6466: Proband patient details updated by user3, and user1 and user2
     Then the user updates the file NTS-6466_Scenario1 with Mandatory Stages Completed by User1
     # Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NTS-6466_Scenario1
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     Then the user updates the file NTS-6466_Scenario1 with Patient details validated by User1
     And the user waits max 3 minutes for the update Patient details validated by User2 in the file NTS-6466_Scenario1
     # Finally User1 submit Referral Successfully
-    #And the user submits the referral
+    #And the user submits the referral for Concurrency
     #Then the submission confirmation message "Your referral has been submitted" is displayed
     #And the referral status is set to "Submitted"
     Examples:
@@ -84,7 +84,7 @@ Feature: NTS-6466: Proband patient details updated by user3, and user1 and user2
     ## Referral Submission by User2 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NTS-6466_Scenario1
     And the user waits max 10 minutes for the update Patient details validated by User1 in the file NTS-6466_Scenario1
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"

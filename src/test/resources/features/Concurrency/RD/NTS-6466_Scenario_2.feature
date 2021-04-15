@@ -62,14 +62,14 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
     Then the user updates the file NTS-6466_Scenario2 with Mandatory Stages Completed by User1
     ## Referral Submission by User1 after Patient Details updated by user 3
     And the user waits max 10 minutes for the update Patient Details Updated by User3 in the file NTS-6466_Scenario2
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     Then the user updates the file NTS-6466_Scenario2 with Patient details validated by User1
     ## Referral Submission by User1 after Notes updated by user2
     And the user waits max 10 minutes for the update Notes Updated by User2 in the file NTS-6466_Scenario2
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Notes>" stage
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
@@ -83,7 +83,7 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
     And the user waits max 10 minutes for the update Notes validated by User3 in the file NTS-6466_Scenario2
     And the user waits max 10 minutes for the update RequestingOrganisation validated by User3 in the file NTS-6466_Scenario2
     # Finally User1 submit Referral Successfully
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Examples:
@@ -110,14 +110,14 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
     Then the user navigates to the "<ClinicalQuestion>" stage
     Then the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     When the user updates the file NTS-6466_Scenario2 with Patient details validated by User2
   ###############################################################
     And the user waits max 10 minutes for the update RequestingOrganisation Updated by User1 in the file NTS-6466_Scenario2
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
@@ -145,7 +145,7 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
     Then the user navigates to the "<ResponsibleClinician>" stage
     Then the user navigates to the "<ClinicalQuestion>" stage
     Then the user navigates to the "<PatientChoiceStage>" stage
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Notes>" stage
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"

@@ -60,13 +60,13 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
 
     #### verify patient details after changes done by B
     And the user waits max 10 minutes for the update PatientDetails Updated by User2 in the file NTS-6467_RD
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user updates the file NTS-6467_RD with Patient details validated by User1
      # Finally User1 submit Referral Successfully
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
 

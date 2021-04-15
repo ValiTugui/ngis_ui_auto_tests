@@ -2104,5 +2104,16 @@ public class ReferralPage<check> {
                 }
         }
     }
+    public void submitReferralConcurrency() {
+        try {
+            if (Wait.isElementDisplayed(driver, submitReferralButton, 100)) {
+                Actions.clickElement(driver, submitReferralButton);
+                Debugger.println("Referral submitted...");
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from submitting Referral " + exp);
+            SeleniumLib.takeAScreenShot("submitReferral.jpg");
+        }
+    }
 }
 
