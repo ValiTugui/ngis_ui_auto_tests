@@ -50,24 +50,9 @@ pipeline {
         success {
            script {
             sh 'echo success'
-            if (params.TestEnvironment == 'e2e' && params.Tag == '@RDReferralFromJson') {
-             sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2e'), string(name: 'Tag', value:'@RDReferralFromJson' )]
-            }else if (params.TestEnvironment == 'e2e' && params.Tag == '@CancerReferralFromJson') {
-             sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2e'), string(name: 'Tag', value:'@CancerReferralFromJson' )]
-            }
-            else if (params.TestEnvironment == 'e2elatest' && params.Tag == '@RDReferralFromJson') {
-             sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2elatest'), string(name: 'Tag', value:'@RDReferralFromJson' )]
-            }else if (params.TestEnvironment == 'e2elatest' && params.Tag == '@CancerReferralFromJson') {
-             sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2elatest'), string(name: 'Tag', value:'@CancerReferralFromJson' )]
-            }else if (params.TestEnvironment == 'e2e' && params.Tag == '@ReferralFromJson') {
-             sh 'echo Attempt to run CSV generation'
-             build job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: 'e2e'), string(name: 'Tag', value:'@ReferralFromJson' )]
-            }
-         }
+            sh 'echo Attempt to run CSV generation'
+            build wait: false, job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value:"${params.Tag}" )]
+           }
         }
        }
 
