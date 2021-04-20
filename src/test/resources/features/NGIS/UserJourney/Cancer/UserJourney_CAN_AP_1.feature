@@ -11,7 +11,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And the user navigates to the "<requestingOrganisation>" stage
 #    And the "<patientDetails>" stage is marked as Completed
     And the referral status from the card is "Created"
-    And the user enters the keyword "Maidstone" in the search field
+    And the user enters the keyword "Derby" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
