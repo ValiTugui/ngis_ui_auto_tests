@@ -82,7 +82,7 @@ Feature: NTS-6555:Cancer_new_referral_RequestingOrganisation: Navigate and verif
     And the user updates the file NTS-6555_Cancer with Requesting Organisation Updated by User1
     Examples:
       | RequestingOrganisation  | RequestingOrganisationUpdated                  | tumour_type                             | presentationType   | stage2  | stage3         | sampleType          | sampleState        | RecordedBy                            |
-      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
+      | Requesting organisation | Leeds Teaching Hospitals NHS Trust | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
 
   #User2
   #Login as User B, Verified Requesting organisation and Print forms stage and do not submit referral
@@ -105,4 +105,4 @@ Feature: NTS-6555:Cancer_new_referral_RequestingOrganisation: Navigate and verif
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | RequestingOrganisationUpdated                  | LabName        |
-      | Patient details | Requesting organisation | South London and Maudsley NHS Foundation Trust | Viapath (GSTT) |
+      | Patient details | Requesting organisation | Leeds Teaching Hospitals NHS Trust | NE&Y GLH Leeds |
