@@ -2098,7 +2098,7 @@ public class PatientDetailsPage {
                 }
                 case "Ethnicity": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                        editDropdownField(ethnicityFieldStatus, paramNameValue.get(key));
                     }
                     break;
                 }
@@ -2159,7 +2159,7 @@ public class PatientDetailsPage {
                 }
                 case "Ethnicity": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        editDropdownField(ethnicityButton, paramNameValue.get(key));
+                        editDropdownField(ethnicityFieldStatus, paramNameValue.get(key));
                     }
                     break;
                 }
@@ -2202,7 +2202,7 @@ public class PatientDetailsPage {
                     break;
                 }
                 case "LifeStatus": {
-                    actValue = seleniumLib.getText(lifeStatusButton);
+                    actValue = seleniumLib.getText(lifeStatusFieldStatus);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
@@ -2210,7 +2210,7 @@ public class PatientDetailsPage {
                     break;
                 }
                 case "Ethnicity": {
-                    actValue = seleniumLib.getText(ethnicityButton);
+                    actValue = seleniumLib.getText(ethnicityFieldStatus);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
                         return false;
