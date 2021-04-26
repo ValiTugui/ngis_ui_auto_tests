@@ -18,7 +18,7 @@ Feature: Navigation of Test Selection, Test Order and Panel App with Basic Check
     And the user clicks the PDF order form button
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    When the user enters the keyword "Maidstone" in the search field
+    When the user enters the keyword "Derbyshire Healthcare" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Continue button
     Then the "Review test selection" page is properly opened and by default a test is selected
