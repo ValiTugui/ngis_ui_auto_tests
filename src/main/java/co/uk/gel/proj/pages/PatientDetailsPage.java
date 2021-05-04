@@ -106,7 +106,7 @@ public class PatientDetailsPage {
     public WebElement nhsNumberLabel;
 
 //    @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
-    @FindBy(xpath = "//input[@id='administrativeGender']//following::div[1]")
+@FindBy(xpath = "//input[@id='administrativeGender']/../../parent::div")
     public WebElement administrativeGenderButton;
 
     @FindBy(css = "*[data-testid*='notification-warning']")
@@ -119,11 +119,11 @@ public class PatientDetailsPage {
     public WebElement textOnPatientDetailsNotificationBanner;
 
 //    @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
-    @FindBy(xpath = "//input[contains(@id,'lifeStatus')]//following::div[1]")
+@FindBy(xpath = "//input[contains(@id,'lifeStatus')]/../../parent::div")
     public WebElement lifeStatusButton;
 
 //    @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
-    @FindBy(xpath = "//input[contains(@id,'ethnicity')]//following::div[2]")
+@FindBy(xpath = "//input[contains(@id,'ethnicity')]/../../parent::div")
     public WebElement ethnicityButton;
 
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
