@@ -54,7 +54,8 @@ public class AppConfig {
         String current_environment = System.getProperty("TestEnvironment");
         System.out.println("TestEnvironment: " + current_environment);
         if(current_environment.equalsIgnoreCase("UAT") ||
-        current_environment.equalsIgnoreCase("Beta")){
+        current_environment.equalsIgnoreCase("Beta")||
+        current_environment.equalsIgnoreCase("Prod")){
             snapshotRequired = true;
         }
         configFileName = String.format(configFileName, current_environment);
