@@ -70,7 +70,7 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
     And the user should be able to see "<whoCanOrderContent>" according to the CI selected
     And the user selects the "Further Info" tab
     And the user should be able to see the following under Further Info tab
-      | References | Age group relevancy | Pseudonyms | Associated terms |
+      | Age group relevancy | Associated terms | Pseudonyms |
     And the user selects the "<tabName2>" tab
     And the user clicks on view more icon
     Then the user should be able to see a new modal window
