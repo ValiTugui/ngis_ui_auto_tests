@@ -22,9 +22,9 @@ public class NeatHomePage {
     //WebElements
     @FindBy(xpath = "//a[contains(@href,'admin-tool')]/p")
     WebElement gMSLogo;
-    @FindBy(xpath = "//div[contains(@class,'headerRight')]/span/span")
+    @FindBy(xpath = "//a[contains(@href,'admin-tool')]/../following-sibling::div/span/span")
     WebElement userName;
-    @FindBy(xpath = "//input[@id='humanReadableId_id']")
+    @FindBy(xpath = "//input[contains(@id,'humanReadableId')]")
     WebElement searchBox;
     @FindBy(xpath = "//button[@type='submit']")
     WebElement searchButton;

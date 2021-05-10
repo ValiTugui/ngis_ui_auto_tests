@@ -50,12 +50,12 @@ public class NeatPatientRecordPage {
     SeleniumLib seleniumLib;
     //WebElements
     String linkPathDummy = "//a[text()='dummyText']";
-    String buttonPathDummy = "//button[contains(@class,'sharedByAllButtons')]/span[text()='dummyText']";
+    String buttonPathDummy = "//button/span[text()='dummyText']";
     @FindBy(xpath = "//div[@role='dialog']")
     WebElement dialogBox;
     @FindBy(xpath = "//div[@role='dialog']/h1")
     WebElement dialogBoxHeader;
-    @FindBy(xpath = "//div/textarea[@id='statusUpdateSource_id']")
+    @FindBy(xpath = "//div/textarea[contains(@id,'statusUpdateSource')]")
     WebElement justificationTextBox;
     @FindBy(xpath = "//div[contains(@data-testid,'notification')]")
     WebElement inactiveNotification;
@@ -69,6 +69,7 @@ public class NeatPatientRecordPage {
     WebElement errorButton;
     @FindBy(xpath = "(//label)[1]")
     WebElement duplicateButton;
+    String reasonButtonDummyPath = "//button/span[text()='dummyText']";
 
     public NeatPatientRecordPage(WebDriver driver) {
         this.driver = driver;
@@ -209,11 +210,14 @@ public class NeatPatientRecordPage {
         try {
             Wait.seconds(3);
             SeleniumLib.scrollToElement(reasonMandatoryFieldCheck);
-            if (buttonText.equalsIgnoreCase("Duplicate")) {
-                duplicateButton.click();
-            } else {
-                errorButton.click();
+            String reasonButtonPath = reasonButtonDummyPath.replace("dummyText", buttonText);
+            WebElement reasonButton = driver.findElement(By.xpath(reasonButtonPath));
+            if (!Wait.isElementDisplayed(driver, reasonButton, 5)) {
+                Debugger.println("The button-" + buttonText + ", is not present in the page.");
+                SeleniumLib.takeAScreenShot("ReasonButtonNotLoaded.jpg");
+                return false;
             }
+            seleniumLib.clickOnWebElement(reasonButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clickReasonButton:" + exp);
