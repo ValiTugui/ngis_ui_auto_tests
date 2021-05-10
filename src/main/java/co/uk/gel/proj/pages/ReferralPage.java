@@ -240,7 +240,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@role = 'dialog']")
     WebElement mandatoryStageDialogBox;
 
-    @FindBy(xpath = "//*[@role = 'dialog']//button[contains(@class,'closeButton')]")
+    @FindBy(xpath = "//*[@role = 'dialog']//button[contains(@data-testid,'closeBtn')]")
     WebElement mandatoryStageDialogBoxCloseButton;
 
     @FindBy(xpath = "//h2[text()='Add information in any order']")
