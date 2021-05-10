@@ -142,7 +142,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[contains(@class,'header')]//p")
     public WebElement genomicMedicineServicelogo;
 
-    @FindBy(xpath = "//*[contains(@class,'header')]//span[contains(@class,'css-d8n')]")
+    @FindBy(xpath = "//*[contains(@class,'header')]//span[contains(@class,'css-1nceqb7')]")
     public WebElement userName;
 
     @FindBy(xpath = "//*[contains(@href,'signout')]//following::div")
