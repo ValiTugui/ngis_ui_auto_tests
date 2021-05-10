@@ -273,7 +273,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
 
-    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]/following-sibling::button[@aria-label='edit button']";
+    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css')]/following-sibling::button[@aria-label='edit button']";
 
     @FindBy(xpath = "//div[contains(@class,'form-group')]//th")
     public List<WebElement> rdDiagnosisFields;
