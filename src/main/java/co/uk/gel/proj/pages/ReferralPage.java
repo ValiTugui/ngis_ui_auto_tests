@@ -109,7 +109,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[contains(@data-testid,'notification-success')]")
     public WebElement cancelReferralNotification;
 
-    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'css-lcbn88-actionButton')]//button")
+    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'css')]//button")
     public List<WebElement> cancelReferralButtons;
 
     @FindBy(css = "*[class*='error-message']")
