@@ -168,7 +168,7 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='referral-list__link']")
     public WebElement referralLink;
 
-    @FindBy(css = "div[class*='css-1jwqj7b']")
+    @FindBy(css = "div[class*='css-2r6793']")
     public WebElement referralCard;
 
     @FindBy(xpath = "//div[contains(@id,'referral__header')]/div//child::span[contains(@class,'child-element')]")
@@ -276,10 +276,10 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'styles_error-message')]")
     public List<WebElement> errorMessages;
 
-    @FindBy(xpath = "//input[@id='administrativeGender']/../div")
+    @FindBy(xpath = "//input[@id='administrativeGender']/../../parent::div")
     public WebElement genderFieldStatus;
 
-    @FindBy(xpath = "//input[@id='lifeStatus']/../div")
+    @FindBy(xpath = "//input[@id='lifeStatus']/../../parent::div")
     public WebElement lifeStatusFieldStatus;
 
     public boolean patientDetailsPageIsDisplayed() {
