@@ -735,11 +735,11 @@ public class ReferralPage<check> {
             } else {
                 pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
             }
-            WebElement titleElement = null;
+            WebElement titleElement = driver.findElement(pageTitle);
             try {
                 Wait.seconds(2);
                 //Debugger.println("Trying with Path...:" + pageTitle);
-                titleElement = driver.findElement(pageTitle);
+                SeleniumLib.scrollToElement(titleElement);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
                     //Debugger.println("Title found..");
                     return true;
@@ -749,12 +749,12 @@ public class ReferralPage<check> {
                 //So clicking on save abd continue and trying again.
                 //Debugger.println("Title verification..exception....Clicking on Save and Continue.");
                 clickSaveAndContinueButton();
-                Wait.seconds(10);
+                Actions.scrollToTop(driver);
+                Wait.seconds(5);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
                     //Debugger.println("Title found..");
                     return true;
                 }
-                Actions.scrollToTop(driver);
                 endTime = System.currentTimeMillis();
                 Debugger.println("TITLE URL:" + driver.getCurrentUrl());
                 return false;
