@@ -279,7 +279,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@id='administrativeGender']/../../parent::div")
     public WebElement genderFieldStatus;
 
-    @FindBy(xpath = "//input[@id='lifeStatus']/../div")
+    @FindBy(xpath = "//input[@id='lifeStatus']/../../parent::div")
     public WebElement lifeStatusFieldStatus;
 
     public boolean patientDetailsPageIsDisplayed() {
