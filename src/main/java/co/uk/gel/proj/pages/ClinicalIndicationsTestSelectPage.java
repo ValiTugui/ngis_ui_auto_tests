@@ -31,6 +31,9 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//div[@class='styles_grid__o-eMs']/div")
     public List<WebElement> eligibilityCriteriaSections;
 
+    @FindBy(xpath = "//h2/span")
+    public List<WebElement> LabsSection;
+
     @FindBy(xpath = "//*[contains(@class,'grid')]//descendant::div/h2/span")
     public List<WebElement> testDetailsSubSections;
 
@@ -331,7 +334,7 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean labsTabValidation(String sectionName) {
-        return (eligibilityCriteriaSections.size() == 1 && (eligibilityCriteriaSections.get(0).getText().contains(sectionName)));
+        return (LabsSection.size() == 1 && (LabsSection.get(0).getText().contains(sectionName)));
     }
 
     public boolean orderProcessTabValidation(int numOfSection) {
