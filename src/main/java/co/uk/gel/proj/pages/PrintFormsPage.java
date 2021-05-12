@@ -9,8 +9,8 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -650,7 +650,7 @@ public class PrintFormsPage {
         try {
             Wait.forElementToBeDisplayed(driver, showLabAddressLink);
             if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
-                seleniumLib.clickOnWebElement(showLabAddressLinkButton);
+                seleniumLib.clickOnWebElement(showLabAddressLink);
             }
             Wait.forElementToBeDisplayed(driver, detailedAddressText);
             String detailedAddress = detailedAddressText.getText()+"\n"+labName.getText();
