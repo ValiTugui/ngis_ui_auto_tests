@@ -1,0 +1,153 @@
+{
+    "pedigree": {
+        "readyForAnalysis": true,
+        "members": [{
+                "participantQCState": "passedMedicalReviewReadyForInterpretation",
+                "pedigreeId": 1,
+                "isProband": true,
+                "participantUid": "126c3014-c35e-434b-a0f5-43001cdd1565",
+                "yearOfBirth": 1938,
+                "lifeStatus": "ALIVE",
+                "sex": "MALE",
+                "disorderList": [{
+                        "ageOfOnset": 0,
+                        "specificDisease": "M99"
+                    }
+                ],
+                "clinicalEthnicities": ["A"],
+                "adoptedStatus": "notadopted",
+                "lastMenstrualPeriod": "2018",
+                "affectionStatus": "AFFECTED",
+                "personKaryotypicSex": "UNKNOWN",
+                "participantId": "p83474832105"
+            }
+        ],
+        "familyId": "r20072331689"
+    },
+    "referralUid": "38a7bda9-d952-4f3b-9c6e-704fdad1795a",
+    "clinicalIndication": {
+        "clinicalIndicationCode": "M99",
+        "clinicalIndicationVersionNumber": "V0.0",
+        "clinicalIndicationUid": "4175262c-2563-43c2-b028-5c29eb034e51",
+        "clinicalIndicationFullName": "High Grade Lymphoma"
+    },
+    "orderingDate": {
+        "month": 8,
+        "day": 3,
+        "year": 2020
+    },
+    "cancerParticipant": {
+        "readyForAnalysis": true,
+        "participantId": "p83474832105",
+        "participantUid": "126c3014-c35e-434b-a0f5-43001cdd1565",
+        "yearOfBirth": 1938,
+        "sex": "MALE",
+        "tumours": [{
+                "tumourLocalId": "33212_17",
+                "tumourType": "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE",
+                "primaryOrMetastatic": "NOT_APPLICABLE",
+                "tumourId": "37911d77-0af1-4a28-9741-9d42eaaa6144",
+                "tumourDiagnosisDate": {
+                    "month": "1",
+                    "day": "1",
+                    "year": "2020"
+                },
+                "tumourPresentation": "FIRST_PRESENTATION"
+            }
+        ]
+    },
+    "requester": {
+        "organisationName": "Chesterfield Royal Hospital NHS Foundation Trust",
+        "organisationNationalGroupingId": "699N0",
+        "organisationId": "26217e14-c3ae-0745-a83b-c488272c58d7",
+        "organisationCode": "RFS",
+        "organisationNationalGroupingName": "Yorkshire & North East"
+    },
+    "referralId": "r20072331689",
+    "referralTests": [{
+            "clinicalIndicationTest": {
+                "clinicalIndicationTestTypeCode": "M99.8",
+                "testTypeId": "3e17bc09-e381-4feb-84b3-47de4be1ce47",
+                "technology": {
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748",
+                    "testTechnologyDescription": "WGS"
+                },
+                "clinicalIndicationTestTypeId": "4262c558-b5b1-4b88-84e4-b40ac5f0cd45",
+                "testTypeName": "WGS Germline and Tumour"
+            },
+            "tumourSamples": [{
+                    "product": "DNA",
+                    "tumourId": "37911d77-0af1-4a28-9741-9d42eaaa6144",
+                    "tumourContentPercentage": 81,
+                    "participantId": "p83474832105",
+                    "haematologicalCancer": true,
+                    "sampleUid": "LP3000575-DNA_A03",
+                    "sampleMorphologies": [{
+                            "id": "SCTID:11099005"
+                        }
+                    ],
+                    "sampleType": "Liquid tumour sample",
+                    "sampleId": "LP3000575-DNA_A03",
+                    "programmePhase": "MAIN",
+                    "source": "BLOOD",
+                    "labSampleId": 1023917752,
+                    "storageMedium": "EDTA",
+                    "sampleState": "blood_unsorted_edta",
+                    "participantUid": "126c3014-c35e-434b-a0f5-43001cdd1565",
+                    "haematologicalCancerLineage": "LYMPHOID",
+                    "sampleTopographies": [{
+                            "id": "SCTID:360983008"
+                        }
+                    ],
+                    "maskedPid": "PID:1:1:EmwwFMNeQ0ug9UMAHN0VZQ==:3AdD6F7THpD/ptyOE59pYQMKBbhMcYtwysJBb06ivauuHfaG6rH1LmX5nUg0LH08ieymogZloMbFroQNb05baw3pEQSfqmBme5BYuLayIyCwfPgclb0S5bdn8pR//nwOkMyVQjlQllEJNEtV8Ubkim4olzQdED1T3PwqvV4MwzJj4Z+w6AH4yMwAbO3O6MiXbXgxF+7/a89p8sfxuvx4c4kbXSkbRFwOPWdofpMq9ciYKrttBqSousy+I/fU6aQHimGV70MUQmgMn06DkQe7hE0U4ZzJ9n93JOdMHiApTWG621pK9rTyrsIMiWo3sIjO4OZ3+f5IT4o0ngqjBP2lThDldkNfDfLKG3sqw9ThJJi6rMQVtvbyoCnmK10vO0+YwDDilzDpvGeytos/5qcegeEYgnuu8imgFu+geTkmxRu1XiY8+B5neFPqabdElLms9lFVQF3QO8RzgETCakA+wzMHV0bVHVekR1DUQ2nxZapWKLwZuAaVmLfkHrFWvU8Jhc+fY3Dl1GN693tYeMLHJdC+ajW9hLnSCJ4acvur2+XTdlZAdEUKWLXXcyRD39KPoLEUwkQtNZHREWsXKsrtqO9zbWUsSdr4AAQ7/l0RF6L4c2rr+U+Br+lM6yd0vPsYFKpVXWWpu8+33BmHW/k+YDhWUKBYxQgIovdq4hdfKr3o/gt8s9hk9kNHG1z7ly2jOMzUZwBg4bfceIjbi/mGEIo3LIbZ00QC3JcVJ8RR4jT2XcKQ+rn9fWR4G/NVjnZfkWcxfbLHSd18twwsDgnNGxcJYzh3DlW5RW5jk4JVii1OGdAjoygGmiwqcx5Ty6IPZ6cHS5Dj8SN3jy9l59Uaxp8gtgeqIWpzqhTghNoo5idUbwXJ3mwQFFMz1irZ+wI716afmKKAewUSfwZrhB6aNHts+u4Sbj26keH+PkhrsRGezeDINxIx3K+fpvcLMFypaZtVvOQL8Q0WF/bCbC3A/949dIguNS7auxasan8+nsFqdJBdkP30TGgrdXdjal6EEoXHp1adAV+HFfsRss8rFx0+6B8YAvEjINu9R0czF33XHIC+ZwqlUWgplX22dIT3I2XEwP+t13s8lqFg2f9343m5CRpoNpYpJ7fx/0cd+PqQuyWsFjU+fPVeHG0VJh17vmz6+NMnPs50hflrFi8ou4IMpU1a1/RHByH9YvvqxJnYZDHLK3QWOvOZx8CY7REHxg0RTqi6eSxsfzZ9M02pgXF/n4vXWHDHMUFSSmccMhJ6uaThkAUYOQbPyGVzvsD/T7cnRbtim1PCYNvClzBaxFvXJObz2vA+g9niCEECyGVrdGR0a+szRqasMexAZNPj6rPAb/8TY6E6mEO7ERd0u28Z4uLLAuMS9OiuFJ56WMU=",
+                    "clinicalSampleDateTime": "2017-08-18T00:00:00+0000",
+                    "method": "NOT_APPLICABLE",
+                    "tumourContent": "High"
+                }
+            ],
+            "processingLab": {
+                "organisationName": "Y&NE GLH Sheffield",
+                "organisationNationalGroupingId": "699N0",
+                "organisationId": "7f31b8b8-6b26-477b-8026-b1eb33591e9c",
+                "organisationCode": "699D0",
+                "organisationNationalGroupingName": "Yorkshire & North East"
+            },
+            "germlineSamples": [{
+                    "product": "DNA",
+                    "labSampleId": 1023917707,
+                    "participantId": "p83474832105",
+                    "sampleUid": "LP3000571-DNA_A03",
+                    "sampleType": "Normal or Germline sample",
+                    "sampleId": "LP3000571-DNA_A03",
+                    "programmePhase": "MAIN",
+                    "source": "BONE_MARROW",
+                    "storageMedium": "EDTA",
+                    "sampleState": "boneMarrow_unsorted_edta",
+                    "participantUid": "126c3014-c35e-434b-a0f5-43001cdd1565",
+                    "maskedPid": "PID:1:1:EmwwFMNeQ0ug9UMAHN0VZQ==:3AdD6F7THpD/ptyOE59pYQMKBbhMcYtwysJBb06ivauuHfaG6rH1LmX5nUg0LH08ieymogZloMbFroQNb05baw3pEQSfqmBme5BYuLayIyCwfPgclb0S5bdn8pR//nwOkMyVQjlQllEJNEtV8Ubkim4olzQdED1T3PwqvV4MwzJj4Z+w6AH4yMwAbO3O6MiXbXgxF+7/a89p8sfxuvx4c4kbXSkbRFwOPWdofpMq9ciYKrttBqSousy+I/fU6aQHimGV70MUQmgMn06DkQe7hE0U4ZzJ9n93JOdMHiApTWG621pK9rTyrsIMiWo3sIjO4OZ3+f5IT4o0ngqjBP2lThDldkNfDfLKG3sqw9ThJJi6rMQVtvbyoCnmK10vO0+YwDDilzDpvGeytos/5qcegeEYgnuu8imgFu+geTkmxRu1XiY8+B5neFPqabdElLms9lFVQF3QO8RzgETCakA+wzMHV0bVHVekR1DUQ2nxZapWKLwZuAaVmLfkHrFWvU8Jhc+fY3Dl1GN693tYeMLHJdC+ajW9hLnSCJ4acvur2+XTdlZAdEUKWLXXcyRD39KPoLEUwkQtNZHREWsXKsrtqO9zbWUsSdr4AAQ7/l0RF6L4c2rr+U+Br+lM6yd0vPsYFKpVXWWpu8+33BmHW/k+YDhWUKBYxQgIovdq4hdfKr3o/gt8s9hk9kNHG1z7ly2jOMzUZwBg4bfceIjbi/mGEIo3LIbZ00QC3JcVJ8RR4jT2XcKQ+rn9fWR4G/NVjnZfkWcxfbLHSd18twwsDgnNGxcJYzh3DlW5RW5jk4JVii1OGdAjoygGmiwqcx5Ty6IPZ6cHS5Dj8SN3jy9l59Uaxp8gtgeqIWpzqhTghNoo5idUbwXJ3mwQFFMz1irZ+wI716afmKKAewUSfwZrhB6aNHts+u4Sbj26keH+PkhrsRGezeDINxIx3K+fpvcLMFypaZtVvOQL8Q0WF/bCbC3A/949dIguNS7auxasan8+nsFqdJBdkP30TGgrdXdjal6EEoXHp1adAV+HFfsRss8rFx0+6B8YAvEjINu9R0czF33XHIC+ZwqlUWgplX22dIT3I2XEwP+t13s8lqFg2f9343m5CRpoNpYpJ7fx/0cd+PqQuyWsFjU+fPVeHG0VJh17vmz6+NMnPs50hflrFi8ou4IMpU1a1/RHByH9YvvqxJnYZDHLK3QWOvOZx8CY7REHxg0RTqi6eSxsfzZ9M02pgXF/n4vXWHDHMUFSSmccMhJ6uaThkAUYOQbPyGVzvsD/T7cnRbtim1PCYNvClzBaxFvXJObz2vA+g9niCEECyGVrdGR0a+szRqasMexAZNPj6rPAb/8TY6E6mEO7ERd0u28Z4uLLAuMS9OiuFJ56WMU=",
+                    "clinicalSampleDateTime": "2017-08-23T00:00:00+0000",
+                    "method": "ASPIRATE"
+                }
+            ],
+            "priority": "urgent",
+            "referralTestId": "596dd8ee-e593-4727-b4b1-f73a4db9954a",
+            "matchedSamples": [{
+                    "germlineSampleId": "LP3000571-DNA_A03",
+                    "tumourSampleId": "LP3000575-DNA_A03"
+                }
+            ],
+            "interpreter": {
+                "organisationName": "Yorkshire & North East",
+                "organisationNationalGroupingId": "699N0",
+                "organisationId": "005f0e1e-0094-3b49-ab9a-d9aa264beba7",
+                "organisationCode": "699N0",
+                "organisationNationalGroupingName": "Yorkshire & North East"
+            },
+            "referralTestOrderingDate": {
+                "month": 8,
+                "day": 4,
+                "year": 2020
+            }
+        }
+    ]
+}

@@ -12,4 +12,5 @@ Feature: Create Referrals by reading details from Json file
 
     Examples:
       | JSONFileName           |
-      | Cancer_Referral_1.json |
+#      | Cancer_Referral_1.json |
+      | TestCase_C_14.json |

@@ -1,0 +1,207 @@
+ {
+    "pedigree": {
+        "readyForAnalysis": true,
+        "familyQCState": "passedMedicalReviewReadyForInterpretation",
+        "members": [{
+                "participantQCState": "passedMedicalReviewReadyForInterpretation",
+                "motherId": 3,
+                "pedigreeId": 1,
+                "isProband": true,
+                "lastMenstrualPeriod": "None",
+                "fatherId": 4,
+                "yearOfBirth": 1972,
+                "lifeStatus": "ALIVE",
+                "sex": "MALE",
+                "disorderList": [{
+                        "specificDisease": "R193"
+                    }
+                ],
+                "clinicalEthnicities": ["A"],
+                "adoptedStatus": "notadopted",
+                "hpoTermList": [{
+                        "hpoBuildNumber": "HP:0000107",
+                        "termPresence": "yes",
+                        "term": "HP:0000107"
+                    }, {
+                        "hpoBuildNumber": "HP:0001407",
+                        "termPresence": "yes",
+                        "term": "HP:0001407"
+                    }, {
+                        "hpoBuildNumber": "HP:0005576",
+                        "termPresence": "no",
+                        "term": "HP:0005576"
+                    }, {
+                        "hpoBuildNumber": "HP:0100611",
+                        "termPresence": "no",
+                        "term": "HP:0100611"
+                    }, {
+                        "hpoBuildNumber": "HP:0000092",
+                        "termPresence": "no",
+                        "term": "HP:0000092"
+                    }, {
+                        "hpoBuildNumber": "HP:0000112",
+                        "termPresence": "no",
+                        "term": "HP:0000112"
+                    }, {
+                        "hpoBuildNumber": "HP:0000105",
+                        "termPresence": "no",
+                        "term": "HP:0000105"
+                    }, {
+                        "hpoBuildNumber": "HP:0000787",
+                        "termPresence": "no",
+                        "term": "HP:0000787"
+                    }, {
+                        "hpoBuildNumber": "HP:0001737",
+                        "termPresence": "no",
+                        "term": "HP:0001737"
+                    }, {
+                        "hpoBuildNumber": "HP:0012759",
+                        "termPresence": "no",
+                        "term": "HP:0012759"
+                    }, {
+                        "hpoBuildNumber": "HP:0010460",
+                        "termPresence": "no",
+                        "term": "HP:0010460"
+                    }, {
+                        "hpoBuildNumber": "HP:0001513",
+                        "termPresence": "no",
+                        "term": "HP:0001513"
+                    }, {
+                        "hpoBuildNumber": "HP:0000818",
+                        "termPresence": "no",
+                        "term": "HP:0000818"
+                    }, {
+                        "hpoBuildNumber": "HP:0000356",
+                        "termPresence": "no",
+                        "term": "HP:0000356"
+                    }, {
+                        "hpoBuildNumber": "HP:0002715",
+                        "termPresence": "no",
+                        "term": "HP:0002715"
+                    }, {
+                        "hpoBuildNumber": "HP:0000822",
+                        "termPresence": "no",
+                        "term": "HP:0000822"
+                    }, {
+                        "hpoBuildNumber": "HP:0000951",
+                        "termPresence": "no",
+                        "term": "HP:0000951"
+                    }
+                ],
+                "participantUid": "ae915dff-26d6-421b-ae61-df811139a358",
+                "affectionStatus": "AFFECTED",
+                "personKaryotypicSex": "UNKNOWN",
+                "participantId": "p71967726196"
+            }, {
+                "pedigreeId": 3,
+                "participantId": "ds0jy",
+                "lifeStatus": "ALIVE",
+                "sex": "FEMALE",
+                "adoptedStatus": "notadopted",
+                "personKaryotypicSex": "UNKNOWN",
+                "affectionStatus": "UNCERTAIN",
+                "isProband": false
+            }, {
+                "pedigreeId": 4,
+                "participantId": "zff4r",
+                "lifeStatus": "ALIVE",
+                "sex": "MALE",
+                "adoptedStatus": "notadopted",
+                "personKaryotypicSex": "UNKNOWN",
+                "affectionStatus": "UNCERTAIN",
+                "isProband": false
+            }
+        ],
+        "familyId": "r21876914823"
+    },
+    "referralUid": "ed7fd64f-ebad-4b79-b82f-86464413aa77",
+    "clinicalIndication": {
+        "clinicalIndicationCode": "R193",
+        "clinicalIndicationVersionNumber": "V0.0",
+        "clinicalIndicationUid": "2921b41c-1d33-4aa0-a442-88891483722e",
+        "clinicalIndicationFullName": "Cystic renal disease"
+    },
+    "orderingDate": {
+        "month": 2,
+        "day": 3,
+        "year": 2021
+    },
+    "requester": {
+        "organisationName": "North Bristol NHS Trust",
+        "organisationNationalGroupingId": "69A50",
+        "organisationId": "5b2abcda-b500-c641-9837-49a278085606",
+        "organisationCode": "RVJ",
+        "organisationNationalGroupingName": "South West"
+    },
+    "referralId": "r21876914823",
+    "referralTests": [{
+            "clinicalIndicationTest": {
+                "clinicalIndicationTestTypeCode": "R193.4",
+                "testTypeId": "7720ae3a-b63b-447b-9ebf-01b5a4940324",
+                "technology": {
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748",
+                    "testTechnologyDescription": "WGS"
+                },
+                "clinicalIndicationTestTypeId": "2a6d2142-bfaf-4c36-acc5-981ee34ca185",
+                "testTypeName": "Cystic renal disease WGS"
+            },
+            "processingLab": {
+                "organisationName": "Bristol Genetics Laboratory",
+                "organisationNationalGroupingId": "69A50",
+                "organisationId": "feaa2c38-2b23-448c-9cae-a7fe8a4b3496",
+                "organisationCode": "698V0",
+                "organisationNationalGroupingName": "South West"
+            },
+            "analysisPanels": [{
+                    "multipleGeneticOrigins": "No",
+                    "panelVersion": "3.19",
+                    "panelName": "Cystic renal disease",
+                    "panelId": "487",
+                    "specificDisease": "R193"
+                }, {
+                    "multipleGeneticOrigins": "No",
+                    "panelVersion": "4.90",
+                    "panelName": "Rare multisystem ciliopathy Super panel",
+                    "panelId": "728",
+                    "specificDisease": "R193"
+                }
+            ],
+            "germlineSamples": [{
+                    "product": "DNA",
+                    "labSampleId": "2134567179",
+                    "participantId": "p71967726196",
+                    "sampleUid": "LP3000308-DNA_G11",
+                    "sampleType": "Normal or Germline sample",
+                    "sampleId": "LP3000308-DNA_G11",
+                    "programmePhase": "MAIN",
+                    "source": "BLOOD",
+                    "storageMedium": "EDTA",
+                    "sampleState": "blood_unsorted_edta",
+                    "participantUid": "ae915dff-26d6-421b-ae61-df811139a358",
+                    "maskedPid": "PID:1:1:rpFd/ybWQhuuYd+BETmjWA==:v71NnOVFQp+8RTkm6Hn8t5ITlkw+Xz+9TscNf1AdNFQCTh1EjuMEiN/tagEOE9lA6PhNz1tXzn2Z6iRojeTMx9vuzboRwH39Q/QqDhzLSSBNGTj+mAkZhK1kv5tHpivaR9gPu+zJZNV6nnTmT6gSQ+gYqw8saa4bOR696dNP5DjdKT6XKz3On1HER6RZ/Fkd/2K0I8Jpdmj3qOxfKiVME9Spe8RQdPROd4HGfs5cmHpZO1q1sn73Sd5D1CQMIXUhl/7hBP4QQDGHIKVEQkf2JyingyGRzyeVoUfHhzNVujijKxpYxgO234KDLSXb4ZMooc3YKXjAoD3KgSCgtjlQm82fRG1H7uz13cN4CINGpHz6xO6ta4F7mjb2pYOupl59GKCRwyShi/tn3d6zHm5Su/PvZ/SDACywz9j/t6qKW62K9ZbLzCKETENARSdAY2fe/khvSmG9ad4KPcBuLTdwe8LdbFngbKuXto4konhaK8ufc2OOQKMEOTWO8YHORDD12uKqGX6EtFz9hz2PpyQVSNPu0nnogIUYj8dsMXFuyGj1b2DKgpTAxOlwlxCs53ZJ+FUZI6m0ON45+BjI5PEfWi4GTMOZlpw6p8Py4dT9wAur1R1yKSw8yR//IC9Zdibc8PHPIoe4QCjhuEm9NIcsZHE85x2xqhyO6uD8N7DCdv6XdNVd2GqN3lgvPUT8IKkLJmMIr8JpdPPucWNOIKv+7gbNcZHTVHUsjJ7XekaPYpBZxSqt1guIBo4U5sykZxDIHY/7xoMryqxIGd3f9l42A08o8XqUKurRBrCXBuMQqfwdhACcc3lXtQvu1HcPayYazoDFaeU//6PkmgwsJkxXSyDPFr75jrPuXnn0mAucuLaXqq2Ggr7qOx/OnoUjv4vQAWMDmtjRdJhFel6uEugEHRr9OyzuUhp37W65B9DMECxpHTA2w5gNsDz9Yy4dHPYoc+RA1bwXgxKtHiPXZDTFCoLW2M3Wim4T4fcVfQe+87AvHU3MlduSjaEyO58aTV8AV6GfxYWGtIn4dv/PmbRyUflr6RYvSykZDlN3jza0MflsUUE4OXVskW1j6C1l2dP+5NsOmnfyipA1beEtFfr19rromeN342/udo7SH5HE3ZPZRTmWh1C+PJvFlgFdJgMGSodfbDfO7A40OnCyxEridfPJ4xEatoiYz44P/AeYspXD5y0dZSI2UwfTcIgbmcVyQvk6fL/kksCQnMuWx0gGS5wimRgKydiDaGW7dvsTW252tstybc5BlWbZ+1wD48rC3LWMtB2C81QpNCC+69kW94wlK/7reGXJTH01B2pBuT8AqYQLBgSTsPDsTOP7nsLeYomzGWQvVSeQ6/H2N5yvXz/xUypQLZunI69l1jH4h94=",
+                    "clinicalSampleDateTime": "2021-02-02T00:00:00+0000",
+                    "method": "NOT_APPLICABLE"
+                }
+            ],
+            "priority": "routine",
+            "referralTestId": "28de30e1-b8ad-450f-8b94-a89269c5834e",
+            "diseasePenetrances": [{
+                    "penetrance": "incomplete",
+                    "specificDisease": "R193"
+                }
+            ],
+            "interpreter": {
+                "organisationName": "South West",
+                "organisationNationalGroupingId": "69A50",
+                "organisationId": "fbc76836-bc98-1445-931f-58b27b0eda20",
+                "organisationCode": "69A50",
+                "organisationNationalGroupingName": "South West"
+            },
+            "referralTestOrderingDate": {
+                "month": 2,
+                "day": 4,
+                "year": 2021
+            }
+        }
+    ]
+}
