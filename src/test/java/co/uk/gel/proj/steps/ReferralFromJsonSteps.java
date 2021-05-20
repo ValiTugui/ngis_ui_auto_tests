@@ -919,7 +919,10 @@ public class ReferralFromJsonSteps extends Pages {
         PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
         String diseaseStatus = String.valueOf(probandMember.getAffectionStatus());
         diseaseStatus=convertJsonDataUpperCaseToLowerCase(diseaseStatus);
-        String karyotypicSex = String.valueOf(probandMember.getPersonKaryotypicSex()).toLowerCase();
+        String karyotypicSex = String.valueOf(probandMember.getPersonKaryotypicSex());
+        if(karyotypicSex.equalsIgnoreCase("other") || karyotypicSex.equalsIgnoreCase("UNKNOWN")){
+            karyotypicSex = karyotypicSex.toLowerCase();
+        }
 
         String phenotypicSex = String.valueOf(probandMember.getSex());
         phenotypicSex=convertJsonDataUpperCaseToLowerCase(phenotypicSex);
