@@ -399,12 +399,13 @@ public class ReferralFromJsonSteps extends Pages {
             }
 
             String tumourType = String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourType());
-            tumourType=tumourType.replace("_"," ");
-            char firstChar=tumourType.charAt(0);
-            int length=tumourType.length();
-            String tumourTypeWithoutFirstChar=tumourType.substring(1,length);
-            String newTumourType=firstChar+tumourTypeWithoutFirstChar.toLowerCase();
-            Debugger.println("The lower case tumour type is: "+newTumourType);
+//            tumourType=tumourType.replace("_"," ");
+//            char firstChar=tumourType.charAt(0);
+//            int length=tumourType.length();
+//            String tumourTypeWithoutFirstChar=tumourType.substring(1,length);
+//            String newTumourType=firstChar+tumourTypeWithoutFirstChar.toLowerCase();
+            String newTumourType = tumourTypeToDropDownOptionConversion(tumourType);
+            Debugger.println("The converted tumour type as per dropdown is: "+newTumourType);
             String tumour = tumoursPage.selectTumourType(newTumourType);
             if (tumour == null) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourType.jpg");
@@ -467,6 +468,30 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
             Assert.fail("Could not save Tumours information.");
         }
+    }
+
+    private String tumourTypeToDropDownOptionConversion(String tumourType) {
+        switch (tumourType) {
+            case "BRAIN_TUMOUR": {
+                return "Brain tumour";
+            }
+            case "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE": {
+                return "Haematological malignancy: liquid sample";
+            }
+            case "HAEMATOLOGICAL_MALIGNANCY_SOLID_SAMPLE": {
+                return "Haematological malignancy: solid sample";
+            }
+            case "SOLID_TUMOUR_PRIMARY": {
+                return "Solid tumour: primary";
+            }
+            case "SOLID_TUMOUR_METASTATIC": {
+                return "Solid tumour: metastatic";
+            }
+            case "SOLID_TUMOUR_UNKNOWN": {
+                return "Solid tumour: unknown";
+            }
+        }
+        return null;
     }
 
     private void fillStageSamples(Referral referralObject) {
