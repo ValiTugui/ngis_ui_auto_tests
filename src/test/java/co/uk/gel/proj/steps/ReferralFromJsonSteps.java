@@ -235,7 +235,7 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
             Assert.fail("Could not navigate to stage:" + stageName);
         }
-        testResult = paperFormPage.fillInSpecificKeywordInSearchField(referralObject.getRequester().getOrganisationName());
+        testResult = paperFormPage.fillInSpecificKeywordInSearchField(referralObject.getRequester().getOrganisationCode());
         if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_RequestingOrg.jpg");
             Assert.fail("Could not search for Order entity.");
@@ -336,7 +336,7 @@ public class ReferralFromJsonSteps extends Pages {
                 org.json.simple.JSONObject simpleJsonObj= (org.json.simple.JSONObject) parser.parse(String.valueOf(member));
                 JSONObject memberJson = new JSONObject( simpleJsonObj);
 //                Debugger.println("The JSON: "+memberJson.toString());
-                if (!memberJson.isNull("yearOfBirth")) {
+                if (!memberJson.isNull("yearOfBirth") && memberJson.toString().startsWith("19")) {
                     positionOfTestParticipants.add(i);
                 }
             }
