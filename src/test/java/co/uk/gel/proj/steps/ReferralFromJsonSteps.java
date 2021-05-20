@@ -422,6 +422,7 @@ public class ReferralFromJsonSteps extends Pages {
                 Assert.fail("Could not save Tumours information.");
             }
             String tumourPresentation= String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourPresentation());
+            tumourPresentation = tumourPresentation.replace("_"," ");
             tumourPresentation = TestUtils.convertUpperCaseJSONDataToProperFormat(tumourPresentation);
             testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
             if (!testResult) {
@@ -894,6 +895,7 @@ public class ReferralFromJsonSteps extends Pages {
     }
 
     private void fillStageClinicalQuestions(Referral referralObject) {
+//        driver.get("https://test-ordering.e2e-latest.ngis.io/test-order/referral/r21256076464/requesting-organisation?newReferral=true");
         String stageName = "Clinical questions";
         boolean testResult = referralPage.navigateToStage(stageName);
         if (!testResult) {
