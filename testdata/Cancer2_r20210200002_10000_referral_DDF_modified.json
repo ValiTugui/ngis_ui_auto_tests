@@ -21,11 +21,11 @@
         "readyForAnalysis": true
     },
     "requester": {
-        "organisationName": "Royal Brompton & Harefield NHS Foundation Trust",
-        "organisationId": "RT3",
-        "organisationCode": "RT3",
-        "organisationNationalGroupingName": "London South",
-        "organisationNationalGroupingId": "699L0"
+        "organisationName": "Royal National Orthopaedic Hospital NHS Trust",
+        "organisationId": "RAN",
+        "organisationCode": "RAN",
+        "organisationNationalGroupingName": "London North",
+        "organisationNationalGroupingId": "69A70"
     },
     "orderingDate": {
         "month": 2,
