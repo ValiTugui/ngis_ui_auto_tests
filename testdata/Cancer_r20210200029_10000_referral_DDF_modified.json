@@ -21,10 +21,10 @@
     "readyForAnalysis": true
   },
   "requester": {
-    "organisationName": "Great Ormond Hospital for Children NHS FT",
+    "organisationName": "Great Ormond Hospital for Children NHS Foundation Trust",
     "organisationId": "template",
     "organisationCode": "RP4",
-    "organisationNationalGroupingName": "Great Ormond Hospital for Children NHS FT",
+    "organisationNationalGroupingName": "Great Ormond Hospital for Children NHS Foundation Trust",
     "organisationNationalGroupingId": "RP4"
   },
   "orderingDate": {

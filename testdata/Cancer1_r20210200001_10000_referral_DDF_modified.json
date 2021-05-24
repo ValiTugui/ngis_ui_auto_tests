@@ -1,0 +1,155 @@
+{
+    "pedigree": {
+        "familyId": "r20210200001",
+        "members": [{
+                "participantId": "p20210200001",
+                "personKaryotypicSex": "UNKNOWN",
+                "participantQCState": "passedMedicalReviewReadyForInterpretation",
+                "isProband": true,
+				"lifeStatus": "ALIVE",
+                "sex": "FEMALE",
+                "disorderList": [{
+                        "specificDisease": "M100"
+                    }
+                ],
+                "affectionStatus": "AFFECTED",
+                "participantUid": "74488fc5-8670-4994-976b-d199eaea5fb3",
+                "pedigreeId": 1,
+                "yearOfBirth": 1939
+            }
+        ],
+        "readyForAnalysis": true
+    },
+    "requester": {
+        "organisationName": "Pennine Care NHS Foundation Trust",
+        "organisationId": "RT2",
+        "organisationCode": "RT2",
+        "organisationNationalGroupingName": "North West",
+        "organisationNationalGroupingId": "699X0"
+    },
+    "orderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+    },
+    "cancerParticipant": {
+        "participantId": "p20210200001",
+        "sex": "FEMALE",
+        "readyForAnalysis": true,
+        "participantUid": "74488fc5-8670-4994-976b-d199eaea5fb3",
+        "tumours": [{
+                "tumourTopographies": [{
+                        "id": "SCTID:14016003"
+                    }
+                ],
+                "primaryOrMetastatic": "PRIMARY",
+                "tumourDiagnosisDate": {
+                    "month": 1,
+                    "year": 2020,
+                    "day": 1
+                },
+                "tumourPresentation": "FIRST_PRESENTATION",
+                "tumourType": "SOLID_TUMOUR_PRIMARY",
+                "tumourLocalId": "1018175580",
+                "tumourMorphologies": [{
+                        "id": "SCTID:103687004"
+                    }
+                ],
+                "tumourId": "1018175580"
+            }
+        ],
+        "yearOfBirth": 1939
+    },
+    "referralId": "r20210200001",
+    "referralUid": "d4b2a72f-8283-409d-b6d9-05ca557d05ca",
+    "clinicalIndication": {
+        "clinicalIndicationUid": "template",
+        "clinicalIndicationVersionNumber": "template",
+        "clinicalIndicationCode": "M100",
+        "clinicalIndicationFullName": "Primary Mediastinal B Cell Lymphoma"
+    },
+    "referralTests": [{
+            "germlineSamples": [{
+                    "product": "DNA",
+                    "method": "NOT_APPLICABLE",
+                    "sampleId": "LP3000205-DNA_F03",
+                    "storageMedium": "EDTA",
+                    "source": "BLOOD",
+                    "sampleType": "Normal or Germline sample",
+                    "labSampleId": "1018175707",
+                    "participantId": "p20210200001",
+                    "sampleUid": "BZRDDUIL-LOKX-RW4Q-Q6A6-32VL2M5PAVN0",
+                    "maskedPid": "090H6R6P-ZOOX-X3SV-3ZHR-I9AJL8ZANMTM",
+                    "programmePhase": "MAIN",
+                    "clinicalSampleDateTime": "2016-07-22T11:00:00+0000",
+                    "participantUid": "74488fc5-8670-4994-976b-d199eaea5fb3",
+                    "sampleState": "blood_unsorted_edta"
+                }
+            ],
+            "referralTestOrderingDate": {
+                "month": 2,
+                "year": 2021,
+                "day": 23
+            },
+            "processingLab": {
+                "organisationName": "NORTH WEST COAST NHS GENOMIC MEDICINE CENTRE",
+                "organisationId": "template",
+                "organisationCode": "69810",
+                "organisationNationalGroupingName": "North West",
+                "organisationNationalGroupingId": "699X0"
+            },
+            "interpreter": {
+                "organisationName": "NORTH WEST COAST NHS GENOMIC MEDICINE CENTRE",
+                "organisationId": "template",
+                "organisationCode": "69810",
+                "organisationNationalGroupingName": "North West",
+                "organisationNationalGroupingId": "699X0"
+            },
+            "matchedSamples": [{
+                    "germlineSampleId": "LP3000205-DNA_F03",
+                    "tumourSampleId": "LP3000208-DNA_D05"
+                }
+            ],
+            "clinicalIndicationTest": {
+                "testTypeId": "template",
+                "clinicalIndicationTestTypeId": "template",
+                "testTypeName": "template",
+                "clinicalIndicationTestTypeCode": "template",
+                "technology": {
+                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                }
+            },
+            "priority": "routine",
+            "tumourSamples": [{
+                    "sampleMorphologies": [{
+                            "id": "SCTID:103687004"
+                        }
+                    ],
+                    "product": "DNA",
+                    "method": "NOT_APPLICABLE",
+                    "sampleId": "LP3000208-DNA_D05",
+                    "storageMedium": "FF",
+                    "sampleTopographies": [{
+                            "id": "SCTID:14016003"
+                        }
+                    ],
+                    "source": "TUMOUR",
+                    "sampleType": "Solid tumour sample",
+                    "labSampleId": "1018175580",
+                    "tumourContentPercentage": 48.2,
+                    "tumourId": "1018175580",
+                    "participantId": "p20210200001",
+                    "sampleUid": "XOO6JT71-SU5X-QYL0-JYLM-UTMRPTAU8CCX",
+                    "maskedPid": "HB12N0CD-GS7L-WC8F-LUFE-1NU21WSA3YWN",
+                    "programmePhase": "MAIN",
+                    "clinicalSampleDateTime": "2016-07-29T16:40:00+0000",
+                    "participantUid": "74488fc5-8670-4994-976b-d199eaea5fb3",
+                    "tumourContent": "Medium",
+                    "sampleState": "tumour_unsorted_freshFluid"
+                }
+            ],
+            "referralTestId": "N37QPIMXBO01"
+        }
+    ]
+}

@@ -336,7 +336,7 @@ public class ReferralFromJsonSteps extends Pages {
                 org.json.simple.JSONObject simpleJsonObj= (org.json.simple.JSONObject) parser.parse(String.valueOf(member));
                 JSONObject memberJson = new JSONObject( simpleJsonObj);
 //                Debugger.println("The JSON: "+memberJson.toString());
-                if (!memberJson.isNull("yearOfBirth") && memberJson.toString().startsWith("19")) {
+                if (!memberJson.isNull("yearOfBirth") && (memberJson.toString().startsWith("19")||memberJson.toString().startsWith("20"))) {
                     positionOfTestParticipants.add(i);
                 }
             }
