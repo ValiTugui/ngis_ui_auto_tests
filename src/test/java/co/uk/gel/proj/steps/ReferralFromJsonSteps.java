@@ -283,6 +283,7 @@ public class ReferralFromJsonSteps extends Pages {
         if(!caseType.equalsIgnoreCase("Cancer")) {
 //            int numberOfTestParticipants = getNumberOfParticipantsFromJson(referralObject);
             List<Integer> positionOfTestParticipants = getPositionOfParticipantsFromJson(referralObject);
+            Debugger.println("Num of test participants- "+positionOfTestParticipants);
             if(positionOfTestParticipants == null){
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
                 Assert.fail("Could not get Participants from the Json file.");
@@ -324,7 +325,7 @@ public class ReferralFromJsonSteps extends Pages {
     private List<Integer> getPositionOfParticipantsFromJson(Referral referralObject) {
         try {
             List<Integer> nonProbandMembers = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Non Proband");
-            Debugger.println("The list of non proband " + nonProbandMembers);
+            Debugger.println("The list of all non-proband participants " + nonProbandMembers);
             List<Integer> positionOfTestParticipants = new ArrayList<>();
             for (int i = 0; i < nonProbandMembers.size(); i++) {
                 int memberPosititon = nonProbandMembers.get(i);
@@ -336,8 +337,11 @@ public class ReferralFromJsonSteps extends Pages {
                 org.json.simple.JSONObject simpleJsonObj= (org.json.simple.JSONObject) parser.parse(String.valueOf(member));
                 JSONObject memberJson = new JSONObject( simpleJsonObj);
 //                Debugger.println("The JSON: "+memberJson.toString());
-                if (!memberJson.isNull("yearOfBirth") && (memberJson.toString().startsWith("19")||memberJson.toString().startsWith("20"))) {
-                    positionOfTestParticipants.add(i);
+                if (!memberJson.isNull("yearOfBirth") ) {
+                    if (memberJson.getString("yearOfBirth").startsWith("19") || memberJson.getString("yearOfBirth").startsWith("20")) {
+                        Debugger.println("Adding non-proband participant "+i+" for test from position: "+memberPosititon);
+                        positionOfTestParticipants.add(memberPosititon);
+                    }
                 }
             }
             // add 1 for Proband

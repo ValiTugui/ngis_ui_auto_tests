@@ -1,0 +1,155 @@
+{
+    "pedigree": {
+        "familyId": "r20210200003",
+        "members": [{
+                "participantId": "p20210200003",
+                "personKaryotypicSex": "UNKNOWN",
+                "participantQCState": "passedMedicalReviewReadyForInterpretation",
+                "isProband": true,
+				"lifeStatus": "ALIVE",
+                "sex": "FEMALE",
+                "disorderList": [{
+                        "specificDisease": "M159"
+                    }
+                ],
+                "affectionStatus": "AFFECTED",
+                "participantUid": "6e742f33-2d87-4f00-930b-19303bd289eb",
+                "pedigreeId": 1,
+                "yearOfBirth": 1953
+            }
+        ],
+        "readyForAnalysis": true
+    },
+    "requester": {
+        "organisationName": "The Hillingdon Hospitals NHS Foundation Trust",
+        "organisationId": "RAS",
+        "organisationCode": "RAS",
+        "organisationNationalGroupingName": "London North",
+        "organisationNationalGroupingId": "69A70"
+    },
+    "orderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+    },
+    "cancerParticipant": {
+        "participantId": "p20210200003",
+        "sex": "FEMALE",
+        "readyForAnalysis": true,
+        "participantUid": "6e742f33-2d87-4f00-930b-19303bd289eb",
+        "tumours": [{
+                "tumourTopographies": [{
+                        "id": "SCTID:14016003"
+                    }
+                ],
+                "primaryOrMetastatic": "PRIMARY",
+                "tumourDiagnosisDate": {
+                    "month": 1,
+                    "year": 2020,
+                    "day": 1
+                },
+                "tumourPresentation": "FIRST_PRESENTATION",
+                "tumourType": "SOLID_TUMOUR_PRIMARY",
+                "tumourLocalId": "1023651186",
+                "tumourMorphologies": [{
+                        "id": "SCTID:103687004"
+                    }
+                ],
+                "tumourId": "1023651186"
+            }
+        ],
+        "yearOfBirth": 1953
+    },
+    "referralId": "r20210200003",
+    "referralUid": "dbac8d3e-a97d-4439-9895-e2936c1b2a63",
+    "clinicalIndication": {
+        "clinicalIndicationUid": "template",
+        "clinicalIndicationVersionNumber": "template",
+        "clinicalIndicationCode": "M159",
+        "clinicalIndicationFullName": "Pituitary Blastoma - Paediatric"
+    },
+    "referralTests": [{
+            "germlineSamples": [{
+                    "product": "DNA",
+                    "method": "BIOPSY",
+                    "sampleId": "LP3000226-DNA_H01",
+                    "storageMedium": "FF",
+                    "source": "FIBROBLAST",
+                    "sampleType": "Normal or Germline sample",
+                    "labSampleId": "1023651483",
+                    "participantId": "p20210200003",
+                    "sampleUid": "VEOTQSMG-RCEI-GJ9V-PKPI-82IGQHX4E0JI",
+                    "maskedPid": "JPF85HCU-AF3X-ST8F-5R11-BS2V5BAA5ST0",
+                    "programmePhase": "MAIN",
+                    "clinicalSampleDateTime": "2016-12-20T11:00:00+0000",
+                    "participantUid": "6e742f33-2d87-4f00-930b-19303bd289eb",
+                    "sampleState": "fibroblast_freshFrozen"
+                }
+            ],
+            "referralTestOrderingDate": {
+                "month": 2,
+                "year": 2021,
+                "day": 23
+            },
+            "processingLab": {
+                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+                "organisationId": "template",
+                "organisationCode": "69KQD",
+                "organisationNationalGroupingName": "London North",
+                "organisationNationalGroupingId": "69A70"
+            },
+            "interpreter": {
+                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+                "organisationId": "template",
+                "organisationCode": "69KQD",
+                "organisationNationalGroupingName": "London North",
+                "organisationNationalGroupingId": "69A70"
+            },
+            "matchedSamples": [{
+                    "germlineSampleId": "LP3000226-DNA_H01",
+                    "tumourSampleId": "LP3000240-DNA_D12"
+                }
+            ],
+            "clinicalIndicationTest": {
+                "testTypeId": "template",
+                "clinicalIndicationTestTypeId": "template",
+                "testTypeName": "template",
+                "clinicalIndicationTestTypeCode": "template",
+                "technology": {
+                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                }
+            },
+            "priority": "urgent",
+            "tumourSamples": [{
+                    "sampleMorphologies": [{
+                            "id": "SCTID:103687004"
+                        }
+                    ],
+                    "product": "DNA",
+                    "method": "NOT_APPLICABLE",
+                    "sampleId": "LP3000240-DNA_D12",
+                    "storageMedium": "FF",
+                    "sampleTopographies": [{
+                            "id": "SCTID:14016003"
+                        }
+                    ],
+                    "source": "TUMOUR",
+                    "sampleType": "Solid tumour sample",
+                    "labSampleId": "1023651186",
+                    "tumourContentPercentage": 54.7,
+                    "tumourId": "1023651186",
+                    "participantId": "p20210200003",
+                    "sampleUid": "TCD4BILR-WR36-ICSO-VL17-WZ4FKDEHUW0B",
+                    "maskedPid": "X8APXBB6-13FY-1N6X-1Z4O-4KSH885O9P4F",
+                    "programmePhase": "MAIN",
+                    "clinicalSampleDateTime": "2016-12-20T00:00:00+0000",
+                    "participantUid": "6e742f33-2d87-4f00-930b-19303bd289eb",
+                    "tumourContent": "Medium",
+                    "sampleState": "tumour_unsorted_freshFluid"
+                }
+            ],
+            "referralTestId": "39OYYWJW9P1Y"
+        }
+    ]
+}
