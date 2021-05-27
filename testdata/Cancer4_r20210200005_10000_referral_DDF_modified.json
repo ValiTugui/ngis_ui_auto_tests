@@ -90,7 +90,7 @@
           "programmePhase": "MAIN" ,
           "clinicalSampleDateTime": "2018-01-16T00:00:00+0000" ,
           "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
-          "sampleState": "blood_sortedTCells_edta"
+          "sampleState": "blood_unsorted_edta"
         }
       ] ,
       "referralTestOrderingDate": {
@@ -159,7 +159,7 @@
           "haematologicalCancerLineage": "MYELOID" ,
           "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
           "tumourContent": "High" ,
-          "sampleState": "blood_sortedOther_edta"
+          "sampleState": "blood_unsorted_edta"
         }
       ] ,
       "referralTestId": "FYQTJ3X6OEZ6"

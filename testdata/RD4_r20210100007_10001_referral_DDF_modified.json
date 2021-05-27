@@ -283,13 +283,6 @@
           "panelVersion": "3.717"
         },
         {
-          "panelId": "539",
-          "specificDisease": "R59",
-          "multipleGeneticOrigins": "No",
-          "panelName": "Possible mitochondrial disorder - nuclear genes",
-          "panelVersion": "1.21"
-        },
-        {
           "panelId": "112",
           "specificDisease": "R59",
           "multipleGeneticOrigins": "No",
