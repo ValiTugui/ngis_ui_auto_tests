@@ -1,0 +1,363 @@
+{
+  "pedigree": {
+    "familyId": "r20210100007",
+    "members": [
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": true,
+        "sex": "FEMALE",
+        "disorderList": [
+          {
+            "specificDisease": "R59"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002134"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001048"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001250"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002384"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002349"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002069"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0007270"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002123"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0010818"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0010819"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0007359"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002353"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0011185"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0010841"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0011198"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002538"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0007042"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0007204"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001317"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0007361"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001263"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001249"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000717"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100543"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000726"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000252"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000256"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001999"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000929"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000951"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000598"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000478"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000924"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001626"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002086"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000119"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000818"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0011024"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001268"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "115007910",
+        "motherId": 2140438,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 2140437,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "cfab3444-9a4a-4df7-a062-ff720dd961e5",
+        "pedigreeId": 2140436,
+        "yearOfBirth": 1948
+      },
+      {
+        "participantId": "p20210101005",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 2140437
+      },
+      {
+        "participantId": "p20210102005",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 2140438
+      }
+    ],
+    "readyForAnalysis": true,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  },
+  "requester": {
+    "organisationName": "University College London NHS Foundation Trust",
+    "organisationId": "template",
+    "organisationCode": "RRV",
+    "organisationNationalGroupingName": "University College London NHS Foundation Trust",
+    "organisationNationalGroupingId": "RRV"
+  },
+  "orderingDate": {
+    "month": 1,
+    "year": 2021,
+    "day": 29
+  },
+  "referralId": "r20210100007",
+  "referralUid": "23dbe83c-66f2-4228-a8c5-cdd5d27dba02",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationCode": "R59",
+    "clinicalIndicationFullName": "Early onset or syndromic epilepsy"
+  },
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "panelId": "402",
+          "multipleGeneticOrigins": "No",
+          "specificDisease": "R59",
+          "panelName": "Epileptic encephalopathy",
+          "panelVersion": "2.2"
+        },
+        {
+          "panelId": "285",
+          "specificDisease": "R59",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Intellectual disability",
+          "panelVersion": "3.717"
+        },
+        {
+          "panelId": "539",
+          "specificDisease": "R59",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Possible mitochondrial disorder - nuclear genes",
+          "panelVersion": "1.21"
+        },
+        {
+          "panelId": "112",
+          "specificDisease": "R59",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Mitochondrial disorders",
+          "panelVersion": "2.12"
+        },
+        {
+          "panelId": "467",
+          "specificDisease": "R59",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Inborn errors of metabolism",
+          "panelVersion": "2.50"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000565-DNA_H11",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1029463230",
+          "participantId": "115007910",
+          "sampleUid": "T53YCKAY-5Y20-E87S-YDPQ-1LV482RTMTZB",
+          "maskedPid": "2CZXHT26-EGCC-V08W-STT7-MSYA97HHLYAX",
+          "programmePhase": "MAIN",
+          "participantUid": "cfab3444-9a4a-4df7-a062-ff720dd961e5",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 1,
+        "year": 2021,
+        "day": 30
+      },
+      "processingLab": {
+        "organisationName": "University College London NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RRV",
+        "organisationNationalGroupingName": "University College London NHS Foundation Trust",
+        "organisationNationalGroupingId": "RRV"
+      },
+      "interpreter": {
+        "organisationName": "University College London NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RRV",
+        "organisationNationalGroupingName": "University College London NHS Foundation Trust",
+        "organisationNationalGroupingId": "RRV"
+      },
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "routine",
+      "referralTestId": "K3PEDT7THX0D",
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R59",
+          "penetrance": "complete"
+        }
+      ]
+    }
+  ]
+}

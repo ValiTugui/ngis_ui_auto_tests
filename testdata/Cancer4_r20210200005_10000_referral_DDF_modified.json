@@ -1,0 +1,168 @@
+{
+  "pedigree": {
+    "familyId": "r20210200005" ,
+    "members": [
+      {
+        "participantId": "p20210200005" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": true ,
+		"lifeStatus": "ALIVE",
+        "sex": "FEMALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "M80"
+          }
+        ] ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
+        "pedigreeId": 1 ,
+        "yearOfBirth": 1947
+      }
+    ] ,
+    "readyForAnalysis": true
+  } ,
+  "requester": {
+    "organisationName": "The Hillingdon Hospitals NHS Foundation Trust" ,
+    "organisationId": "RAS" ,
+    "organisationCode": "RAS" ,
+    "organisationNationalGroupingName": "London North" ,
+    "organisationNationalGroupingId": "69A70"
+  } ,
+  "orderingDate": {
+    "month": 2 ,
+    "year": 2021 ,
+    "day": 23
+  } ,
+  "cancerParticipant": {
+    "participantId": "p20210200005" ,
+    "sex": "FEMALE" ,
+    "readyForAnalysis": true ,
+    "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
+    "tumours": [
+      {
+        "tumourTopographies": [
+          {
+            "id": "SCTID:14016003"
+          }
+        ] ,
+        "primaryOrMetastatic": "PRIMARY" ,
+        "tumourDiagnosisDate": {
+          "month": 1 ,
+          "year": 2019 ,
+          "day": 4
+        } ,
+        "tumourPresentation": "UNKNOWN" ,
+        "tumourType": "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE" ,
+        "tumourLocalId": "RGT01_001634T1" ,
+        "tumourMorphologies": [
+          {
+            "id": "SCTID:413443009"
+          }
+        ] ,
+        "tumourId": "RGT01_001634T1"
+      }
+    ] ,
+    "yearOfBirth": 1947
+  } ,
+  "referralId": "r20210200005" ,
+  "referralUid": "0928ab9d-53b4-4738-835c-1fd435d8fb6b" ,
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template" ,
+    "clinicalIndicationVersionNumber": "template" ,
+    "clinicalIndicationCode": "M80" ,
+    "clinicalIndicationFullName": "Acute Myeloid Leukaemia"
+  } ,
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3001150-DNA_H11" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1032811317" ,
+          "participantId": "p20210200005" ,
+          "sampleUid": "Y3XIIP8D-NG3J-EZKR-HLXY-9EQG9EZCP4UG" ,
+          "maskedPid": "P6V6WL9R-D5CL-U2OW-L4PO-RX3FDXNI2FCH" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2018-01-16T00:00:00+0000" ,
+          "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
+          "sampleState": "blood_sortedTCells_edta"
+        }
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 2 ,
+        "year": 2021 ,
+        "day": 23
+      } ,
+      "processingLab": {
+        "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE" ,
+        "organisationId": "template" ,
+        "organisationCode": "69KQD" ,
+        "organisationNationalGroupingName": "London North" ,
+        "organisationNationalGroupingId": "69A70"
+      } ,
+      "interpreter": {
+        "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE" ,
+        "organisationId": "template" ,
+        "organisationCode": "69KQD" ,
+        "organisationNationalGroupingName": "London North" ,
+        "organisationNationalGroupingId": "69A70"
+      } ,
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3001150-DNA_H11" ,
+          "tumourSampleId": "LP3001144-DNA_B10"
+        }
+      ] ,
+      "clinicalIndicationTest": {
+        "testTypeId": "template" ,
+        "clinicalIndicationTestTypeId": "template" ,
+        "testTypeName": "template" ,
+        "clinicalIndicationTestTypeCode": "template" ,
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation" ,
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      } ,
+      "priority": "routine" ,
+      "tumourSamples": [
+        {
+          "sampleMorphologies": [
+            {
+              "id": "SCTID:413443009"
+            }
+          ] ,
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3001144-DNA_B10" ,
+          "storageMedium": "EDTA" ,
+          "sampleTopographies": [
+            {
+              "id": "SCTID:14016003"
+            }
+          ] ,
+          "haematologicalCancer": true ,
+          "source": "BLOOD" ,
+          "sampleType": "Liquid tumour sample" ,
+          "labSampleId": "1021219715" ,
+          "tumourContentPercentage": 86.3 ,
+          "tumourId": "RGT01_001634T1" ,
+          "participantId": "p20210200005" ,
+          "sampleUid": "74JVRS90-U2Z3-IM3X-RG5U-9C63HW00R2UF" ,
+          "maskedPid": "I86OM8UV-AADW-93OG-WUTH-BN48Z8H6UBC5" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2017-02-22T00:00:00+0000" ,
+          "haematologicalCancerLineage": "MYELOID" ,
+          "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
+          "tumourContent": "High" ,
+          "sampleState": "blood_sortedOther_edta"
+        }
+      ] ,
+      "referralTestId": "FYQTJ3X6OEZ6"
+    }
+  ]
+}

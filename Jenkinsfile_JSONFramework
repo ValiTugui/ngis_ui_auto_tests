@@ -2,29 +2,29 @@ pipeline {
     agent { label 'chrome' }
     //tools { maven 'maven' }
     parameters {
-            choice(name: 'TestEnvironment', choices: "e2e\ne2elatest", description: 'Defines the environment on which the test will be run')
-            choice(name: 'Tag', choices: ['@ReferralFromJson','@RDReferralFromJson','@CancerReferralFromJson'], description: 'Tag of test to execute')
+        choice(name: 'TestEnvironment', choices: "e2e\ne2elatest", description: 'Defines the environment on which the test will be run')
+        choice(name: 'Tag', choices: ['@ReferralFromJson', '@RDReferralFromJson', '@CancerReferralFromJson'], description: 'Tag of test to execute')
     }
 
     options {
-            buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        }
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+    }
 
     stages {
         stage('Checkout Source Code') {
             steps {
-            // Clean workspace before build
-              cleanWs()
+                // Clean workspace before build
+                cleanWs()
                 checkout([
-                    $class: 'GitSCM', branches: [[name: 'ReferralFromJson']],
-                    userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'7f90912e-1e7e-48dd-81b4-3ff5da62ed7d']]
+                        $class           : 'GitSCM', branches: [[name: 'ReferralFromJson']],
+                        userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId: '7f90912e-1e7e-48dd-81b4-3ff5da62ed7d']]
                 ])
             }
         }
         stage('UI Referral Creation') {
             steps {
-                wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0,screen: '1920x1080x24']) {
-                   sh "mvn -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tag}' clean verify -DTestEnvironment=${TestEnvironment} -ntp"
+                wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0, screen: '1920x1080x24']) {
+                    sh "mvn -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tag}' clean verify -DTestEnvironment=${TestEnvironment} -ntp"
                 }
             }
         }
@@ -39,21 +39,21 @@ pipeline {
 
         stage('Publish and Archive Results') {
             steps {
-                  archiveArtifacts artifacts:'target/test-report/*.*' , allowEmptyArchive: true
-                  archiveArtifacts artifacts:'target/*' , allowEmptyArchive: true
-                 // archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
-                  archiveArtifacts artifacts:'JsonReferrals.json ' , allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/test-report/*.*', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/*', allowEmptyArchive: true
+                // archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
+                archiveArtifacts artifacts: 'JsonReferrals.json ', allowEmptyArchive: true
             }
         }
     }
     post {
         success {
-           script {
-            sh 'echo success'
-            sh 'echo Attempt to run CSV generation'
-            build wait: false, job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value:"${params.Tag}" )]
-           }
+            script {
+                sh 'echo success'
+                sh 'echo Attempt to run CSV generation'
+                build wait: false, job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
+            }
         }
-       }
+    }
 
 }
