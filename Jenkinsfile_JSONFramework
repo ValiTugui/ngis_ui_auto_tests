@@ -51,9 +51,8 @@ pipeline {
             script {
                 sh 'echo success'
                 sh 'echo Attempt to run CSV generation'
-                build wait: false, job: 'Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
+                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
             }
         }
     }
-
 }
