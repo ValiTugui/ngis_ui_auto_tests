@@ -1,0 +1,147 @@
+{
+  "pedigree": {
+    "familyId": "r20210200017" ,
+    "members": [
+      {
+        "participantId": "p20210200017" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": true ,
+		"lifeStatus": "ALIVE",
+        "sex": "FEMALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "M82"
+          }
+        ] ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "cde0c0e5-c769-4909-a275-1b9f4bbbae9c" ,
+        "pedigreeId": 1 ,
+        "yearOfBirth": 2019
+      }
+    ] ,
+    "readyForAnalysis": true
+  } ,
+  "requester": {
+    "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+    "organisationId": "template" ,
+    "organisationCode": "RP4" ,
+    "organisationNationalGroupingName": "North Thames Genomic Laboratory Hub" ,
+    "organisationNationalGroupingId": "RP4"
+  } ,
+  "orderingDate": {
+    "month": 3 ,
+    "year": 2021 ,
+    "day": 2
+  } ,
+  "cancerParticipant": {
+    "participantId": "p20210200017" ,
+    "sex": "FEMALE" ,
+    "readyForAnalysis": true ,
+    "participantUid": "cde0c0e5-c769-4909-a275-1b9f4bbbae9c" ,
+    "tumours": [
+      {
+        "primaryOrMetastatic": "PRIMARY" ,
+        "tumourDiagnosisDate": {
+          "month": 1 ,
+          "year": 2021 ,
+          "day": 1
+        } ,
+        "tumourPresentation": "FIRST_PRESENTATION" ,
+        "tumourType": "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE" ,
+        "tumourLocalId": "RP4_19M0650" ,
+        "tumourId": "RP4_19M0650"
+      }
+    ] ,
+    "yearOfBirth": 2019
+  } ,
+  "referralId": "r20210200017" ,
+  "referralUid": "a97f2bd8-502d-4a39-90be-0cea30ce6cf5" ,
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template" ,
+    "clinicalIndicationVersionNumber": "bio_v2.0.0" ,
+    "clinicalIndicationCode": "M82" ,
+    "clinicalIndicationFullName": "Myelodysplasia"
+  } ,
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3001615-DNA_H01" ,
+          "storageMedium": "FF" ,
+          "source": "TISSUE" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1034869066" ,
+          "participantId": "p20210200017" ,
+          "sampleUid": "D28L1PTE-NWX7-JWN2-6PPT-W8JPBMI6OC4E" ,
+          "maskedPid": "X81WL78L-3MQD-SYK5-DIFT-FKRTJ0I4YZZG" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2019-03-29T00:00:00+0000" ,
+          "participantUid": "cde0c0e5-c769-4909-a275-1b9f4bbbae9c" ,
+          "sampleState": "tissue_freshFrozen"
+        }
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 3 ,
+        "year": 2021 ,
+        "day": 2
+      } ,
+      "processingLab": {
+        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RP4" ,
+        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+        "organisationNationalGroupingId": "RP4"
+      } ,
+      "interpreter": {
+        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RP4" ,
+        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+        "organisationNationalGroupingId": "RP4"
+      } ,
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3001615-DNA_H01" ,
+          "tumourSampleId": "LP3001616-DNA_D02"
+        }
+      ] ,
+      "clinicalIndicationTest": {
+        "testTypeId": "template" ,
+        "clinicalIndicationTestTypeId": "template" ,
+        "testTypeName": "template" ,
+        "clinicalIndicationTestTypeCode": "template" ,
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation" ,
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      } ,
+      "priority": "urgent" ,
+      "tumourSamples": [
+        {
+          "product": "DNA" ,
+          "method": "ASPIRATE" ,
+          "sampleId": "LP3001616-DNA_D02" ,
+          "storageMedium": "EDTA" ,
+          "haematologicalCancer": true ,
+          "source": "BONE_MARROW_ASPIRATE_TUMOUR_CELLS" ,
+          "sampleType": "Liquid tumour sample" ,
+          "labSampleId": "1034844971" ,
+          "tumourId": "RP4_19M0650" ,
+          "participantId": "p20210200017" ,
+          "sampleUid": "XCQFOWTI-1H63-1107-UVEV-6HYYTCTZSXJR" ,
+          "maskedPid": "4BGDTRGO-WPDA-UA3M-HZXE-7008E5NDCRV3" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2019-03-11T00:00:00+0000" ,
+          "haematologicalCancerLineage": "MYELOID" ,
+          "participantUid": "cde0c0e5-c769-4909-a275-1b9f4bbbae9c" ,
+          "tumourContent": "High" ,
+          "sampleState": "boneMarrow_unsorted_edta"
+        }
+      ] ,
+      "referralTestId": "2C2ZWWW90A84"
+    }
+  ]
+}

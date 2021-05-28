@@ -1,0 +1,146 @@
+{
+  "pedigree": {
+    "familyId": "r20210200015",
+    "members": [
+      {
+        "participantId": "p20210200015",
+        "personKaryotypicSex": "UNKNOWN",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": true,
+		"lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "M156"
+          }
+        ],
+        "affectionStatus": "AFFECTED",
+        "participantUid": "9d2cafd6-9d32-4e81-9f63-214b5c0dade0",
+        "pedigreeId": 1,
+        "yearOfBirth": 1951
+      }
+    ],
+    "readyForAnalysis": true
+  },
+  "requester": {
+    "organisationName": "University Hospitals Birmingham NHS Foundation Trust",
+    "organisationId": "template",
+    "organisationCode": "RRK",
+    "organisationNationalGroupingName": "Central and South Genomic Laboratory Hub",
+    "organisationNationalGroupingId": "RRK"
+  },
+  "orderingDate": {
+    "month": 3,
+    "year": 2021,
+    "day": 2
+  },
+  "cancerParticipant": {
+    "participantId": "p20210200015",
+    "sex": "MALE",
+    "readyForAnalysis": true,
+    "participantUid": "9d2cafd6-9d32-4e81-9f63-214b5c0dade0",
+    "tumours": [
+      {
+        "primaryOrMetastatic": "METASTATIC",
+        "tumourDiagnosisDate": {
+          "month": 1,
+          "year": 2021,
+          "day": 1
+        },
+        "tumourPresentation": "RECURRENCE",
+        "tumourType": "SOLID_TUMOUR_METASTATIC",
+        "tumourLocalId": "RRK_D1814569",
+        "tumourId": "RRK_D1814569"
+      }
+    ],
+    "yearOfBirth": 1951
+  },
+  "referralId": "r20210200015",
+  "referralUid": "361f832c-aa0e-4840-ba29-d12dff70684f",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationVersionNumber": "bio_v2.0.0",
+    "clinicalIndicationCode": "M156",
+    "clinicalIndicationFullName": "Oligodendroglioma - Paediatric"
+  },
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000858-DNA_H02",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1032042931",
+          "participantId": "p20210200015",
+          "sampleUid": "LRJ650RB-SDYQ-BXGZ-V6GP-4Z4WKMK7VMCI",
+          "maskedPid": "EPLXEW8I-PHN9-934T-HXYL-ETCH5EZXG7D9",
+          "programmePhase": "MAIN",
+          "clinicalSampleDateTime": "2018-03-06T14:00:00+0000",
+          "participantUid": "9d2cafd6-9d32-4e81-9f63-214b5c0dade0",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 3,
+        "year": 2021,
+        "day": 2
+      },
+      "processingLab": {
+        "organisationName": "University Hospitals Birmingham NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RRK",
+        "organisationNationalGroupingName": "University Hospitals Birmingham NHS Foundation Trust",
+        "organisationNationalGroupingId": "RRK"
+      },
+      "interpreter": {
+        "organisationName": "University Hospitals Birmingham NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RRK",
+        "organisationNationalGroupingName": "University Hospitals Birmingham NHS Foundation Trust",
+        "organisationNationalGroupingId": "RRK"
+      },
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3000858-DNA_H02",
+          "tumourSampleId": "LP3000859-DNA_H02"
+        }
+      ],
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "urgent",
+      "tumourSamples": [
+        {
+          "product": "DNA",
+          "method": "RESECTION",
+          "sampleId": "LP3000859-DNA_H02",
+          "storageMedium": "FF",
+          "haematologicalCancer": false,
+          "source": "TUMOUR",
+          "sampleType": "Solid tumour sample",
+          "labSampleId": "1027907461",
+          "tumourId": "RRK_D1814569",
+          "participantId": "p20210200015",
+          "sampleUid": "D4C9Z5KJ-KAU7-GLVI-UDAO-CZVMUE112SIF",
+          "maskedPid": "TJQBHSJK-X12W-TO57-XRQQ-A79VHOEUM1L7",
+          "programmePhase": "MAIN",
+          "clinicalSampleDateTime": "2018-03-12T00:00:00+0000",
+          "participantUid": "9d2cafd6-9d32-4e81-9f63-214b5c0dade0",
+          "tumourContent": "Low",
+          "sampleState": "tumour_freshFrozen"
+        }
+      ],
+      "referralTestId": "TQEHBYA12JEW"
+    }
+  ]
+}

@@ -23,9 +23,9 @@
     "readyForAnalysis": true
   },
   "requester": {
-    "organisationName": "Royal Brompton & Harefield NHS Foundation Trust",
-    "organisationId": "RT3",
-    "organisationCode": "RT3",
+    "organisationName": "Royal Free London NHS Foundation Trust",
+    "organisationId": "RAL",
+    "organisationCode": "RAL",
     "organisationNationalGroupingName": "London South",
     "organisationNationalGroupingId": "699L0"
   },
