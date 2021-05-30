@@ -18,7 +18,7 @@ Feature: Create Referrals by reading details from Json file
 #      | Cancer4_r20210200005_10000_referral_DDF_modified.json |
       | Cancer5_r20210200007_10000_referral_DDF_modified.json  |
       | Cancer6_r20210200009_10000_referral_DDF_modified.json  |
-      | Cancer7_r20210200010_10000_referral_DDF_modified.json  |
-      | Cancer8_r20210200015_10000_referral_DDF_modified.json  |
-      | Cancer9_r20210200017_10000_referral_DDF_modified.json  |
-      | Cancer10_r20210200020_10000_referral_DDF_modified.json |
+#      | Cancer7_r20210200010_10000_referral_DDF_modified.json  |
+#      | Cancer8_r20210200015_10000_referral_DDF_modified.json  |
+#      | Cancer9_r20210200017_10000_referral_DDF_modified.json  |
+#      | Cancer10_r20210200020_10000_referral_DDF_modified.json |

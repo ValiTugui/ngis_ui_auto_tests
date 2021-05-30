@@ -283,7 +283,7 @@ public class ReferralFromJsonSteps extends Pages {
         if(!caseType.equalsIgnoreCase("Cancer")) {
 //            int numberOfTestParticipants = getNumberOfParticipantsFromJson(referralObject);
             List<Integer> positionOfTestParticipants = getPositionOfParticipantsFromJson(referralObject);
-            Debugger.println("Num of test participants- "+positionOfTestParticipants);
+            Debugger.println("Non-Proband test participants- "+positionOfTestParticipants);
             if(positionOfTestParticipants == null){
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
                 Assert.fail("Could not get Participants from the Json file.");
@@ -325,7 +325,7 @@ public class ReferralFromJsonSteps extends Pages {
     private List<Integer> getPositionOfParticipantsFromJson(Referral referralObject) {
         try {
             List<Integer> nonProbandMembers = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Non Proband");
-            Debugger.println("The list of all non-proband participants " + nonProbandMembers);
+            Debugger.println("The list of position of all non-proband participants from Json= " + nonProbandMembers);
             List<Integer> positionOfTestParticipants = new ArrayList<>();
             for (int i = 0; i < nonProbandMembers.size(); i++) {
                 int memberPosititon = nonProbandMembers.get(i);
@@ -912,13 +912,13 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Page title- Answer clinical questions not present.");
         }
         List<Integer> memberList = memberDetails(referralObject, "Non Proband");
-        Debugger.println("The number of member participants are " + memberList.toString());
+        Debugger.println("The Non Proband participants are " + memberList.toString());
         List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
         if(probandMemberNum==null){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ClinicalQuestions.jpg");
             Assert.fail("Could not get member details from JSON.");
         }
-        Debugger.println("The number of member participants are " + probandMemberNum.toString());
+        Debugger.println("The position of proband participant is- " + probandMemberNum.toString());
 
         PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
         String diseaseStatus = String.valueOf(probandMember.getAffectionStatus());

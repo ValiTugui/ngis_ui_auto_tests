@@ -18,7 +18,7 @@ Feature: Create Referrals by reading details from Json file
 #      | RD4_r20210100007_10001_referral_DDF_modified.json |
       | RD5_r20210100011_10001_referral_DDF_modified.json  |
       | RD6_r20210100014_10001_referral_DDF_modified.json  |
-      | RD7_r20210100020_10001_referral_DDF_modified.json  |
-      | RD8_r20210100021_10000_referral_DDF_modified.json  |
-      | RD9_r20210100022_10000_referral_DDF_modified.json  |
-      | RD10_r20210100023_10000_referral_DDF_modified.json |
+#      | RD7_r20210100020_10001_referral_DDF_modified.json  |
+#      | RD8_r20210100021_10000_referral_DDF_modified.json  |
+#      | RD9_r20210100022_10000_referral_DDF_modified.json  |
+#      | RD10_r20210100023_10000_referral_DDF_modified.json |
