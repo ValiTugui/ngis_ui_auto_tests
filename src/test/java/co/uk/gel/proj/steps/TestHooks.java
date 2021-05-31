@@ -62,7 +62,7 @@ public class TestHooks extends Pages {
 
             }
         }
-        Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
+        Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase()+" - "+currentTagName);
 
         // 14/10/2019 - Log-out now commented as Test will continue running until the session times-out, and user will be prompted to log-in
         // once the session times-out

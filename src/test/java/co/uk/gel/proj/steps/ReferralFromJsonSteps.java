@@ -990,7 +990,7 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
-    private static  List<List<String>> familyDetails = new ArrayList<>();
+   static List<List<String>> familyDetails = new ArrayList<>();
 
     private void fillStageFamilyMembers(Referral referralObject) {
         String stageName = "Family members";
@@ -1014,6 +1014,9 @@ public class ReferralFromJsonSteps extends Pages {
         int numberOfTestParticipants = positionOfTestParticipants.size();
 
         List<List<String>> familyParticipants = new ArrayList<>();
+        Debugger.println("Initial Family size- "+familyDetails.size());
+        familyDetails.clear();
+        Debugger.println("Clearing pre-existing Family details size- "+familyDetails.size());
 
         if(numberOfTestParticipants > 0) {
             for (int i = 0; i < numberOfTestParticipants; i++) {
@@ -1053,15 +1056,17 @@ public class ReferralFromJsonSteps extends Pages {
                 familyMemberDetails.add(familyMemberData);
                 familyMemberDetails.add(familyRelation);
                 familyMemberDetails.add(clinicalQuesAnswers);
-                Debugger.println("The details are " + familyMemberDetails.toString());
+                Debugger.println("The single family member details are- " + familyMemberDetails);
                 familyParticipants.add(familyMemberDetails);
+//                familyDetails.add(familyMemberDetails);
             }
-        }
-        if (!(familyParticipants == null && familyParticipants.isEmpty())) {
-            Debugger.println("The family details are " + familyDetails.toString());
+            Debugger.println("The family participants details to be updated are- " + familyParticipants);
+//            Debugger.println("The family details are " + familyDetails.toString());
+//            enterFamilyMembersForRDReferral(familyDetails);
             enterFamilyMembersForRDReferral(familyParticipants);
-            familyDetails = familyParticipants;
         }
+        familyDetails = familyParticipants;
+        Debugger.println("The family members details updated in Family members page are- " + familyDetails);
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FamilySaveAndContinue");
