@@ -1019,6 +1019,8 @@ public class ReferralFromJsonSteps extends Pages {
         Debugger.println("Clearing pre-existing Family details size- "+familyDetails.size());
 
         if(numberOfTestParticipants > 0) {
+            boolean maleRepeat = false;
+            boolean femaleRepeat = false;
             for (int i = 0; i < numberOfTestParticipants; i++) {
                 List<String> familyMemberDetails = new ArrayList<>();
                 int familyMemberPositionInJson = positionOfTestParticipants.get(i);
@@ -1045,9 +1047,19 @@ public class ReferralFromJsonSteps extends Pages {
 //            Debugger.println("life status " + lifeStatus);
                 String familyRelation = null;
                 if (gender.equalsIgnoreCase("Male")) {
-                    familyRelation = "Father";
+                    if(!maleRepeat) {
+                        familyRelation = "Father";
+                        maleRepeat = true;
+                    }else{
+                        familyRelation = "Full Sibling";
+                    }
                 } else if (gender.equalsIgnoreCase("Female")) {
-                    familyRelation = "Mother";
+                    if (!femaleRepeat) {
+                        familyRelation = "Mother";
+                        femaleRepeat = true;
+                    } else {
+                        familyRelation = "Full Sibling";
+                    }
                 } else {
                     familyRelation = "Other";
                 }
