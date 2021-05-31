@@ -1012,14 +1012,10 @@ public class ReferralFromJsonSteps extends Pages {
         Debugger.println("The participants to be selected as family are at position: " + positionOfTestParticipants.toString());
         Debugger.println("The number of family participants to be selected: " + positionOfTestParticipants.size());
         int numberOfTestParticipants = positionOfTestParticipants.size();
-//        if(numberOfTestParticipants==0){
-//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
-//            Assert.fail("No Of Participants should be more than zero, but found to be: "+numberOfTestParticipants);
-//        }
-//        List<List<String>> familyDetails = new ArrayList<>();
+
+        List<List<String>> familyParticipants = new ArrayList<>();
 
         if(numberOfTestParticipants > 0) {
-            familyDetails.clear();
             for (int i = 0; i < numberOfTestParticipants; i++) {
                 List<String> familyMemberDetails = new ArrayList<>();
                 int familyMemberPositionInJson = positionOfTestParticipants.get(i);
@@ -1058,12 +1054,13 @@ public class ReferralFromJsonSteps extends Pages {
                 familyMemberDetails.add(familyRelation);
                 familyMemberDetails.add(clinicalQuesAnswers);
                 Debugger.println("The details are " + familyMemberDetails.toString());
-                familyDetails.add(familyMemberDetails);
+                familyParticipants.add(familyMemberDetails);
             }
         }
-        if (!(familyDetails == null && familyDetails.isEmpty())) {
+        if (!(familyParticipants == null && familyParticipants.isEmpty())) {
             Debugger.println("The family details are " + familyDetails.toString());
-            enterFamilyMembersForRDReferral(familyDetails);
+            enterFamilyMembersForRDReferral(familyParticipants);
+            familyDetails = familyParticipants;
         }
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
