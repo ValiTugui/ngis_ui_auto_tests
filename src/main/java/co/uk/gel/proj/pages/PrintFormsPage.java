@@ -232,7 +232,8 @@ public class PrintFormsPage {
             String outputData = pdfTextStripper.getText(document);
             // outputData = outputData.replaceAll("/  +/g", " ");
             outputData = outputData.replaceAll("\\s+", " ");
-            //Debugger.println("Actual Data from PDF sample form :\n" + outputData);
+            outputData = outputData.replaceAll(" ,", ",");
+//            Debugger.println("Actual Data from PDF sample form :\n" + outputData);
             boolean testResult = false;
             String expValue;
             for (String value : expValues) {

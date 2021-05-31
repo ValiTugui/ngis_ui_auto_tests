@@ -1009,8 +1009,8 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
             Assert.fail("Error in reading family Participants from JSON file.");
         }
-        Debugger.println("The participants to be selected: " + positionOfTestParticipants.toString());
-        Debugger.println("The number of participants to be selected: " + positionOfTestParticipants.size());
+        Debugger.println("The participants to be selected as family are at position: " + positionOfTestParticipants.toString());
+        Debugger.println("The number of family participants to be selected: " + positionOfTestParticipants.size());
         int numberOfTestParticipants = positionOfTestParticipants.size();
 //        if(numberOfTestParticipants==0){
 //            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
@@ -1018,47 +1018,50 @@ public class ReferralFromJsonSteps extends Pages {
 //        }
 //        List<List<String>> familyDetails = new ArrayList<>();
 
-        for (int i = 0; i < numberOfTestParticipants; i++) {
-            List<String> familyMemberDetails = new ArrayList<>();
-            int familyMemberPositionInJson = positionOfTestParticipants.get(i);
-            PedigreeMember familyMember = referralObject.getPedigree().getMembers().get(familyMemberPositionInJson);
+        if(numberOfTestParticipants > 0) {
+            familyDetails.clear();
+            for (int i = 0; i < numberOfTestParticipants; i++) {
+                List<String> familyMemberDetails = new ArrayList<>();
+                int familyMemberPositionInJson = positionOfTestParticipants.get(i);
+                PedigreeMember familyMember = referralObject.getPedigree().getMembers().get(familyMemberPositionInJson);
 
-            String yearOfBirth = String.valueOf(familyMember.getYearOfBirth());
-            Debugger.println("The value for YOB is " + yearOfBirth);
-            String dob = TestUtils.getRandomDobFromYear(yearOfBirth);
-            Debugger.println("The dob- " + dob);
+                String yearOfBirth = String.valueOf(familyMember.getYearOfBirth());
+                Debugger.println("The value for YOB is " + yearOfBirth);
+                String dob = TestUtils.getRandomDobFromYear(yearOfBirth);
+                Debugger.println("The dob- " + dob);
 
-            String phenotypicSex = String.valueOf(familyMember.getSex());
-            String gender = convertJsonDataUpperCaseToLowerCase(phenotypicSex);
+                String phenotypicSex = String.valueOf(familyMember.getSex());
+                String gender = convertJsonDataUpperCaseToLowerCase(phenotypicSex);
 
-            String diseaseStatus = String.valueOf(familyMember.getAffectionStatus());
-            diseaseStatus = convertJsonDataUpperCaseToLowerCase(diseaseStatus);
+                String diseaseStatus = String.valueOf(familyMember.getAffectionStatus());
+                diseaseStatus = convertJsonDataUpperCaseToLowerCase(diseaseStatus);
 
-            String karyotypicSex = String.valueOf(familyMember.getPersonKaryotypicSex()).toLowerCase();
-            String lifeStatus = String.valueOf(familyMember.getLifeStatus());
-            lifeStatus = TestUtils.convertUpperCaseJSONDataToProperFormat(lifeStatus);
+                String karyotypicSex = String.valueOf(familyMember.getPersonKaryotypicSex()).toLowerCase();
+                String lifeStatus = String.valueOf(familyMember.getLifeStatus());
+                lifeStatus = TestUtils.convertUpperCaseJSONDataToProperFormat(lifeStatus);
 
 //            Debugger.println("disease status " + diseaseStatus);
 //            Debugger.println("karyotypic sex " + karyotypicSex);
 //            Debugger.println("sex " + gender);
 //            Debugger.println("life status " + lifeStatus);
-            String familyRelation = null;
-            if (gender.equalsIgnoreCase("Male")) {
-                familyRelation = "Father";
-            } else if (gender.equalsIgnoreCase("Female")) {
-                familyRelation = "Mother";
-            } else {
-                familyRelation = "Other";
+                String familyRelation = null;
+                if (gender.equalsIgnoreCase("Male")) {
+                    familyRelation = "Father";
+                } else if (gender.equalsIgnoreCase("Female")) {
+                    familyRelation = "Mother";
+                } else {
+                    familyRelation = "Other";
+                }
+                String familyMemberData = "NHSNumber=NA:DOB=" + dob + ":Gender=" + gender + ":Relationship=" + familyRelation + ":LifeStatus=" + lifeStatus;
+                String clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ":AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=" + gender + ":KaryotypicSex=" + karyotypicSex;
+                familyMemberDetails.add(familyMemberData);
+                familyMemberDetails.add(familyRelation);
+                familyMemberDetails.add(clinicalQuesAnswers);
+                Debugger.println("The details are " + familyMemberDetails.toString());
+                familyDetails.add(familyMemberDetails);
             }
-            String familyMemberData = "NHSNumber=NA:DOB=" + dob + ":Gender=" + gender + ":Relationship=" + familyRelation+":LifeStatus="+lifeStatus;
-            String clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ":AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=" + gender + ":KaryotypicSex=" + karyotypicSex;
-            familyMemberDetails.add(familyMemberData);
-            familyMemberDetails.add(familyRelation);
-            familyMemberDetails.add(clinicalQuesAnswers);
-            Debugger.println("The details are " + familyMemberDetails.toString());
-            familyDetails.add(familyMemberDetails);
         }
-        if (familyDetails != null) {
+        if (!(familyDetails == null && familyDetails.isEmpty())) {
             Debugger.println("The family details are " + familyDetails.toString());
             enterFamilyMembersForRDReferral(familyDetails);
         }
