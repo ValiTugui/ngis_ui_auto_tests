@@ -797,77 +797,77 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Page title- Print sample forms not present.");
         }
         //steps to download sample form and verify details.
-        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
-            Debugger.println("Downloading and verifying PrintForm PDF content...");
-
-            try {
-                PatientDetailsPage.newPatient.setOrderingEntity(printFormsPage.getLaboratoryAddress());
-                PatientDetailsPage.newPatient.setSampleType(printFormsPage.getSampleInfo());
-                PatientDetailsPage.newPatient.setTumourType(printFormsPage.getTumourInfo());
-            } catch (Exception exp) {
-                Debugger.println("Exception in setting printform details to Patient.." + exp + "\n" + driver.getCurrentUrl());
-            }
-            //Debugger.println("Downloading ........");
-            if (!printFormsPage.downloadProbandPrintForm()) {
-                Debugger.println("Could not download form for proband");
-                Assert.assertTrue("Could not download print form for proband", false);
-            }
-
-            //Debugger.println("Verifying content....");
-            NewPatient newlyCreatedPatientRecord = patientDetailsPage.getNewlyCreatedPatientData();
-            String patientName = newlyCreatedPatientRecord.getPatientFullName();
-            String dateOfBirth = newlyCreatedPatientRecord.getPatientDOBInMonthFormat();
-            String gender = newlyCreatedPatientRecord.getGender();
-            String patientNGISId = newlyCreatedPatientRecord.getReferralHumanReadableID();
-            // Formatted patient NGIS Id
-            patientNGISId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(patientNGISId, "4");
-            String patientReferralId = newlyCreatedPatientRecord.getPatientHumanReadableID();
-            // Formatted patient Referral Id
-            patientReferralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(patientReferralId, "4");
-
-            String clinicalIndication = newlyCreatedPatientRecord.getClinicalIndication();
-            String hospitalNumber = newlyCreatedPatientRecord.getHospitalNumber();
-
-            String requestingOrg = newlyCreatedPatientRecord.getOrderingEntity();
-
-            String responsibleClinicianName = newlyCreatedPatientRecord.getResponsibleClinicianName();
-            String responsibleClinicianEmail = newlyCreatedPatientRecord.getResponsibleClinicianEmail();
-            String responsibleClinicianContact = newlyCreatedPatientRecord.getResponsibleClinicianContactNumber();
-
-            String tumourInfo = newlyCreatedPatientRecord.getTumourType();
-            String sampleInfo = newlyCreatedPatientRecord.getSampleType();
-            String[] tumours = tumourInfo.split(" •");
-            if (tumours.length > 0) {
-                Debugger.println("Tumour Type to verify in the downloaded PDF file  : " + tumours[0]);
-            }
-            String[] samples = sampleInfo.split("sample required");
-            if (samples.length > 0) {
-                Debugger.println("Sample info to verify in the downloaded PDF file  : " + samples[0]);
-            }
-
-            List<String> expectedValuesToBeVerifiedInPDF = new ArrayList<>();
-            expectedValuesToBeVerifiedInPDF.add(patientName);
-            expectedValuesToBeVerifiedInPDF.add(dateOfBirth);
-            expectedValuesToBeVerifiedInPDF.add(gender);
-
-            expectedValuesToBeVerifiedInPDF.add(patientNGISId);
-            expectedValuesToBeVerifiedInPDF.add(patientReferralId);
-
-            expectedValuesToBeVerifiedInPDF.add(clinicalIndication);
-            expectedValuesToBeVerifiedInPDF.add(requestingOrg);
-
-            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianName);
-            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianEmail);
-            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianContact);
-            if (tumours.length > 0) {
-                expectedValuesToBeVerifiedInPDF.add(tumours[0]);
-            }
-            if (samples.length > 0) {
-                expectedValuesToBeVerifiedInPDF.add(samples[0]);
-            }
-            testResult = printFormsPage.openAndVerifyPDFContent(expectedValuesToBeVerifiedInPDF);
-            Assert.assertTrue(testResult);
-        }
+//        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
+//            Debugger.println("Downloading and verifying PrintForm PDF content...");
+//
+//            try {
+//                PatientDetailsPage.newPatient.setOrderingEntity(printFormsPage.getLaboratoryAddress());
+//                PatientDetailsPage.newPatient.setSampleType(printFormsPage.getSampleInfo());
+//                PatientDetailsPage.newPatient.setTumourType(printFormsPage.getTumourInfo());
+//            } catch (Exception exp) {
+//                Debugger.println("Exception in setting printform details to Patient.." + exp + "\n" + driver.getCurrentUrl());
+//            }
+//            //Debugger.println("Downloading ........");
+//            if (!printFormsPage.downloadProbandPrintForm()) {
+//                Debugger.println("Could not download form for proband");
+//                Assert.assertTrue("Could not download print form for proband", false);
+//            }
+//
+//            //Debugger.println("Verifying content....");
+//            NewPatient newlyCreatedPatientRecord = patientDetailsPage.getNewlyCreatedPatientData();
+//            String patientName = newlyCreatedPatientRecord.getPatientFullName();
+//            String dateOfBirth = newlyCreatedPatientRecord.getPatientDOBInMonthFormat();
+//            String gender = newlyCreatedPatientRecord.getGender();
+//            String patientNGISId = newlyCreatedPatientRecord.getReferralHumanReadableID();
+//            // Formatted patient NGIS Id
+//            patientNGISId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(patientNGISId, "4");
+//            String patientReferralId = newlyCreatedPatientRecord.getPatientHumanReadableID();
+//            // Formatted patient Referral Id
+//            patientReferralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(patientReferralId, "4");
+//
+//            String clinicalIndication = newlyCreatedPatientRecord.getClinicalIndication();
+//            String hospitalNumber = newlyCreatedPatientRecord.getHospitalNumber();
+//
+//            String requestingOrg = newlyCreatedPatientRecord.getOrderingEntity();
+//
+//            String responsibleClinicianName = newlyCreatedPatientRecord.getResponsibleClinicianName();
+//            String responsibleClinicianEmail = newlyCreatedPatientRecord.getResponsibleClinicianEmail();
+//            String responsibleClinicianContact = newlyCreatedPatientRecord.getResponsibleClinicianContactNumber();
+//
+//            String tumourInfo = newlyCreatedPatientRecord.getTumourType();
+//            String sampleInfo = newlyCreatedPatientRecord.getSampleType();
+//            String[] tumours = tumourInfo.split(" •");
+//            if (tumours.length > 0) {
+//                Debugger.println("Tumour Type to verify in the downloaded PDF file  : " + tumours[0]);
+//            }
+//            String[] samples = sampleInfo.split("sample required");
+//            if (samples.length > 0) {
+//                Debugger.println("Sample info to verify in the downloaded PDF file  : " + samples[0]);
+//            }
+//
+//            List<String> expectedValuesToBeVerifiedInPDF = new ArrayList<>();
+//            expectedValuesToBeVerifiedInPDF.add(patientName);
+//            expectedValuesToBeVerifiedInPDF.add(dateOfBirth);
+//            expectedValuesToBeVerifiedInPDF.add(gender);
+//
+//            expectedValuesToBeVerifiedInPDF.add(patientNGISId);
+//            expectedValuesToBeVerifiedInPDF.add(patientReferralId);
+//
+//            expectedValuesToBeVerifiedInPDF.add(clinicalIndication);
+//            expectedValuesToBeVerifiedInPDF.add(requestingOrg);
+//
+//            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianName);
+//            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianEmail);
+//            expectedValuesToBeVerifiedInPDF.add(responsibleClinicianContact);
+//            if (tumours.length > 0) {
+//                expectedValuesToBeVerifiedInPDF.add(tumours[0]);
+//            }
+//            if (samples.length > 0) {
+//                expectedValuesToBeVerifiedInPDF.add(samples[0]);
+//            }
+//            testResult = printFormsPage.openAndVerifyPDFContent(expectedValuesToBeVerifiedInPDF);
+//            Assert.assertTrue(testResult);
+//        }
     }
 
     private void fillStagePrintFormsForRD(Referral referralObject) {
