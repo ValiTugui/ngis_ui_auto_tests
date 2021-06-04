@@ -6,7 +6,6 @@
                 "personKaryotypicSex": "UNKNOWN",
                 "participantQCState": "passedMedicalReviewReadyForInterpretation",
                 "isProband": true,
-				"lifeStatus": "ALIVE",
                 "sex": "MALE",
                 "disorderList": [{
                         "specificDisease": "M48"

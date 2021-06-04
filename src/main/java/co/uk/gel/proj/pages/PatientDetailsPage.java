@@ -2273,8 +2273,8 @@ public class PatientDetailsPage {
             String lifeStatus = null;
             if (caseType.equalsIgnoreCase("Cancer")) {
                 gender = referralObject.getCancerParticipant().getSex().name();
-//                lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
-                lifeStatus = "ALIVE";
+                lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
+//                lifeStatus = "ALIVE";
             } else {
                 List<Integer> probandMemberNum = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Proband");
 //                TestUtils.getNtsTag(TestHooks.currentTagName) +
