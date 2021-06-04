@@ -43,6 +43,7 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*', allowEmptyArchive: true
                 // archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
                 archiveArtifacts artifacts: 'JsonReferrals.json ', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/NGIS_UI_Snapshots/*', allowEmptyArchive: true
             }
         }
     }

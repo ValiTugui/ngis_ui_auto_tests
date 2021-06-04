@@ -226,6 +226,7 @@ public class ReferralFromJsonSteps extends Pages {
         }
         String referralID = referralPage.returnReferralID();
         saveJsonCreatedReferralID(caseType,referralID);
+        SeleniumLib.takeAScreenShot("_ScenarioCompleted_"+(TestHooks.currentTagName)+".jpg");
     }
 
     private void fillStageRequestingOrganisation(Referral referralObject) {
