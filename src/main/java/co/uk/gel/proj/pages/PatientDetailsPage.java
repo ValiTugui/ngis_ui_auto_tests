@@ -2273,11 +2273,14 @@ public class PatientDetailsPage {
             String lifeStatus = null;
             if (caseType.equalsIgnoreCase("Cancer")) {
                 gender = referralObject.getCancerParticipant().getSex().name();
-                lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
-//                lifeStatus = "ALIVE";
+                try {
+                    lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
+                }catch (NullPointerException exp){
+                    Debugger.println("Exception from reading Life Status from given Json: "+exp+System.lineSeparator()+"....Continuing with life status as 'alive'.");
+                    lifeStatus = "ALIVE";
+                }
             } else {
                 List<Integer> probandMemberNum = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Proband");
-//                TestUtils.getNtsTag(TestHooks.currentTagName) +
                 if (probandMemberNum == null) {
                     SeleniumLib.takeAScreenShot("NoProbandDetails.jpg");
                     Assert.fail("Could not get member details from JSON.");

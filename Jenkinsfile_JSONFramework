@@ -37,7 +37,8 @@ pipeline {
         stage('Zip and Archive and Publish Results') {
             steps {
                 echo "Archiving build ran at ${BUILD_TIMESTAMP}"
-                fileOperations([fileZipOperation('target'), fileRenameOperation(destination: 'NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
+//                fileOperations([fileZipOperation('target'), fileRenameOperation(destination: 'NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
+                fileOperations([fileZipOperation(folderPath: 'target', outputFolderPath: 'NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip')])
                 archiveArtifacts "NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip"
                 archiveArtifacts artifacts: 'target/test-report/*.*', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'target/*', allowEmptyArchive: true
