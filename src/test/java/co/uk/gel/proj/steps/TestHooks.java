@@ -62,6 +62,14 @@ public class TestHooks extends Pages {
 
             }
         }
+        //////////////////////
+        if(currentTags.contains("ReferralFromJson")){
+            try {
+                scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
+            }catch(Exception exp){
+                Debugger.println("Exception from taking screenshot in teardown."+exp);
+            }
+        }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase()+" - "+currentTagName);
 
         // 14/10/2019 - Log-out now commented as Test will continue running until the session times-out, and user will be prompted to log-in
