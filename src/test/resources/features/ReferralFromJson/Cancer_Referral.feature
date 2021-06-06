@@ -45,7 +45,7 @@ Feature: Create Cancer Referrals by reading details from Json file
     Then the "Cancer" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
       | JSONFileName                                          |
-      | Cancer2_r20210200002_10000_referral_DDF_modified.json |
+      | cer2_r20210200002_10000_referral_DDF_modified.json |
 
   @CancerCase3 @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create Cancer referrals
