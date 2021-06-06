@@ -2273,12 +2273,12 @@ public class PatientDetailsPage {
             String lifeStatus = null;
             if (caseType.equalsIgnoreCase("Cancer")) {
                 gender = referralObject.getCancerParticipant().getSex().name();
-                try {
+//                try {
                     lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
-                }catch (NullPointerException exp){
-                    Debugger.println("Exception from reading Life Status from given Json: "+exp+System.lineSeparator()+"....Continuing with life status as 'alive'.");
-                    lifeStatus = "ALIVE";
-                }
+//                }catch (NullPointerException exp){
+//                    Debugger.println("Exception from reading Life Status from given Json: "+exp+System.lineSeparator()+"....Continuing with life status as 'alive'.");
+//                    lifeStatus = "ALIVE";
+//                }
             } else {
                 List<Integer> probandMemberNum = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Proband");
                 if (probandMemberNum == null) {
