@@ -54,8 +54,8 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
-      | RD3_r20210100006_10001_referral_DDF_modified.json  |
+      | JSONFileName                                      |
+      | RD3_r20210100006_10001_referral_DDF_modified.json |
 
   @RDCase4  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals
@@ -65,7 +65,7 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
+      | JSONFileName                                      |
       | RD4_r20210100007_10001_referral_DDF_modified.json |
 
   @RDCase5  @Z-LOGOUT
@@ -76,8 +76,8 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
-      | RD5_r20210100011_10001_referral_DDF_modified.json  |
+      | JSONFileName                                      |
+      | RD5_r20210100011_10001_referral_DDF_modified.json |
 
   @RDCase6  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals
@@ -87,8 +87,8 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
-     | RD6_r20210100014_10001_referral_DDF_modified.json  |
+      | JSONFileName                                      |
+      | RD6_r20210100014_10001_referral_DDF_modified.json |
 
   @RDCase7  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals
@@ -98,8 +98,8 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
-      | RD7_r20210100020_10001_referral_DDF_modified.json  |
+      | JSONFileName                                      |
+      | RD7_r20210100020_10001_referral_DDF_modified.json |
 
   @RDCase8  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals
@@ -109,8 +109,8 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
-      | RD8_r20210100021_10000_referral_DDF_modified.json  |
+      | JSONFileName                                      |
+      | RD8_r20210100021_10000_referral_DDF_modified.json |
 
   @RDCase9  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals
@@ -120,8 +120,8 @@ Feature: Create RD Referrals by reading details from Json file
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
-      | JSONFileName                                       |
-      | RD9_r20210100022_10000_referral_DDF_modified.json  |
+      | JSONFileName                                      |
+      | RD9_r20210100022_10000_referral_DDF_modified.json |
 
   @RDCase10  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals
@@ -133,3 +133,14 @@ Feature: Create RD Referrals by reading details from Json file
     Examples:
       | JSONFileName                                       |
       | RD10_r20210100023_10000_referral_DDF_modified.json |
+
+  @RDCase11  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName           |
+      | RD46_E2E_TestCase.json |

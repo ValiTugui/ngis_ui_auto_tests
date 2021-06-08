@@ -1,0 +1,328 @@
+{
+  "clinicalIndication": {
+    "clinicalIndicationCode": "R381",
+    "clinicalIndicationFullName": "Other rare neuromuscular disorders",
+    "clinicalIndicationUid": "373ef182-43a6-49b7-8681-26f59aca228a"
+  },
+  "orderingDate": {
+    "day": 4,
+    "month": 2,
+    "year": 2021
+  },
+  "pedigree": {
+    "familyId": "r21515426609",
+    "familyQCState": "passedMedicalReviewReadyForInterpretation",
+    "members": [
+      {
+        "adoptedStatus": "notadopted",
+        "affectionStatus": "AFFECTED",
+        "consanguineousParents": "unknown",
+        "disorderList": [
+          {
+            "specificDisease": "R381"
+          }
+        ],
+        "fatherId": 12,
+        "hpoTermList": [
+          {
+            "hpoBuildNumber": "HP:0001270",
+            "termPresence": "yes",
+            "term": "HP:0001270"
+          },
+          {
+            "hpoBuildNumber": "HP:0003198",
+            "termPresence": "yes",
+            "term": "HP:0003198"
+          },
+          {
+            "hpoBuildNumber": "HP:0011805",
+            "termPresence": "yes",
+            "term": "HP:0011805"
+          },
+          {
+            "hpoBuildNumber": "HP:0007210",
+            "termPresence": "yes",
+            "term": "HP:0007210"
+          },
+          {
+            "hpoBuildNumber": "HP:0009129",
+            "termPresence": "yes",
+            "term": "HP:0009129"
+          },
+          {
+            "hpoBuildNumber": "HP:0003690",
+            "termPresence": "yes",
+            "term": "HP:0003690"
+          },
+          {
+            "hpoBuildNumber": "HP:0003473",
+            "termPresence": "yes",
+            "term": "HP:0003473"
+          },
+          {
+            "hpoBuildNumber": "HP:0003202",
+            "termPresence": "yes",
+            "term": "HP:0003202"
+          },
+          {
+            "hpoBuildNumber": "HP:0001371",
+            "termPresence": "yes",
+            "term": "HP:0001371"
+          },
+          {
+            "hpoBuildNumber": "HP:0003323",
+            "termPresence": "yes",
+            "term": "HP:0003323"
+          },
+          {
+            "hpoBuildNumber": "HP:0003327",
+            "termPresence": "yes",
+            "term": "HP:0003327"
+          },
+          {
+            "hpoBuildNumber": "HP:0006957",
+            "termPresence": "yes",
+            "term": "HP:0006957"
+          },
+          {
+            "hpoBuildNumber": "HP:0008316",
+            "termPresence": "unknown",
+            "term": "HP:0008316"
+          },
+          {
+            "hpoBuildNumber": "HP:0003805",
+            "termPresence": "unknown",
+            "term": "HP:0003805"
+          },
+          {
+            "hpoBuildNumber": "HP:0030099",
+            "termPresence": "unknown",
+            "term": "HP:0030099"
+          },
+          {
+            "hpoBuildNumber": "HP:0003715",
+            "termPresence": "no",
+            "term": "HP:0003715"
+          },
+          {
+            "hpoBuildNumber": "HP:0000508",
+            "termPresence": "no",
+            "term": "HP:0000508"
+          }
+        ],
+        "isProband": true,
+        "lifeStatus": "ALIVE",
+        "monozygotic": "unknown",
+        "motherId": 8,
+        "participantId": "p73574810802",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "participantUid": "287ffcf2-a6e9-4abe-b451-caf7e3c4967b",
+        "pedigreeId": 1,
+        "personKaryotypicSex": "UNKNOWN",
+        "sex": "MALE",
+        "twinGroup": 0,
+        "yearOfBirth": 1953
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 3,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "dp29x"
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 4,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "21lzg"
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 5,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "ftl1j"
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 6,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "73hed"
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 7,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "uo7qu"
+      },
+      {
+        "pedigreeId": 8,
+        "participantId": "mvz44",
+        "lifeStatus": "ALIVE",
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "isProband": false
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 9,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "8xedy"
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 10,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "aaf9v"
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 11,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "f63do"
+      },
+      {
+        "pedigreeId": 12,
+        "participantId": "cn773",
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "isProband": false
+      }
+    ],
+    "readyForAnalysis": true
+  },
+  "referralId": "r21515426609",
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "multipleGeneticOrigins": "No",
+          "panelVersion": "5.43",
+          "panelName": "Neuromuscular disorders",
+          "panelId": "465",
+          "specificDisease": "R381"
+        },
+        {
+          "multipleGeneticOrigins": "No",
+          "panelVersion": "1.4",
+          "panelName": "Congenital fibrosis of the extraocular muscles",
+          "panelId": "512",
+          "specificDisease": "R381"
+        }
+      ],
+      "clinicalIndicationTest": {
+        "clinicalIndicationTestTypeCode": "R381.2",
+        "clinicalIndicationTestTypeId": "7dc6b204-ba48-4f56-bea4-842ca7740e54",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        },
+        "testTypeId": "7199270d-972d-42b3-bfb4-32fc00216edc",
+        "testTypeName": "Neuromuscular disorders WGS"
+      },
+      "diseasePenetrances": [
+        {
+          "penetrance": "complete",
+          "specificDisease": "R381"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "labSampleId": "2134567189",
+          "maskedPid": "PID:1:1:KH/88qbpSr60Ucr348SWew==:dogviteL8XuqOKUADNVWkiC+WI0oJTL2qFdqoJzXep4Qbkcqy+EifB5NwAeWBdXqbxovxszvCgYpcVEugouE93a3HaUMZTtzaDlGr4RJobuXg8oMV3eCq7vfajke1oW7sdpR8CbwRreli840LL4SO8TdbhEwINYdD45OJ6recRCgCmRYbwkOxMdRaQr2ki++zZjWWVJWSUGkeo7kr1XjKfaH9bfysFS2GwEEMy0xsOV5cIC/mk4pr5GcsbtEKAoiCX5hXJMj3lwh22PsCrUHRr8FZw3Y/qddMb706DYvW8AlbXnzkydhR+YcC7N4N0MtYDeDoUgpIi8P2SPsLN/60clntMYo04Jptl9/AqZWfotXVr9HpIxdBp2feLq0fVcp0WhHNTz6m3x/ySJIAYzcxdXTMR7VVLXhz/vB9uijhNnXrRQ8eVwLPnRErKPCtNwGIgkNlxFWc00w4Pxp5GFdsKfl1zpmNBLXKr5XwDM7co5F1q18/hLW/V47VHYzRCRbaFHpuBWn2RdPz0fOfs/U95LU4kX2blzLWgeZnjyc4SmNr9Jh5Evdt7yRU2k+wclGGU5csgD7NUZyN6vsp3XjXzJtDhe+Nr9I/VDvOCHAafow+lfI5NxJTZw0/Eqx0Ozuy36HC9u5T+KWpVO820h5a46brXUDxqK/YIn4mvlEknMwPM6Lu83ck33586Je+0+ldr0xG1/LgarrKL5VZIb3fYbqKlHZDQtu5SKsBBBGvdPV9EH9WrW+GCAFgqO4QgA+Oa2I2IedxWbCAB3gDAEJCgmvmSCYaUEMZQITqdAiSiJRoKL3eN/2qPYIcKtlFJgtqks/6U02dnot5kxLmDhsGL6V+K63VHSvg7xYZ3VRPbjrjpaGnT3ZxYghk/MAl6evom/nTqC16IThbRzmIV6xboI+BAGiNf0uNDjGurcbGINKijHoU+pTAP/BPgAviDt++W5fiyY6rDAIuUjN0mhjWGi9y2FXxy5u8PdGf50MJDtQbK8GxiyTigQAw9OvTY3iCSroXkfuSmB47N1RbbexuEtHCndbn//UywULbGidcxT/fOwPvxQuH3T0BJlg2rOligmScYSkw3zKiXwANkDeneOvGMYmjKbBu5vzvQKrIyoFs54nBkRQy0J1lvy+6Ypdnq66dTlDo7mCtTNoMDve4F/kHQkkFD6PkGrY5v/AzlOeMkFRkYby+4x5Qjpjo5gid6aP0fQ72hjJzKVWSOcpCtTwzbMEEq+15jp0NFhg6Lz9xLOJm5T44prdFkNh+M8/9DjfjTb2fpS/ptXjuGl32YCOk3kTP4lp3+kfQkCrnZUtdSAgHLojlXotdV23Ire045udK++g/3JUX8ITfLLA/E+atPR8jrhkc8YegzcfFS0=",
+          "method": "NOT_APPLICABLE",
+          "participantId": "p73574810802",
+          "participantUid": "287ffcf2-a6e9-4abe-b451-caf7e3c4967b",
+          "product": "DNA",
+          "programmePhase": "MAIN",
+          "sampleId": "LP3000351-DNA_G10",
+          "sampleState": "blood_unsorted_edta",
+          "sampleType": "Normal or Germline sample",
+          "sampleUid": "LP3000351-DNA_G10",
+          "source": "BLOOD",
+          "storageMedium": "EDTA"
+        }
+      ],
+      "interpreter": {
+        "organisationName": "Genetics Laboratories, Liverpool Women's Hospital",
+        "organisationNationalGroupingId": "699X0",
+        "organisationId": "f5fc385c-a67b-a441-bafc-aeec54d57f4b",
+        "organisationCode": "69810",
+        "organisationNationalGroupingName": "North West"
+      },
+      "priority": "routine",
+      "processingLab": {
+        "organisationName": "North West GLH",
+        "organisationNationalGroupingId": "699X0",
+        "organisationId": "70e640c9-2fa3-8947-a657-6965c884380e",
+        "organisationCode": "699X0",
+        "organisationNationalGroupingName": "North West"
+      },
+      "referralTestId": "132effdb-f20d-43f9-a5c5-30f2699ddf65",
+      "referralTestOrderingDate": {
+        "day": 5,
+        "month": 2,
+        "year": 2021
+      }
+    }
+  ],
+  "referralUid": "8ed75569-ea07-4d23-a956-26aa259f34a9",
+  "requester": {
+    "organisationName": "Greater Manchester Mental Health NHS Foundation Trust",
+    "organisationNationalGroupingId": "699X0",
+    "organisationId": "8a2c5832-4271-1848-9e3c-ec939dd87123",
+    "organisationCode": "RXV",
+    "organisationNationalGroupingName": "North West"
+  }
+}
