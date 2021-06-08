@@ -59,13 +59,13 @@ pipeline {
 //            }
 //        }
     }
-//    post {
-//        success {
-//            script {
-//                sh 'echo success'
-//                sh 'echo Attempt to run CSV generation'
-//                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
-//            }
-//        }
-//    }
+    post {
+        success {
+            script {
+                sh 'echo success'
+                sh 'echo Attempt to run CSV generation'
+                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
+            }
+        }
+    }
 }
