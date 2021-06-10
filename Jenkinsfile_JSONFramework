@@ -6,7 +6,7 @@ pipeline {
     }
 
     options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '20'))
+        buildDiscarder(logRotator(numToKeepStr: '', artifactNumToKeepStr: ''))
     }
 
     stages {
@@ -24,13 +24,15 @@ pipeline {
             steps {
                 wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0, screen: '1920x1080x24']) {
                     script {
+                        withCredentials([usernamePassword(credentialsId: 'cva-gel-report-model', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
+                           {
                         try {
-                            sh "mvn -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tag}' clean verify -DTestEnvironment=${TestEnvironment} -DparallelScheme='SCENARIO' -ntp"
+                            sh "mvn -Dserver.username=${USERNAME} -Dserver.password=${PASSWORD} -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tag}' clean verify -DTestEnvironment=${TestEnvironment} -DparallelScheme='SCENARIO' -ntp"
                         } catch (err) {
                             currentBuild.result = 'FAILURE'
                         }
                         echo currentBuild.result
-                    }
+                    }}
                 }
             }
         }
@@ -64,7 +66,7 @@ pipeline {
             script {
                 sh 'echo success'
                 sh 'echo Attempt to run CSV generation'
-                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
+//                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
             }
         }
     }

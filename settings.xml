@@ -25,8 +25,8 @@
             <configuration>
                 <httpHeaders>
                     <property>
-                        <name>Private-Token</name>
-                        <value>5FwTuxfiYZhrXDQUeFSx</value>
+                        <name>${server.username}</name>
+                        <value>${server.password}</value>
                     </property>
                 </httpHeaders>
             </configuration>
