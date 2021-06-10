@@ -22,14 +22,17 @@
     <servers>
         <server>
             <id>gelreportmodel-gitlab</id>
-            <configuration>
-                <httpHeaders>
-                    <property>
-                        <name>${server.username}</name>
-                        <value>${server.password}</value>
-                    </property>
-                </httpHeaders>
-            </configuration>
+            <username>${server.username}</username>
+            <password>${server.password}</password>
+            <configuration></configuration>
+<!--            <configuration>-->
+<!--                <httpHeaders>-->
+<!--                    <property>-->
+<!--                        <name>${server.username}</name>-->
+<!--                        <value>${server.password}</value>-->
+<!--                    </property>-->
+<!--                </httpHeaders>-->
+<!--            </configuration>-->
         </server>
     </servers>
 
