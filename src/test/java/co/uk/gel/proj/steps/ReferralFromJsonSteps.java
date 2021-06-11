@@ -13,6 +13,7 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -1388,6 +1389,26 @@ public class ReferralFromJsonSteps extends Pages {
             Debugger.println("Exception from Saving the referral Id: " + exp);
             Assert.fail("FAILURE in creating JSON file with referral Id, case type, sample well details.");
         }
+    }
+
+    @Given("the user opens the NGIS status page")
+    public void theUserOpensTheNGISStatusPage() {
+        String result = statusPage.loadNgisStatusPage();
+        Assert.assertEquals("Failure in loading NGIS Status page.","Success",result);
+    }
+
+    @And("the user reads the version numbers present on the page")
+    public void theUserReadsTheVersionNumbersPresentOnThePage() {
+        String result = statusPage.getTitleText("NGIS Status");
+        Assert.assertEquals("Failure in reading page Title.","Success",result);
+        result = statusPage.readPageDetails();
+        Assert.assertEquals("Failure in reading Table data from status page.","Success",result);
+    }
+
+    @Then("the user writes the versions of {string} in the txt file {string}")
+    public void theUserWritesTheVersionsOfInTheTxtFile(String components, String fileName) {
+        String result = statusPage.writeVersionToFile(components,fileName);
+        Assert.assertEquals("Failure in writing version data from status page.","Success",result);
     }
 
 }//end

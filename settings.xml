@@ -22,9 +22,6 @@
     <servers>
         <server>
             <id>gelreportmodel-gitlab</id>
-<!--            <username>${server.username}</username>-->
-<!--            <password>${server.password}</password>-->
-<!--            <configuration></configuration>-->
             <configuration>
                 <httpHeaders>
                     <property>

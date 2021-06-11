@@ -68,6 +68,8 @@ public class Pages implements Navigable {
     protected KibanaPage kibanaPage;
     protected DataDogPage dataDogPage;
 
+    protected NgisStatusPage statusPage;
+
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
         PageObjects();

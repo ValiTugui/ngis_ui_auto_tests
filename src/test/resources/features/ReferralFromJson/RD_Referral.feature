@@ -144,3 +144,13 @@ Feature: Create RD Referrals by reading details from Json file
     Examples:
       | JSONFileName           |
       | RD46_E2E_TestCase.json |
+
+  @test
+    @WriteVersions
+  Scenario Outline: Get app versions from NGIS Status page
+    Given the user opens the NGIS status page
+    And the user reads the version numbers present on the page
+    Then the user writes the versions of "<RequiredComponents>" in the txt file "<FileName>"
+    Examples:
+      | RequiredComponents                                                                                                | FileName        |
+      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG | VersionFile.txt |
