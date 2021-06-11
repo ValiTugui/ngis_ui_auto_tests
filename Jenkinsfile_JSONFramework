@@ -12,6 +12,7 @@ pipeline {
     stages {
         stage('Checkout Source Code') {
             steps {
+                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 // Clean workspace before build
                 cleanWs()
                 checkout([
@@ -24,49 +25,39 @@ pipeline {
             steps {
                 wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0, screen: '1920x1080x24']) {
                     script {
-                        withCredentials([usernamePassword(credentialsId: 'cva-gel-report-model', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')])
-                           {
-                        try {
-                            sh "mvn -Dserver.username=${USERNAME} -Dserver.password=${PASSWORD} -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tag}' clean verify -DTestEnvironment=${TestEnvironment} -DparallelScheme='SCENARIO' -ntp"
-                        } catch (err) {
-                            currentBuild.result = 'FAILURE'
-                        }
-                        echo currentBuild.result
-                    }}
+                        withCredentials([usernamePassword(credentialsId: 'cva-gel-report-model', passwordVariable: 'PASSWORD')])
+                                {
+                                    try {
+                                        sh "mvn -Dserver.password=${PASSWORD} -f pom.xml -s settings.xml -Dcucumber.options='--tags ${Tag}' clean verify -DTestEnvironment=${TestEnvironment} -DparallelScheme='SCENARIO' -ntp"
+                                    } catch (err) {
+                                        currentBuild.result = 'FAILURE'
+                                    }
+                                    echo currentBuild.result
+                                }
+                    }
                 }
             }
         }
         stage('Zip and Archive and Publish Results') {
             steps {
                 echo "Archiving build ran at ${BUILD_TIMESTAMP}"
-//                fileOperations([fileZipOperation(folderPath: 'target', outputFolderPath: 'target.zip'), fileRenameOperation(destination: "NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip", source: 'target.zip')])
-//                fileOperations([fileZipOperation(folderPath: 'target', outputFolderPath: '')])
                 fileOperations([fileZipOperation(folderPath: 'target', outputFolderPath: ''), fileRenameOperation(destination: 'NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
-//                fileOperations([fileZipOperation(folderPath: 'target', outputFolderPath: "NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip")])
                 archiveArtifacts artifacts: "NGIS_UI_E2E_ReferralCreation_${BUILD_TIMESTAMP}.zip", allowEmptyArchive: true
                 archiveArtifacts artifacts: 'target/test-report/*.*', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'target/*', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'JsonReferrals.json ', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'target/NGIS_UI_Snapshots/*', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'VersionFile.txt', allowEmptyArchive: true
             }
         }
 
-//        stage('Publish and Archive Results') {
-//            steps {
-//                archiveArtifacts artifacts: 'target/test-report/*.*', allowEmptyArchive: true
-//                archiveArtifacts artifacts: 'target/*', allowEmptyArchive: true
-//                // archiveArtifacts artifacts:'JsonReferralID.text' , allowEmptyArchive: true
-//                archiveArtifacts artifacts: 'JsonReferrals.json ', allowEmptyArchive: true
-//                archiveArtifacts artifacts: 'target/NGIS_UI_Snapshots/*', allowEmptyArchive: true
-//            }
-//        }
     }
     post {
         success {
             script {
-                sh 'echo success'
+                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 sh 'echo Attempt to run CSV generation'
-//                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
+                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
             }
         }
     }
