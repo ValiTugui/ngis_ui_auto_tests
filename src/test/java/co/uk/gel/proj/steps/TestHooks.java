@@ -61,9 +61,7 @@ public class TestHooks extends Pages {
             }catch(Exception exp){
 
             }
-        }
-        //////////////////////
-        if(currentTags.contains("ReferralFromJson")){
+        }else if(currentTags.contains("ReferralFromJson")){
             try {
                 scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
             }catch(Exception exp){

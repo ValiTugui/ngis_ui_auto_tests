@@ -150,7 +150,7 @@ Feature: Create RD Referrals by reading details from Json file
   Scenario Outline: Get app versions from NGIS Status page
     Given the user opens the NGIS status page
     And the user reads the version numbers present on the page
-    Then the user writes the versions of "<RequiredComponents>" in the txt file "<FileName>"
+    Then the user writes the versions of "<RequiredComponents>" in the txt file "VersionFile.txt"
     Examples:
-      | RequiredComponents                                                                                                | FileName        |
-      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG | VersionFile.txt |
+      | RequiredComponents                                                                                                                                          |
+      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |

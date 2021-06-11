@@ -117,6 +117,9 @@ public class Pages implements Navigable {
         neatPatientRecordPage           = PageFactory.initElements(driver,NeatPatientRecordPage.class);
         kibanaPage                      = PageFactory.initElements(driver,KibanaPage.class);
         dataDogPage                     = PageFactory.initElements(driver, DataDogPage.class);
+
+        ///Status page for app versions
+        statusPage                      = PageFactory.initElements(driver, NgisStatusPage.class);
     }
 
     @Override
