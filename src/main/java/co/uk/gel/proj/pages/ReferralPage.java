@@ -300,6 +300,9 @@ public class ReferralPage<check> {
     @FindBy(id = "submitButton")
     public WebElement signInNHSPage;
 
+    @FindBy(xpath = "//span[@id='ngisId_1']/parent::li/span/span/parent::span")
+    public WebElement referralHeaderPatientNGIS_ID;
+
     public String getText(WebElement element) {
         Wait.forElementToBeDisplayed(driver, element);
         return element.getText();
@@ -2081,5 +2084,22 @@ public class ReferralPage<check> {
         }
     }
 
+    public String readReferralHeaderPatientNgisId() {
+        try {
+            if (!Wait.isElementDisplayed(driver, referralHeaderPatientNGIS_ID, 10)) {
+                Debugger.println("referralHeaderPatientNgisId not present");
+                return null;
+            }
+            String ngisID = referralHeaderPatientNGIS_ID.getText();
+            if (ngisID == null) {
+                Debugger.println("NGIS ID not present.");
+                return null;
+            }
+            return ngisID;
+        } catch (Exception e) {
+            Debugger.println("Exception found while reading the NGIS ID." + e);
+            return null;
+        }
+    }
 }
 

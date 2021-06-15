@@ -924,7 +924,7 @@ public class SeleniumLib {
         }
     }
 
-    public static void writeToJsonFileOfName(String fileName, String caseType, String referralIdData, List<String> sampleWellIdList) {
+    public static void writeToJsonFileOfName(String fileName, String caseType, String referralIdData, List<String> sampleWellIdList,String probandID) {
         try {
             File jsonFile = new File(fileName);
             JsonParser parser = new JsonParser();
@@ -956,6 +956,7 @@ public class SeleniumLib {
             ReferralDataModel newReferralData = new ReferralDataModel();
             newReferralData.setCaseType(caseType);
             newReferralData.setReferralId(referralIdData);
+            newReferralData.setProbandId(probandID);
             newReferralData.setSampleWellIdList(sampleWellIdList);
 
             referralsList.addReferralsInList(newReferralData);

@@ -225,8 +225,12 @@ public class ReferralFromJsonSteps extends Pages {
             //Submit Referral
             verifyAndSubmitReferral();
         }
+        String probandID = referralPage.readReferralHeaderPatientNgisId();
+        if(probandID == null){
+            Assert.fail("Proband NGIS Id not found.");
+        }
         String referralID = referralPage.returnReferralID();
-        saveJsonCreatedReferralID(caseType,referralID);
+        saveJsonCreatedReferralID(caseType,referralID,probandID);
         SeleniumLib.takeAScreenShot("_ScenarioCompleted_"+(TestHooks.currentTagName)+".jpg");
     }
 
@@ -1376,12 +1380,12 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
-    public void saveJsonCreatedReferralID(String caseType, String referralIdData) {
+    public void saveJsonCreatedReferralID(String caseType, String referralIdData,String probandID) {
         try {
             List<String> sampleWellIdList = getSampleWellIdFromJson(caseType);
             Debugger.println("Samples list- " + sampleWellIdList);
             String referralID = caseType + " --> " + referralIdData + "\n";
-            SeleniumLib.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList);
+            SeleniumLib.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList,probandID);
             Debugger.println(referralID);
 //        SeleniumLib.writeToTextFileOfName("JsonReferralID.txt",referralID);
             Assert.assertTrue("JSON file with referral Id, case type, sample well details created successfully.",true);
@@ -1404,11 +1408,15 @@ public class ReferralFromJsonSteps extends Pages {
         result = statusPage.readPageDetails();
         Assert.assertEquals("Failure in reading Table data from status page.","Success",result);
     }
-
-    @Then("the user writes the versions of {string} in the txt file {string}")
-    public void theUserWritesTheVersionsOfInTheTxtFile(String components, String fileName) {
-        String result = statusPage.writeVersionToFile(components,fileName);
-        Assert.assertEquals("Failure in writing version data from status page.","Success",result);
+    private static boolean versionUpdatedFlag = false;
+//    @Then("the user writes the versions of {string} in the txt file {string}")
+    @Then("the user writes the versions of RequiredComponents in the txt file {string}")
+    public void theUserWritesTheVersionsOfRequiredComponentsInTheTxtFile(String fileName,List<String> components) {
+        if(!versionUpdatedFlag) {
+            String result = statusPage.writeVersionToFile(components.get(0), fileName);
+            Assert.assertEquals("Failure in writing version data from status page.", "Success", result);
+            versionUpdatedFlag =true;
+        }
     }
 
 }//end

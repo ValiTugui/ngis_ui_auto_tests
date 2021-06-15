@@ -2,6 +2,12 @@
 @RDReferralFromJson
 Feature: Create RD Referrals by reading details from Json file
 
+  Background:User Gets app versions from NGIS Status page
+    Given the user opens the NGIS status page
+    And the user reads the version numbers present on the page
+    Then the user writes the versions of RequiredComponents in the txt file "VersionFile.txt"
+      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |
+
 #  @RDReferralFromJson  @Z-LOGOUT
 #  Scenario Outline: Read the details from Json file and create RD referrals
 #    ##Note that the json file is expected to be present in testdata folder
@@ -145,12 +151,12 @@ Feature: Create RD Referrals by reading details from Json file
       | JSONFileName           |
       | RD46_E2E_TestCase.json |
 
-  @test
-    @WriteVersions
-  Scenario Outline: Get app versions from NGIS Status page
-    Given the user opens the NGIS status page
-    And the user reads the version numbers present on the page
-    Then the user writes the versions of "<RequiredComponents>" in the txt file "VersionFile.txt"
-    Examples:
-      | RequiredComponents                                                                                                                                          |
-      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |
+
+#    @WriteVersions
+#  Scenario Outline: Get app versions from NGIS Status page
+#    Given the user opens the NGIS status page
+#    And the user reads the version numbers present on the page
+#    Then the user writes the versions of "<RequiredComponents>" in the txt file "VersionFile.txt"
+#    Examples:
+#      | RequiredComponents                                                                                                                                          |
+#      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |
