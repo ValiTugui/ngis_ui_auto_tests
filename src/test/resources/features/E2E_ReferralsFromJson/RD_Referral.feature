@@ -160,3 +160,14 @@ Feature: Create RD Referrals by reading details from Json file
 #    Examples:
 #      | RequiredComponents                                                                                                                                          |
 #      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |
+
+  @RDCase12  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName           |
+      | RD10_E2E_TestCase.json |
