@@ -9,9 +9,6 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.util.StylesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -91,7 +88,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "input[id*='responsibleClinician.phoneNumber']")
     public WebElement clinicianPhoneNumberField;
 
-    @FindBy(css = "input[id*='responsibleClinician.email']")
+    @FindBy(css = "input[id*='responsibleClinician.dualEmails']")
     public WebElement clinicianEmailField;
 
     @FindBy(css = "textarea[id*='responsibleClinician.departmentalAddress']")
