@@ -9,7 +9,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
 #    @E2EUI-1947
   Scenario Outline: NTS-3227: Verify that re-adding a patient who is already included in referral via Yes option displays error message
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000001173:DOB=18-03-1967:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449304890:DOB=03-09-1996:Gender=Unknown |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the YES button is selected by default on family member search
@@ -18,7 +18,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     ##TestData: NHSNumber and DOB same as the patient used for searching in Given step
     Examples:
       | stage          | FamilyMemberDetails                 | ErrorMessage1                                      | ErrorMessage2                                       |
-      | Family members | NHSNumber=2000001173:DOB=18-03-1967 | That person has already been added to the referral | Check that all details have been entered correctly. |
+      | Family members | NHSNumber=9449304890:DOB=03-09-1996 | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @NTS-3227 @Z-LOGOUT
 #    @E2EUI-1947
@@ -29,7 +29,7 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     ##TestData : Details of same patient used for searching in Given step
     Examples:
       | SearchDetails                                                            | ErrorMessage1                                      | ErrorMessage2                                       |
-      | DOB=18-03-1967:FirstName=MADELINE:LastName=LENNON:Gender=Female | That person has already been added to the referral | Check that all details have been entered correctly. |
+      | DOB=03-09-1996:FirstName=BROOK:LastName=COMLEY:Gender=Unknown | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @NTS-5810
 #    @E2EUI-3018

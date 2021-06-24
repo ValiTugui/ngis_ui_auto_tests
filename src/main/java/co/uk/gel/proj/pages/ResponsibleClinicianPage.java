@@ -64,7 +64,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "label[for*='responsibleClinician.phoneNumber']")
     public WebElement clinicianPhoneNumberLabel;
 
-    @FindBy(css = "label[for*='responsibleClinician.emailAddress']")
+    @FindBy(css = "label[for*='responsibleClinician.dualEmails']")
     public WebElement clinicianEmailLabel;
 
     @FindBy(css = "label[for*='responsibleClinician.departmentalAddress']")
@@ -106,7 +106,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "input[id*='additionalClinicians[0].phoneNumber']")
     public WebElement additionalClinician1PhoneNumberField;
 
-    @FindBy(css = "input[id*='additionalClinicians[0].email']")
+    @FindBy(css = "input[id*='additionalClinicians[0].dualEmails']")
     public WebElement additionalClinician1EmailField;
 
     @FindBy(css = "textarea[id*='additionalClinicians[0].departmentalAddress']")

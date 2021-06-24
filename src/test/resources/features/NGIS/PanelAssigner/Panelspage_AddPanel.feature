@@ -18,7 +18,7 @@ Feature: Submitting the referral after saving the Panels stage
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    ##Test Package -1 participants
+#    ##Test Package -1 participants
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     ##Responsible Clinician
