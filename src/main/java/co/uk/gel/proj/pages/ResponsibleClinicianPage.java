@@ -64,7 +64,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "label[for*='responsibleClinician.phoneNumber']")
     public WebElement clinicianPhoneNumberLabel;
 
-    @FindBy(css = "label[for*='responsibleClinician.emailAddress']")
+    @FindBy(css = "label[for*='responsibleClinician.dualEmails']")
     public WebElement clinicianEmailLabel;
 
     @FindBy(css = "label[for*='responsibleClinician.departmentalAddress']")
