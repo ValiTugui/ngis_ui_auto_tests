@@ -106,7 +106,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "input[id*='additionalClinicians[0].phoneNumber']")
     public WebElement additionalClinician1PhoneNumberField;
 
-    @FindBy(css = "input[id*='additionalClinicians[0].email']")
+    @FindBy(css = "input[id*='additionalClinicians[0].dualEmails']")
     public WebElement additionalClinician1EmailField;
 
     @FindBy(css = "textarea[id*='additionalClinicians[0].departmentalAddress']")
