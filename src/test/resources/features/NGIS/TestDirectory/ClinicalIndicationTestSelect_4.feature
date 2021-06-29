@@ -2,6 +2,7 @@
 #@clinicalIndicationTestSelect
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Test Directory: ClinicalIndicationSelect_4
 
   @NTS-4710 @Z-LOGOUT
@@ -67,6 +68,7 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     And the user submits the patient choice with signature
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
+    When the user navigates to the "<PatientChoice>" stage
     And the user is navigated to a page with title Patient choice
 #    And the user clicks on Continue Button
     And the user clicks the Save and Continue button

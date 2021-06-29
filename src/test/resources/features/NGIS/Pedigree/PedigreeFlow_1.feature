@@ -2,17 +2,17 @@
 #@pedigree_flow
 @07-PEDIGREE
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: Pedigree - Pedigree Flow 1
 
   @NTS-3458 @Z-LOGOUT
 #    @E2EUI-1994 @E2EUI-1728 @E2EUI-2148 @E2EUI-1996
   Scenario Outline: NTS-3458 :E2EUI-1994,1728,2148,1996: Validating Pedigree section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2007:Gender=Male |
-    ##Patient Details
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Female |
     Then the user is navigated to a page with title Add a requesting organisation
     ##Requesting Organisation
-    When the user navigates to the "<Requesting organisation>" stage
+    When the user navigates to the "<Requesting_organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
@@ -85,5 +85,5 @@ Feature: Pedigree - Pedigree Flow 1
     And the user should see the referral submit button as enabled
 
     Examples:
-      | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
+      | Requesting_organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
       | Requesting organisation | Maidstone            | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |

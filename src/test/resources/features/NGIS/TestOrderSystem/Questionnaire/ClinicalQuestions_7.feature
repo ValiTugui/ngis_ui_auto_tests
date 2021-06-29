@@ -1,6 +1,7 @@
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 7 - RD Questionnaire
 
   @NTS-3453 @Z-LOGOUT

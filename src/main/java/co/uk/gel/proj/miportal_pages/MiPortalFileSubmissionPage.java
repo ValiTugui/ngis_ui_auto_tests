@@ -1,7 +1,6 @@
 package co.uk.gel.proj.miportal_pages;
 
 import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -12,8 +11,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
@@ -542,8 +545,9 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectDropDownSearchOperator(String value) {
         try {
+            Wait.seconds(5);
             if (!seleniumLib.selectFromListByText(fileSubmissionSearchOperator, value)) {
-                Wait.seconds(5);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(fileSubmissionSearchOperator, value);
             }
             return true;
@@ -555,9 +559,9 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean selectDropDownSearchValue(String value) {
         try {
-            Wait.seconds(3);
+            Wait.seconds(5);
             if (!seleniumLib.selectFromListByText(fileSubmissionSearchValue, value)) {
-                Wait.seconds(8);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(fileSubmissionSearchValue, value);
             }
             return true;
@@ -585,6 +589,28 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from getAllHeadersInSearchResultTable. " + exp);
             return false;
+        }
+    }
+
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, fileSubmissionSearchDropDownButton, 10)) {
+                Debugger.println("File submission search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(fileSubmissionSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
         }
     }
 }

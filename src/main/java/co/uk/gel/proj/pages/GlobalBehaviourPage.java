@@ -276,5 +276,38 @@ public class GlobalBehaviourPage {
             return false;
         }
     }
-
+    public void clearBrowserCache() {
+        try {
+            // get 1st parent element
+            WebElement rootElement1 = driver.findElement(By.cssSelector("settings-ui"));
+            WebElement shadowRootElement1 = expandRootElement(rootElement1);
+            // get 2nd parent element
+            WebElement rootElement2 = shadowRootElement1.findElement(By.cssSelector("settings-main"));
+            // get 2nd shadowroot element
+            WebElement shadowRootElement2 = expandRootElement(rootElement2);
+            // get 3rd parent
+            WebElement rootElement3 = shadowRootElement2.findElement(By.cssSelector("settings-basic-page"));
+            // get 3rd shadowroot element
+            WebElement shadowRootElement3 = expandRootElement(rootElement3);
+            // get 4th parent
+            WebElement rootElement4 = shadowRootElement3.findElement(By.cssSelector("settings-section > settings-privacy-page"));
+            // get 4th shadowroot element
+            WebElement shadowRootElement4 = expandRootElement(rootElement4);
+            // get 5th parent
+            WebElement rootElement5 = shadowRootElement4.findElement(By.cssSelector("settings-clear-browsing-data-dialog"));
+            // get 5th shadowroot element
+            WebElement shadowRootElement5 = expandRootElement(rootElement5);
+            // get 6th parent
+            WebElement rootElement6 = shadowRootElement5.findElement(By.cssSelector("#clearBrowsingDataDialog"));
+            WebElement clearDataButton = rootElement6.findElement(By.cssSelector("#clearBrowsingDataConfirm"));
+            clearDataButton.click();
+            Thread.sleep(5000);
+        }catch (Exception exp){
+            Debugger.println("chrome setting page not loaded: "+exp);
+        }
+    }
+    protected WebElement expandRootElement(WebElement element) {
+        return (WebElement) ((JavascriptExecutor) driver)
+                .executeScript("return arguments[0].shadowRoot", element);
+    }
 }//end

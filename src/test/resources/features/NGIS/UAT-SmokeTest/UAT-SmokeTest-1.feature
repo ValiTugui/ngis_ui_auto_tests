@@ -1,9 +1,9 @@
 @UAT_UI_SmokeTest_Pack
 
-Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Interpretation Portal with Basic Checks from Dashboard
+Feature: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
 
   @NTS-6426
-  Scenario: Navigation to Test Selection, Test Order, Mi Portal, Panel App and Interpretation Portal with Basic Checks from Dashboard
+  Scenario: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
     ##Dashboard Page
     Given a web browser is at the dashboard page
     And User should be able to see my Dashboard
@@ -18,7 +18,7 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     And the user clicks the PDF order form button
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    When the user enters the keyword "Maidstone" in the search field
+    When the user enters the keyword "Derbyshire Healthcare" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Continue button
     Then the "Review test selection" page is properly opened and by default a test is selected
@@ -60,10 +60,10 @@ Feature: Navigation of Test Selection, Test Order, Mi Portal, Panel App and Inte
     And the user clicks on "Open PanelApp" Tab
     And the user is navigated to a page with title Genomics England PanelApp
     And User Navigates back to Dashboard
-    And User should be able to see my Dashboard
+    Then User should be able to see my Dashboard
     ##Interpretation Portal from Dashboard
-    Then the user clicks on "Enter the Interpretation Portal" Tab
-    And the user logs in to the Interpretation Portal system
-
-    And the user is navigated to a page with title GMS: Interpretation Portal
-    When the user clicks the Log out buttons
+#    Then the user clicks on "Enter the Interpretation Portal" Tab
+#    And the user logs in to the Interpretation Portal system
+#
+#    And the user is navigated to a page with title GMS: Interpretation Portal
+#    When the user clicks the Log out buttons

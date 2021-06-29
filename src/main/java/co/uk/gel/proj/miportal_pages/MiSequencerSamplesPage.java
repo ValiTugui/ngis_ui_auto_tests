@@ -3,10 +3,12 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='sequencer_samples-search-col']")
     public WebElement sequencerSamplesSearchColumn;
+
+    @FindBy(xpath = "//button[@data-id='sequencer_samples-search-col']")
+    public WebElement sequencerSamplesSearchColumnDropDownBtn;
 
     @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'visible')]/div")
     public List<WebElement> visibleColumnReorderingList;
@@ -75,7 +80,7 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectSequencerSamplesDropDownSearchValue(String value) {
         try {
             if(!seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value)){
-                Wait.seconds(5);
+                Wait.seconds(10);
                 return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
             }
             return true;
@@ -183,4 +188,47 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
+    public boolean verifySequencerSamplesDropDownSearchOperator(String value) {
+        Wait.seconds(3); // To load the dropdown values
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.selectFromListByText(sequencerSamplesSearchOperator, value)) {
+                Wait.seconds(5);
+                if (!seleniumLib.selectFromListByText(sequencerSamplesSearchOperator, value)) {
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'" + value + "')]");
+                    seleniumLib.clickOnElement(optionPath);
+                }
+            }
+            return true;
+        } catch (StaleElementReferenceException exp) {
+            By searchOperator = By.xpath("//select[@id='sequencer_samples-search-operator']");
+            return seleniumLib.optionFromListByText(searchOperator, value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MISequencerSamples:selectDropDownSearchOperator: " + exp);
+            SeleniumLib.takeAScreenShot("SequencerSamplesSearchOperator.jpg");
+            return false;
+        }
+    }
+
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, sequencerSamplesSearchColumnDropDownBtn, 10)) {
+                Debugger.println("Picklists search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(sequencerSamplesSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
+        }
+    }
 }

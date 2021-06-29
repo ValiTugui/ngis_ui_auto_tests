@@ -516,6 +516,7 @@ public class PatientSearchSteps extends Pages {
             }
             case "NGIS": {
                 String stepResult = patientDetailsPage.verifyPatientDetails_NGIS();
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"verifyPatientDetails_NGIS.jpg");
                 Assert.assertEquals("Success",stepResult);
                 break;
             }

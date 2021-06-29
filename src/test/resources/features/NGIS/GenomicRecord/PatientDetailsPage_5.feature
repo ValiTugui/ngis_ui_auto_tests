@@ -1,13 +1,21 @@
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: GenomicRecord: Patient details page 5
 
   @NTS-5810 @Z-LOGOUT
 #    @E2EUI-3018
+    #@NTS-4762 @E2EUI-1192
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- update a patient record by passing postcode.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-2005:Gender=Male |
     Then the user is navigated to a page with title Add a requesting organisation
+  #@NTS-4762 @E2EUI-1192
+    When the user navigates to the "<PatientDetails>" stage
+    Then the "<PatientDetails>" stage is selected
+    And the "<PatientDetails>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the patient is successfully updated with a message "Patient details updated"
 
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient's details

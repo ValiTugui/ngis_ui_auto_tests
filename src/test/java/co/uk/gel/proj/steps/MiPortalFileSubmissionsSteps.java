@@ -340,15 +340,24 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
     }
 
-    @And("the user sees the below values in the file-submission search column drop-down menu")
-    public void theUserSeesBelowValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
-        boolean testResult = false;
-        List<List<String>> expectedDropDownValues = dataTable.asLists();
-        for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            testResult = miPortalFileSubmissionPage.selectDropDownSearchColumn(expectedDropDownValues.get(i).get(0));
-            Assert.assertTrue(testResult);
+@And("the user sees the below values in the file-submission search column drop-down menu")
+public void theUserSeesBelowValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
+    List<List<String>> expectedDropDownValues = dataTable.asLists();
+    Wait.seconds(5);
+    List actualDropDownValues = miPortalFileSubmissionPage.searchColumnDropDownMenu();
+    if (expectedDropDownValues.size() != actualDropDownValues.size()) {
+        Debugger.println("Mismatch in number of options, Expected: "+expectedDropDownValues.size()+" Actual: "+actualDropDownValues.size());
+        Assert.assertTrue(false);
+    }
+    String actValue = "", expValue = "";
+    for (int i = 0; i < expectedDropDownValues.size(); i++) {
+        actValue = actualDropDownValues.get(i).toString();
+        expValue = expectedDropDownValues.get(i).get(0);
+        if (!actValue.equalsIgnoreCase(expValue)) {
+            Assert.assertTrue(false);
         }
     }
+}
 
     @And("the user sees the below values in the file-submission search operator drop-down menu")
     public void theUserSeesBelowValuesInTheFileSubmissionSearchOperatorDropDownMenu(DataTable dataTable) {

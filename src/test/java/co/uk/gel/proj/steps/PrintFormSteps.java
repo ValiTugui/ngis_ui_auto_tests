@@ -360,6 +360,18 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+//    @Then("the user should be able to click {string} link to verify the address of the lab in the downloaded file")
+//    public void theUserShouldBeAbleToClickShowAddressLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress) {
+//        boolean testResult = false;
+//        String labAddress=printFormsPage.readLabAddress(showAddress);
+//        if(labAddress==null){
+//            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LabAddress.jpg");
+//            Assert.fail("Lab address not present");
+//        }
+//        testResult = printFormsPage.validatePDFContent(labAddress,"SampleForm.pdf");
+//        Assert.assertTrue(testResult);
+//    }
+
     @Then("the user should be able to click {string} link to verify the address of the lab in the downloaded file")
     public void theUserShouldBeAbleToClickShowAddressLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress) {
         boolean testResult = false;
@@ -368,7 +380,7 @@ public class PrintFormSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_LabAddress.jpg");
             Assert.fail("Lab address not present");
         }
-        testResult = printFormsPage.validatePDFContent(labAddress,"SampleForm.pdf");
+        testResult = printFormsPage.validatePDFAddressContent("SampleForm.pdf");
         Assert.assertTrue(testResult);
     }
 
@@ -391,4 +403,5 @@ public class PrintFormSteps extends Pages {
             Assert.fail("Labels are not identical");
         }
     }
+
 }//end

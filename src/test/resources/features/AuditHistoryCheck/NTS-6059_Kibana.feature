@@ -1,4 +1,4 @@
-@SYSTEM_TEST
+@SYSTEM_TEST_Kibana
 
 Feature: Verify user history details for a referral using Kibana Logs
 

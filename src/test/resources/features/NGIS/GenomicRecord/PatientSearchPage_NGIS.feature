@@ -1,5 +1,6 @@
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: GenomicRecord: Patient search page_NGIS
 
   @NTS-2780 @Z-LOGOUT
@@ -94,24 +95,6 @@ Feature: GenomicRecord: Patient search page_NGIS
       | stage           | patient-search-type | patient-type |
       | Patient details | NGIS                | NGIS         |
 
-  @NTS-2795 @Z-LOGOUT
-#    @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788
-  Scenario Outline: NTS-2795:(@E2EUI-2129,2136,1762,1788) NGIS Alternate Search - date of birth, first-name, last-name, gender and post-code
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    And the "<stage>" stage is marked as Completed
-    When the user navigates back to patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    And the user clicks the NO button
-    And the user search for the new patient using date of birth, first name, last name, gender and post-code
-    And the user clicks the Search button
-    Then a "<patient-type>" result is successfully returned
-    And the correct details of the "<patient-search-type>" patient are displayed in the card
-    Examples:
-      | stage           | patient-search-type | patient-type |
-      | Patient details | NGIS                | NGIS         |
-
   @NTS-2822 @Z-LOGOUT
 #    @E2EUI-2140 @E2EUI-2132 @E2EUI-2131
   Scenario Outline: NTS-2822:(@E2EUI-2140,2132,2131) NGIS Defuzzing, accented and special characters
@@ -129,18 +112,6 @@ Feature: GenomicRecord: Patient search page_NGIS
     Examples:
       | stage           | patient-type |
       | Patient details | NGIS         |
-
-  @NTS-4503 @Z-LOGOUT
-#      @E2EUI-1130
-  Scenario Outline: NTS-4503:E2EUI-1130:- NHSNumber field - maximum length validation
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
-    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
-
-    Examples:
-      | NHSNumber        |
-      | 9449310602111111 |
 
   @NTS-3477 @Z-LOGOUT
 #    @E2EUI-1692

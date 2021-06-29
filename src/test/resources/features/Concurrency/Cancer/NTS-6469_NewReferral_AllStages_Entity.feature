@@ -76,36 +76,36 @@ Feature: NTS-6469:Cancer_new_referral_all_stages_entity
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NTS-6469 with Mandatory Stages Completed by User1
     #Patient Details - Verify
-    And the user waits max 20 minutes for the update PatientDetails Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user waits max 25 minutes for the update PatientDetails Updated by User2 in the file NTS-6469
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientDetails>" stage
     Then the user verifies the stage "<PatientDetails>" with "<PatientDetailsUpdated>"
     And the user updates the file NTS-6469 with Patient details validated by User1
     ##Requesting Organization - Verify
     And the user waits max 8 minutes for the update Requesting Organisation Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user updates the file NTS-6469 with Requesting Organisation validated by User1
      #Test Package - Verify
     And the user waits max 8 minutes for the update Test Package details Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<TestPackage>" stage
     Then the user verifies the stage "<TestPackage>" with "<TestPackageUpdated>"
     And the user updates the file NTS-6469 with Test Package details validated by User1
     ##Responsible Clinician - Verify
     And the user waits max 8 minutes for the update Responsible Clinician details Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"
     And the user updates the file NTS-6469 with Responsible Clinician details validated by User1
     # Tumours - Verify
     And the user waits max 8 minutes for the update Tumours details Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Tumours>" stage
     And the user selects the existing tumour on the landing page by clicking on the chevron right arrow icon
@@ -116,7 +116,7 @@ Feature: NTS-6469:Cancer_new_referral_all_stages_entity
     And the user updates the file NTS-6469 with Tumours details validated by User1
     ## Samples - Verify
     And the user waits max 8 minutes for the update Samples details Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Samples>" stage
     And the user selects the existing sample on the landing page by clicking on the chevron right arrow icon
@@ -127,14 +127,14 @@ Feature: NTS-6469:Cancer_new_referral_all_stages_entity
     And the user updates the file NTS-6469 with Samples details validated by User1
     ##Notes - verify
     And the user waits max 8 minutes for the update Notes details Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<Notes>" stage
     Then the user verifies the stage "<Notes>" with "<NotesUpdated>"
     Then the user updates the file NTS-6469 with Notes details validated by User1
     ##PatientChoice- Verify
     And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NTS-6469
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<PatientChoice>" stage
     Then the user verifies the stage "<PatientChoice>" with "<PatientChoiceDetailsUpdated>"

@@ -1,26 +1,25 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.MIPortalTestData;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.internal.common.assertion.AssertionSupport;
 import org.junit.Assert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 public class MilHomePageSteps extends Pages {
@@ -273,7 +272,7 @@ public class MilHomePageSteps extends Pages {
     @And("the user sees all the drop-down values in the search results pagination entry selection")
     public void theUserSeesAllTheDropDownValuesInTheSearchResultsPaginationEntrySelection(DataTable dataTable) {
         List<Map<String, String>> expectedPaginationDropDownValues = dataTable.asMaps(String.class, String.class);
-        Wait.seconds(5);
+        Wait.seconds(10);
         List actualPaginationDropDownValues = miPortalHomePage.getAllThePaginationEntryDropDownValues();
         if(expectedPaginationDropDownValues.size() != actualPaginationDropDownValues.size()){
             Assert.assertTrue(false);
@@ -467,6 +466,12 @@ public class MilHomePageSteps extends Pages {
             Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
+            int actualSize=miPortalHomePage.getNumberOfSectionHeader();
+            //actualSize -2 is given since the xpath counts the total number of menus in the landing page which is 10 but as per the scenario
+            //below Sample processsing menu there is only 8 sections
+            if((actualSize-2) != (linkDetails.size()-1)){
+                Assert.fail("Mismatch observed in the number of section headers");
+            }
             for (int i = 1; i < linkDetails.size(); i++) {
                 testResult = miPortalHomePage.verifyThePresenceOfSectionHeader(linkDetails.get(i).get(0));
                 if (!testResult) {
@@ -493,19 +498,25 @@ public class MilHomePageSteps extends Pages {
             Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
-            for (int i = 1; i < linkDetails.size(); i++) {
-                testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderDataQuality(linkDetails.get(i).get(0));
-                if (!testResult) {
-                    Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Data Quality Section.");
-                    Assert.fail(linkDetails.get(i).get(0)+" Could not verify in Data Quality Section");
-                }
-                Wait.seconds(2);
+            int actualSize = miPortalHomePage.getNumberOfDataQualitySectionHeader();
+            //actualSize -9 is given since the xpath counts the total number of menus in the landing page which is 10 but as per the scenario
+            //below Data Quality section there is only 1 report
+            if((actualSize-9) != (linkDetails.size()-1)){
+                Assert.fail("Mismatch observed in the number of section headers");
             }
-        } catch (Exception exp) {
-            Debugger.println("Exception from Data Quality Section Header " + exp);
-            Assert.assertFalse("MiHomePageSteps: Exception from Data Quality Section Header " + exp, true);
+                for (int i = 1; i < linkDetails.size(); i++) {
+                    testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderDataQuality(linkDetails.get(i).get(0));
+                    if (!testResult) {
+                        Debugger.println("Header " + linkDetails.get(i).get(0) + " could not verify in Data Quality Section.");
+                        Assert.fail(linkDetails.get(i).get(0) + " Could not verify in Data Quality Section");
+                    }
+                    Wait.seconds(2);
+                }
+            } catch(Exception exp){
+                Debugger.println("Exception from Data Quality Section Header " + exp);
+                Assert.assertFalse("MiHomePageSteps: Exception from Data Quality Section Header " + exp, true);
+            }
         }
-    }
 
     @And("the user should be able to see {string} search boxes in the {string} page")
     public void theUserShouldBeAbleToSeeSearchBoxesInThePage(String numberOfSearchField, String section) {
@@ -678,6 +689,12 @@ public class MilHomePageSteps extends Pages {
             Wait.seconds(10);
             boolean testResult = false;
             List<List<String>> linkDetails = inputSections.asLists();
+            int actualSize=miPortalHomePage.getNumberOfSampleFailureSectionHeader();
+            //actualSize -9 is given since the xpath counts the total number of menus in the landing page which is 10 but as per the scenario
+            //below Sample Failures section there is only 1 report
+            if((actualSize-9) != (linkDetails.size()-1)){
+                Assert.fail("Mismatch observed in the number of section headers");
+            }
             for (int i = 1; i < linkDetails.size(); i++) {
                 testResult = miPortalHomePage.verifyThePresenceOfSectionHeaderUnderSampleFailures(linkDetails.get(i).get(0));
                 if (!testResult) {

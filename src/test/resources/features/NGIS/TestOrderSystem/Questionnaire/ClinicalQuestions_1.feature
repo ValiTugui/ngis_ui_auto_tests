@@ -1,8 +1,8 @@
 #@regression
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@SYSTEM_TEST_3
 Feature: Clinical Question Page 1 - Family Members
 
   @NTS-4735 @Z-LOGOUT
@@ -48,22 +48,22 @@ Feature: Clinical Question Page 1 - Family Members
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                             | RareDiseaseValue |
       | Family members | NHSNumber=2000003842:DOB=13-05-2001 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:KaryotypicSex=XY | WEAVER SYNDROME  |
 
-  @NTS-4735 @Z-LOGOUT
-#    @E2EUI-1884
-  Scenario Outline: NTS-4735 :  The update to the diagnosis type for the Rare Disease question will not be saved
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R80 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-   ##Patient details Stage
-    When the user is navigated to a page with title Add a requesting organisation
-    And the "Patient details" stage is marked as Completed
-    ##Clinical questions Stage
-    And the user navigates to the "<ClinicalQuestions>" stage
-    Then the user is navigated to a page with title Answer clinical questions
-    And  the user selects "<DiseaseStatueValue>"
-    And the user selects a value "<RareDiseaseValue>" from the Rare disease diagnosis
-    And the user selects the Rare disease diagnosis questions such as "<diagnosisTypeValue>" and corresponding status "<statusValue>"
-    And the user clicks the Save and Continue button
-
-    Examples:
-      | ClinicalQuestions  | RareDiseaseValue | DiseaseStatueValue | diagnosisTypeValue | statusValue |
-      | Clinical questions | ABDUCENS PALSY   | Unaffected         | Omim               | Suspected   |
+#  @NTS-4735 @Z-LOGOUT
+##    @E2EUI-1884
+#  Scenario Outline: NTS-4735 :  The update to the diagnosis type for the Rare Disease question will not be saved
+#    Given a new patient referral is created with associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R80 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
+#   ##Patient details Stage
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
+#    ##Clinical questions Stage
+#    And the user navigates to the "<ClinicalQuestions>" stage
+#    Then the user is navigated to a page with title Answer clinical questions
+#    And  the user selects "<DiseaseStatueValue>"
+#    And the user selects a value "<RareDiseaseValue>" from the Rare disease diagnosis
+#    And the user selects the Rare disease diagnosis questions such as "<diagnosisTypeValue>" and corresponding status "<statusValue>"
+#    And the user clicks the Save and Continue button
+#
+#    Examples:
+#      | ClinicalQuestions  | RareDiseaseValue | DiseaseStatueValue | diagnosisTypeValue | statusValue |
+#      | Clinical questions | ABDUCENS PALSY   | Unaffected         | Omim               | Suspected   |

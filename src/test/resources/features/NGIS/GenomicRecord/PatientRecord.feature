@@ -1,5 +1,6 @@
 @04-GENOMIC_RECORD
 @SYSTEM_TEST
+@SYSTEM_TEST_2
 Feature: GenomicRecord: Patient Record
 
   @NTS-3379 @Z-LOGOUT
@@ -127,21 +128,21 @@ Feature: GenomicRecord: Patient Record
       | pageTitle                        | InvalidDateOfBirth |
       | Create a record for this patient | 10-13-2020          |
 
-# Ethnicity is now Mandatory
-  @NTS-4500 @Z-LOGOUT
-#   @E2EUI-2499
-  Scenario Outline: NTS-4500:(E2EUI-2499):Ethnicity - Create New Patient Page - Lookup an existing NGIS patient – NHSNo = Yes
-    Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
-    Then the "<pageTitle>" page is displayed
-    And the No button is selected by default for the question - Do you have the NHS Number?
-    When the user click YES button for the question - Do you have the NHS no?
-    And the user fills in all the fields with NHS number on the New Patient page
-    When the user deletes the content of the Ethnicity field
-
-    Examples:
-      | pageTitle                        |
-      | Create a record for this patient |
+## Ethnicity is now Mandatory
+#  @NTS-4500 @Z-LOGOUT
+##   @E2EUI-2499
+#  Scenario Outline: NTS-4500:(E2EUI-2499):Ethnicity - Create New Patient Page - Lookup an existing NGIS patient – NHSNo = Yes
+#    Given a web browser is at create new patient page
+#      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+#    Then the "<pageTitle>" page is displayed
+#    And the No button is selected by default for the question - Do you have the NHS Number?
+#    When the user click YES button for the question - Do you have the NHS no?
+#    And the user fills in all the fields with NHS number on the New Patient page
+#    When the user deletes the content of the Ethnicity field
+#
+#    Examples:
+#      | pageTitle                        |
+#      | Create a record for this patient |
 
   @NTS-4541 @Z-LOGOUT
 #   @E2EUI-1753

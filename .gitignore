@@ -91,3 +91,5 @@ logs/
 navigateToStage.jpg
 downloads/SampleForm.pdf
 navigateToStage.jpg
+*.log
+*.tmp

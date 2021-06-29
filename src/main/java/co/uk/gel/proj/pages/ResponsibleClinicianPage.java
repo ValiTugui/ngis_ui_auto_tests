@@ -9,9 +9,6 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.util.StylesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -67,7 +64,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "label[for*='responsibleClinician.phoneNumber']")
     public WebElement clinicianPhoneNumberLabel;
 
-    @FindBy(css = "label[for*='responsibleClinician.emailAddress']")
+    @FindBy(css = "label[for*='responsibleClinician.dualEmails']")
     public WebElement clinicianEmailLabel;
 
     @FindBy(css = "label[for*='responsibleClinician.departmentalAddress']")
@@ -91,7 +88,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "input[id*='responsibleClinician.phoneNumber']")
     public WebElement clinicianPhoneNumberField;
 
-    @FindBy(css = "input[id*='responsibleClinician.email']")
+    @FindBy(css = "input[id*='responsibleClinician.dualEmails']")
     public WebElement clinicianEmailField;
 
     @FindBy(css = "textarea[id*='responsibleClinician.departmentalAddress']")
@@ -109,7 +106,7 @@ public class ResponsibleClinicianPage {
     @FindBy(css = "input[id*='additionalClinicians[0].phoneNumber']")
     public WebElement additionalClinician1PhoneNumberField;
 
-    @FindBy(css = "input[id*='additionalClinicians[0].email']")
+    @FindBy(css = "input[id*='additionalClinicians[0].dualEmails']")
     public WebElement additionalClinician1EmailField;
 
     @FindBy(css = "textarea[id*='additionalClinicians[0].departmentalAddress']")
@@ -255,7 +252,8 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
-        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+        int latestLastNameError= clinicianErrorMessages.size()-1;
+        return clinicianErrorMessages.get(latestLastNameError).getText().contains(expectedErrorMessage);
     }
 
     public boolean verifyLastNameFieldIsHighlightedInRed(String expectedColourUponError) {

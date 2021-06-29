@@ -1,6 +1,8 @@
 #@FamilyMembersDetailsPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_1
+@FamilyMember
 Feature: Family Members Details Page 6- Field Validation_6
 
   @NTS-4503 @Z-LOGOUT
@@ -26,8 +28,8 @@ Feature: Family Members Details Page 6- Field Validation_6
       | stage          | FamilyMemberDetails                 | HospitalNumber      |
       | Family members | NHSNumber=2000004326:DOB=08-10-2011 | 1234567890123456789 |
 
-  @NTS-3474 @Z-LOGOUT
-#    @E2EUI-1876
+  @NTS-3474 @NTS-4053 @Z-LOGOUT
+#    @E2EUI-1876 @E2EUI-2474_scenario_3
   Scenario Outline:NTS-3474:E2EUI-1867 Validating family member section must be completed to submit the referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
@@ -96,7 +98,10 @@ Feature: Family Members Details Page 6- Field Validation_6
       | Family members            |
     And the user should be able to click on incomplete "<FamilyMembers>" section
     And the "<FamilyMembers>" stage is marked as Mandatory To Do
+    #NTS-4053
+    When the user navigates to the "<Panels>" stage
+    Then User clicks on a field "panelsSearchBox" and auto-complete is disabled
 
     Examples:
-      | Requesting organisation | ordering_entity_name | NoOfParticipants | FamilyMembers  | Patient Choice | Message                      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                      | ClinicalQuestionDetails                | TestType                        | RecordedBy                            | PatientChoice                  | YesOption | IncompleteSection |
-      | Requesting organisation | Queen                | 2                | Family members | Patient choice | There is missing information | NHSNumber=2000004261:DOB=10-10-2011 | Full Sibling          | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | DiseaseStatus=Unknown:AgeOfOnset=01,02 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | Family members    |
+      | Requesting organisation | ordering_entity_name | NoOfParticipants | FamilyMembers  | Patient Choice | Message                      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                      | ClinicalQuestionDetails                | TestType                        | RecordedBy                            | PatientChoice                  | YesOption | IncompleteSection | Panels |
+      | Requesting organisation | Queen                | 2                | Family members | Patient choice | There is missing information | NHSNumber=2000004261:DOB=10-10-2011 | Full Sibling          | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | DiseaseStatus=Unknown:AgeOfOnset=01,02 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | Family members    | Panels |

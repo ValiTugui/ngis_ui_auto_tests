@@ -2,7 +2,6 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
@@ -193,7 +192,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user should be able to see the following under Further Info tab")
     public void theUserShouldBeAbleToSeeTheFollowingUnderFurtherInfoTab(List<String> sectionName) {
-        Assert.assertTrue(clinicalIndicationsTestSelect.furtherInfoTabValidation(sectionName.get(0), sectionName.get(1), sectionName.get(2), sectionName.get(3)));
+        Assert.assertTrue(clinicalIndicationsTestSelect.furtherInfoTabValidation(sectionName.get(0), sectionName.get(1), sectionName.get(2)));
     }
 
     @And("the user click on Go to Clinical Indication button")

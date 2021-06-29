@@ -1,5 +1,7 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
+@PrintForms
 Feature: TestOrder - Print Forms 3 - Validations
 
   @NTS-4702 @Z-LOGOUT
@@ -23,11 +25,13 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
+  ## Covered @NTS-4746 (@E2EUI-1306)
     Then the print forms stage is unlocked
     ###Print forms
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print form for the proband
+    ## covered @NTS-4703
     Then the user is able to validate the text "<Watermark>" in the downloaded form "SampleForm.pdf"
 
     Examples:
@@ -94,42 +98,6 @@ Feature: TestOrder - Print Forms 3 - Validations
       | NhsNumber            | DOB            | Reason  |
       | NHSNumber=2000001130 | DOB=08-11-1959 | Revoked |
 
-  @NTS-4702 @Z-LOGOUT
-#    @E2EUI-1212
-  Scenario Outline: NTS-4702: update the 'warning' message design - Print forms
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
-    ###Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
-    ###Requesting Organisation
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "NHS Foundation Trust" in the search field
-    And the user selects a random entity from the suggestions list
-    Then the details of the new organisation are displayed
-    And the user clicks the Save and Continue button
-    And the "<RequestingOrganisation>" stage is marked as Completed
-    ###Test Package
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
-    ###Family Members
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=10-11-1949:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
-    When the user navigates to the "<PrintForms>" stage
-    And the user is navigated to a page with title Print sample forms
-    Then the user should be able to see a "<WarningMessage>" on the print forms page
-
-    Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | WarningMessage                                                                                            |
-      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
-
   @NTS-3413 @Z-LOGOUT
 #    @E2EUI-1661
   Scenario Outline: NTS-3413 :scenario_1: Any updates done in the referral will not be reflected in the Print Forms stage- for Family Member
@@ -164,7 +132,6 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the user clicks the Save and Continue button
     ###Print Forms
     When the user navigates to the "<PrintForms>" stage
-    Then the user is navigated to a page with title Print sample forms
     And the user verifies that the relationship to proband "<RelationshipToProband>" is updated in Print forms section
     ###Family Members for modification
     When the user navigates to the "<FamilyMembers>" stage

@@ -3,17 +3,16 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -93,13 +92,24 @@ public class RequestingOrganisationSteps extends Pages {
     @And("the message {string} displayed on the page")
     public void theMessageDisplayedOnThePage(String expMessage) {
         String actualMessage = requestingOrganisationPage.getNoResultMessage();
-        if(actualMessage == null){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Message.jpg");
-            Assert.fail("Message did not displayed:"+expMessage);
+        if (actualMessage == null) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_Message.jpg");
+            Assert.fail("Message did not displayed:" + expMessage);
         }
-        if(!actualMessage.equalsIgnoreCase(expMessage)){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_Message.jpg");
-            Assert.fail("Message mismatch:Exp"+expMessage+",Actual:"+actualMessage);
+        if (!actualMessage.equalsIgnoreCase(expMessage)) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_Message.jpg");
+            Assert.fail("Message mismatch:Exp" + expMessage + ",Actual:" + actualMessage);
         }
+    }
+
+    @And("the user enters ordering entity name and verify the message")
+    public void theUserEntersOrderingEntityNameAndVerifyTheMessage(DataTable messages) {
+        boolean testResult = false;
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            Assert.assertTrue(paperFormPage.fillInSpecificKeywordInSearchField(messageDetails.get(i).get(0)));
+            theMessageDisplayedOnThePage(messageDetails.get(i).get(1));
+        }
+
     }
 }

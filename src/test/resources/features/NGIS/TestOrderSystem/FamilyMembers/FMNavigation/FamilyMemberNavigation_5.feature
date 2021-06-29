@@ -1,11 +1,12 @@
 #@FamilyMemberStageNavigation
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@SYSTEM_TEST_1
+@FamilyMember
 Feature: Family Members Navigation Stage 5 - Patient Identifiers
 
-  @NTS-3299 @Z-LOGOUT
-# @E2EUI-1698
+  @NTS-3299 @NTS-3503 @Z-LOGOUT
+# @E2EUI-1698 @E2EUI-1898
   Scenario Outline: NTS-3299:E2EUI-1698: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1959:Gender=Male |
@@ -19,11 +20,14 @@ Feature: Family Members Navigation Stage 5 - Patient Identifiers
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
-    When the user deselects the test
+    And the user deselects the test
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user clicks on back button
+    Then the user is navigated to a page with title Select tests for
     Then the user sees test remains as deselected
+    #Below line for NTS-3503
+    And the user is able to clicks on deselected test
 
     Examples:
       | FamilyMembers  | FamilyMemberDetails                                               |

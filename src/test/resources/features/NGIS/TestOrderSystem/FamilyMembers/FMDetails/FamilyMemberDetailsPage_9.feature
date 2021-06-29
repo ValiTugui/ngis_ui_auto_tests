@@ -1,6 +1,8 @@
 #@FamilyMembersDetailsPage
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_1
+@FamilyMember
 Feature: Family Members Details Page 9 - Roll out: Multi input date
 
   @NTS-6155

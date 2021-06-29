@@ -180,7 +180,6 @@ public class MiClinicalDataQualitySteps extends Pages {
     @Then("the last updated date is displayed in the {string} format")
 
     public void theLastUpdatedDateIsDisplayedInTheFormat(String dateFormat){
-
         boolean testResult = miClinicalDataQualityPage.verifyDQDateFormat(dateFormat);
         Assert.assertTrue(testResult);
     }

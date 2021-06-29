@@ -1,8 +1,8 @@
 #@regression
-#@clinicalQuestions
+@clinicalQuestions
 @03-TEST_ORDER
 @SYSTEM_TEST
-
+@SYSTEM_TEST_3
 Feature: ClinicalQuestions 2 - RD Questionnaire
 
   @NTS-3246 @Z-LOGOUT

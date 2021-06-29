@@ -95,7 +95,7 @@ Feature: NTS-6467:Cancer_new_referral_single_stage:Create New Referral for Cance
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NTS-6467_Cancer with Patient details Updated by User2
     And the user waits max 10 minutes for the update Responsible Clinician details Updated by User1 in the file NTS-6467_Cancer
-    And the user submits the referral
+    And the user submits the referral for Concurrency
     Then the user click on Reload referral button to validate the data
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the stage "<ResponsibleClinician>" with "<ResponsibleClinicianDetailsUpdated>"

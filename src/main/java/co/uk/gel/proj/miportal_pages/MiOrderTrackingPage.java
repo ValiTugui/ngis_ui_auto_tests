@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,9 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//select[@id='order_tracking-search-col']")
     public WebElement orderTrackSearchColumn;
+
+    @FindBy(xpath = "//button[@data-id='order_tracking-search-col']")
+    public WebElement orderTrackSearchColumnDropDown;
 
     @FindBy(xpath = "//*[contains(@id,'-display-table')]//h3[contains(text(),'Search Results')]")
     public WebElement searchResults;
@@ -103,6 +107,8 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("orderTrackSearchValue.jpg");
             return false;
         }
+
+
     }
 
     public boolean enterOrderTrackingTextSearchValue(String value) {
@@ -251,4 +257,49 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean verifyOrderTrackingDropDownSearchOperator (String value) {
+        Wait.seconds(3); // To load the dropdown values
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.selectFromListByText(orderTrackSearchOperator, value)) {
+                Wait.seconds(5);
+                if (!seleniumLib.selectFromListByText(orderTrackSearchOperator, value)) {
+                    By optionPath = By.xpath("//ul//li/a/span[contains(text(),'" + value + "')]");
+                    seleniumLib.clickOnElement(optionPath);
+                }
+            }
+            return true;
+        } catch (StaleElementReferenceException exp) {
+            By searchOperator = By.xpath("//select[@id='order_tracking-search-operator']");
+            return seleniumLib.optionFromListByText(searchOperator, value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchOperator: " + exp);
+            SeleniumLib.takeAScreenShot("orderTrackSearchOperator.jpg");
+            return false;
+        }
+
+
+    }
+
+    public List<String> searchColumnDropDownMenu() {
+        List<String> allOptions = new ArrayList<>();
+        try {
+            Wait.seconds(3);
+            if (!Wait.isElementDisplayed(driver, orderTrackSearchColumnDropDown, 10)) {
+                Debugger.println("Order Tracking search column not displayed");
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+                return null;
+            }
+            Select searchColumnSelect = new Select(orderTrackSearchColumn);
+            List<WebElement> allOptionsElement = searchColumnSelect.getOptions();
+            for (WebElement optionElement : allOptionsElement) {
+                allOptions.add(optionElement.getText());
+            }
+            return allOptions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the search column drop down values: " + exp);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return null;
+        }
+    }
 }

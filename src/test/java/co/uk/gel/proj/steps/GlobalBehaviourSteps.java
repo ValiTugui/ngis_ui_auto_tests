@@ -132,4 +132,9 @@ public class GlobalBehaviourSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Given("the user clears all the current session cookies")
+    public void theUserClearsAllTheCurrentSessionCookies() {
+        driver.get("chrome://settings/clearBrowserData");
+        globalBehaviourPage.clearBrowserCache();
+    }
 }

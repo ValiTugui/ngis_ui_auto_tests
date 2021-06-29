@@ -11,6 +11,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -90,6 +91,9 @@ public class PrintFormsPage {
     @FindBy(xpath = "//span[text()='Show address']")
     WebElement showLabAddressLink;
 
+    @FindBy(xpath = "//span[text()='Show address']/../child::*[@class='css-ajdsat-Svg']")
+    WebElement showLabAddressLinkButton;
+
     @FindBy(xpath = "//span[text()='Hide address']")
     public WebElement hideLabAddressLink;
 
@@ -127,8 +131,8 @@ public class PrintFormsPage {
         try {
             String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
             //Debugger.println("Family Member DOB to download form: " + dob);
-            String downloadButtonPath=familyFormDownloadButtonPath.replace("dummyDob",dob);
-            WebElement familyFormDownloadButton= driver.findElement(By.xpath(downloadButtonPath));
+            String downloadButtonPath = familyFormDownloadButtonPath.replace("dummyDob", dob);
+            WebElement familyFormDownloadButton = driver.findElement(By.xpath(downloadButtonPath));
             //Delete if File already present
             //Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", folder);
@@ -419,6 +423,69 @@ public class PrintFormsPage {
         }
     }
 
+    //new
+    public boolean validatePDFAddressContent(String fileName) {
+        PDDocument document = null;
+        try {
+
+            if (SeleniumLib.skipIfBrowserStack("BROWSERSTACK")) {
+                //Debugger.println("validatePDFContent: COPYING DOWNLOADED FILE FROM BROWSER STACK..." + fileName);
+                JavascriptExecutor javascript = (JavascriptExecutor) driver;
+                // get file content. The content is Base64 encoded
+                String base64EncodedFile = (String) javascript.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \"" + fileName + "\"}}");
+                //decode the content to Base64
+                byte[] data = Base64.getDecoder().decode(base64EncodedFile);
+                OutputStream stream = new FileOutputStream(defaultDownloadLocation + "SampleForm.pdf");
+                stream.write(data);
+                stream.close();
+            }
+            SeleniumLib.sleepInSeconds(5);
+            if (fileName.endsWith(".zip")) {
+                if (!TestUtils.extractZipFile(fileName)) {
+                    Debugger.println("Could not extract the zip file: " + fileName);
+                    return false;
+                }
+            }
+
+            //creating path for the downloaded pdf file
+            String pathToFile = defaultDownloadLocation + fileName;
+            File fileLocation = new File(pathToFile);
+            if (!fileLocation.exists()) {
+                pathToFile = defaultDownloadLocation + "RD" + File.separator + fileName;
+            }
+            //Debugger.println("PDF file location: " + pathToFile);
+            document = PDDocument.load(new File(pathToFile));
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
+            String outputData = pdfTextStripper.getText(document);
+            //Debugger.println("Actual Data from PDF form :\n" + outputData);
+            outputData = outputData.replaceAll("\\s+", " ");
+            //Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
+
+            boolean testResult = true;
+            for (int i = 1; i < labAddress.length; i++) {
+                Debugger.println("Address Line is : " + labAddress[i]);
+                if (!outputData.contains(labAddress[i])) {
+                    Debugger.println(" The expected " + labAddress[i] + " is  NOT shown correctly in the form: " + fileName);
+                    Debugger.println(" PDF CONTENT:" + outputData);
+                    testResult = false;
+                }
+            }
+            return testResult;
+        } catch (Exception exp) {
+            Debugger.println("Exception from loading PDF content: " + exp);
+            return false;
+        } finally {
+            try {
+                if (document != null) {
+                    document.close();
+                }
+
+            } catch (Exception exc) {
+                Debugger.println("Exception in closing pdf file: " + exc);
+            }
+        }
+    }
+
     public boolean downloadForm(String fileName, String expectedFormSection) {
         try {
             //Delete if File already present
@@ -433,23 +500,13 @@ public class PrintFormsPage {
             for (int i = 0; i < formSection.size(); i++) {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
-                    Actions.scrollToTop(driver);
-                    if(!seleniumLib.isElementPresent(downloadButton.get(i))){
-                        SeleniumLib.takeAScreenShot("OfflinePrintFormDownloadBtnError.jpg");
-                        Debugger.println("The download button is not present.");
-                        return false;
-                    }
                     urlToDownload = downloadButton.get(i).getAttribute("href");
-                    Debugger.println(urlToDownload);
-                    String result = TestUtils.downloadFile(urlToDownload, fileName, "");
-                    Debugger.println("The result from download action -" + result);
-//                    if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
-                    if (result.equalsIgnoreCase("Success")) {
+                    if (TestUtils.downloadFile(urlToDownload, fileName, "").equalsIgnoreCase("Success")) {
                         isDownloaded = true;
                         Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
                         break;
-                    }else{
-                        Actions.retryClickAndIgnoreElementInterception(driver,downloadButton.get(i));
+                    } else {
+                        Actions.retryClickAndIgnoreElementInterception(driver, downloadButton.get(i));
                         isDownloaded = true;
                         Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
                         break;
@@ -490,7 +547,7 @@ public class PrintFormsPage {
             String[] labName = selectedLaboratory.getText().split(" ");
             if (labName == null || labName.length < 1) {
                 Debugger.println("No lab details exists...");
-               return null;
+                return null;
             }
             returnValue = labName[0];
             return returnValue;
@@ -510,7 +567,7 @@ public class PrintFormsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage :startANewReferralButton: " + exp);
-           return false;
+            return false;
         }
     }
 
@@ -584,14 +641,20 @@ public class PrintFormsPage {
         }
     }
 
+    String[] labAddress = {};
+
+    @FindBy(xpath = "//h3[contains(@class,'downloads__lab-name')]")
+    public WebElement labName;
+
     public String readLabAddress(String showAddress) {
+        labAddress = null;
         try {
             Wait.forElementToBeDisplayed(driver, showLabAddressLink);
             if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
                 seleniumLib.clickOnWebElement(showLabAddressLink);
             }
             Wait.forElementToBeDisplayed(driver, detailedAddressText);
-            String detailedAddress = detailedAddressText.getText();
+            String detailedAddress = detailedAddressText.getText()+"\n"+labName.getText();
             if (detailedAddress == null || detailedAddress.isEmpty()) {
                 Debugger.println("No detailed Address present.");
                 return null;
@@ -602,7 +665,8 @@ public class PrintFormsPage {
             }
 
             //Debugger.println("The lab address is: " + detailedAddressText.getText());
-            String[] labAddress = detailedAddress.split("\\n");
+//            String[] labAddress = detailedAddress.split("\\n");
+            labAddress = detailedAddress.split("\\n");
             if (labAddress == null || labAddress.length < 2) {
                 Debugger.println("Lab address is Not Shown");
                 return null;
@@ -631,15 +695,15 @@ public class PrintFormsPage {
         }
     }
 
-    public boolean getLabName(String labName){
+    public boolean getLabName(String labName) {
         try {
-            if (!Wait.isElementDisplayed(driver, labNameField,10)){
+            if (!Wait.isElementDisplayed(driver, labNameField, 10)) {
                 Debugger.println("Lab Name not found");
                 return false;
             }
             String labNameInPrintFormsStage = labNameField.getText();
             if (!labName.equals(labNameInPrintFormsStage)) {
-                Debugger.println("Expected lab name is:" +labName + "but actual present:"+labNameInPrintFormsStage);
+                Debugger.println("Expected lab name is:" + labName + "but actual present:" + labNameInPrintFormsStage);
                 return false;
             }
             return true;

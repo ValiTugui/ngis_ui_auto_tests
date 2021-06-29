@@ -1,8 +1,11 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
+@SYSTEM_TEST_3
+@Sample
 Feature: Samples Page -4
 
   @NTS-3412 @Z-LOGOUT
+    @test-8
 #    @E2EUI-2103
   Scenario Outline: NTS-3412:Add sample details - Sample non-tumour type "<sampleType-non-tumour>" - Sample stage is completed even if sample questionnaire is unattended
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -29,6 +32,7 @@ Feature: Samples Page -4
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva         |
 
   @NTS-3416 @Z-LOGOUT
+    @test-9
 #    @E2EUI-2141 @E2EUI-2440
   Scenario Outline: NTS-3416: Moving to other stage: user is stopped if changes are not saved and try to navigate away from Sample stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -66,6 +70,7 @@ Feature: Samples Page -4
 
 
   @NTS-3416 @Z-LOGOUT
+    @test-10
 #    @E2EUI-2141
   Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Sample stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -81,14 +86,6 @@ Feature: Samples Page -4
     When the user attempts to navigate away by clicking "refresh"
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
-
-  #     User click on back button - https://jira.extge.co.uk/browse/NTOS-4539
-#    No prompt alert is currently being shown when the back button is clicked - 23/12/2019
-#    When the user attempts to navigate away by clicking "back"
-#    Then the user sees a prompt alert "<partOfMessage2>" after clicking "back" button and "<acknowledgeMessage>" it
-#    And the web browser is still at the same "<partialCurrentUrl2>" page
-
-   #  User click on logout button
     When the user clicks the Log out button
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "logout" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
@@ -100,6 +97,7 @@ Feature: Samples Page -4
 
 
   @NTS-3416 @Z-LOGOUT
+    @test-11
 #    @E2EUI-2440
   Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Add sample details
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -119,13 +117,6 @@ Feature: Samples Page -4
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
 
-  #     User click on back button - Defect - https://jira.extge.co.uk/browse/NTOS-4539
-#    No prompt alert is currently being shown when the back button is clicked - 23/12/2019
-#    When the user attempts to navigate away by clicking "back"
-#    Then the user sees a prompt alert "<partOfMessage2>" after clicking "back" button and "<acknowledgeMessage>" it
-#    And the web browser is still at the same "<partialCurrentUrl2>" page
-
-   #  User click on logout button
     When the user clicks the Log out button
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "logout" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
@@ -136,6 +127,7 @@ Feature: Samples Page -4
       | Samples | Manage samples | Add a sample | Normal or germline sample | Fresh frozen tumour | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
   @NTS-3432 @Z-LOGOUT
+    @test-12
 #    @E2EUI-1352
   Scenario Outline: NTS-3432: Add a Sample - 'Not the Right Tumour' in 'Add a Sample' page and Selecting a different tumour in 'Select or edit a tumour' page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -173,12 +165,12 @@ Feature: Samples Page -4
     Then the new sample is displayed in the landing page
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
-
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
 
   @NTS-4531 @Z-LOGOUT
+    @test-13
 #    @E2EUI-1480
   Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -202,12 +194,12 @@ Feature: Samples Page -4
     Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
     And on the Manage Samples page, the new sample details are displayed in the sample table list
-
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour     | notificationText |
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Sample added     |
 
   @NTS-4709 @Z-LOGOUT
+    @test-14
 #     @E2EUI-1023
   Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -222,7 +214,6 @@ Feature: Samples Page -4
     And the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments
     And the Sample Collection date field is displayed with label "Sample collection date"
     And the user is able to enter date in the Sample Collection date field
-
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Fibroblasts |
