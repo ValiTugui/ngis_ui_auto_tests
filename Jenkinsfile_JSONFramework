@@ -16,7 +16,7 @@ pipeline {
                 // Clean workspace before build
                 cleanWs()
                 checkout([
-                        $class           : 'GitSCM', branches: [[name: 'ReferralFromJson']],
+                        $class           : 'GitSCM', branches: [[name: 'E2E_Tests_Branch']],
                         userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId: '7f90912e-1e7e-48dd-81b4-3ff5da62ed7d']]
                 ])
             }
