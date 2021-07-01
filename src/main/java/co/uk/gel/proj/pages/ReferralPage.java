@@ -259,7 +259,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//body")
     public WebElement pageBodyElement;
 
-    @FindBy(xpath = "//span[@class='css-19vaq6o']//button[@class='css-1spiz15-sharedByAllButtons']")
+    @FindBy(xpath = "//span[text()='Reload referral']")
     public WebElement reloadReferral;
 
 
@@ -2041,7 +2041,7 @@ public class ReferralPage<check> {
                 Actions.scrollToBottom(driver);
             }
             if (!Wait.isElementDisplayed(driver, reloadReferral, 60)) {
-                Debugger.println("Save and Continue not visible even after 60 minutes.");
+                Debugger.println("Reload Referral not visible even after 60 seconds.");
                 return false;
             }
             try {

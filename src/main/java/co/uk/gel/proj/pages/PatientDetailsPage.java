@@ -1387,7 +1387,7 @@ public class PatientDetailsPage {
                     break;
                 }
                 case "Gender": {
-                    By genderPath = By.xpath("//input[@id='administrativeGender']/../div/span/span");
+                    By genderPath = By.xpath("//input[@id='administrativeGender']/parent::div/../../div/span/span");
                     actValue = seleniumLib.getText(genderPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -1396,7 +1396,7 @@ public class PatientDetailsPage {
                     break;
                 }
                 case "LifeStatus": {
-                    By lifeStatusPath = By.xpath("//input[@id='lifeStatus']/../div/span/span");
+                    By lifeStatusPath = By.xpath("//input[@id='lifeStatus']/parent::div/../../div/span/span");
                     actValue = seleniumLib.getText(lifeStatusPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -1405,7 +1405,7 @@ public class PatientDetailsPage {
                     break;
                 }
                 case "Ethnicity": {
-                    By ethnicityPath = By.xpath("//input[@name='ethnicity']/..//span/span");
+                    By ethnicityPath = By.xpath("//input[@name='ethnicity']/parent::div/div/div/div/span/span");
                     actValue = seleniumLib.getText(ethnicityPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);
@@ -2193,7 +2193,7 @@ public class PatientDetailsPage {
                     break;
                 }
                 case "Gender": {
-                    By genderPath = By.xpath("//input[@id='administrativeGender']/../div/span/span");
+                    By genderPath = By.xpath("//input[@id='administrativeGender']/parent::div/../../div/span/span");
                     actValue = seleniumLib.getText(genderPath);
                     if (!actValue.equalsIgnoreCase(expValue)) {
                         Debugger.println("Expected :" + key + ": " + expValue + ", Actual:" + actValue);

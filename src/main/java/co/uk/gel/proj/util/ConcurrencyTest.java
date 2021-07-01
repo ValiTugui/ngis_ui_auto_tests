@@ -1,6 +1,7 @@
 package co.uk.gel.proj.util;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class ConcurrencyTest {
@@ -56,6 +57,9 @@ public class ConcurrencyTest {
         try {
             boolean isPresent = false;
             File file = new File(fileLocation+filePrefix+".txt");
+            if (!file.exists()) {
+                return false;
+            }
             Scanner scanner = new Scanner(file);
             String line = "";
             while(scanner.hasNextLine()){

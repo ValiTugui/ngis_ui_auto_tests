@@ -95,22 +95,22 @@ Feature: NTS-6546:RD_new_referral_PatientDetails: Navigate and verify the change
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the file NTS-6546_RD with Requesting Organisation details Updated by User2
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_RD
-    And the user clicks the Save and Continue button
+
     When the user navigates to the "<TestPackage>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated>"
     Then the user updates the file NTS-6546_RD with Patient details Validated by User2
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_RD
-    And the user clicks the Save and Continue button
+
     When the user navigates to the "<ResponsibleClinician>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_1>"
     Then the user updates the file NTS-6546_RD with Patient details Validated by User2
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_RD
-    And the user clicks the Save and Continue button
+
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_2>"
     Then the user updates the file NTS-6546_RD with Patient details Validated by User2
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6546_RD
-    And the user clicks the Save and Continue button
+
     When the user navigates to the "<Notes>" stage
     Then the user verifies the referral header with "<ReferralBannerUpdated_3>"
     Then the user updates the file NTS-6546_RD with Patient details Validated by User2

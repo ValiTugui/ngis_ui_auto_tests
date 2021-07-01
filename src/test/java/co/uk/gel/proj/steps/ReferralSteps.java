@@ -137,7 +137,7 @@ public class ReferralSteps extends Pages {
                 Assert.assertTrue(false);
             }
         } else {
-            Debugger.println("Here yes...");
+
             if (!patientDetailsPage.clickStartReferralButton()) {
                 Assert.assertTrue(false);
             }

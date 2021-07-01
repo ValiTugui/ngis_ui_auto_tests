@@ -7,7 +7,6 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -206,6 +204,21 @@ public class SamplesPage {
             return false;
         }
     }
+
+    public boolean selectSpecificSampleType(String sampleTypeValue) {
+        try {
+            Actions.scrollToTop(driver);
+            sampleType.click();
+            Actions.selectValueFromDropdown(sampleType, sampleTypeValue);
+            sampleDetails.setSampleType(sampleTypeValue);
+            Wait.seconds(1);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selectSampleType:" + exp);
+            return false;
+        }
+    }
+
 
     public void selectSampleState() {
         try {
@@ -699,7 +712,7 @@ public class SamplesPage {
             switch (key) {
                 case "SampleType": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        selectSampleType(paramNameValue.get(key));
+                        selectSpecificSampleType(paramNameValue.get(key));
                     }
                     break;
                 }

@@ -5,7 +5,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import net.continuumsecurity.proxy.ScanningProxy;
 import net.continuumsecurity.proxy.ZAProxyScanner;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -28,13 +29,13 @@ import org.openqa.selenium.safari.SafariOptions;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-import java.net.URL;
 import java.util.logging.Level;
 
 import static co.uk.gel.config.BrowserConfig.*;
@@ -241,6 +242,7 @@ public class BrowserFactory {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
+//        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
         }
