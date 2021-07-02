@@ -1,0 +1,185 @@
+{
+    "clinicalIndication": {
+        "clinicalIndicationCode": "R146", 
+        "clinicalIndicationFullName": "Disorders of sex development", 
+        "clinicalIndicationUid": "template"
+    }, 
+    "orderingDate": {
+        "day": 30, 
+        "month": 6, 
+        "year": 2019
+    }, 
+    "pedigree": {
+        "familyId": "210019611", 
+        "familyQCState": "passedMedicalReviewReadyForInterpretation", 
+        "members": [
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNAFFECTED", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "0", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "1094J5V3-37L0-MKTW-DLEF-ODDOKOWDK1B1", 
+                "pedigreeId": 4035407, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE", 
+                "yearOfBirth": 1000
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "AFFECTED", 
+                "consanguineousParents": "unknown", 
+                "disorderList": [
+                    {
+                        "specificDisease": "R146"
+                    }
+                ], 
+                "fatherId": 4035407, 
+                "hpoTermList": [
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0000846", 
+                        "termPresence": "yes"
+                    }, 
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0001249", 
+                        "termPresence": "yes"
+                    }, 
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0002099", 
+                        "termPresence": "yes"
+                    }, 
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0002301", 
+                        "termPresence": "yes"
+                    }, 
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0008730", 
+                        "termPresence": "yes"
+                    }
+                ], 
+                "isProband": true, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 4035409, 
+                "participantId": "210019611", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "LQSSWWGO-XPON-W3L6-C7RO-7YNL3LBKU0IR", 
+                "pedigreeId": 4035408, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE", 
+                "yearOfBirth": 2007
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNAFFECTED", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "2", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "05J9WNDA-LPWS-GRFF-7A16-C8BSJOC7TDOE", 
+                "pedigreeId": 4035409, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE", 
+                "yearOfBirth": 1000
+            }
+        ], 
+        "readyForAnalysis": true
+    }, 
+    "referralId": "210019611", 
+    "referralTests": [
+        {
+            "analysisPanels": [
+                {
+                    "multipleGeneticOrigins": "no", 
+                    "panelId": "145", 
+                    "panelName": "Congenital adrenal hypoplasia", 
+                    "panelVersion": "2.6", 
+                    "specificDisease": "R146"
+                }, 
+                {
+                    "multipleGeneticOrigins": "no", 
+                    "panelId": "9", 
+                    "panelName": "Disorders of sex development", 
+                    "panelVersion": "2.47", 
+                    "specificDisease": "R146"
+                }, 
+                {
+                    "multipleGeneticOrigins": "no", 
+                    "panelId": "285", 
+                    "panelName": "Intellectual disability", 
+                    "panelVersion": "3.1080", 
+                    "specificDisease": "R146"
+                }
+            ], 
+            "clinicalIndicationTest": {
+                "clinicalIndicationTestTypeCode": "template", 
+                "clinicalIndicationTestTypeId": "template", 
+                "technology": {
+                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation", 
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                }, 
+                "testTypeId": "template", 
+                "testTypeName": "template"
+            }, 
+            "diseasePenetrances": [
+                {
+                    "penetrance": "complete", 
+                    "specificDisease": "R146"
+                }
+            ], 
+            "germlineSamples": [
+                {
+                    "labSampleId": "1040445282", 
+                    "maskedPid": "F8C7JYPY-JU2W-V06F-YHQ4-K21YI8X5XGJ2", 
+                    "method": "NOT_APPLICABLE", 
+                    "participantId": "210019611", 
+                    "participantUid": "LQSSWWGO-XPON-W3L6-C7RO-7YNL3LBKU0IR", 
+                    "product": "DNA", 
+                    "programmePhase": "MAIN", 
+                    "sampleId": "LP3001411-DNA_C03", 
+                    "sampleState": "blood_unsorted_edta", 
+                    "sampleType": "Normal or Germline sample", 
+                    "sampleUid": "JKVLKA2W-6X07-4FX7-CUW2-HL7QW5H9HJMS", 
+                    "source": "BLOOD", 
+                    "storageMedium": "EDTA"
+                }
+            ], 
+            "interpreter": {
+                "organisationCode": "RXW", 
+                "organisationId": "template", 
+                "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
+                "organisationNationalGroupingId": "RXW", 
+                "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+            }, 
+            "priority": "routine", 
+            "processingLab": {
+                "organisationCode": "RXW", 
+                "organisationId": "template", 
+                "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
+                "organisationNationalGroupingId": "RXW", 
+                "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+            }, 
+            "referralTestId": "SCB920ROTGHB", 
+            "referralTestOrderingDate": {
+                "day": 30, 
+                "month": 6, 
+                "year": 2019
+            }
+        }
+    ], 
+    "referralUid": "VZWCRCC1BKD1", 
+    "requester": {
+        "organisationCode": "RXW", 
+        "organisationId": "template", 
+        "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
+        "organisationNationalGroupingId": "RXW", 
+        "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+    }
+}

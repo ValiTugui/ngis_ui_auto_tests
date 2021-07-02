@@ -182,3 +182,106 @@ Feature: Create RD Referrals by reading details from Json file
     Examples:
       | JSONFileName                                    |
       | CNV1_112008234_10002_referral_DDF_modified.json |
+
+  @SmallCNV_2  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV2_115002358_10003_referral_DDF_modified.json |
+
+  @SmallCNV_3  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV3_115011288_10008_referral_DDF_modified.json |
+
+  @SmallCNV_4  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV4_118002059_10035_referral_DDF_modified.json |
+
+  @SmallCNV_5  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV5_123000278_10016_referral_DDF_modified.json |
+
+  @SmallCNV_6  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV6_128050012_10000_referral_DDF_modified.json |
+
+  @SmallCNV_7  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV7_128050098_10000_referral_DDF_modified.json |
+
+  @SmallCNV_8  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV8_128050099_10000_referral_DDF_modified.json |
+
+  @SmallCNV_9  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                    |
+      | CNV9_210015879_10009_referral_DDF_modified.json |
+
+  @SmallCNV_10  @Z-LOGOUT
+  Scenario Outline: Read the details from Json file and create RD referrals
+    Given the json file <JSONFileName> with referral information is available in the specified location
+    And the referral object is created successfully from the json file <JSONFileName>
+    When the "Rare Disease" referral is created with details from Json provided
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Examples:
+      | JSONFileName                                     |
+      | CNV10_210019611_10001_referral_DDF_modified.json |
+
+
+
+

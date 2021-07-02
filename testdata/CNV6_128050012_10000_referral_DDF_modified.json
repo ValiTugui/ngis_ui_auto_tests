@@ -1,0 +1,151 @@
+{
+    "clinicalIndication": {
+        "clinicalIndicationCode": "R29", 
+        "clinicalIndicationFullName": "Intellectual disability", 
+        "clinicalIndicationUid": "template"
+    }, 
+    "orderingDate": {
+        "day": 30, 
+        "month": 6, 
+        "year": 2019
+    }, 
+    "pedigree": {
+        "familyId": "128050012", 
+        "familyQCState": "passedMedicalReviewReadyForInterpretation", 
+        "members": [
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNCERTAIN", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "0", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "QDRYXM2M-J3WX-4VKJ-ZEUD-40OBAPUPH3LP", 
+                "pedigreeId": 5948703, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "MALE", 
+                "yearOfBirth": 1000
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "UNCERTAIN", 
+                "consanguineousParents": "unknown", 
+                "isProband": false, 
+                "lifeStatus": "ALIVE", 
+                "participantId": "1", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "84Z76AHP-COX9-2Y0J-1DLY-3E4QUUUZ4BRV", 
+                "pedigreeId": 5948704, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE", 
+                "yearOfBirth": 1000
+            }, 
+            {
+                "adoptedStatus": "notadopted", 
+                "affectionStatus": "AFFECTED", 
+                "consanguineousParents": "unknown", 
+                "disorderList": [
+                    {
+                        "specificDisease": "R29"
+                    }
+                ], 
+                "fatherId": 5948703, 
+                "hpoTermList": [
+                    {
+                        "hpoBuildNumber": "releases/2015-03-12", 
+                        "term": "HP:0001249", 
+                        "termPresence": "yes"
+                    }
+                ], 
+                "isProband": true, 
+                "lifeStatus": "ALIVE", 
+                "motherId": 5948704, 
+                "participantId": "128050012", 
+                "participantQCState": "passedMedicalReviewReadyForInterpretation", 
+                "participantUid": "JNEX691E-HL0J-YL6X-FX6F-6NYGDQLRM49D", 
+                "pedigreeId": 5948705, 
+                "personKaryotypicSex": "UNKNOWN", 
+                "sex": "FEMALE", 
+                "yearOfBirth": 2000
+            }
+        ], 
+        "readyForAnalysis": true
+    }, 
+    "referralId": "128050012", 
+    "referralTests": [
+        {
+            "analysisPanels": [
+                {
+                    "multipleGeneticOrigins": "no", 
+                    "panelId": "285", 
+                    "panelName": "Intellectual disability", 
+                    "panelVersion": "3.1080", 
+                    "specificDisease": "R29"
+                }
+            ], 
+            "clinicalIndicationTest": {
+                "clinicalIndicationTestTypeCode": "template", 
+                "clinicalIndicationTestTypeId": "template", 
+                "technology": {
+                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation", 
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                }, 
+                "testTypeId": "template", 
+                "testTypeName": "template"
+            }, 
+            "diseasePenetrances": [
+                {
+                    "penetrance": "complete", 
+                    "specificDisease": "R29"
+                }
+            ], 
+            "germlineSamples": [
+                {
+                    "labSampleId": "1038634710", 
+                    "maskedPid": "F4JX8B3V-B3RR-JC20-9RKF-0ZNIQ6UL4M5H", 
+                    "method": "NOT_APPLICABLE", 
+                    "participantId": "128050012", 
+                    "participantUid": "JNEX691E-HL0J-YL6X-FX6F-6NYGDQLRM49D", 
+                    "product": "DNA", 
+                    "programmePhase": "MAIN", 
+                    "sampleId": "LP3001649-DNA_C01", 
+                    "sampleState": "blood_unsorted_edta", 
+                    "sampleType": "Normal or Germline sample", 
+                    "sampleUid": "WNRR8DMY-1M9L-62BE-HFIA-4RHLUQSJBTIF", 
+                    "source": "BLOOD", 
+                    "storageMedium": "EDTA"
+                }
+            ], 
+            "interpreter": {
+                "organisationCode": "NEQ", 
+                "organisationId": "template", 
+                "organisationName": "Rare Disease NEQAS", 
+                "organisationNationalGroupingId": "NEQ", 
+                "organisationNationalGroupingName": "Rare Disease NEQAS"
+            }, 
+            "priority": "routine", 
+            "processingLab": {
+                "organisationCode": "NEQ", 
+                "organisationId": "template", 
+                "organisationName": "Rare Disease NEQAS", 
+                "organisationNationalGroupingId": "NEQ", 
+                "organisationNationalGroupingName": "Rare Disease NEQAS"
+            }, 
+            "referralTestId": "KQC6TK60WP4V", 
+            "referralTestOrderingDate": {
+                "day": 30, 
+                "month": 6, 
+                "year": 2019
+            }
+        }
+    ], 
+    "referralUid": "GNIZ6YXOQNPD", 
+    "requester": {
+        "organisationCode": "NEQ", 
+        "organisationId": "template", 
+        "organisationName": "Rare Disease NEQAS", 
+        "organisationNationalGroupingId": "NEQ", 
+        "organisationNationalGroupingName": "Rare Disease NEQAS"
+    }
+}
