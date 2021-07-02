@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout Source Code') {
             steps {
-                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 // Clean workspace before build
                 cleanWs()
                 checkout([
@@ -55,7 +55,7 @@ pipeline {
     post {
         success {
             script {
-                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 sh 'echo Attempt to run CSV generation'
                 build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
             }
