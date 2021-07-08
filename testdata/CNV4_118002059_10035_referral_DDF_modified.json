@@ -468,17 +468,17 @@
             "interpreter": {
                 "organisationCode": "RHM", 
                 "organisationId": "template", 
-                "organisationName": "University Hospital Southampton NHS FT", 
+                "organisationName": "University Hospital Southampton NHS Foundation Trust", 
                 "organisationNationalGroupingId": "RHM", 
-                "organisationNationalGroupingName": "University Hospital Southampton NHS FT"
+                "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
                 "organisationCode": "RHM", 
                 "organisationId": "template", 
-                "organisationName": "University Hospital Southampton NHS FT", 
+                "organisationName": "University Hospital Southampton NHS Foundation Trust", 
                 "organisationNationalGroupingId": "RHM", 
-                "organisationNationalGroupingName": "University Hospital Southampton NHS FT"
+                "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust"
             }, 
             "referralTestId": "N958L1OZ12AN", 
             "referralTestOrderingDate": {
@@ -492,8 +492,8 @@
     "requester": {
         "organisationCode": "RHM", 
         "organisationId": "template", 
-        "organisationName": "University Hospital Southampton NHS FT", 
+        "organisationName": "University Hospital Southampton NHS Foundation Trust", 
         "organisationNationalGroupingId": "RHM", 
-        "organisationNationalGroupingName": "University Hospital Southampton NHS FT"
+        "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust"
     }
 }

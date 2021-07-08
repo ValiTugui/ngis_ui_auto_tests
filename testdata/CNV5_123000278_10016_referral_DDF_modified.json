@@ -467,19 +467,19 @@
                 }
             ], 
             "interpreter": {
-                "organisationCode": "7A4", 
+                "organisationCode": "RET", 
                 "organisationId": "template", 
-                "organisationName": "Wales GMC", 
-                "organisationNationalGroupingId": "7A4", 
-                "organisationNationalGroupingName": "Wales GMC"
+                "organisationName": "The Walton Centre NHS Foundation Trust", 
+                "organisationNationalGroupingId": "RET", 
+                "organisationNationalGroupingName": "The Walton Centre NHS Foundation Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
-                "organisationCode": "7A4", 
+                "organisationCode": "RET", 
                 "organisationId": "template", 
-                "organisationName": "Wales GMC", 
-                "organisationNationalGroupingId": "7A4", 
-                "organisationNationalGroupingName": "Wales GMC"
+                "organisationName": "The Walton Centre NHS Foundation Trust", 
+                "organisationNationalGroupingId": "RET", 
+                "organisationNationalGroupingName": "The Walton Centre NHS Foundation Trust"
             }, 
             "referralTestId": "Z9FRP49H59VK", 
             "referralTestOrderingDate": {
@@ -491,10 +491,10 @@
     ], 
     "referralUid": "P6LU56HHHTOK", 
     "requester": {
-        "organisationCode": "7A4", 
+        "organisationCode": "RET", 
         "organisationId": "template", 
-        "organisationName": "Wales GMC", 
-        "organisationNationalGroupingId": "7A4", 
-        "organisationNationalGroupingName": "Wales GMC"
+        "organisationName": "The Walton Centre NHS Foundation Trust", 
+        "organisationNationalGroupingId": "RET", 
+        "organisationNationalGroupingName": "The Walton Centre NHS Foundation Trust"
     }
 }

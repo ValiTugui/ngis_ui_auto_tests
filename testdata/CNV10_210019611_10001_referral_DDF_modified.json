@@ -152,19 +152,19 @@
                 }
             ], 
             "interpreter": {
-                "organisationCode": "RXW", 
+                "organisationCode": "RYV",
                 "organisationId": "template", 
-                "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
-                "organisationNationalGroupingId": "RXW", 
-                "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+                "organisationName": "Cambridgeshire Community Services NHS Trust",
+                "organisationNationalGroupingId": "RYV",
+                "organisationNationalGroupingName": "Cambridgeshire Community Services NHS Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
-                "organisationCode": "RXW", 
+                "organisationCode": "RYV",
                 "organisationId": "template", 
-                "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
-                "organisationNationalGroupingId": "RXW", 
-                "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+                "organisationName": "Cambridgeshire Community Services NHS Trust",
+                "organisationNationalGroupingId": "RYV",
+                "organisationNationalGroupingName": "Cambridgeshire Community Services NHS Trust"
             }, 
             "referralTestId": "SCB920ROTGHB", 
             "referralTestOrderingDate": {
@@ -176,10 +176,10 @@
     ], 
     "referralUid": "VZWCRCC1BKD1", 
     "requester": {
-        "organisationCode": "RXW", 
+        "organisationCode": "RYV",
         "organisationId": "template", 
-        "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
-        "organisationNationalGroupingId": "RXW", 
-        "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+        "organisationName": "Cambridgeshire Community Services NHS Trust",
+        "organisationNationalGroupingId": "RYV",
+        "organisationNationalGroupingName": "Cambridgeshire Community Services NHS Trust"
     }
 }
