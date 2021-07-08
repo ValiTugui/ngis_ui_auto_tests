@@ -1095,7 +1095,6 @@ public class PatientChoicePage {
 
     public boolean clickOnSaveAndContinueButton(){
         try{
-            SeleniumLib.takeAScreenShot("savePcContinue.jpg");
             if(!Wait.isElementDisplayed(driver,saveAndContinuePC,30)){
                 Actions.scrollToBottom(driver);
             }

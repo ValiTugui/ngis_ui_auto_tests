@@ -1,5 +1,5 @@
 @Concurrency
-@Concurrency_RD_loc
+@Concurrency_RD
 Feature: NTS-6466: Different stages updated by three users and verified by another two users.
   ###FLOW
   #User1 Login with creating a New Referral

@@ -117,16 +117,16 @@ Feature: NTS-6463:RD_existing_referral_all_stages_entity
     Then the user updates the file NTS-6463 with Notes details validated by User1
    #FamilyMembers - Verify
     And the user waits max 8 minutes for the update Family Member details Updated by User2 in the file NTS-6463
-#    And the user submits the referral for Concurrency
-#    Then the user click on Reload referral button to validate the data
-#    When the user navigates to the "<FamilyMembers>" stage
-#    Then the user verifies the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdated>"
+    And the user submits the referral for Concurrency
+    Then the user click on Reload referral button to validate the data
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user verifies the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdated>"
     Then the user updates the file NTS-6463 with Family Member details validated by User1
    #FamilyMembersclinicalquestions - Verify
     And the user waits max 8 minutes for the update Family Member clinical details Updated by User2 in the file NTS-6463
-#    And the user submits the referral for Concurrency
-#    Then the user click on Reload referral button to validate the data
-#    Then the user verify the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    And the user submits the referral for Concurrency
+    Then the user click on Reload referral button to validate the data
+    Then the user verify the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
     Then the user updates the file NTS-6463 with Family Member clinical details validated by User1
    #PatientChoice- Verifyt Details - Verify
     And the user waits max 15 minutes for the update Patient Choice details Updated by User2 in the file NTS-6463
@@ -195,14 +195,14 @@ Feature: NTS-6463:RD_existing_referral_all_stages_entity
     Then the user updates the file NTS-6463 with Notes details Updated by User2
    ##FamilyMembers - Update
     And the user waits max 15 minutes for the update Notes details validated by User1 in the file NTS-6463
-#    When the user navigates to the "<FamilyMembers>" stage
-#    Then the user updates the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdate>"
-#    And the user clicks the Save and Continue button
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user updates the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdate>"
+    And the user clicks the Save and Continue button
     Then the user updates the file NTS-6463 with Family Member details Updated by User2
    ##FamilyMembersclinicalquestions - Update
     And the user waits max 15 minutes for the update Family Member details validated by User1 in the file NTS-6463
-#    Then the user update the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
-#    And the user clicks the Save and Continue button
+    Then the user update the page "Add family member details" with "<FamilyMemberClinicalDetailsUpdated>"
+    And the user clicks the Save and Continue button
     Then the user updates the file NTS-6463 with Family Member clinical details Updated by User2
    ##PatientChoice- update
     And the user waits max 15 minutes for the update Family Member clinical details validated by User1 in the file NTS-6463
