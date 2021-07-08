@@ -45,8 +45,8 @@ Feature: NTS-5987-Patient Choice Timeout
     When the user is in the section Patient signature
     And the user fills PatientSignature details in patient signature
     And the user should see patient choice submit button as enabled
-#    When the user inactive for 21 minutes
-    When the user clear all the session cookies in a new tab
+    When the user inactive for 21 minutes
+#    When the user clear all the session cookies in a new tab
     And the user clicks on submit patient choice Button
     And the user save patient choice form and continue
     Then user should redirect to login page

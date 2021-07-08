@@ -1,5 +1,5 @@
 @SESSION_TEST
-Feature: NTS-5987-Patient Choice Timeout
+Feature: NTS-5675-Tumour with expired Cookie
 
   @NTS-5675
   Scenario Outline: NTS-5675: Wrong page is displayed when trying to add a tumour with authentication cookie expired
