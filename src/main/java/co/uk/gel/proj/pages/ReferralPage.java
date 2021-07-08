@@ -350,13 +350,9 @@ public class ReferralPage<check> {
             if(currentPageTitle != null && newPageTitle != null){
                 if(currentPageTitle.equalsIgnoreCase(newPageTitle)){
                     Debugger.println("\n\tSave and Continue button click not happened, clicking again..."+currentPageTitle+","+newPageTitle);
-                    SeleniumLib.takeAScreenShot("SaveContinueRefreshtest1.jpg");
                     saveAndContinueButton.click();
-                    Debugger.println("Waiting for 10 seconds here also....");
                     Wait.seconds(5);
-                    Debugger.println("Waiting for 10 seconds here also....done");
-                    SeleniumLib.takeAScreenShot("SaveContinueRefreshtest2.jpg");
-                }
+               }
             }
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
             return true;
