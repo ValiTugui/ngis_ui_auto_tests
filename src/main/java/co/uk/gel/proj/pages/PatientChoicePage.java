@@ -1095,6 +1095,7 @@ public class PatientChoicePage {
 
     public boolean clickOnSaveAndContinueButton(){
         try{
+            SeleniumLib.takeAScreenShot("savePcContinue.jpg");
             if(!Wait.isElementDisplayed(driver,saveAndContinuePC,30)){
                 Actions.scrollToBottom(driver);
             }
@@ -1117,7 +1118,9 @@ public class PatientChoicePage {
                 return false;
             }
             seleniumLib.clickOnWebElement(saveAndContinuePC);
+            Debugger.println("URL1: "+driver.getCurrentUrl());
             Wait.seconds(5);
+            Debugger.println("URL2: "+driver.getCurrentUrl());
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
             boolean isTryAgain = Wait.isElementDisplayed(driver,tryAgain,10);
             int tryCount = 1;
@@ -1285,6 +1288,7 @@ public class PatientChoicePage {
 
     public boolean clickOnSubmitPatientChoiceButton() {
         try {
+            SeleniumLib.takeAScreenShot("submitPC.jpg");
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
             seleniumLib.clickOnWebElement(submitPatientChoiceButton);
             return true;

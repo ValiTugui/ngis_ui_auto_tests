@@ -2115,5 +2115,46 @@ public class ReferralPage<check> {
             SeleniumLib.takeAScreenShot("submitReferral.jpg");
         }
     }
+
+    public void waitForSessionTimeOut(int minutes) {
+        try {
+            long startTime = System.currentTimeMillis();
+            Debugger.println("Waiting for "+minutes+" minutes to check session time out...");
+            SeleniumLib.sleepInSeconds(minutes*60);
+            long endTime = System.currentTimeMillis();
+            Debugger.println(minutes+" minutes wait is over..:"+(endTime-startTime)/(1000*60));
+        } catch (Exception exp) {
+            Debugger.println("Exception from waitForSessionTimeOut " + exp);
+            SeleniumLib.takeAScreenShot("sessionTimeOutWait.jpg");
+        }
+    }
+
+    public String validateRedirectToLoginPage() {
+        try {
+            String pickAnAccount = "Pick an account";
+            String signIn = "Sign in";
+            SeleniumLib.sleepInSeconds(5);
+            Debugger.println("Operation after session time out...");
+            By pickAnAccountDiv = By.xpath("//div[@id='loginHeader']/div[@role='heading']");
+            String actualText = "";
+            if(seleniumLib.isElementPresent(pickAnAccountDiv)) {
+                actualText = seleniumLib.getText(pickAnAccountDiv);
+            }else{
+                if(seleniumLib.isElementPresent(pickAnAccountDiv)) {
+                    actualText = seleniumLib.getText(pickAnAccountDiv);
+                }
+            }
+            if(!(actualText.equalsIgnoreCase(pickAnAccount) || actualText.equalsIgnoreCase(signIn))){
+               Debugger.println("Expected to Not landed in Sign in Page ");
+               SeleniumLib.takeAScreenShot("sessionTimeOut3.jpg");
+               return "Expected to navigato Login page after session time out....but not.";
+            }
+            return "Success";
+        } catch (Exception exp) {
+            Debugger.println("Exception from validateSessionTimeOut " + exp);
+            SeleniumLib.takeAScreenShot("sessionTimeOutWait.jpg");
+            return "Exception from validateSessionTimeOut" + exp;
+        }
+    }
 }
 
