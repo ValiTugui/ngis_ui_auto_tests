@@ -26,7 +26,7 @@ Feature: NTS-6470: Family member details updated and same Family member verified
   @NTS-6470 @NTS-6470_Scenario2 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r21887188964 | NTS-6470_Scenario2 |
+      | CONCURRENT_USER2_NAME | r21715161667 | NTS-6470_Scenario2 |
     Then the user updates the file NTS-6470_Scenario2 with Mandatory Stages Completed by User2
     ##Family Member Details - Verify
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6470_Scenario2
