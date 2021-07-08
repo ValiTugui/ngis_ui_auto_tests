@@ -241,7 +241,7 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
             Assert.fail("Could not navigate to stage:" + stageName);
         }
-        testResult = paperFormPage.fillInSpecificKeywordInSearchField(referralObject.getRequester().getOrganisationCode());
+        testResult = paperFormPage.fillInSpecificKeywordInSearchField(referralObject.getRequester().getOrganisationName());
         if (!testResult) {
             SeleniumLib.takeAScreenShot("Ref_RequestingOrg.jpg");
             Assert.fail("Could not search for Order entity.");
