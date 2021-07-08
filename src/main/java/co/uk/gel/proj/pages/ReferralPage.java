@@ -308,6 +308,8 @@ public class ReferralPage<check> {
 
     public boolean clickSaveAndContinueButton() {
         try {
+            String currentPageTitle = getTheCurrentPageTitle();
+
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 Actions.scrollToBottom(driver);
             }
@@ -344,6 +346,15 @@ public class ReferralPage<check> {
                 //Debugger.println("Waiting for Helix to disappear.."+count);
             }
             //Debugger.println("HelixSize After:"+helix.size());
+            //Check whether the page has moved to next...
+            String newPageTitle = getTheCurrentPageTitle();
+            if (currentPageTitle != null && newPageTitle != null) {
+                if (currentPageTitle.equalsIgnoreCase(newPageTitle)) {
+                    Debugger.println("\n\tSave and Continue button click not happened, clicking again..." + currentPageTitle + "," + newPageTitle);
+                    saveAndContinueButton.click();
+                    Wait.seconds(5);
+                }
+            }
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
             return true;
         } catch (UnhandledAlertException exp) {
