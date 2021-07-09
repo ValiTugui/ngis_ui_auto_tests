@@ -643,7 +643,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("Could not click on SignInToTheOnlineServiceButton");
         }
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-        Debugger.println(" User Type : " + userType);
+//        Debugger.println(" User Type : " + userType);
         if (userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {
