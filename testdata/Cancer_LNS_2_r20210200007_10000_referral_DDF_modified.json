@@ -1,0 +1,167 @@
+{
+  "pedigree": {
+    "familyId": "r20210200007",
+    "members": [
+      {
+        "participantId": "p20210200007",
+        "personKaryotypicSex": "UNKNOWN",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": true,
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "M99"
+          }
+        ],
+        "affectionStatus": "AFFECTED",
+        "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
+        "pedigreeId": 1,
+        "yearOfBirth": 1953
+      }
+    ],
+    "readyForAnalysis": true
+  },
+  "requester": {
+    "organisationName": "Royal Brompton & Harefield NHS Foundation Trust",
+    "organisationId": "template",
+    "organisationCode": "RT3",
+    "organisationNationalGroupingName": "Royal Brompton & Harefield NHS Foundation Trust",
+    "organisationNationalGroupingId": "RT3"
+  },
+  "orderingDate": {
+    "month": 2,
+    "year": 2021,
+    "day": 23
+  },
+  "cancerParticipant": {
+    "participantId": "p20210200007",
+    "sex": "MALE",
+    "readyForAnalysis": true,
+    "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
+    "tumours": [
+      {
+        "tumourTopographies": [
+          {
+            "id": "SCTID:59441001"
+          }
+        ],
+        "primaryOrMetastatic": "PRIMARY",
+        "tumourDiagnosisDate": {
+          "month": 1,
+          "year": 2020,
+          "day": 1
+        },
+        "tumourPresentation": "FIRST_PRESENTATION",
+        "tumourType": "HAEMATOLOGICAL_MALIGNANCY_SOLID_SAMPLE",
+        "tumourLocalId": "1026346233",
+        "tumourMorphologies": [
+          {
+            "id": "SCTID:46732000"
+          }
+        ],
+        "tumourId": "1026346233"
+      }
+    ],
+    "yearOfBirth": 1953
+  },
+  "referralId": "r20210200007",
+  "referralUid": "f44b4683-9483-47bc-a842-07c338d99999",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationVersionNumber": "template",
+    "clinicalIndicationCode": "M99",
+    "clinicalIndicationFullName": "High Grade Lymphoma"
+  },
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000430-DNA_B09",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1023912247",
+          "participantId": "p20210200007",
+          "sampleUid": "HWN2AQ0P-BMLH-F8SQ-YGY4-L2XECXA8I1IW",
+          "maskedPid": "LD9GG9ZJ-VF9I-F67K-WH85-ST20ZKLQ9NKX",
+          "programmePhase": "MAIN",
+          "clinicalSampleDateTime": "2017-05-18T00:00:00+0000",
+          "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+      },
+      "processingLab": {
+        "organisationName": "Royal Brompton & Harefield NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RT3",
+        "organisationNationalGroupingName": "Royal Brompton & Harefield NHS Foundation Trust",
+        "organisationNationalGroupingId": "RT3"
+      },
+      "interpreter": {
+        "organisationName": "Royal Brompton & Harefield NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RT3",
+        "organisationNationalGroupingName": "Royal Brompton & Harefield NHS Foundation Trust",
+        "organisationNationalGroupingId": "RT3"
+      },
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3000430-DNA_B09",
+          "tumourSampleId": "LP3000428-DNA_C12"
+        }
+      ],
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "urgent",
+      "tumourSamples": [
+        {
+          "sampleMorphologies": [
+            {
+              "id": "SCTID:46732000"
+            }
+          ],
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000428-DNA_C12",
+          "storageMedium": "FF",
+          "sampleTopographies": [
+            {
+              "id": "SCTID:59441001"
+            }
+          ],
+          "haematologicalCancer": true,
+          "source": "TUMOUR",
+          "sampleType": "Liquid tumour sample",
+          "labSampleId": "1026346233",
+          "tumourContentPercentage": 91.6,
+          "tumourId": "1026346233",
+          "participantId": "p20210200007",
+          "sampleUid": "PDH63BMI-CP0J-IWM5-AXNR-VVK4EXTMVU7E",
+          "maskedPid": "WOHXRJZP-4Z03-8U4O-2R3G-KGB1H5DFZTWS",
+          "programmePhase": "MAIN",
+          "clinicalSampleDateTime": "2017-05-25T00:00:00+0000",
+          "haematologicalCancerLineage": "LYMPHOID",
+          "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
+          "tumourContent": "High",
+          "sampleState": "tumour_unsorted_freshFluid"
+        }
+      ],
+      "referralTestId": "81WQFZIKVR6N"
+    }
+  ]
+}

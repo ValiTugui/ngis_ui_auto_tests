@@ -415,19 +415,19 @@
                 }
             ], 
             "interpreter": {
-                "organisationCode": "RQ3", 
+                "organisationCode": "TAD", 
                 "organisationId": "template", 
-                "organisationName": "Birmingham Womens & Childrens NHS Foundation Trust",
-                "organisationNationalGroupingId": "RQ3", 
-                "organisationNationalGroupingName": "Birmingham Womens & Childrens NHS Foundation Trust"
+                "organisationName": "Bradford District Care NHS Foundation Trust",
+                "organisationNationalGroupingId": "TAD", 
+                "organisationNationalGroupingName": "Bradford District Care NHS Foundation Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
-                "organisationCode": "RQ3", 
+                "organisationCode": "TAD", 
                 "organisationId": "template", 
-                "organisationName": "Birmingham Womens & Childrens NHS Foundation Trust",
-                "organisationNationalGroupingId": "RQ3", 
-                "organisationNationalGroupingName": "Birmingham Womens & Childrens NHS Foundation Trust"
+                "organisationName": "Bradford District Care NHS Foundation Trust",
+                "organisationNationalGroupingId": "TAD", 
+                "organisationNationalGroupingName": "Bradford District Care NHS Foundation Trust"
             }, 
             "referralTestId": "AAP7G2NGF8JJ", 
             "referralTestOrderingDate": {
@@ -439,10 +439,10 @@
     ], 
     "referralUid": "1YIP0FAQMFND", 
     "requester": {
-        "organisationCode": "RQ3", 
+        "organisationCode": "TAD", 
         "organisationId": "template", 
-        "organisationName": "Birmingham Womens & Childrens NHS Foundation Trust",
-        "organisationNationalGroupingId": "RQ3", 
-        "organisationNationalGroupingName": "Birmingham Womens & Childrens NHS Foundation Trust"
+        "organisationName": "Bradford District Care NHS Foundation Trust",
+        "organisationNationalGroupingId": "TAD", 
+        "organisationNationalGroupingName": "Bradford District Care NHS Foundation Trust"
     }
 }

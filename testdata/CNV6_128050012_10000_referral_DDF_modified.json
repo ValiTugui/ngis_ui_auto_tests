@@ -118,19 +118,19 @@
                 }
             ], 
             "interpreter": {
-                "organisationCode": "R1K",
+                "organisationCode": "RWV",
                 "organisationId": "template", 
-                "organisationName": "London North West Healthcare NHS Trust",
-                "organisationNationalGroupingId": "R1K",
-                "organisationNationalGroupingName": "London North West Healthcare NHS Trust"
+                "organisationName": "Devon Partnership NHS Trust",
+                "organisationNationalGroupingId": "RWV",
+                "organisationNationalGroupingName": "Devon Partnership NHS Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
-                "organisationCode": "R1K",
+                "organisationCode": "RWV",
                 "organisationId": "template", 
-                "organisationName": "London North West Healthcare NHS Trust",
-                "organisationNationalGroupingId": "R1K",
-                "organisationNationalGroupingName": "London North West Healthcare NHS Trust"
+                "organisationName": "Devon Partnership NHS Trust",
+                "organisationNationalGroupingId": "RWV",
+                "organisationNationalGroupingName": "Devon Partnership NHS Trust"
             }, 
             "referralTestId": "KQC6TK60WP4V", 
             "referralTestOrderingDate": {
@@ -142,10 +142,10 @@
     ], 
     "referralUid": "GNIZ6YXOQNPD", 
     "requester": {
-        "organisationCode": "R1K",
+        "organisationCode": "RWV",
         "organisationId": "template", 
-        "organisationName": "London North West Healthcare NHS Trust",
-        "organisationNationalGroupingId": "R1K",
-        "organisationNationalGroupingName": "London North West Healthcare NHS Trust"
+        "organisationName": "Devon Partnership NHS Trust",
+        "organisationNationalGroupingId": "RWV",
+        "organisationNationalGroupingName": "Devon Partnership NHS Trust"
     }
 }

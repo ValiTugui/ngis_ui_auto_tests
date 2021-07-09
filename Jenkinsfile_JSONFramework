@@ -13,11 +13,11 @@ pipeline {
     stages {
         stage('Checkout Source Code') {
             steps {
-                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 // Clean workspace before build
                 cleanWs()
                 checkout([
-                        $class           : 'GitSCM', branches: [[name: 'E2E_Tests_Branch']],
+                        $class           : 'GitSCM', branches: [[name: 'E2E_Tests_Branch_Trial']],
                         userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId: '7f90912e-1e7e-48dd-81b4-3ff5da62ed7d']]
                 ])
             }
@@ -56,14 +56,14 @@ pipeline {
     post {
         success {
             script {
-                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 sh 'echo Attempt to run CSV generation'
                 build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}"), string(name: 'CaseType', value: "${params.CaseType}")]
             }
         }
         failure {
             script {
-                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 echo 'FAILED'
             }
         }
