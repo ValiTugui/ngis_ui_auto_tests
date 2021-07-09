@@ -1,8 +1,9 @@
 pipeline {
     agent { label 'chrome' }
     parameters {
-        choice(name: 'TestEnvironment', choices: "e2e\ne2elatest", description: 'Defines the environment on which the test will be run')
+        choice(name: 'TestEnvironment', choices: "e2e\ne2elatest\nuat", description: 'Defines the environment on which the test will be run')
         string(name: 'Tag', defaultValue: '@ReferralFromJson', description: 'Tag of test to execute- @RDReferralFromJson, @CancerReferralFromJson, @RDCase1-10, @CancerCase1-10')
+        choice(choices: ['RD', 'Cancer'], description: 'Select a CaseType', name: 'CaseType')
     }
 
     options {
@@ -12,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout Source Code') {
             steps {
-                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS Started ", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 // Clean workspace before build
                 cleanWs()
                 checkout([
@@ -55,9 +56,15 @@ pipeline {
     post {
         success {
             script {
-                //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 9-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
                 sh 'echo Attempt to run CSV generation'
-//                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}")]
+                build wait: false, job: '2-Json_CSV_Creation', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}"), string(name: 'CaseType', value: "${params.CaseType}")]
+            }
+        }
+        failure {
+            script {
+                slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
+                echo 'FAILED'
             }
         }
     }

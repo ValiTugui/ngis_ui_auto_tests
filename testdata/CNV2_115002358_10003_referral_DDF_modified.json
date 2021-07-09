@@ -1088,17 +1088,17 @@
             "interpreter": {
                 "organisationCode": "RAL", 
                 "organisationId": "template", 
-                "organisationName": "The Royal Free London NHS Foundation Trust", 
+                "organisationName": "Royal Free London NHS Foundation Trust",
                 "organisationNationalGroupingId": "RAL", 
-                "organisationNationalGroupingName": "The Royal Free London NHS Foundation Trust"
+                "organisationNationalGroupingName": "Royal Free London NHS Foundation Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
                 "organisationCode": "RAL", 
                 "organisationId": "template", 
-                "organisationName": "The Royal Free London NHS Foundation Trust", 
+                "organisationName": "Royal Free London NHS Foundation Trust",
                 "organisationNationalGroupingId": "RAL", 
-                "organisationNationalGroupingName": "The Royal Free London NHS Foundation Trust"
+                "organisationNationalGroupingName": "Royal Free London NHS Foundation Trust"
             }, 
             "referralTestId": "P1V18FK6HGR6", 
             "referralTestOrderingDate": {
@@ -1112,8 +1112,8 @@
     "requester": {
         "organisationCode": "RAL", 
         "organisationId": "template", 
-        "organisationName": "The Royal Free London NHS Foundation Trust", 
+        "organisationName": "Royal Free London NHS Foundation Trust",
         "organisationNationalGroupingId": "RAL", 
-        "organisationNationalGroupingName": "The Royal Free London NHS Foundation Trust"
+        "organisationNationalGroupingName": "Royal Free London NHS Foundation Trust"
     }
 }

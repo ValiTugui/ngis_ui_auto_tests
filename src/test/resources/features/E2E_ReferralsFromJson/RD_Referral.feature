@@ -31,7 +31,7 @@ Feature: Create RD Referrals by reading details from Json file
 #      | RD10_r20210100023_10000_referral_DDF_modified.json |
 
   @RDCase1  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3001191-DNA_B10,LP3001158-DNA_D01,LP3001237-DNA_H12,LP3001224-DNA_B12,LP3001220-DNA_D10
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -42,7 +42,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD1_r20210100001_10002_referral_DDF_modified.json |
 
   @RDCase2  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000180-DNA_A09,LP3000173-DNA_A10,LP3000209-DNA_A05
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -53,7 +53,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD2_r20210100002_10001_referral_DDF_modified.json |
 
   @RDCase3  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000301-DNA_E12,LP3000311-DNA_H09,LP3000286-DNA_H04
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -64,7 +64,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD3_r20210100006_10001_referral_DDF_modified.json |
 
   @RDCase4  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000565-DNA_H11
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -75,7 +75,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD4_r20210100007_10001_referral_DDF_modified.json |
 
   @RDCase5  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3001148-DNA_B06,LP3001076-DNA_F01
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -86,7 +86,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD5_r20210100011_10001_referral_DDF_modified.json |
 
   @RDCase6  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Sample- LP3000560-DNA_B12
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -97,7 +97,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD6_r20210100014_10001_referral_DDF_modified.json |
 
   @RDCase7  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000167-DNA_B11,LP3000374-DNA_D06,LP3000199-DNA_D01
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -108,7 +108,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD7_r20210100020_10001_referral_DDF_modified.json |
 
   @RDCase8  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3001230-DNA_F01,LP3001231-DNA_E01
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -119,7 +119,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD8_r20210100021_10000_referral_DDF_modified.json |
 
   @RDCase9  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000358-DNA_E11,LP3000339-DNA_F07
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -130,7 +130,7 @@ Feature: Create RD Referrals by reading details from Json file
       | RD9_r20210100022_10000_referral_DDF_modified.json |
 
   @RDCase10  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
+  Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000327-DNA_C07,LP3000332-DNA_E10,LP3000337-DNA_A08,LP3000326-DNA_F04
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
@@ -140,37 +140,27 @@ Feature: Create RD Referrals by reading details from Json file
       | JSONFileName                                       |
       | RD10_r20210100023_10000_referral_DDF_modified.json |
 
-  @RDCase11  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
-    Given the json file <JSONFileName> with referral information is available in the specified location
-    And the referral object is created successfully from the json file <JSONFileName>
-    When the "Rare Disease" referral is created with details from Json provided
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
-    Examples:
-      | JSONFileName           |
-      | RD46_E2E_TestCase.json |
-
-
-#    @WriteVersions
-#  Scenario Outline: Get app versions from NGIS Status page
-#    Given the user opens the NGIS status page
-#    And the user reads the version numbers present on the page
-#    Then the user writes the versions of "<RequiredComponents>" in the txt file "VersionFile.txt"
+#  @RDCase11  @Z-LOGOUT
+#  Scenario Outline: Read the details from Json file and create RD referrals
+#    Given the json file <JSONFileName> with referral information is available in the specified location
+#    And the referral object is created successfully from the json file <JSONFileName>
+#    When the "Rare Disease" referral is created with details from Json provided
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+#    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
 #    Examples:
-#      | RequiredComponents                                                                                                                                          |
-#      | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |
-
-  @RDCase12  @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create RD referrals
-    Given the json file <JSONFileName> with referral information is available in the specified location
-    And the referral object is created successfully from the json file <JSONFileName>
-    When the "Rare Disease" referral is created with details from Json provided
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
-    Examples:
-      | JSONFileName           |
-      | RD10_E2E_TestCase.json |
+#      | JSONFileName           |
+#      | RD46_E2E_TestCase.json |
+#
+#  @RDCase12  @Z-LOGOUT
+#  Scenario Outline: Read the details from Json file and create RD referrals
+#    Given the json file <JSONFileName> with referral information is available in the specified location
+#    And the referral object is created successfully from the json file <JSONFileName>
+#    When the "Rare Disease" referral is created with details from Json provided
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+#    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+#    Examples:
+#      | JSONFileName           |
+#      | RD10_E2E_TestCase.json |
 
   @SmallCNV_1  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referrals

@@ -118,19 +118,19 @@
                 }
             ], 
             "interpreter": {
-                "organisationCode": "NEQ", 
+                "organisationCode": "R1K",
                 "organisationId": "template", 
-                "organisationName": "Rare Disease NEQAS", 
-                "organisationNationalGroupingId": "NEQ", 
-                "organisationNationalGroupingName": "Rare Disease NEQAS"
+                "organisationName": "London North West Healthcare NHS Trust",
+                "organisationNationalGroupingId": "R1K",
+                "organisationNationalGroupingName": "London North West Healthcare NHS Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
-                "organisationCode": "NEQ", 
+                "organisationCode": "R1K",
                 "organisationId": "template", 
-                "organisationName": "Rare Disease NEQAS", 
-                "organisationNationalGroupingId": "NEQ", 
-                "organisationNationalGroupingName": "Rare Disease NEQAS"
+                "organisationName": "London North West Healthcare NHS Trust",
+                "organisationNationalGroupingId": "R1K",
+                "organisationNationalGroupingName": "London North West Healthcare NHS Trust"
             }, 
             "referralTestId": "1OHMBOT7RRJS", 
             "referralTestOrderingDate": {
@@ -142,10 +142,10 @@
     ], 
     "referralUid": "67LBXVWG85AF", 
     "requester": {
-        "organisationCode": "NEQ", 
+        "organisationCode": "R1K",
         "organisationId": "template", 
-        "organisationName": "Rare Disease NEQAS", 
-        "organisationNationalGroupingId": "NEQ", 
-        "organisationNationalGroupingName": "Rare Disease NEQAS"
+        "organisationName": "London North West Healthcare NHS Trust",
+        "organisationNationalGroupingId": "R1K",
+        "organisationNationalGroupingName": "London North West Healthcare NHS Trust"
     }
 }

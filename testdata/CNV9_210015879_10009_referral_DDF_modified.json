@@ -343,14 +343,7 @@
                     "panelName": "Intellectual disability", 
                     "panelVersion": "3.1080", 
                     "specificDisease": "R27"
-                }, 
-                {
-                    "multipleGeneticOrigins": "no", 
-                    "panelId": "539", 
-                    "panelName": "Possible mitochondrial disorder - nuclear genes", 
-                    "panelVersion": "1.42", 
-                    "specificDisease": "R27"
-                }, 
+                },
                 {
                     "multipleGeneticOrigins": "no", 
                     "panelId": "112", 
@@ -424,17 +417,17 @@
             "interpreter": {
                 "organisationCode": "RQ3", 
                 "organisationId": "template", 
-                "organisationName": "Birmingham Children's Hospital NHS Foundation Trust", 
+                "organisationName": "Birmingham Womens & Childrens NHS Foundation Trust",
                 "organisationNationalGroupingId": "RQ3", 
-                "organisationNationalGroupingName": "Birmingham Children's Hospital NHS Foundation Trust"
+                "organisationNationalGroupingName": "Birmingham Womens & Childrens NHS Foundation Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
                 "organisationCode": "RQ3", 
                 "organisationId": "template", 
-                "organisationName": "Birmingham Children's Hospital NHS Foundation Trust", 
+                "organisationName": "Birmingham Womens & Childrens NHS Foundation Trust",
                 "organisationNationalGroupingId": "RQ3", 
-                "organisationNationalGroupingName": "Birmingham Children's Hospital NHS Foundation Trust"
+                "organisationNationalGroupingName": "Birmingham Womens & Childrens NHS Foundation Trust"
             }, 
             "referralTestId": "AAP7G2NGF8JJ", 
             "referralTestOrderingDate": {
@@ -448,8 +441,8 @@
     "requester": {
         "organisationCode": "RQ3", 
         "organisationId": "template", 
-        "organisationName": "Birmingham Children's Hospital NHS Foundation Trust", 
+        "organisationName": "Birmingham Womens & Childrens NHS Foundation Trust",
         "organisationNationalGroupingId": "RQ3", 
-        "organisationNationalGroupingName": "Birmingham Children's Hospital NHS Foundation Trust"
+        "organisationNationalGroupingName": "Birmingham Womens & Childrens NHS Foundation Trust"
     }
 }

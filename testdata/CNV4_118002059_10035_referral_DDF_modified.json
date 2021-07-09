@@ -337,28 +337,7 @@
                     "panelName": "Arthrogryposis", 
                     "panelVersion": "3.98", 
                     "specificDisease": "R381"
-                }, 
-                {
-                    "multipleGeneticOrigins": "no", 
-                    "panelId": "207", 
-                    "panelName": "Congenital muscular dystrophy", 
-                    "panelVersion": "2.8", 
-                    "specificDisease": "R381"
-                }, 
-                {
-                    "multipleGeneticOrigins": "no", 
-                    "panelName": "Congenital myaesthenia", 
-                    "panelId": "232", 
-                    "panelVersion": "2.2",
-                    "specificDisease": "R381"
-                }, 
-                {
-                    "multipleGeneticOrigins": "no", 
-                    "panelId": "225", 
-                    "panelName": "Congenital myopathy", 
-                    "panelVersion": "2.28", 
-                    "specificDisease": "R381"
-                }, 
+                },
                 {
                     "multipleGeneticOrigins": "no", 
                     "panelId": "285", 
@@ -372,28 +351,14 @@
                     "panelName": "Cerebral malformations", 
                     "panelVersion": "5.78", 
                     "specificDisease": "R381"
-                }, 
-                {
-                    "multipleGeneticOrigins": "no", 
-                    "panelId": "539", 
-                    "panelName": "Possible mitochondrial disorder - nuclear genes", 
-                    "panelVersion": "1.42", 
-                    "specificDisease": "R381"
-                }, 
+                },
                 {
                     "multipleGeneticOrigins": "no", 
                     "panelId": "112", 
                     "panelName": "Mitochondrial disorders", 
                     "panelVersion": "2.35", 
                     "specificDisease": "R381"
-                }, 
-                {
-                    "multipleGeneticOrigins": "no", 
-                    "panelId": "79", 
-                    "panelName": "Paediatric motor neuronopathies", 
-                    "panelVersion": "1.62", 
-                    "specificDisease": "R381"
-                }, 
+                },
                 {
                     "multipleGeneticOrigins": "no", 
                     "panelId": "467", 
@@ -468,17 +433,17 @@
             "interpreter": {
                 "organisationCode": "RHM", 
                 "organisationId": "template", 
-                "organisationName": "University Hospital Southampton NHS FT", 
+                "organisationName": "University Hospital Southampton NHS Foundation Trust",
                 "organisationNationalGroupingId": "RHM", 
-                "organisationNationalGroupingName": "University Hospital Southampton NHS FT"
+                "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
                 "organisationCode": "RHM", 
                 "organisationId": "template", 
-                "organisationName": "University Hospital Southampton NHS FT", 
+                "organisationName": "University Hospital Southampton NHS Foundation Trust",
                 "organisationNationalGroupingId": "RHM", 
-                "organisationNationalGroupingName": "University Hospital Southampton NHS FT"
+                "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust"
             }, 
             "referralTestId": "N958L1OZ12AN", 
             "referralTestOrderingDate": {
@@ -492,8 +457,8 @@
     "requester": {
         "organisationCode": "RHM", 
         "organisationId": "template", 
-        "organisationName": "University Hospital Southampton NHS FT", 
+        "organisationName": "University Hospital Southampton NHS Foundation Trust",
         "organisationNationalGroupingId": "RHM", 
-        "organisationNationalGroupingName": "University Hospital Southampton NHS FT"
+        "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust"
     }
 }

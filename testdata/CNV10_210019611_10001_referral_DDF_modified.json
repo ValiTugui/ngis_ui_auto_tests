@@ -154,17 +154,17 @@
             "interpreter": {
                 "organisationCode": "RXW", 
                 "organisationId": "template", 
-                "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
+                "organisationName": "Shrewsbury and Telford Hospital NHS Trust",
                 "organisationNationalGroupingId": "RXW", 
-                "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+                "organisationNationalGroupingName": "Shrewsbury and Telford Hospital NHS Trust"
             }, 
             "priority": "routine", 
             "processingLab": {
                 "organisationCode": "RXW", 
                 "organisationId": "template", 
-                "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
+                "organisationName": "Shrewsbury and Telford Hospital NHS Trust",
                 "organisationNationalGroupingId": "RXW", 
-                "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+                "organisationNationalGroupingName": "Shrewsbury and Telford Hospital NHS Trust"
             }, 
             "referralTestId": "SCB920ROTGHB", 
             "referralTestOrderingDate": {
@@ -178,8 +178,8 @@
     "requester": {
         "organisationCode": "RXW", 
         "organisationId": "template", 
-        "organisationName": "The Shrewsbury and Telford Hospital NHS Trust", 
+        "organisationName": "Shrewsbury and Telford Hospital NHS Trust",
         "organisationNationalGroupingId": "RXW", 
-        "organisationNationalGroupingName": "The Shrewsbury and Telford Hospital NHS Trust"
+        "organisationNationalGroupingName": "Shrewsbury and Telford Hospital NHS Trust"
     }
 }
