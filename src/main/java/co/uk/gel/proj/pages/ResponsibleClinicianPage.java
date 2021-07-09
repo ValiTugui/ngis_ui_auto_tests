@@ -252,7 +252,7 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
-        int latestLastNameError= clinicianErrorMessages.size()-1;
+        int latestLastNameError = clinicianErrorMessages.size() - 1;
         return clinicianErrorMessages.get(latestLastNameError).getText().contains(expectedErrorMessage);
     }
 
@@ -728,4 +728,31 @@ public class ResponsibleClinicianPage {
         }
         return true;
     }
+
+    public void enterMultipleEmailIDs(String mailIDs) {
+        Wait.forElementToBeDisplayed(driver, clinicianEmailField);
+        clinicianEmailField.sendKeys(mailIDs);
+        Wait.seconds(2);
+        clinicianPhoneNumberField.click();
+        Wait.seconds(2);
+    }
+
+    public boolean verifyNoEmailWarningMessage() {
+        try {
+            for (int i = 0; i < clinicianErrorMessages.size(); i++) {
+                if (Wait.isElementDisplayed(driver, clinicianErrorMessages.get(i), 5)) {
+                    Debugger.println("error message displayed");
+                    return false;
+                }
+            }
+            Debugger.println("NO error message displayed");
+            return true;
+
+        } catch (Exception exp) {
+            Debugger.println("Exception message");
+            return false;
+        }
+
+    }
+
 }
