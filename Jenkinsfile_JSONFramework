@@ -3,6 +3,7 @@ pipeline {
     parameters {
         choice(name: 'TestEnvironment', choices: "e2e\ne2elatest\nuat", description: 'Defines the environment on which the test will be run')
         string(name: 'Tag', defaultValue: '@ReferralFromJson', description: 'Tag of test to execute- @RDReferralFromJson, @CancerReferralFromJson, @RDCase1-10, @CancerCase1-10')
+        string(name: 'Branch', defaultValue: 'E2E_Tests_Branch_Trial', description: 'Branch name for TOMS UI')
         choice(choices: ['RD', 'Cancer'], description: 'Select a CaseType', name: 'CaseType')
     }
 
@@ -17,7 +18,7 @@ pipeline {
                 // Clean workspace before build
                 cleanWs()
                 checkout([
-                        $class           : 'GitSCM', branches: [[name: 'E2E_Tests_Branch_Trial']],
+                        $class           : 'GitSCM', branches: [[name: "${Branch}"]],
                         userRemoteConfigs: [[url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId: '7f90912e-1e7e-48dd-81b4-3ff5da62ed7d']]
                 ])
             }
