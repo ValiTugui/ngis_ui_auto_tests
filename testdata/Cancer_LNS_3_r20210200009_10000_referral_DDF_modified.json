@@ -1,156 +1,167 @@
 {
-    "pedigree": {
-        "familyId": "r20210200009",
-        "members": [{
-                "participantId": "p20210200009",
-                "personKaryotypicSex": "UNKNOWN",
-                "participantQCState": "passedMedicalReviewReadyForInterpretation",
-                "isProband": true,
-                "sex": "MALE",
-                "disorderList": [{
-                        "specificDisease": "M80"
-                    }
-                ],
-                "affectionStatus": "AFFECTED",
-                "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776",
-                "pedigreeId": 1,
-                "yearOfBirth": 1963
-            }
-        ],
-        "readyForAnalysis": true
-    },
-    "requester": {
-        "organisationName": "Lewisham and Greenwich NHS Trust",
-        "organisationId": "template",
-        "organisationCode": "RJ2",
-        "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust",
-        "organisationNationalGroupingId": "RJ2"
-    },
-    "orderingDate": {
-        "month": 2,
-        "year": 2021,
-        "day": 23
-    },
-    "cancerParticipant": {
-        "participantId": "p20210200009",
-        "sex": "MALE",
-        "readyForAnalysis": true,
-        "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776",
-        "tumours": [{
-                "tumourTopographies": [{
-                        "id": "SCTID:14016003"
-                    }
-                ],
-                "primaryOrMetastatic": "PRIMARY",
-                "tumourDiagnosisDate": {
-                    "month": 1,
-                    "year": 2020,
-                    "day": 1
-                },
-                "tumourPresentation": "FIRST_PRESENTATION",
-                "tumourType": "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE",
-                "tumourLocalId": "RTH_BMAG184013P",
-                "tumourMorphologies": [{
-                        "id": "SCTID:413443009"
-                    }
-                ],
-                "tumourId": "RTH_BMAG184013P"
-            }
-        ],
+  "pedigree": {
+    "familyId": "r20210200009" ,
+    "members": [
+      {
+        "participantId": "p20210200009" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": true ,
+        "sex": "MALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "M80"
+          }
+        ] ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776" ,
+        "pedigreeId": 1 ,
         "yearOfBirth": 1963
-    },
-    "referralId": "r20210200009",
-    "referralUid": "a85285e6-ced5-462b-8a22-0a98c78689d5",
-    "clinicalIndication": {
-        "clinicalIndicationUid": "template",
-        "clinicalIndicationVersionNumber": "template",
-        "clinicalIndicationCode": "M80",
-        "clinicalIndicationFullName": "Acute Myeloid Leukaemia"
-    },
-    "referralTests": [{
-            "germlineSamples": [{
-                    "product": "DNA",
-                    "method": "NOT_APPLICABLE",
-                    "sampleId": "LP3000763-DNA_D02",
-                    "storageMedium": "ORAGENE",
-                    "source": "SALIVA",
-                    "sampleType": "Normal or Germline sample",
-                    "labSampleId": "1020249635",
-                    "participantId": "p20210200009",
-                    "sampleUid": "MO5LM0VD-9SZC-U33Y-9NK6-PG86RK131TFS",
-                    "maskedPid": "RXTZT8MT-BBPF-0DXV-N23P-M94BMD3NIPKI",
-                    "programmePhase": "MAIN",
-                    "clinicalSampleDateTime": "2017-12-20T00:00:00+0000",
-                    "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776",
-                    "sampleState": "saliva_oragene"
-                }
-            ],
-            "referralTestOrderingDate": {
-                "month": 2,
-                "year": 2021,
-                "day": 23
-            },
-            "processingLab": {
-                "organisationName": "Lewisham and Greenwich NHS Trust",
-                "organisationId": "template",
-                "organisationCode": "RJ2",
-                "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust",
-                "organisationNationalGroupingId": "RJ2"
-            },
-            "interpreter": {
-                "organisationName": "Lewisham and Greenwich NHS Trust",
-                "organisationId": "template",
-                "organisationCode": "RJ2",
-                "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust",
-                "organisationNationalGroupingId": "RJ2"
-            },
-            "matchedSamples": [{
-                    "germlineSampleId": "LP3000763-DNA_D02",
-                    "tumourSampleId": "LP3000762-DNA_D02"
-                }
-            ],
-            "clinicalIndicationTest": {
-                "testTypeId": "template",
-                "clinicalIndicationTestTypeId": "template",
-                "testTypeName": "template",
-                "clinicalIndicationTestTypeCode": "template",
-                "technology": {
-                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
-                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
-                }
-            },
-            "priority": "urgent",
-            "tumourSamples": [{
-                    "sampleMorphologies": [{
-                            "id": "SCTID:413443009"
-                        }
-                    ],
-                    "product": "DNA",
-                    "method": "ASPIRATE",
-                    "sampleId": "LP3000762-DNA_D02",
-                    "storageMedium": "EDTA",
-                    "sampleTopographies": [{
-                            "id": "SCTID:14016003"
-                        }
-                    ],
-                    "haematologicalCancer": true,
-                    "source": "BONE_MARROW",
-                    "sampleType": "Liquid tumour sample",
-                    "labSampleId": "1032873241",
-                    "tumourContentPercentage": 50.8,
-                    "tumourId": "RTH_BMAG184013P",
-                    "participantId": "p20210200009",
-                    "sampleUid": "IZKPO82R-QPUD-1Y19-9K2S-UG1LOL28EML0",
-                    "maskedPid": "UKOH9RVG-DFJZ-XTDQ-8I6U-K60PMBXF22GW",
-                    "programmePhase": "MAIN",
-                    "clinicalSampleDateTime": "2018-01-26T00:00:00+0000",
-                    "haematologicalCancerLineage": "MYELOID",
-                    "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776",
-                    "tumourContent": "Medium",
-                    "sampleState": "boneMarrow_unsorted_edta"
-                }
-            ],
-            "referralTestId": "ZP3E8XWFY1A8"
+      }
+    ] ,
+    "readyForAnalysis": true
+  } ,
+  "requester": {
+    "organisationName": "Lewisham and Greenwich NHS Trust" ,
+    "organisationId": "template" ,
+    "organisationCode": "RJ2" ,
+    "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust" ,
+    "organisationNationalGroupingId": "RJ2"
+  } ,
+  "orderingDate": {
+    "month": 2 ,
+    "year": 2021 ,
+    "day": 23
+  } ,
+  "cancerParticipant": {
+    "participantId": "p20210200009" ,
+    "sex": "MALE" ,
+    "readyForAnalysis": true ,
+    "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776" ,
+    "tumours": [
+      {
+        "tumourTopographies": [
+          {
+            "id": "SCTID:14016003"
+          }
+        ] ,
+        "primaryOrMetastatic": "PRIMARY" ,
+        "tumourDiagnosisDate": {
+          "month": 1 ,
+          "year": 2020 ,
+          "day": 1
+        } ,
+        "tumourPresentation": "FIRST_PRESENTATION" ,
+        "tumourType": "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE" ,
+        "tumourLocalId": "RTH_BMAG184013P" ,
+        "tumourMorphologies": [
+          {
+            "id": "SCTID:413443009"
+          }
+        ] ,
+        "tumourId": "RTH_BMAG184013P"
+      }
+    ] ,
+    "yearOfBirth": 1963
+  } ,
+  "referralId": "r20210200009" ,
+  "referralUid": "a85285e6-ced5-462b-8a22-0a98c78689d5" ,
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template" ,
+    "clinicalIndicationVersionNumber": "template" ,
+    "clinicalIndicationCode": "M80" ,
+    "clinicalIndicationFullName": "Acute Myeloid Leukaemia"
+  } ,
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3000763-DNA_D02" ,
+          "storageMedium": "ORAGENE" ,
+          "source": "SALIVA" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1020249635" ,
+          "participantId": "p20210200009" ,
+          "sampleUid": "MO5LM0VD-9SZC-U33Y-9NK6-PG86RK131TFS" ,
+          "maskedPid": "RXTZT8MT-BBPF-0DXV-N23P-M94BMD3NIPKI" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2017-12-20T00:00:00+0000" ,
+          "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776" ,
+          "sampleState": "saliva_oragene"
         }
-    ]
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 2 ,
+        "year": 2021 ,
+        "day": 23
+      } ,
+      "processingLab": {
+        "organisationName": "Lewisham and Greenwich NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RJ2" ,
+        "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust" ,
+        "organisationNationalGroupingId": "RJ2"
+      } ,
+      "interpreter": {
+        "organisationName": "Lewisham and Greenwich NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RJ2" ,
+        "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust" ,
+        "organisationNationalGroupingId": "RJ2"
+      } ,
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3000763-DNA_D02" ,
+          "tumourSampleId": "LP3000762-DNA_D02"
+        }
+      ] ,
+      "clinicalIndicationTest": {
+        "testTypeId": "template" ,
+        "clinicalIndicationTestTypeId": "template" ,
+        "testTypeName": "template" ,
+        "clinicalIndicationTestTypeCode": "template" ,
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation" ,
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      } ,
+      "priority": "urgent" ,
+      "tumourSamples": [
+        {
+          "sampleMorphologies": [
+            {
+              "id": "SCTID:413443009"
+            }
+          ] ,
+          "product": "DNA" ,
+          "method": "ASPIRATE" ,
+          "sampleId": "LP3000762-DNA_D02" ,
+          "storageMedium": "EDTA" ,
+          "sampleTopographies": [
+            {
+              "id": "SCTID:14016003"
+            }
+          ] ,
+          "haematologicalCancer": true ,
+          "source": "BONE_MARROW" ,
+          "sampleType": "Liquid tumour sample" ,
+          "labSampleId": "1032873241" ,
+          "tumourContentPercentage": 50.8 ,
+          "tumourId": "RTH_BMAG184013P" ,
+          "participantId": "p20210200009" ,
+          "sampleUid": "IZKPO82R-QPUD-1Y19-9K2S-UG1LOL28EML0" ,
+          "maskedPid": "UKOH9RVG-DFJZ-XTDQ-8I6U-K60PMBXF22GW" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2018-01-26T00:00:00+0000" ,
+          "haematologicalCancerLineage": "MYELOID" ,
+          "participantUid": "b586e15b-c032-4bad-a26f-b5f0e2846776" ,
+          "tumourContent": "Medium" ,
+          "sampleState": "boneMarrow_unsorted_edta"
+        }
+      ] ,
+      "referralTestId": "ZP3E8XWFY1A8"
+    }
+  ]
 }

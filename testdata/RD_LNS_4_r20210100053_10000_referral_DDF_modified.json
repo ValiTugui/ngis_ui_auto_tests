@@ -391,7 +391,6 @@
                 "organisationNationalGroupingName": "Croydon Health Services NHS Trust",
                 "organisationNationalGroupingId": "RJ6"
             },
-            "clinicalIndicationTest": {
                 "clinicalIndicationTest": {
                     "clinicalIndicationTestTypeCode": "R104.3",
                     "testTypeId": "56577a90-6ab8-4818-bb50-5cf7ccab933c",
@@ -401,7 +400,6 @@
                     },
                     "clinicalIndicationTestTypeId": "1f3de9e5-9759-4849-9533-412b8294e14a",
                     "testTypeName": "Skeletal dysplasia WGS"
-                }
             },
             "priority": "routine",
             "referralTestId": "MDX97YKY0C15",
