@@ -1,7 +1,7 @@
 {
     "clinicalIndication": {
         "clinicalIndicationCode": "R27", 
-        "clinicalIndicationFullName": "Congenital malformation and dysmorphism syndromes - microarray and sequencing", 
+        "clinicalIndicationFullName": "Congenital malformation and dysmorphism syndromes",
         "clinicalIndicationUid": "template"
     }, 
     "orderingDate": {
