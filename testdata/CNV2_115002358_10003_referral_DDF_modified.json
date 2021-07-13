@@ -1,7 +1,7 @@
 {
     "clinicalIndication": {
-        "clinicalIndicationCode": "R199", 
-        "clinicalIndicationFullName": "Congenital anomalies of the kidney and urinary tract - familial", 
+        "clinicalIndicationCode": "R193",
+        "clinicalIndicationFullName": "Cystic renal disease",
         "clinicalIndicationUid": "template"
     }, 
     "orderingDate": {
@@ -19,7 +19,7 @@
                 "consanguineousParents": "unknown", 
                 "disorderList": [
                     {
-                        "specificDisease": "R199"
+                        "specificDisease": "R193"
                     }
                 ], 
                 "fatherId": 4169147, 
@@ -352,7 +352,7 @@
                 "consanguineousParents": "unknown", 
                 "disorderList": [
                     {
-                        "specificDisease": "R199"
+                        "specificDisease": "R193"
                     }
                 ], 
                 "fatherId": 4169148, 
@@ -757,7 +757,7 @@
                 "consanguineousParents": "unknown", 
                 "disorderList": [
                     {
-                        "specificDisease": "R199"
+                        "specificDisease": "R193"
                     }
                 ],
                 "hpoTermList": [
@@ -785,7 +785,7 @@
                 "consanguineousParents": "unknown", 
                 "disorderList": [
                     {
-                        "specificDisease": "R199"
+                        "specificDisease": "R193"
                     }
                 ], 
                 "fatherId": 4169147, 
@@ -1004,7 +1004,7 @@
                     "panelId": "487", 
                     "panelName": "Cystic renal disease", 
                     "panelVersion": "3.83", 
-                    "specificDisease": "R199"
+                    "specificDisease": "R193"
                 }
             ], 
             "clinicalIndicationTest": {
@@ -1020,7 +1020,7 @@
             "diseasePenetrances": [
                 {
                     "penetrance": "incomplete", 
-                    "specificDisease": "R199"
+                    "specificDisease": "R193"
                 }
             ], 
             "germlineSamples": [
