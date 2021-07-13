@@ -332,7 +332,7 @@
                 }, 
                 {
                     "multipleGeneticOrigins": "no", 
-                    "panelName": "Epileptic encephalopathy", 
+                    "panelName": "Genetic epilepsy syndromes",
                     "panelId": "402", 
                     "panelVersion": "2.2", 
                     "specificDisease": "R27"
