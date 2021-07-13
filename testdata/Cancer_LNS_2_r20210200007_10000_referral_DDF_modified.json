@@ -22,11 +22,11 @@
     "readyForAnalysis": true
   } ,
   "requester": {
-    "organisationName": "Royal Brompton & Harefield NHS Foundation Trust" ,
+    "organisationName": "King's College Liver Molecular Genetics Lab" ,
     "organisationId": "template" ,
-    "organisationCode": "RT3" ,
-    "organisationNationalGroupingName": "Royal Brompton & Harefield NHS Foundation Trust" ,
-    "organisationNationalGroupingId": "RT3"
+    "organisationCode": "699R0" ,
+    "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+    "organisationNationalGroupingId": "699R0"
   } ,
   "orderingDate": {
     "month": 2 ,
@@ -98,18 +98,18 @@
         "day": 23
       } ,
       "processingLab": {
-        "organisationName": "Royal Brompton & Harefield NHS Foundation Trust" ,
+        "organisationName": "King's College Liver Molecular Genetics Lab" ,
         "organisationId": "template" ,
-        "organisationCode": "RT3" ,
-        "organisationNationalGroupingName": "Royal Brompton & Harefield NHS Foundation Trust" ,
-        "organisationNationalGroupingId": "RT3"
+        "organisationCode": "699R0" ,
+        "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationNationalGroupingId": "699R0"
       } ,
       "interpreter": {
-        "organisationName": "Royal Brompton & Harefield NHS Foundation Trust" ,
+        "organisationName": "King's College Liver Molecular Genetics Lab" ,
         "organisationId": "template" ,
-        "organisationCode": "RT3" ,
-        "organisationNationalGroupingName": "Royal Brompton & Harefield NHS Foundation Trust" ,
-        "organisationNationalGroupingId": "RT3"
+        "organisationCode": "699R0" ,
+        "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationNationalGroupingId": "699R0"
       } ,
       "matchedSamples": [
         {

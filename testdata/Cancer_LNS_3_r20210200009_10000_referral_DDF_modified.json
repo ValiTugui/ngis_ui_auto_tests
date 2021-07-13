@@ -22,11 +22,11 @@
     "readyForAnalysis": true
   } ,
   "requester": {
-    "organisationName": "Lewisham and Greenwich NHS Trust" ,
+    "organisationName": "King's College Haematological Malignancy Diagnostic Centre" ,
     "organisationId": "template" ,
-    "organisationCode": "RJ2" ,
-    "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust" ,
-    "organisationNationalGroupingId": "RJ2"
+    "organisationCode": "699T0" ,
+    "organisationNationalGroupingName": "King's College Haematological Malignancy Diagnostic Centre" ,
+    "organisationNationalGroupingId": "699T0"
   } ,
   "orderingDate": {
     "month": 2 ,
@@ -98,18 +98,18 @@
         "day": 23
       } ,
       "processingLab": {
-        "organisationName": "Lewisham and Greenwich NHS Trust" ,
+        "organisationName": "King's College Haematological Malignancy Diagnostic Centre" ,
         "organisationId": "template" ,
-        "organisationCode": "RJ2" ,
-        "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust" ,
-        "organisationNationalGroupingId": "RJ2"
+        "organisationCode": "699T0" ,
+        "organisationNationalGroupingName": "King's College Haematological Malignancy Diagnostic Centre" ,
+        "organisationNationalGroupingId": "699T0"
       } ,
       "interpreter": {
-        "organisationName": "Lewisham and Greenwich NHS Trust" ,
+        "organisationName": "King's College Haematological Malignancy Diagnostic Centre" ,
         "organisationId": "template" ,
-        "organisationCode": "RJ2" ,
-        "organisationNationalGroupingName": "Lewisham and Greenwich NHS Trust" ,
-        "organisationNationalGroupingId": "RJ2"
+        "organisationCode": "699T0" ,
+        "organisationNationalGroupingName": "King's College Haematological Malignancy Diagnostic Centre" ,
+        "organisationNationalGroupingId": "699T0"
       } ,
       "matchedSamples": [
         {

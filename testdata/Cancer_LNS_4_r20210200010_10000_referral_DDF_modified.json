@@ -10,7 +10,7 @@
         "sex": "MALE" ,
         "disorderList": [
           {
-            "specificDisease": "M70"
+            "specificDisease": "M133"
           }
         ] ,
         "affectionStatus": "AFFECTED" ,
@@ -22,11 +22,11 @@
     "readyForAnalysis": true
   } ,
   "requester": {
-    "organisationName": "Surrey and Sussex Healthcare NHS Trust" ,
+    "organisationName": "King's College Advanced Diagnostics Laboratory" ,
     "organisationId": "template" ,
-    "organisationCode": "RTP" ,
-    "organisationNationalGroupingName": "Surrey and Sussex Healthcare NHS Trust" ,
-    "organisationNationalGroupingId": "RTP"
+    "organisationCode": "699V0" ,
+    "organisationNationalGroupingName": "King's College Advanced Diagnostics Laboratory" ,
+    "organisationNationalGroupingId": "699V0"
   } ,
   "orderingDate": {
     "month": 2 ,
@@ -69,8 +69,8 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template" ,
     "clinicalIndicationVersionNumber": "template" ,
-    "clinicalIndicationCode": "M70" ,
-    "clinicalIndicationFullName": "Osteosarcoma"
+    "clinicalIndicationCode": "M133" ,
+    "clinicalIndicationFullName": "Desmoplastic Medulloblastoma - Paediatric"
   } ,
   "referralTests": [
     {
@@ -98,18 +98,18 @@
         "day": 23
       } ,
       "processingLab": {
-        "organisationName": "Surrey and Sussex Healthcare NHS Trust" ,
+        "organisationName": "King's College Advanced Diagnostics Laboratory" ,
         "organisationId": "template" ,
-        "organisationCode": "RTP" ,
-        "organisationNationalGroupingName": "Surrey and Sussex Healthcare NHS Trust" ,
-        "organisationNationalGroupingId": "RTP"
+        "organisationCode": "699V0" ,
+        "organisationNationalGroupingName": "King's College Advanced Diagnostics Laboratory" ,
+        "organisationNationalGroupingId": "699V0"
       } ,
       "interpreter": {
-        "organisationName": "Surrey and Sussex Healthcare NHS Trust" ,
+        "organisationName": "King's College Advanced Diagnostics Laboratory" ,
         "organisationId": "template" ,
-        "organisationCode": "RTP" ,
-        "organisationNationalGroupingName": "Surrey and Sussex Healthcare NHS Trust" ,
-        "organisationNationalGroupingId": "RTP"
+        "organisationCode": "699V0" ,
+        "organisationNationalGroupingName": "King's College Advanced Diagnostics Laboratory" ,
+        "organisationNationalGroupingId": "699V0"
       } ,
       "matchedSamples": [
         {

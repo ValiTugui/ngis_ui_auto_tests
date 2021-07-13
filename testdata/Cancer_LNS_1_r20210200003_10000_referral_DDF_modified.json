@@ -8,7 +8,7 @@
                 "isProband": true,
                 "sex": "FEMALE",
                 "disorderList": [{
-                        "specificDisease": "M159"
+                        "specificDisease": "M107"
                     }
                 ],
                 "affectionStatus": "AFFECTED",
@@ -20,11 +20,11 @@
         "readyForAnalysis": true
     },
     "requester": {
-        "organisationName": "East Kent Hospitals University NHS Foundation Trust",
+        "organisationName": "King's College Neuropathology Laboratory",
         "organisationId": "template",
-        "organisationCode": "RVV",
-        "organisationNationalGroupingName": "East Kent Hospitals University NHS Foundation Trust",
-        "organisationNationalGroupingId": "RVV"
+        "organisationCode": "699Q0",
+        "organisationNationalGroupingName": "King's College Neuropathology Laboratory",
+        "organisationNationalGroupingId": "699Q0"
     },
     "orderingDate": {
         "month": 2,
@@ -64,8 +64,8 @@
     "clinicalIndication": {
         "clinicalIndicationUid": "template",
         "clinicalIndicationVersionNumber": "template",
-        "clinicalIndicationCode": "M159",
-        "clinicalIndicationFullName": "Pituitary Blastoma - Paediatric"
+        "clinicalIndicationCode": "M107",
+        "clinicalIndicationFullName": "Malt-Lymphoma"
     },
     "referralTests": [{
             "germlineSamples": [{
@@ -91,18 +91,18 @@
                 "day": 23
             },
             "processingLab": {
-                "organisationName": "East Kent Hospitals University NHS Foundation Trust",
+                "organisationName": "King's College Neuropathology Laboratory",
                 "organisationId": "template",
-                "organisationCode": "RVV",
-                "organisationNationalGroupingName": "East Kent Hospitals University NHS Foundation Trust",
-                "organisationNationalGroupingId": "RVV"
+                "organisationCode": "699Q0",
+                "organisationNationalGroupingName": "King's College Neuropathology Laboratory",
+                "organisationNationalGroupingId": "699Q0"
             },
             "interpreter": {
-                "organisationName": "East Kent Hospitals University NHS Foundation Trust",
+                "organisationName": "King's College Neuropathology Laboratory",
                 "organisationId": "template",
-                "organisationCode": "RVV",
-                "organisationNationalGroupingName": "East Kent Hospitals University NHS Foundation Trust",
-                "organisationNationalGroupingId": "RVV"
+                "organisationCode": "699Q0",
+                "organisationNationalGroupingName": "King's College Neuropathology Laboratory",
+                "organisationNationalGroupingId": "699Q0"
             },
             "matchedSamples": [{
                     "germlineSampleId": "LP3000226-DNA_H01",

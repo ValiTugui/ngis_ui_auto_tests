@@ -22,11 +22,11 @@
     "readyForAnalysis": true
   } ,
   "requester": {
-    "organisationName": "South London and Maudsley NHS Foundation Trust" ,
+    "organisationName": "King's College Liver Molecular Genetics Lab" ,
     "organisationId": "template" ,
-    "organisationCode": "RV5" ,
-    "organisationNationalGroupingName": "South London and Maudsley NHS Foundation Trust" ,
-    "organisationNationalGroupingId": "RV5"
+    "organisationCode": "699R0" ,
+    "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+    "organisationNationalGroupingId": "699R0"
   } ,
   "orderingDate": {
     "month": 3 ,
@@ -88,18 +88,18 @@
         "day": 2
       } ,
       "processingLab": {
-        "organisationName": "South London and Maudsley NHS Foundation Trust" ,
+        "organisationName": "King's College Liver Molecular Genetics Lab" ,
         "organisationId": "template" ,
-        "organisationCode": "RV5" ,
-        "organisationNationalGroupingName": "South London and Maudsley NHS Foundation Trust" ,
-        "organisationNationalGroupingId": "RV5"
+        "organisationCode": "699R0" ,
+        "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationNationalGroupingId": "699R0"
       } ,
       "interpreter": {
-        "organisationName": "South London and Maudsley NHS Foundation Trust" ,
+        "organisationName": "King's College Liver Molecular Genetics Lab" ,
         "organisationId": "template" ,
-        "organisationCode": "RV5" ,
-        "organisationNationalGroupingName": "South London and Maudsley NHS Foundation Trust" ,
-        "organisationNationalGroupingId": "RV5"
+        "organisationCode": "699R0" ,
+        "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationNationalGroupingId": "699R0"
       } ,
       "matchedSamples": [
         {
