@@ -234,11 +234,6 @@
             "hpoBuildNumber": "HP:0002384" ,
             "termPresence": "no" ,
             "term": "HP:0002384"
-          } ,
-          {
-            "termPresence": "no" ,
-            "hpoBuildNumber": "releases/2015-03-12" ,
-            "term": "HP:0001626"
           }
         ] ,
         "adoptedStatus": "notadopted" ,
