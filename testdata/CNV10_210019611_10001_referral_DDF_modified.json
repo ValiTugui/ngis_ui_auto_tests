@@ -1,7 +1,7 @@
 {
     "clinicalIndication": {
-        "clinicalIndicationCode": "R146", 
-        "clinicalIndicationFullName": "Disorders of sex development", 
+        "clinicalIndicationCode": "R143",
+        "clinicalIndicationFullName": "Neonatal diabetes",
         "clinicalIndicationUid": "template"
     }, 
     "orderingDate": {
@@ -33,7 +33,7 @@
                 "consanguineousParents": "unknown", 
                 "disorderList": [
                     {
-                        "specificDisease": "R146"
+                        "specificDisease": "R143"
                     }
                 ], 
                 "fatherId": 4035407, 
@@ -101,21 +101,21 @@
                     "panelId": "145", 
                     "panelName": "Congenital adrenal hypoplasia", 
                     "panelVersion": "2.6", 
-                    "specificDisease": "R146"
+                    "specificDisease": "R143"
                 }, 
                 {
                     "multipleGeneticOrigins": "no", 
                     "panelId": "9", 
                     "panelName": "Disorders of sex development", 
                     "panelVersion": "2.47", 
-                    "specificDisease": "R146"
+                    "specificDisease": "R143"
                 }, 
                 {
                     "multipleGeneticOrigins": "no", 
                     "panelId": "285", 
                     "panelName": "Intellectual disability", 
                     "panelVersion": "3.1080", 
-                    "specificDisease": "R146"
+                    "specificDisease": "R143"
                 }
             ], 
             "clinicalIndicationTest": {
@@ -131,7 +131,7 @@
             "diseasePenetrances": [
                 {
                     "penetrance": "complete", 
-                    "specificDisease": "R146"
+                    "specificDisease": "R143"
                 }
             ], 
             "germlineSamples": [
