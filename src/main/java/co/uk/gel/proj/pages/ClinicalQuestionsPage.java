@@ -1275,10 +1275,25 @@ public class ClinicalQuestionsPage {
                 }
             }
             else {
-                Debugger.println("The params are-" + paramValue);
-                if (!(searchAndSelectRandomHPOPhenotype(paramValue) > 0)) {
-                    isFilled = isHPOAlreadyConsidered(paramValue);
+                paramValue = paramValue.replace("[", "");
+                paramValue = paramValue.replace("]", "");
+
+//                Debugger.println("The params are-" + paramValue);
+                String[] hpoData = paramValue.split("-");
+                String hpoTerm=hpoData[0];
+                String hpoPresence=hpoData[1];
+                Debugger.println("Selecting the hpo--"+hpoTerm+";"+hpoPresence);
+
+                if (!(searchAndSelectRandomHPOPhenotype(hpoTerm) > 0)) {
+                    isFilled = isHPOAlreadyConsidered(hpoTerm);
                 } else {
+                    if(hpoPresence.equalsIgnoreCase("yes")){
+                        selectTermPresence("Present");
+                    }else if(hpoPresence.equalsIgnoreCase("no")){
+                        selectTermPresence("Absent");
+                    }else if(hpoPresence.equalsIgnoreCase("unknown")){
+                        selectTermPresence("Unknown");
+                    }
                     isFilled = true;
                 }
             }
