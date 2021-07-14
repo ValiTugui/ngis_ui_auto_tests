@@ -741,7 +741,7 @@ public class ResponsibleClinicianPage {
         try {
             for (int i = 0; i < clinicianErrorMessages.size(); i++) {
                 if (Wait.isElementDisplayed(driver, clinicianErrorMessages.get(i), 5)) {
-                    Debugger.println("error message displayed");
+//                    Debugger.println("error message displayed");
                     return false;
                 }
             }
@@ -749,7 +749,7 @@ public class ResponsibleClinicianPage {
             return true;
 
         } catch (Exception exp) {
-            Debugger.println("Exception message");
+//            Debugger.println("Exception message");
             return false;
         }
 

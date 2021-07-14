@@ -341,7 +341,6 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserDeletesTheDataInTheEmailAddressField() {
         //Actions.clearField(responsibleClinicianPage.clinicianEmailField);
         responsibleClinicianPage.clinicianEmailField.clear();
-        Debugger.println("the field has been cleared");
     }
 
 

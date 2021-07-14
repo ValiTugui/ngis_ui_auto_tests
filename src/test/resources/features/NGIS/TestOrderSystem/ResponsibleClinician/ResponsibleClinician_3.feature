@@ -76,13 +76,13 @@ Feature: TestOrder - Responsible Clinician 3
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
-#      Then the user is navigated to a page with title Add a requesting organisation
-#      And the user enters the keyword "NHS Foundation Trust" in the search field
-#      And the user selects a random entity from the suggestions list
-#      And the user clicks the Save and Continue button
-    ##Test Package
-#      Then the user is navigated to a page with title Confirm the test package
-#      When the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "NHS Foundation Trust" in the search field
+    And the user selects a random entity from the suggestions list
+    And the user clicks the Save and Continue button
+    #Test Package
+    Then the user is navigated to a page with title Confirm the test package
+    When the user clicks the Save and Continue button
     ##Responsible Clinician
     And the user navigates to the "Responsible clinician" stage
     Then the user is navigated to a page with title Add clinician information
@@ -111,6 +111,10 @@ Feature: TestOrder - Responsible Clinician 3
     And the user enters 2 valid email address "<MultipleMailID1>" in the field separated by "<comma>"
     Then the user should not sees an error message on the page
     And the user clicks the Save and Continue button
+    When the user navigates to the "<PrintForms>" stage
+    And the user is navigated to a page with title Print sample forms
+    And the user is able to download print form for the proband and verify the "<MultipleMailID1>" in the "SampleForm.pdf"
+
     Examples:
-      | PatientDetails  | MultipleMailID                            | error_info                           | MultipleMailID1             | MultipleMailID2             | MultipleMailID3             | MultipleMailID4             | error_info1                        | MultipleMailID5             |
-      | Patient details | user1@nhs.net,user2@nhs.net,user3@nhs.net | Please enter a maximum of two emails | user1@nhs.net,user2@nhs.net | user1@nhs.net user2@nhs.net | user1@nhs.net;user2@nhs.net | user1@nhs.net.user2@nhs.net | Please enter a valid email address | user1@nhs.net/user2@nhs.net |
+      | PatientDetails  | MultipleMailID                            | error_info                           | MultipleMailID1             | MultipleMailID2             | MultipleMailID3             | MultipleMailID4             | error_info1                        | MultipleMailID5             | PrintForms  |
+      | Patient details | user1@nhs.net,user2@nhs.net,user3@nhs.net | Please enter a maximum of two emails | user1@nhs.net,user2@nhs.net | user1@nhs.net user2@nhs.net | user1@nhs.net;user2@nhs.net | user1@nhs.net.user2@nhs.net | Please enter a valid email address | user1@nhs.net/user2@nhs.net | Print forms |
