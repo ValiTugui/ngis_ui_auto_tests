@@ -58,8 +58,8 @@ pipeline {
         success {
             script {
                 //slackSend channel: '#gms_e2e_automated_tests', message: "E2E Test Framework stage- 1 out of 10-Creating a referral for ${Tag} in TOMS is ${currentBuild.result}", tokenCredentialId: 'fa0789fb-b30c-4394-8d89-a4a5761f9a96'
-                sh 'echo Attempt to run CSV generation'
-                build wait: false, job: 'CSV_Creation_Submission', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}"), string(name: 'CaseType', value: "${params.CaseType}")]
+                sh 'echo Not running CSV generation'
+//                build wait: false, job: 'CSV_Creation_Submission', parameters: [string(name: 'TestEnvironment', value: "${params.TestEnvironment}"), string(name: 'Tag', value: "${params.Tag}"), string(name: 'CaseType', value: "${params.CaseType}")]
             }
         }
         failure {
