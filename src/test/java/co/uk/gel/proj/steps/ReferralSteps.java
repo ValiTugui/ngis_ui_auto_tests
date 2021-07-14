@@ -844,7 +844,7 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SignInOnlineTO.jpg");
             Assert.fail("Sign in to Online Service Button click failed..");
         }
-        Debugger.println("User Type : " + userType);
+//        Debugger.println("User Type : " + userType);
         if (userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
         }
@@ -994,7 +994,7 @@ public class ReferralSteps extends Pages {
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
             Assert.assertTrue(false);
         }
-        Debugger.println("User Type : " + userType);
+//        Debugger.println("User Type : " + userType);
         if (userType == null || userType.isEmpty()) {
             Debugger.println("User Type Cannot be null");
             return;
