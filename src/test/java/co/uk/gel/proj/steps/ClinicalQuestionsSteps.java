@@ -4,7 +4,6 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.proj.pages.ClinicalQuestionsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -18,7 +17,6 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ClinicalQuestionsSteps extends Pages {
     public List<String> phenotypicSexDropdownList;
@@ -466,6 +464,28 @@ public class ClinicalQuestionsSteps extends Pages {
         if(!testResult){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PhenotypeSex.jpg");
             Assert.fail("Phenotypic sex not answered");
+        }
+    }
+
+    @And("the user should be able to see HPO term field marked as {string}")
+    public void theUserShouldBeAbleToSeeHPOTermFieldMarkedAs(String hpoTermFieldStatus) {
+        boolean testResult = false;
+        boolean expStatus = false;
+        expStatus = Boolean.parseBoolean(hpoTermFieldStatus);
+        testResult = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
+        if (testResult != expStatus) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Then("the should be able to see HPO term field not marked as {string}")
+    public void theShouldBeAbleToSeeHPOTermFieldNotMarkedAs(String hpoTermFieldStatus) {
+        boolean testResult = false;
+        boolean expStatus = false;
+        expStatus = Boolean.parseBoolean(hpoTermFieldStatus);
+        testResult = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
+        if (testResult != expStatus) {
+            Assert.assertTrue(false);
         }
     }
 }

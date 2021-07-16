@@ -301,6 +301,9 @@ public class ReferralPage<check> {
     @FindBy(css = "input[type*='submit']")
     public WebElement PasswordSubmitButton;
 
+    @FindBy(xpath = "//h1[text()='Referral Update Conflict']")
+    public WebElement saveAndContinueConcurrenyMessage;
+
     public String getText(WebElement element) {
         Wait.forElementToBeDisplayed(driver, element);
         return element.getText();
@@ -2124,6 +2127,49 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Referral " + exp);
             SeleniumLib.takeAScreenShot("submitReferral.jpg");
+        }
+    }
+
+    public boolean verifyTheButton(String button) {
+        try {
+            WebElement navButton = driver.findElement(By.xpath("//button[contains(@class,'styles_referral-navigation__continue')]"));
+            String actualButton = navButton.getText();
+            switch (button) {
+                case "Continue":
+                case "Save and continue":
+                    if (!actualButton.equalsIgnoreCase(button)) {
+                        Debugger.println("Expected button was - " + button + " but found - " + actualButton);
+                    } else {
+                        Debugger.println("Expected button was - " + button + " and found also - " + actualButton);
+                    }
+                    break;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Button not found " + exp);
+            return false;
+        }
+    }
+
+    public boolean acknowledgeThePopup_SaveAndContinue() {
+        try {
+            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)) {
+                Debugger.println("Save and Continue not visible even after 60 minutes.");
+                return false;
+            }
+            try {
+                seleniumLib.clickOnWebElement(saveAndContinueButton);
+            } catch (Exception exp1) {
+                Actions.clickElement(driver, saveAndContinueButton);
+            }
+            if (!Wait.isElementDisplayed(driver, saveAndContinueConcurrenyMessage, 60)) {
+                Debugger.println("Concurrency alert message popup not displayed even after clicking on Save and continue button.");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from ReferralPage:Concurrency alert: " + exp + "\n" + driver.getCurrentUrl());
+            return false;
         }
     }
 }

@@ -16,11 +16,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import static co.uk.gel.lib.Actions.getText;
 
@@ -797,4 +797,14 @@ public class TumoursSteps extends Pages {
     }
 
 
+    @When("the user updates the {string} stage with {string}")
+    public void theUserUpdatesTheStageWith(String stageName, String updateDetails) {
+        if (stageName.equalsIgnoreCase("Tumours")) {
+            String tumour = tumoursPage.selectTumourType(updateDetails);
+            if (tumour == null) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourType.jpg");
+                Assert.fail("Could not fill tumour type.");
+            }
+        }
+    }
 }//end

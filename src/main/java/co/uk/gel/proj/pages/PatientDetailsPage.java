@@ -2342,4 +2342,23 @@ public class PatientDetailsPage {
         }
     }
 
+    public boolean verifyPostCodeErrorMessage(String expMessage) {
+        try {
+            Actions.clickElement(driver, driver.findElement(By.xpath("//label[text()='Postcode']")));
+            WebElement postCodeFieldError = driver.findElement(By.xpath("//div[text()='This postcode is not in a valid format']"));
+            if (!Wait.isElementDisplayed(driver, postCodeFieldError, 20)) {
+                Debugger.println("The Post Code field error message not displayed");
+                return false;
+            }
+            String actualPostcodeErrorMessage = postCodeFieldError.getText();
+            if (!actualPostcodeErrorMessage.equalsIgnoreCase(expMessage)) {
+                Debugger.println("The postcode field expected error is:" + expMessage + " But actual is:" + actualPostcodeErrorMessage);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the postcode error message:" + exp);
+            return false;
+        }
+    }
 }//end
