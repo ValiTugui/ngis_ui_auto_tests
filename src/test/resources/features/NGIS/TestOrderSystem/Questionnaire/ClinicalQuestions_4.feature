@@ -21,3 +21,19 @@ Feature: ClinicalQuestions 4 - RD Questionnaire
     Examples:
       | stage              | rareDiseaseDiagnosisValue |
       | Clinical questions | ACHONDROPLASIA            |
+
+  @NTOS-5022 @Z-LOGOUT
+#  @NTOS-5022 #Bill Release
+  Scenario Outline: NTOS-5022- Clinical Questions - clear the disease status field and verify the hpo term field status
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
+    When the user navigates to the "<stage>" stage
+    Then the Disease status field is SET with the disease status value Affected
+    And the user should be able to see HPO term field marked as "Mandatory"
+    When the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon
+    Then the should be able to see HPO term field not marked as "Mandatory"
+    Examples:
+      | stage              |
+      | Clinical questions |

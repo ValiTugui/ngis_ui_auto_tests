@@ -321,6 +321,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='finish-button btn ld-ext-left']")
     public WebElement continueButtonOnWithdrawalForm;
 
+    @FindBy(xpath = "//h5[text()='Data Conflict Error']")
+    public WebElement submitPatientChoiceConcurrenyMessage;
+
     public boolean verifySelectedTabInPatientChoice(String tabSectionTitle) {
         String selectedSubtitle = selectedTabTitle.replaceAll("dummySubtitle", tabSectionTitle);
         try {
@@ -2283,4 +2286,25 @@ public class PatientChoicePage {
         }
     }
 
+    public boolean acknowledgeTheConcurrencyPopup_PatientChoice() {
+        try {
+            if (!Wait.isElementDisplayed(driver, submitPatientChoiceButton, 60)) {
+                Debugger.println("Submit Patient choice button not visible even after 60 seconds.");
+                return false;
+            }
+            try {
+                seleniumLib.clickOnWebElement(submitPatientChoiceButton);
+            } catch (Exception exp1) {
+                Actions.clickElement(driver, submitPatientChoiceButton);
+            }
+            if (!Wait.isElementDisplayed(driver, submitPatientChoiceConcurrenyMessage, 60)) {
+                Debugger.println("Concurrency alert message popup not displayed even after clicking on Submit Patient Choice button.");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Patient choice:Concurrency alert: " + exp + "\n" + driver.getCurrentUrl());
+            return false;
+        }
+    }
 }//end

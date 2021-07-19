@@ -68,3 +68,27 @@ Feature: TestOrder - Family Members Search Page 3- Re-Adding existing members
     Examples:
       | stage          | SearchDetails                                                                   | ResultMessage          | PostcodeFormat |
       | Family members | DOB=01-10-2011:FirstName=AMBERA:LastName=ZHOU ZHU:Gender=Male:Postcode=le17 2rj | 1 patient record found | LE17 2RJ       |
+
+  @NTS-7032 @Z-LOGOUT
+  #NTS-7032 #NTOS-4986
+  Scenario Outline:NTS-7032:NTOS-4986: Search Family member : Verify Postcode field error message with invalid format value.
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-2005:Gender=Male |
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
+    And the display question for NHS Number of the family member search page is Do you have the family member’s NHS Number?
+    When the user clicks the NO button in family member search page
+    And the user fills in the Postcode field box with "<Postcode1>"
+    Then the user should be able to see "<errorMessage>"
+    And the user fills in the Postcode field box with "<Postcode2>"
+    Then the user should be able to see "<errorMessage>"
+    And the user fills in the Postcode field box with "<Postcode3>"
+    Then the user should be able to see "<errorMessage>"
+    And the user fills in the Postcode field box with "<Postcode4>"
+    Then the user should be able to see "<errorMessage>"
+    And the user fills in the Postcode field box with "<Postcode5>"
+    Then the user should be able to see "<errorMessage>"
+    Examples:
+      | stage          | Postcode1 | Postcode2 | Postcode3 | Postcode4 | Postcode5 | errorMessage                           |
+      | Family members | shdfkhs   | 982490    | AA99A 9AA | A99A 9AA  | rwrw2424  | This postcode is not in a valid format |

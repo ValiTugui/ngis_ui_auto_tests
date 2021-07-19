@@ -7,6 +7,7 @@ import co.uk.gel.proj.util.ConcurrencyTest;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
@@ -227,5 +228,23 @@ public class ConcurrencyStepDefs extends Pages {
         }
     }
 
+    @And("the user should be able to see concurrency alert message while submitting the patient choice")
+    public void theUserShouldBeAbleToSeeConcurrencyAlertMessageWhileSubmittingThePatientChoice() {
+        boolean testResult = false;
+        testResult = patientChoicePage.acknowledgeTheConcurrencyPopup_PatientChoice();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PatientChoiceSubmitConcurrencyPopUp.jpg");
+            Assert.fail("Concurrency alert message popup not displayed after submitting patient choice");
+        }
+    }
+
+    @Then("the user updates the family member clinical details with {string}")
+    public void theUserUpdatesTheFamilyMemberClinicalDetailsWith(String updateDetails) {
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnset(updateDetails);
+        if (!testResult) {
+            Assert.fail("Family member clinical details could not be enter.");
+        }
+    }
 }//end
 

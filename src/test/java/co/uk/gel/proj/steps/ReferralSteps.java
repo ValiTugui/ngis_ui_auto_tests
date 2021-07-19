@@ -1550,4 +1550,29 @@ public class ReferralSteps extends Pages {
     public void theUserSubmitsTheReferralForConcurrency() {
         referralPage.submitReferralConcurrency();
     }
+
+    @And("the user should be able to see {string} button")
+    public void theUserShouldBeAbleToSeeButton(String button) {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheButton(button);
+        Assert.assertTrue(testResult);
+    }
+
+    //Notification popup for concurrency after clicking on save and continue button
+    @Then("the user should be able to see concurrency alert message while saving the stage")
+    public void theUserShouldBeAbleToSeeConcurrencyAlertMessageWhileSavingTheStage() {
+        boolean testResult = false;
+        testResult = referralPage.acknowledgeThePopup_SaveAndContinue();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ReferralAcknowledge.jpg");
+            Assert.fail("Concurrency alert message popup not displayed");
+        }
+    }
+
+    @When("the user refresh the browser")
+    public void theUserRefreshTheBrowser() {
+        Actions.refreshBrowser(driver);
+        Actions.acceptAlert(driver);
+        SeleniumLib.sleepInSeconds(10);
+    }
 }
