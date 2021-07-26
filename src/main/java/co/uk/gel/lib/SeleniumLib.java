@@ -677,7 +677,7 @@ public class SeleniumLib {
             ((JavascriptExecutor) driver).executeScript("window.open('/')");
             //driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"t");
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-            driver.switchTo().window(tabs.get(tabs.size()));
+            driver.switchTo().window(tabs.get(tabs.size()-1));
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in switching to new Tab: "+exp);

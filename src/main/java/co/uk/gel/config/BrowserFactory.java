@@ -69,7 +69,7 @@ public class BrowserFactory {
         if (serverTypeEnum == ServerTypeEnum.LOCAL) {
             switch (browserEnum) {
                 case CHROME:
-                    WebDriverManager.chromedriver().clearPreferences();
+                    //WebDriverManager.chromedriver().clearPreferences();
                     WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download
                     driver = getChromeDriver(null, javascriptEnabled);
                     break;
@@ -250,9 +250,9 @@ public class BrowserFactory {
         if (!javascriptEnabled) {
             chromeLocalOptions.addArguments("disable-javascript");
         }
-        LoggingPreferences logPrefs = new LoggingPreferences();
-        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-        chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
+//        LoggingPreferences logPrefs = new LoggingPreferences();
+//        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+//        chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
         return chromeLocalOptions;
     }
 

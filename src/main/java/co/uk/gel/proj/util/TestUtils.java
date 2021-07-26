@@ -554,6 +554,7 @@ public class TestUtils {
             boolean isFileCreated = file.exists();
             int count = 1;
             while(!isFileCreated){
+                Debugger.println("Session file not created... waiting.....");
                 SeleniumLib.sleepInSeconds(30);
                 isFileCreated = file.exists();
                 count++;
@@ -565,6 +566,7 @@ public class TestUtils {
             if(!isFileCreated){
                 return "File not created even after 5 mins.";
             }
+            Debugger.println("Session file CREATED.");
             FileInputStream inputStream = new FileInputStream(defaultDownloadLocation+fileName);
             try {
                 String url = IOUtils.toString(inputStream);

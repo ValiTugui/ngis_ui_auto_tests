@@ -1614,6 +1614,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("Could not write the file:" + fileName);
         }
         SeleniumLib.closeCurrentWindow();
+        //SeleniumLib.sleepInSeconds(60);
     }
     @Given("the user loads the browser with URL (.*)")
     public void theUserLoadsTheBrowserWithURL(String url) {
@@ -1621,10 +1622,14 @@ public class ReferralSteps extends Pages {
     }
     @When("the user access the referral created by first scenario from file (.*)")
     public void theUserAccessTheReferralCreatedByFirstScenario(String fileName) {
+        SeleniumLib.sleepInSeconds(5);
         String referralUrl = TestUtils.readFromFile(fileName+".txt");
+        Debugger.println("New Referral URL: "+referralUrl);
         if(referralUrl.startsWith("File not created")){
             Assert.fail(referralUrl);
         }
+        SeleniumLib.switchToNewTab();
+        SeleniumLib.sleepInSeconds(2);
         driver.get(referralUrl);
         SeleniumLib.sleepInSeconds(10);
     }
