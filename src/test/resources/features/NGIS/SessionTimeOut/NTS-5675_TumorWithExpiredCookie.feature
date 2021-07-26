@@ -8,7 +8,7 @@ Feature: NTS-5675-Tumour with expired Cookie
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     When the user navigates to the "<Tumours>" stage
     Then the user is navigated to a page with title Add a tumour
-#   When the user inactive for 21 minutes
+#  When the user inactive for 21 minutes
     When the user clear all the session cookies in a new tab
     When the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
     And the user clicks the Save and Continue button

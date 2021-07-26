@@ -9,14 +9,12 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -537,5 +535,32 @@ public class TestUtils {
 
         }
     }
+    public static boolean writeToFile (String fileName,String dataToWrite) {
+        try {
+            FileWriter file = new FileWriter(defaultDownloadLocation+fileName, true);
+            file.write(dataToWrite);
+            file.write("\n");
+            file.close();
+            return true;
+        }catch (Exception exp) {
+            Debugger.println("Exception in TestUtils.writeToFile:"+exp);
+            return false;
+        }
+    }
+    @SuppressWarnings("deprecation")
+    public static String readFromFile (String fileName) {
+        try {
+            FileInputStream inputStream = new FileInputStream(fileName);
 
+            try {
+                String url = IOUtils.toString(inputStream);
+                return url;
+            } finally {
+                inputStream.close();
+            }
+        }catch (Exception exp) {
+            Debugger.println("Exception in TestUtils.readFromFile:"+exp);
+            return "";
+        }
+    }
 }

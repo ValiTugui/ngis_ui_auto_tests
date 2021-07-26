@@ -1605,4 +1605,24 @@ public class ReferralSteps extends Pages {
         SeleniumLib.sleepInSeconds(10);
     }
 
+    @When("the user writes the referralURL to the file (.*) and close the window")
+    public void theUserWritesTheReferralURLToTheFile(String fileName) {
+        String currentURL = driver.getCurrentUrl();
+        TestUtils.deleteIfFilePresent(fileName+".txt","");
+        boolean testResult = TestUtils.writeToFile(fileName+".txt", currentURL);
+        if (!testResult) {
+            Assert.fail("Could not write the file:" + fileName);
+        }
+        SeleniumLib.closeCurrentWindow();
+    }
+    @Given("the user loads the browser with URL (.*)")
+    public void theUserLoadsTheBrowserWithURL(String url) {
+        driver.get(url);
+    }
+    @When("the user access the referral created by first scenario from file (.*)")
+    public void theUserAccessTheReferralCreatedByFirstScenario(String fileName) {
+        String referralUrl = TestUtils.readFromFile(fileName+".txt");
+        driver.get(referralUrl);
+        SeleniumLib.sleepInSeconds(10);
+    }
 }
