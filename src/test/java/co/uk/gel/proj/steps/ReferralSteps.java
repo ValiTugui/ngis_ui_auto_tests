@@ -1622,6 +1622,9 @@ public class ReferralSteps extends Pages {
     @When("the user access the referral created by first scenario from file (.*)")
     public void theUserAccessTheReferralCreatedByFirstScenario(String fileName) {
         String referralUrl = TestUtils.readFromFile(fileName+".txt");
+        if(referralUrl.startsWith("File not created")){
+            Assert.fail(referralUrl);
+        }
         driver.get(referralUrl);
         SeleniumLib.sleepInSeconds(10);
     }

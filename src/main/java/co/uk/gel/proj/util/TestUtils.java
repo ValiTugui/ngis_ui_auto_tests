@@ -550,8 +550,22 @@ public class TestUtils {
     @SuppressWarnings("deprecation")
     public static String readFromFile (String fileName) {
         try {
-            FileInputStream inputStream = new FileInputStream(fileName);
-
+            File file = new File(defaultDownloadLocation+fileName);
+            boolean isFileCreated = file.exists();
+            int count = 1;
+            while(!isFileCreated){
+                SeleniumLib.sleepInSeconds(30);
+                isFileCreated = file.exists();
+                count++;
+                if(count > 10){
+                    //Waiting for 5 minutes and failing.
+                    break;
+                }
+            }
+            if(!isFileCreated){
+                return "File not created even after 5 mins.";
+            }
+            FileInputStream inputStream = new FileInputStream(defaultDownloadLocation+fileName);
             try {
                 String url = IOUtils.toString(inputStream);
                 return url;
