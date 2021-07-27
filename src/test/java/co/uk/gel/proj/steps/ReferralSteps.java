@@ -1603,8 +1603,6 @@ public class ReferralSteps extends Pages {
         if (!testResult) {
             Assert.fail("Could not write the file:" + fileName);
         }
-        SeleniumLib.closeCurrentWindow();
-        //SeleniumLib.sleepInSeconds(60);
     }
     @Given("the user loads the browser with URL (.*)")
     public void theUserLoadsTheBrowserWithURL(String url) {
