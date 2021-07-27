@@ -250,9 +250,9 @@ public class BrowserFactory {
         if (!javascriptEnabled) {
             chromeLocalOptions.addArguments("disable-javascript");
         }
-//        LoggingPreferences logPrefs = new LoggingPreferences();
-//        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-//        chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
+        LoggingPreferences logPrefs = new LoggingPreferences();
+        logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+        chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
         return chromeLocalOptions;
     }
 

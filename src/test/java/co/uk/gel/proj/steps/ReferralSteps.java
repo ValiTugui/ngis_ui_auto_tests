@@ -1588,19 +1588,9 @@ public class ReferralSteps extends Pages {
     @When("the user close the browser tab and opens the referral details in a new tab")
     public void theUserCloseTheBrowserTabAndOpensTheReferralDetailsInANewTab() {
         String currentURL = driver.getCurrentUrl();
-        //Opening a new Tab
-        SeleniumLib.switchToNewTab();
+        SeleniumLib.closeCurrentAndMoveToFirstTab();
         SeleniumLib.sleepInSeconds(5);
-        SeleniumLib.ChangeWindow();
-        SeleniumLib.sleepInSeconds(5);
-        driver.get("https://www.google.com");
-        SeleniumLib.sleepInSeconds(5);
-        //Closing the first tab
-        SeleniumLib.switchToFirstTab();
-        SeleniumLib.sleepInSeconds(5);
-        SeleniumLib.closeCurrentWindow();
         //Access the referral URL in the new Window
-        SeleniumLib.sleepInSeconds(5);
         driver.get(currentURL);
         SeleniumLib.sleepInSeconds(10);
     }
@@ -1632,5 +1622,11 @@ public class ReferralSteps extends Pages {
         SeleniumLib.sleepInSeconds(2);
         driver.get(referralUrl);
         SeleniumLib.sleepInSeconds(10);
+    }
+
+    @And("the user opens a new tab on the browser")
+    public void theUserOpensANewTabOnTheBrowser() {
+        SeleniumLib.switchToNewTab();
+        SeleniumLib.sleepInSeconds(2);
     }
 }
