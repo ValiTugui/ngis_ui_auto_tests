@@ -11,6 +11,6 @@ Feature: NTS-5986-Implement temporary session/cookie storage - Multi browser
 
   @NTS-5986 @NTS-5983 @Browser2
   Scenario: NTS-5986: Open the referral created by first scenario in new browser instance
-    Given the user loads the browser with URL https://www.google.com/
+    Given the user loads the browser with URL https://test-ordering.e2e-latest.ngis.io/test-order/
     When the user access the referral created by first scenario from file NTS-5986
     Then the user is navigated to a page with title Add a requesting organisation
