@@ -1575,4 +1575,80 @@ public class ReferralSteps extends Pages {
         Actions.acceptAlert(driver);
         SeleniumLib.sleepInSeconds(10);
     }
+
+
+    @When("the user inactive for {int} minutes")
+    public void theUserInactiveForMinutes(int minutes) {
+        referralPage.waitForSessionTimeOut(minutes);
+    }
+    @When("the user clear all the session cookies in a new tab")
+    public void clearCookiesInANewTab() {
+        SeleniumLib.switchToNewTab();
+        driver.get("chrome://settings/clearBrowserData");
+        globalBehaviourPage.clearBrowserCache();
+        SeleniumLib.closeCurrentWindow();
+    }
+
+    @Then("user should redirect to login page")
+    public void userShouldRedirectToLoginPage() {
+        String vMessage = referralPage.validateRedirectToLoginPage();
+        if(!vMessage.equalsIgnoreCase("Success")){
+            Assert.fail(vMessage);
+        }
+    }
+
+    @Then("the page is refreshed and the Add a tumour page is displayed")
+    public void thePageIsRefreshedAndTheAddATumourPageIsDisplayed() {
+        String title = "Add a tumour";
+        boolean testResult = referralPage.verifyThePageTitlePresence(title);
+        if (!testResult) {
+            Debugger.println("TUMOUR URL: "+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(title, " ") + ".jpg");
+            Assert.fail("Could not navigate to page with title :" + title);
+        }
+    }
+
+    @When("the user close the browser tab and opens the referral details in a new tab")
+    public void theUserCloseTheBrowserTabAndOpensTheReferralDetailsInANewTab() {
+        String currentURL = driver.getCurrentUrl();
+        SeleniumLib.closeCurrentAndMoveToFirstTab();
+        SeleniumLib.sleepInSeconds(5);
+        //Access the referral URL in the new Window
+        driver.get(currentURL);
+        SeleniumLib.sleepInSeconds(10);
+    }
+
+    @When("the user writes the referralURL to the file (.*) and close the window")
+    public void theUserWritesTheReferralURLToTheFile(String fileName) {
+        String currentURL = driver.getCurrentUrl();
+        TestUtils.deleteIfFilePresent(fileName+".txt","");
+        boolean testResult = TestUtils.writeToFile(fileName+".txt", currentURL);
+        if (!testResult) {
+            Assert.fail("Could not write the file:" + fileName);
+        }
+    }
+    @Given("the user loads the browser with URL (.*)")
+    public void theUserLoadsTheBrowserWithURL(String url) {
+        driver.get(url);
+    }
+    @When("the user access the referral created by first scenario from file (.*)")
+    public void theUserAccessTheReferralCreatedByFirstScenario(String fileName) {
+        SeleniumLib.sleepInSeconds(5);
+        String referralUrl = TestUtils.readFromFile(fileName+".txt");
+        Debugger.println("New Referral URL: "+referralUrl);
+        if(referralUrl.startsWith("File not created")){
+            Assert.fail(referralUrl);
+        }
+        SeleniumLib.switchToNewTab();
+        SeleniumLib.sleepInSeconds(2);
+        driver.get(referralUrl);
+        SeleniumLib.sleepInSeconds(10);
+    }
+
+    @And("the user opens a new tab on the browser")
+    public void theUserOpensANewTabOnTheBrowser() {
+        SeleniumLib.switchToNewTab();
+        SeleniumLib.sleepInSeconds(2);
+    }
+
 }

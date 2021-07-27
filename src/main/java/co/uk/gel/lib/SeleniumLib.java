@@ -675,7 +675,7 @@ public class SeleniumLib {
         try {
             ((JavascriptExecutor) driver).executeScript("window.open()");
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-            driver.switchTo().window(tabs.get(1));
+            driver.switchTo().window(tabs.get(tabs.size()-1));
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in switching to new Tab: "+exp);
@@ -684,8 +684,33 @@ public class SeleniumLib {
     }
     public static boolean closeCurrentWindow(){
         try {
+            //Close current tab and move to the previous tab
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.close()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(tabs.size()-1));
+
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Could not close current window: "+exp);
+            return false;
+        }
+    }
+    public static boolean closeCurrentAndMoveToFirstTab(){
+        try {
+            //Close current tab and move to the previous tab
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.close()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(0));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Could not close First Tab: "+exp);
+            return false;
+        }
+    }
+    public static boolean switchToFirstTab(){
+        try {
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
             driver.switchTo().window(tabs.get(0));
             return true;
