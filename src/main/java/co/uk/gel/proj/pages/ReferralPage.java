@@ -2173,6 +2173,7 @@ public class ReferralPage<check> {
         }
     }
 
+
     public void waitForSessionTimeOut(int minutes) {
         try {
             long startTime = System.currentTimeMillis();
@@ -2213,5 +2214,6 @@ public class ReferralPage<check> {
             return "Exception from validateSessionTimeOut" + exp;
         }
     }
+
 }
 

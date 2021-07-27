@@ -1650,4 +1650,5 @@ public class ReferralSteps extends Pages {
         SeleniumLib.switchToNewTab();
         SeleniumLib.sleepInSeconds(2);
     }
+
 }
