@@ -7,9 +7,9 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import com.github.javafaker.Faker;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
-import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -332,4 +332,25 @@ public class ResponsibleClinicianSteps extends Pages {
         responsibleClinicianPage.fillInDepartmentDetailsField();
     }
 
+    @And("the user enters more than {int} email address {string} in the field")
+    public void theUserEntersMoreThanEmailAddressInTheField(int numberOfIDs, String mailIDs) {
+        responsibleClinicianPage.enterMultipleEmailIDs(mailIDs);
+    }
+
+    @And("the user deletes the data in the Email address field")
+    public void theUserDeletesTheDataInTheEmailAddressField() {
+        //Actions.clearField(responsibleClinicianPage.clinicianEmailField);
+        responsibleClinicianPage.clinicianEmailField.clear();
+    }
+
+
+    @And("the user enters {int} valid email address {string} in the field separated by {string}")
+    public void theUserEntersValidEmailAddressInTheFieldSeparatedBy(int numberOfIDs, String mailIDs, String delimiter) {
+        responsibleClinicianPage.enterMultipleEmailIDs(mailIDs);
+    }
+
+    @Then("the user should not sees an error message on the page")
+    public void theUserShouldNotSeesAnErrorMessageOnThePage() {
+        Assert.assertTrue(responsibleClinicianPage.verifyNoEmailWarningMessage());
+    }
 }

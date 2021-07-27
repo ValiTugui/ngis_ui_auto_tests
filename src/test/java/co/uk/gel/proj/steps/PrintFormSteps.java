@@ -404,4 +404,17 @@ public class PrintFormSteps extends Pages {
         }
     }
 
+
+    @And("the user is able to download print form for the proband and verify the {string} in the {string}")
+    public void theUserIsAbleToDownloadPrintFormForTheProbandAndVerifyTheInThe(String text, String fileName) {
+        boolean testResult = false;
+        testResult = printFormsPage.downloadProbandPrintForm();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PrintFormDownload.jpg");
+            Assert.fail("Could not download print form file:" + fileName);
+        }
+        testResult = printFormsPage.validatePDFContent(text, fileName);
+        Assert.assertTrue(testResult);
+    }
+
 }//end

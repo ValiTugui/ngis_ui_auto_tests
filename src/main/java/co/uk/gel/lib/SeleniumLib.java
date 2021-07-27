@@ -673,9 +673,7 @@ public class SeleniumLib {
     }
     public static boolean switchToNewTab(){
         try {
-            //Open a New tab and move to the new tab
-            ((JavascriptExecutor) driver).executeScript("window.open('/')");
-            //driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"t");
+            ((JavascriptExecutor) driver).executeScript("window.open()");
             ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
             driver.switchTo().window(tabs.get(tabs.size()-1));
             return true;
@@ -937,11 +935,6 @@ public class SeleniumLib {
             Debugger.println("Exception from scrolling table:" + exp);
             return null;
         }
-    }
-
-    public static void clearCookies(){
-        driver.manage().deleteAllCookies();
-        sleepInSeconds(5);
     }
 
 }//end

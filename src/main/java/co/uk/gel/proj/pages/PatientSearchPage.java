@@ -6,7 +6,10 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
-import co.uk.gel.proj.TestDataProvider.*;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
+import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
@@ -14,7 +17,9 @@ import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -380,7 +385,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             email = AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME");
             password = AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD");
         }
-        Debugger.println("Email:"+email+",PWD:"+password);
+//        Debugger.println("Email:"+email+",PWD:"+password);
         loginToTestOrderingSystem(email, password);
     }
 

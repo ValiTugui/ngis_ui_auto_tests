@@ -1,16 +1,18 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.miportal_pages.*;
-import co.uk.gel.proj.neatPages.*;
+import co.uk.gel.proj.neatPages.NeatHomePage;
+import co.uk.gel.proj.neatPages.NeatPatientRecordPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.ExcelDataRead;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class Pages implements Navigable {

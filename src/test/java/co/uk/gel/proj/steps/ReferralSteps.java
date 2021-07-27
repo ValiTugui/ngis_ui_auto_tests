@@ -20,9 +20,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 import java.io.IOException;
 import java.util.*;
@@ -646,7 +643,7 @@ public class ReferralSteps extends Pages {
             Assert.fail("Could not click on SignInToTheOnlineServiceButton");
         }
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-        Debugger.println(" User Type : " + userType);
+//        Debugger.println(" User Type : " + userType);
         if (userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {
@@ -847,7 +844,7 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SignInOnlineTO.jpg");
             Assert.fail("Sign in to Online Service Button click failed..");
         }
-        Debugger.println("User Type : " + userType);
+//        Debugger.println("User Type : " + userType);
         if (userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
         }
@@ -997,7 +994,7 @@ public class ReferralSteps extends Pages {
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
             Assert.assertTrue(false);
         }
-        Debugger.println("User Type : " + userType);
+//        Debugger.println("User Type : " + userType);
         if (userType == null || userType.isEmpty()) {
             Debugger.println("User Type Cannot be null");
             return;
@@ -1553,6 +1550,32 @@ public class ReferralSteps extends Pages {
     public void theUserSubmitsTheReferralForConcurrency() {
         referralPage.submitReferralConcurrency();
     }
+
+    @And("the user should be able to see {string} button")
+    public void theUserShouldBeAbleToSeeButton(String button) {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheButton(button);
+        Assert.assertTrue(testResult);
+    }
+
+    //Notification popup for concurrency after clicking on save and continue button
+    @Then("the user should be able to see concurrency alert message while saving the stage")
+    public void theUserShouldBeAbleToSeeConcurrencyAlertMessageWhileSavingTheStage() {
+        boolean testResult = false;
+        testResult = referralPage.acknowledgeThePopup_SaveAndContinue();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ReferralAcknowledge.jpg");
+            Assert.fail("Concurrency alert message popup not displayed");
+        }
+    }
+
+    @When("the user refresh the browser")
+    public void theUserRefreshTheBrowser() {
+        Actions.refreshBrowser(driver);
+        Actions.acceptAlert(driver);
+        SeleniumLib.sleepInSeconds(10);
+    }
+
 
     @When("the user inactive for {int} minutes")
     public void theUserInactiveForMinutes(int minutes) {

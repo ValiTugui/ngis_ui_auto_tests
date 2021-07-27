@@ -1033,4 +1033,10 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user should be able to see {string}")
+    public void theUserShouldBeAbleToSee(String expMessage) {
+        boolean testResult;
+        testResult = patientDetailsPage.verifyPostCodeErrorMessage(expMessage);
+        Assert.assertTrue(testResult);
+    }
 }//end

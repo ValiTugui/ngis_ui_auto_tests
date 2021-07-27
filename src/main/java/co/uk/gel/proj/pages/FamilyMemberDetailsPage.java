@@ -8,12 +8,14 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class FamilyMemberDetailsPage {
     WebDriver driver;
@@ -112,7 +114,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
-   @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipToProbandDropdown;
 
     @FindBy(xpath = "//div[@data-testid='notification-error']//span")
@@ -284,7 +286,7 @@ public class FamilyMemberDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-   public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
+    public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
         if (!Wait.isElementDisplayed(driver, patientCardName, 100)) {
@@ -358,6 +360,7 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
+
     public boolean editPatientDetails() {
         try {
             if(!Wait.isElementDisplayed(driver, editPatientDetailsLink,10)){
@@ -454,7 +457,7 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return false;
             }
-             Debugger.println("Verifying Selected Test");
+            Debugger.println("Verifying Selected Test");
             //3. Select the test as checked by default.
             if (!Wait.isElementDisplayed(driver, selectedTest, 10)) {
                 if (!Wait.isElementDisplayed(driver, unSelectedTest, 10)) {
@@ -480,7 +483,7 @@ public class FamilyMemberDetailsPage {
             Wait.seconds(3);
             boolean isPresent = false;
             for (WebElement ddElemt : dropdownValues) {
-                 if(ddElemt.getText().equalsIgnoreCase(value)){
+                if(ddElemt.getText().equalsIgnoreCase(value)){
                     ddElemt.click();
                     isPresent = true;
                     break;
@@ -521,7 +524,7 @@ public class FamilyMemberDetailsPage {
         boolean isHpoSelected = true;
         parValue = paramNameValue.get("HpoPhenoType");
         if (parValue != null && !parValue.isEmpty()) {
-           searchAndSelectRandomHPOPhenotype(parValue);
+            searchAndSelectRandomHPOPhenotype(parValue);
         }
         //PhenotypicSex
         parValue = paramNameValue.get("PhenotypicSex");
@@ -952,11 +955,11 @@ public class FamilyMemberDetailsPage {
         }catch(ElementClickInterceptedException exp){
             //The box might be in selected stage and element may not be able to click.
             // So moving control out and click again
-           Actions.clickElement(driver,selectedFamilyMembersLabel);
-           Wait.seconds(2);
-           Actions.clickElement(driver,unSelectedTest);
-           Wait.seconds(2);
-           return true;
+            Actions.clickElement(driver,selectedFamilyMembersLabel);
+            Wait.seconds(2);
+            Actions.clickElement(driver,unSelectedTest);
+            Wait.seconds(2);
+            return true;
         }catch(Exception exp){
             try{
                 seleniumLib.clickOnWebElement(unSelectedTest);
@@ -1584,7 +1587,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             if (!(expectedRelation.equalsIgnoreCase(actualRelationship))) {
-               return false;
+                return false;
             }
             return true;
         } catch (Exception e) {
@@ -1592,4 +1595,34 @@ public class FamilyMemberDetailsPage {
         }
     }
 
+    public boolean selectRelationshipToProband(String relation) {
+        try {
+            Wait.forElementToBeClickable(driver, relationshipToProband);
+            relationshipToProband.click();
+            Debugger.println("Drop down clicked");
+            Wait.seconds(3);
+            Click.element(driver, relationshipToProband.findElement(By.xpath("//span[text()='" + relation + "']")));
+            Debugger.println("Selected the relation as " + relation);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
 }//ends
+
+    public boolean verifyDisplayedRelationshipToProband(String expectedRelation) {
+
+        WebElement displayedRelationshipToProband = driver.findElement(By.xpath("//span[contains(text(),'Relationship to proband')]//following::span[1]"));
+
+        try {
+            displayedRelationshipToProband.isDisplayed();
+            String actualRelationship = displayedRelationshipToProband.getText();
+            Debugger.println("The displayed relation is " + actualRelationship);
+            if (!(expectedRelation.equalsIgnoreCase(actualRelationship))) {
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}

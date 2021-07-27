@@ -7,7 +7,6 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.pages.ReferralPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
@@ -20,7 +19,6 @@ import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class FamilyMemberDetailsSteps extends Pages {
 
@@ -57,7 +55,7 @@ public class FamilyMemberDetailsSteps extends Pages {
             Assert.fail("Ethnicity could not select.");
         }
         if (!patientDetailsPage.editDropdownField(familyMemberDetailsPage.relationshipToProbandDropdown,relationToProband)){
-             Assert.fail("Relationship to proband could not fill...");
+            Assert.fail("Relationship to proband could not fill...");
         }
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
         if (familyMember != null) {
@@ -675,4 +673,55 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
     }
 
-}//end
+    @And("the user clicks on edit button of Family member")
+    public void theUserClicksOnEditButtonOfFamilyMember() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.editFamilyMember();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_EditFamilyMember.jpg");
+            Assert.fail("Could not click on edit button for Family member");
+        }
+    }
+
+    @When("the user updates the {string} page with {string}")
+    public void theUserUpdatesThePageWith(String pageName, String updateDetails) {
+        Debugger.println(TestUtils.currentUser + " : Updating " + pageName + " with " + updateDetails);
+        boolean testResult = false;
+        if (pageName.equalsIgnoreCase("Add family member details")) {
+            testResult = clinicalQuestionsPage.updateFamilyMemberClinicalDetails(updateDetails);
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user updates with {string}")
+    public void theUserUpdatesWith(String updateDetails) {
+        Debugger.println(TestUtils.currentUser + " : Updating the details with " + updateDetails);
+        boolean testResult = false;
+        testResult = patientDetailsPage.updateFamilyMemberDetails(updateDetails);
+        if (!testResult) {
+            Assert.fail("Family member details could not be enter.");
+        }
+    }
+
+    @When("the user selects the Relationship to proband as {string}")
+    public void theUserSelectsTheRelationshipToProbandAs(String relation) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.selectRelationshipToProband(relation);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RelationshipToProbandjpg");
+            Assert.fail("RelationshipToProband not clickable");
+
+        }
+    }
+
+    @And("the user sees the relationship to proband selected is same as {string}")
+    public void theUserSeesTheRelationshipToProbandSelectedIsSameAs(String expectedRelation) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyDisplayedRelationshipToProband(expectedRelation);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RelationToProband.jpg");
+            Assert.fail("Relationship to proband is not selected as before");
+        }
+    }
+}
+//end
