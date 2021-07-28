@@ -51,6 +51,8 @@ Feature: Create archived copy of files when user clicks on delete button in UI
 #    And the user should be able to see patient choice in history tab
 #    And the user has to click on latest record of discussion
     And the user is able to connect to the S3 bucket and read the files in folder "<Patient records>"
+    And the user clicks on the "Remove document" button
+
     Examples:
       | Patient records |
       | patient-records |

@@ -7,8 +7,8 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.AWS3Connect;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.SFTPClient;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -1171,12 +1171,27 @@ public class PatientChoiceSteps extends Pages {
         }
     }
 
-    @And("the user is able to connect to the S3 bucket and read the files in folder {string}")
-    public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
-        SFTPClient sftpConnection = new SFTPClient();
-        List<String> filenameList = sftpConnection.getFileNamesInSFTPDir(s3FolderName);
-        Debugger.println("The files which are present - " + filenameList.get(0));
-
+    @Then("the user should not be able to see the remove document button")
+    public void theUserShouldNotBeAbleToSeeTheRemoveDocumentButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheRemoveDocumentButtonIsNotPresent();
+        Assert.assertTrue(testResult);
     }
 
+    @And("the user see that proper message {string} is displayed after document is deleted")
+    public void theUserSeeThatTheDocumentIsDeleted(String expectedDeletedMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyDeletedDocument(expectedDeletedMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user is able to connect to the S3 bucket and read the files in folder {string}")
+    public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
+        boolean testResult = false;
+        testResult = AWS3Connect.connectToS3Bucket();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3Connect");
+            Assert.fail("Could not connect to the S3 bucket and access the folder.");
+        }
+    }
 }//end
