@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.SFTPClient;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -1169,4 +1170,13 @@ public class PatientChoiceSteps extends Pages {
             Assert.fail("Could not see upload button as enabled in Recorded by section.");
         }
     }
+
+    @And("the user is able to connect to the S3 bucket and read the files in folder {string}")
+    public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
+        SFTPClient sftpConnection = new SFTPClient();
+        List<String> filenameList = sftpConnection.getFileNamesInSFTPDir(s3FolderName);
+        Debugger.println("The files which are present - " + filenameList.get(0));
+
+    }
+
 }//end
