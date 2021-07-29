@@ -50,12 +50,13 @@ Feature: Create archived copy of files when user clicks on delete button in UI
 #    When the user selects the History tab in patient choice page
 #    And the user should be able to see patient choice in history tab
 #    And the user has to click on latest record of discussion
-    And the user is able to connect to the S3 bucket and read the files in folder "<Patient records>"
+    And the user is able to connect to the S3 bucket and check the files presence in folder "<PatientRecords>"
 #    And the user clicks on the "Remove document" button
 #    And the user should not be able to see the remove document button
 #    And the user see that proper message "<expectedMessage>" is displayed after document is deleted
 
-
+    And the user is able to connect to the S3 bucket check files presence in folder "<ArchiveFolder>" and download the file
+    And the user is able to upload the file to S3 bucket "<PatientRecords>"
 
     Examples:
       | Patient records |

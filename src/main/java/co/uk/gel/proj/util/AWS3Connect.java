@@ -16,7 +16,6 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import java.io.*;
 import java.util.*;
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -42,7 +41,7 @@ public class AWS3Connect {
                     .withEndpointConfiguration(endpointConfiguration)
                     .build();
 
-            Debugger.println("Connected.....");
+            Debugger.println("AWS S3 is Connected.....");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in connection to Amazon S3 bucket...." + exp);
@@ -81,17 +80,33 @@ public class AWS3Connect {
 
     public static boolean checkFilePresenceAndDownload(String s3FolderName, String expectedFileName) {
         try {
-            Debugger.println("In the matching section...");
             Debugger.println("Num of files in S3 bucket- " + s3FileNamesList.size());
             for (String fileName : s3FileNamesList) {
-                if (expectedFileName.equalsIgnoreCase(fileName)) {
-                    Debugger.println("Match found- ............");
-                    downloadFileFromAWSS3(s3FolderName, expectedFileName);
-                    return true;
+                if (!expectedFileName.equalsIgnoreCase(fileName)) {
+                    Debugger.println("No Match found for the file- "+expectedFileName+ " ,in Folder- "+s3FolderName);
+                    return false;
                 }
             }
-            Debugger.println("No Match found....................");
+            Debugger.println("Match found.......Downloading now.............");
+            downloadFileFromAWSS3(s3FolderName, expectedFileName);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from file checking.. " + exp);
             return false;
+        }
+    }
+
+    public static boolean checkFilePresence(String s3FolderName, String expectedFileName) {
+        try {
+            Debugger.println("Num of files in S3 bucket- " + s3FileNamesList.size());
+            for (String fileName : s3FileNamesList) {
+                if (!expectedFileName.equalsIgnoreCase(fileName)) {
+                    Debugger.println("No Match found for the file- "+expectedFileName+ " ,in Folder- "+s3FolderName);
+                    return false;
+                }
+            }
+            Debugger.println("File Match found....................");
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from file checking.. " + exp);
             return false;
@@ -101,7 +116,6 @@ public class AWS3Connect {
     public static void downloadFileFromAWSS3(String s3FolderName, String fileNameToDownload) {
         System.out.format("Downloading %s from S3 bucket %s...\n", fileNameToDownload, s3FolderName);
 //        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
-
         try {
             String downloadFilepath = System.getProperty("user.dir") + File.separator + "target" + File.separator + fileNameToDownload;
             S3Object o = s3Client.getObject(s3FolderName, fileNameToDownload);
@@ -124,7 +138,7 @@ public class AWS3Connect {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Done!");
+        System.out.println("Download Done!");
     }
 
     public static String uploadFileToAwsS3(String s3FolderName, String fileName) {

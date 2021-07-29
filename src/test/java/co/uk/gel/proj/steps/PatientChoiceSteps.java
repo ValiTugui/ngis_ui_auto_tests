@@ -1185,11 +1185,13 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user is able to connect to the S3 bucket and read the files in folder {string}")
+    static String fileName = "";
+
+    @And("the user is able to connect to the S3 bucket and check the files presence in folder {string}")
     public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
         boolean testResult = false;
         String result = AWS3Connect.getFilesListInFolder(s3FolderName);
-        testResult = AWS3Connect.checkFilePresenceAndDownload(s3FolderName,"f3418e39-3e10-41c4-9761-df8cefea16cf_20c01963-efb7-44cb-a31c-6db9b08760b3_1627543452479testfile.pdf");
+        testResult = AWS3Connect.checkFilePresence(s3FolderName,fileName);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3Connect");
             Assert.fail("Could not connect to the S3 bucket and access the folder.");
@@ -1199,4 +1201,28 @@ public class PatientChoiceSteps extends Pages {
             Assert.fail("Could not upload file to the S3...");
         }
     }
+
+    @And("the user is able to connect to the S3 bucket check files presence in folder {string} and download the file")
+    public void theUserIsAbleToConnectToTheS3BucketCheckFilesPresenceInFolderAndDownloadTheFile(String s3ArchiveFolderName) {
+        boolean testResult = false;
+        String result = AWS3Connect.getFilesListInFolder(s3ArchiveFolderName);
+        if(!result.equalsIgnoreCase("Success")){
+            Assert.fail("Could not upload file to the S3...");
+        }
+        testResult = AWS3Connect.checkFilePresenceAndDownload(s3ArchiveFolderName,fileName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3FileDownload");
+            Assert.fail("Could not download from the S3 bucket.");
+        }
+    }
+
+    @And("the user is able to upload the file to S3 bucket {string}")
+    public void theUserIsAbleToUploadTheFileToSBucket(String s3FolderName) {
+        String fileToUpload = "";
+        String result = AWS3Connect.uploadFileToAwsS3(s3FolderName,fileToUpload);
+        if(!result.equalsIgnoreCase("Success")){
+            Assert.fail("Failure in uploading file:- "+result);
+        }
+    }
+
 }//end
