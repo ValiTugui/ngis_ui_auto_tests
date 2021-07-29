@@ -330,6 +330,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[contains(text(),'Remove document')]")
     public WebElement removeDocumentButton;
 
+    @FindBy(xpath = "//object")
+    public WebElement s3FileName;
+
     public boolean verifySelectedTabInPatientChoice(String tabSectionTitle) {
         String selectedSubtitle = selectedTabTitle.replaceAll("dummySubtitle", tabSectionTitle);
         try {
@@ -2343,6 +2346,39 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheRemoveDocumentButtonIsNotPresent:" + exp);
+            SeleniumLib.takeAScreenShot("RemoveDocumentButton.jpg");
+            return false;
+        }
+    }
+
+
+    public String readTheFileName() {
+        try {
+            String exactFileName;
+            Wait.forElementToBeDisplayed(driver, s3FileName);
+            if (s3FileName.isDisplayed()) {
+                String pdfFileName = s3FileName.getAttribute("data");
+                System.out.println("The content in Data is " + pdfFileName);
+                exactFileName = pdfFileName.substring(pdfFileName.lastIndexOf("/") + 1, pdfFileName.indexOf('?'));
+                System.out.println("The exact filename is " + exactFileName);
+
+                return "Success:" + exactFileName;
+            }
+            return "Failure in reading the file name";
+        } catch (Exception exp) {
+            return ("Exception in reading the filename - " + exp);
+        }
+    }
+
+    public boolean verifyTheRemoveDocumentButtonIsPresent() {
+        try {
+            if (!Wait.isElementDisplayed(driver, removeDocumentButton, 5)) {
+                Debugger.println("Remove document button is not displayed ");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheRemoveDocumentButtonIsPresent:" + exp);
             SeleniumLib.takeAScreenShot("RemoveDocumentButton.jpg");
             return false;
         }
