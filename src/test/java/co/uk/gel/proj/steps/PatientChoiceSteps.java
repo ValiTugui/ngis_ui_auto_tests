@@ -1188,7 +1188,8 @@ public class PatientChoiceSteps extends Pages {
     @And("the user is able to connect to the S3 bucket and read the files in folder {string}")
     public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
         boolean testResult = false;
-        testResult = AWS3Connect.connectToS3Bucket();
+        String result = AWS3Connect.getFilesListInFolder(s3FolderName);
+        testResult = AWS3Connect.checkFilePresence("f3418e39-3e10-41c4-9761-df8cefea16cf_20c01963-efb7-44cb-a31c-6db9b08760b3_1627543452479testfile.pdf");
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3Connect");
             Assert.fail("Could not connect to the S3 bucket and access the folder.");
