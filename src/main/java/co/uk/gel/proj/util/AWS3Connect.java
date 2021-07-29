@@ -7,14 +7,12 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.*;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ListObjectsV2Result;
-import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import java.util.*;
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -31,7 +29,7 @@ public class AWS3Connect {
     public static boolean connectToS3Bucket() {
         try {
 
-//            System.out.println("The accessKey:" + accessKey + " secret key:" + secretKey + " hostname:" + hostName);
+//            Debugger.println("The accessKey:" + accessKey + " secret key:" + secretKey + " hostname:" + hostName);
             AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
             AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(hostName, Regions.DEFAULT_REGION.toString());
             s3Client = AmazonS3ClientBuilder
@@ -40,10 +38,10 @@ public class AWS3Connect {
                     .withEndpointConfiguration(endpointConfiguration)
                     .build();
 
-            System.out.println("Connected.....");
+            Debugger.println("Connected.....");
             return true;
         } catch (Exception exp) {
-            System.out.println("Exception in connection to Amazon S3 bucket...." + exp);
+            Debugger.println("Exception in connection to Amazon S3 bucket...." + exp);
             return false;
         }
     }
@@ -59,14 +57,17 @@ public class AWS3Connect {
             }
             String bucket_name = s3FolderName;
             Debugger.println("Checking in folder- " + bucket_name);
-            ListObjectsV2Result objectsInBucket = s3Client.listObjectsV2(bucket_name);
-            List<S3ObjectSummary> fileObjects = objectsInBucket.getObjectSummaries();
-            System.out.println("Number of Files in the given Bucket: " + fileObjects.size());
-            for (S3ObjectSummary fileObjSummary : fileObjects) {
+
+            ObjectListing listOfObjectsInBucket = s3Client.listObjects(bucket_name);
+            List<S3ObjectSummary> fileObjectsSummaries = listOfObjectsInBucket.getObjectSummaries();
+            while (listOfObjectsInBucket.isTruncated()) {
+                listOfObjectsInBucket = s3Client.listNextBatchOfObjects(listOfObjectsInBucket);
+                fileObjectsSummaries.addAll(listOfObjectsInBucket.getObjectSummaries());
+            }
+            Debugger.println("Number of Files in the given Bucket: " + fileObjectsSummaries.size());
+
+            for (S3ObjectSummary fileObjSummary : fileObjectsSummaries) {
                 s3FileNamesList.add(fileObjSummary.getKey());
-//                if (fileObjSummary.getKey().equalsIgnoreCase("Deceased.pdf")) {
-//                    System.out.println("* " + fileObjSummary.getKey());
-//                }
             }
             return "Success";
         } catch (Exception exp) {
@@ -77,7 +78,7 @@ public class AWS3Connect {
     public static boolean checkFilePresence(String expectedFileName) {
         try {
             Debugger.println("In the matching section...");
-            Collections.sort(s3FileNamesList);
+            Debugger.println("Num of files in S3 bucket- " + s3FileNamesList.size());
             for (String fileName : s3FileNamesList) {
                 if (expectedFileName.equalsIgnoreCase(fileName)) {
                     Debugger.println("Match found- ............");
@@ -87,7 +88,7 @@ public class AWS3Connect {
             Debugger.println("No Match found....................");
             return false;
         } catch (Exception exp) {
-            System.out.println("Exception from file checking.. " + exp);
+            Debugger.println("Exception from file checking.. " + exp);
             return false;
         }
     }
