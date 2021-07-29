@@ -1194,5 +1194,9 @@ public class PatientChoiceSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3Connect");
             Assert.fail("Could not connect to the S3 bucket and access the folder.");
         }
+        String upResult = AWS3Connect.uploadFileToAwsS3(s3FolderName,"testfile.pdf");
+        if(!upResult.equalsIgnoreCase("Success")){
+            Assert.fail("Could not upload file to the S3...");
+        }
     }
 }//end

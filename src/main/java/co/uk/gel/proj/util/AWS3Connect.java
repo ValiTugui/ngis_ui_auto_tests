@@ -79,14 +79,14 @@ public class AWS3Connect {
         }
     }
 
-    public static boolean checkFilePresenceAndDownload(String s3FolderName,String expectedFileName) {
+    public static boolean checkFilePresenceAndDownload(String s3FolderName, String expectedFileName) {
         try {
             Debugger.println("In the matching section...");
             Debugger.println("Num of files in S3 bucket- " + s3FileNamesList.size());
             for (String fileName : s3FileNamesList) {
                 if (expectedFileName.equalsIgnoreCase(fileName)) {
                     Debugger.println("Match found- ............");
-                    downloadFileFromAWSS3(s3FolderName,expectedFileName);
+                    downloadFileFromAWSS3(s3FolderName, expectedFileName);
                     return true;
                 }
             }
@@ -98,14 +98,15 @@ public class AWS3Connect {
         }
     }
 
-    public static void downloadFileFromAWSS3(String s3FolderName,String fileNameToDownload) {
+    public static void downloadFileFromAWSS3(String s3FolderName, String fileNameToDownload) {
         System.out.format("Downloading %s from S3 bucket %s...\n", fileNameToDownload, s3FolderName);
 //        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.DEFAULT_REGION).build();
 
         try {
+            String downloadFilepath = System.getProperty("user.dir") + File.separator + "target" + File.separator + fileNameToDownload;
             S3Object o = s3Client.getObject(s3FolderName, fileNameToDownload);
             S3ObjectInputStream s3is = o.getObjectContent();
-            FileOutputStream fos = new FileOutputStream(new File(fileNameToDownload));
+            FileOutputStream fos = new FileOutputStream(new File(downloadFilepath));
             byte[] read_buf = new byte[1024];
             int read_len = 0;
             while ((read_len = s3is.read(read_buf)) > 0) {
@@ -126,11 +127,15 @@ public class AWS3Connect {
         System.out.println("Done!");
     }
 
-//    String file_path = "D:/STAG/DoSmartQA.txt";
-//    String key_name = Paths.get(file_path).getFileName().toString();
-
-//     s3Client.putObject(bucket_name, key_name, new File(file_path));
-//            s3Client.deleteObject(bucket_name, key_name);
-
+    public static String uploadFileToAwsS3(String s3FolderName, String fileName) {
+        try {
+            String filePath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator + fileName;
+            System.out.format("Uploading %s to S3 bucket %s...\n", filePath, s3FolderName);
+            s3Client.putObject(s3FolderName, fileName, new File(filePath));
+            return "Success";
+        } catch (Exception exp) {
+            return ("Exception from Uploading file to AWS S3- " + exp);
+        }
+    }
 
 }//end
