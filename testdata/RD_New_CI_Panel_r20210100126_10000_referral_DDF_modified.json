@@ -1,0 +1,276 @@
+{
+  "pedigree": {
+    "familyId": "r20210100126",
+    "members": [
+      {
+        "participantId": "0",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "RMVGA42F-26B0-0JXO-FTH9-UL1SQRDMNVWN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 2729039,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": true,
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "R56"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0001999"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000357"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000363"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000372"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000478"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000377"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000453"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000378"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000204"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000316"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000384"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000405"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0010722"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000494"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0001263"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000400"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0000272"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "122000132",
+        "motherId": 2729042,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 2729041,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "EEFZ6F3B-JJDY-I6K5-R937-L1W8CFKWPZQT",
+        "pedigreeId": 2729040,
+        "yearOfBirth": 2014
+      },
+      {
+        "participantId": "2",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "BT5FYC60-7OWG-S93N-T84V-LZFIXWML3QIQ",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 2729041,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "participantId": "122000134",
+        "motherId": 2729043,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 2729039,
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "74WMONQB-KG73-YY1A-KM2M-VXFWSG7M4A6E",
+        "pedigreeId": 2729042,
+        "yearOfBirth": 1977
+      },
+      {
+        "participantId": "4",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "U1O2S60S-3E27-BI9I-1DXW-6LECSO6WM8QW",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 2729043,
+        "yearOfBirth": 1000
+      }
+    ],
+    "readyForAnalysis": true,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  },
+  "requester": {
+    "organisationName": "Dorset County Hospital NHS Foundation Trust",
+    "organisationId": "template",
+    "organisationCode": "RBD",
+    "organisationNationalGroupingName": "Dorset County Hospital NHS Foundation Trust",
+    "organisationNationalGroupingId": "RBD"
+  },
+  "orderingDate": {
+    "month": 2,
+    "year": 2021,
+    "day": 23
+  },
+  "referralId": "r20210100126",
+  "referralUid": "b3755dac-69eb-4b8d-ab76-051c9ff6ccb8",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationCode": "R56",
+    "clinicalIndicationFullName": "Adult onset dystonia, chorea or related movement disorder"
+  },
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "panelId": "540",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R56",
+          "panelName": "Adult onset movement disorder",
+          "panelVersion": "1.41"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3001053-DNA_B07",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1030911492",
+          "participantId": "122000132",
+          "sampleUid": "1J31V1SY-VYZ2-SVZC-53AU-58BBBF6T3V0E",
+          "maskedPid": "0HDBZEDK-TUTA-1PT3-2Q5I-0ASHMPBLKISP",
+          "programmePhase": "MAIN",
+          "participantUid": "EEFZ6F3B-JJDY-I6K5-R937-L1W8CFKWPZQT",
+          "sampleState": "blood_unsorted_edta"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3001054-DNA_G07",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1030910775",
+          "participantId": "122000134",
+          "sampleUid": "H3LKAVEO-373H-HTAI-YUSS-5YLYD11GZEXY",
+          "maskedPid": "C6AULDVL-36II-GL0S-TQLG-HT0SFF41JD96",
+          "programmePhase": "MAIN",
+          "participantUid": "74WMONQB-KG73-YY1A-KM2M-VXFWSG7M4A6E",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+      },
+      "processingLab": {
+        "organisationName": "Dorset County Hospital NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RBD",
+        "organisationNationalGroupingName": "Dorset County Hospital NHS Foundation Trust",
+        "organisationNationalGroupingId": "RBD"
+      },
+      "interpreter": {
+        "organisationName": "Dorset County Hospital NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RBD",
+        "organisationNationalGroupingName": "Dorset County Hospital NHS Foundation Trust",
+        "organisationNationalGroupingId": "RBD"
+      },
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "routine",
+      "referralTestId": "LU8PF7E635PR",
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R56",
+          "penetrance": "complete"
+        }
+      ]
+    }
+  ]
+}
