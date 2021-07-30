@@ -173,6 +173,7 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsTheTabInPatientChoicePage(String tabName) {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnPatientChoiceInformationLink(tabName);
+        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_HistoryTabClick");
         Assert.assertTrue(testResult);
     }
 
