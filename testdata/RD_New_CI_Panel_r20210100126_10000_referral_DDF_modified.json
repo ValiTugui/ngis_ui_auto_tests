@@ -22,7 +22,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "R56"
+            "specificDisease": "R32"
           }
         ],
         "hpoTermList": [
@@ -173,11 +173,11 @@
     "familyQCState": "passedMedicalReviewReadyForInterpretation"
   },
   "requester": {
-    "organisationName": "Dorset County Hospital NHS Foundation Trust",
+    "organisationName": "Rotherham Doncaster and South Humber NHS Foundation Trust",
     "organisationId": "template",
-    "organisationCode": "RBD",
-    "organisationNationalGroupingName": "Dorset County Hospital NHS Foundation Trust",
-    "organisationNationalGroupingId": "RBD"
+    "organisationCode": "RXE",
+    "organisationNationalGroupingName": "Rotherham Doncaster and South Humber NHS Foundation Trust",
+    "organisationNationalGroupingId": "RXE"
   },
   "orderingDate": {
     "month": 2,
@@ -188,18 +188,18 @@
   "referralUid": "b3755dac-69eb-4b8d-ab76-051c9ff6ccb8",
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
-    "clinicalIndicationCode": "R56",
-    "clinicalIndicationFullName": "Adult onset dystonia, chorea or related movement disorder"
+    "clinicalIndicationCode": "R32",
+    "clinicalIndicationFullName": "Retinal disorders"
   },
   "referralTests": [
     {
       "analysisPanels": [
         {
-          "panelId": "540",
+          "panelId": "307",
           "multipleGeneticOrigins": "no",
-          "specificDisease": "R56",
-          "panelName": "Adult onset movement disorder",
-          "panelVersion": "1.41"
+          "specificDisease": "R32",
+          "panelName": "Retinal disorders",
+          "panelVersion": "2.174"
         }
       ],
       "germlineSamples": [
@@ -240,18 +240,18 @@
         "day": 23
       },
       "processingLab": {
-        "organisationName": "Dorset County Hospital NHS Foundation Trust",
+        "organisationName": "Rotherham Doncaster and South Humber NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RBD",
-        "organisationNationalGroupingName": "Dorset County Hospital NHS Foundation Trust",
-        "organisationNationalGroupingId": "RBD"
+        "organisationCode": "RXE",
+        "organisationNationalGroupingName": "Rotherham Doncaster and South Humber NHS Foundation Trust",
+        "organisationNationalGroupingId": "RXE"
       },
       "interpreter": {
-        "organisationName": "Dorset County Hospital NHS Foundation Trust",
+        "organisationName": "Rotherham Doncaster and South Humber NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RBD",
-        "organisationNationalGroupingName": "Dorset County Hospital NHS Foundation Trust",
-        "organisationNationalGroupingId": "RBD"
+        "organisationCode": "RXE",
+        "organisationNationalGroupingName": "Rotherham Doncaster and South Humber NHS Foundation Trust",
+        "organisationNationalGroupingId": "RXE"
       },
       "clinicalIndicationTest": {
         "testTypeId": "template",
@@ -267,7 +267,7 @@
       "referralTestId": "LU8PF7E635PR",
       "diseasePenetrances": [
         {
-          "specificDisease": "R56",
+          "specificDisease": "R32",
           "penetrance": "complete"
         }
       ]
