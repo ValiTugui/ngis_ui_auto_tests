@@ -242,6 +242,12 @@ public class BrowserFactory {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
+
+        chromeLocalOptions.setCapability("javascript.enabled", javascriptEnabled);
+        chromeLocalOptions.setCapability("network.proxy.type", 1);
+        chromeLocalOptions.setCapability("network.proxy.http", "proxy-dmz.gel.zone");
+        chromeLocalOptions.setCapability("network.proxy.http_port", "80");
+
 //        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
