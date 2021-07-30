@@ -49,5 +49,5 @@ Feature: Create archived copy of files when user clicks on delete button in UI
 
 
     Examples:
-      | S3 folder       | PatientChoice  | RecordedByWithFormUpload                                                                                             | expectedMessage                                                                                                            | ArchiveFolder |
-      | patient-records | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | This document was recently deleted. If further assistance is needed,please contact the Service Desk for further assistance | archive       |
+      | S3 folder       | PatientChoice  | RecordedByWithFormUpload                                                                                             | expectedMessage                                                                                                            | ArchiveFolder           |
+      | patient-records | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | This document was recently deleted. If further assistance is needed,please contact the Service Desk for further assistance | patient-records/archive |
