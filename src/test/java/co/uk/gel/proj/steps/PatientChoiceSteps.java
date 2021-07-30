@@ -1202,27 +1202,29 @@ public class PatientChoiceSteps extends Pages {
     @And("the user is able to connect to the S3 bucket and check the files presence in folder {string}")
     public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
         boolean testResult = false;
-
+        SeleniumLib.sleepInSeconds(20);
         String result = AWS3Connect.getFilesListInFolder(s3FolderName);
+        if (!result.equalsIgnoreCase("Success")) {
+            Assert.fail("Could Not get file list from the S3 folder " + s3FolderName);
+        }
         testResult = AWS3Connect.checkFilePresence(s3FolderName, exactFileName);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3Connect");
-            Assert.fail("Could not connect to the S3 bucket and access the folder.");
+            Assert.fail("File is NOT Present in the S3 folder.");
         }
-
     }
 
     @And("the user is able to connect to the S3 bucket check files presence in folder {string} and download the file")
     public void theUserIsAbleToConnectToTheS3BucketCheckFilesPresenceInFolderAndDownloadTheFile(String s3ArchiveFolderName) {
         boolean testResult = false;
-        String result = AWS3Connect.getFilesListInFolder(s3ArchiveFolderName);
+        String result = AWS3Connect.getFilesListInSubFolder(s3ArchiveFolderName);
         if (!result.equalsIgnoreCase("Success")) {
             Assert.fail("Could not identify the file list from the folder " + s3ArchiveFolderName);
         }
         testResult = AWS3Connect.checkFilePresenceAndDownload(s3ArchiveFolderName, exactFileName);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3FileDownload");
-            Assert.fail("Could not download from the S3 bucket.");
+            Assert.fail("Could not download from the S3 bucket."+testResult);
         }
     }
 
