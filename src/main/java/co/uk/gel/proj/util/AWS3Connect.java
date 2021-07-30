@@ -41,7 +41,7 @@ public class AWS3Connect {
                     .withEndpointConfiguration(endpointConfiguration)
                     .build();
 
-            Debugger.println("AWS S3 is Connected.....");
+            Debugger.println("AWS S3 is Connected.....And Buckets in it are- "+s3Client.listBuckets().toString());
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in connection to Amazon S3 bucket...." + exp);
