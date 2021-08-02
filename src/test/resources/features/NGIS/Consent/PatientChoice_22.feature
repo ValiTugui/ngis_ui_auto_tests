@@ -37,7 +37,6 @@ Feature: Create archived copy of files when user clicks on delete button in UI
     And the user clicks on the "Remove document" button
     And the user should not be able to see the remove document button
     And the user see that proper message "<expectedMessage>" is displayed after document is deleted
-
     And the user is able to connect to the S3 bucket check files presence in folder "<ArchiveFolder>" and download the file
     And the user is able to upload the file to S3 bucket "<S3 folder>"
     And the user attempts to navigate away by clicking "refresh"
@@ -45,8 +44,6 @@ Feature: Create archived copy of files when user clicks on delete button in UI
     And the user should be able to see patient choice in history tab
     And the user has to click on latest record of discussion
     And the user should see the remove document button is displayed
-
-
 
     Examples:
       | S3 folder       | PatientChoice  | RecordedByWithFormUpload                                                                                             | expectedMessage                                                                                                            | ArchiveFolder           |

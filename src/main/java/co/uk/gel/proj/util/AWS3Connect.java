@@ -9,7 +9,10 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +35,6 @@ public class AWS3Connect {
     public static boolean connectToS3Bucket() {
         try {
 
-//            Debugger.println("The accessKey:" + accessKey + " secret key:" + secretKey + " hostname:" + hostName);
             AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
             AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(hostName, Regions.DEFAULT_REGION.toString());
             s3Client = AmazonS3ClientBuilder
@@ -48,11 +50,6 @@ public class AWS3Connect {
             return false;
         }
     }
-
-//    public static void main(String args[]) {
-//        getFilesListInFolder("assets");
-//
-//    }
 
     public static String getFilesListInFolder(String s3FolderName) {
         try {

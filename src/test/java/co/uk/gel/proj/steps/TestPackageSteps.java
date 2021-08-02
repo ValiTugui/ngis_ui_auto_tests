@@ -95,10 +95,8 @@ public class TestPackageSteps extends Pages {
     public void theUserAttemptsToNavigateAwayByClicking(String browserInteraction) {
         switch (browserInteraction) {
             case "refresh":
-                SeleniumLib.takeAScreenShot("beforeRefresh.jpg");
                 Actions.refreshBrowser(driver);
                 Wait.seconds(5);
-                SeleniumLib.takeAScreenShot("AfterRefresh.jpg");
                 break;
             case "back":
                 Actions.browseBackward(driver);
