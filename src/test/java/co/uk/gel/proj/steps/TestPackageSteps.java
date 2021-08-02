@@ -96,6 +96,7 @@ public class TestPackageSteps extends Pages {
         switch (browserInteraction) {
             case "refresh":
                 Actions.refreshBrowser(driver);
+                Wait.seconds(5);
                 break;
             case "back":
                 Actions.browseBackward(driver);

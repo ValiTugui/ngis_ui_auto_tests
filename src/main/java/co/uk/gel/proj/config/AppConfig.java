@@ -48,6 +48,9 @@ public class AppConfig {
     public static String DataDog_TOOL;
     public static String DataDog_USERNAME;
     public static String DataDog_PASSWORD;
+    public static String ACCESS_KEY;
+    public static String SECRET_KEY;
+    public static String HOST_NAME;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -110,6 +113,9 @@ public class AppConfig {
         DataDog_USERNAME = properties.getProperty("USERNAME_DATADOG");
         DataDog_PASSWORD = properties.getProperty("PASSWORD_DATADOG");
 
+        ACCESS_KEY = properties.getProperty("ACCESS_KEY");
+        SECRET_KEY = properties.getProperty("SECRET_KEY");
+        HOST_NAME = properties.getProperty("HOST_NAME");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {

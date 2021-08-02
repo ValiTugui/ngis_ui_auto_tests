@@ -7,6 +7,7 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.AWS3Connect;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
@@ -17,12 +18,14 @@ import org.junit.Assert;
 
 import java.util.List;
 
+
 public class PatientChoiceSteps extends Pages {
 
     public PatientChoiceSteps(SeleniumDriver driver) {
         super(driver);
     }
 
+    static String exactFileName = "";
     @When("the user edits the patient choice status")
     public void theUserEditsThePatientChoiceStatus() {
         patientChoicePage.selectMember(0);
@@ -170,6 +173,7 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsTheTabInPatientChoicePage(String tabName) {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnPatientChoiceInformationLink(tabName);
+        SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_HistoryTabClick");
         Assert.assertTrue(testResult);
     }
 
@@ -1169,4 +1173,77 @@ public class PatientChoiceSteps extends Pages {
             Assert.fail("Could not see upload button as enabled in Recorded by section.");
         }
     }
+
+    @Then("the user should not be able to see the remove document button")
+    public void theUserShouldNotBeAbleToSeeTheRemoveDocumentButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheRemoveDocumentButtonIsNotPresent();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user see that proper message {string} is displayed after document is deleted")
+    public void theUserSeeThatTheDocumentIsDeleted(String expectedDeletedMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyDeletedDocument(expectedDeletedMessage);
+        Assert.assertTrue(testResult);
+    }
+
+
+    @And("the user read the filename from the UI")
+    public void theUserReadTheFilenameFromTheUI() {
+
+        String testResult = patientChoicePage.readTheFileName();
+        if (!testResult.contains("Success")) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FailedToRead");
+            Assert.fail(testResult);
+        }
+        exactFileName = testResult.split(":")[1];
+    }
+
+    @And("the user is able to connect to the S3 bucket and check the files presence in folder {string}")
+    public void theUserIsAbleToConnectToTheSBucketAndReadTheFilesInFolder(String s3FolderName) {
+        boolean testResult = false;
+        SeleniumLib.sleepInSeconds(20);
+        String result = AWS3Connect.getFilesListInFolder(s3FolderName);
+        if (!result.equalsIgnoreCase("Success")) {
+            Assert.fail("Could Not get file list from the S3 folder " + s3FolderName);
+        }
+        testResult = AWS3Connect.checkFilePresence(s3FolderName, exactFileName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3Connect");
+            Assert.fail("File is NOT Present in the S3 folder.");
+        }
+    }
+
+    @And("the user is able to connect to the S3 bucket check files presence in folder {string} and download the file")
+    public void theUserIsAbleToConnectToTheS3BucketCheckFilesPresenceInFolderAndDownloadTheFile(String s3ArchiveFolderName) {
+        boolean testResult = false;
+        String result = AWS3Connect.getFilesListInSubFolder(s3ArchiveFolderName);
+        if (!result.equalsIgnoreCase("Success")) {
+            Assert.fail("Could not identify the file list from the folder " + s3ArchiveFolderName);
+        }
+        testResult = AWS3Connect.checkFilePresenceAndDownload(s3ArchiveFolderName, exactFileName);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_S3FileDownload");
+            Assert.fail("Could not download from the S3 bucket."+testResult);
+        }
+    }
+
+    @And("the user is able to upload the file to S3 bucket {string}")
+    public void theUserIsAbleToUploadTheFileToSBucket(String s3FolderName) {
+        String fileToUpload = exactFileName;
+        String result = AWS3Connect.uploadFileToAwsS3(s3FolderName, fileToUpload);
+        if (!result.equalsIgnoreCase("Success")) {
+            Assert.fail("Failure in uploading file:- " + result);
+        }
+    }
+
+
+    @And("the user should see the remove document button is displayed")
+    public void theUserShouldSeeTheRemoveDocumentButtonIsDisplayed() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheRemoveDocumentButtonIsPresent();
+        Assert.assertTrue(testResult);
+    }
+
 }//end

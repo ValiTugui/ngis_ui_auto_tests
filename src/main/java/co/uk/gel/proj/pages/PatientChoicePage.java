@@ -324,6 +324,15 @@ public class PatientChoicePage {
     @FindBy(xpath = "//h5[text()='Data Conflict Error']")
     public WebElement submitPatientChoiceConcurrenyMessage;
 
+    @FindBy(xpath = "//div[@id='hidden']/p")
+    public List<WebElement> pdfDocumentHiddenText;
+
+    @FindBy(xpath = "//button[contains(text(),'Remove document')]")
+    public WebElement removeDocumentButton;
+
+    @FindBy(xpath = "//object")
+    public WebElement s3FileName;
+
     public boolean verifySelectedTabInPatientChoice(String tabSectionTitle) {
         String selectedSubtitle = selectedTabTitle.replaceAll("dummySubtitle", tabSectionTitle);
         try {
@@ -2304,6 +2313,73 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Patient choice:Concurrency alert: " + exp + "\n" + driver.getCurrentUrl());
+            return false;
+        }
+    }
+
+    public boolean verifyDeletedDocument(String expectedMessage) {
+        try {
+            String actualFileDeletedMessage = "";
+            for (WebElement ele : pdfDocumentHiddenText) {
+                actualFileDeletedMessage += ele.getAttribute("textContent");
+            }
+            Debugger.println("Actual Deleted Message :" + actualFileDeletedMessage);
+            if (!expectedMessage.equalsIgnoreCase(actualFileDeletedMessage)) {
+                Debugger.println("PDF Document Deleted Message, Actual:" + actualFileDeletedMessage + ",Expected:" + expectedMessage);
+                SeleniumLib.takeAScreenShot("PDFDocumentDeletedMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheRemovedDocumentIsNotPresent:" + exp);
+            SeleniumLib.takeAScreenShot("PDFDocumentDeletedMessage.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheRemoveDocumentButtonIsNotPresent() {
+        try {
+            if (Wait.isElementDisplayed(driver, removeDocumentButton, 5)) {
+                Debugger.println("Remove document button is displayed,but not expected. ");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheRemoveDocumentButtonIsNotPresent:" + exp);
+            SeleniumLib.takeAScreenShot("RemoveDocumentButton.jpg");
+            return false;
+        }
+    }
+
+
+    public String readTheFileName() {
+        try {
+            String exactFileName;
+            Wait.forElementToBeDisplayed(driver, s3FileName);
+            if (s3FileName.isDisplayed()) {
+                String pdfFileName = s3FileName.getAttribute("data");
+                System.out.println("The content in Data is " + pdfFileName);
+                exactFileName = pdfFileName.substring(pdfFileName.lastIndexOf("/") + 1, pdfFileName.indexOf('?'));
+                System.out.println("The exact filename is " + exactFileName);
+
+                return "Success:" + exactFileName;
+            }
+            return "Failure in reading the file name";
+        } catch (Exception exp) {
+            return ("Exception in reading the filename - " + exp);
+        }
+    }
+
+    public boolean verifyTheRemoveDocumentButtonIsPresent() {
+        try {
+            if (!Wait.isElementDisplayed(driver, removeDocumentButton, 5)) {
+                Debugger.println("Remove document button is not displayed ");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheRemoveDocumentButtonIsPresent:" + exp);
+            SeleniumLib.takeAScreenShot("RemoveDocumentButton.jpg");
             return false;
         }
     }
