@@ -72,7 +72,7 @@ Feature: Create RD Referrals by reading details from Json file
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
       | JSONFileName                                      |
-      | RD4_r20210100007_10001_referral_DDF_modified.json |
+      | RD4_r20210100107_10000_referral_DDF_modified.json |
 
   @RDCase5  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3001148-DNA_B06,LP3001076-DNA_F01
@@ -83,7 +83,7 @@ Feature: Create RD Referrals by reading details from Json file
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
       | JSONFileName                                      |
-      | RD5_r20210100011_10001_referral_DDF_modified.json |
+      | RD5_r20210100125_10000_referral_DDF_modified.json |
 
   @RDCase6  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referral for Sample- LP3000560-DNA_B12
@@ -116,7 +116,7 @@ Feature: Create RD Referrals by reading details from Json file
     Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
     Examples:
       | JSONFileName                                      |
-      | RD8_r20210100021_10000_referral_DDF_modified.json |
+      | RD8_r20210100015_10001_referral_DDF_modified.json |
 
   @RDCase9  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3000358-DNA_E11,LP3000339-DNA_F07
