@@ -1,0 +1,241 @@
+{
+  "pedigree": {
+    "familyId": "r20210100131",
+    "members": [
+      {
+        "participantId": "0",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "9F8PD40D-BB1U-KDG1-Y979-9WHKTKNPXP53",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 3809344,
+        "yearOfBirth": 1000
+      },
+      {
+        "participantId": "1",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "BWXG5BGF-TJLU-7OY5-IRY8-AHLM8VFKS68D",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 3809345,
+        "yearOfBirth": 1000
+      },
+      {
+        "participantId": "2",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "ZYCG2ZM6-6J5Y-C1AR-O0WO-TCCJ8JYP019U",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 3809346,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "participantId": "122002778",
+        "motherId": 3809344,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 3809348,
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "1LIVSHFW-REPW-0MFO-XGYX-NJH2SE3IF9ZA",
+        "pedigreeId": 3809347,
+        "yearOfBirth": 1972
+      },
+      {
+        "participantId": "4",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "ZU3BFCDY-D9Q0-HIS0-S3TX-1FJ5KNZJE1XR",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 3809348,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": true,
+        "sex": "FEMALE",
+        "disorderList": [
+          {
+            "specificDisease": "R32"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "Release 2016-09-03",
+            "term": "HP:0007754"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "122002154",
+        "motherId": 3809347,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 3809350,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "RCIZ9HBF-9AKU-3O7E-2OPL-6A82E86ZIMQE",
+        "pedigreeId": 3809349,
+        "yearOfBirth": 2000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "participantId": "122003451",
+        "motherId": 3809345,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 3809346,
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "NJ4O6LPW-Z8AP-C7A7-CM12-K7H6PGFZD8Y2",
+        "pedigreeId": 3809350,
+        "yearOfBirth": 1971
+      }
+    ],
+    "readyForAnalysis": true,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  },
+  "requester": {
+    "organisationName": "Croydon Health Services NHS Trust",
+    "organisationId": "template",
+    "organisationCode": "RJ6",
+    "organisationNationalGroupingName": "Croydon Health Services NHS Trust",
+    "organisationNationalGroupingId": "RJ6"
+  },
+  "orderingDate": {
+    "month": 3,
+    "year": 2021,
+    "day": 3
+  },
+  "referralId": "r20210100131",
+  "referralUid": "3e3bd5d6-0035-4d11-be5a-661aedc1fd6f",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationCode": "R32",
+    "clinicalIndicationFullName": "Retinal disorders"
+  },
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "panelId": "307",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R32",
+          "panelName": "Retinal disorders",
+          "panelVersion": "2.172"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3001540-DNA_C02",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1041254592",
+          "participantId": "122002778",
+          "sampleUid": "3YMQAM7N-1ZJI-B4XF-MCOF-ATP0MZXF6C8I",
+          "maskedPid": "6SASHY5K-ZP77-OSQK-T71J-XWG05AO1EYLW",
+          "programmePhase": "MAIN",
+          "participantUid": "1LIVSHFW-REPW-0MFO-XGYX-NJH2SE3IF9ZA",
+          "sampleState": "blood_unsorted_edta"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3001380-DNA_B02",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1041254741",
+          "participantId": "122002154",
+          "sampleUid": "GEWZWA2B-XYA2-8ZLY-VR5J-KB58RQTIMSXS",
+          "maskedPid": "K5SAWGIG-D34D-JW2T-O18H-N3BP8QBONOI8",
+          "programmePhase": "MAIN",
+          "participantUid": "RCIZ9HBF-9AKU-3O7E-2OPL-6A82E86ZIMQE",
+          "sampleState": "blood_unsorted_edta"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3001400-DNA_C07",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1041254884",
+          "participantId": "122003451",
+          "sampleUid": "GLIYNAJL-EYA7-QQLE-IKEN-TOLW2QFPDTH7",
+          "maskedPid": "7JRBX6GX-QRNG-F7A2-8LI6-S1L9Y68RIUAC",
+          "programmePhase": "MAIN",
+          "participantUid": "NJ4O6LPW-Z8AP-C7A7-CM12-K7H6PGFZD8Y2",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 3,
+        "year": 2021,
+        "day": 3
+      },
+      "processingLab": {
+        "organisationName": "Croydon Health Services NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "RJ6",
+        "organisationNationalGroupingName": "Croydon Health Services NHS Trust",
+        "organisationNationalGroupingId": "RJ6"
+      },
+      "interpreter": {
+        "organisationName": "Croydon Health Services NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "RJ6",
+        "organisationNationalGroupingName": "Croydon Health Services NHS Trust",
+        "organisationNationalGroupingId": "RJ6"
+      },
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "routine",
+      "referralTestId": "WHCJR25KBWE9",
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R32",
+          "penetrance": "complete"
+        }
+      ]
+    }
+  ]
+}

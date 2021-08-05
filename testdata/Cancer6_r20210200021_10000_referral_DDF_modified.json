@@ -1,0 +1,144 @@
+{
+  "pedigree": {
+    "familyId": "r20210200021" ,
+    "members": [
+      {
+        "participantId": "p20210200021" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": true ,
+        "sex": "FEMALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "M77"
+          }
+        ] ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "5952a5cb-f0cd-41fb-8cdc-a0e4dcf32c8d" ,
+        "pedigreeId": 1 ,
+        "yearOfBirth": 1941
+      }
+    ] ,
+    "readyForAnalysis": true
+  } ,
+  "requester": {
+    "organisationName": "Royal National Orthopaedic Hospital NHS Trust" ,
+    "organisationId": "template" ,
+    "organisationCode": "RAN" ,
+    "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust" ,
+    "organisationNationalGroupingId": "RAN"
+  } ,
+  "orderingDate": {
+    "month": 3 ,
+    "year": 2021 ,
+    "day": 2
+  } ,
+  "cancerParticipant": {
+    "participantId": "p20210200021" ,
+    "sex": "FEMALE" ,
+    "readyForAnalysis": true ,
+    "participantUid": "5952a5cb-f0cd-41fb-8cdc-a0e4dcf32c8d" ,
+    "tumours": [
+      {
+        "primaryOrMetastatic": "PRIMARY" ,
+        "tumourDiagnosisDate": {
+          "month": 1 ,
+          "year": 2021 ,
+          "day": 1
+        } ,
+        "tumourPresentation": "FIRST_PRESENTATION" ,
+        "tumourType": "SOLID_TUMOUR_PRIMARY" ,
+        "tumourLocalId": "1021977207" ,
+        "tumourId": "1021977207"
+      }
+    ] ,
+    "yearOfBirth": 1941
+  } ,
+  "referralId": "r20210200021" ,
+  "referralUid": "c02ff698-c4ad-469a-8775-06bfcc9697f1" ,
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template" ,
+    "clinicalIndicationVersionNumber": "bio_v2.0.0" ,
+    "clinicalIndicationCode": "M77" ,
+    "clinicalIndicationFullName": "Synovial Sarcoma"
+  } ,
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3000238-DNA_E04" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1021977455" ,
+          "participantId": "p20210200021" ,
+          "sampleUid": "K7Y3WG22-108T-JSK9-HKZG-EJQ002QKRNA1" ,
+          "maskedPid": "UQEZNS09-SR67-35X8-8RNH-KT2LM2R8KQ75" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2016-07-27T00:00:00+0000" ,
+          "participantUid": "5952a5cb-f0cd-41fb-8cdc-a0e4dcf32c8d" ,
+          "sampleState": "blood_unsorted_edta"
+        }
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 3 ,
+        "year": 2021 ,
+        "day": 2
+      } ,
+      "processingLab": {
+        "organisationName": "Royal National Orthopaedic Hospital NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RAN" ,
+        "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust" ,
+        "organisationNationalGroupingId": "RAN"
+      } ,
+      "interpreter": {
+        "organisationName": "Royal National Orthopaedic Hospital NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RAN" ,
+        "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust" ,
+        "organisationNationalGroupingId": "RAN"
+      } ,
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3000238-DNA_E04" ,
+          "tumourSampleId": "LP3000241-DNA_H11"
+        }
+      ] ,
+      "clinicalIndicationTest": {
+        "testTypeId": "template" ,
+        "clinicalIndicationTestTypeId": "template" ,
+        "testTypeName": "template" ,
+        "clinicalIndicationTestTypeCode": "template" ,
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation" ,
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      } ,
+      "priority": "urgent" ,
+      "tumourSamples": [
+        {
+          "product": "DNA" ,
+          "method": "RESECTION" ,
+          "sampleId": "LP3000241-DNA_H11" ,
+          "storageMedium": "FF" ,
+          "haematologicalCancer": false ,
+          "source": "TUMOUR" ,
+          "sampleType": "Solid tumour sample" ,
+          "labSampleId": "1021977207" ,
+          "tumourId": "1021977207" ,
+          "participantId": "p20210200021" ,
+          "sampleUid": "ZPV80CB4-MIGM-VCE9-NCKP-YKX07CEJ9F66" ,
+          "maskedPid": "UT67XP6I-I790-SRCS-S5PM-DR5BEW9SZBCM" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2016-11-30T15:27:00+0000" ,
+          "participantUid": "5952a5cb-f0cd-41fb-8cdc-a0e4dcf32c8d" ,
+          "sampleState": "tumour_freshFrozen"
+        }
+      ] ,
+      "referralTestId": "HYIO1DX0Q0V1"
+    }
+  ]
+}

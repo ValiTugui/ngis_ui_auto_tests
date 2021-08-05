@@ -1,0 +1,369 @@
+{
+  "pedigree": {
+    "familyId": "r20210100104" ,
+    "members": [
+      {
+        "participantId": "0" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "lifeStatus": "ALIVE" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": false ,
+        "sex": "FEMALE" ,
+        "affectionStatus": "UNCERTAIN" ,
+        "participantUid": "7I7G8C49-ICCA-1XMT-FXEG-9JV9MVGCN386" ,
+        "adoptedStatus": "notadopted" ,
+        "pedigreeId": 1991222 ,
+        "yearOfBirth": 1000
+      } ,
+      {
+        "participantId": "1" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "lifeStatus": "ALIVE" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": false ,
+        "sex": "MALE" ,
+        "affectionStatus": "UNCERTAIN" ,
+        "participantUid": "KWE5JT1S-NSG8-KKPK-A6PQ-UR35KPF7M6GC" ,
+        "adoptedStatus": "notadopted" ,
+        "pedigreeId": 1991223 ,
+        "yearOfBirth": 1000
+      } ,
+      {
+        "lifeStatus": "ALIVE" ,
+        "isProband": true ,
+        "sex": "FEMALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "R59"
+          }
+        ] ,
+        "hpoTermList": [
+          {
+            "hpoBuildNumber": "HP:0011185" ,
+            "termPresence": "no" ,
+            "term": "HP:0011185"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000717" ,
+            "termPresence": "no" ,
+            "term": "HP:0000717"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001268" ,
+            "termPresence": "yes" ,
+            "term": "HP:0001268"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001250" ,
+            "termPresence": "yes" ,
+            "term": "HP:0001250"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0007270" ,
+            "termPresence": "no" ,
+            "term": "HP:0007270"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002349" ,
+            "termPresence": "no" ,
+            "term": "HP:0002349"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0007359" ,
+            "termPresence": "no" ,
+            "term": "HP:0007359"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002539" ,
+            "termPresence": "yes" ,
+            "term": "HP:0002539"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002353" ,
+            "termPresence": "no" ,
+            "term": "HP:0002353"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0011024" ,
+            "termPresence": "no" ,
+            "term": "HP:0011024"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002123" ,
+            "termPresence": "no" ,
+            "term": "HP:0002123"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000256" ,
+            "termPresence": "no" ,
+            "term": "HP:0000256"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0010818" ,
+            "termPresence": "no" ,
+            "term": "HP:0010818"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001999" ,
+            "termPresence": "no" ,
+            "term": "HP:0001999"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0010841" ,
+            "termPresence": "no" ,
+            "term": "HP:0010841"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000818" ,
+            "termPresence": "no" ,
+            "term": "HP:0000818"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0011198" ,
+            "termPresence": "no" ,
+            "term": "HP:0011198"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000119" ,
+            "termPresence": "no" ,
+            "term": "HP:0000119"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002538" ,
+            "termPresence": "no" ,
+            "term": "HP:0002538"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002069" ,
+            "termPresence": "no" ,
+            "term": "HP:0002069"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000929" ,
+            "termPresence": "no" ,
+            "term": "HP:0000929"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0007042" ,
+            "termPresence": "no" ,
+            "term": "HP:0007042"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002086" ,
+            "termPresence": "no" ,
+            "term": "HP:0002086"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0007204" ,
+            "termPresence": "no" ,
+            "term": "HP:0007204"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000951" ,
+            "termPresence": "no" ,
+            "term": "HP:0000951"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001317" ,
+            "termPresence": "no" ,
+            "term": "HP:0001317"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001626" ,
+            "termPresence": "no" ,
+            "term": "HP:0001626"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0007361" ,
+            "termPresence": "no" ,
+            "term": "HP:0007361"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000598" ,
+            "termPresence": "no" ,
+            "term": "HP:0000598"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002134" ,
+            "termPresence": "no" ,
+            "term": "HP:0002134"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000478" ,
+            "termPresence": "no" ,
+            "term": "HP:0000478"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0010819" ,
+            "termPresence": "no" ,
+            "term": "HP:0010819"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000924" ,
+            "termPresence": "no" ,
+            "term": "HP:0000924"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001263" ,
+            "termPresence": "no" ,
+            "term": "HP:0001263"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000252" ,
+            "termPresence": "no" ,
+            "term": "HP:0000252"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001249" ,
+            "termPresence": "no" ,
+            "term": "HP:0001249"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0100543" ,
+            "termPresence": "no" ,
+            "term": "HP:0100543"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000726" ,
+            "termPresence": "no" ,
+            "term": "HP:0000726"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002384" ,
+            "termPresence": "no" ,
+            "term": "HP:0002384"
+          }
+        ] ,
+        "adoptedStatus": "notadopted" ,
+        "participantId": "115008363" ,
+        "motherId": 1991222 ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "fatherId": 1991223 ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "ZDHFZTU2-T6VM-ELT6-TAA2-L4JDLL54U2QS" ,
+        "pedigreeId": 1991224 ,
+        "yearOfBirth": 1969
+      }
+    ] ,
+    "readyForAnalysis": true ,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  } ,
+  "requester": {
+    "organisationName": "Dartford and Gravesham NHS Trust" ,
+    "organisationId": "template" ,
+    "organisationCode": "RN7" ,
+    "organisationNationalGroupingName": "Dartford and Gravesham NHS Trust" ,
+    "organisationNationalGroupingId": "RN7"
+  } ,
+  "orderingDate": {
+    "month": 2 ,
+    "year": 2021 ,
+    "day": 19
+  } ,
+  "referralId": "r20210100104" ,
+  "referralUid": "07077b63-9382-4986-a434-cb0a12ec5376" ,
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template" ,
+    "clinicalIndicationCode": "R59" ,
+    "clinicalIndicationFullName": "Early onset or syndromic epilepsy"
+  } ,
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "multipleGeneticOrigins": "No" ,
+          "panelVersion": "2.2" ,
+          "panelName": "Genetic epilepsy syndromes" ,
+          "panelId": "402" ,
+          "specificDisease": "R59"
+        } ,
+        {
+          "multipleGeneticOrigins": "No" ,
+          "panelVersion": "2.41" ,
+          "panelName": "Inborn errors of metabolism" ,
+          "panelId": "467" ,
+          "specificDisease": "R59"
+        } ,
+        {
+          "multipleGeneticOrigins": "No" ,
+          "panelVersion": "2.12" ,
+          "panelName": "Mitochondrial disorders" ,
+          "panelId": "112" ,
+          "specificDisease": "R59"
+        } ,
+        {
+          "multipleGeneticOrigins": "No" ,
+          "panelVersion": "3.700" ,
+          "panelName": "Intellectual disability" ,
+          "panelId": "285" ,
+          "specificDisease": "R59"
+        } ,
+        {
+          "multipleGeneticOrigins": "No" ,
+          "panelVersion": "5.45" ,
+          "panelName": "Cerebral malformations" ,
+          "panelId": "491" ,
+          "specificDisease": "R59"
+        }
+      ] ,
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3000581-DNA_F06" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1029460651" ,
+          "participantId": "115008363" ,
+          "sampleUid": "SGLK8V7C-3LNU-4A1N-RSER-24BD4ZIH67T1" ,
+          "maskedPid": "TX19B5JJ-ETCY-S5VB-HQBU-XER5B8KGUO5C" ,
+          "programmePhase": "MAIN" ,
+          "participantUid": "ZDHFZTU2-T6VM-ELT6-TAA2-L4JDLL54U2QS" ,
+          "sampleState": "blood_unsorted_edta"
+        }
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 2 ,
+        "year": 2021 ,
+        "day": 19
+      } ,
+      "processingLab": {
+        "organisationName": "Dartford and Gravesham NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RN7" ,
+        "organisationNationalGroupingName": "Dartford and Gravesham NHS Trust" ,
+        "organisationNationalGroupingId": "RN7"
+      } ,
+      "interpreter": {
+        "organisationName": "Dartford and Gravesham NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RN7" ,
+        "organisationNationalGroupingName": "Dartford and Gravesham NHS Trust" ,
+        "organisationNationalGroupingId": "RN7"
+      } ,
+      "clinicalIndicationTest": {
+        "clinicalIndicationTestTypeCode": "R59.3" ,
+        "testTypeId": "207b972a-7bdd-465b-97c2-a799d25769b7" ,
+        "technology": {
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748" ,
+          "testTechnologyDescription": "WGS"
+        } ,
+        "clinicalIndicationTestTypeId": "d05f2c33-e1c3-4787-815d-a2859c9fa90f" ,
+        "testTypeName": "Epilepsy - early onset or syndromic WGS"
+      } ,
+      "priority": "routine" ,
+      "referralTestId": "0C2GYV5VB5VK" ,
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R59" ,
+          "penetrance": "complete"
+        }
+      ]
+    }
+  ]
+}
