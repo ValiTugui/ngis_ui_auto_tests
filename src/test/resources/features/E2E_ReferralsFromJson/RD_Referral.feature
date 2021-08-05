@@ -416,5 +416,3 @@ Feature: Create RD Referrals by reading details from Json file
       | RD_Old_CI_Panel_r20210100118_10000_referral_DDF_modified.json |
 
 
-
-

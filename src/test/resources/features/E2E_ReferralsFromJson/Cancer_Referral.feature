@@ -217,3 +217,4 @@ Feature: Create Cancer Referrals by reading details from Json file
     Examples:
       | JSONFileName                                               |
       | Cancer_LNS_7_r20210200021_10000_referral_DDF_modified.json |
+
