@@ -894,12 +894,16 @@ public class ReferralFromJsonSteps extends Pages {
         referralPage.submitReferral();
         String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
         if (actualMessage == null) {
-            Assert.assertTrue(false);
+            SeleniumLib.refreshPage();
+            SeleniumLib.sleepInSeconds(3);
+            actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
+            if (actualMessage == null)
+                Assert.assertTrue(actualMessage,false);
         }
         Assert.assertTrue(actualMessage.contains("Your referral has been submitted"));
         boolean testResult = referralPage.verifyReferralButtonStatus("Submitted");
         if (!testResult) {
-            Assert.fail("Referral could not submit successfully.");
+            Assert.fail("Referral could not be submitted successfully.");
         }
         referralPage.saveReferralID(TestUtils.getNtsTag(TestHooks.currentTagName));
     }
