@@ -1028,9 +1028,10 @@ public class ReferralFromJsonSteps extends Pages {
         familyDetails.clear();
         Debugger.println("Clearing pre-existing Family details size- "+familyDetails.size());
 
+        List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
+        PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
+
         if(numberOfTestParticipants > 0) {
-            boolean maleRepeat = false;
-            boolean femaleRepeat = false;
             for (int i = 0; i < numberOfTestParticipants; i++) {
                 List<String> familyMemberDetails = new ArrayList<>();
                 int familyMemberPositionInJson = positionOfTestParticipants.get(i);
@@ -1056,21 +1057,19 @@ public class ReferralFromJsonSteps extends Pages {
 //            Debugger.println("sex " + gender);
 //            Debugger.println("life status " + lifeStatus);
                 String familyRelation = null;
-                if (gender.equalsIgnoreCase("Male")) {
-                    if(!maleRepeat) {
+                if (familyMember.getPedigreeId().equals(probandMember.getFatherId())){
                         familyRelation = "Father";
-                        maleRepeat = true;
+                }else if (familyMember.getPedigreeId().equals(probandMember.getMotherId())){
+                    familyRelation = "Mother";
+                }else if (familyMember.getFatherId().equals(probandMember.getFatherId())&&familyMember.getMotherId().equals(probandMember.getMotherId())){
+                    familyRelation = "Full Sibling";
+                }else if (familyMember.getFatherId().equals(probandMember.getPedigreeId())||familyMember.getMotherId().equals(probandMember.getPedigreeId())){
+                    if (gender.equalsIgnoreCase("Female")){
+                        familyRelation = "Daughter";
                     }else{
-                        familyRelation = "Full Sibling";
+                        familyRelation = "Son";
                     }
-                } else if (gender.equalsIgnoreCase("Female")) {
-                    if (!femaleRepeat) {
-                        familyRelation = "Mother";
-                        femaleRepeat = true;
-                    } else {
-                        familyRelation = "Full Sibling";
-                    }
-                } else {
+                }else{
                     familyRelation = "Other";
                 }
                 String familyMemberData = "NHSNumber=NA:DOB=" + dob + ":Gender=" + gender + ":Relationship=" + familyRelation + ":LifeStatus=" + lifeStatus;

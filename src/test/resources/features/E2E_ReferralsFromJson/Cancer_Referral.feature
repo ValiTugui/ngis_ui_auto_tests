@@ -87,7 +87,7 @@ Feature: Create Cancer Referrals by reading details from Json file
       | Cancer5_r20210200007_10000_referral_DDF_modified.json |
 
   @CancerCase6 @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create Cancer referral for Samples- LP3000763-DNA_D02,LP3000762-DNA_D02
+  Scenario Outline: Read the details from Json file and create Cancer referral for Samples- LP3000238-DNA_E04,LP3000241-DNA_H11
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Cancer" referral is created with details from Json provided
@@ -197,7 +197,7 @@ Feature: Create Cancer Referrals by reading details from Json file
       | Cancer_LNS_5_r20210200011_10001_referral_DDF_modified.json |
 
   @CancerLNS_6 @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create Cancer referral for Samples- LP3001388-DNA_B05,LP3001379-DNA_B06
+  Scenario Outline: Read the details from Json file and create Cancer referral for Samples- LP3001150-DNA_H11,LP3001144-DNA_B10
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Cancer" referral is created with details from Json provided
@@ -208,7 +208,7 @@ Feature: Create Cancer Referrals by reading details from Json file
       | Cancer_LNS_6_r20210200005_10000_referral_DDF_modified.json |
 
   @CancerLNS_7 @Z-LOGOUT
-  Scenario Outline: Read the details from Json file and create Cancer referral for Samples- LP3001388-DNA_B05,LP3001379-DNA_B06
+  Scenario Outline: Read the details from Json file and create Cancer referral for Samples- LP3000238-DNA_E04,LP3000241-DNA_H11
     Given the json file <JSONFileName> with referral information is available in the specified location
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Cancer" referral is created with details from Json provided
@@ -217,4 +217,3 @@ Feature: Create Cancer Referrals by reading details from Json file
     Examples:
       | JSONFileName                                               |
       | Cancer_LNS_7_r20210200021_10000_referral_DDF_modified.json |
-
