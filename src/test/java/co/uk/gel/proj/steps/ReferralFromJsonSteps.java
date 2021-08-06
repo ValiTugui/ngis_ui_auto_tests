@@ -660,7 +660,7 @@ public class ReferralFromJsonSteps extends Pages {
         testResult = referralPage.verifyThePageTitlePresence("Add sample details");
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
-            Assert.fail("Page title- Manage Samples not present.");
+            Assert.fail("Page title- Add sample details not present.");
         }
         // Non Mandatory steps
 //        samplesPage.answerSampleTopography("test");
