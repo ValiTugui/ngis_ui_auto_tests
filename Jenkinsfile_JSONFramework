@@ -9,6 +9,7 @@ pipeline {
 
     options {
         buildDiscarder(logRotator(numToKeepStr: '', artifactNumToKeepStr: ''))
+        ansiColor('xterm')
     }
 
     stages {
@@ -48,7 +49,7 @@ pipeline {
                 archiveArtifacts artifacts: 'target/test-report/*.*', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'target/*', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'JsonReferrals.json ', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'target/NGIS_UI_Snapshots/*', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/NGIS_UI_Snapshots/*.*', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'VersionFile.txt', allowEmptyArchive: true
             }
         }

@@ -896,6 +896,8 @@ public class ReferralFromJsonSteps extends Pages {
         if (actualMessage == null) {
             SeleniumLib.refreshPage();
             SeleniumLib.sleepInSeconds(3);
+            Debugger.println("retrying to submit referral......");
+            referralPage.submitReferral();
             actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
             if (actualMessage == null)
                 Assert.assertTrue(actualMessage,false);

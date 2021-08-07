@@ -158,10 +158,11 @@
                                     <directory>${jsonFolder}</directory>
                                 </resultSource>
                             </resultSources>
-                            <outputPath>target/test-report</outputPath>
+                            <outputPath>${project.build.directory}/test-report</outputPath>
                             <timestamp>${maven.build.timestamp}</timestamp>
                             <prefix>${reportName}</prefix>
                             <template>default</template>
+                            <projectName>TOMS UI-Tests</projectName>
                         </configuration>
                     </execution>
                 </executions>
