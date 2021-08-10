@@ -27,11 +27,11 @@ Feature: All Pages Navigation FM Stage
     And the user should be able to see "Continue" button
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
-    And the user should be able to see "Save and continue" button
+    And the user should be able to see "Continue" button
     When the user updates with "<FamilyMemberDetailsUpdate>"
     Then the user should be able to see "Save and continue" button
     When the user updates with "<FamilyMemberDetailsUpdate1>"
-    Then the user should be able to see "Save and continue" button
+    Then the user should be able to see "Continue" button
     # Steps are same for clicking on continue / Save and continue button
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Continue with this family member
