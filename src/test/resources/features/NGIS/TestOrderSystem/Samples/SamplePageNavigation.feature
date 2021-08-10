@@ -40,11 +40,11 @@ Feature: Samples Page Navigation
     # Steps are same for clicking on continue / Save and continue button
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add sample details
-    And the user should be able to see "Save and continue" button
+    And the user should be able to see "Continue" button
     When the user updates the page "<pageTitle>" with "<SamplesQuestionnaireUpdated1>"
     Then the user should be able to see "Save and continue" button
     When the user updates the page "<pageTitle>" with "<SamplesQuestionnaireUpdated2>"
-    Then the user should be able to see "Save and continue" button
+    Then the user should be able to see "Continue" button
     # Steps are same for clicking on continue / Save and continue button
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Manage samples

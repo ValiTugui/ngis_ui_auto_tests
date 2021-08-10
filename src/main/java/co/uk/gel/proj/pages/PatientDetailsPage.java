@@ -238,7 +238,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//*[string()='Address']//following-sibling::span")
     public WebElement addressField;
 
-    @FindBy(xpath = "//input[@id='administrativeGender']/../div/span/span")
+    @FindBy(xpath = "//input[@name='administrativeGender']/../div")
+
     public WebElement genderPath;
 
 
