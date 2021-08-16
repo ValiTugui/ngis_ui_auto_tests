@@ -271,4 +271,136 @@ public class NeatToolSteps extends Pages {
         }
     }
 
+    @Then("the user sees the Merge status as {string}")
+    public void theUserSeesTheMergeStatusAs(String status) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.validateMergeStatus(status);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("a button to change the merge status is displayed.")
+    public void aButtonToChangeTheMergeStatusIsDisplayed() {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.validateChangeMergeStatusBtn();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees the Current Merge status as {string}")
+    public void theUserSeesTheCurrentMergeStatusAs(String status) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.validateCurrentMergeStatus(status);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the patient detail summary card is displayed")
+    public void thePatientDetailSummaryCardIsDisplayed() {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.validatePatientSummaryCard();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see the field label {string}")
+    public void theUserShouldSeeTheFieldLabel(String fieldName) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.verifyLabelName(fieldName);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the Updated merge status drop down")
+    public void theUserClicksOnTheUpdatedMergeStatusDropDown() {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.clickOnUpdatedMergeStatusDropdwn();
+        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MergeStatusDropdwn.jpg");
+            Assert.fail("Could not click on Update merge status");
+        }
+    }
+
+    @And("the user sees the below values in the Updated merge status dropdown")
+    public void theUserSeesTheBelowValuesInTheUpdatedMergeStatusDropdown(List<String> expectedDropDownValues) {
+        boolean testResult = false;
+        Wait.seconds(5);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            testResult = neatPatientRecordPage.updatedMergeStatusDropdownValues(expectedDropDownValues.get(i));
+            if (!testResult) {
+                Assert.fail(expectedDropDownValues.get(i) + " not present in Updated Merge status Drop Down.");
+            }
+        }
+    }
+
+    @And("the user click on the Confirm button")
+    public void theUserClickOnTheConfirmButton() {
+
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.clickOnConfirmButton();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ConfirmButton.jpg");
+            Assert.fail("Could not click on Confirm Button");
+        }
+
+    }
+
+    @Then("the user should see the error message {string}")
+    public void theUserShouldSeeTheErrorMessage(String errorMsg) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.verifyErrorMessageInChangeMergeStatusPage(errorMsg);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ErrorMessage");
+            Assert.fail("Could not see error message :" + errorMsg);
+        }
+    }
+
+    @And("the user has to select a merge status {string}")
+    public void theUserHasToSelectAMergeStatus(String status) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.selectMergeStatus(status);
+        Assert.assertTrue(testResult);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_MergeStatus.jpg");
+            Assert.fail("Could not see Merge status :" + status);
+        }
+    }
+
+    @And("the user has to see the success notification {string} on the Edit this patient record page")
+    public void theUserHasToSeeTheSuccessNotificationOnTheEditThisPatientRecordPage(String notificationMessage) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.validateMergeSuccessNotification(notificationMessage);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheNotification_NEAT.jpg");
+            Assert.fail("Could not see error message :" + notificationMessage);
+        }
+    }
+
+    @And("the user has to see the error notification {string} on the Edit this patient record page")
+    public void theUserHasToSeeTheErrorNotificationOnTheEditThisPatientRecordPage(String notificationErrorMessage) {
+        boolean testResult = false;
+        testResult = neatPatientRecordPage.validateMergeErrorNotification(notificationErrorMessage);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheNotification_NEAT.jpg");
+            Assert.fail("Could not see error message :" + notificationErrorMessage);
+        }
+    }
+
+    @Then("the user should see the merge status {string} on the patient result card")
+    public void theUserShouldSeeTheMergeStatusOnThePatientResultCard(String badgeText) {
+        boolean testResult = false;
+        testResult = patientSearchPage.checkMergeStatusIsDisplayed(badgeText);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheMergeStatusOnCard.jpg");
+            Assert.fail("Could not see mergeStatus :" + badgeText);
+        }
+    }
+
+
+    @And("the user should see the tooltip on the Merge status badge having text {string}")
+    public void theUserShouldSeeTheTooltipOnTheMergeStatusBadgeHavingText(String tooltipMsg) {
+        boolean testResult = false;
+        testResult = patientSearchPage.verifyTooltipOverTheMergeStatusBadge(tooltipMsg);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheTooltipMergeStatusOnCard.jpg");
+            Assert.fail("Could not see tooltip :" + tooltipMsg);
+        }
+    }
+
 }//end class

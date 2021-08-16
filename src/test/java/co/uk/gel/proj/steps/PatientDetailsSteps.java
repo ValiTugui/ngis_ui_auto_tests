@@ -1039,4 +1039,24 @@ public class PatientDetailsSteps extends Pages {
         testResult = patientDetailsPage.verifyPostCodeErrorMessage(expMessage);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user should not see the merge warning notification banner")
+    public void theUserShouldNotSeeTheMergeWarningNotificationBanner() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyNoMergeWarningNotificationBannerDisplayed();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoWarningMsg");
+            Assert.fail("Warning message displayed");
+        }
+    }
+
+    @Then("the user should not see the merge status on the patient result card")
+    public void theUserShouldNotSeeTheMergeStatusOnThePatientResultCard() {
+        boolean testResult = false;
+        testResult = patientSearchPage.checkMergeStatusIsNotDisplayed();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_userSeeTheMergeStatusOnCard.jpg");
+            Assert.fail("MergeStatus displayed :");
+        }
+    }
 }//end
