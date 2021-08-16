@@ -24,17 +24,17 @@ public class NeatPatientRecordPage {
     public WebElement table;
     @FindBy(xpath = "//span[@aria-labelledby='isActive']//span")
     public WebElement recordStatus;
-    @FindBy(xpath = "//span[contains(@class,'withErrorContainerCss')]//h2")
+    @FindBy(xpath = "(//h2)[1]")
     public WebElement patientName;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[text()='Born']")
+    @FindBy(xpath = "//li//span[text()='Born']")
     public WebElement born;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='dateOfBirth_1']")
+    @FindBy(xpath = "//li//span[@aria-labelledby='dateOfBirth_1']")
     public WebElement bornDate;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[contains(@aria-labelledby,'humanReadableId')]")
+    @FindBy(xpath = "//li//span[contains(@aria-labelledby,'humanReadableId')]")
     public WebElement patientNGISID;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='nhsNumber_1']")
+    @FindBy(xpath = "//li//span[@aria-labelledby='nhsNumber_1']")
     public WebElement nhsNum;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='address_1']")
+    @FindBy(xpath = "//li//span[@aria-labelledby='address_1']")
     public WebElement patientAddress;
     @FindBy(xpath = "//li//div[2]/span")
     public WebElement reasonStatus;
