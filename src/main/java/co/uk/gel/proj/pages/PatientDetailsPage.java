@@ -2362,4 +2362,19 @@ public class PatientDetailsPage {
             return false;
         }
     }
+
+    public boolean verifyNoMergeWarningNotificationBannerDisplayed() {
+        try {
+            if (!Wait.isElementDisplayed(driver, textOnPatientDetailsNotificationBanner, 10)) {
+                Debugger.println("textOnPatientDetailsNotificationBanner not loaded.");
+                SeleniumLib.takeAScreenShot("textOnPatientDetailsNotificationBanner.jpg");
+                return true;
+            }
+            return false;
+        } catch (Exception exp1) {
+            Debugger.println("Exception from checking textOnPatientDetailsNotificationBanner:" + exp1);
+            SeleniumLib.takeAScreenShot("textOnPatientDetailsNotificationBanner.jpg");
+            return false;
+        }
+    }
 }//end

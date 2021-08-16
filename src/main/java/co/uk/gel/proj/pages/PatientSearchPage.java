@@ -38,6 +38,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     static Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
+
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -212,6 +213,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@id='passwordError']")
     public WebElement loginPassWordError;
 
+    @FindBy(xpath = "//span[@data-tip]/span[@class='child-element']")
+    public WebElement mergeStatusOnPatientCard;
+
+    @FindBy(xpath = "//span[@data-tip]")
+    public WebElement tooltipOnPatientCard;
 
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
@@ -301,6 +307,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             badge = patientCardBadge.getText();
             return badge.trim();
+
         } catch (Exception exp) {
             try {
                 badge = seleniumLib.getText(patientCardBadge);
@@ -1335,5 +1342,80 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
+    public boolean checkMergeStatusIsDisplayed(String badgeText) {
+
+        try {
+            if (!Wait.isElementDisplayed(driver, patientCard, 30)) {
+                Debugger.println("Expected Patient card not displayed." + driver.getCurrentUrl());
+                return false;
+            } else {
+                SeleniumLib.takeAScreenShot("PatientCardDisplayed");
+            }
+            Actions.scrollToBottom(driver);
+
+            if (!Wait.isElementDisplayed(driver, mergeStatusOnPatientCard, 10)) {
+                Debugger.println("Expected patientCardBadge not displayed." + driver.getCurrentUrl());
+                return false;
+            }
+            String actualMergeStatus = mergeStatusOnPatientCard.getText();
+            Debugger.println("The actual merge status is " + actualMergeStatus);
+
+            if (!actualMergeStatus.equalsIgnoreCase(badgeText)) {
+                Debugger.println("Actual message is:" + actualMergeStatus + " ,BUt expected:" + badgeText);
+                SeleniumLib.takeAScreenShot("MergeStatusWrong.jpg");
+                return false;
+            }
+            Debugger.println("Actual message is:" + actualMergeStatus + " ,And expected:" + badgeText);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validateMergeStatus:" + exp);
+            SeleniumLib.takeAScreenShot("MergeStatusWrong.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTooltipOverTheMergeStatusBadge(String tooltipMsg) {
+        try {
+            if (!Wait.isElementDisplayed(driver, tooltipOnPatientCard, 3)) {
+                Debugger.println("Expected tool tip onPatient card not displayed." + driver.getCurrentUrl());
+                return false;
+            }
+            Debugger.println("Th expected tooltip " + tooltipMsg);
+            String actualToolTip = tooltipOnPatientCard.getText();
+            actualToolTip = actualToolTip.replaceAll("\\s+", " ");
+            Debugger.println("The tool tip message is " + actualToolTip);
+            if (!actualToolTip.contains(tooltipMsg)) {
+                Debugger.println("Expected tooltip:" + tooltipMsg + " But the actual tooltip is:" + actualToolTip);
+                return false;
+            }
+            return true;
+
+        } catch (Exception exp) {
+            Debugger.println("Exception from tooltip:" + exp);
+            SeleniumLib.takeAScreenShot("MergeStatusToolTip.jpg");
+            return false;
+        }
+    }
+
+    public boolean checkMergeStatusIsNotDisplayed() {
+        try {
+            if (!Wait.isElementDisplayed(driver, patientCard, 30)) {
+                Debugger.println("Expected Patient card not displayed." + driver.getCurrentUrl());
+                return false;
+            }
+            Actions.scrollToBottom(driver);
+
+            if (Wait.isElementDisplayed(driver, mergeStatusOnPatientCard, 10)) {
+                Debugger.println("PatientCardBadge is displayed." + driver.getCurrentUrl());
+                return false;
+            }
+            Debugger.println("The patientCardBadge is not displayed as expected" + driver.getCurrentUrl());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validateMergeStatus:" + exp);
+            SeleniumLib.takeAScreenShot("MergeStatusWrong.jpg");
+            return false;
+        }
+    }
 }//end
 

@@ -24,17 +24,17 @@ public class NeatPatientRecordPage {
     public WebElement table;
     @FindBy(xpath = "//span[@aria-labelledby='isActive']//span")
     public WebElement recordStatus;
-    @FindBy(xpath = "//span[contains(@class,'withErrorContainerCss')]//h2")
+    @FindBy(xpath = "(//h2)[1]")
     public WebElement patientName;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[text()='Born']")
+    @FindBy(xpath = "//li//span[text()='Born']")
     public WebElement born;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='dateOfBirth_1']")
+    @FindBy(xpath = "//li//span[@aria-labelledby='dateOfBirth_1']")
     public WebElement bornDate;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[contains(@aria-labelledby,'humanReadableId')]")
+    @FindBy(xpath = "//li//span[contains(@aria-labelledby,'humanReadableId')]")
     public WebElement patientNGISID;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='nhsNumber_1']")
+    @FindBy(xpath = "//li//span[@aria-labelledby='nhsNumber_1']")
     public WebElement nhsNum;
-    @FindBy(xpath = "//ul[contains(@class,'dataListCss')]//li//span[@aria-labelledby='address_1']")
+    @FindBy(xpath = "//li//span[@aria-labelledby='address_1']")
     public WebElement patientAddress;
     @FindBy(xpath = "//li//div[2]/span")
     public WebElement reasonStatus;
@@ -46,6 +46,38 @@ public class NeatPatientRecordPage {
     public WebElement warningNotification;
     @FindBy(xpath = "//a[contains(text(),'An active record')]")
     public WebElement anActiveRecordLink;
+    @FindBy(xpath = "//span[@aria-labelledby='mergeStatus']//span")
+    public WebElement mergeStatus;
+    @FindBy(xpath = "//span[contains(text(),'Change merge status')]")
+    public WebElement changeMergeStatus;
+    @FindBy(xpath = "//span[contains(text(),'Current merge status')]/following::div[1]")
+    public WebElement currentMergeStatus;
+    @FindBy(xpath = "//h2")
+    public WebElement patientSummaryName;
+    @FindBy(xpath = "//li[@class='css-m9xm9l'][1]")
+    public WebElement patientSummaryDOB;
+    @FindBy(xpath = "//li[@class='css-m9xm9l'][2]")
+    public WebElement patientSummaryNHS;
+    @FindBy(xpath = "//li[@class='css-m9xm9l'][3]")
+    public WebElement patientSummaryNGISID;
+    @FindBy(xpath = "//li[@class='css-m9xm9l'][4]")
+    public WebElement patientSummaryAddress;
+    @FindBy(xpath = "//span[contains(text(),'Updated merge status')]")
+    public WebElement updatedMergeStatusLabel;
+    @FindBy(xpath = "//div[@class=' css-2b097c-container']")
+    public WebElement updatedMergeStatusDropDwn;
+    @FindBy(xpath = "//div[@class=' css-tdfkrm-menu']/div/div")
+    public WebElement updatedMergeStatusDropDwnValues;
+    @FindBy(xpath = "//button[@type='submit']")
+    public WebElement confirmButton;
+    @FindBy(xpath = "//span[@data-testid='error-message']")
+    public WebElement errorMessage;
+    @FindBy(xpath = "//div[@data-testid='notification-success']")
+    public WebElement mergeStatusNotification;
+
+    @FindBy(xpath = "//div[@data-testid='notification-error']")
+    public WebElement mergeStatusErrorNotification;
+
     WebDriver driver;
     SeleniumLib seleniumLib;
     //WebElements
@@ -416,4 +448,233 @@ public class NeatPatientRecordPage {
     }
 
 
+    public boolean validateMergeStatus(String status) {
+        try {
+            if (!Wait.isElementDisplayed(driver, mergeStatus, 5)) {
+                Debugger.println("The merge status is not present in the page");
+                SeleniumLib.takeAScreenShot("MergeStatusWrong.jpg");
+                return false;
+            }
+            String actualStatus = mergeStatus.getText();
+            if (!actualStatus.equalsIgnoreCase(status)) {
+                Debugger.println("Actual message is:" + actualStatus + " ,BUt expected:" + status);
+                SeleniumLib.takeAScreenShot("MergeStatusWrong.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validateMergeStatus:" + exp);
+            SeleniumLib.takeAScreenShot("MergeStatusWrong.jpg");
+            return false;
+        }
+
+    }
+
+    public boolean validateChangeMergeStatusBtn() {
+        try {
+            if (!Wait.isElementDisplayed(driver, changeMergeStatus, 5)) {
+                Debugger.println("The change merge status button is not present in the page");
+                SeleniumLib.takeAScreenShot("ChangeMergeStatusButtonNotDisplayed.jpg");
+                return false;
+            } else {
+                Debugger.println("The change merge status button is present in the page");
+                return true;
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from validateChangeMergeStatusBtn:" + exp);
+            SeleniumLib.takeAScreenShot("ChangeMergeStatusBtn.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateCurrentMergeStatus(String status) {
+        try {
+            if (!Wait.isElementDisplayed(driver, currentMergeStatus, 5)) {
+                Debugger.println("The current merge status is not present in the page");
+                SeleniumLib.takeAScreenShot("CurrentMergeStatusWrong.jpg");
+                return false;
+            }
+            String actualStatus = currentMergeStatus.getText();
+            if (!actualStatus.equalsIgnoreCase(status)) {
+                Debugger.println("Actual message is:" + actualStatus + " ,BUt expected:" + status);
+                SeleniumLib.takeAScreenShot("CurrentMergeStatusWrong.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validateCurrentMergeStatus:" + exp);
+            SeleniumLib.takeAScreenShot("CurrentMergeStatusWrong.jpg");
+            return false;
+        }
+    }
+
+    public boolean validatePatientSummaryCard() {
+
+        NGISPatientModel patientSummarydetails = new NGISPatientModel();
+        if (!Wait.isElementDisplayed(driver, patientSummaryName, 5)) {
+            Debugger.println("Patient Name Details not displayed in Summary card.");
+            return false;
+        }
+
+        if (!seleniumLib.isElementPresent(patientSummaryDOB)) {
+            Debugger.println("Patient Born date not displayed in Summary card");
+            return false;
+        }
+
+        if (!seleniumLib.isElementPresent(patientSummaryNHS)) {
+            Debugger.println("Patinet NHS number not displayed in Summary card");
+            return false;
+        }
+
+        if (!seleniumLib.isElementPresent(patientSummaryNGISID)) {
+            Debugger.println("Patinet NGIS ID not displayed in Summary card");
+            return false;
+        }
+
+        if (!seleniumLib.isElementPresent(patientSummaryAddress)) {
+            Debugger.println("Patinet address not displayed in Summary card");
+            return false;
+        }
+        Debugger.println("Patient summary details are displayed in the Summary card");
+        return true;
+    }
+
+    public boolean verifyLabelName(String fieldName) {
+        try {
+            if (!Wait.isElementDisplayed(driver, updatedMergeStatusLabel, 5)) {
+                Debugger.println("The updated merge status is not present in the page");
+                SeleniumLib.takeAScreenShot("CurrentMergeStatusWrong.jpg");
+                return false;
+            }
+            String actualStatus = updatedMergeStatusLabel.getText();
+            if (!actualStatus.equalsIgnoreCase(fieldName)) {
+                Debugger.println("Actual message is:" + actualStatus + " ,BUt expected:" + fieldName);
+                SeleniumLib.takeAScreenShot("UpdatedMergeStatusWrong.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from UpdatedMergeStatus:" + exp);
+            SeleniumLib.takeAScreenShot("UpdatedMergeStatusWrong.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnUpdatedMergeStatusDropdwn() {
+        try {
+            if (!Wait.isElementDisplayed(driver, updatedMergeStatusDropDwn, 5)) {
+                Debugger.println("The updated merge status drop down is not present in the page");
+                SeleniumLib.takeAScreenShot("UpdatedMergeStatusDropdwnNotPresent.jpg");
+                return false;
+            }
+            updatedMergeStatusDropDwn.click();
+            Debugger.println("The updated merge status drop down is clicked");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from UpdatedMergeStatusDropDwn:" + exp);
+            SeleniumLib.takeAScreenShot("UpdatedMergeStatusDrpdwn.jpg");
+            return false;
+        }
+    }
+
+    public boolean updatedMergeStatusDropdownValues(String value) {
+        try {
+            updatedMergeStatusDropDwn.click();
+            Wait.seconds(2);
+            WebElement dropdownValue = updatedMergeStatusDropDwn.findElement(By.xpath("//div[@class=' css-tdfkrm-menu']/div/div[contains(text(),'" + value + "')]"));
+            String actualDropDownValue = dropdownValue.getText();
+            Debugger.println("The drop down value is " + actualDropDownValue);
+            dropdownValue.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in UpdatedMergeStatusDropDown: " + exp);
+            SeleniumLib.takeAScreenShot("UpdatedMergeStatusDropDown.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnConfirmButton() {
+        try {
+            if (!Wait.isElementDisplayed(driver, confirmButton, 2)) {
+                Debugger.println("Confirm Button could not locate on Change merge status page.\n" + driver.getCurrentUrl());
+                return false;
+            }
+            seleniumLib.clickOnWebElement(confirmButton);
+            seleniumLib.sleepInSeconds(2);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clicking on Confirm Button:" + exp + "\n" + driver.getCurrentUrl());
+            return false;
+        }
+    }
+
+    public boolean verifyErrorMessageInChangeMergeStatusPage(String expectedErrorMessage) {
+        try {
+            if (!Wait.isElementDisplayed(driver, errorMessage, 5)) {
+                Debugger.println("Expected error message not displayed");
+                return false;
+            }
+            return errorMessage.getText().contains(expectedErrorMessage);
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifyErrorMessageInChangeMergeStatus:" + exp);
+            return false;
+        }
+    }
+
+    public boolean selectMergeStatus(String status) {
+        try {
+            Wait.seconds(2);
+            WebElement dropdownValue = updatedMergeStatusDropDwn.findElement(By.xpath("//div[@class=' css-tdfkrm-menu']/div/div[contains(text(),'" + status + "')]"));
+            String actualDropDownValue = dropdownValue.getText();
+            Debugger.println("The drop down value is " + actualDropDownValue);
+            dropdownValue.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in SelectMergeStatusDropDown: " + exp);
+            SeleniumLib.takeAScreenShot("SelectMergeStatusDropDown.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateMergeSuccessNotification(String notificationMessage) {
+        try {
+            if (!Wait.isElementDisplayed(driver, mergeStatusNotification, 5)) {
+                Debugger.println("The notification is not present in the page");
+                SeleniumLib.takeAScreenShot("NotificationError.jpg");
+                return false;
+            }
+            String noticeText = mergeStatusNotification.getText();
+            if (!noticeText.equalsIgnoreCase(notificationMessage)) {
+                Debugger.println("Actual message is:" + noticeText + " ,BUt expected:" + notificationMessage);
+                SeleniumLib.takeAScreenShot("NotificationTextMismatch.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from fillJustificationTextBox:" + exp);
+            SeleniumLib.takeAScreenShot("FillJustificationBox.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateMergeErrorNotification(String notificationErrorMessage) {
+        try {
+            if (!Wait.isElementDisplayed(driver, mergeStatusErrorNotification, 5)) {
+                Debugger.println("The notification is not present in the page");
+                SeleniumLib.takeAScreenShot("NotificationError.jpg");
+                return false;
+            }
+            String noticeText = mergeStatusErrorNotification.getText();
+            if (!noticeText.equalsIgnoreCase(notificationErrorMessage)) {
+                Debugger.println("Actual message is:" + noticeText + " ,BUt expected:" + notificationErrorMessage);
+                SeleniumLib.takeAScreenShot("NotificationTextMismatch.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from fillJustificationTextBox:" + exp);
+            SeleniumLib.takeAScreenShot("FillJustificationBox.jpg");
+            return false;
+        }
+    }
 }//end class

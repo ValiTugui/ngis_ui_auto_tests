@@ -288,7 +288,6 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^The patient record is displayed with a heading of \"([^\"]*)\"$")
     public void thePatientRecordIsDisplayedWithAHeadingOf(String expectedResultHeader) throws Throwable {
-
         patientSearchPage.checkSearchResultHeaderIsDisplayed(driver, expectedResultHeader);
 
     }
