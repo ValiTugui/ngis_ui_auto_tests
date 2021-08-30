@@ -199,7 +199,7 @@ public class ReferralPage<check> {
     public WebElement activeStage;
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
-    String mandatoryFieldLabel = "//span[contains(text(),'dummyLabel')]";
+    String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryFieldLegend = "//legend[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
