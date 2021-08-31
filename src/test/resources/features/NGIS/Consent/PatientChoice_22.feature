@@ -1,4 +1,3 @@
-@SYSTEM_TEST
 @NTS-6029
 Feature: Create archived copy of files when user clicks on delete button in UI
 
