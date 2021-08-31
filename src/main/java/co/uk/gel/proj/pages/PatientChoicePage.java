@@ -292,7 +292,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(@class,'completed-consent-tile')]")
     WebElement completedRefCard;
 
-    String removeButton = "//button[contains(text(),'dummyText')]";
+    String removeButton = "//button[(text()='dummyText')]";
 
     @FindBy(xpath = "//label[contains(text(),'Admin')]")
     public WebElement adminOrClinicianNameHeader;
@@ -327,7 +327,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@id='hidden']/p")
     public List<WebElement> pdfDocumentHiddenText;
 
-    @FindBy(xpath = "//button[contains(text(),'Remove document')]")
+    @FindBy(xpath = "//button[(text()='Remove document')]")
     public WebElement removeDocumentButton;
 
     @FindBy(xpath = "//object")
@@ -2027,13 +2027,14 @@ public class PatientChoicePage {
 
     public boolean clickOnRemoveDocument(String buttonText) {
         try {
-            WebElement removeDocButton = driver.findElement(By.xpath(removeButton.replace("dummyText", buttonText)));
+            String removeDocButtonPath = removeButton.replaceAll("dummyText", buttonText);
+            WebElement removeDocButton = driver.findElement(By.xpath(removeDocButtonPath));
             if (!Wait.isElementDisplayed(driver, removeDocButton, 20)) {
                 Debugger.println("The remove document button is not displayed");
                 return false;
             }
             Wait.seconds(2);//Waiting for the document to load
-            seleniumLib.highLightWebElement(removeDocButton);
+            Wait.forElementToBeClickable(driver, removeDocButton);
             seleniumLib.clickOnWebElement(removeDocButton);
             return true;
         } catch (Exception exp) {
