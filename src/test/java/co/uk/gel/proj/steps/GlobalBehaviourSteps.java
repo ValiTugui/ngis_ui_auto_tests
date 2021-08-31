@@ -1,14 +1,15 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class GlobalBehaviourSteps extends Pages {
     public void thePageShouldBeOpenedInTheNextTab(String pageTitle) {
         Assert.assertTrue(driver.getCurrentUrl().contains("privacy-policy"));
         Assert.assertTrue(globalBehaviourPage.checkPrivacyPolicyLinkPage(pageTitle));
-        SeleniumLib.closeCurrentWindow();
+        SeleniumLib.closeCurrentAndMoveToFirstTab();
     }
 
     @Then("the user should be able to see continue button on landing page")
