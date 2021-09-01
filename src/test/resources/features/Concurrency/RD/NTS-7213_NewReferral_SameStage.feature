@@ -222,9 +222,6 @@ Feature: NTS-7213:RD_new_referral_same_stage
     And the user waits max 15 minutes for the update Family Member Test Package updated by User1 in the file NTS-7213
     Then the user should be able to see concurrency alert message while saving the stage
     And the user refresh the browser
-    And the user clicks on edit button of Family member
-    Then the user is navigated to a page with title Continue with this family member
-    And the user clicks the Save and Continue button
     And the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
     Then the user updates the file NTS-7213 with Family Member Test Package validated by User2
