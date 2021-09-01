@@ -23,11 +23,11 @@
     "readyForAnalysis": true
   } ,
   "requester": {
-    "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+    "organisationName": "Weston Area Health NHS Trust" ,
     "organisationId": "template" ,
-    "organisationCode": "RP4" ,
-    "organisationNationalGroupingName": "North Thames Genomic Laboratory Hub" ,
-    "organisationNationalGroupingId": "RP4"
+    "organisationCode": "RA3" ,
+    "organisationNationalGroupingName": "Weston Area Health NHS Trust" ,
+    "organisationNationalGroupingId": "RA3"
   } ,
   "orderingDate": {
     "month": 3 ,
@@ -89,18 +89,18 @@
         "day": 2
       } ,
       "processingLab": {
-        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+        "organisationName": "Weston Area Health NHS Trust" ,
         "organisationId": "template" ,
-        "organisationCode": "RP4" ,
-        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
-        "organisationNationalGroupingId": "RP4"
+        "organisationCode": "RA3" ,
+        "organisationNationalGroupingName": "Weston Area Health NHS Trust" ,
+        "organisationNationalGroupingId": "RA3"
       } ,
       "interpreter": {
-        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
+        "organisationName": "Weston Area Health NHS Trust" ,
         "organisationId": "template" ,
-        "organisationCode": "RP4" ,
-        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust" ,
-        "organisationNationalGroupingId": "RP4"
+        "organisationCode": "RA3" ,
+        "organisationNationalGroupingName": "Weston Area Health NHS Trust" ,
+        "organisationNationalGroupingId": "RA3"
       } ,
       "matchedSamples": [
         {

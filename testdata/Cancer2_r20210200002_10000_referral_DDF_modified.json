@@ -21,11 +21,11 @@
         "readyForAnalysis": true
     },
     "requester": {
-        "organisationName": "Royal National Orthopaedic Hospital NHS Trust",
-        "organisationId": "RAN",
-        "organisationCode": "RAN",
-        "organisationNationalGroupingName": "London North",
-        "organisationNationalGroupingId": "69A70"
+        "organisationName": "Gloucestershire Care Services NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "R1J",
+        "organisationNationalGroupingName": "Gloucestershire Care Services NHS Trust",
+        "organisationNationalGroupingId": "R1J"
     },
     "orderingDate": {
         "month": 2,
@@ -92,18 +92,18 @@
                 "day": 23
             },
             "processingLab": {
-                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+                "organisationName": "Gloucestershire Care Services NHS Trust",
                 "organisationId": "template",
-                "organisationCode": "69KQD",
-                "organisationNationalGroupingName": "London North",
-                "organisationNationalGroupingId": "69A70"
+                "organisationCode": "R1J",
+                "organisationNationalGroupingName": "Gloucestershire Care Services NHS Trust",
+                "organisationNationalGroupingId": "R1J"
             },
             "interpreter": {
-                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+                "organisationName": "Gloucestershire Care Services NHS Trust",
                 "organisationId": "template",
-                "organisationCode": "69KQD",
-                "organisationNationalGroupingName": "London North",
-                "organisationNationalGroupingId": "69A70"
+                "organisationCode": "R1J",
+                "organisationNationalGroupingName": "Gloucestershire Care Services NHS Trust",
+                "organisationNationalGroupingId": "R1J"
             },
             "matchedSamples": [{
                     "germlineSampleId": "LP3000571-DNA_H07",

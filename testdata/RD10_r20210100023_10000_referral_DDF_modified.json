@@ -8,7 +8,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "R104"
+            "specificDisease": "R84"
           }
         ],
         "hpoTermList": [
@@ -295,7 +295,7 @@
         "sex": "FEMALE",
         "disorderList": [
           {
-            "specificDisease": "R104"
+            "specificDisease": "R84"
           }
         ],
         "hpoTermList": [
@@ -566,7 +566,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "R104"
+            "specificDisease": "R84"
           }
         ],
         "hpoTermList": [
@@ -808,11 +808,11 @@
     "familyQCState": "passedMedicalReviewReadyForInterpretation"
   },
   "requester": {
-    "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+    "organisationName": "Stockport NHS Foundation Trust",
     "organisationId": "template",
-    "organisationCode": "RP4",
-    "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
-    "organisationNationalGroupingId": "RP4"
+    "organisationCode": "RWJ",
+    "organisationNationalGroupingName": "Stockport NHS Foundation Trust",
+    "organisationNationalGroupingId": "RWJ"
   },
   "orderingDate": {
     "month": 2,
@@ -823,8 +823,8 @@
   "referralUid": "03090603-1cc7-49ac-9d61-7ed4b9b7f08f",
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
-    "clinicalIndicationCode": "R104",
-    "clinicalIndicationFullName": "Skeletal dysplasia"
+    "clinicalIndicationCode": "R84",
+    "clinicalIndicationFullName": "Cerebellar anomalies"
   },
   "referralTests": [
     {
@@ -832,14 +832,14 @@
         {
           "panelId": "126",
           "multipleGeneticOrigins": "no",
-          "specificDisease": "R104",
+          "specificDisease": "R84",
           "panelName": "Hearing loss",
           "panelVersion": "2.146"
         },
         {
           "panelId": "196",
           "multipleGeneticOrigins": "no",
-          "specificDisease": "R104",
+          "specificDisease": "R84",
           "panelName": "Osteogenesis imperfecta",
           "panelVersion": "2.13"
         }
@@ -847,10 +847,10 @@
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "ASPIRATE",
           "sampleId": "LP3000327-DNA_C07",
           "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "source": "BONE_MARROW",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1021980958",
           "participantId": "115006786",
@@ -858,7 +858,7 @@
           "maskedPid": "Z9GA7UHD-M60F-RBCB-CQHQ-WE3RYL4FWGC7",
           "programmePhase": "MAIN",
           "participantUid": "WL6DWX9K-GA8Y-A5GX-FSNZ-C827W6LVDQKP",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "boneMarrow_unsorted_edta"
         },
         {
           "product": "DNA",
@@ -873,7 +873,7 @@
           "maskedPid": "8OKQZPXO-CSWI-7TYW-UE76-391G04EY8GWE",
           "programmePhase": "MAIN",
           "participantUid": "VJ9H95UH-37WF-3D8V-DA4F-DZRUEHYDB0HA",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "fetalBlood_edta"
         },
         {
           "product": "DNA",
@@ -892,10 +892,10 @@
         },
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "BIOPSY",
           "sampleId": "LP3000326-DNA_F04",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "TISSUE",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1021980891",
           "participantId": "115006785",
@@ -903,7 +903,7 @@
           "maskedPid": "OEVT0BX3-P3LC-8RSM-JA4T-RNUL5LSKOI3B",
           "programmePhase": "MAIN",
           "participantUid": "E4OJ47A4-G4NU-ORYX-46KB-CCJVVY8FUWIB",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "tissue_freshFrozen"
         }
       ],
       "referralTestOrderingDate": {
@@ -912,18 +912,18 @@
         "day": 7
       },
       "processingLab": {
-        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+        "organisationName": "Stockport NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RP4",
-        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
-        "organisationNationalGroupingId": "RP4"
+        "organisationCode": "RWJ",
+        "organisationNationalGroupingName": "Stockport NHS Foundation Trust",
+        "organisationNationalGroupingId": "RWJ"
       },
       "interpreter": {
-        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+        "organisationName": "Stockport NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RP4",
-        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
-        "organisationNationalGroupingId": "RP4"
+        "organisationCode": "RWJ",
+        "organisationNationalGroupingName": "Stockport NHS Foundation Trust",
+        "organisationNationalGroupingId": "RWJ"
       },
       "clinicalIndicationTest": {
         "testTypeId": "template",
@@ -939,7 +939,7 @@
       "referralTestId": "80FIYYDDWV0K",
       "diseasePenetrances": [
         {
-          "specificDisease": "R104",
+          "specificDisease": "R84",
           "penetrance": "complete"
         }
       ]

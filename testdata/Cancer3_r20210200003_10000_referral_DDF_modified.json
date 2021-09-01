@@ -21,11 +21,11 @@
         "readyForAnalysis": true
     },
     "requester": {
-        "organisationName": "The Hillingdon Hospitals NHS Foundation Trust",
-        "organisationId": "RAS",
-        "organisationCode": "RAS",
-        "organisationNationalGroupingName": "London North",
-        "organisationNationalGroupingId": "69A70"
+        "organisationName": "Cambridgeshire Community Services NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "RYV",
+        "organisationNationalGroupingName": "Cambridgeshire Community Services NHS Trust",
+        "organisationNationalGroupingId": "RYV"
     },
     "orderingDate": {
         "month": 2,
@@ -92,18 +92,18 @@
                 "day": 23
             },
             "processingLab": {
-                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+                "organisationName": "Cambridgeshire Community Services NHS Trust",
                 "organisationId": "template",
-                "organisationCode": "69KQD",
-                "organisationNationalGroupingName": "London North",
-                "organisationNationalGroupingId": "69A70"
+                "organisationCode": "RYV",
+                "organisationNationalGroupingName": "Cambridgeshire Community Services NHS Trust",
+                "organisationNationalGroupingId": "RYV"
             },
             "interpreter": {
-                "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+                "organisationName": "Cambridgeshire Community Services NHS Trust",
                 "organisationId": "template",
-                "organisationCode": "69KQD",
-                "organisationNationalGroupingName": "London North",
-                "organisationNationalGroupingId": "69A70"
+                "organisationCode": "RYV",
+                "organisationNationalGroupingName": "Cambridgeshire Community Services NHS Trust",
+                "organisationNationalGroupingId": "RYV"
             },
             "matchedSamples": [{
                     "germlineSampleId": "LP3000226-DNA_H01",

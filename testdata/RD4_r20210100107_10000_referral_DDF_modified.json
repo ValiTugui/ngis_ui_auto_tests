@@ -266,11 +266,11 @@
     "familyQCState": "passedMedicalReviewReadyForInterpretation"
   },
   "requester": {
-    "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+    "organisationName": "Oxleas NHS Foundation Trust",
     "organisationId": "template",
-    "organisationCode": "RP4",
-    "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
-    "organisationNationalGroupingId": "RP4"
+    "organisationCode": "RPG",
+    "organisationNationalGroupingName": "Oxleas NHS Foundation Trust",
+    "organisationNationalGroupingId": "RPG"
   },
   "orderingDate": {
     "month": 2,
@@ -305,10 +305,10 @@
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "ASPIRATE",
           "sampleId": "LP3000132-DNA_B05",
           "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "source": "BONE_MARROW",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1020950086",
           "participantId": "115002538",
@@ -316,7 +316,7 @@
           "maskedPid": "ODULX1TT-4KVM-TZUE-X9Q0-JIM9PWQXB0UP",
           "programmePhase": "MAIN",
           "participantUid": "PO9B60PH-5BT3-Q8PO-770X-13LYIV2AF072",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "boneMarrow_unsorted_edta"
         }
       ],
       "referralTestOrderingDate": {
@@ -325,18 +325,18 @@
         "day": 23
       },
       "processingLab": {
-        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+        "organisationName": "Oxleas NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RP4",
-        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
-        "organisationNationalGroupingId": "RP4"
+        "organisationCode": "RPG",
+        "organisationNationalGroupingName": "Oxleas NHS Foundation Trust",
+        "organisationNationalGroupingId": "RPG"
       },
       "interpreter": {
-        "organisationName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
+        "organisationName": "Oxleas NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RP4",
-        "organisationNationalGroupingName": "Great Ormond Street Hospital for Children NHS Foundation Trust",
-        "organisationNationalGroupingId": "RP4"
+        "organisationCode": "RPG",
+        "organisationNationalGroupingName": "Oxleas NHS Foundation Trust",
+        "organisationNationalGroupingId": "RPG"
       },
       "clinicalIndicationTest": {
         "testTypeId": "template",

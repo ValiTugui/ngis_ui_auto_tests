@@ -68,10 +68,10 @@
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "ASPIRATE",
           "sampleId": "LP3000858-DNA_H02",
           "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "source": "BONE_MARROW",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1032042931",
           "participantId": "p20210200015",
@@ -80,7 +80,7 @@
           "programmePhase": "MAIN",
           "clinicalSampleDateTime": "2018-03-06T14:00:00+0000",
           "participantUid": "9d2cafd6-9d32-4e81-9f63-214b5c0dade0",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "boneMarrow_unsorted_edta"
         }
       ],
       "referralTestOrderingDate": {

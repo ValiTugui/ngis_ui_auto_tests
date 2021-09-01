@@ -8,7 +8,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "R29"
+            "specificDisease": "R100"
           }
         ],
         "hpoTermList": [
@@ -366,22 +366,22 @@
   "referralUid": "b4cb23ac-284e-4e25-8cc3-5c9115b402e8",
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
-    "clinicalIndicationCode": "R29",
-    "clinicalIndicationFullName": "Intellectual disability"
+    "clinicalIndicationCode": "R100",
+    "clinicalIndicationFullName": "Rare syndromic craniosynostosis or isolated multisuture synostosis"
   },
   "referralTests": [
     {
       "analysisPanels": [
         {
           "panelId": "488",
-          "specificDisease": "R29",
+          "specificDisease": "R100",
           "multipleGeneticOrigins": "No",
           "panelName": "Hereditary ataxia and cerebellar anomalies - childhood onset",
           "panelVersion": "6.84"
         },
         {
           "panelId": "847",
-          "specificDisease": "R29",
+          "specificDisease": "R100",
           "multipleGeneticOrigins": "No",
           "panelName": "Childhood onset dystonia or chorea or related movement disorder",
           "panelVersion": "1.72"
@@ -389,27 +389,27 @@
         {
           "panelId": "402",
           "multipleGeneticOrigins": "No",
-          "specificDisease": "R29",
+          "specificDisease": "R100",
           "panelName": "Epileptic encephalopathy",
           "panelVersion": "2.2"
         },
         {
-          "panelId": "285",
-          "specificDisease": "R29",
+          "panelId": "168",
+          "specificDisease": "R100",
           "multipleGeneticOrigins": "No",
-          "panelName": "Intellectual disability",
-          "panelVersion": "3.717"
+          "panelName": "Craniosynostosis",
+          "panelVersion": "2.23"
         },
         {
           "panelId": "112",
-          "specificDisease": "R29",
+          "specificDisease": "R100",
           "multipleGeneticOrigins": "No",
           "panelName": "Mitochondrial disorders",
           "panelVersion": "2.12"
         },
         {
           "panelId": "467",
-          "specificDisease": "R29",
+          "specificDisease": "R100",
           "multipleGeneticOrigins": "No",
           "panelName": "Inborn errors of metabolism",
           "panelVersion": "2.50"
@@ -420,8 +420,8 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000301-DNA_E12",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "FRESH_TISSUE_IN_CULTURE_MEDIUM",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1023924372",
           "participantId": "118001473",
@@ -429,14 +429,14 @@
           "maskedPid": "9L7PUD6V-N3RA-ZV4B-ZWN1-UVBG9PTVY2A4",
           "programmePhase": "MAIN",
           "participantUid": "cf50966d-f836-4630-b39c-9923d9e229fb",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "tissueInCultureMedium_freshFrozen"
         },
         {
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000311-DNA_H09",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "AMNIOTIC_FLUID",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1023924977",
           "participantId": "118001475",
@@ -444,7 +444,7 @@
           "maskedPid": "KJ5FPRBG-NZC4-TJ5V-AH0U-C8IYVX0QG7HG",
           "programmePhase": "MAIN",
           "participantUid": "55342377-a69e-4510-ba42-b1bb34e105fa",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "amnioticFluid_freshFrozen"
         },
         {
           "product": "DNA",
@@ -495,8 +495,8 @@
       "referralTestId": "PXY9SGIUG843",
       "diseasePenetrances": [
         {
-          "specificDisease": "R29",
-          "penetrance": "complete"
+          "specificDisease": "R100",
+          "penetrance": "incomplete"
         }
       ]
     }

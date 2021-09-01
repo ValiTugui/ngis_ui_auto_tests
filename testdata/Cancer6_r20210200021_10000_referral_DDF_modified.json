@@ -7,10 +7,11 @@
         "personKaryotypicSex": "UNKNOWN" ,
         "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
         "isProband": true ,
+        "lifeStatus": "ALIVE",
         "sex": "FEMALE" ,
         "disorderList": [
           {
-            "specificDisease": "M77"
+            "specificDisease": "M28"
           }
         ] ,
         "affectionStatus": "AFFECTED" ,
@@ -22,11 +23,11 @@
     "readyForAnalysis": true
   } ,
   "requester": {
-    "organisationName": "Royal National Orthopaedic Hospital NHS Trust" ,
+    "organisationName": "East Cheshire NHS Trust" ,
     "organisationId": "template" ,
-    "organisationCode": "RAN" ,
-    "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust" ,
-    "organisationNationalGroupingId": "RAN"
+    "organisationCode": "RJN" ,
+    "organisationNationalGroupingName": "East Cheshire NHS Trust" ,
+    "organisationNationalGroupingId": "RJN"
   } ,
   "orderingDate": {
     "month": 3 ,
@@ -59,8 +60,8 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template" ,
     "clinicalIndicationVersionNumber": "bio_v2.0.0" ,
-    "clinicalIndicationCode": "M77" ,
-    "clinicalIndicationFullName": "Synovial Sarcoma"
+    "clinicalIndicationCode": "M28" ,
+    "clinicalIndicationFullName": "Glioma - Adult"
   } ,
   "referralTests": [
     {
@@ -69,8 +70,8 @@
           "product": "DNA" ,
           "method": "NOT_APPLICABLE" ,
           "sampleId": "LP3000238-DNA_E04" ,
-          "storageMedium": "EDTA" ,
-          "source": "BLOOD" ,
+          "storageMedium": "FF" ,
+          "source": "FRESH_TISSUE_IN_CULTURE_MEDIUM" ,
           "sampleType": "Normal or Germline sample" ,
           "labSampleId": "1021977455" ,
           "participantId": "p20210200021" ,
@@ -79,7 +80,7 @@
           "programmePhase": "MAIN" ,
           "clinicalSampleDateTime": "2016-07-27T00:00:00+0000" ,
           "participantUid": "5952a5cb-f0cd-41fb-8cdc-a0e4dcf32c8d" ,
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "tissueInCultureMedium_freshFrozen"
         }
       ] ,
       "referralTestOrderingDate": {
@@ -88,18 +89,18 @@
         "day": 2
       } ,
       "processingLab": {
-        "organisationName": "Royal National Orthopaedic Hospital NHS Trust" ,
+        "organisationName": "East Cheshire NHS Trust" ,
         "organisationId": "template" ,
-        "organisationCode": "RAN" ,
-        "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust" ,
-        "organisationNationalGroupingId": "RAN"
+        "organisationCode": "RJN" ,
+        "organisationNationalGroupingName": "East Cheshire NHS Trust" ,
+        "organisationNationalGroupingId": "RJN"
       } ,
       "interpreter": {
-        "organisationName": "Royal National Orthopaedic Hospital NHS Trust" ,
+        "organisationName": "East Cheshire NHS Trust" ,
         "organisationId": "template" ,
-        "organisationCode": "RAN" ,
-        "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust" ,
-        "organisationNationalGroupingId": "RAN"
+        "organisationCode": "RJN" ,
+        "organisationNationalGroupingName": "East Cheshire NHS Trust" ,
+        "organisationNationalGroupingId": "RJN"
       } ,
       "matchedSamples": [
         {

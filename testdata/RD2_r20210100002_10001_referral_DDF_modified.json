@@ -380,17 +380,17 @@
                 {
                     "labSampleId": "1022863090", 
                     "maskedPid": "P6XXEEX2-PRZI-XLD1-VDP2-69D1763JDKGE", 
-                    "method": "NOT_APPLICABLE", 
+                    "method": "BIOPSY",
                     "participantId": "122000356", 
                     "participantUid": "20210120-proc-4688-a53b-a560892bc748",
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3000180-DNA_A09", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "fibroblast_freshFrozen",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "D65DBN54-5U44-UCY4-DBSQ-CFCS4OF6DP2D", 
-                    "source": "BLOOD", 
-                    "storageMedium": "EDTA"
+                    "source": "FIBROBLAST",
+                    "storageMedium": "FF"
                 }, 
                 {
                     "labSampleId": "1022863091", 
@@ -401,26 +401,26 @@
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3000173-DNA_A10", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "saliva_oragene",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "VH4EKZ2S-0YBV-NWA0-KAJ4-9O2S5K1AEUP6", 
-                    "source": "BLOOD", 
-                    "storageMedium": "EDTA"
+                    "source": "SALIVA",
+                    "storageMedium": "ORAGENE"
                 }, 
                 {
                     "labSampleId": "1022863089", 
                     "maskedPid": "SPQ5ESLS-75GF-H9NE-LKRM-C1PSRJCX0FRQ", 
-                    "method": "NOT_APPLICABLE", 
+                    "method": "BIOPSY",
                     "participantId": "122000355", 
                     "participantUid": "20210120-prof-4688-a53b-a560892bc748",
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3000209-DNA_A05", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "tissue_freshFrozen",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "AVDWVMT2-NWWE-0ANU-RYND-OZ8HXWVIXAN1", 
-                    "source": "BLOOD", 
-                    "storageMedium": "EDTA"
+                    "source": "TISSUE",
+                    "storageMedium": "FF"
                 }
             ], 
             "interpreter": {

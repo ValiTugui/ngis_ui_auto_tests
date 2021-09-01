@@ -23,11 +23,11 @@
     "readyForAnalysis": true
   },
   "requester": {
-    "organisationName": "Royal National Orthopaedic Hospital NHS Trust",
+    "organisationName": "Sherwood Forest Hospitals NHS Foundation Trust",
     "organisationId": "template",
-    "organisationCode": "RAN",
-    "organisationNationalGroupingName": "North Thames Genomic Laboratory Hub",
-    "organisationNationalGroupingId": "RAN"
+    "organisationCode": "RK5",
+    "organisationNationalGroupingName": "Sherwood Forest Hospitals NHS Foundation Trust",
+    "organisationNationalGroupingId": "RK5"
   },
   "orderingDate": {
     "month": 3,
@@ -68,10 +68,10 @@
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "BIOPSY",
           "sampleId": "LP3001388-DNA_B05",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "FIBROBLAST",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1024916684",
           "participantId": "p20210200020",
@@ -80,7 +80,7 @@
           "programmePhase": "MAIN",
           "clinicalSampleDateTime": "2016-11-23T00:00:00+0000",
           "participantUid": "b2303eb7-6ef2-4fd7-ba66-d06fcf46521b",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "fibroblast_freshFrozen"
         }
       ],
       "referralTestOrderingDate": {
@@ -89,18 +89,18 @@
         "day": 2
       },
       "processingLab": {
-        "organisationName": "Royal National Orthopaedic Hospital NHS Trust",
+        "organisationName": "Sherwood Forest Hospitals NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RAN",
-        "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust",
-        "organisationNationalGroupingId": "RAN"
+        "organisationCode": "RK5",
+        "organisationNationalGroupingName": "Sherwood Forest Hospitals NHS Foundation Trust",
+        "organisationNationalGroupingId": "RK5"
       },
       "interpreter": {
-        "organisationName": "Royal National Orthopaedic Hospital NHS Trust",
+        "organisationName": "Sherwood Forest Hospitals NHS Foundation Trust",
         "organisationId": "template",
-        "organisationCode": "RAN",
-        "organisationNationalGroupingName": "Royal National Orthopaedic Hospital NHS Trust",
-        "organisationNationalGroupingId": "RAN"
+        "organisationCode": "RK5",
+        "organisationNationalGroupingName": "Sherwood Forest Hospitals NHS Foundation Trust",
+        "organisationNationalGroupingId": "RK5"
       },
       "matchedSamples": [
         {

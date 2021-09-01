@@ -84,7 +84,7 @@
         "sex": "FEMALE",
         "disorderList": [
           {
-            "specificDisease": "R29"
+            "specificDisease": "R83"
           }
         ],
         "hpoTermList": [
@@ -351,22 +351,22 @@
   "referralUid": "69905137-a127-4131-acb2-74d1daaf1adf",
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
-    "clinicalIndicationCode": "R29",
-    "clinicalIndicationFullName": "Intellectual disability"
+    "clinicalIndicationCode": "R83",
+    "clinicalIndicationFullName": "Arthrogryposis"
   },
   "referralTests": [
     {
       "analysisPanels": [
         {
-          "panelId": "285",
-          "specificDisease": "R29",
+          "panelId": "258",
+          "specificDisease": "R83",
           "multipleGeneticOrigins": "No",
-          "panelName": "Intellectual disability",
-          "panelVersion": "3.717"
+          "panelName": "Arthrogryposis",
+          "panelVersion": "3.76"
         },
         {
           "panelId": "467",
-          "specificDisease": "R29",
+          "specificDisease": "R83",
           "multipleGeneticOrigins": "No",
           "panelName": "Inborn errors of metabolism",
           "panelVersion": "2.50"
@@ -375,10 +375,10 @@
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "BIOPSY",
           "sampleId": "LP3000436-DNA_A12",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "FIBROBLAST",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1025109834",
           "participantId": "111002813",
@@ -386,14 +386,14 @@
           "maskedPid": "IDUOPHSW-F3CB-T53Q-63E6-KZRYOIS8ZH74",
           "programmePhase": "MAIN",
           "participantUid": "0cfc202c-b71b-49ec-8aa2-46d63ff79e5f",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "fibroblast_freshFrozen"
         },
         {
           "product": "DNA",
-          "method": "NOT_APPLICABLE",
+          "method": "ASPIRATE",
           "sampleId": "LP3000453-DNA_F04",
           "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "source": "BONE_MARROW",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1025109773",
           "participantId": "111002812",
@@ -401,7 +401,7 @@
           "maskedPid": "IUDU576D-0WGS-KCX3-TDO4-Q3X49CN1G9CJ",
           "programmePhase": "MAIN",
           "participantUid": "8925c859-dde3-4f18-85c6-28459ef3cca9",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "boneMarrow_unsorted_edta"
         },
         {
           "product": "DNA",
@@ -452,8 +452,8 @@
       "referralTestId": "WSFNA67PS9D3",
       "diseasePenetrances": [
         {
-          "specificDisease": "R29",
-          "penetrance": "complete"
+          "specificDisease": "R83",
+          "penetrance": "incomplete"
         }
       ]
     }

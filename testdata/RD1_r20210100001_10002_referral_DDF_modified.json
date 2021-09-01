@@ -970,25 +970,25 @@
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3001158-DNA_D01", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "amnioticFluid_freshFrozen",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "QXX4BTI7-9TE2-28W5-JCGY-JDKCG26NBOZW", 
-                    "source": "BLOOD", 
-                    "storageMedium": "EDTA"
+                    "source": "AMNIOTIC_FLUID",
+                    "storageMedium": "FF"
                 }, 
                 {
                     "labSampleId": "1038644142", 
                     "maskedPid": "5I006KCT-9DZF-L932-XSUD-8XIAP0D3DQJ2", 
-                    "method": "NOT_APPLICABLE", 
+                    "method": "ASPIRATE",
                     "participantId": "118003148", 
                     "participantUid": "118003148", 
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3001237-DNA_H12", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "boneMarrow_unsorted_edta",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "XREXMT84-G469-GO0B-V2D4-YDMGB1UEYGNZ", 
-                    "source": "BLOOD", 
+                    "source": "BONE_MARROW",
                     "storageMedium": "EDTA"
                 }, 
                 {
@@ -1000,11 +1000,11 @@
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3001224-DNA_B12", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "chorionicVillusSample_freshFrozen",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "E82OXCUD-BRSR-EC02-94TN-2VK2J82S26Z1", 
-                    "source": "BLOOD", 
-                    "storageMedium": "EDTA"
+                    "source": "CHORIONIC_VILLUS_SAMPLE",
+                    "storageMedium": "FF"
                 }, 
                 {
                     "labSampleId": "1038644119", 
@@ -1015,7 +1015,7 @@
                     "product": "DNA", 
                     "programmePhase": "MAIN", 
                     "sampleId": "LP3001220-DNA_D10", 
-                    "sampleState": "blood_unsorted_edta", 
+                    "sampleState": "fetalBlood_edta",
                     "sampleType": "Normal or Germline sample", 
                     "sampleUid": "10CHR19L-UZ29-PQAQ-7G2S-33EMQSU1YSR2", 
                     "source": "BLOOD", 

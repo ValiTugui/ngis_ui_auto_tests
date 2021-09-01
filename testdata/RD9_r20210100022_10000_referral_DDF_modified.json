@@ -321,8 +321,8 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000358-DNA_E11",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "AMNIOTIC_FLUID",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1027369027",
           "participantId": "210013195",
@@ -330,14 +330,14 @@
           "maskedPid": "Z0A4TBLJ-ZDHO-64KX-BU17-UJJ3ZLFTAS1I",
           "programmePhase": "MAIN",
           "participantUid": "JTQ9QHLJ-P2EG-7XHE-BDYL-2NLR471DV1QZ",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "amnioticFluid_freshFrozen"
         },
         {
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000339-DNA_F07",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "FRESH_TISSUE_IN_CULTURE_MEDIUM",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1027350688",
           "participantId": "210013196",
@@ -345,7 +345,7 @@
           "maskedPid": "U3Z0VE26-9995-M32Q-3ME6-7VUV8QPSEOSR",
           "programmePhase": "MAIN",
           "participantUid": "KPKOEVXD-6QAA-H6DI-L926-JJQNQOJRANYL",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "tissueInCultureMedium_freshFrozen"
         }
       ],
       "referralTestOrderingDate": {

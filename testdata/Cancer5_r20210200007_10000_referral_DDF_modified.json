@@ -23,11 +23,11 @@
     "readyForAnalysis": true
   },
   "requester": {
-    "organisationName": "Royal Free London NHS Foundation Trust",
-    "organisationId": "RAL",
-    "organisationCode": "RAL",
-    "organisationNationalGroupingName": "London South",
-    "organisationNationalGroupingId": "699L0"
+    "organisationName": "Coventry and Warwickshire Partnership NHS Trust",
+    "organisationId": "template",
+    "organisationCode": "RYG",
+    "organisationNationalGroupingName": "Coventry and Warwickshire Partnership NHS Trust",
+    "organisationNationalGroupingId": "RYG"
   },
   "orderingDate": {
     "month": 2,
@@ -80,8 +80,8 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000430-DNA_B09",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "ORAGENE",
+          "source": "SALIVA",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1023912247",
           "participantId": "p20210200007",
@@ -90,7 +90,7 @@
           "programmePhase": "MAIN",
           "clinicalSampleDateTime": "2017-05-18T00:00:00+0000",
           "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "saliva_oragene"
         }
       ],
       "referralTestOrderingDate": {
@@ -99,18 +99,18 @@
         "day": 23
       },
       "processingLab": {
-        "organisationName": "London South",
+        "organisationName": "Coventry and Warwickshire Partnership NHS Trust",
         "organisationId": "template",
-        "organisationCode": "699L0",
-        "organisationNationalGroupingName": "London South",
-        "organisationNationalGroupingId": "699L0"
+        "organisationCode": "RYG",
+        "organisationNationalGroupingName": "Coventry and Warwickshire Partnership NHS Trust",
+        "organisationNationalGroupingId": "RYG"
       },
       "interpreter": {
-        "organisationName": "London South",
+        "organisationName": "Coventry and Warwickshire Partnership NHS Trust",
         "organisationId": "template",
-        "organisationCode": "699L0",
-        "organisationNationalGroupingName": "London South",
-        "organisationNationalGroupingId": "699L0"
+        "organisationCode": "RYG",
+        "organisationNationalGroupingName": "Coventry and Warwickshire Partnership NHS Trust",
+        "organisationNationalGroupingId": "RYG"
       },
       "matchedSamples": [
         {

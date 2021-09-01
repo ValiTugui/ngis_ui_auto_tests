@@ -52,7 +52,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "R55"
+            "specificDisease": "R143"
           }
         ],
         "hpoTermList": [
@@ -245,7 +245,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "R55"
+            "specificDisease": "R143"
           }
         ],
         "hpoTermList": [
@@ -548,8 +548,8 @@
   "referralUid": "e8dabbc6-a6df-4fc8-b642-fd942a1a7ed1",
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
-    "clinicalIndicationCode": "R55",
-    "clinicalIndicationFullName": "Hereditary ataxia with onset in childhood"
+    "clinicalIndicationCode": "R143",
+    "clinicalIndicationFullName": "Neonatal diabetes"
   },
   "referralTests": [
     {
@@ -557,21 +557,21 @@
         {
           "panelId": "541",
           "multipleGeneticOrigins": "no",
-          "specificDisease": "R55",
+          "specificDisease": "R143",
           "panelName": "Paroxysmal central nervous system disorders",
           "panelVersion": "1.10"
         },
         {
           "panelId": "847",
           "multipleGeneticOrigins": "no",
-          "specificDisease": "R55",
+          "specificDisease": "R143",
           "panelName": "Childhood onset dystonia or chorea or related movement disorder",
           "panelVersion": "1.83"
         },
         {
           "panelId": "568",
           "multipleGeneticOrigins": "no",
-          "specificDisease": "R55",
+          "specificDisease": "R143",
           "panelName": "Hereditary spastic paraplegia - childhood onset",
           "panelVersion": "2.28"
         }
@@ -581,8 +581,8 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000099-DNA_E09",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "CHORIONIC_VILLUS_SAMPLE",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1024715783",
           "participantId": "113000303",
@@ -590,7 +590,7 @@
           "maskedPid": "FYVREG62-XX74-LRZO-HQW4-IFV3W2MZ0HJ1",
           "programmePhase": "MAIN",
           "participantUid": "ZXN6QNEG-3D66-61H2-5W3D-MZQ1TFMMA268",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "chorionicVillusSample_freshFrozen"
         },
         {
           "product": "DNA",
@@ -605,7 +605,7 @@
           "maskedPid": "CXMGBKCT-R7J4-2L86-K7WW-YWHZUQAOKQFG",
           "programmePhase": "MAIN",
           "participantUid": "WKO8TFTC-LN5X-U0PF-82KQ-RU1412TDWNDU",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "fetalBlood_edta"
         }
       ],
       "referralTestOrderingDate": {
@@ -641,8 +641,8 @@
       "referralTestId": "K5OTBYGNOJ3Z",
       "diseasePenetrances": [
         {
-          "specificDisease": "R55",
-          "penetrance": "incomplete"
+          "specificDisease": "R143",
+          "penetrance": "complete"
         }
       ]
     }

@@ -600,10 +600,10 @@
     "familyQCState": "passedMedicalReviewReadyForInterpretation"
   },
   "requester": {
-    "organisationName": "University Hospitals Leicester NHS Trust",
+    "organisationName": "University Hospitals of Leicester NHS Trust",
     "organisationId": "template",
     "organisationCode": "RWE",
-    "organisationNationalGroupingName": "University Hospitals Leicester NHS Trust",
+    "organisationNationalGroupingName": "University Hospitals of Leicester NHS Trust",
     "organisationNationalGroupingId": "RWE"
   },
   "orderingDate": {
@@ -634,8 +634,8 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000167-DNA_B11",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "ORAGENE",
+          "source": "SALIVA",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1027348169",
           "participantId": "111001790",
@@ -643,14 +643,14 @@
           "maskedPid": "4ZV711KM-NCSP-VQWE-YL29-J45NDKH6BYR5",
           "programmePhase": "MAIN",
           "participantUid": "98d08ada-0975-429b-9a44-1f0367ca2c7c",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "saliva_oragene"
         },
         {
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000374-DNA_D06",
-          "storageMedium": "EDTA",
-          "source": "BLOOD",
+          "storageMedium": "FF",
+          "source": "CHORIONIC_VILLUS_SAMPLE",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1027347417",
           "participantId": "111001789",
@@ -658,7 +658,7 @@
           "maskedPid": "AWYXXZ1P-ZLOZ-FWV9-FPNF-JAXHGF2VXZN7",
           "programmePhase": "MAIN",
           "participantUid": "880c8f06-79f1-4335-939d-7972644b9b83",
-          "sampleState": "blood_unsorted_edta"
+          "sampleState": "chorionicVillusSample_freshFrozen"
         },
         {
           "product": "DNA",
