@@ -24,7 +24,7 @@ Feature: NTS-6470: Proband details updated as family member in another referral,
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated |
-      | Patient details | DOB=18-05-2005        |
+      | Patient details | DOB=18-05-2006        |
 
   @NTS-6470 @NTS-6470_Scenario1 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
@@ -41,4 +41,4 @@ Feature: NTS-6470: Proband details updated as family member in another referral,
 
     Examples:
       | FamilyMemberDetailsUpdate | FamilyMembers  |
-      | DOB=18-05-2005            | Family members |
+      | DOB=18-05-2006            | Family members |
