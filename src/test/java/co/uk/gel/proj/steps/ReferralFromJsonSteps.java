@@ -36,7 +36,7 @@ public class ReferralFromJsonSteps extends Pages {
     @Given("^the json file (.*) with referral information is available in the specified location$")
     public void applicationIsUpAndRunning(String fileName) throws Throwable {
         String stepResult = referralFromJson.verifyFilePresence(fileName);
-        if(!stepResult.equalsIgnoreCase("Success")){
+        if (!stepResult.equalsIgnoreCase("Success")) {
             Assert.fail(stepResult);
         }
     }
@@ -44,15 +44,16 @@ public class ReferralFromJsonSteps extends Pages {
     @When("^the referral object is created successfully from the json file (.*)$")
     public void theDetailsProvidedInTheJsonFileIsCorrect(String jsonFile) {
         String stepResult = referralFromJson.readReferralDetailsFromJson(jsonFile);
-        if(!stepResult.equalsIgnoreCase("Success")){
+        if (!stepResult.equalsIgnoreCase("Success")) {
             Assert.fail(stepResult);
         }
     }
+
     //Referral From JSON
     @When("the {string} referral is created with details from Json provided")
-    public void theReferralIsCreatedWithDetailsFromJsonProvided(String referralType,List<String> attributeOfURL) {
+    public void theReferralIsCreatedWithDetailsFromJsonProvided(String referralType, List<String> attributeOfURL) {
         Referral referralObject = referralFromJson.getReferralObject();
-        if(referralObject == null){
+        if (referralObject == null) {
             Assert.fail("Referral Object is not initialized.");
         }
 
@@ -62,13 +63,13 @@ public class ReferralFromJsonSteps extends Pages {
         String reasonForNoNHSNumber = attributeOfURL.get(3);
         String userType = attributeOfURL.get(4);
         String searchTerm = referralObject.getClinicalIndication().getClinicalIndicationCode();
-        if(userType == null) {
+        if (userType == null) {
             NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        }else{
-            NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage,userType);
+        } else {
+            NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
         }
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_HomePageContainer.jpg");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_HomePageContainer.jpg");
             Assert.fail("Home page result containers not loaded properly.");
         }
         if (!homePage.typeInSearchField(searchTerm)) {
@@ -80,8 +81,8 @@ public class ReferralFromJsonSteps extends Pages {
         if (!homePage.waitUntilHomePageResultsContainerIsLoaded()) {
             Assert.fail("CI Term search results are not displayed.");
         }
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch");
         }
         homePage.closeCookiesBannerFromFooter();
         if (!homePage.selectFirstEntityFromResultList()) {
@@ -89,7 +90,7 @@ public class ReferralFromJsonSteps extends Pages {
         }
         homePage.closeCookiesBannerFromFooter();
         if (!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_startReferral.jpg");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_startReferral.jpg");
             Assert.fail("Could not click on StartTestOrderReferral Button");
         }
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
@@ -105,20 +106,20 @@ public class ReferralFromJsonSteps extends Pages {
         if (!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()) {
             Assert.fail("Patient Search Page not displayed properly.");
         }
-        String yearOfBirth ;//= referralObject.getCancerParticipant().getYearOfBirth().toString();
+        String yearOfBirth;//= referralObject.getCancerParticipant().getYearOfBirth().toString();
 //        if (yearOfBirth == null) {
 //            Debugger.println("The Json is for RD patient... reading YOB...  ");
-            List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
-            if (probandMemberNum == null) {
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoProband.jpg");
-                Assert.fail("Could not get member details from JSON.");
-            }
-            Debugger.println("The position of proband member participant is " + probandMemberNum.toString());
-            PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
-            yearOfBirth = String.valueOf(probandMember.getYearOfBirth());
-            Debugger.println("The value for YOB is " + yearOfBirth);
+        List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
+        if (probandMemberNum == null) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoProband.jpg");
+            Assert.fail("Could not get member details from JSON.");
+        }
+        Debugger.println("The position of proband member participant is " + probandMemberNum.toString());
+        PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
+        yearOfBirth = String.valueOf(probandMember.getYearOfBirth());
+        Debugger.println("The value for YOB is " + yearOfBirth);
 //        }
-        if (!patientSearchPage.searchParticipantFromJson(RandomDataCreator.generateRandomNHSNumber(),"01","01",yearOfBirth)) {
+        if (!patientSearchPage.searchParticipantFromJson(RandomDataCreator.generateRandomNHSNumber(), "01", "01", yearOfBirth)) {
             Assert.fail("Could not fill the patient search information.");
         }
         if (!patientSearchPage.clickSearchButtonByXpath()) {
@@ -126,11 +127,11 @@ public class ReferralFromJsonSteps extends Pages {
         }
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         if (actualNoPatientFoundLabel == null) {
-            Assert.fail("Patient Search Result:"+actualNoPatientFoundLabel);
+            Assert.fail("Patient Search Result:" + actualNoPatientFoundLabel);
         }
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         if (!patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink)) {
-            Assert.fail(createPatientHyperTextLink+" not displayed.");
+            Assert.fail(createPatientHyperTextLink + " not displayed.");
         }
         if (!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()) {
             Assert.fail("Could not Click on create new patient link.");
@@ -139,10 +140,10 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("New Patient creation page not displayed properly.");
         }
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
-        Debugger.println("USER TYPE: "+userType);
+        Debugger.println("USER TYPE: " + userType);
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                if (!patientDetailsPage.fillInPatientDetailsFromJson(referralType,reasonForNoNHSNumber,referralObject)) {
+                if (!patientDetailsPage.fillInPatientDetailsFromJson(referralType, reasonForNoNHSNumber, referralObject)) {
                     Assert.assertTrue(false);
                 }
             } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
@@ -156,7 +157,7 @@ public class ReferralFromJsonSteps extends Pages {
             }
         }
         if (!patientDetailsPage.clickOnCreateRecord()) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PCCreate.jpg");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCCreate.jpg");
             Assert.fail("Could not click on Create Record.");
         }
         if (!patientDetailsPage.patientIsCreated()) {
@@ -166,7 +167,7 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Could not start referral button.");
         }
         if (!referralPage.checkThatReferralWasSuccessfullyCreated()) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RefCreateMsg.jpg");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RefCreateMsg.jpg");
             Assert.fail("Could not verify the successful creation of referral.");
         }
         //To log the ReferralI in the Log.
@@ -189,7 +190,7 @@ public class ReferralFromJsonSteps extends Pages {
         //Requesting Organisation
         fillStageRequestingOrganisation(referralObject);
         //Test Package
-        fillStageTestPackage(caseType,referralObject);
+        fillStageTestPackage(caseType, referralObject);
         //Responsible Clinician
         fillStageResponsibleClinician(referralObject);
         // stage differs for Cancer & RD
@@ -219,19 +220,19 @@ public class ReferralFromJsonSteps extends Pages {
             //Panels
             fillStagePanels(referralObject);
             //Pedigree
-            fillStagePedigree(referralObject);
+            fillStagePedigree(referralObject, "");
             //Print Forms
             fillStagePrintFormsForRD(referralObject);
             //Submit Referral
             verifyAndSubmitReferral();
         }
         String probandID = referralPage.readReferralHeaderPatientNgisId();
-        if(probandID == null){
+        if (probandID == null) {
             Assert.fail("Proband NGIS Id not found.");
         }
         String referralID = referralPage.returnReferralID();
-        saveJsonCreatedReferralID(caseType,referralID,probandID);
-        SeleniumLib.takeAScreenShot("_ScenarioCompleted_"+(TestHooks.currentTagName)+".jpg");
+        saveJsonCreatedReferralID(caseType, referralID, probandID);
+        SeleniumLib.takeAScreenShot("_ScenarioCompleted_" + (TestHooks.currentTagName) + ".jpg");
     }
 
     private void fillStageRequestingOrganisation(Referral referralObject) {
@@ -272,34 +273,33 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
             Assert.fail("Could not navigate to stage:" + stageName);
         }
-//        Selecting "Routine" priority as default option
-//        String testReferralUrgencyInfo= "Routine";
-//        if (testReferralUrgencyInfo.contains("Urgent")) {
-//            testResult = testPackagePage.clickUrgentPriority();
-//        } else {
-        //Add reading priority from json and then selecting
-        testResult = testPackagePage.clickRoutinePriority();
-//        }
+        String testReferralUrgencyInfo = String.valueOf(referralObject.getReferralTests().get(0).getPriority());
+        Debugger.println("Priority in JSON file - " + testReferralUrgencyInfo);
+        if (testReferralUrgencyInfo.equalsIgnoreCase("Urgent")) {
+            testResult = testPackagePage.clickUrgentPriority();
+        } else {
+            testResult = testPackagePage.clickRoutinePriority();
+        }
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TestPriority.jpg");
-            Assert.fail("Test Package: Routine priority could not select.");
+            Assert.fail("Test Package: " + testReferralUrgencyInfo + " priority could not select.");
         }
         //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
         Wait.seconds(5);
-        if(!caseType.equalsIgnoreCase("Cancer")) {
+        if (!caseType.equalsIgnoreCase("Cancer")) {
 //            int numberOfTestParticipants = getNumberOfParticipantsFromJson(referralObject);
             List<Integer> positionOfTestParticipants = getPositionOfParticipantsFromJson(referralObject);
-            Debugger.println("Non-Proband test participants- "+positionOfTestParticipants);
-            if(positionOfTestParticipants == null){
+            Debugger.println("Non-Proband test participants- " + positionOfTestParticipants);
+            if (positionOfTestParticipants == null) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
                 Assert.fail("Could not get Participants from the Json file.");
             }
             // adding 1 for proband
-            int numberOfTestParticipants = positionOfTestParticipants.size()+1;
-            Debugger.println("The number of participants to be selected "+numberOfTestParticipants);
-            if(numberOfTestParticipants==0){
+            int numberOfTestParticipants = positionOfTestParticipants.size() + 1;
+            Debugger.println("The number of participants to be selected " + numberOfTestParticipants);
+            if (numberOfTestParticipants == 0) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoOfParticipants");
-                Assert.fail("No Of Participants should be more than zero, but found to be: "+numberOfTestParticipants);
+                Assert.fail("No Of Participants should be more than zero, but found to be: " + numberOfTestParticipants);
             }
             //select number of participants
             testResult = testPackagePage.selectNumberOfParticipants(numberOfTestParticipants);
@@ -339,13 +339,13 @@ public class ReferralFromJsonSteps extends Pages {
                 PedigreeMember member = referralObject.getPedigree().getMembers().get(memberPosititon);
 //                Debugger.println("The member JSON: "+member.toString());
                 // Convert to Json type to check for a node's presence
-                JSONParser parser=new JSONParser();
-                org.json.simple.JSONObject simpleJsonObj= (org.json.simple.JSONObject) parser.parse(String.valueOf(member));
-                JSONObject memberJson = new JSONObject( simpleJsonObj);
+                JSONParser parser = new JSONParser();
+                org.json.simple.JSONObject simpleJsonObj = (org.json.simple.JSONObject) parser.parse(String.valueOf(member));
+                JSONObject memberJson = new JSONObject(simpleJsonObj);
 //                Debugger.println("The JSON: "+memberJson.toString());
-                if (!memberJson.isNull("yearOfBirth") ) {
+                if (!memberJson.isNull("yearOfBirth")) {
                     if (memberJson.getString("yearOfBirth").startsWith("19") || memberJson.getString("yearOfBirth").startsWith("20")) {
-                        Debugger.println("Adding non-proband participant "+i+" for test from position: "+memberPosititon);
+                        Debugger.println("Adding non-proband participant " + i + " for test from position: " + memberPosititon);
                         positionOfTestParticipants.add(memberPosititon);
                     }
                 }
@@ -402,7 +402,7 @@ public class ReferralFromJsonSteps extends Pages {
                 Assert.assertTrue(false);
             }
             Date tumourDiagnosisDate = referralObject.getCancerParticipant().getTumours().get(i).getTumourDiagnosisDate();
-            testResult = tumoursPage.fillInDateOfDiagnosis(String.valueOf(tumourDiagnosisDate.getDay()),String.valueOf(tumourDiagnosisDate.getMonth()),String.valueOf(tumourDiagnosisDate.getYear()));
+            testResult = tumoursPage.fillInDateOfDiagnosis(String.valueOf(tumourDiagnosisDate.getDay()), String.valueOf(tumourDiagnosisDate.getMonth()), String.valueOf(tumourDiagnosisDate.getYear()));
             if (!testResult) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourDOD.jpg");
                 Assert.fail("Could not fill Tumour Page Date Of Diagnosis.");
@@ -415,13 +415,13 @@ public class ReferralFromJsonSteps extends Pages {
 //            String tumourTypeWithoutFirstChar=tumourType.substring(1,length);
 //            String newTumourType=firstChar+tumourTypeWithoutFirstChar.toLowerCase();
             String newTumourType = tumourTypeToDropDownOptionConversion(tumourType);
-            Debugger.println("The converted tumour type as per dropdown is: "+newTumourType);
+            Debugger.println("The converted tumour type as per dropdown is: " + newTumourType);
             String tumour = tumoursPage.selectTumourType(newTumourType);
             if (tumour == null) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TumourType.jpg");
                 Assert.fail("Could not fill tumour type.");
             }
-            String specimenLabId=referralObject.getCancerParticipant().getTumours().get(i).getTumourLocalId();
+            String specimenLabId = referralObject.getCancerParticipant().getTumours().get(i).getTumourLocalId();
             if (tumoursPage.fillInSpecimenID(specimenLabId) == null) {
                 Assert.fail("Could not fill Histopathology or SIHMDS Lab ID.");
             }
@@ -431,8 +431,8 @@ public class ReferralFromJsonSteps extends Pages {
                 SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
                 Assert.fail("Could not save Tumours information.");
             }
-            String tumourPresentation= String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourPresentation());
-            tumourPresentation = tumourPresentation.replace("_"," ");
+            String tumourPresentation = String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourPresentation());
+            tumourPresentation = tumourPresentation.replace("_", " ");
             tumourPresentation = TestUtils.convertUpperCaseJSONDataToProperFormat(tumourPresentation);
             testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
             if (!testResult) {
@@ -518,37 +518,37 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Page title- Manage Samples not present.");
         }
 
-        String sampleType="";
-        String sampleState="";
-        String labSampleID="";
-        int germlineSampleSize=referralObject.getReferralTests().get(0).getGermlineSamples().size();
-        int tumourSampleSize=referralObject.getReferralTests().get(0).getTumourSamples().size();
-        for(int i=0;i<germlineSampleSize;i++){
+        String sampleType = "";
+        String sampleState = "";
+        String labSampleID = "";
+        int germlineSampleSize = referralObject.getReferralTests().get(0).getGermlineSamples().size();
+        int tumourSampleSize = referralObject.getReferralTests().get(0).getTumourSamples().size();
+        for (int i = 0; i < germlineSampleSize; i++) {
             Debugger.println("Selecting Germline sample....");
             GermlineSample germlineSample = referralObject.getReferralTests().get(0).getGermlineSamples().get(i);
             sampleType = germlineSample.getSampleType();
             String updatedSampleType = convertJsonDataUpperCaseToLowerCase(sampleType);
             sampleState = germlineSample.getSampleState();
-            String updatedSampleState= sampleStateNameConversion(sampleState);
-            if(updatedSampleState==null){
+            String updatedSampleState = sampleStateNameConversion(sampleState);
+            if (updatedSampleState == null) {
                 SeleniumLib.takeAScreenShot("Ref_SamplesStage.jpg");
-                Assert.fail("Could not get sample state information for: "+sampleState);
+                Assert.fail("Could not get sample state information for: " + sampleState);
             }
             labSampleID = String.valueOf(germlineSample.getLabSampleId());
             //method to complete all the steps of adding a sample
             addSample(updatedSampleType, updatedSampleState, labSampleID);
         }
-        for(int j=0;j<tumourSampleSize;j++){
+        for (int j = 0; j < tumourSampleSize; j++) {
             Debugger.println("Selecting Tumour sample....");
             TumourSample tumourSample = referralObject.getReferralTests().get(0).getTumourSamples().get(j);
             sampleType = tumourSample.getSampleType();
             sampleState = tumourSample.getSampleState();
             labSampleID = String.valueOf(tumourSample.getLabSampleId());
             String updatedSampleType = convertJsonDataUpperCaseToLowerCase(sampleType);
-            String updatedSampleState= sampleStateNameConversion(sampleState);
-            if(updatedSampleState==null){
+            String updatedSampleState = sampleStateNameConversion(sampleState);
+            if (updatedSampleState == null) {
                 SeleniumLib.takeAScreenShot("Ref_SamplesStage.jpg");
-                Assert.fail("Could not get sample state information for: "+sampleState);
+                Assert.fail("Could not get sample state information for: " + sampleState);
             }
             //method to complete all the steps of adding a sample
             addSample(updatedSampleType, updatedSampleState, labSampleID);
@@ -573,7 +573,7 @@ public class ReferralFromJsonSteps extends Pages {
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
 
-        //Convert sample state from JSON data to TOMS UI compatible names.
+    //Convert sample state from JSON data to TOMS UI compatible names.
     private String sampleStateNameConversion(String sampleState) {
         switch (sampleState) {
             case "amnioticFluid_freshFrozen": {
@@ -612,7 +612,8 @@ public class ReferralFromJsonSteps extends Pages {
         }
         return null;
     }
-        // method to convert sample type names from Upper case to Lower case UI compatible names
+
+    // method to convert sample type names from Upper case to Lower case UI compatible names
     private String convertJsonDataUpperCaseToLowerCase(String inputValue) {
         inputValue = inputValue.replace("_", " ");
         char firstChar = inputValue.charAt(0);
@@ -622,7 +623,8 @@ public class ReferralFromJsonSteps extends Pages {
         Debugger.println("The lower case corrected value is: " + outputValue);
         return outputValue;
     }
-        // all steps of adding a sample performed here
+
+    // all steps of adding a sample performed here
     private void addSample(String sampleType, String sampleState, String labSampleID) {
         boolean testResult = false;
         testResult = samplesPage.clickAddSampleButton();
@@ -676,7 +678,7 @@ public class ReferralFromJsonSteps extends Pages {
         calendarDate.getTime();
         String receivedSampleCollectionDate = new SimpleDateFormat("dd/MM/yyyy").format(calendarDate.getTime());
         String[] dateArr = receivedSampleCollectionDate.split("/");
-        samplesPage.selectSampleCollectionDateAsDate(dateArr[0],dateArr[1],dateArr[2]);
+        samplesPage.selectSampleCollectionDateAsDate(dateArr[0], dateArr[1], dateArr[2]);
         samplesPage.fillInSampleComments();
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
@@ -900,7 +902,7 @@ public class ReferralFromJsonSteps extends Pages {
             referralPage.submitReferral();
             actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
             if (actualMessage == null)
-                Assert.assertTrue(actualMessage,false);
+                Assert.assertTrue(actualMessage, false);
         }
         Assert.assertTrue(actualMessage.contains("Your referral has been submitted"));
         boolean testResult = referralPage.verifyReferralButtonStatus("Submitted");
@@ -926,7 +928,7 @@ public class ReferralFromJsonSteps extends Pages {
         List<Integer> memberList = memberDetails(referralObject, "Non Proband");
         Debugger.println("The Non Proband participants are " + memberList.toString());
         List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
-        if(probandMemberNum==null){
+        if (probandMemberNum == null) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ClinicalQuestions.jpg");
             Assert.fail("Could not get member details from JSON.");
         }
@@ -934,21 +936,21 @@ public class ReferralFromJsonSteps extends Pages {
 
         PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
         String diseaseStatus = String.valueOf(probandMember.getAffectionStatus());
-        diseaseStatus=convertJsonDataUpperCaseToLowerCase(diseaseStatus);
+        diseaseStatus = convertJsonDataUpperCaseToLowerCase(diseaseStatus);
         String karyotypicSex = String.valueOf(probandMember.getPersonKaryotypicSex());
-        if(karyotypicSex.equalsIgnoreCase("other") || karyotypicSex.equalsIgnoreCase("UNKNOWN")){
+        if (karyotypicSex.equalsIgnoreCase("other") || karyotypicSex.equalsIgnoreCase("UNKNOWN")) {
             karyotypicSex = karyotypicSex.toLowerCase();
         }
 
         String phenotypicSex = String.valueOf(probandMember.getSex());
-        phenotypicSex=convertJsonDataUpperCaseToLowerCase(phenotypicSex);
+        phenotypicSex = convertJsonDataUpperCaseToLowerCase(phenotypicSex);
         String lifeStatus = String.valueOf(probandMember.getLifeStatus());
 
         List<HpoTerm> hpoList = probandMember.getHpoTermList();
-        List<String> hpoTermList=new ArrayList<>();
+        List<String> hpoTermList = new ArrayList<>();
 
-        for(HpoTerm hpo:hpoList){
-            String hpoData=hpo.getTerm()+"-"+ hpo.getTermPresence();
+        for (HpoTerm hpo : hpoList) {
+            String hpoData = hpo.getTerm() + "-" + hpo.getTermPresence();
 //            Debugger.println("The HPO data - "+hpoData);
             hpoTermList.add(hpoData);
         }
@@ -959,8 +961,8 @@ public class ReferralFromJsonSteps extends Pages {
         Debugger.println("sex " + phenotypicSex);
         Debugger.println("life status " + lifeStatus);
 
-        String clinicalQuesAnswers="DiseaseStatus="+diseaseStatus+";AgeOfOnset=01,02;HpoPhenoType="+ hpoTermList.toString() +";PhenotypicSex="+phenotypicSex+";KaryotypicSex="+karyotypicSex;
-        Debugger.println("The answers are "+clinicalQuesAnswers);
+        String clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ";AgeOfOnset=01,02;HpoPhenoType=" + hpoTermList.toString() + ";PhenotypicSex=" + phenotypicSex + ";KaryotypicSex=" + karyotypicSex;
+        Debugger.println("The answers are " + clinicalQuesAnswers);
         testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTermFromJson(clinicalQuesAnswers);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ClinicalQuestions.jpg");
@@ -983,18 +985,18 @@ public class ReferralFromJsonSteps extends Pages {
 
                 if (memberType.equalsIgnoreCase("Proband")) {
                     if (probandStatus) {
-                        Debugger.println("Adding proband position "+i);
+                        Debugger.println("Adding proband position " + i);
                         memberPositions.add(i);
                         return memberPositions;
                     }
                 } else {
                     if (!probandStatus) {
-                        Debugger.println("Adding member position "+i);
+                        Debugger.println("Adding member position " + i);
                         memberPositions.add(i);
                     }
                 }
             }
-            Debugger.println("The member positions added "+memberPositions.toString());
+            Debugger.println("The member positions added " + memberPositions.toString());
             return memberPositions;
         } catch (Exception exp) {
             Debugger.println("Exception from getting member position details " + exp);
@@ -1024,16 +1026,15 @@ public class ReferralFromJsonSteps extends Pages {
         Debugger.println("The participants to be selected as family are at position: " + positionOfTestParticipants.toString());
         Debugger.println("The number of family participants to be selected: " + positionOfTestParticipants.size());
         int numberOfTestParticipants = positionOfTestParticipants.size();
-
         List<List<String>> familyParticipants = new ArrayList<>();
-        Debugger.println("Initial Family size- "+familyDetails.size());
+        Debugger.println("Initial Family size- " + familyDetails.size());
         familyDetails.clear();
-        Debugger.println("Clearing pre-existing Family details size- "+familyDetails.size());
+        Debugger.println("Clearing pre-existing Family details size- " + familyDetails.size());
 
         List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
         PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
 
-        if(numberOfTestParticipants > 0) {
+        if (numberOfTestParticipants > 0) {
             for (int i = 0; i < numberOfTestParticipants; i++) {
                 List<String> familyMemberDetails = new ArrayList<>();
                 int familyMemberPositionInJson = positionOfTestParticipants.get(i);
@@ -1050,7 +1051,10 @@ public class ReferralFromJsonSteps extends Pages {
                 String diseaseStatus = String.valueOf(familyMember.getAffectionStatus());
                 diseaseStatus = convertJsonDataUpperCaseToLowerCase(diseaseStatus);
 
-                String karyotypicSex = String.valueOf(familyMember.getPersonKaryotypicSex()).toLowerCase();
+                String karyotypicSex = String.valueOf(familyMember.getPersonKaryotypicSex());
+                if (karyotypicSex.equalsIgnoreCase("other") || karyotypicSex.equalsIgnoreCase("UNKNOWN")) {
+                    karyotypicSex = karyotypicSex.toLowerCase();
+                }
                 String lifeStatus = String.valueOf(familyMember.getLifeStatus());
                 lifeStatus = TestUtils.convertUpperCaseJSONDataToProperFormat(lifeStatus);
 
@@ -1059,23 +1063,36 @@ public class ReferralFromJsonSteps extends Pages {
 //            Debugger.println("sex " + gender);
 //            Debugger.println("life status " + lifeStatus);
                 String familyRelation = null;
-                if (familyMember.getPedigreeId().equals(probandMember.getFatherId())){
-                        familyRelation = "Father";
-                }else if (familyMember.getPedigreeId().equals(probandMember.getMotherId())){
+                if (familyMember.getPedigreeId().equals(probandMember.getFatherId())) {
+                    familyRelation = "Father";
+                } else if (familyMember.getPedigreeId().equals(probandMember.getMotherId())) {
                     familyRelation = "Mother";
-                }else if (familyMember.getFatherId().equals(probandMember.getFatherId())&&familyMember.getMotherId().equals(probandMember.getMotherId())){
+                } else if (familyMember.getFatherId().equals(probandMember.getFatherId()) && familyMember.getMotherId().equals(probandMember.getMotherId())) {
                     familyRelation = "Full Sibling";
-                }else if (familyMember.getFatherId().equals(probandMember.getPedigreeId())||familyMember.getMotherId().equals(probandMember.getPedigreeId())){
-                    if (gender.equalsIgnoreCase("Female")){
+                } else if (familyMember.getFatherId().equals(probandMember.getPedigreeId()) || familyMember.getMotherId().equals(probandMember.getPedigreeId())) {
+                    if (gender.equalsIgnoreCase("Female")) {
                         familyRelation = "Daughter";
-                    }else{
+                    } else {
                         familyRelation = "Son";
                     }
-                }else{
+                } else {
                     familyRelation = "Other";
                 }
+                String clinicalQuesAnswers = "";
+                List<HpoTerm> hpoList = new ArrayList<>();
+                List<String> hpoTermList = new ArrayList<>();
+                if (diseaseStatus.equalsIgnoreCase("Affected")) {
+                    hpoList = familyMember.getHpoTermList();
+                    for (HpoTerm hpo : hpoList) {
+                        String hpoData = hpo.getTerm() + "-" + hpo.getTermPresence();
+//            Debugger.println("The HPO data - "+hpoData);
+                        hpoTermList.add(hpoData);
+                    }
+                    clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ";AgeOfOnset=01,02;HpoPhenoType=" + hpoTermList.toString() + ";PhenotypicSex=" + gender + ";KaryotypicSex=" + karyotypicSex;
+                } else {
+                    clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ";AgeOfOnset=01,02;PhenotypicSex=" + gender + ";KaryotypicSex=" + karyotypicSex;
+                }
                 String familyMemberData = "NHSNumber=NA:DOB=" + dob + ":Gender=" + gender + ":Relationship=" + familyRelation + ":LifeStatus=" + lifeStatus;
-                String clinicalQuesAnswers = "DiseaseStatus=" + diseaseStatus + ":AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=" + gender + ":KaryotypicSex=" + karyotypicSex;
                 familyMemberDetails.add(familyMemberData);
                 familyMemberDetails.add(familyRelation);
                 familyMemberDetails.add(clinicalQuesAnswers);
@@ -1097,7 +1114,7 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
-    private void enterFamilyMembersForRDReferral(List<List<String>> memberDetails){
+    private void enterFamilyMembersForRDReferral(List<List<String>> memberDetails) {
         try {
             String nhsNumber = "";
             for (int i = 0; i < memberDetails.size(); i++) {
@@ -1205,7 +1222,8 @@ public class ReferralFromJsonSteps extends Pages {
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);
-                if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
+//                if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
+                if (!clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTermFromJson(memberDetails.get(i).get(2))) {
                     SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FM.jpg");
                     Assert.fail("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                 }
@@ -1251,18 +1269,18 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Page title- Manage panels not present.");
         }
         int numOfPanels = referralObject.getReferralTests().get(0).getAnalysisPanels().size();
-        List<AnalysisPanel> panelsList=referralObject.getReferralTests().get(0).getAnalysisPanels();
-        Debugger.println("The panels to be added are-"+panelsList.toString());
-        for(int i=0;i<numOfPanels;i++){
+        List<AnalysisPanel> panelsList = referralObject.getReferralTests().get(0).getAnalysisPanels();
+        Debugger.println("The panels to be added are-" + panelsList.toString());
+        for (int i = 0; i < numOfPanels; i++) {
             String panelName = panelsList.get(i).getPanelName();
             testResult = panelsPage.searchAndAddPanel(panelName);
             if (!testResult) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsAdding");
-                Assert.fail("Could not add panels."+panelName);
+                Assert.fail("Could not add panels." + panelName);
             }
         }
         String penetrance = referralObject.getReferralTests().get(0).getDiseasePenetrances().get(0).getPenetrance().toString();
-        Debugger.println("Penetrance-"+penetrance);
+        Debugger.println("Penetrance-" + penetrance);
         testResult = panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(penetrance);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsSaveAndContinue");
@@ -1275,9 +1293,10 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
-    private void fillStagePedigree(Referral referralObject) {
+    private void fillStagePedigree(Referral referralObject, String memberType) {
         String stageName = "Pedigree";
-        boolean testResult = referralPage.navigateToStage(stageName);
+        boolean testResult = false;
+        testResult = referralPage.navigateToStage(stageName);
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + TestUtils.removeAWord(stageName, " ") + ".jpg");
             Assert.fail("Could not navigate to stage:" + stageName);
@@ -1286,6 +1305,52 @@ public class ReferralFromJsonSteps extends Pages {
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Build a pedigree not present.");
+        }
+        SeleniumLib.sleepInSeconds(3);
+        if (memberType.equalsIgnoreCase("NON-NGIS")) {
+            List<Integer> nonProbandMembers = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Non Proband");
+            Debugger.println("Total Participant Except Proband - " + nonProbandMembers);
+            List<Integer> participantList = getPositionOfParticipantsFromJson(referralObject);
+            Debugger.println("Only Test Participant Except Proband- " + participantList);
+            nonProbandMembers.removeAll(participantList);
+            Debugger.println("Non Ngis Participant - " + nonProbandMembers);
+            List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
+            PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
+            NGISPatientModel probandDetails = new NGISPatientModel();
+            probandDetails.setGENDER(String.valueOf(probandMember.getSex()));
+            probandDetails.setNGIS_ID(referralPage.getPatientNGISId());
+            pedigreePage.addNonNGISParentNodeToProband(probandDetails);
+            Debugger.println("Size = " + nonProbandMembers.size());
+            for (int i = 0; i < nonProbandMembers.size(); i++) {
+                int nonProbandPosition = nonProbandMembers.get(i);
+                PedigreeMember nonNGISMember = referralObject.getPedigree().getMembers().get(nonProbandPosition);
+                Debugger.println("Selected Non NGIS member - " + nonNGISMember.toString());
+                if (nonNGISMember.getPedigreeId().equals(probandMember.getFatherId())) {
+                    String affectionStatus = String.valueOf(nonNGISMember.getAffectionStatus());
+                    String diseaseStatus = convertJsonDataUpperCaseToLowerCase(affectionStatus);
+                    String lifeStatusJson = String.valueOf(nonNGISMember.getLifeStatus());
+                    String lifeStatus = convertJsonDataUpperCaseToLowerCase(lifeStatusJson);
+                    pedigreePage.clickOnNonNGISParentNode(probandDetails, "NonNGISFather");
+                    pedigreePage.clickSpecificPedigreeTab("Clinical");
+                    pedigreePage.selectDiseaseStatus(diseaseStatus);
+                    pedigreePage.clickSpecificPedigreeTab("Personal");
+                    pedigreePage.selectLifeStatus(lifeStatus);
+                    pedigreePage.clickOnCrossButton();
+                    Debugger.println("Pop Up closed for Father node");
+                } else if (nonNGISMember.getPedigreeId().equals(probandMember.getMotherId())) {
+                    String affectionStatus = String.valueOf(nonNGISMember.getAffectionStatus());
+                    String diseaseStatus = convertJsonDataUpperCaseToLowerCase(affectionStatus);
+                    String lifeStatusJson = String.valueOf(nonNGISMember.getLifeStatus());
+                    String lifeStatus = convertJsonDataUpperCaseToLowerCase(lifeStatusJson);
+                    pedigreePage.clickOnNonNGISParentNode(probandDetails, "NonNGISMother");
+                    pedigreePage.clickSpecificPedigreeTab("Clinical");
+                    pedigreePage.selectDiseaseStatus(diseaseStatus);
+                    pedigreePage.clickSpecificPedigreeTab("Personal");
+                    pedigreePage.selectLifeStatus(lifeStatus);
+                    pedigreePage.clickOnCrossButton();
+                    Debugger.println("Pop Up closed for Mother node");
+                }
+            }
         }
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
@@ -1325,9 +1390,9 @@ public class ReferralFromJsonSteps extends Pages {
             }
             Debugger.println("The PC choices are " + familyMemberPC.toString());
             for (int j = 0; j < familyMemberPC.size(); j++) {
-                    // doing for 1st family member so add 1
-                Debugger.println("Patient Choice for Member: " + j+1);
-                if (!patientChoicePage.selectMember(j+1)) {
+                // doing for 1st family member so add 1
+                Debugger.println("Patient Choice for Member: " + j + 1);
+                if (!patientChoicePage.selectMember(j + 1)) {
                     Assert.fail("Could not select the member to complete PC");
                 }
                 Wait.seconds(2);
@@ -1385,15 +1450,15 @@ public class ReferralFromJsonSteps extends Pages {
         }
     }
 
-    public void saveJsonCreatedReferralID(String caseType, String referralIdData,String probandID) {
+    public void saveJsonCreatedReferralID(String caseType, String referralIdData, String probandID) {
         try {
             List<String> sampleWellIdList = getSampleWellIdFromJson(caseType);
             Debugger.println("Samples list- " + sampleWellIdList);
             String referralID = caseType + " --> " + referralIdData + "\n";
-            SeleniumLib.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList,probandID);
+            SeleniumLib.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList, probandID);
             Debugger.println(referralID);
 //        SeleniumLib.writeToTextFileOfName("JsonReferralID.txt",referralID);
-            Assert.assertTrue("JSON file with referral Id, case type, sample well details created successfully.",true);
+            Assert.assertTrue("JSON file with referral Id, case type, sample well details created successfully.", true);
         } catch (Exception exp) {
             Debugger.println("Exception from Saving the referral Id: " + exp);
             Assert.fail("FAILURE in creating JSON file with referral Id, case type, sample well details.");
@@ -1403,25 +1468,64 @@ public class ReferralFromJsonSteps extends Pages {
     @Given("the user opens the NGIS status page")
     public void theUserOpensTheNGISStatusPage() {
         String result = statusPage.loadNgisStatusPage();
-        Assert.assertEquals("Failure in loading NGIS Status page.","Success",result);
+        Assert.assertEquals("Failure in loading NGIS Status page.", "Success", result);
     }
 
     @And("the user reads the version numbers present on the page")
     public void theUserReadsTheVersionNumbersPresentOnThePage() {
         String result = statusPage.getTitleText("NGIS Status");
-        Assert.assertEquals("Failure in reading page Title.","Success",result);
+        Assert.assertEquals("Failure in reading page Title.", "Success", result);
         result = statusPage.readPageDetails();
-        Assert.assertEquals("Failure in reading Table data from status page.","Success",result);
+        Assert.assertEquals("Failure in reading Table data from status page.", "Success", result);
     }
+
     private static boolean versionUpdatedFlag = false;
-//    @Then("the user writes the versions of {string} in the txt file {string}")
+
     @Then("the user writes the versions of RequiredComponents in the txt file {string}")
-    public void theUserWritesTheVersionsOfRequiredComponentsInTheTxtFile(String fileName,List<String> components) {
-        if(!versionUpdatedFlag) {
+    public void theUserWritesTheVersionsOfRequiredComponentsInTheTxtFile(String fileName, List<String> components) {
+        if (!versionUpdatedFlag) {
             String result = statusPage.writeVersionToFile(components.get(0), fileName);
             Assert.assertEquals("Failure in writing version data from status page.", "Success", result);
-            versionUpdatedFlag =true;
+            versionUpdatedFlag = true;
         }
+    }
+
+    @Then("the Rare Disease referral should be created with pedigree members via TOMS using json provided information and submitted successfully")
+    public void theReferralShouldBeCreatedWithPedigreeMembersViaTOMSUsingJsonProvidedInformationAndSubmittedSuccessfully() {
+        Referral referralObject = referralFromJson.getReferralObject();
+        if (referralObject == null) {
+            Assert.fail("Referral Object is not initialized.");
+        }
+        //Requesting Organisation
+        fillStageRequestingOrganisation(referralObject);
+        //Test Package
+        fillStageTestPackage("Rare Disease", referralObject);
+        //Responsible Clinician
+        fillStageResponsibleClinician(referralObject);
+        //Clinical Questions
+        fillStageClinicalQuestions(referralObject);
+        //Notes
+        fillStageNotes(referralObject);
+        //Family Members
+        fillStageFamilyMembers(referralObject);
+        //Patient Choice
+        fillStagePatientChoice(referralObject);
+        fillStagePatientChoiceForFamilyMembers(referralObject);
+        //Panels
+        fillStagePanels(referralObject);
+        //Pedigree
+        fillStagePedigree(referralObject, "NON-NGIS");
+        //Print Forms
+        fillStagePrintFormsForRD(referralObject);
+        //Submit Referral
+        verifyAndSubmitReferral();
+        String probandID = referralPage.readReferralHeaderPatientNgisId();
+        if (probandID == null) {
+            Assert.fail("Proband NGIS Id not found.");
+        }
+        String referralID = referralPage.returnReferralID();
+        saveJsonCreatedReferralID("Rare Disease", referralID, probandID);
+        SeleniumLib.takeAScreenShot("_ScenarioCompleted_" + (TestHooks.currentTagName) + ".jpg");
     }
 
 }//end

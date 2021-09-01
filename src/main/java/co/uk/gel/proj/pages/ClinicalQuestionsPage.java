@@ -1305,19 +1305,27 @@ public class ClinicalQuestionsPage {
                 try {
                     Click.element(driver, phenotypicSexDropdown);
                     Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
-                    Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramValue + "']")));
+                    for (WebElement value : dropdownValues) {
+                        if (value.getText().equalsIgnoreCase(paramValue)) {
+                            Click.element(driver,value);
+                        }
+                    }
                 } catch (Exception exp) {
                     try {
                         seleniumLib.clickOnWebElement(phenotypicSexDropdown);
-                        Wait.seconds(2);
-                        seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + paramValue + "']")));
+                        Wait.seconds(3);
+                        for (WebElement value : dropdownValues) {
+                            if (value.getText().equalsIgnoreCase(paramValue)) {
+                                seleniumLib.clickOnWebElement(value);
+                            }
+                        }
                     } catch (Exception exp1) {
                         Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1);
                         return false;
                     }
                 }
             }
-            //PhenotypicSex
+            //KaryotypicSex
             paramValue = paramNameValue.get("KaryotypicSex");
             if (paramValue != null && !paramValue.isEmpty()) {
                 try {
@@ -1340,8 +1348,8 @@ public class ClinicalQuestionsPage {
             } else {
                 return true;
             }
-        }catch (Exception exp){
-           Debugger.println("Exception from filling Clinical Questions details: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from filling Clinical Questions details: " + exp);
             return false;
         }
     }//method

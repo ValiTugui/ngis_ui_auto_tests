@@ -69,7 +69,7 @@ Feature: Create RD Referrals by reading details from Json file
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Then the Rare Disease referral should be created with pedigree members via TOMS using json provided information and submitted successfully
     Examples:
       | JSONFileName                                      |
       | RD4_r20210100107_10000_referral_DDF_modified.json |
@@ -91,7 +91,7 @@ Feature: Create RD Referrals by reading details from Json file
     And the referral object is created successfully from the json file <JSONFileName>
     When the "Rare Disease" referral is created with details from Json provided
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
+    Then the Rare Disease referral should be created with pedigree members via TOMS using json provided information and submitted successfully
     Examples:
       | JSONFileName                                      |
       | RD6_r20210100014_10001_referral_DDF_modified.json |

@@ -1176,7 +1176,13 @@ public class PatientDetailsPage {
         try {
             //Debugger.println("Adding new Family Member...");
             selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
-            familyMember.setTITLE("Mr");
+            if (familyMember.getGENDER().trim().equalsIgnoreCase("Male")) {
+                familyMember.setTITLE("Mr");
+            }else if (familyMember.getGENDER().trim().equalsIgnoreCase("Female")){
+                familyMember.setTITLE("Ms");
+            }else{
+                familyMember.setTITLE("Mr");
+            }
             //Name without single appostrophe
             familyMember.setFIRST_NAME(TestUtils.getRandomFirstName().replaceAll("'", ""));
             familyMember.setLAST_NAME(TestUtils.getRandomLastName().replaceAll("'", ""));
@@ -2346,7 +2352,6 @@ public class PatientDetailsPage {
     //From JSON data for JSON Framework
     public boolean fillInPatientDetailsFromJson(String caseType,String reason, Referral referralObject) {
         try {
-            newPatient.setTitle("Mr");
             String firstNameValue = TestUtils.getRandomFirstName();
             String lastNameValue = TestUtils.getRandomLastName();
             newPatient.setFirstName(firstNameValue);
@@ -2395,12 +2400,18 @@ public class PatientDetailsPage {
             newPatient.setHospitalNumber(hospitalId);
             newPatient.setPostCode(getRandomUKPostCode());
             //Fill in the values
-            title.sendKeys("Mr");
+
             Actions.fillInValue(firstName, newPatient.getFirstName());
             Actions.fillInValue(familyName, newPatient.getLastName());
             selectMissingNhsNumberReason(reason);
             selectGender(administrativeGenderButton, newGenderValue);
-
+            if (newGenderValue.equalsIgnoreCase("Male")) {
+                newPatient.setTitle("Mr");
+                title.sendKeys("Mr");
+            }else if (newGenderValue.equalsIgnoreCase("Female")){
+                newPatient.setTitle("Ms");
+                title.sendKeys("Ms");
+            }
             editDropdownField(lifeStatusButton, newlifeStatus);
 
             editDropdownField(ethnicityButton, "A - White - British");
