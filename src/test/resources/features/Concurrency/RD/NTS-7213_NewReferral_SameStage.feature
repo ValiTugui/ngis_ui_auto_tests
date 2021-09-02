@@ -213,6 +213,7 @@ Feature: NTS-7213:RD_new_referral_same_stage
     And the user refresh the browser
     And the user clicks on edit button of Family member
     Then the user is navigated to a page with title Continue with this family member
+    And the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
     And the user verifies the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdatedByUser1>"
     And the user clicks the Save and Continue button
