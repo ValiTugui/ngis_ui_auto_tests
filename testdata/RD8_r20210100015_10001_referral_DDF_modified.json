@@ -84,7 +84,7 @@
         "sex": "FEMALE",
         "disorderList": [
           {
-            "specificDisease": "R83"
+            "specificDisease": "R32"
           }
         ],
         "hpoTermList": [
@@ -256,22 +256,22 @@
   "referralUid": "69905137-a127-4131-acb2-74d1daaf1adf",
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
-    "clinicalIndicationCode": "R83",
-    "clinicalIndicationFullName": "Arthrogryposis"
+    "clinicalIndicationCode": "R32",
+    "clinicalIndicationFullName": "Retinal disorders"
   },
   "referralTests": [
     {
       "analysisPanels": [
         {
-          "panelId": "258",
-          "specificDisease": "R83",
+          "panelId": "307",
+          "specificDisease": "R32",
           "multipleGeneticOrigins": "No",
-          "panelName": "Arthrogryposis",
-          "panelVersion": "3.76"
+          "panelName": "Retinal disorders",
+          "panelVersion": "2.174"
         },
         {
           "panelId": "467",
-          "specificDisease": "R83",
+          "specificDisease": "R32",
           "multipleGeneticOrigins": "No",
           "panelName": "Inborn errors of metabolism",
           "panelVersion": "2.50"
@@ -357,8 +357,8 @@
       "referralTestId": "WSFNA67PS9D3",
       "diseasePenetrances": [
         {
-          "specificDisease": "R83",
-          "penetrance": "incomplete"
+          "specificDisease": "R32",
+          "penetrance": "complete"
         }
       ]
     }
