@@ -1271,13 +1271,26 @@ public class ReferralFromJsonSteps extends Pages {
         int numOfPanels = referralObject.getReferralTests().get(0).getAnalysisPanels().size();
         List<AnalysisPanel> panelsList = referralObject.getReferralTests().get(0).getAnalysisPanels();
         Debugger.println("The panels to be added are-" + panelsList.toString());
-        for (int i = 0; i < numOfPanels; i++) {
-            String panelName = panelsList.get(i).getPanelName();
-            testResult = panelsPage.searchAndAddPanel(panelName);
-            if (!testResult) {
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsAdding");
-                Assert.fail("Could not add panels." + panelName);
+        List<String> suggestedPanelList = new ArrayList<>();
+        List<String> panelsNameList = new ArrayList<>();
+        for (int j = 0; j < panelsPage.suggestedPanelsList.size(); j++) {
+            suggestedPanelList.add(panelsPage.suggestedPanelsList.get(j).getText());
+        }
+        for (int k = 0; k < numOfPanels; k++) {
+            panelsNameList.add(panelsList.get(k).getPanelName());
+        }
+        panelsNameList.removeAll(suggestedPanelList);
+        if (panelsNameList.size()!=0){
+            for (String panelName : panelsNameList) {
+                testResult = panelsPage.searchAndAddPanel(panelName);
+                if (!testResult) {
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PanelsAdding");
+                    Assert.fail("Could not add panels." + panelName);
+                }
             }
+        }
+        else{
+            Debugger.println("Suggested panel: " +suggestedPanelList.toString() +" already present.");
         }
         String penetrance = referralObject.getReferralTests().get(0).getDiseasePenetrances().get(0).getPenetrance().toString();
         Debugger.println("Penetrance-" + penetrance);
@@ -1351,10 +1364,15 @@ public class ReferralFromJsonSteps extends Pages {
                     Debugger.println("Pop Up closed for Mother node");
                 }
             }
+            String result = pedigreePage.compareNonNgisParticipantId(probandDetails);
+            if (!result.equalsIgnoreCase("Success")) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PedigreeNonNgisId");
+                Assert.fail(result);
+            }
         }
         testResult = referralPage.clickSaveAndContinueButton();
         if (!testResult) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PedigreeSaveAndContinue");
             Assert.fail("Could not click on Save and Continue.");
         }
     }

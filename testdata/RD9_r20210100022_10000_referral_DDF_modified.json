@@ -55,21 +55,6 @@
           {
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000458"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000951"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000092"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000822"
           },
           {
@@ -91,21 +76,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000135"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0004944"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001513"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001595"
           },
           {
             "termPresence": "no",
@@ -136,26 +106,6 @@
             "termPresence": "yes",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0005562"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0008659"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000803"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0010442"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0012243"
           },
           {
             "termPresence": "yes",

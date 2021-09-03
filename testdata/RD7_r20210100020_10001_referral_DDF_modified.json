@@ -45,47 +45,7 @@
           {
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000486"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000508"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000539"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000716"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000717"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000750"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000767"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000768"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000823"
           },
           {
             "termPresence": "unknown",
@@ -101,66 +61,6 @@
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0001004"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001028"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001249"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001250"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001328"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001531"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001561"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001629"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001631"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001639"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001642"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001790"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001872"
           },
           {
             "termPresence": "unknown",
@@ -181,46 +81,6 @@
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0002664"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002721"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002960"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003256"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0006610"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0006705"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0007502"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0010719"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0010880"
           },
           {
             "termPresence": "unknown",
@@ -327,49 +187,14 @@
             "term": "HP:0000035"
           },
           {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000077"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000144"
-          },
-          {
             "termPresence": "yes",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000316"
           },
           {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000364"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000465"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000486"
-          },
-          {
             "termPresence": "yes",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000494"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000508"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000539"
           },
           {
             "termPresence": "unknown",
@@ -389,37 +214,12 @@
           {
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000767"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000768"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000823"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000957"
           },
           {
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0001003"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001004"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001028"
           },
           {
             "termPresence": "yes",
@@ -457,16 +257,6 @@
             "term": "HP:0001631"
           },
           {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001639"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001642"
-          },
-          {
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0001790"
@@ -480,21 +270,6 @@
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0002194"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002202"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002664"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002721"
           },
           {
             "termPresence": "unknown",
@@ -627,6 +402,13 @@
           "multipleGeneticOrigins": "No",
           "panelName": "Intellectual disability",
           "panelVersion": "3.717"
+        },
+        {
+          "panelId": "486",
+          "specificDisease": "R27",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Paediatric disorders",
+          "panelVersion": "14.1539"
         }
       ],
       "germlineSamples": [

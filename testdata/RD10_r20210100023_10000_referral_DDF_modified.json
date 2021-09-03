@@ -28,26 +28,6 @@
             "term": "HP:0002691"
           },
           {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000787"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002592"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000407"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003878"
-          },
-          {
             "termPresence": "yes",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000925"
@@ -61,21 +41,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0003302"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000973"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002650"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001373"
           },
           {
             "termPresence": "yes",
@@ -103,21 +68,6 @@
             "term": "HP:0006640"
           },
           {
-            "termPresence": "yes",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000938"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000926"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002086"
-          },
-          {
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0012366"
@@ -126,21 +76,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0003179"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000164"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003304"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003931"
           },
           {
             "termPresence": "yes",
@@ -175,26 +110,6 @@
           {
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002808"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0100360"
-          },
-          {
-            "termPresence": "yes",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000978"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0005758"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0005750"
           },
           {
@@ -211,16 +126,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000369"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000262"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000729"
           },
           {
             "termPresence": "yes",
@@ -307,41 +212,6 @@
           {
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002758"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003272"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000729"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002592"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0100583"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003866"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002808"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0001373"
           },
           {
@@ -363,31 +233,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0003179"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001363"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003931"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000925"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001627"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000262"
           },
           {
             "termPresence": "no",
@@ -427,26 +272,6 @@
           {
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000369"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001382"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000938"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000926"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0002086"
           },
           {
@@ -473,16 +298,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000787"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002691"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002020"
           },
           {
             "termPresence": "no",
@@ -573,21 +388,6 @@
           {
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0003878"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000973"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002808"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0030267"
           },
           {
@@ -611,16 +411,6 @@
             "term": "HP:0000925"
           },
           {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001627"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000262"
-          },
-          {
             "termPresence": "yes",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0000592"
@@ -639,21 +429,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0003179"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002020"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002691"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000787"
           },
           {
             "termPresence": "no",
@@ -679,16 +454,6 @@
             "termPresence": "yes",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0002645"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001373"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002650"
           },
           {
             "termPresence": "no",
@@ -749,16 +514,6 @@
             "termPresence": "no",
             "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0002758"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0005750"
-          },
-          {
-            "termPresence": "no",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0005758"
           },
           {
             "termPresence": "yes",
@@ -842,6 +597,13 @@
           "specificDisease": "R84",
           "panelName": "Osteogenesis imperfecta",
           "panelVersion": "2.13"
+        },
+        {
+          "panelId": "488",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R84",
+          "panelName": "Hereditary ataxia and cerebellar anomalies - childhood onset",
+          "panelVersion": "6.140"
         }
       ],
       "germlineSamples": [

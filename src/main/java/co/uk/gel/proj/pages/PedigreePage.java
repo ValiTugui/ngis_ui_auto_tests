@@ -11,6 +11,7 @@ import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.File;
 import java.util.List;
 
 public class PedigreePage {
@@ -1044,7 +1045,8 @@ public class PedigreePage {
                 if (diagramClicked) {
                     break;
                 }
-            }//for x-coordinate
+            }
+            //for x-coordinate
             //Click On Parent Node, after clicking the Proband Node
             if (!diagramClicked) {
                 Debugger.println("Could find the Pedigree node for Pdoband");
@@ -1733,6 +1735,28 @@ public class PedigreePage {
             seleniumLib.clickOnWebElement(closePopup);
         } catch (Exception exp) {
             Debugger.println("Could not click on the cross button. " + exp);
+        }
+    }
+
+    public String compareNonNgisParticipantId(NGISPatientModel patient) {
+        try {
+            String fatherId = patient.getNON_NGIS_ID1();
+            String motherId = patient.getNON_NGIS_ID2();
+            File fileName = new File("Non-NgisMembers.txt");
+            if (fileName.exists()) {
+                String nonNgisParticipantFileData = SeleniumLib.readTextFileInLines(fileName.getName());
+//            if (nonNgisParticipantFileData != null && !nonNgisParticipantFileData.isEmpty()) {
+                if (nonNgisParticipantFileData.contains(fatherId) || nonNgisParticipantFileData.contains(motherId)) {
+                    return "FAILURE: Non NGIS participants Id already exist in another referral. Father- " + fatherId + "; Mother- " + motherId;
+                } else {
+                    SeleniumLib.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
+                }
+            } else {
+                SeleniumLib.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
+            }
+            return "Success";
+        } catch (Exception exp) {
+            return ("FAILURE:Exception from validating Non NGIS participants ID: " + exp);
         }
     }
 

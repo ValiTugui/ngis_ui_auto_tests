@@ -141,77 +141,7 @@
                         "hpoBuildNumber": "Release 2016-09-03", 
                         "term": "HP:0010884", 
                         "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0003086", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0001161", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0001829", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0003908", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0000926", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0003375", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0000925", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0001363", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0001371", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0000668", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0006159", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0001156", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0000478", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0000256", 
-                        "termPresence": "no"
-                    }, 
+                    },
                     {
                         "hpoBuildNumber": "Release 2016-09-03", 
                         "term": "HP:0004322", 
@@ -221,22 +151,7 @@
                         "hpoBuildNumber": "Release 2016-09-03", 
                         "term": "HP:0001999", 
                         "termPresence": "yes"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0001249", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0000175", 
-                        "termPresence": "no"
-                    }, 
-                    {
-                        "hpoBuildNumber": "Release 2016-09-03", 
-                        "term": "HP:0002650", 
-                        "termPresence": "no"
-                    }, 
+                    },
                     {
                         "hpoBuildNumber": "Release 2016-09-03", 
                         "term": "HP:0001382", 

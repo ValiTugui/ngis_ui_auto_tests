@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -965,6 +966,29 @@ public class SeleniumLib {
             fileWriter.close();
         } catch (Exception exp) {
             Debugger.println("Exception from Writing to JSON file: "+exp);
+        }
+    }
+
+    public static String readTextFileInLines (String fileName) {
+        try
+        {
+            File file = new File(fileName);
+            System.out.println(file.getAbsolutePath());
+            FileReader fileRdr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileRdr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+            }
+            br.close();
+            fileRdr.close();
+            return sb.toString();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

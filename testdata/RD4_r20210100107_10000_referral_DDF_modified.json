@@ -151,67 +151,12 @@
           {
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000641"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001284"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000639"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0007149"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0002134"
           },
           {
             "termPresence": "unknown",
             "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0002322"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0008956"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001251"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000597"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
             "term": "HP:0001347"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0001324"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000009"
-          },
-          {
-            "termPresence": "unknown",
-            "hpoBuildNumber": "releases/2015-03-12",
-            "term": "HP:0000514"
           },
           {
             "termPresence": "yes",
@@ -300,6 +245,13 @@
           "specificDisease": "R55",
           "panelName": "Childhood onset dystonia or chorea or related movement disorder",
           "panelVersion": "1.83"
+        },
+        {
+          "panelId": "488",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R55",
+          "panelName": "Hereditary ataxia and cerebellar anomalies - childhood onset",
+          "panelVersion": "6.140"
         }
       ],
       "germlineSamples": [
