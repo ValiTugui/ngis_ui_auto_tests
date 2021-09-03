@@ -8,28 +8,6 @@ Feature: Create RD Referrals by reading details from Json file
     Then the user writes the versions of RequiredComponents in the txt file "VersionFile.txt"
       | TEST_DIRECTORY_PRIVATE_UI_TAG,TEST_DIRECTORY_PUBLIC_UI_TAG,TEST_ORDER_UI_TAG,BIOBANK_ILLUMINA_TAG,BIOBANK_ILLUMINA_WATCHER_TAG,MIPORTAL_UI_TAG,PANEL_MS_TAG |
 
-#  @RDReferralFromJson  @Z-LOGOUT
-#  Scenario Outline: Read the details from Json file and create RD referrals
-#    ##Note that the json file is expected to be present in testdata folder
-#    Given the json file <JSONFileName> with referral information is available in the specified location
-#    And the referral object is created successfully from the json file <JSONFileName>
-#    When the "Rare Disease" referral is created with details from Json provided
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-#    Then the "Rare Disease" referral should be created via TOMS using json provided information and submitted successfully
-#
-#    Examples:
-#      | JSONFileName                                       |
-##      | RD1_r20210100001_10002_referral_DDF_modified.json |
-##      | RD2_r20210100002_10001_referral_DDF_modified.json |
-##      | RD3_r20210100006_10001_referral_DDF_modified.json |
-##      | RD4_r20210100007_10001_referral_DDF_modified.json |
-##      | RD5_r20210100011_10001_referral_DDF_modified.json  |
-##      | RD6_r20210100014_10001_referral_DDF_modified.json  |
-#      | RD7_r20210100020_10001_referral_DDF_modified.json  |
-#      | RD8_r20210100021_10000_referral_DDF_modified.json  |
-#      | RD9_r20210100022_10000_referral_DDF_modified.json  |
-#      | RD10_r20210100023_10000_referral_DDF_modified.json |
-
   @RDCase1  @Z-LOGOUT
   Scenario Outline: Read the details from Json file and create RD referral for Samples- LP3001191-DNA_B10,LP3001158-DNA_D01,LP3001237-DNA_H12,LP3001224-DNA_B12,LP3001220-DNA_D10
     Given the json file <JSONFileName> with referral information is available in the specified location
