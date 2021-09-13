@@ -456,8 +456,12 @@ public class ReferralFromJsonSteps extends Pages {
 
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         if (numberOfTumours < 1) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NumTumours.jpg");
-            Assert.fail("Numbers of Tumours displayed should be 1 or greater than 1");
+            SeleniumLib.sleepInSeconds(10);
+            numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
+            if (numberOfTumours < 1) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NumOfTumours.jpg");
+                Assert.fail("Numbers of Tumours displayed should be 1 or greater than 1");
+            }
         }
         testResult = tumoursPage.tumourIsNotHighlighted();
         if (!testResult) {
