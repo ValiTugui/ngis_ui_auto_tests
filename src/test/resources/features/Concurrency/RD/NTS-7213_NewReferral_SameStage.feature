@@ -211,6 +211,9 @@ Feature: NTS-7213:RD_new_referral_same_stage
     And the user fills in the Postcode field box with "AB1 2CD"
     Then the user should be able to see concurrency alert message while saving the stage
     And the user refresh the browser
+    And the user clicks on edit button of Family member
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
     And the user verifies the stage "<FamilyMembers>" with "<FamilyMemberDetailsUpdatedByUser1>"
     And the user clicks the Save and Continue button
@@ -324,6 +327,8 @@ Feature: NTS-7213:RD_new_referral_same_stage
     When the user selects the Relationship to proband as "<RelationshipToProband2>"
     Then the user should be able to see concurrency alert message while saving the stage
     And the user refresh the browser
+    And the user clicks on edit button of Family member
+    Then the user is navigated to a page with title Continue with this family member
     And the user sees the relationship to proband selected is same as "<RelationshipToProband1>"
     Then the user updates the file NTS-7261 with Dismissed the concurrency error by User2
 

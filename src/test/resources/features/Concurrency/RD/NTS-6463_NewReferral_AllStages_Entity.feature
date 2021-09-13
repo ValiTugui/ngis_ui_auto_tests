@@ -65,6 +65,7 @@ Feature: NTS-6463:RD_existing_referral_all_stages_entity
       | NHSNumber=NA:DOB=11-01-1971 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
+    Then the "<PatientChoice>" stage is marked as Completed
     ##Panels
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
@@ -149,7 +150,7 @@ Feature: NTS-6463:RD_existing_referral_all_stages_entity
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | Notes | NotesUpdated        | FamilyMembers  | FamilyMemberDetailsUpdated | FamilyMemberClinicalDetailsUpdated | Panels | PanelsDetailsUpdated                             | PatientChoice  | PatientChoiceDetailsUpdated     | TwoParticipant | ResponsibleClinicianDetails                              | ClinicalQuestionDetails                                                     | RecordedBy         |
-      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward                   | Clinical questions | AgeOfOnset=1,1                 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Alive           | DiseaseStatus=Affected             | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Proband=Authorised by clinician | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John |
+      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward                   | Clinical questions | AgeOfOnset=1,1                 | Notes | NotesupdatedbyUser2 | Family members | LifeStatus=Aborted         | DiseaseStatus=Affected             | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Proband=Authorised by clinician | 2              | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | ClinicianName=John |
 
    #User2
   @NTS-6463 @Z-LOGOUT
@@ -218,4 +219,4 @@ Feature: NTS-6463:RD_existing_referral_all_stages_entity
 
     Examples:
       | PatientDetails  | PatientDetailsUpdated | RequestingOrganisation  | RequestingOrganisationUpdated                  | TestPackage  | TestPackageUpdated | ResponsibleClinician  | ResponsibleClinicianDetailsUpdated | ClinicalQuestions  | ClinicalQuestionDetailsUpdated | FamilyMemberDetailsUpdate | FamilyMemberClinicalDetailsUpdated | Notes | NotesUpdated        | PatientChoiceDetailsUpdated | RequestingOrganisation  | ResponsibleClinician  | NotesUpdated  | Panels | PanelsDetailsUpdated                             | PatientChoice  | FamilyMembers  |
-      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward                   | Clinical questions | AgeOfOnset=1,1                 | LifeStatus=Alive          | DiseaseStatus=Affected             | Notes | NotesupdatedbyUser2 | Authorised by clinician     | Requesting organisation | Responsible clinician | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Family members |
+      | Patient details | FirstName=Jhon12      | Requesting organisation | South London and Maudsley NHS Foundation Trust | Test package | NoOfParticipants=2 | Responsible clinician | FirstName=edward                   | Clinical questions | AgeOfOnset=1,1                 | LifeStatus=Aborted        | DiseaseStatus=Affected             | Notes | NotesupdatedbyUser2 | Authorised by clinician     | Requesting organisation | Responsible clinician | Notes Updated | Panels | AdditionalPanels=Hereditary ataxia - adult onset | Patient choice | Family members |

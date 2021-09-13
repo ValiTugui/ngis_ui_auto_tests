@@ -12,7 +12,7 @@ Feature: NTS-6470: Family member details updated and same Family member verified
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage in different referral, upon referral submission by A.
     #Login as User A,
     Given The user is login to the Test Order Service and create a new referral
-      | Intellectual disability | CONCURRENT_USER1_NAME | r21137867915 | NTS-6470_Scenario2 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | r21767325992 | NTS-6470_Scenario2 |
     ##Patient Details - Update
     And the user waits max 10 minutes for the update Mandatory Stages Completed by User2 in the file NTS-6470_Scenario2
     When the user navigates to the "<PatientDetails>" stage
@@ -21,12 +21,12 @@ Feature: NTS-6470: Family member details updated and same Family member verified
     Then the user updates the file NTS-6470_Scenario2 with Patient details Updated by User1
     Examples:
       | PatientDetails  | PatientDetailsUpdated |
-      | Patient details | Gender=Male           |
+      | Patient details | Gender=Female         |
 
   @NTS-6470 @NTS-6470_Scenario2 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r21715161667 | NTS-6470_Scenario2 |
+      | CONCURRENT_USER2_NAME | r21531177197 | NTS-6470_Scenario2 |
     Then the user updates the file NTS-6470_Scenario2 with Mandatory Stages Completed by User2
     ##Family Member Details - Verify
     And the user waits max 10 minutes for the update Patient details Updated by User1 in the file NTS-6470_Scenario2
@@ -38,7 +38,7 @@ Feature: NTS-6470: Family member details updated and same Family member verified
 
     Examples:
       | FamilyMembers  | FamilyMemberDetailsUpdated |
-      | Family members | Gender=Male                |
+      | Family members | Gender=Female              |
 
     ################################
 
