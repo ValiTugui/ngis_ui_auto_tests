@@ -71,10 +71,10 @@
     "referralTests": [{
             "germlineSamples": [{
                     "product": "DNA",
-                    "method": "BIOPSY",
+                    "method": "NOT_APPLICABLE",
                     "sampleId": "LP3000571-DNA_H07",
-                    "storageMedium": "FF",
-                    "source": "TISSUE",
+                    "storageMedium": "EDTA",
+                    "source": "BLOOD",
                     "sampleType": "Normal or Germline sample",
                     "labSampleId": "1024916544",
                     "participantId": "p20210200002",
@@ -83,7 +83,7 @@
                     "programmePhase": "MAIN",
                     "clinicalSampleDateTime": "2017-05-26T00:00:00+0000",
                     "participantUid": "790c52b1-a295-497e-9286-bef48f9da7e9",
-                    "sampleState": "tissue_freshFrozen"
+                    "sampleState": "blood_unsorted_edta"
                 }
             ],
             "referralTestOrderingDate": {
@@ -127,7 +127,7 @@
                         }
                     ],
                     "product": "DNA",
-                    "method": "NOT_APPLICABLE",
+                    "method": "BIOPSY",
                     "sampleId": "LP3000575-DNA_A08",
                     "storageMedium": "FF",
                     "sampleTopographies": [{
@@ -146,7 +146,7 @@
                     "clinicalSampleDateTime": "2017-05-26T12:23:00+0000",
                     "participantUid": "790c52b1-a295-497e-9286-bef48f9da7e9",
                     "tumourContent": "Medium",
-                    "sampleState": "tumour_unsorted_freshFluid"
+                    "sampleState": "tumour_freshFrozen"
                 }
             ],
             "referralTestId": "JAO7JAFUUT8O"

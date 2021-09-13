@@ -11,7 +11,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "M70"
+            "specificDisease": "M187"
           }
         ],
         "affectionStatus": "AFFECTED",
@@ -70,8 +70,8 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
     "clinicalIndicationVersionNumber": "template",
-    "clinicalIndicationCode": "M70",
-    "clinicalIndicationFullName": "Osteosarcoma"
+    "clinicalIndicationCode": "M187",
+    "clinicalIndicationFullName": "Uveal melanoma"
   },
   "referralTests": [
     {

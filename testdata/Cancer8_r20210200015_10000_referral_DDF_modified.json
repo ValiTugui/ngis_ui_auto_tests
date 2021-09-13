@@ -11,7 +11,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "M156"
+            "specificDisease": "M222"
           }
         ],
         "affectionStatus": "AFFECTED",
@@ -60,18 +60,18 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
     "clinicalIndicationVersionNumber": "bio_v2.0.0",
-    "clinicalIndicationCode": "M156",
-    "clinicalIndicationFullName": "Oligodendroglioma - Paediatric"
+    "clinicalIndicationCode": "M222",
+    "clinicalIndicationFullName": "Hepatocellular carcinoma"
   },
   "referralTests": [
     {
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "ASPIRATE",
+          "method": "NOT_APPLICABLE",
           "sampleId": "LP3000858-DNA_H02",
           "storageMedium": "EDTA",
-          "source": "BONE_MARROW",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1032042931",
           "participantId": "p20210200015",
@@ -80,7 +80,7 @@
           "programmePhase": "MAIN",
           "clinicalSampleDateTime": "2018-03-06T14:00:00+0000",
           "participantUid": "9d2cafd6-9d32-4e81-9f63-214b5c0dade0",
-          "sampleState": "boneMarrow_unsorted_edta"
+          "sampleState": "blood_unsorted_edta"
         }
       ],
       "referralTestOrderingDate": {
@@ -122,7 +122,7 @@
       "tumourSamples": [
         {
           "product": "DNA",
-          "method": "RESECTION",
+          "method": "BIOPSY",
           "sampleId": "LP3000859-DNA_H02",
           "storageMedium": "FF",
           "haematologicalCancer": false,

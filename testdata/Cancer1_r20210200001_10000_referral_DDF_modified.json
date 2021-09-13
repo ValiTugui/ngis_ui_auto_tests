@@ -22,10 +22,10 @@
     },
     "requester": {
         "organisationName": "Pennine Care NHS Foundation Trust",
-        "organisationId": "RT2",
+        "organisationId": "Template",
         "organisationCode": "RT2",
-        "organisationNationalGroupingName": "North West",
-        "organisationNationalGroupingId": "699X0"
+        "organisationNationalGroupingName": "Pennine Care NHS Foundation Trust",
+        "organisationNationalGroupingId": "RT2"
     },
     "orderingDate": {
         "month": 2,
@@ -92,18 +92,18 @@
                 "day": 23
             },
             "processingLab": {
-                "organisationName": "NORTH WEST COAST NHS GENOMIC MEDICINE CENTRE",
+                "organisationName": "Pennine Care NHS Foundation Trust",
                 "organisationId": "template",
-                "organisationCode": "69810",
-                "organisationNationalGroupingName": "North West",
-                "organisationNationalGroupingId": "699X0"
+                "organisationCode": "RT2",
+                "organisationNationalGroupingName": "Pennine Care NHS Foundation Trust",
+                "organisationNationalGroupingId": "RT2"
             },
             "interpreter": {
-                "organisationName": "NORTH WEST COAST NHS GENOMIC MEDICINE CENTRE",
+                "organisationName": "Pennine Care NHS Foundation Trust",
                 "organisationId": "template",
-                "organisationCode": "69810",
-                "organisationNationalGroupingName": "North West",
-                "organisationNationalGroupingId": "699X0"
+                "organisationCode": "RT2",
+                "organisationNationalGroupingName": "Pennine Care NHS Foundation Trust",
+                "organisationNationalGroupingId": "RT2"
             },
             "matchedSamples": [{
                     "germlineSampleId": "LP3000205-DNA_F03",
@@ -127,7 +127,7 @@
                         }
                     ],
                     "product": "DNA",
-                    "method": "NOT_APPLICABLE",
+                    "method": "BIOPSY",
                     "sampleId": "LP3000208-DNA_D05",
                     "storageMedium": "FF",
                     "sampleTopographies": [{
@@ -146,7 +146,7 @@
                     "clinicalSampleDateTime": "2016-07-29T16:40:00+0000",
                     "participantUid": "74488fc5-8670-4994-976b-d199eaea5fb3",
                     "tumourContent": "Medium",
-                    "sampleState": "tumour_unsorted_freshFluid"
+                    "sampleState": "tumour_freshFrozen"
                 }
             ],
             "referralTestId": "N37QPIMXBO01"

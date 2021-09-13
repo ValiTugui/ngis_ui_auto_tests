@@ -11,7 +11,7 @@
         "sex": "FEMALE" ,
         "disorderList": [
           {
-            "specificDisease": "M82"
+            "specificDisease": "M231"
           }
         ] ,
         "affectionStatus": "AFFECTED" ,
@@ -60,8 +60,8 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template" ,
     "clinicalIndicationVersionNumber": "bio_v2.0.0" ,
-    "clinicalIndicationCode": "M82" ,
-    "clinicalIndicationFullName": "Myelodysplasia"
+    "clinicalIndicationCode": "M231" ,
+    "clinicalIndicationFullName": "Small cell lung cancer"
   } ,
   "referralTests": [
     {
@@ -70,8 +70,8 @@
           "product": "DNA" ,
           "method": "NOT_APPLICABLE" ,
           "sampleId": "LP3001615-DNA_H01" ,
-          "storageMedium": "FF" ,
-          "source": "TISSUE" ,
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample" ,
           "labSampleId": "1034869066" ,
           "participantId": "p20210200017" ,
@@ -80,7 +80,7 @@
           "programmePhase": "MAIN" ,
           "clinicalSampleDateTime": "2019-03-29T00:00:00+0000" ,
           "participantUid": "cde0c0e5-c769-4909-a275-1b9f4bbbae9c" ,
-          "sampleState": "tissue_freshFrozen"
+          "sampleState": "blood_unsorted_edta"
         }
       ] ,
       "referralTestOrderingDate": {
@@ -122,11 +122,11 @@
       "tumourSamples": [
         {
           "product": "DNA" ,
-          "method": "ASPIRATE" ,
+          "method": "NOT_APPLICABLE" ,
           "sampleId": "LP3001616-DNA_D02" ,
           "storageMedium": "EDTA" ,
           "haematologicalCancer": true ,
-          "source": "BONE_MARROW_ASPIRATE_TUMOUR_CELLS" ,
+          "source": "BLOOD" ,
           "sampleType": "Liquid tumour sample" ,
           "labSampleId": "1034844971" ,
           "tumourId": "RP4_19M0650" ,
@@ -138,7 +138,7 @@
           "haematologicalCancerLineage": "MYELOID" ,
           "participantUid": "cde0c0e5-c769-4909-a275-1b9f4bbbae9c" ,
           "tumourContent": "High" ,
-          "sampleState": "boneMarrow_unsorted_edta"
+          "sampleState": "blood_unsorted_edta"
         }
       ] ,
       "referralTestId": "2C2ZWWW90A84"

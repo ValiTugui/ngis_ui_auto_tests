@@ -11,7 +11,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "M46"
+            "specificDisease": "M110"
           }
         ],
         "affectionStatus": "AFFECTED",
@@ -60,18 +60,18 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
     "clinicalIndicationVersionNumber": "bio_v2.0.0",
-    "clinicalIndicationCode": "M46",
-    "clinicalIndicationFullName": "Chondrosarcoma Conventional Central"
+    "clinicalIndicationCode": "M110",
+    "clinicalIndicationFullName": "Paediatric Type Follicular Lymphoma"
   },
   "referralTests": [
     {
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "BIOPSY",
+          "method": "NOT_APPLICABLE",
           "sampleId": "LP3001388-DNA_B05",
-          "storageMedium": "FF",
-          "source": "FIBROBLAST",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1024916684",
           "participantId": "p20210200020",
@@ -80,7 +80,7 @@
           "programmePhase": "MAIN",
           "clinicalSampleDateTime": "2016-11-23T00:00:00+0000",
           "participantUid": "b2303eb7-6ef2-4fd7-ba66-d06fcf46521b",
-          "sampleState": "fibroblast_freshFrozen"
+          "sampleState": "blood_unsorted_edta"
         }
       ],
       "referralTestOrderingDate": {
@@ -122,7 +122,7 @@
       "tumourSamples": [
         {
           "product": "DNA",
-          "method": "RESECTION",
+          "method": "BIOPSY",
           "sampleId": "LP3001379-DNA_B06",
           "storageMedium": "FF",
           "haematologicalCancer": false,

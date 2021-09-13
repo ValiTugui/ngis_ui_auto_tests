@@ -11,7 +11,7 @@
         "sex": "FEMALE" ,
         "disorderList": [
           {
-            "specificDisease": "M80"
+            "specificDisease": "M38"
           }
         ] ,
         "affectionStatus": "AFFECTED" ,
@@ -70,18 +70,18 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template" ,
     "clinicalIndicationVersionNumber": "template" ,
-    "clinicalIndicationCode": "M80" ,
-    "clinicalIndicationFullName": "Acute Myeloid Leukaemia"
+    "clinicalIndicationCode": "M38" ,
+    "clinicalIndicationFullName": "Pituitary Tumours"
   } ,
   "referralTests": [
     {
       "germlineSamples": [
         {
           "product": "DNA" ,
-          "method": "ASPIRATE" ,
+          "method": "NOT_APPLICABLE" ,
           "sampleId": "LP3001150-DNA_H11" ,
           "storageMedium": "EDTA" ,
-          "source": "BONE_MARROW" ,
+          "source": "BLOOD" ,
           "sampleType": "Normal or Germline sample" ,
           "labSampleId": "1032811317" ,
           "participantId": "p20210200005" ,
@@ -90,7 +90,7 @@
           "programmePhase": "MAIN" ,
           "clinicalSampleDateTime": "2018-01-16T00:00:00+0000" ,
           "participantUid": "fa3418dd-5e1e-42e2-b840-ffadda9cd17f" ,
-          "sampleState": "boneMarrow_unsorted_edta"
+          "sampleState": "blood_unsorted_edta"
         }
       ] ,
       "referralTestOrderingDate": {

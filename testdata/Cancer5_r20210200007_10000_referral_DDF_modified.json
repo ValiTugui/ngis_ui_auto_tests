@@ -11,7 +11,7 @@
         "sex": "MALE",
         "disorderList": [
           {
-            "specificDisease": "M99"
+            "specificDisease": "M23"
           }
         ],
         "affectionStatus": "AFFECTED",
@@ -70,8 +70,8 @@
   "clinicalIndication": {
     "clinicalIndicationUid": "template",
     "clinicalIndicationVersionNumber": "template",
-    "clinicalIndicationCode": "M99",
-    "clinicalIndicationFullName": "High Grade Lymphoma"
+    "clinicalIndicationCode": "M23",
+    "clinicalIndicationFullName": "Diffuse Midline Glioma - Adult"
   },
   "referralTests": [
     {
@@ -80,8 +80,8 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000430-DNA_B09",
-          "storageMedium": "ORAGENE",
-          "source": "SALIVA",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1023912247",
           "participantId": "p20210200007",
@@ -90,7 +90,7 @@
           "programmePhase": "MAIN",
           "clinicalSampleDateTime": "2017-05-18T00:00:00+0000",
           "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
-          "sampleState": "saliva_oragene"
+          "sampleState": "blood_unsorted_edta"
         }
       ],
       "referralTestOrderingDate": {
@@ -139,14 +139,14 @@
           "product": "DNA",
           "method": "NOT_APPLICABLE",
           "sampleId": "LP3000428-DNA_C12",
-          "storageMedium": "FF",
+          "storageMedium": "EDTA",
           "sampleTopographies": [
             {
               "id": "SCTID:59441001"
             }
           ],
           "haematologicalCancer": true,
-          "source": "TUMOUR",
+          "source": "BLOOD",
           "sampleType": "Liquid tumour sample",
           "labSampleId": "1026346233",
           "tumourContentPercentage": 91.6,
@@ -159,7 +159,7 @@
           "haematologicalCancerLineage": "LYMPHOID",
           "participantUid": "a36daa2e-a100-44b9-8f44-ba7a7a6f8d99",
           "tumourContent": "High",
-          "sampleState": "tumour_unsorted_freshFluid"
+          "sampleState": "blood_unsorted_edta"
         }
       ],
       "referralTestId": "81WQFZIKVR6N"

@@ -70,8 +70,8 @@
           "product": "DNA" ,
           "method": "NOT_APPLICABLE" ,
           "sampleId": "LP3000238-DNA_E04" ,
-          "storageMedium": "FF" ,
-          "source": "FRESH_TISSUE_IN_CULTURE_MEDIUM" ,
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample" ,
           "labSampleId": "1021977455" ,
           "participantId": "p20210200021" ,
@@ -80,7 +80,7 @@
           "programmePhase": "MAIN" ,
           "clinicalSampleDateTime": "2016-07-27T00:00:00+0000" ,
           "participantUid": "5952a5cb-f0cd-41fb-8cdc-a0e4dcf32c8d" ,
-          "sampleState": "tissueInCultureMedium_freshFrozen"
+          "sampleState": "blood_unsorted_edta"
         }
       ] ,
       "referralTestOrderingDate": {
@@ -122,7 +122,7 @@
       "tumourSamples": [
         {
           "product": "DNA" ,
-          "method": "RESECTION" ,
+          "method": "BIOPSY" ,
           "sampleId": "LP3000241-DNA_H11" ,
           "storageMedium": "FF" ,
           "haematologicalCancer": false ,
