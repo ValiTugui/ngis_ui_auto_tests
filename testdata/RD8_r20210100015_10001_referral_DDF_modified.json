@@ -280,10 +280,10 @@
       "germlineSamples": [
         {
           "product": "DNA",
-          "method": "BIOPSY",
+          "method": "NOT_APPLICABLE",
           "sampleId": "LP3000436-DNA_A12",
-          "storageMedium": "FF",
-          "source": "FIBROBLAST",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1025109834",
           "participantId": "111002813",
@@ -291,14 +291,14 @@
           "maskedPid": "IDUOPHSW-F3CB-T53Q-63E6-KZRYOIS8ZH74",
           "programmePhase": "MAIN",
           "participantUid": "0cfc202c-b71b-49ec-8aa2-46d63ff79e5f",
-          "sampleState": "fibroblast_freshFrozen"
+          "sampleState": "blood_unsorted_edta"
         },
         {
           "product": "DNA",
-          "method": "ASPIRATE",
+          "method": "NOT_APPLICABLE",
           "sampleId": "LP3000453-DNA_F04",
           "storageMedium": "EDTA",
-          "source": "BONE_MARROW",
+          "source": "BLOOD",
           "sampleType": "Normal or Germline sample",
           "labSampleId": "1025109773",
           "participantId": "111002812",
@@ -306,7 +306,7 @@
           "maskedPid": "IUDU576D-0WGS-KCX3-TDO4-Q3X49CN1G9CJ",
           "programmePhase": "MAIN",
           "participantUid": "8925c859-dde3-4f18-85c6-28459ef3cca9",
-          "sampleState": "boneMarrow_unsorted_edta"
+          "sampleState": "blood_unsorted_edta"
         },
         {
           "product": "DNA",
