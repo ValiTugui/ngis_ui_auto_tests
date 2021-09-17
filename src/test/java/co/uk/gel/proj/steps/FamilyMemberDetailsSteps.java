@@ -723,5 +723,16 @@ public class FamilyMemberDetailsSteps extends Pages {
             Assert.fail("Relationship to proband is not selected as before");
         }
     }
+
+    @And("the user should not see the deleted family member on the landing page")
+    public void theUserShouldNotSeeTheDeletedFamilyMemberOnTheLandingPage() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.NoeditFamilyMemberBtnDisplayed();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_EditFamilyMemberBtnDisplayed.jpg");
+            Assert.fail("Edit button for Family member displayed");
+        }
+    }
+
 }
 //end

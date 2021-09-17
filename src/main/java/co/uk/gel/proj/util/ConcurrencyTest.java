@@ -14,7 +14,11 @@ public class ConcurrencyTest {
        if(referral_base_url == null){
            checkReferralId(filePrefix);
            if(referral_id != null && !referral_id.isEmpty()){
-               referral_base_url = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/"+referral_id;
+               if (System.getProperty("TestEnvironment").equalsIgnoreCase("qa")) {
+                   referral_base_url = "https://qa.build.ngis.io/test-order/referral/" + referral_id;
+               } else {
+                   referral_base_url = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/" + referral_id;
+               }
            }
        }
         return referral_base_url;
