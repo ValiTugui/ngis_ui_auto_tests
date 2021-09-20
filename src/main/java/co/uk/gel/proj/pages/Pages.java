@@ -269,9 +269,22 @@ public class Pages implements Navigable {
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
                 }else if(userType.startsWith(concurrentUser1) ||
-                        userType.startsWith(concurrentUser2)){
-                    Debugger.println("Concurrent User... Logging to TestOrder");
-                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                        userType.startsWith(concurrentUser2) || userType.startsWith(concurrentUser3)) {
+                    String userEmail = "";
+                    if (userType.startsWith(concurrentUser1)) {
+                        userEmail = AppConfig.getConcurrent_user1_username();
+                    } else if (userType.startsWith(concurrentUser2)) {
+                        userEmail = AppConfig.getConcurrent_user2_username();
+                    } else {
+                        userEmail = AppConfig.getConcurrent_user3_username();
+                    }
+                    if (userEmail.contains("nhs.net")) {
+                        Debugger.println("Concurrent User... Logging to TestOrder as NHS user");
+                        referralPage.loginToTestOrderingSystemAsNHSUser(driver, userType);
+                    } else {
+                        Debugger.println("Concurrent User... Logging to TestOrder as Standard user");
+                        patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                    }
                 }
             }else{
                 if(userType.startsWith(concurrentUser1) ||

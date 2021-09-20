@@ -1625,4 +1625,19 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
+
+    public boolean NoeditFamilyMemberBtnDisplayed() {
+        try {
+            if (!seleniumLib.isElementPresent(editButtonForParticipant)) {
+                Debugger.println("No Family member available as expected, edit icon is not displayed as expected");
+                return true;
+            }
+            Debugger.println("The family member is not deleted, the edit icon is still displayed");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Exception from editing family member" + exp);
+            return false;
+        }
+
+    }
 }
