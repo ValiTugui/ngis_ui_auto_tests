@@ -6,7 +6,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
   # @E2EUI-905
   Scenario Outline: NTS-3347 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Paediatric Type Follicular Lymphoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     ##Requesting Organisation
     And the user navigates to the "<requestingOrganisation>" stage
 #    And the "<patientDetails>" stage is marked as Completed
