@@ -5,7 +5,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import io.cucumber.java.af.Wanneer;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -302,7 +301,7 @@ public class DashBoardPage {
                     nhsTabs.get(3).click();
                     url = driver.getCurrentUrl();
 //                    Debugger.println("Current URL " + url);
-                    if (!url.contains("cipapi-gms-test")){
+                    if (!url.contains("cipapi-gms")) {
                         Debugger.println("the user in wrong page : "+url);
                         return false;
                     }
@@ -326,7 +325,7 @@ public class DashBoardPage {
                     SeleniumLib.sleepInSeconds(2);
                     url = driver.getCurrentUrl();
 //                    Debugger.println("Current URL " + url);
-                    if (!url.contains("entity-admin-tool")){
+                    if (!url.contains("admin-tool")) {
                         Debugger.println("the user in wrong page : "+url);
                         return false;
                     }
