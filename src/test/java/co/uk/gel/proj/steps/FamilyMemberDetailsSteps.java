@@ -710,7 +710,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RelationshipToProbandjpg");
             Assert.fail("RelationshipToProband not clickable");
-
         }
     }
 
@@ -734,5 +733,4 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
     }
 
-}
-//end
+}//end

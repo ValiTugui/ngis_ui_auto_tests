@@ -21,7 +21,7 @@
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
         <forkCount>4</forkCount>
-        <reportName>E2Etest</reportName>
+        <reportName>TOMSUItest</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
         <browser>Chrome</browser>
         <browserVersion>70</browserVersion>

@@ -241,7 +241,6 @@ public class PatientDetailsPage {
     public WebElement addressField;
 
     @FindBy(xpath = "//input[@name='administrativeGender']/../div")
-
     public WebElement genderPath;
 
 
@@ -2350,6 +2349,42 @@ public class PatientDetailsPage {
             return false;
         }
     }
+
+    public boolean verifyPostCodeErrorMessage(String expMessage) {
+        try {
+            Actions.clickElement(driver, driver.findElement(By.xpath("//label[text()='Postcode']")));
+            WebElement postCodeFieldError = driver.findElement(By.xpath("//div[text()='This postcode is not in a valid format']"));
+            if (!Wait.isElementDisplayed(driver, postCodeFieldError, 20)) {
+                Debugger.println("The Post Code field error message not displayed");
+                return false;
+            }
+            String actualPostcodeErrorMessage = postCodeFieldError.getText();
+            if (!actualPostcodeErrorMessage.equalsIgnoreCase(expMessage)) {
+                Debugger.println("The postcode field expected error is:" + expMessage + " But actual is:" + actualPostcodeErrorMessage);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking the postcode error message:" + exp);
+            return false;
+        }
+    }
+
+    public boolean verifyNoMergeWarningNotificationBannerDisplayed() {
+        try {
+            if (!Wait.isElementDisplayed(driver, textOnPatientDetailsNotificationBanner, 10)) {
+                Debugger.println("textOnPatientDetailsNotificationBanner not loaded.");
+                SeleniumLib.takeAScreenShot("textOnPatientDetailsNotificationBanner.jpg");
+                return true;
+            }
+            return false;
+        } catch (Exception exp1) {
+            Debugger.println("Exception from checking textOnPatientDetailsNotificationBanner:" + exp1);
+            SeleniumLib.takeAScreenShot("textOnPatientDetailsNotificationBanner.jpg");
+            return false;
+        }
+    }
+
     //From JSON data for JSON Framework
     public boolean fillInPatientDetailsFromJson(String caseType,String reason, Referral referralObject) {
         try {
@@ -2436,38 +2471,4 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean verifyPostCodeErrorMessage(String expMessage) {
-        try {
-            Actions.clickElement(driver, driver.findElement(By.xpath("//label[text()='Postcode']")));
-            WebElement postCodeFieldError = driver.findElement(By.xpath("//div[text()='This postcode is not in a valid format']"));
-            if (!Wait.isElementDisplayed(driver, postCodeFieldError, 20)) {
-                Debugger.println("The Post Code field error message not displayed");
-                return false;
-            }
-            String actualPostcodeErrorMessage = postCodeFieldError.getText();
-            if (!actualPostcodeErrorMessage.equalsIgnoreCase(expMessage)) {
-                Debugger.println("The postcode field expected error is:" + expMessage + " But actual is:" + actualPostcodeErrorMessage);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from checking the postcode error message:" + exp);
-            return false;
-        }
-    }
-
-    public boolean verifyNoMergeWarningNotificationBannerDisplayed() {
-        try {
-            if (!Wait.isElementDisplayed(driver, textOnPatientDetailsNotificationBanner, 10)) {
-                Debugger.println("textOnPatientDetailsNotificationBanner not loaded.");
-                SeleniumLib.takeAScreenShot("textOnPatientDetailsNotificationBanner.jpg");
-                return true;
-            }
-            return false;
-        } catch (Exception exp1) {
-            Debugger.println("Exception from checking textOnPatientDetailsNotificationBanner:" + exp1);
-            SeleniumLib.takeAScreenShot("textOnPatientDetailsNotificationBanner.jpg");
-            return false;
-        }
-    }
 }//end

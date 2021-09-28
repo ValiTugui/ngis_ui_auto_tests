@@ -38,7 +38,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     static Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
-
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -307,7 +306,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             badge = patientCardBadge.getText();
             return badge.trim();
-
         } catch (Exception exp) {
             try {
                 badge = seleniumLib.getText(patientCardBadge);
@@ -1341,28 +1339,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    //From JSON for JSON Framework
-    public boolean searchParticipantFromJson(String nhs,String day,String month,String year) {
-        try {
-            Wait.forElementToBeDisplayed(driver, nhsNumber);
-            testData.setNhsNumber(nhs);
-            testData.setDay(day);
-            testData.setMonth(month);
-            testData.setYear(year);
-            //Enter the values to teh search fields
-            nhsNumber.sendKeys(testData.getNhsNumber());
-            dateDay.sendKeys(testData.getDay());
-            dateMonth.sendKeys(testData.getMonth());
-            dateYear.sendKeys(testData.getYear());
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from searchParticipantFromJson:" + exp);
-            return false;
-        }
-    }
-
     public boolean checkMergeStatusIsDisplayed(String badgeText) {
-
         try {
             if (!Wait.isElementDisplayed(driver, patientCard, 30)) {
                 Debugger.println("Expected Patient card not displayed." + driver.getCurrentUrl());
@@ -1436,5 +1413,26 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
+    //From JSON for JSON Framework
+    public boolean searchParticipantFromJson(String nhs,String day,String month,String year) {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            testData.setNhsNumber(nhs);
+            testData.setDay(day);
+            testData.setMonth(month);
+            testData.setYear(year);
+            //Enter the values to teh search fields
+            nhsNumber.sendKeys(testData.getNhsNumber());
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from searchParticipantFromJson:" + exp);
+            return false;
+        }
+    }
+
 }//end
 

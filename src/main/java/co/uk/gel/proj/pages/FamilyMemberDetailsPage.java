@@ -1607,7 +1607,7 @@ public class FamilyMemberDetailsPage {
         } catch (Exception e) {
             return false;
         }
-}//ends
+}
 
     public boolean verifyDisplayedRelationshipToProband(String expectedRelation) {
 
@@ -1638,6 +1638,6 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Exception from editing family member" + exp);
             return false;
         }
-
     }
+
 }

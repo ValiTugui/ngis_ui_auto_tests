@@ -537,6 +537,7 @@ public class TestUtils {
 
         }
     }
+
     public static boolean writeToFile (String fileName,String dataToWrite) {
         try {
             FileWriter file = new FileWriter(defaultDownloadLocation+fileName, true);
@@ -611,6 +612,7 @@ public class TestUtils {
             return null;
         }
     }
+
      // to convert JSON data from all upper case to 1st char in UpperCase and remaining lower case.
     public static String convertUpperCaseJSONDataToProperFormat(String inputText) {
         char firstChar=inputText.charAt(0);

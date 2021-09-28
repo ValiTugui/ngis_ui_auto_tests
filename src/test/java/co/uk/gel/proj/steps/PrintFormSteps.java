@@ -404,7 +404,6 @@ public class PrintFormSteps extends Pages {
         }
     }
 
-
     @And("the user is able to download print form for the proband and verify the {string} in the {string}")
     public void theUserIsAbleToDownloadPrintFormForTheProbandAndVerifyTheInThe(String text, String fileName) {
         boolean testResult = false;

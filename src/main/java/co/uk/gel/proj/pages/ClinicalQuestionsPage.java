@@ -1278,13 +1278,11 @@ public class ClinicalQuestionsPage {
                 } else {
                     paramValue = paramValue.replace("[", "");
                     paramValue = paramValue.replace("]", "");
-
 //                Debugger.println("The params are-" + paramValue);
                     String[] hpoData = paramValue.split("-");
                     String hpoTerm = hpoData[0];
                     String hpoPresence = hpoData[1];
                     Debugger.println("Selecting the hpo--" + hpoTerm + ";" + hpoPresence);
-
                     if (!(searchAndSelectRandomHPOPhenotype(hpoTerm) > 0)) {
                         isFilled = isHPOAlreadyConsidered(hpoTerm);
                     } else {

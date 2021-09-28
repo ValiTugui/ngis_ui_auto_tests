@@ -447,7 +447,6 @@ public class NeatPatientRecordPage {
         }
     }
 
-
     public boolean validateMergeStatus(String status) {
         try {
             if (!Wait.isElementDisplayed(driver, mergeStatus, 5)) {
