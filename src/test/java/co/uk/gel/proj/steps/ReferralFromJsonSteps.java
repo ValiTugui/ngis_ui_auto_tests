@@ -96,7 +96,6 @@ public class ReferralFromJsonSteps extends Pages {
         if (!paperFormPage.clickSignInToTheOnlineServiceButton()) {
             Assert.fail("Could not click on SignInToTheOnlineServiceButton");
         }
-        //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         Debugger.println(" User Type : " + userType);
         if (userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
@@ -106,19 +105,16 @@ public class ReferralFromJsonSteps extends Pages {
         if (!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()) {
             Assert.fail("Patient Search Page not displayed properly.");
         }
-        String yearOfBirth;//= referralObject.getCancerParticipant().getYearOfBirth().toString();
-//        if (yearOfBirth == null) {
-//            Debugger.println("The Json is for RD patient... reading YOB...  ");
+        String yearOfBirth;
         List<Integer> probandMemberNum = memberDetails(referralObject, "Proband");
         if (probandMemberNum == null) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NoProband.jpg");
             Assert.fail("Could not get member details from JSON.");
         }
-        Debugger.println("The position of proband member participant is " + probandMemberNum.toString());
+        Debugger.println("The position of proband member participant is- " + probandMemberNum.toString());
         PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
         yearOfBirth = String.valueOf(probandMember.getYearOfBirth());
-        Debugger.println("The value for YOB is " + yearOfBirth);
-//        }
+        Debugger.println("The value for YOB is- " + yearOfBirth);
         if (!patientSearchPage.searchParticipantFromJson(RandomDataCreator.generateRandomNHSNumber(), "01", "01", yearOfBirth)) {
             Assert.fail("Could not fill the patient search information.");
         }
@@ -139,7 +135,6 @@ public class ReferralFromJsonSteps extends Pages {
         if (!patientDetailsPage.newPatientPageIsDisplayed()) {
             Assert.fail("New Patient creation page not displayed properly.");
         }
-        // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         Debugger.println("USER TYPE: " + userType);
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
@@ -170,7 +165,7 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RefCreateMsg.jpg");
             Assert.fail("Could not verify the successful creation of referral.");
         }
-        //To log the ReferralI in the Log.
+        //To log the ReferralId in the Log.
         referralPage.logTheReferralId();
         if (!referralPage.saveAndContinueButtonIsDisplayed()) {
             Assert.fail("Save and Continue button not displayed after Referral Creation.");
@@ -287,7 +282,6 @@ public class ReferralFromJsonSteps extends Pages {
         //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
         Wait.seconds(5);
         if (!caseType.equalsIgnoreCase("Cancer")) {
-//            int numberOfTestParticipants = getNumberOfParticipantsFromJson(referralObject);
             List<Integer> positionOfTestParticipants = getPositionOfParticipantsFromJson(referralObject);
             Debugger.println("Non-Proband test participants- " + positionOfTestParticipants);
             if (positionOfTestParticipants == null) {
@@ -314,7 +308,6 @@ public class ReferralFromJsonSteps extends Pages {
             Assert.fail("Could not save Test package.");
         }
         if (caseType.equalsIgnoreCase("Cancer")) {
-
             testResult = referralPage.navigateToStage(stageName);
             if (!testResult) {
                 SeleniumLib.takeAScreenShot("Ref_TestPackage.jpg");
@@ -350,7 +343,6 @@ public class ReferralFromJsonSteps extends Pages {
                     }
                 }
             }
-            // add 1 for Proband
             return positionOfTestParticipants;
         } catch (Exception exp) {
             Debugger.println("Exception from getting number of test participants from Json: " + exp);
@@ -409,11 +401,7 @@ public class ReferralFromJsonSteps extends Pages {
             }
 
             String tumourType = String.valueOf(referralObject.getCancerParticipant().getTumours().get(i).getTumourType());
-//            tumourType=tumourType.replace("_"," ");
-//            char firstChar=tumourType.charAt(0);
-//            int length=tumourType.length();
-//            String tumourTypeWithoutFirstChar=tumourType.substring(1,length);
-//            String newTumourType=firstChar+tumourTypeWithoutFirstChar.toLowerCase();
+            // tumour type name text conversion
             String newTumourType = tumourTypeToDropDownOptionConversion(tumourType);
             Debugger.println("The converted tumour type as per dropdown is: " + newTumourType);
             String tumour = tumoursPage.selectTumourType(newTumourType);
@@ -425,7 +413,7 @@ public class ReferralFromJsonSteps extends Pages {
             if (tumoursPage.fillInSpecimenID(specimenLabId) == null) {
                 Assert.fail("Could not fill Histopathology or SIHMDS Lab ID.");
             }
-            Wait.seconds(5);//Observed timeout in next step, so introducing a wait of 5 seconds.
+            Wait.seconds(5);//Observed time out in next step, so introducing a wait of 5 seconds.
             testResult = referralPage.clickSaveAndContinueButton();
             if (!testResult) {
                 SeleniumLib.takeAScreenShot("Ref_Tumours.jpg");
@@ -810,7 +798,7 @@ public class ReferralFromJsonSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
             Assert.fail("Page title- Print sample forms not present.");
         }
-        //steps to download sample form and verify details.
+        //steps to download sample form and verify details, not required for now.
 //        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
 //            Debugger.println("Downloading and verifying PrintForm PDF content...");
 //
@@ -1103,11 +1091,8 @@ public class ReferralFromJsonSteps extends Pages {
                 familyMemberDetails.add(clinicalQuesAnswers);
                 Debugger.println("The single family member details are- " + familyMemberDetails);
                 familyParticipants.add(familyMemberDetails);
-//                familyDetails.add(familyMemberDetails);
             }
             Debugger.println("The family participants details to be updated are- " + familyParticipants);
-//            Debugger.println("The family details are " + familyDetails.toString());
-//            enterFamilyMembersForRDReferral(familyDetails);
             enterFamilyMembersForRDReferral(familyParticipants);
         }
         familyDetails = familyParticipants;
@@ -1428,12 +1413,6 @@ public class ReferralFromJsonSteps extends Pages {
                 }
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
             }
-
-//            testResult = patientChoicePage.clickOnSaveAndContinueButton();
-//            if (!testResult) {
-//                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PCSaveAndContinue");
-//                Assert.fail("Could not click on Save and Continue.");
-//            }
             testResult = referralPage.verifyThePageTitlePresence("Patient choice");
             if (!testResult) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TitleNotDisplayed.jpg");
