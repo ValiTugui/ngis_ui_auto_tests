@@ -6,6 +6,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
@@ -1602,7 +1603,6 @@ public class PedigreePage {
 
     private boolean addNonNGISParentNodeToMaleProband() {
         boolean diagramClicked = false;
-        boolean zoomOutFlag = false;
         try {
             By male_node = null;
             male_node = By.xpath("//*[name()='rect'][@class='pedigree-node-shadow']");
@@ -1613,19 +1613,19 @@ public class PedigreePage {
             } catch (MoveTargetOutOfBoundsException mtobe) {
                 By ZoomOut = By.xpath("//div[@title='Zoom out']");
                 seleniumLib.clickOnElement(ZoomOut);
-                if (!zoomOutFlag) {
-                    zoomOutFlag = true;
-                }
+                seleniumLib.moveMouseAndClickOnElement(male_node);
+                diagramClicked = true;
             }
             //Click On Parent Node, after clicking the Proband Node
             if (!diagramClicked) {
-                Debugger.println("Could find the Pedigree node for Proband");
+                Debugger.println("Could Not find the Pedigree node for Proband");
                 return diagramClicked;
             }
             try {
                 By parentNode = By.xpath("//*[name()='ellipse']");
                 Debugger.println("Parent Node - " + parentNode);
                 seleniumLib.clickOnElement(parentNode);
+                diagramClicked = true;
             } catch (Exception exp) {
                 Debugger.println("Could not click on Parent Node.");
                 diagramClicked = false;
@@ -1744,15 +1744,14 @@ public class PedigreePage {
             String motherId = patient.getNON_NGIS_ID2();
             File fileName = new File("Non-NgisMembers.txt");
             if (fileName.exists()) {
-                String nonNgisParticipantFileData = SeleniumLib.readTextFileInLines(fileName.getName());
-//            if (nonNgisParticipantFileData != null && !nonNgisParticipantFileData.isEmpty()) {
+                String nonNgisParticipantFileData = TestUtils.readTextFileInLines(fileName.getName());
                 if (nonNgisParticipantFileData.contains(fatherId) || nonNgisParticipantFileData.contains(motherId)) {
                     return "FAILURE: Non NGIS participants Id already exist in another referral. Father- " + fatherId + "; Mother- " + motherId;
                 } else {
-                    SeleniumLib.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
+                    TestUtils.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
                 }
             } else {
-                SeleniumLib.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
+                TestUtils.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
             }
             return "Success";
         } catch (Exception exp) {

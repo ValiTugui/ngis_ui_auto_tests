@@ -1,10 +1,8 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.BrowserConfig;
-import co.uk.gel.models.ReferralDataModel;
 import co.uk.gel.models.ReferralID;
 import co.uk.gel.models.Referrals;
-import co.uk.gel.models.ReferralsList;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.google.gson.*;
@@ -20,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -28,8 +25,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkArgument;
 
 public class SeleniumLib {
 
@@ -937,84 +932,6 @@ public class SeleniumLib {
             return headersList;
         } catch (Exception exp) {
             Debugger.println("Exception from scrolling table:" + exp);
-            return null;
-        }
-    }
-
-    public static void writeToTextFileOfName (String fileName,String dataToWrite) {
-        try {
-            FileWriter file = new FileWriter(fileName, true);
-            file.write(dataToWrite);
-            file.close();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeToJsonFileOfName(String fileName, String caseType, String referralIdData, List<String> sampleWellIdList,String probandID) {
-        try {
-            File jsonFile = new File(fileName);
-            JsonParser parser = new JsonParser();
-            Iterator<JsonElement> iterator;
-            ReferralsList referralsList = new ReferralsList();
-            FileWriter fileWriter; //= new FileWriter(fileName, false);
-            JsonWriter jWriter;//= new JsonWriter(fileWriter);
-            Gson gson = new Gson();
-
-            if (!jsonFile.exists()) {
-                jsonFile.createNewFile();
-                System.out.println(" Creating file..........");
-            } else {
-                System.out.println(" File exists..........");
-                Object obj = parser.parse(new FileReader(fileName));
-//                System.out.println("The current file contents as object-" + obj.toString());
-                JsonObject jObject = (JsonObject) obj;
-                Debugger.println("The current file contents as Json Object-" + jObject);
-                JsonArray existingData = (JsonArray) jObject.get("referralsList");
-                iterator = existingData.iterator();
-                while (iterator.hasNext()) {
-                    referralsList.addReferralsInList(gson.fromJson(iterator.next().toString(), ReferralDataModel.class));
-                }
-            }
-
-            fileWriter = new FileWriter(fileName, false);
-            jWriter = new JsonWriter(fileWriter);
-        /// Sort the data in proper Format
-            ReferralDataModel newReferralData = new ReferralDataModel();
-            newReferralData.setCaseType(caseType);
-            newReferralData.setReferralId(referralIdData);
-            newReferralData.setProbandId(probandID);
-            newReferralData.setSampleWellIdList(sampleWellIdList);
-
-            referralsList.addReferralsInList(newReferralData);
-            //Writing in the file
-            gson.toJson(referralsList, ReferralsList.class, jWriter);
-            fileWriter.close();
-        } catch (Exception exp) {
-            Debugger.println("Exception from Writing to JSON file: "+exp);
-        }
-    }
-
-    public static String readTextFileInLines (String fileName) {
-        try
-        {
-            File file = new File(fileName);
-            System.out.println(file.getAbsolutePath());
-            FileReader fileRdr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fileRdr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-            }
-            br.close();
-            fileRdr.close();
-            return sb.toString();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

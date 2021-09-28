@@ -1457,7 +1457,7 @@ public class ReferralFromJsonSteps extends Pages {
             List<String> sampleWellIdList = getSampleWellIdFromJson(caseType);
             Debugger.println("Samples list- " + sampleWellIdList);
             String referralID = caseType + " --> " + referralIdData + "\n";
-            SeleniumLib.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList, probandID);
+            TestUtils.writeToJsonFileOfName("JsonReferrals.json", caseType, referralIdData, sampleWellIdList, probandID);
             Debugger.println(referralID);
 //        SeleniumLib.writeToTextFileOfName("JsonReferralID.txt",referralID);
             Assert.assertTrue("JSON file with referral Id, case type, sample well details created successfully.", true);

@@ -4,6 +4,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,10 +72,12 @@ public class NgisStatusPage {
                 SeleniumLib.takeAScreenShot("VersionTableError.jpg");
                 return ("The NGIS status page title is not displayed.");
             }
+            String component = "";
+            String version = "";
             for (WebElement dataRow : versionTableRows) {
-                String rowData = dataRow.getText();
-                String component = dataRow.findElement(By.xpath("./td[1]")).getText();
-                String version = dataRow.findElement(By.xpath("./td[2]")).getText();
+//                String rowData = dataRow.getText();
+                component = dataRow.findElement(By.xpath("./td[1]")).getText();
+                version = dataRow.findElement(By.xpath("./td[2]")).getText();
                 componentVersionMap.put(component, version);
             }
             Debugger.println("The list of versions from status page- " + componentVersionMap);
@@ -95,7 +98,7 @@ public class NgisStatusPage {
             Arrays.stream(requiredComponentsVersion).forEach(key -> {
                 String versionValue = componentVersionMap.get(key);
                 String dataToWrite = key + " = " + versionValue + System.lineSeparator();
-                SeleniumLib.writeToTextFileOfName(fileName, dataToWrite);
+                TestUtils.writeToTextFileOfName(fileName, dataToWrite);
             });
             return "Success";
         } catch (Exception exp) {
