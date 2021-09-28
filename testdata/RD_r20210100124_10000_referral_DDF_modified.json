@@ -1,0 +1,287 @@
+{
+  "pedigree": {
+    "familyId": "r20210100124",
+    "members": [
+      {
+        "participantId": "0",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "PQF39H78-LI8B-W69Z-QMQ5-GVBT3GK7N4ES",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1621474,
+        "yearOfBirth": 1000
+      },
+      {
+        "participantId": "1",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "7JOBFHCW-SCPX-1CVJ-AD06-M2GLRPPKR3LD",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1621475,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": true,
+        "sex": "FEMALE",
+        "disorderList": [
+          {
+            "specificDisease": "R198"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100712"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000407"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0008277"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0004341"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0008200"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100512"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001891"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000939"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000848"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0007333"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001997"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0004360"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0200114"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001942"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002153"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000044"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002900"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000821"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100735"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001937"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100817"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0004944"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000062"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0011772"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "111002550",
+        "motherId": 1621475,
+        "personKaryotypicSex": "XO",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1621474,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "I4VJHJCK-SU24-DLKC-GSD8-URSMYL8ORA8K",
+        "pedigreeId": 1621476,
+        "yearOfBirth": 1979
+      }
+    ],
+    "readyForAnalysis": true,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  },
+  "requester": {
+    "organisationName": "University Hospitals Leicester NHS Trust",
+    "organisationId": "template",
+    "organisationCode": "RWE",
+    "organisationNationalGroupingName": "University Hospitals Leicester NHS Trust",
+    "organisationNationalGroupingId": "RWE"
+  },
+  "orderingDate": {
+    "month": 2,
+    "year": 2021,
+    "day": 23
+  },
+  "referralId": "r20210100124",
+  "referralUid": "790e7bb2-2bda-4e1a-9c92-38f52ddbf960",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationCode": "R198",
+    "clinicalIndicationFullName": "Renal tubulopathies"
+  },
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "panelId": "126",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R198",
+          "panelName": "Hearing loss",
+          "panelVersion": "2.149"
+        },
+        {
+          "panelId": "650",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R198",
+          "panelName": "Hypogonadotropic hypogonadism idiopathic",
+          "panelVersion": "1.11"
+        },
+        {
+          "panelId": "149",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R198",
+          "panelName": "Nephrocalcinosis or nephrolithiasis",
+          "panelVersion": "2.16"
+        },
+        {
+          "panelId": "309",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R198",
+          "panelName": "Skeletal dysplasia",
+          "panelVersion": "2.83"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000275-DNA_G07",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1025109635",
+          "participantId": "111002550",
+          "sampleUid": "WHG2J4VD-WJPA-9G64-S5TD-U7SA342VWYI0",
+          "maskedPid": "I4BR4LF0-NKLG-HAXV-EWR4-0UOJNQM5WU3T",
+          "programmePhase": "MAIN",
+          "participantUid": "I4VJHJCK-SU24-DLKC-GSD8-URSMYL8ORA8K",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+      },
+      "processingLab": {
+        "organisationName": "University Hospitals Leicester NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "RWE",
+        "organisationNationalGroupingName": "University Hospitals Leicester NHS Trust",
+        "organisationNationalGroupingId": "RWE"
+      },
+      "interpreter": {
+        "organisationName": "University Hospitals Leicester NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "RWE",
+        "organisationNationalGroupingName": "University Hospitals Leicester NHS Trust",
+        "organisationNationalGroupingId": "RWE"
+      },
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "routine",
+      "referralTestId": "WZI1BHLY3L8X",
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R198",
+          "penetrance": "incomplete"
+        }
+      ]
+    }
+  ]
+}

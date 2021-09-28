@@ -70,6 +70,8 @@ public class Pages implements Navigable {
     protected KibanaPage kibanaPage;
     protected DataDogPage dataDogPage;
 
+    protected NgisStatusPage statusPage;
+
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
         PageObjects();
@@ -117,6 +119,9 @@ public class Pages implements Navigable {
         neatPatientRecordPage           = PageFactory.initElements(driver,NeatPatientRecordPage.class);
         kibanaPage                      = PageFactory.initElements(driver,KibanaPage.class);
         dataDogPage                     = PageFactory.initElements(driver, DataDogPage.class);
+
+        ///Status page for app versions
+        statusPage                      = PageFactory.initElements(driver, NgisStatusPage.class);
     }
 
     @Override

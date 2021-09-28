@@ -10,6 +10,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.File;
 import java.util.List;
 
 public class PedigreePage {
@@ -121,6 +123,8 @@ public class PedigreePage {
     public WebElement clinicalTab_ClinicalIndicatorName;
 
     String selectedPedigreeTab = "//dl[@class='tabs']//a[contains(text(),'dummyOption')]";
+    String personalTabLifestatus = "//div[@class='field-values-3-columns field-no-user-select']//label[text()='dummyOption']";
+    String clinicalTabDiseaseStatus = "//label[text()='dummyOption']";
 
     @FindBy(xpath = "//button/span[text()='Save']")
     WebElement saveButton;
@@ -181,16 +185,15 @@ public class PedigreePage {
 
     public void closePopup() {
         try {
-            Wait.forElementToBeClickable(driver,closePopup);
+            Wait.forElementToBeClickable(driver, closePopup);
             Actions.clickElement(driver, closePopup);
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(closePopup);
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Could not close the Popup." + exp);
             }
         }
-
     }
 
     public boolean clickSpecificPedigreeTab(String tabName) {
@@ -473,7 +476,8 @@ public class PedigreePage {
             return false;
         }
     }
-    public boolean clickProbandNodeOnPedigreeDiagram(String NGISID,String patientType,String gender) {
+
+    public boolean clickProbandNodeOnPedigreeDiagram(String NGISID, String patientType, String gender) {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
         }
@@ -492,9 +496,9 @@ public class PedigreePage {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
                     Actions.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
-                    clickProbandNodeOnPedigreeDiagram(NGISID,patientType,gender);
+                    clickProbandNodeOnPedigreeDiagram(NGISID, patientType, gender);
                 } else {
-                    Debugger.println("Could not locate the Pedigree node for " + patientType + ", NGS:" + NGISID );
+                    Debugger.println("Could not locate the Pedigree node for " + patientType + ", NGS:" + NGISID);
                     return false;
                 }
             }
@@ -697,13 +701,13 @@ public class PedigreePage {
                 isPresent = Wait.isElementDisplayed(driver, saveAndContinueButton, 60);
             }
             if (!isPresent) {
-                Debugger.println("Expected " + buttonName + " not present in Pedigree Stage.\n"+driver.getCurrentUrl());
+                Debugger.println("Expected " + buttonName + " not present in Pedigree Stage.\n" + driver.getCurrentUrl());
                 Actions.scrollToBottom(driver);
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying " + buttonName + " in Pedigree Page." + exp+"\n"+driver.getCurrentUrl());
+            Debugger.println("Exception in verifying " + buttonName + " in Pedigree Page." + exp + "\n" + driver.getCurrentUrl());
             return false;
         }
     }
@@ -1041,7 +1045,8 @@ public class PedigreePage {
                 if (diagramClicked) {
                     break;
                 }
-            }//for x-coordinate
+            }
+            //for x-coordinate
             //Click On Parent Node, after clicking the Proband Node
             if (!diagramClicked) {
                 Debugger.println("Could find the Pedigree node for Pdoband");
@@ -1114,6 +1119,7 @@ public class PedigreePage {
             return false;
         }
     }
+
     public boolean setYearOfBirth(String years) {
         try {
             if (!seleniumLib.selectFromListByText(personalTab_YearOfBirth, years)) {
@@ -1126,12 +1132,13 @@ public class PedigreePage {
             return false;
         }
     }
+
     public boolean verifyHPOPhenotype(String phenotype) {
         boolean isPresent = false;
         try {
-            for(int i=0; i<hpoSuggestedLists.size(); i++){
+            for (int i = 0; i < hpoSuggestedLists.size(); i++) {
                 //Debugger.println("HPO: "+hpoSuggestedLists.get(i).getText());
-                if(hpoSuggestedLists.get(i).getText().contains(phenotype)){
+                if (hpoSuggestedLists.get(i).getText().contains(phenotype)) {
                     isPresent = true;
                     break;
                 }
@@ -1140,7 +1147,7 @@ public class PedigreePage {
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Could not verifyHPOPhenotype :" + exp);
-           return false;
+            return false;
         }
     }
 
@@ -1148,7 +1155,7 @@ public class PedigreePage {
         boolean isPresent = false;
         try {
             //Re-using an existing method in SeleniumLib for Select drop downs
-            isPresent = seleniumLib.selectFromListByText(clinicalTab_disorderType,disorder);
+            isPresent = seleniumLib.selectFromListByText(clinicalTab_disorderType, disorder);
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying DiagnosisDisorders options.");
@@ -1171,23 +1178,24 @@ public class PedigreePage {
             return false;
         }
     }
-    public boolean verifyPersonalTabDropDownOptions(String fieldName,String option) {
+
+    public boolean verifyPersonalTabDropDownOptions(String fieldName, String option) {
         boolean isPresent = false;
         try {
             //Re-using an existing method in SeleniumLib for Select drop downs
-            switch(fieldName) {
+            switch (fieldName) {
                 case "Ethnicity":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Ethnicity, option);
-                break;
+                    break;
                 case "Gender":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Gender, option);
-                break;
+                    break;
                 case "KaryoTypicSex":
                     isPresent = seleniumLib.selectFromListByText(personalTab_KaryotypicSex, option);
-                break;
+                    break;
                 case "GestationAge":
                     isPresent = seleniumLib.selectFromListByText(personalTab_gestationAge, option);
-                break;
+                    break;
                 case "Heredity":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Heredity, option);
                     break;
@@ -1200,24 +1208,25 @@ public class PedigreePage {
             return false;
         }
     }
-    public boolean verifyErrorMessageOnPopup(String errorMessage){
+
+    public boolean verifyErrorMessageOnPopup(String errorMessage) {
         boolean isPresent = false;
         try {
             Wait.seconds(2);
             SeleniumLib.scrollToElement(confirmationDialog);
             Wait.seconds(2);
             String actualMessage = popupMessageBody.getText();
-            if(errorMessage.indexOf(",") != -1){
+            if (errorMessage.indexOf(",") != -1) {
                 //In case of multiple error messages, checking one by one
                 String[] messages = errorMessage.split(",");
-                for(int i=0; i<messages.length; i++){
-                    if(actualMessage.contains(messages[i])){
+                for (int i = 0; i < messages.length; i++) {
+                    if (actualMessage.contains(messages[i])) {
                         isPresent = true;
-                    }else{
+                    } else {
                         break;
                     }
                 }
-            }else {
+            } else {
                 if (actualMessage.contains(errorMessage)) {
                     isPresent = true;
                 }
@@ -1226,39 +1235,41 @@ public class PedigreePage {
             Wait.seconds(2);
             return isPresent;
 
-        }catch(Exception exp){
-            Debugger.println("Exception in validating Error popup:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in validating Error popup:" + exp);
             return false;
         }
     }
-    public boolean setAgeAtDeath(String age){
-        try{
-            Wait.forElementToBeDisplayed(driver,personalTab_AgeAtDeath);
+
+    public boolean setAgeAtDeath(String age) {
+        try {
+            Wait.forElementToBeDisplayed(driver, personalTab_AgeAtDeath);
             personalTab_AgeAtDeath.sendKeys(age);
             Wait.seconds(2);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in setting AgeAtDeath:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in setting AgeAtDeath:" + exp);
             return false;
         }
     }
-    public boolean verifyThePedigreeDiagramLoadedAsJavaScript(){
+
+    public boolean verifyThePedigreeDiagramLoadedAsJavaScript() {
         //Previously it was loading as svg diagram inside iframe... now loading as
         //Manual team also checking the same thing via developer tool options.
-        if(!Wait.isElementDisplayed(driver,pedigreeTool,10)){
+        if (!Wait.isElementDisplayed(driver, pedigreeTool, 10)) {
             Debugger.println("Pedigree diagram expected to load as java script..with tag div...Not present the expected tag.");
             return false;
         }
         return true;
     }
 
-    public boolean verifyNonNGISPatientIDInPersonalTab(String nonNgisUID){
+    public boolean verifyNonNGISPatientIDInPersonalTab(String nonNgisUID) {
 
-        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,30)){
+        if (!Wait.isElementDisplayed(driver, personalTab_nonNgisPatientStableUid, 30)) {
             Debugger.println("nonNgisPatientStableUid field not loaded under Personal Tab:");
             return false;
         }
-        if(personalTab_nonNgisPatientStableUid.isEnabled()) {//Read and compare when the field is enabled
+        if (personalTab_nonNgisPatientStableUid.isEnabled()) {//Read and compare when the field is enabled
             String actualUid = personalTab_nonNgisPatientStableUid.getText();
             if (!actualUid.equalsIgnoreCase(nonNgisUID)) {
                 Debugger.println("Expected nonNgisPatientStableUid:" + nonNgisUID + ", but actual:" + actualUid);
@@ -1268,29 +1279,30 @@ public class PedigreePage {
         return true;
     }
 
-    public boolean setTumourValues(String tumourValues){
-        try{
+    public boolean setTumourValues(String tumourValues) {
+        try {
             String[] values = tumourValues.split(",");
-            if(values == null || values.length != 2){
-                Debugger.println("Wrong input "+tumourValues+":Expected TWO tumour values.");
+            if (values == null || values.length != 2) {
+                Debugger.println("Wrong input " + tumourValues + ":Expected TWO tumour values.");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver,tumoursTab_PolypsTotal);
+            Wait.forElementToBeDisplayed(driver, tumoursTab_PolypsTotal);
             tumoursTab_PolypsTotal.sendKeys(values[0]);
-            Wait.forElementToBeDisplayed(driver,tumoursTab_PolypsAdenomas);
+            Wait.forElementToBeDisplayed(driver, tumoursTab_PolypsAdenomas);
             tumoursTab_PolypsAdenomas.sendKeys(values[1]);
             Wait.seconds(2);
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in setting AgeAtDeath:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in setting AgeAtDeath:" + exp);
             return false;
         }
     }
+
     public boolean verifyHPOPresentOptions(String hpo) {
         boolean isPresent = false;
         try {
             //Re-using an existing method in SeleniumLib for Select drop downs
-            isPresent = seleniumLib.selectFromListByText(phenotypeTab_HPOPresent,hpo);
+            isPresent = seleniumLib.selectFromListByText(phenotypeTab_HPOPresent, hpo);
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying HPO Present options.");
@@ -1300,24 +1312,24 @@ public class PedigreePage {
 
     public boolean searchAndAddDiseaseOrder(String diseases) {
         try {
-            if(!Wait.isElementDisplayed(driver,clinicalTab_disOrders,10)){
+            if (!Wait.isElementDisplayed(driver, clinicalTab_disOrders, 10)) {
                 Debugger.println("Disease disorder field not populated in Clinical Tab.");
                 return false;
             }
             String[] diseaseList = null;
-            if(diseases.indexOf(",") == -1) {
+            if (diseases.indexOf(",") == -1) {
                 diseaseList = new String[]{diseases};
-            }else{
+            } else {
                 diseaseList = diseases.split(",");
             }
-            for(int i=0; i<diseaseList.length; i++){
+            for (int i = 0; i < diseaseList.length; i++) {
                 clinicalTab_disOrders.sendKeys(diseaseList[i]);
                 Wait.seconds(3);//To load the matching disOrders, if exists
-                if(!Wait.isElementDisplayed(driver,clinicalTab_disOrdersSuggestions,5)){
-                    Debugger.println("No suggestions displayed for the disease :"+diseaseList[i]);
+                if (!Wait.isElementDisplayed(driver, clinicalTab_disOrdersSuggestions, 5)) {
+                    Debugger.println("No suggestions displayed for the disease :" + diseaseList[i]);
                     return false;
                 }
-                Actions.retryClickAndIgnoreElementInterception(driver,clinicalTab_disOrdersSuggestions);
+                Actions.retryClickAndIgnoreElementInterception(driver, clinicalTab_disOrdersSuggestions);
                 Wait.seconds(2);
             }
             return true;
@@ -1326,18 +1338,19 @@ public class PedigreePage {
             return false;
         }
     }
+
     public boolean verifyParticipateInSelectStatus(String expStatus) {
         boolean isSelected = false;
         try {
-            if(!Wait.isElementDisplayed(driver,personalTab_participatingInTest,10)){
+            if (!Wait.isElementDisplayed(driver, personalTab_participatingInTest, 10)) {
                 Debugger.println("PArticipatingInTest feild not displayed in Personal Tab.");
                 return false;
             }
             boolean actStatus = personalTab_participatingInTest.isSelected();
-            if(expStatus.equalsIgnoreCase("Selected")){
+            if (expStatus.equalsIgnoreCase("Selected")) {
                 isSelected = actStatus;
-            }else{
-                if(!actStatus){
+            } else {
+                if (!actStatus) {
                     isSelected = true;
                 }
             }
@@ -1347,6 +1360,7 @@ public class PedigreePage {
             return false;
         }
     }
+
     public boolean selectDocumentEvaluationOption() {
         try {
             if (!Wait.isElementDisplayed(driver, clinicalTab__documentEvaluation, 30)) {
@@ -1509,4 +1523,241 @@ public class PedigreePage {
             return false;
         }
     }
+
+    public boolean addNonNGISParentNodeToProband(NGISPatientModel patient) {
+        if (!waitForThePedigreeDiagramToBeLoaded()) {
+            return false;
+        }
+        //Scroll to the WorkArea to locate the diagram nodes without interruption
+        SeleniumLib.scrollToElement(zoomInButton);
+        String gender = patient.getGENDER();
+        if (gender == null || patient.getNGIS_ID() == null) {
+            Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
+            return false;
+        }
+        boolean zoomOutFlag = false;
+        try {
+            String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID", patient.getNGIS_ID());
+            WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
+            if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
+                if (!zoomOutFlag) {
+                    Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
+                    Actions.clickElement(driver, zoomOutButton);
+                    zoomOutFlag = true;
+                    addParentNodeToProband(patient);
+                } else {
+                    Debugger.println("Could find the Pedigree node for NGIS:" + patient.getNGIS_ID());
+                    return false;
+                }
+            }
+            if (gender.equalsIgnoreCase("Male")) {
+                return addNonNGISParentNodeToMaleProband();
+            } else if (gender.equalsIgnoreCase("Female")) {
+                return addNonNGISParentNodeToFemaleProband();
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
+            return false;
+        }
+    }
+
+    private boolean addNonNGISParentNodeToFemaleProband() {
+        boolean diagramClicked = false;
+        boolean zoomOutFlag = false;
+        try {
+            By female_node = null;
+            if (!diagramClicked) {
+                female_node = By.xpath("//*[name()='circle'][@class='pedigree-node-shadow']");
+                try {
+                    Wait.forElementToBeClickable(driver, driver.findElement(female_node));
+                    seleniumLib.moveMouseAndClickOnElement(female_node);
+                    diagramClicked = true;
+                } catch (MoveTargetOutOfBoundsException exp) {
+                    Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
+                    Actions.clickElement(driver, zoomOutButton);
+                    if (!zoomOutFlag) {
+                        zoomOutFlag = true;
+                    }
+                }
+            }
+            if (!diagramClicked) {
+                Debugger.println("Could find the Pedigree node for Pdoband");
+                return diagramClicked;
+            }
+            try {
+                By parentNode = By.xpath("//*[name()='ellipse']");
+                Debugger.println("Parent Node - " + parentNode);
+                seleniumLib.clickOnElement(parentNode);
+            } catch (Exception exp) {
+                Debugger.println("Could not click on Parent Node.");
+                diagramClicked = false;
+            }
+            return diagramClicked;
+        } catch (Exception exp) {
+            Debugger.println("Unable to click on Pedigree Node.\n" + exp);
+            return false;
+        }
+    }
+
+    private boolean addNonNGISParentNodeToMaleProband() {
+        boolean diagramClicked = false;
+        boolean zoomOutFlag = false;
+        try {
+            By male_node = null;
+            male_node = By.xpath("//*[name()='rect'][@class='pedigree-node-shadow']");
+            try {
+                Wait.forElementToBeClickable(driver, driver.findElement(male_node));
+                seleniumLib.moveMouseAndClickOnElement(male_node);
+                diagramClicked = true;
+            } catch (MoveTargetOutOfBoundsException mtobe) {
+                By ZoomOut = By.xpath("//div[@title='Zoom out']");
+                seleniumLib.clickOnElement(ZoomOut);
+                if (!zoomOutFlag) {
+                    zoomOutFlag = true;
+                }
+            }
+            //Click On Parent Node, after clicking the Proband Node
+            if (!diagramClicked) {
+                Debugger.println("Could find the Pedigree node for Proband");
+                return diagramClicked;
+            }
+            try {
+                By parentNode = By.xpath("//*[name()='ellipse']");
+                Debugger.println("Parent Node - " + parentNode);
+                seleniumLib.clickOnElement(parentNode);
+            } catch (Exception exp) {
+                Debugger.println("Could not click on Parent Node.");
+                diagramClicked = false;
+            }
+            return diagramClicked;
+        } catch (Exception exp) {
+            Debugger.println("Unable to click on Pedigree Node.\n" + exp);
+            return false;
+        }
+    }
+
+    public boolean clickOnNonNGISParentNode(NGISPatientModel patient, String patientType) {
+        if (!waitForThePedigreeDiagramToBeLoaded()) {
+            return false;
+        }
+        SeleniumLib.scrollToElement(pedigreeWorkArea);
+        if (nonNGISPatientNodes.size() == 0) {
+            Debugger.println("Non NGIS Patient Nodes not added to the NGIS Node:" + patient.getNGIS_ID());
+            SeleniumLib.takeAScreenShot("NonNGISPedigree.jpg");
+            return false;
+        }
+        String nonNgisId = "";
+        for (int i = 0; i < nonNGISPatientNodes.size(); i++) {
+            nonNgisId = nonNGISPatientNodes.get(i).getText();
+            if (nonNgisId != null) {
+                if (i == 0) {
+                    patient.setNON_NGIS_ID1(nonNgisId.replaceAll("Non NGIS Patient ID :", "").trim());
+                } else {
+                    patient.setNON_NGIS_ID2(nonNgisId.replaceAll("Non NGIS Patient ID :", "").trim());
+                }
+            }
+        }
+        String gender = patient.getGENDER();
+        if (gender == null || patient.getNGIS_ID() == null) {
+            Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
+            return false;
+        }
+        boolean zoomOutFlag = false;
+        String nodePath = null;
+        try {
+            if (patientType.equalsIgnoreCase("NonNGISFather")) {
+                SeleniumLib.scrollToElement(pedigreeWorkArea);
+                Debugger.println("Clicking on Pedigree Node for Non NGIS: " + patient.getNON_NGIS_ID1());
+                nodePath = pedigreeNonNGISDNode.replaceAll("dummyNGSID", patient.getNON_NGIS_ID1());
+            } else {
+                Debugger.println("Clicking on Pedigree Node for Non NGIS: " + patient.getNON_NGIS_ID2());
+                nodePath = pedigreeNonNGISDNode.replaceAll("dummyNGSID", patient.getNON_NGIS_ID2());
+            }
+            WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
+            if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
+                if (!zoomOutFlag) {
+                    Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
+                    Actions.clickElement(driver, zoomOutButton);
+                    zoomOutFlag = true;
+                    clickOnNonNGISParentNode(patient, patientType);
+                } else {
+                    Debugger.println("Could not locate the Pedigree node for " + patientType + ", NGS:" + patient.getNGIS_ID() + ",NonNGIS:" + patient.getNON_NGIS_ID1());
+                    return false;
+                }
+            }
+            // Clicking on Non-NGIS Parent Node
+            int xLocation = Integer.parseInt(patientPedigreeNode.getAttribute("x"));
+            if (xLocation < 0) {//Left of the proband node - Male
+                return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+            } else { // Female node
+                return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Pedigree Node for Non NGIS ID:" + patient.getNON_NGIS_ID1() + " And " + patient.getNON_NGIS_ID2() + " could not locate.");
+            return false;
+        }
+    }
+
+    public void selectLifeStatus(String lifeStatus) {
+        try {
+            String lifeStatusPath = personalTabLifestatus.replaceAll("dummyOption", lifeStatus);
+            Debugger.println("Life status path - " + lifeStatusPath);
+            WebElement selectedOption = driver.findElement(By.xpath(lifeStatusPath));
+            if (lifeStatus.equalsIgnoreCase("Alive")) {
+                Debugger.println("By Default Alive is selected");
+            } else {
+                seleniumLib.clickOnWebElement(selectedOption);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Could not select - " + lifeStatus + " Value. " + exp);
+        }
+    }
+
+    public void selectDiseaseStatus(String diseaseStatus) {
+        try {
+            String diseaseStatusPath = clinicalTabDiseaseStatus.replaceAll("dummyOption", diseaseStatus);
+            Debugger.println("Disease status path - " + diseaseStatusPath);
+            WebElement selectedOption = driver.findElement(By.xpath(diseaseStatusPath));
+            if (diseaseStatus.equalsIgnoreCase("Unknown")) {
+                Debugger.println("By default Unknown is selected");
+            } else {
+                seleniumLib.clickOnWebElement(selectedOption);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Could not select - " + diseaseStatus + " Value. " + exp);
+        }
+    }
+
+    public void clickOnCrossButton() {
+        try {
+            Wait.forElementToBeClickable(driver, closePopup);
+            seleniumLib.clickOnWebElement(closePopup);
+        } catch (Exception exp) {
+            Debugger.println("Could not click on the cross button. " + exp);
+        }
+    }
+
+    public String compareNonNgisParticipantId(NGISPatientModel patient) {
+        try {
+            String fatherId = patient.getNON_NGIS_ID1();
+            String motherId = patient.getNON_NGIS_ID2();
+            File fileName = new File("Non-NgisMembers.txt");
+            if (fileName.exists()) {
+                String nonNgisParticipantFileData = SeleniumLib.readTextFileInLines(fileName.getName());
+//            if (nonNgisParticipantFileData != null && !nonNgisParticipantFileData.isEmpty()) {
+                if (nonNgisParticipantFileData.contains(fatherId) || nonNgisParticipantFileData.contains(motherId)) {
+                    return "FAILURE: Non NGIS participants Id already exist in another referral. Father- " + fatherId + "; Mother- " + motherId;
+                } else {
+                    SeleniumLib.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
+                }
+            } else {
+                SeleniumLib.writeToTextFileOfName(fileName.getName(), "\n" + "Father: " + fatherId + " ; " + "Mother: " + motherId);
+            }
+            return "Success";
+        } catch (Exception exp) {
+            return ("FAILURE:Exception from validating Non NGIS participants ID: " + exp);
+        }
+    }
+
 }//end

@@ -1,0 +1,145 @@
+{
+  "pedigree": {
+    "familyId": "r20210200011" ,
+    "members": [
+      {
+        "participantId": "p20210200011" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": true ,
+        "sex": "FEMALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "M91"
+          }
+        ] ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "73f0beeb-792e-4f46-8562-004e42f10c6e" ,
+        "pedigreeId": 1 ,
+        "yearOfBirth": 1954
+      }
+    ] ,
+    "readyForAnalysis": true
+  } ,
+  "requester": {
+    "organisationName": "King's College Liver Molecular Genetics Lab" ,
+    "organisationId": "template" ,
+    "organisationCode": "699R0" ,
+    "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+    "organisationNationalGroupingId": "699R0"
+  } ,
+  "orderingDate": {
+    "month": 3 ,
+    "year": 2021 ,
+    "day": 2
+  } ,
+  "cancerParticipant": {
+    "participantId": "p20210200011" ,
+    "sex": "FEMALE" ,
+    "readyForAnalysis": true ,
+    "participantUid": "73f0beeb-792e-4f46-8562-004e42f10c6e" ,
+    "tumours": [
+      {
+        "primaryOrMetastatic": "NOT_APPLICABLE" ,
+        "tumourDiagnosisDate": {
+          "month": 1 ,
+          "year": 2021 ,
+          "day": 1
+        } ,
+        "tumourPresentation": "FIRST_PRESENTATION" ,
+        "tumourType": "HAEMATOLOGICAL_MALIGNANCY_LIQUID_SAMPLE" ,
+        "tumourLocalId": "R1K_18G003551" ,
+        "tumourId": "R1K_18G003551"
+      }
+    ] ,
+    "yearOfBirth": 1954
+  } ,
+  "referralId": "r20210200011" ,
+  "referralUid": "21489750-da89-45b5-9b0a-43d8cc497e7f" ,
+  "clinicalIndication": {
+    "clinicalIndicationCode": "M91" ,
+    "clinicalIndicationVersionNumber": "V0.0" ,
+    "clinicalIndicationUid": "46d0ea6a-d4de-4c3f-8860-a24e0a778fe0" ,
+    "clinicalIndicationFullName": "Acute Lymphoblastic Leukaemia"
+  } ,
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3001177-DNA_D01" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1022130405" ,
+          "participantId": "p20210200011" ,
+          "sampleUid": "PQ2Q4L3L-OEQT-5BOU-KLJ8-DYUT714ORW6L" ,
+          "maskedPid": "FVLBLBD1-XNLK-UCHB-9Z65-3PITGHTY9HC6" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2017-02-02T10:45:00+0000" ,
+          "participantUid": "73f0beeb-792e-4f46-8562-004e42f10c6e" ,
+          "sampleState": "blood_unsorted_edta"
+        }
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 3 ,
+        "year": 2021 ,
+        "day": 2
+      } ,
+      "processingLab": {
+        "organisationName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationId": "template" ,
+        "organisationCode": "699R0" ,
+        "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationNationalGroupingId": "699R0"
+      } ,
+      "interpreter": {
+        "organisationName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationId": "template" ,
+        "organisationCode": "699R0" ,
+        "organisationNationalGroupingName": "King's College Liver Molecular Genetics Lab" ,
+        "organisationNationalGroupingId": "699R0"
+      } ,
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3001177-DNA_D01" ,
+          "tumourSampleId": "LP3001120-DNA_A12"
+        }
+      ] ,
+      "clinicalIndicationTest": {
+        "clinicalIndicationTestTypeCode": "M91.1" ,
+        "testTypeId": "3e17bc09-e381-4feb-84b3-47de4be1ce47" ,
+        "technology": {
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748" ,
+          "testTechnologyDescription": "WGS"
+        } ,
+        "clinicalIndicationTestTypeId": "64a1c69c-7037-4d10-874a-a60c915c3c02" ,
+        "testTypeName": "WGS Germline and Tumour"
+      } ,
+      "priority": "urgent" ,
+      "tumourSamples": [
+        {
+          "product": "DNA" ,
+          "method": "RESECTION" ,
+          "sampleId": "LP3001120-DNA_A12" ,
+          "storageMedium": "FF" ,
+          "haematologicalCancer": false ,
+          "source": "TUMOUR" ,
+          "sampleType": "Solid tumour sample" ,
+          "labSampleId": "1034868777" ,
+          "tumourId": "R1K_18G003551" ,
+          "participantId": "p20210200011" ,
+          "sampleUid": "TVF97U7F-CJ8E-QUPZ-L2OY-T4QJ5L6729VP" ,
+          "maskedPid": "BN4CKELX-KJMQ-QM43-F0LO-R93P6XXIZU0S" ,
+          "programmePhase": "MAIN" ,
+          "clinicalSampleDateTime": "2017-02-08T00:00:00+0000" ,
+          "participantUid": "73f0beeb-792e-4f46-8562-004e42f10c6e" ,
+          "tumourContent": "Medium" ,
+          "sampleState": "tumour_freshFrozen"
+        }
+      ] ,
+      "referralTestId": "NV7AZHOB575T"
+    }
+  ]
+}

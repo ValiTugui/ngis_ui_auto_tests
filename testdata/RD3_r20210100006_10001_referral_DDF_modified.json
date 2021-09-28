@@ -1,0 +1,379 @@
+{
+  "pedigree": {
+    "familyId": "r20210100006",
+    "members": [
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": true,
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "R100"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000098"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000256"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000322"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000478"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000490"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000494"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000729"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000750"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001172"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001197"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001257"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001263"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001999"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002011"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002066"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002072"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002121"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002194"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002376"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002540"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0008071"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0009800"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0010862"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0010864"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "118001473",
+        "motherId": 1730122,
+        "personKaryotypicSex": "XY",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1730119,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "cf50966d-f836-4630-b39c-9923d9e229fb",
+        "pedigreeId": 1730118,
+        "yearOfBirth": 2014
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "participantId": "118001475",
+        "motherId": 1730121,
+        "personKaryotypicSex": "XY",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1730120,
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "55342377-a69e-4510-ba42-b1bb34e105fa",
+        "pedigreeId": 1730119,
+        "yearOfBirth": 1982
+      },
+      {
+        "participantId": "p20210101005",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1730120
+      },
+      {
+        "participantId": "p20210102005",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1730121
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "participantId": "118001474",
+        "motherId": 1730124,
+        "personKaryotypicSex": "XX",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1730123,
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "9d3e4368-ec83-4c6d-b82a-2d9d4f1133e6",
+        "pedigreeId": 1730122,
+        "yearOfBirth": 1981
+      },
+      {
+        "participantId": "p20210103005",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1730123
+      },
+      {
+        "participantId": "p20210104005",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1730124
+      }
+    ],
+    "readyForAnalysis": true,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  },
+  "requester": {
+    "organisationName": "University Hospital Southampton NHS Foundation Trust",
+    "organisationId": "template",
+    "organisationCode": "RHM",
+    "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust",
+    "organisationNationalGroupingId": "RHM"
+  },
+  "orderingDate": {
+    "month": 1,
+    "year": 2021,
+    "day": 29
+  },
+  "referralId": "r20210100006",
+  "referralUid": "b4cb23ac-284e-4e25-8cc3-5c9115b402e8",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationCode": "R100",
+    "clinicalIndicationFullName": "Rare syndromic craniosynostosis or isolated multisuture synostosis"
+  },
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "panelId": "488",
+          "specificDisease": "R100",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Hereditary ataxia and cerebellar anomalies - childhood onset",
+          "panelVersion": "6.84"
+        },
+        {
+          "panelId": "847",
+          "specificDisease": "R100",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Childhood onset dystonia or chorea or related movement disorder",
+          "panelVersion": "1.72"
+        },
+        {
+          "panelId": "402",
+          "multipleGeneticOrigins": "No",
+          "specificDisease": "R100",
+          "panelName": "Genetic epilepsy syndromes",
+          "panelVersion": "2.307"
+        },
+        {
+          "panelId": "168",
+          "specificDisease": "R100",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Craniosynostosis",
+          "panelVersion": "2.23"
+        },
+        {
+          "panelId": "112",
+          "specificDisease": "R100",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Mitochondrial disorders",
+          "panelVersion": "2.12"
+        },
+        {
+          "panelId": "467",
+          "specificDisease": "R100",
+          "multipleGeneticOrigins": "No",
+          "panelName": "Inborn errors of metabolism",
+          "panelVersion": "2.50"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000301-DNA_E12",
+          "storageMedium": "FF",
+          "source": "FRESH_TISSUE_IN_CULTURE_MEDIUM",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1023924372",
+          "participantId": "118001473",
+          "sampleUid": "I2Y77AP7-X6R2-S3KK-8YYR-DGTCXJ27X118",
+          "maskedPid": "9L7PUD6V-N3RA-ZV4B-ZWN1-UVBG9PTVY2A4",
+          "programmePhase": "MAIN",
+          "participantUid": "cf50966d-f836-4630-b39c-9923d9e229fb",
+          "sampleState": "tissueInCultureMedium_freshFrozen"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000311-DNA_H09",
+          "storageMedium": "FF",
+          "source": "AMNIOTIC_FLUID",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1023924977",
+          "participantId": "118001475",
+          "sampleUid": "MKGLDZT1-OW04-MKZG-6HRL-S1DXD9IQY112",
+          "maskedPid": "KJ5FPRBG-NZC4-TJ5V-AH0U-C8IYVX0QG7HG",
+          "programmePhase": "MAIN",
+          "participantUid": "55342377-a69e-4510-ba42-b1bb34e105fa",
+          "sampleState": "amnioticFluid_freshFrozen"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000286-DNA_H04",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1023137486",
+          "participantId": "118001474",
+          "sampleUid": "UQVC55ZW-KG59-CW8R-4V8Z-6MODF0SG2BR9",
+          "maskedPid": "7VD906E1-RTBA-6RYL-SBLD-5T6IXQ4BIIYP",
+          "programmePhase": "MAIN",
+          "participantUid": "9d3e4368-ec83-4c6d-b82a-2d9d4f1133e6",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 1,
+        "year": 2021,
+        "day": 30
+      },
+      "processingLab": {
+        "organisationName": "University Hospital Southampton NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RHM",
+        "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust",
+        "organisationNationalGroupingId": "RHM"
+      },
+      "interpreter": {
+        "organisationName": "University Hospital Southampton NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RHM",
+        "organisationNationalGroupingName": "University Hospital Southampton NHS Foundation Trust",
+        "organisationNationalGroupingId": "RHM"
+      },
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "routine",
+      "referralTestId": "PXY9SGIUG843",
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R100",
+          "penetrance": "incomplete"
+        }
+      ]
+    }
+  ]
+}

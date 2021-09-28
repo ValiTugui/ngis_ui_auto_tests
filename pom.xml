@@ -20,8 +20,8 @@
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
-        <forkCount>5</forkCount>
-        <reportName>test</reportName>
+        <forkCount>4</forkCount>
+        <reportName>E2Etest</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
         <browser>Chrome</browser>
         <browserVersion>70</browserVersion>
@@ -32,6 +32,17 @@
         <rerunOption>No</rerunOption>
         <parallelScheme>FEATURE</parallelScheme>
     </properties>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>sonatype-releases</id>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -147,10 +158,11 @@
                                     <directory>${jsonFolder}</directory>
                                 </resultSource>
                             </resultSources>
-                            <outputPath>target/test-report</outputPath>
+                            <outputPath>${project.build.directory}/test-report</outputPath>
                             <timestamp>${maven.build.timestamp}</timestamp>
                             <prefix>${reportName}</prefix>
                             <template>default</template>
+                            <projectName>TOMS UI-Tests</projectName>
                         </configuration>
                     </execution>
                 </executions>
@@ -184,7 +196,6 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/zap-api-2.4-v6.jar</systemPath>
         </dependency>
-
 
         <dependency>
             <groupId>net.continuumsecurity</groupId>
@@ -320,7 +331,7 @@
         </dependency>
         <dependency>
             <groupId>junit</groupId>
-            <artifactId>junit-dep</artifactId>
+            <artifactId>junit</artifactId>
             <version>${junit.version}</version>
         </dependency>
         <!--Cucumber  dependencies-->
@@ -461,6 +472,7 @@
             <artifactId>PDFLayoutTextStripper</artifactId>
             <version>2.2.3</version>
         </dependency>
+        <!--Pdf file reading dependencies End-->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
@@ -478,13 +490,11 @@
             <artifactId>jcl-over-slf4j</artifactId>
             <version>1.7.5</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
         </dependency>
-        <!--Pdf file reading dependencies End-->
         <dependency>
             <groupId>report.donut</groupId>
             <artifactId>donut-maven-plugin</artifactId>
@@ -506,11 +516,47 @@
             <artifactId>joda-time</artifactId>
             <version>2.10.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.gel.models</groupId>
+            <artifactId>gel-models</artifactId>
+            <version>7.7.1</version>
+            <exclusions>
+                <exclusion>
+                    <!-- avro-tools includes slf4j-simple classes internally. -->
+                    <groupId>org.apache.avro</groupId>
+                    <artifactId>avro-tools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-simple</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-yaml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.module</groupId>
+                    <artifactId>jackson-module-jaxb-annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.opencb.biodata</groupId>
+                    <artifactId>biodata-models</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.opencb.ga4gh</groupId>
+                    <artifactId>ga4gh</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- jsu to comment-->
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>1.9.2</version>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>sonatype-releases</id>
-            <url>https://oss.sonatype.org/content/repositories/releases/</url>
-        </repository>
-    </repositories>
 </project>
