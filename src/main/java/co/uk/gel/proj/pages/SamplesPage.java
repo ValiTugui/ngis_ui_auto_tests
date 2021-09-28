@@ -219,7 +219,6 @@ public class SamplesPage {
         }
     }
 
-
     public void selectSampleState() {
         try {
             Wait.isElementDisplayed(driver, sampleState, 30);
@@ -265,6 +264,23 @@ public class SamplesPage {
                 Actions.fillInValue(labId, ID);
             }
             sampleDetails.setSampleID(ID);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in fillInSampleID:" + exp);
+            return false;
+        }
+    }
+
+    public boolean fillInSampleID(String labSampleId) {
+        try {
+            Wait.forElementToBeDisplayed(driver, labId);
+            if (Actions.getValue(labId).isEmpty()) {
+                Actions.fillInValue(labId, labSampleId);
+            } else {
+                Actions.clearTextField(labId);
+                Actions.fillInValue(labId, labSampleId);
+            }
+//            sampleDetails.setSampleID(labSampleId);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInSampleID:" + exp);
@@ -857,4 +873,14 @@ public class SamplesPage {
         }
         return true;
     }
+
+    public void selectSampleCollectionDateAsDate(String day,String month, String year) {
+        sampleDetails.setDay(day);
+        sampleDetails.setMonth(month);
+        sampleDetails.setYear(year);
+        seleniumLib.sendValue(sampleCollectionDay, sampleDetails.getDay());
+        seleniumLib.sendValue(sampleCollectionMonth, sampleDetails.getMonth());
+        seleniumLib.sendValue(sampleCollectionYear, sampleDetails.getYear());
+    }
+
 }//

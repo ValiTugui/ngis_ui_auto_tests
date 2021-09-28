@@ -752,7 +752,6 @@ public class ResponsibleClinicianPage {
 //            Debugger.println("Exception message");
             return false;
         }
-
     }
 
 }

@@ -1,0 +1,311 @@
+{
+  "pedigree": {
+    "familyId": "r20210100041" ,
+    "members": [
+      {
+        "participantId": "0" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "lifeStatus": "ALIVE" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": false ,
+        "sex": "MALE" ,
+        "affectionStatus": "UNCERTAIN" ,
+        "participantUid": "0XYFZERL-LAO7-IXTC-4WKC-5BQ7AGV2E4KH" ,
+        "adoptedStatus": "notadopted" ,
+        "pedigreeId": 5000115 ,
+        "yearOfBirth": 1000
+      } ,
+      {
+        "participantId": "1" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "lifeStatus": "ALIVE" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": false ,
+        "sex": "FEMALE" ,
+        "affectionStatus": "UNCERTAIN" ,
+        "participantUid": "F5VN2J1Y-A6S7-RDMB-5QXQ-7QM3L0DQ6FEK" ,
+        "adoptedStatus": "notadopted" ,
+        "pedigreeId": 5000116 ,
+        "yearOfBirth": 1000
+      } ,
+      {
+        "participantId": "2" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "lifeStatus": "ALIVE" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": false ,
+        "sex": "MALE" ,
+        "affectionStatus": "UNCERTAIN" ,
+        "participantUid": "4H158A9E-797Z-I4SI-Z9KO-LNMF0CIGJ9K7" ,
+        "adoptedStatus": "notadopted" ,
+        "pedigreeId": 5000117 ,
+        "yearOfBirth": 1000
+      } ,
+      {
+        "lifeStatus": "ALIVE" ,
+        "isProband": true ,
+        "sex": "MALE" ,
+        "disorderList": [
+          {
+            "specificDisease": "R89"
+          }
+        ] ,
+        "hpoTermList": [
+          {
+            "hpoBuildNumber": "HP:0001283" ,
+            "termPresence": "yes" ,
+            "term": "HP:0001283"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001347" ,
+            "termPresence": "yes" ,
+            "term": "HP:0001347"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0012271" ,
+            "termPresence": "yes" ,
+            "term": "HP:0012271"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002086" ,
+            "termPresence": "yes" ,
+            "term": "HP:0002086"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000707" ,
+            "termPresence": "yes" ,
+            "term": "HP:0000707"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0003444" ,
+            "termPresence": "yes" ,
+            "term": "HP:0003444"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0003011" ,
+            "termPresence": "no" ,
+            "term": "HP:0003011"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0011024" ,
+            "termPresence": "no" ,
+            "term": "HP:0011024"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001392" ,
+            "termPresence": "no" ,
+            "term": "HP:0001392"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001871" ,
+            "termPresence": "no" ,
+            "term": "HP:0001871"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001939" ,
+            "termPresence": "no" ,
+            "term": "HP:0001939"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000924" ,
+            "termPresence": "no" ,
+            "term": "HP:0000924"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0002715" ,
+            "termPresence": "no" ,
+            "term": "HP:0002715"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0001626" ,
+            "termPresence": "no" ,
+            "term": "HP:0001626"
+          } ,
+          {
+            "hpoBuildNumber": "HP:0000818" ,
+            "termPresence": "no" ,
+            "term": "HP:0000818"
+          }
+        ] ,
+        "adoptedStatus": "notadopted" ,
+        "participantId": "116001357" ,
+        "motherId": 5000120 ,
+        "personKaryotypicSex": "XX" ,
+        "consanguineousParents": "unknown" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "fatherId": 5000119 ,
+        "affectionStatus": "AFFECTED" ,
+        "participantUid": "PNUVVTQ5-JXUK-VI8K-AY61-SSK9KTNLFAY4" ,
+        "pedigreeId": 5000118 ,
+        "yearOfBirth": 2001
+      } ,
+      {
+        "lifeStatus": "ALIVE" ,
+        "isProband": false ,
+        "sex": "MALE" ,
+        "adoptedStatus": "notadopted" ,
+        "participantId": "116001359" ,
+        "motherId": 5000116 ,
+        "personKaryotypicSex": "XY" ,
+        "consanguineousParents": "unknown" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "fatherId": 5000115 ,
+        "affectionStatus": "UNAFFECTED" ,
+        "participantUid": "3009WC9B-936E-CT6T-SQTQ-7JR1P01U1JCB" ,
+        "pedigreeId": 5000119 ,
+        "yearOfBirth": 1974
+      } ,
+      {
+        "lifeStatus": "ALIVE" ,
+        "isProband": false ,
+        "sex": "FEMALE" ,
+        "adoptedStatus": "notadopted" ,
+        "participantId": "116001358" ,
+        "motherId": 5000121 ,
+        "personKaryotypicSex": "XX" ,
+        "consanguineousParents": "unknown" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "fatherId": 5000117 ,
+        "affectionStatus": "UNAFFECTED" ,
+        "participantUid": "0S6GXIZR-1D3N-0AHL-4QVC-X7ZXY91A70EW" ,
+        "pedigreeId": 5000120 ,
+        "yearOfBirth": 1976
+      } ,
+      {
+        "participantId": "6" ,
+        "personKaryotypicSex": "UNKNOWN" ,
+        "consanguineousParents": "unknown" ,
+        "lifeStatus": "ALIVE" ,
+        "participantQCState": "passedMedicalReviewReadyForInterpretation" ,
+        "isProband": false ,
+        "sex": "FEMALE" ,
+        "affectionStatus": "UNCERTAIN" ,
+        "participantUid": "QPRKK4MC-EV3A-9HU3-XRHQ-P6C79MSUX3A1" ,
+        "adoptedStatus": "notadopted" ,
+        "pedigreeId": 5000121 ,
+        "yearOfBirth": 1000
+      }
+    ] ,
+    "readyForAnalysis": true ,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  } ,
+  "requester": {
+    "organisationName": "Epsom and St Helier University Hospitals NHS Trust" ,
+    "organisationId": "template" ,
+    "organisationCode": "RVR" ,
+    "organisationNationalGroupingName": "Epsom and St Helier University Hospitals NHS Trust" ,
+    "organisationNationalGroupingId": "RVR"
+  } ,
+  "orderingDate": {
+    "month": 2 ,
+    "year": 2021 ,
+    "day": 9
+  } ,
+  "referralId": "r20210100041" ,
+  "referralUid": "5cb7d9c2-e49f-4f88-95d7-086e28f86242" ,
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template" ,
+    "clinicalIndicationCode": "R89" ,
+    "clinicalIndicationFullName": "Ultra-rare and atypical monogenic disorders"
+  } ,
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "multipleGeneticOrigins": "No" ,
+          "panelVersion": "2.14" ,
+          "panelName": "Mitochondrial disorders" ,
+          "panelId": "112" ,
+          "specificDisease": "R89"
+        }
+      ] ,
+      "germlineSamples": [
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3000709-DNA_C10" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1031225993" ,
+          "participantId": "116001357" ,
+          "sampleUid": "S9623U3C-PAHQ-0WJL-W98J-MFWTFIGOPBGH" ,
+          "maskedPid": "VN6HDJD3-CL0S-2JKO-UQZ6-I3L81OJ0F9C2" ,
+          "programmePhase": "MAIN" ,
+          "participantUid": "PNUVVTQ5-JXUK-VI8K-AY61-SSK9KTNLFAY4" ,
+          "sampleState": "blood_unsorted_edta"
+        } ,
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3000894-DNA_G04" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1031226346" ,
+          "participantId": "116001359" ,
+          "sampleUid": "QTRZ2ARI-JHH3-FL2G-2LSE-9ZPC3HDLS2X3" ,
+          "maskedPid": "GWRZJ9DC-Q3XV-7PQ3-66AO-R8WTPBPPE64Q" ,
+          "programmePhase": "MAIN" ,
+          "participantUid": "3009WC9B-936E-CT6T-SQTQ-7JR1P01U1JCB" ,
+          "sampleState": "blood_unsorted_edta"
+        } ,
+        {
+          "product": "DNA" ,
+          "method": "NOT_APPLICABLE" ,
+          "sampleId": "LP3000791-DNA_F02" ,
+          "storageMedium": "EDTA" ,
+          "source": "BLOOD" ,
+          "sampleType": "Normal or Germline sample" ,
+          "labSampleId": "1031223915" ,
+          "participantId": "116001358" ,
+          "sampleUid": "4U609KU1-FSZZ-MOOV-1GNN-Q3NDGYNG97W5" ,
+          "maskedPid": "QWGOWWCK-DRB5-YCBU-PQEB-UKMFWT8VWTXB" ,
+          "programmePhase": "MAIN" ,
+          "participantUid": "0S6GXIZR-1D3N-0AHL-4QVC-X7ZXY91A70EW" ,
+          "sampleState": "blood_unsorted_edta"
+        }
+      ] ,
+      "referralTestOrderingDate": {
+        "month": 2 ,
+        "year": 2021 ,
+        "day": 9
+      } ,
+      "processingLab": {
+        "organisationName": "Epsom and St Helier University Hospitals NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RVR" ,
+        "organisationNationalGroupingName": "Epsom and St Helier University Hospitals NHS Trust" ,
+        "organisationNationalGroupingId": "RVR"
+      } ,
+      "interpreter": {
+        "organisationName": "Epsom and St Helier University Hospitals NHS Trust" ,
+        "organisationId": "template" ,
+        "organisationCode": "RVR" ,
+        "organisationNationalGroupingName": "Epsom and St Helier University Hospitals NHS Trust" ,
+        "organisationNationalGroupingId": "RVR"
+      } ,
+      "clinicalIndicationTest": {
+        "clinicalIndicationTestTypeCode": "R89.3" ,
+        "testTypeId": "f3159d66-916d-4281-b62e-f501e020cfc9" ,
+        "technology": {
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748" ,
+          "testTechnologyDescription": "WGS"
+        } ,
+        "clinicalIndicationTestTypeId": "bea8958b-53ce-4b41-96e1-c29404573f0e" ,
+        "testTypeName": "Relevant panels in PanelApp WGS"
+      } ,
+      "priority": "routine" ,
+      "referralTestId": "BXRFV3162F17" ,
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R89" ,
+          "penetrance": "complete"
+        }
+      ]
+    }
+  ]
+}

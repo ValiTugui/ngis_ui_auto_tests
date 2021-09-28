@@ -1,0 +1,710 @@
+{
+  "pedigree": {
+    "familyId": "r20210100023",
+    "members": [
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "R84"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002645"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002020"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002691"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000925"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001627"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003302"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003084"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005855"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001263"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005877"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0006640"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0012366"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003179"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000592"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0030267"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000307"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000703"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100583"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003866"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005750"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002758"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003272"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000369"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001382"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001363"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "115006786",
+        "motherId": 1604523,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1604520,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "WL6DWX9K-GA8Y-A5GX-FSNZ-C827W6LVDQKP",
+        "pedigreeId": 1604519,
+        "yearOfBirth": 2014
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "participantId": "115006922",
+        "motherId": 1604522,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1604521,
+        "affectionStatus": "UNAFFECTED",
+        "participantUid": "VJ9H95UH-37WF-3D8V-DA4F-DZRUEHYDB0HA",
+        "pedigreeId": 1604520,
+        "yearOfBirth": 1974
+      },
+      {
+        "participantId": "2",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "EZUZSL9U-UIQD-5SU3-URPT-DUTGM8SXG6O4",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1604521,
+        "yearOfBirth": 1000
+      },
+      {
+        "participantId": "3",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "SLN3YLG6-TBFY-8XZX-CWHO-C939D1GIMIWY",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1604522,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": false,
+        "sex": "FEMALE",
+        "disorderList": [
+          {
+            "specificDisease": "R84"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000703"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001373"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100360"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002645"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003084"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003179"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000164"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000978"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005855"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005877"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005750"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005758"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0006640"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002086"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0012366"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000592"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003304"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001263"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000787"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002650"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000407"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003878"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000973"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003302"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0030267"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000307"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "115006788",
+        "motherId": 1604525,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1604524,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "GW03IZQ6-KA5O-8SZR-AULP-DRZ4F9L9FISZ",
+        "pedigreeId": 1604523,
+        "yearOfBirth": 1985
+      },
+      {
+        "participantId": "5",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "MALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "O8M77YC1-TBOR-51UA-JYH1-5QS0W5O8M0JK",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1604524,
+        "yearOfBirth": 1000
+      },
+      {
+        "participantId": "6",
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "lifeStatus": "ALIVE",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": false,
+        "sex": "FEMALE",
+        "affectionStatus": "UNCERTAIN",
+        "participantUid": "6JY2PZL7-2JL7-7QWR-OLSY-6D3W0XSXHQJF",
+        "adoptedStatus": "notadopted",
+        "pedigreeId": 1604525,
+        "yearOfBirth": 1000
+      },
+      {
+        "lifeStatus": "ALIVE",
+        "isProband": true,
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "R84"
+          }
+        ],
+        "hpoTermList": [
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0030267"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003302"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002592"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000407"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000925"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000592"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003931"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001363"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003179"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0006640"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005877"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0005855"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003084"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002645"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001263"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003304"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000164"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000938"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000926"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002086"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0012366"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0001382"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000729"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000369"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003272"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0002758"
+          },
+          {
+            "termPresence": "yes",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000978"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100360"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0003866"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0100583"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000703"
+          },
+          {
+            "termPresence": "no",
+            "hpoBuildNumber": "releases/2015-03-12",
+            "term": "HP:0000307"
+          }
+        ],
+        "adoptedStatus": "notadopted",
+        "participantId": "115006785",
+        "motherId": 1604523,
+        "personKaryotypicSex": "UNKNOWN",
+        "consanguineousParents": "unknown",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "fatherId": 1604520,
+        "affectionStatus": "AFFECTED",
+        "participantUid": "E4OJ47A4-G4NU-ORYX-46KB-CCJVVY8FUWIB",
+        "pedigreeId": 1604528,
+        "yearOfBirth": 2010
+      }
+    ],
+    "readyForAnalysis": true,
+    "familyQCState": "passedMedicalReviewReadyForInterpretation"
+  },
+  "requester": {
+    "organisationName": "Stockport NHS Foundation Trust",
+    "organisationId": "template",
+    "organisationCode": "RWJ",
+    "organisationNationalGroupingName": "Stockport NHS Foundation Trust",
+    "organisationNationalGroupingId": "RWJ"
+  },
+  "orderingDate": {
+    "month": 2,
+    "year": 2021,
+    "day": 7
+  },
+  "referralId": "r20210100023",
+  "referralUid": "03090603-1cc7-49ac-9d61-7ed4b9b7f08f",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationCode": "R84",
+    "clinicalIndicationFullName": "Cerebellar anomalies"
+  },
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "panelId": "126",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R84",
+          "panelName": "Hearing loss",
+          "panelVersion": "2.146"
+        },
+        {
+          "panelId": "196",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R84",
+          "panelName": "Osteogenesis imperfecta",
+          "panelVersion": "2.13"
+        },
+        {
+          "panelId": "488",
+          "multipleGeneticOrigins": "no",
+          "specificDisease": "R84",
+          "panelName": "Hereditary ataxia and cerebellar anomalies - childhood onset",
+          "panelVersion": "6.140"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "ASPIRATE",
+          "sampleId": "LP3000327-DNA_C07",
+          "storageMedium": "EDTA",
+          "source": "BONE_MARROW",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1021980958",
+          "participantId": "115006786",
+          "sampleUid": "UMKH4SUW-KMJL-8TR3-ZN7R-UHHKQJW81U2U",
+          "maskedPid": "Z9GA7UHD-M60F-RBCB-CQHQ-WE3RYL4FWGC7",
+          "programmePhase": "MAIN",
+          "participantUid": "WL6DWX9K-GA8Y-A5GX-FSNZ-C827W6LVDQKP",
+          "sampleState": "boneMarrow_unsorted_edta"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000332-DNA_E10",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1021980892",
+          "participantId": "115006922",
+          "sampleUid": "JVMW1LJ7-Q7SI-5BDU-XKNV-Q0BQCCROQULH",
+          "maskedPid": "8OKQZPXO-CSWI-7TYW-UE76-391G04EY8GWE",
+          "programmePhase": "MAIN",
+          "participantUid": "VJ9H95UH-37WF-3D8V-DA4F-DZRUEHYDB0HA",
+          "sampleState": "fetalBlood_edta"
+        },
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000337-DNA_A08",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1021981384",
+          "participantId": "115006788",
+          "sampleUid": "BQI8ET32-F098-4NR0-4WOV-S5UYYNM4D45P",
+          "maskedPid": "D77S340S-FNLC-UVQN-4V96-DFGYDE7HZ3GX",
+          "programmePhase": "MAIN",
+          "participantUid": "GW03IZQ6-KA5O-8SZR-AULP-DRZ4F9L9FISZ",
+          "sampleState": "blood_unsorted_edta"
+        },
+        {
+          "product": "DNA",
+          "method": "BIOPSY",
+          "sampleId": "LP3000326-DNA_F04",
+          "storageMedium": "FF",
+          "source": "TISSUE",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1021980891",
+          "participantId": "115006785",
+          "sampleUid": "9B14VFKW-FLCC-SPS0-S6S7-DJ6QCGHJM3MV",
+          "maskedPid": "OEVT0BX3-P3LC-8RSM-JA4T-RNUL5LSKOI3B",
+          "programmePhase": "MAIN",
+          "participantUid": "E4OJ47A4-G4NU-ORYX-46KB-CCJVVY8FUWIB",
+          "sampleState": "tissue_freshFrozen"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 7
+      },
+      "processingLab": {
+        "organisationName": "Stockport NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RWJ",
+        "organisationNationalGroupingName": "Stockport NHS Foundation Trust",
+        "organisationNationalGroupingId": "RWJ"
+      },
+      "interpreter": {
+        "organisationName": "Stockport NHS Foundation Trust",
+        "organisationId": "template",
+        "organisationCode": "RWJ",
+        "organisationNationalGroupingName": "Stockport NHS Foundation Trust",
+        "organisationNationalGroupingId": "RWJ"
+      },
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "routine",
+      "referralTestId": "80FIYYDDWV0K",
+      "diseasePenetrances": [
+        {
+          "specificDisease": "R84",
+          "penetrance": "complete"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+    "pedigree": {
+        "familyId": "r20210200002",
+        "members": [{
+                "participantId": "p20210200002",
+                "personKaryotypicSex": "UNKNOWN",
+                "participantQCState": "passedMedicalReviewReadyForInterpretation",
+                "isProband": true,
+                "lifeStatus": "ALIVE",
+                "sex": "MALE",
+                "disorderList": [{
+                        "specificDisease": "M48"
+                    }
+                ],
+                "affectionStatus": "AFFECTED",
+                "participantUid": "790c52b1-a295-497e-9286-bef48f9da7e9",
+                "pedigreeId": 1,
+                "yearOfBirth": 1986
+            }
+        ],
+        "readyForAnalysis": true
+    },
+    "requester": {
+        "organisationName": "Gloucestershire Care Services NHS Trust",
+        "organisationId": "template",
+        "organisationCode": "R1J",
+        "organisationNationalGroupingName": "Gloucestershire Care Services NHS Trust",
+        "organisationNationalGroupingId": "R1J"
+    },
+    "orderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+    },
+    "cancerParticipant": {
+        "participantId": "p20210200002",
+        "sex": "MALE",
+        "readyForAnalysis": true,
+        "participantUid": "790c52b1-a295-497e-9286-bef48f9da7e9",
+        "tumours": [{
+                "tumourTopographies": [{
+                        "id": "SCTID:87784001"
+                    }
+                ],
+                "primaryOrMetastatic": "METASTATIC",
+                "tumourDiagnosisDate": {
+                    "month": 1,
+                    "year": 2020,
+                    "day": 1
+                },
+                "tumourPresentation": "RECURRENCE",
+                "tumourType": "SOLID_TUMOUR_METASTATIC",
+                "tumourLocalId": "RAN_170002170",
+                "tumourMorphologies": [{
+                        "id": "SCTID:271944004"
+                    }
+                ],
+                "tumourId": "RAN_170002170"
+            }
+        ],
+        "yearOfBirth": 1986
+    },
+    "referralId": "r20210200002",
+    "referralUid": "af24f87a-dbc2-4340-b6c7-5370bb37a523",
+    "clinicalIndication": {
+        "clinicalIndicationUid": "template",
+        "clinicalIndicationVersionNumber": "template",
+        "clinicalIndicationCode": "M48",
+        "clinicalIndicationFullName": "Clear Cell Sarcoma of Soft Tissue"
+    },
+    "referralTests": [{
+            "germlineSamples": [{
+                    "product": "DNA",
+                    "method": "NOT_APPLICABLE",
+                    "sampleId": "LP3000571-DNA_H07",
+                    "storageMedium": "EDTA",
+                    "source": "BLOOD",
+                    "sampleType": "Normal or Germline sample",
+                    "labSampleId": "1024916544",
+                    "participantId": "p20210200002",
+                    "sampleUid": "R5PUWTXB-OFY0-GS55-TF5E-2EVO5GWGHRN6",
+                    "maskedPid": "025ZCZ8T-JMHE-0EZQ-CELD-G4EYBSH8NJ9F",
+                    "programmePhase": "MAIN",
+                    "clinicalSampleDateTime": "2017-05-26T00:00:00+0000",
+                    "participantUid": "790c52b1-a295-497e-9286-bef48f9da7e9",
+                    "sampleState": "blood_unsorted_edta"
+                }
+            ],
+            "referralTestOrderingDate": {
+                "month": 2,
+                "year": 2021,
+                "day": 23
+            },
+            "processingLab": {
+                "organisationName": "Gloucestershire Care Services NHS Trust",
+                "organisationId": "template",
+                "organisationCode": "R1J",
+                "organisationNationalGroupingName": "Gloucestershire Care Services NHS Trust",
+                "organisationNationalGroupingId": "R1J"
+            },
+            "interpreter": {
+                "organisationName": "Gloucestershire Care Services NHS Trust",
+                "organisationId": "template",
+                "organisationCode": "R1J",
+                "organisationNationalGroupingName": "Gloucestershire Care Services NHS Trust",
+                "organisationNationalGroupingId": "R1J"
+            },
+            "matchedSamples": [{
+                    "germlineSampleId": "LP3000571-DNA_H07",
+                    "tumourSampleId": "LP3000575-DNA_A08"
+                }
+            ],
+            "clinicalIndicationTest": {
+                "testTypeId": "template",
+                "clinicalIndicationTestTypeId": "template",
+                "testTypeName": "template",
+                "clinicalIndicationTestTypeCode": "template",
+                "technology": {
+                    "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+                    "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+                }
+            },
+            "priority": "routine",
+            "tumourSamples": [{
+                    "sampleMorphologies": [{
+                            "id": "SCTID:271944004"
+                        }
+                    ],
+                    "product": "DNA",
+                    "method": "BIOPSY",
+                    "sampleId": "LP3000575-DNA_A08",
+                    "storageMedium": "FF",
+                    "sampleTopographies": [{
+                            "id": "SCTID:87784001"
+                        }
+                    ],
+                    "source": "TUMOUR",
+                    "sampleType": "Solid tumour sample",
+                    "labSampleId": "1024916587",
+                    "tumourContentPercentage": 40.3,
+                    "tumourId": "RAN_170002170",
+                    "participantId": "p20210200002",
+                    "sampleUid": "V0FKN2EA-HOUO-V7GQ-XZ0C-15OAH6KQIY55",
+                    "maskedPid": "XCMQJY5C-86XZ-A9WP-P8R5-3HBDI3XX9TD9",
+                    "programmePhase": "MAIN",
+                    "clinicalSampleDateTime": "2017-05-26T12:23:00+0000",
+                    "participantUid": "790c52b1-a295-497e-9286-bef48f9da7e9",
+                    "tumourContent": "Medium",
+                    "sampleState": "tumour_freshFrozen"
+                }
+            ],
+            "referralTestId": "JAO7JAFUUT8O"
+        }
+    ]
+}

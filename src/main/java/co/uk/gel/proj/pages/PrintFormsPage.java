@@ -9,6 +9,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -670,7 +671,6 @@ public class PrintFormsPage {
                 Debugger.println("Lab address is Not Shown");
                 return null;
             }
-
             //Debugger.println("lab Address to search in form: " + labAddress[1]);
             hideLabAddressLink.click();
             return labAddress[1];

@@ -1,0 +1,224 @@
+{
+  "clinicalIndication": {
+    "clinicalIndicationCode": "R193",
+    "clinicalIndicationFullName": "Cystic renal disease",
+    "clinicalIndicationUid": "2921b41c-1d33-4aa0-a442-88891483722e"
+  },
+  "orderingDate": {
+    "day": 8,
+    "month": 2,
+    "year": 2021
+  },
+  "pedigree": {
+    "familyId": "r21430961839",
+    "familyQCState": "passedMedicalReviewReadyForInterpretation",
+    "members": [
+      {
+        "adoptedStatus": "notadopted",
+        "affectionStatus": "AFFECTED",
+        "consanguineousParents": "unknown",
+        "disorderList": [
+          {
+            "specificDisease": "R193"
+          }
+        ],
+        "fatherId": 3,
+        "hpoTermList": [{
+          "hpoBuildNumber": "HP:0100611",
+          "termPresence": "unknown",
+          "term": "HP:0100611"
+        }, {
+          "hpoBuildNumber": "HP:0000822",
+          "termPresence": "yes",
+          "term": "HP:0000822"
+        }, {
+          "hpoBuildNumber": "HP:0012622",
+          "termPresence": "yes",
+          "term": "HP:0012622"
+        }, {
+          "hpoBuildNumber": "HP:0001407",
+          "termPresence": "yes",
+          "term": "HP:0001407"
+        }, {
+          "hpoBuildNumber": "HP:0001873",
+          "termPresence": "yes",
+          "term": "HP:0001873"
+        }, {
+          "hpoBuildNumber": "HP:0100309",
+          "termPresence": "yes",
+          "term": "HP:0100309"
+        }, {
+          "hpoBuildNumber": "HP:0000093",
+          "termPresence": "yes",
+          "term": "HP:0000093"
+        }, {
+          "hpoBuildNumber": "HP:0005562",
+          "termPresence": "yes",
+          "term": "HP:0005562"
+        }, {
+          "hpoBuildNumber": "HP:0001970",
+          "termPresence": "unknown",
+          "term": "HP:0001970"
+        }, {
+          "hpoBuildNumber": "HP:0012587",
+          "termPresence": "yes",
+          "term": "HP:0012587"
+        }, {
+          "hpoBuildNumber": "HP:0000107",
+          "termPresence": "yes",
+          "term": "HP:0000107"
+        }, {
+          "hpoBuildNumber": "HP:0000092",
+          "termPresence": "unknown",
+          "term": "HP:0000092"
+        }, {
+          "hpoBuildNumber": "HP:0005576",
+          "termPresence": "unknown",
+          "term": "HP:0005576"
+        }, {
+          "hpoBuildNumber": "HP:0000028",
+          "termPresence": "no",
+          "term": "HP:0000028"
+        }, {
+          "hpoBuildNumber": "HP:0001513",
+          "termPresence": "no",
+          "term": "HP:0001513"
+        }
+        ],
+        "isProband": true,
+        "lifeStatus": "ALIVE",
+        "monozygotic": "unknown",
+        "motherId": 4,
+        "participantId": "p45788654761",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "participantUid": "32101585-541e-40aa-b6f7-3a5b003c4101",
+        "pedigreeId": 1,
+        "personKaryotypicSex": "UNKNOWN",
+        "sex": "MALE",
+        "twinGroup": 0,
+        "yearOfBirth": 1951
+      },
+      {
+        "motherId": 8,
+        "pedigreeId": 5,
+        "isProband": false,
+        "fatherId": 12,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "ftl1j"
+      },
+      {
+        "pedigreeId": 3,
+        "participantId": "orzbo",
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "isProband": false
+      },
+      {
+        "motherId": 4,
+        "pedigreeId": 5,
+        "isProband": false,
+        "fatherId": 3,
+        "lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "participantId": "1ewte"
+      },
+      {
+        "pedigreeId": 4,
+        "participantId": "e5wi1",
+        "lifeStatus": "ALIVE",
+        "sex": "FEMALE",
+        "adoptedStatus": "notadopted",
+        "personKaryotypicSex": "UNKNOWN",
+        "affectionStatus": "UNAFFECTED",
+        "isProband": false
+      }
+    ],
+    "readyForAnalysis": true
+  },
+  "referralId": "r21430961839",
+  "referralTests": [
+    {
+      "analysisPanels": [
+        {
+          "multipleGeneticOrigins": "No",
+          "panelVersion": "3.19",
+          "panelName": "Cystic renal disease",
+          "panelId": "487",
+          "specificDisease": "R193"
+        }
+      ],
+      "clinicalIndicationTest": {
+        "clinicalIndicationTestTypeCode": "R193.4",
+        "clinicalIndicationTestTypeId": "2a6d2142-bfaf-4c36-acc5-981ee34ca185",
+        "technology": {
+          "testTechnologyDescription": "WGS",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        },
+        "testTypeId": "7720ae3a-b63b-447b-9ebf-01b5a4940324",
+        "testTypeName": "Cystic renal disease WGS"
+      },
+      "diseasePenetrances": [
+        {
+          "penetrance": "incomplete",
+          "specificDisease": "R193"
+        }
+      ],
+      "germlineSamples": [
+        {
+          "labSampleId": "2134567254",
+          "maskedPid": "PID:1:1:MhAVhVQeQKq29zpbADxBAQ==:BuIiLbJJfRa0iTDV1w29UmjBeDaWLDSoTBQHs6vGuFo5NcghlV/MYi2DxtSypS2addiYddwvnZF/Xva0FdqrE2UB1LcEJjrzg0IPhMXNGuffD1SJq/HX47ljLhkw6W0J+KGVL5c9kBAtNEo4m5spRu0+PbxBIFDGpk4tfNATALH6BTbPzEt4ZMLPTU2TM3k3cY+pm5aR03x+f28PBv51k6CpiAHja3HcHDuvEjpiM2jMwLawXA+A8fc0BCxisFD2AC5766Id9LhXiVHtHlAEveI0Tt0Jm5Y/qAnFHJh4m99dtFvZJmE7ujBgtltOUfJMr12ySr6CjzAOAYwTgEnT6wWAwoURw2B2MhFv/tIqrkiYJ46EUq0rlXgEDnKVQOu5lniMDFoy9z8E7BC0IE9lgh2Fntiia2KfXIgA+7q75/tkQuDPhTzkRHiU9bhyq7FNYFeb1eldb0M1r7U8qHD8P8JVxz6M6TupGQo6thfL6m67I2HV68HPx8BMML7WTZ1HS+MB0w/MAcoyoFzS0qpRMvcY89raejNMUeUOaXDLt9I9mz91cyFgDQ0h5NcRecczuPFT/fPQU3M+A3GDnkkqJB2968RT9V0gySpHD2+wnxT23wml15abFsy3YHsEs7bZ3sCo171Kw83fIvBD5JFxzwV4dSbo7toL0A4v31cpaJTg+ylCHe+hR0k8dBDBBKimWYrdhj94UWvMsuqPhrPvN5WvVaGTt9MbdOepTQBxfGfGyW5pTVMQDq9CvxdgaWxmSAl9HkOhPTl92/R+4ZhDuCGxNVerKi+hGLeLuXZMDT/azJ1Aw4ODKhYNl5IjPTQnosLk4+LMcLEVsJyL7l+Z1aDrSquWKa32/u/TjQKxxoYxJGDFiqiMvngGzr+tnhhNRQD930ztkTCSgX9q/FR2MPLaw4xwDEt+pVYfJBAgr7GKWAp2mbwd8TiGAT0xAFMA952/3hpgMswMLaUDKQ53o317SbueQ5eERKFSkg3LRndL2ixbwf4CKNWvml5mY2mHron+SS3SPRjVXqQkf9AT5c/pkqgvxWV4mHY9ZZlqOKHIocsWza74yfaWEZX2m8a7NI7L5LRlyvcFL1zvDTR+HS4T4Zyslj9UkZS9rV6kCS3hhOdi1MDnUMiTzxGD74EPW59Y116l8YjBs6XuiaQOF+HbJtuDLp14F4t3xN3+5WlqVr6wIHK2xwwykwANRuOPMq6Ka+QQ5jqwrCHg+IFFnO1d6vm2hLo99PseFi5GIYaehvQGEdAsiKuyzjhkSnvXZK5mtPiL8xQJ9crBUSg2i80mGSt2zSNoFQhuNg5DkZlMt8kToQP8NRvem/MB05HFyu+ZjbBOGljeyT3KhKf+ewoB624tRMZSGdhQmfejupE=",
+          "method": "NOT_APPLICABLE",
+          "participantId": "p45788654761",
+          "participantUid": "32101585-541e-40aa-b6f7-3a5b003c4101",
+          "product": "DNA",
+          "programmePhase": "MAIN",
+          "sampleId": "LP3000124-DNA_C12",
+          "sampleState": "blood_unsorted_edta",
+          "sampleType": "Normal or Germline sample",
+          "sampleUid": "LP3000124-DNA_C12",
+          "source": "BLOOD",
+          "storageMedium": "EDTA"
+        }
+      ],
+      "interpreter": {
+        "organisationName": "South West Genomic Laboratory Hub",
+        "organisationNationalGroupingId": "69A50",
+        "organisationId": "fbc76836-bc98-1445-931f-58b27b0eda20",
+        "organisationCode": "69A50",
+        "organisationNationalGroupingName": "South West Genomic Laboratory Hub"
+      },
+      "priority": "routine",
+      "processingLab": {
+        "organisationName": "West Midlands Regional Genetics Laboratory",
+        "organisationNationalGroupingId": "699P0",
+        "organisationId": "4be345ee-1186-4e2a-9057-465efec40ce4",
+        "organisationCode": "699F0",
+        "organisationNationalGroupingName": "Wessex & West Midlands"
+      },
+      "referralTestId": "2645573b-72eb-4956-bcff-8c395a3090b9",
+      "referralTestOrderingDate": {
+        "day": 11,
+        "month": 2,
+        "year": 2021
+      }
+    }
+  ],
+  "referralUid": "dd4c3e74-f087-4dcd-8e1a-3a0c693077f1",
+  "requester": {
+    "organisationName": "Dorset Healthcare University NHS Foundation Trust",
+    "organisationNationalGroupingId": "699P0",
+    "organisationId": "0bd2551c-61c0-4f4d-8fd8-e8a39fcf8588",
+    "organisationCode": "RDY",
+    "organisationNationalGroupingName": "Central and South Genomic Laboratory Hub"
+  }
+}

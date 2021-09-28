@@ -8,9 +8,8 @@ import co.uk.gel.proj.util.TestUtils;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
@@ -22,10 +21,10 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkArgument;
+import java.util.Set;
 
 public class SeleniumLib {
 

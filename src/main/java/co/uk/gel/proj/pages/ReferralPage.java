@@ -297,6 +297,9 @@ public class ReferralPage<check> {
     @FindBy(id = "submitButton")
     public WebElement signInNHSPage;
 
+    @FindBy(xpath = "//span[@id='ngisId_1']/parent::li/span/span/parent::span")
+    public WebElement referralHeaderPatientNGIS_ID;
+
     // login page password submit button
     @FindBy(css = "input[type*='submit']")
     public WebElement PasswordSubmitButton;
@@ -2212,6 +2215,35 @@ public class ReferralPage<check> {
             Debugger.println("Exception from validateSessionTimeOut " + exp);
             SeleniumLib.takeAScreenShot("sessionTimeOutWait.jpg");
             return "Exception from validateSessionTimeOut" + exp;
+        }
+    }
+
+    public String returnReferralID() {
+        try {
+            String referralId = referralHeaderReferralId.getText();
+            Debugger.println("The referral Id found is- " + referralId);
+            return referralId;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Reading the referral ID: " + exp);
+            return null;
+        }
+    }
+
+    public String readReferralHeaderPatientNgisId() {
+        try {
+            if (!Wait.isElementDisplayed(driver, referralHeaderPatientNGIS_ID, 10)) {
+                Debugger.println("referralHeaderPatientNgisId not present");
+                return null;
+            }
+            String ngisID = referralHeaderPatientNGIS_ID.getText();
+            if (ngisID == null) {
+                Debugger.println("NGIS ID not present.");
+                return null;
+            }
+            return ngisID;
+        } catch (Exception e) {
+            Debugger.println("Exception found while reading the NGIS ID." + e);
+            return null;
         }
     }
 

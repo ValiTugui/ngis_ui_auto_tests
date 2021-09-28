@@ -796,7 +796,6 @@ public class TumoursSteps extends Pages {
         tumoursPage.verifyDescriptionAndReportId();
     }
 
-
     @When("the user updates the {string} stage with {string}")
     public void theUserUpdatesTheStageWith(String stageName, String updateDetails) {
         if (stageName.equalsIgnoreCase("Tumours")) {

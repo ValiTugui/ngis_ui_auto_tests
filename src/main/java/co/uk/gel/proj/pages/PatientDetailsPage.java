@@ -11,6 +11,8 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.gel.models.participant.avro.PedigreeMember;
+import org.gel.models.participant.avro.Referral;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -239,7 +241,6 @@ public class PatientDetailsPage {
     public WebElement addressField;
 
     @FindBy(xpath = "//input[@name='administrativeGender']/../div")
-
     public WebElement genderPath;
 
 
@@ -1175,7 +1176,13 @@ public class PatientDetailsPage {
         try {
             //Debugger.println("Adding new Family Member...");
             selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
-            familyMember.setTITLE("Mr");
+            if (familyMember.getGENDER().trim().equalsIgnoreCase("Male")) {
+                familyMember.setTITLE("Mr");
+            }else if (familyMember.getGENDER().trim().equalsIgnoreCase("Female")){
+                familyMember.setTITLE("Ms");
+            }else{
+                familyMember.setTITLE("Mr");
+            }
             //Name without single appostrophe
             familyMember.setFIRST_NAME(TestUtils.getRandomFirstName().replaceAll("'", ""));
             familyMember.setLAST_NAME(TestUtils.getRandomLastName().replaceAll("'", ""));
@@ -2377,4 +2384,91 @@ public class PatientDetailsPage {
             return false;
         }
     }
+
+    //From JSON data for JSON Framework
+    public boolean fillInPatientDetailsFromJson(String caseType,String reason, Referral referralObject) {
+        try {
+            String firstNameValue = TestUtils.getRandomFirstName();
+            String lastNameValue = TestUtils.getRandomLastName();
+            newPatient.setFirstName(firstNameValue);
+            newPatient.setLastName(lastNameValue);
+            String dayOfBirth = PatientSearchPage.testData.getDay();
+            String monthOfBirth = PatientSearchPage.testData.getMonth();
+            String yearOfBirth = PatientSearchPage.testData.getYear();
+            newPatient.setDay(dayOfBirth);
+            newPatient.setMonth(monthOfBirth);
+            newPatient.setYear(yearOfBirth);
+            String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
+            newPatient.setNhsNumber(nhsNumber);
+            String gender = null;
+            String lifeStatus = null;
+            if (caseType.equalsIgnoreCase("Cancer")) {
+                gender = referralObject.getCancerParticipant().getSex().name();
+                try {
+                    lifeStatus = referralObject.getPedigree().getMembers().get(0).getLifeStatus().name();
+                }catch (NullPointerException exp){
+                    Debugger.println("Exception from reading Life Status from given Json: "+exp+System.lineSeparator()+"....Continuing with life status as 'alive'.");
+                    lifeStatus = "ALIVE";
+                }
+            } else {
+                List<Integer> probandMemberNum = TestUtils.getMemberPositionDetailsFromJson(referralObject, "Proband");
+                if (probandMemberNum == null) {
+                    SeleniumLib.takeAScreenShot("NoProbandDetails.jpg");
+                    Assert.fail("Could not get member details from JSON.");
+                }
+                Debugger.println("The position of proband member participant is " + probandMemberNum.toString());
+                PedigreeMember probandMember = referralObject.getPedigree().getMembers().get(probandMemberNum.get(0));
+                gender= probandMember.getSex().name();
+                Debugger.println("The Gender value "+gender);
+                lifeStatus=probandMember.getLifeStatus().name();
+                Debugger.println("The life status value "+lifeStatus);
+            }
+            //modify the values from JSON to convert from Uppercase to lower case
+            //for Gender
+            String newGenderValue=TestUtils.convertUpperCaseJSONDataToProperFormat(gender);
+            Debugger.println("Gender value old:- "+gender+" new- "+newGenderValue);
+            newPatient.setGender(newGenderValue);
+            //for life status
+            String newlifeStatus=TestUtils.convertUpperCaseJSONDataToProperFormat(lifeStatus);
+            Debugger.println("Life status is- "+lifeStatus+" corrected value- "+newlifeStatus);
+
+            String hospitalId = faker.numerify("A#R##BB##");
+            newPatient.setHospitalNumber(hospitalId);
+            newPatient.setPostCode(getRandomUKPostCode());
+            //Fill in the values
+
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            Actions.fillInValue(familyName, newPatient.getLastName());
+            selectMissingNhsNumberReason(reason);
+            selectGender(administrativeGenderButton, newGenderValue);
+            if (newGenderValue.equalsIgnoreCase("Male")) {
+                newPatient.setTitle("Mr");
+                title.sendKeys("Mr");
+            }else if (newGenderValue.equalsIgnoreCase("Female")){
+                newPatient.setTitle("Ms");
+                title.sendKeys("Ms");
+            }
+            editDropdownField(lifeStatusButton, newlifeStatus);
+
+            editDropdownField(ethnicityButton, "A - White - British");
+            selectMissingNhsNumberReason(reason);
+            if (reason.equalsIgnoreCase("Other (please provide reason)")) {
+                Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+                otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+            }
+            Actions.fillInValue(hospitalNumber, hospitalId);
+            Actions.fillInValue(addressLine0, faker.address().buildingNumber());
+            Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
+            Actions.fillInValue(addressLine2, faker.address().streetName());
+            Actions.fillInValue(addressLine3, faker.address().cityName());
+            Actions.fillInValue(addressLine4, faker.address().state());
+            Actions.fillInValue(postcode, newPatient.getPostCode());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from fillInPatientDetailsFromJson:" + exp);
+            SeleniumLib.takeAScreenShot("fillInPatientDetailsFromJson.jpg");
+            return false;
+        }
+    }
+
 }//end

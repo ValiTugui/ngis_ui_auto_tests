@@ -1238,7 +1238,6 @@ public class PatientChoiceSteps extends Pages {
         }
     }
 
-
     @And("the user should see the remove document button is displayed")
     public void theUserShouldSeeTheRemoveDocumentButtonIsDisplayed() {
         boolean testResult = false;

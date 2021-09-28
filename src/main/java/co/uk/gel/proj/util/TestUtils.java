@@ -2,14 +2,20 @@ package co.uk.gel.proj.util;
 
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.ReferralDataModel;
+import co.uk.gel.models.ReferralsList;
 import co.uk.gel.proj.config.AppConfig;
 import com.github.javafaker.Faker;
 import com.google.common.base.Splitter;
+import com.google.gson.*;
+import com.google.gson.stream.JsonWriter;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.gel.models.participant.avro.PedigreeMember;
+import org.gel.models.participant.avro.Referral;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
@@ -535,6 +541,7 @@ public class TestUtils {
 
         }
     }
+
     public static boolean writeToFile (String fileName,String dataToWrite) {
         try {
             FileWriter file = new FileWriter(defaultDownloadLocation+fileName, true);
@@ -579,4 +586,146 @@ public class TestUtils {
             return "";
         }
     }
-}
+
+    //For Use in JSON Framework
+    public static List<Integer> getMemberPositionDetailsFromJson(Referral referralObject, String memberType) {
+        try {
+            int numOfParticipants = referralObject.getPedigree().getMembers().size();
+            List<Integer> memberPositions = new ArrayList<Integer>();
+            for (int i = 0; i < numOfParticipants; i++) {
+                PedigreeMember member = referralObject.getPedigree().getMembers().get(i);
+                boolean probandStatus = member.getIsProband();
+
+                if (memberType.equalsIgnoreCase("Proband")) {
+                    if (probandStatus) {
+                        Debugger.println("Adding proband position " + i);
+                        memberPositions.add(i);
+                        return memberPositions;
+                    }
+                } else {
+                    if (!probandStatus) {
+                        Debugger.println("Adding member position " + i);
+                        memberPositions.add(i);
+                    }
+                }
+            }
+            Debugger.println("The member positions added " + memberPositions.toString());
+            return memberPositions;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting member position details from JSON: " + exp);
+            return null;
+        }
+    }
+
+     // to convert JSON data from all upper case to 1st char in UpperCase and remaining lower case.
+    public static String convertUpperCaseJSONDataToProperFormat(String inputText) {
+        char firstChar=inputText.charAt(0);
+        int lengthOfText=inputText.length();
+        String textWithoutFirstChar=inputText.substring(1,lengthOfText);
+        String outputText=firstChar+textWithoutFirstChar.toLowerCase();
+        return outputText;
+    }
+
+    // generates random DOB in dd-MM-yyyy format with only year provided
+    public static String getRandomDobFromYear(String yearOfBirth) {
+        try{
+            Faker fakeDate=new Faker();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date startDate = sdf.parse("01-01-" + yearOfBirth);
+            Date endDate = sdf.parse("31-12-" + yearOfBirth);
+            Date date = fakeDate.date().between(startDate,endDate);
+            return sdf.format(date);
+        }catch (Exception exp){
+            exp.printStackTrace();
+            return "01-07-"+yearOfBirth;
+        }
+    }
+
+    public static HashMap<String, String> splitAndGetParamsByDelimiter(String combinedInput,String regex) {
+        HashMap<String, String> paramNameValue = new HashMap<>();
+        String[] allParams = combinedInput.split(regex);
+        for (String param : allParams) {
+            paramNameValue.put(param.split("=")[0], param.split("=")[1]);
+        }
+        return paramNameValue;
+    }
+
+    public static void writeToTextFileOfName (String fileName,String dataToWrite) {
+        try {
+            FileWriter file = new FileWriter(fileName, true);
+            file.write(dataToWrite);
+            file.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeToJsonFileOfName(String fileName, String caseType, String referralIdData, List<String> sampleWellIdList,String probandID) {
+        try {
+            File jsonFile = new File(fileName);
+            JsonParser parser = new JsonParser();
+            Iterator<JsonElement> iterator;
+            ReferralsList referralsList = new ReferralsList();
+            FileWriter fileWriter; //= new FileWriter(fileName, false);
+            JsonWriter jWriter;//= new JsonWriter(fileWriter);
+            Gson gson = new Gson();
+
+            if (!jsonFile.exists()) {
+                jsonFile.createNewFile();
+                System.out.println(" Creating file..........");
+            } else {
+                System.out.println(" File exists..........");
+                Object obj = parser.parse(new FileReader(fileName));
+//                System.out.println("The current file contents as object-" + obj.toString());
+                JsonObject jObject = (JsonObject) obj;
+                Debugger.println("The current file contents as Json Object-" + jObject);
+                JsonArray existingData = (JsonArray) jObject.get("referralsList");
+                iterator = existingData.iterator();
+                while (iterator.hasNext()) {
+                    referralsList.addReferralsInList(gson.fromJson(iterator.next().toString(), ReferralDataModel.class));
+                }
+            }
+
+            fileWriter = new FileWriter(fileName, false);
+            jWriter = new JsonWriter(fileWriter);
+            /// Sort the data in proper Format
+            ReferralDataModel newReferralData = new ReferralDataModel();
+            newReferralData.setCaseType(caseType);
+            newReferralData.setReferralId(referralIdData);
+            newReferralData.setProbandId(probandID);
+            newReferralData.setSampleWellIdList(sampleWellIdList);
+
+            referralsList.addReferralsInList(newReferralData);
+            //Writing in the file
+            gson.toJson(referralsList, ReferralsList.class, jWriter);
+            fileWriter.close();
+        } catch (Exception exp) {
+            Debugger.println("Exception from Writing to JSON file: "+exp);
+        }
+    }
+
+    public static String readTextFileInLines (String fileName) {
+        try
+        {
+            File file = new File(fileName);
+            System.out.println(file.getAbsolutePath());
+            FileReader fileRdr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileRdr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+            }
+            br.close();
+            fileRdr.close();
+            return sb.toString();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+}//end

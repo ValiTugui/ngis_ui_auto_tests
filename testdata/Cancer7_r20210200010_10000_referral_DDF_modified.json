@@ -1,0 +1,166 @@
+{
+  "pedigree": {
+    "familyId": "r20210200010",
+    "members": [
+      {
+        "participantId": "p20210200010",
+        "personKaryotypicSex": "UNKNOWN",
+        "participantQCState": "passedMedicalReviewReadyForInterpretation",
+        "isProband": true,
+		"lifeStatus": "ALIVE",
+        "sex": "MALE",
+        "disorderList": [
+          {
+            "specificDisease": "M187"
+          }
+        ],
+        "affectionStatus": "AFFECTED",
+        "participantUid": "04ad4fcd-7d58-4ee3-a37a-1cc499a70b6f",
+        "pedigreeId": 1,
+        "yearOfBirth": 1967
+      }
+    ],
+    "readyForAnalysis": true
+  },
+  "requester": {
+    "organisationName": "Chesterfield Royal Hospital NHS Foundation Trust",
+    "organisationId": "RFS",
+    "organisationCode": "RFS",
+    "organisationNationalGroupingName": "East Mids and East of England",
+    "organisationNationalGroupingId": "699M0"
+  },
+  "orderingDate": {
+    "month": 2,
+    "year": 2021,
+    "day": 23
+  },
+  "cancerParticipant": {
+    "participantId": "p20210200010",
+    "sex": "MALE",
+    "readyForAnalysis": true,
+    "participantUid": "04ad4fcd-7d58-4ee3-a37a-1cc499a70b6f",
+    "tumours": [
+      {
+        "tumourTopographies": [
+          {
+            "id": "SCTID:113193004"
+          }
+        ],
+        "primaryOrMetastatic": "PRIMARY",
+        "tumourDiagnosisDate": {
+          "month": 1,
+          "year": 2020,
+          "day": 1
+        },
+        "tumourPresentation": "FIRST_PRESENTATION",
+        "tumourType": "SOLID_TUMOUR_PRIMARY",
+        "tumourLocalId": "RP4_160003658",
+        "tumourMorphologies": [
+          {
+            "id": "SCTID:21708004"
+          }
+        ],
+        "tumourId": "RP4_160003658"
+      }
+    ],
+    "yearOfBirth": 1967
+  },
+  "referralId": "r20210200010",
+  "referralUid": "6c20b6ad-ab64-46b0-9c02-cedc07f7c0c1",
+  "clinicalIndication": {
+    "clinicalIndicationUid": "template",
+    "clinicalIndicationVersionNumber": "template",
+    "clinicalIndicationCode": "M187",
+    "clinicalIndicationFullName": "Uveal melanoma"
+  },
+  "referralTests": [
+    {
+      "germlineSamples": [
+        {
+          "product": "DNA",
+          "method": "NOT_APPLICABLE",
+          "sampleId": "LP3000542-DNA_G01",
+          "storageMedium": "EDTA",
+          "source": "BLOOD",
+          "sampleType": "Normal or Germline sample",
+          "labSampleId": "1021977364",
+          "participantId": "p20210200010",
+          "sampleUid": "JTAE5VG9-YNE2-UWND-KTH4-AKOBRYVQWSI1",
+          "maskedPid": "7JNXFQQD-AMY6-V1BD-BP4X-PU6PCNWCLM29",
+          "programmePhase": "MAIN",
+          "clinicalSampleDateTime": "2016-09-28T00:00:00+0000",
+          "participantUid": "04ad4fcd-7d58-4ee3-a37a-1cc499a70b6f",
+          "sampleState": "blood_unsorted_edta"
+        }
+      ],
+      "referralTestOrderingDate": {
+        "month": 2,
+        "year": 2021,
+        "day": 23
+      },
+      "processingLab": {
+        "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+        "organisationId": "template",
+        "organisationCode": "69KQD",
+        "organisationNationalGroupingName": "London North",
+        "organisationNationalGroupingId": "69A70"
+      },
+      "interpreter": {
+        "organisationName": "NORTH THAMES NHS GENOMIC MEDICINE CENTRE",
+        "organisationId": "template",
+        "organisationCode": "69KQD",
+        "organisationNationalGroupingName": "London North",
+        "organisationNationalGroupingId": "69A70"
+      },
+      "matchedSamples": [
+        {
+          "germlineSampleId": "LP3000542-DNA_G01",
+          "tumourSampleId": "LP3000544-DNA_G12"
+        }
+      ],
+      "clinicalIndicationTest": {
+        "testTypeId": "template",
+        "clinicalIndicationTestTypeId": "template",
+        "testTypeName": "template",
+        "clinicalIndicationTestTypeCode": "template",
+        "technology": {
+          "testTechnologyDescription": "Whole Genome Sequencing and Interpretation",
+          "testTechnologyId": "2ad3a7f4-e917-4688-a53b-a560892bc748"
+        }
+      },
+      "priority": "urgent",
+      "tumourSamples": [
+        {
+          "sampleMorphologies": [
+            {
+              "id": "SCTID:21708004"
+            }
+          ],
+          "product": "DNA",
+          "method": "BIOPSY",
+          "sampleId": "LP3000544-DNA_G12",
+          "storageMedium": "FF",
+          "sampleTopographies": [
+            {
+              "id": "SCTID:113193004"
+            }
+          ],
+          "source": "TUMOUR",
+          "sampleType": "Solid tumour sample",
+          "labSampleId": "1021977956",
+          "tumourContentPercentage": 54.8,
+          "tumourId": "RP4_160003658",
+          "participantId": "p20210200010",
+          "sampleUid": "XA69ITGT-OBA5-5KRH-8VRB-Q876BYT86GUQ",
+          "maskedPid": "U0U0G3M0-V08C-9B04-CDTP-DJJ0CBCVHFJY",
+          "programmePhase": "MAIN",
+          "clinicalSampleDateTime": "2016-09-28T00:00:00+0000",
+          "participantUid": "04ad4fcd-7d58-4ee3-a37a-1cc499a70b6f",
+          "tumourContent": "Medium",
+          "sampleState": "tumour_freshFrozen"
+        }
+      ],
+      "referralTestId": "FLKJB2FYOT6X"
+    }
+  ]
+}
