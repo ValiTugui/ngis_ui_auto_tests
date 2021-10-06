@@ -24,7 +24,7 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user verifies the patient record history
     And the user sees the "<Current status>" and "<Updated status>"
     And The user sees the Reason section with toggle options Duplicate and Created in error
-    Then the blank mandatory field labels highlighted in red color
+    Then the user sees blank mandatory field labels highlighted in red color
       | field_name    | color   |
       | Reason        | #212b32 |
       | Justification | #212b32 |
