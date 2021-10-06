@@ -402,5 +402,15 @@ public class NeatToolSteps extends Pages {
             Assert.fail("Could not see tooltip :" + tooltipMsg);
         }
     }
+    @And("the user sees blank mandatory field labels highlighted in red color")
+    public void theUserSeesBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
+        String testResult = "";
+        List<List<String>> fieldDetails = fields.asLists();
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            testResult = referralPage.verifyBlankMandatoryFieldLabelColorNeat(fieldDetails.get(i).get(0), fieldDetails.get(i).get(1));
+            Assert.assertEquals("Success",testResult);
+            Wait.seconds(2);
+        }
+    }
 
 }//end class
