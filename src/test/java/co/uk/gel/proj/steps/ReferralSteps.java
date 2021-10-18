@@ -1650,4 +1650,10 @@ public class ReferralSteps extends Pages {
         SeleniumLib.sleepInSeconds(2);
     }
 
+    @Then("the user opens another browser instance")
+    public void theUserOpensAnotherBrowserInstance() {
+        boolean testResult = false;
+        testResult = referralPage.openAnotherBrowserInstance();
+        Assert.assertTrue(testResult);
+    }
 }

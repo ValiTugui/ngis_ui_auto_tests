@@ -9,9 +9,14 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -307,6 +312,8 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//h1[text()='Referral Update Conflict']")
     public WebElement saveAndContinueConcurrenyMessage;
+
+    By toDoLink = By.xpath("//*[@id=\"root\"]//div//li//a[contains(text(),'Requesting organisation')]");
 
     public String getText(WebElement element) {
         Wait.forElementToBeDisplayed(driver, element);
@@ -2272,5 +2279,26 @@ public class ReferralPage<check> {
                 return "Exception from validating verifyMandatoryFieldHighlightColor:" + exp;
             }
         }
+
+    public boolean openAnotherBrowserInstance() {
+try {
+    org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+    System.out.println("To open new window");
+    action.contextClick(driver.findElement(toDoLink)).build().perform();
+    Robot robot = new Robot();
+    robot.keyPress(KeyEvent.VK_DOWN);
+    robot.keyRelease(KeyEvent.VK_DOWN);
+    robot.keyPress(KeyEvent.VK_DOWN);
+    robot.keyRelease(KeyEvent.VK_DOWN);
+    robot.keyPress(KeyEvent.VK_ENTER);
+    robot.keyRelease(KeyEvent.VK_ENTER);
+    System.out.println("Opened a new window");
+    return true;
+}catch (Exception exp){
+    Debugger.println("Exception from opening a new window" + exp);
+    return false;
+}
+
+    }
 }
 
