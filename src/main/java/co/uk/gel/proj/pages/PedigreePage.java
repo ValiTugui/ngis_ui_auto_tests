@@ -117,7 +117,7 @@ public class PedigreePage {
     @FindBy(xpath = "//div[@class='field-box field-disorders']//input[@name='disorders']")
     public WebElement clinicalTab_disOrders;
     @FindBy(xpath = "//ul[contains(@class,'disorder_suggestions')]")
-    public WebElement clinicalTab_disOrdersSuggestions;
+    public List<WebElement> clinicalTab_disOrdersSuggestions;
     @FindBy(xpath = "//input[@type='checkbox' and @name='evaluated']")
     public WebElement clinicalTab__documentEvaluation;
     @FindBy(xpath = "//input[@name='clinicalIndicationName']")
@@ -1323,19 +1323,21 @@ public class PedigreePage {
             } else {
                 diseaseList = diseases.split(",");
             }
+
             for (int i = 0; i < diseaseList.length; i++) {
                 clinicalTab_disOrders.sendKeys(diseaseList[i]);
-                Wait.seconds(3);//To load the matching disOrders, if exists
-                if (!Wait.isElementDisplayed(driver, clinicalTab_disOrdersSuggestions, 5)) {
+                Wait.seconds(5);//To load the matching disOrders, if exists
+                clinicalTab_disOrdersSuggestions = driver.findElements(By.xpath("//ul[contains(@class,'disorder_suggestions')]"));
+                if (clinicalTab_disOrdersSuggestions.size() == 0) {
                     Debugger.println("No suggestions displayed for the disease :" + diseaseList[i]);
                     return false;
                 }
-                Actions.retryClickAndIgnoreElementInterception(driver, clinicalTab_disOrdersSuggestions);
+                seleniumLib.clickOnWebElement(clinicalTab_disOrdersSuggestions.get(0));
                 Wait.seconds(2);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying HPO Present options.");
+            Debugger.println("Exception in verifying HPO Present options." + exp);
             return false;
         }
     }

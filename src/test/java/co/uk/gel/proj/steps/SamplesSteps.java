@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -10,13 +9,18 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static co.uk.gel.lib.Actions.getText;
-import static co.uk.gel.lib.Actions.getValue;
 
 public class SamplesSteps extends Pages {
 
@@ -483,9 +487,9 @@ public class SamplesSteps extends Pages {
         /* index 0 is for parent and index 1 is for child */
         List<String> actualParentSampleTestData = samplesPage.getTheParentAndChildSampleDetailsOnTableList(0);
         List<String> actualChildSampleTestData = samplesPage.getTheParentAndChildSampleDetailsOnTableList(1);
-       // Debugger.println("Actual Parent Sample Test Data: " + actualParentSampleTestData);
-       // Debugger.println("Actual Child Sample Test Data: " + actualChildSampleTestData);
-       // Debugger.println("Expected Child Sample Test Data: " + expectedChildSampleTestData);
+        Debugger.println("Actual Parent Sample Test Data: " + actualParentSampleTestData);
+        Debugger.println("Actual Child Sample Test Data: " + actualChildSampleTestData);
+        Debugger.println("Expected Child Sample Test Data: " + expectedChildSampleTestData);
 
         for (int i = 0; i < expectedChildSampleTestData.size(); i++) {
             Assert.assertTrue(actualChildSampleTestData.contains(expectedChildSampleTestData.get(i)));
@@ -500,8 +504,8 @@ public class SamplesSteps extends Pages {
         Assert.assertTrue(testResult);
 
         /* Assert Local-Lab ID of Parent match Parent-ID of Child */
-        //Debugger.println("Lab-Id of Parent : " + actualParentSampleTestData.get(2));
-       // Debugger.println("Parent-ID of Child : " + actualChildSampleTestData.get(3));
+        Debugger.println("Lab-Id of Parent : " + actualParentSampleTestData.get(2));
+        Debugger.println("Parent-ID of Child : " + actualChildSampleTestData.get(3));
         Assert.assertEquals(actualParentSampleTestData.get(2), actualChildSampleTestData.get(3));
     }
 
