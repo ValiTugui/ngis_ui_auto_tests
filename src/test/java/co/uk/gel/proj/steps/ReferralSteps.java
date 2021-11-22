@@ -1049,8 +1049,8 @@ public class ReferralSteps extends Pages {
         } else {
             ConcurrencyTest.setReferral_id(referralId, filePrefix);
             ConcurrencyTest.writeToControllerFile(filePrefix, "ReferralId=" + referralId);
-            if (System.getProperty("TestEnvironment").equalsIgnoreCase("qa")) {
-                baseURL = "https://qa.build.ngis.io/test-order/referral/" + referralId;
+            if (System.getProperty("TestEnvironment").equalsIgnoreCase("aws")) {
+                baseURL = "https://test-ordering.int.ngis.io/test-order/referral/" + referralId;
             } else {
                 baseURL = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/" + referralId;
             }
