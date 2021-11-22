@@ -173,4 +173,4 @@ Feature: TestOrder - Tumours Page - 9
 
     Examples:
       | NhsNumber  | DOB        | tumour_type              | presentationType | RecordedBy                            | PatientDetails  | Tumours | patient-type |
-      | 9449303673 | 16-07-2010 | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         |
+      | 9449306052 | 28-04-2007 | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         |
