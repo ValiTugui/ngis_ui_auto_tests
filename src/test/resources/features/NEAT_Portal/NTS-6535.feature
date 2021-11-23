@@ -77,7 +77,7 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the user should see the tooltip on the Merge status badge having text "<tooltipMessage>"
     Examples:
       | current status | current merge status | Merge status | success notification                        | latest merge status | result_message         | tooltipMessage                                                                                                                                                                    | validSearchDetails                  | RelationshipToProband | DiseaseStatusDetails     |
-      | None           | None                 | Merged       | This record's merge status has been updated | Merged              | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=6483278748:DOB=19-10-1936 | Father                | DiseaseStatus=Unaffected |
+      | None           | None                 | Merged       | This record's merge status has been updated | Merged              | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=9022225550:DOB=01-01-1950 | Father                | DiseaseStatus=Unaffected |
 
 
   @NTS_6535_Scenario2 @NTS_6535
@@ -154,7 +154,7 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the user should see the tooltip on the Merge status badge having text "<tooltipMessage>"
     Examples:
       | current status | current merge status | Merge status | success notification                        | latest merge status | result_message         | tooltipMessage                                                                                                                                                                    | validSearchDetails                  | RelationshipToProband | DiseaseStatusDetails     |
-      | None           | None                 | Demerged     | This record's merge status has been updated | Demerged            | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=3831156743:DOB=14-10-1914 | Father                | DiseaseStatus=Unaffected |
+      | None           | None                 | Demerged     | This record's merge status has been updated | Demerged            | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=1546545646:DOB=02-02-1960 | Father                | DiseaseStatus=Unaffected |
 
 
   @NTS_6535_Scenario3 @NTS_6535
@@ -231,7 +231,7 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the user should see the tooltip on the Merge status badge having text "<tooltipMessage>"
     Examples:
       | current status | current merge status | Merge status        | success notification                        | latest merge status | result_message         | tooltipMessage                                                                                                                                                                    | validSearchDetails                  | RelationshipToProband | DiseaseStatusDetails     | merge status on card |
-      | None           | None                 | Merged and Demerged | This record's merge status has been updated | Merged and Demerged | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=4672576558:DOB=21-10-1914 | Father                | DiseaseStatus=Unaffected | Merged               |
+      | None           | None                 | Merged and Demerged | This record's merge status has been updated | Merged and Demerged | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=2006500007:DOB=03-03-1973 | Father                | DiseaseStatus=Unaffected | Merged               |
 
 
   @NTS_6535_Scenario4
@@ -308,4 +308,4 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
 
     Examples:
       | current status | current merge status | Merge status | success notification                        | latest merge status | result_message         | validSearchDetails                  | RelationshipToProband | DiseaseStatusDetails     |
-      | None           | None                 | None         | This record's merge status has been updated | None                | 1 patient record found | NHSNumber=7574945837:DOB=22-10-1927 | Father                | DiseaseStatus=Unaffected |
+      | None           | None                 | None         | This record's merge status has been updated | None                | 1 patient record found | NHSNumber=8520024440:DOB=10-10-2000 | Father                | DiseaseStatus=Unaffected |

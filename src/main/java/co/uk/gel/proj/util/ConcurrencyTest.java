@@ -14,10 +14,10 @@ public class ConcurrencyTest {
        if(referral_base_url == null){
            checkReferralId(filePrefix);
            if(referral_id != null && !referral_id.isEmpty()){
-               if (System.getProperty("TestEnvironment").equalsIgnoreCase("qa")) {
-                   referral_base_url = "https://qa.build.ngis.io/test-order/referral/" + referral_id;
+               if (System.getProperty("TestEnvironment").equalsIgnoreCase("aws_dev")) {
+                   referral_base_url = "https://test-ordering.int.ngis.io/test-order/referral/" + referral_id;
                } else {
-                   referral_base_url = "https://test-ordering.e2e-latest.ngis.io/test-order/referral/" + referral_id;
+                   referral_base_url = "https://test-ordering.e2e.ngis.io/test-order/referral/" + referral_id;
                }
            }
        }
