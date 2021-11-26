@@ -231,7 +231,7 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the user should see the tooltip on the Merge status badge having text "<tooltipMessage>"
     Examples:
       | current status | current merge status | Merge status        | success notification                        | latest merge status | result_message         | tooltipMessage                                                                                                                                                                    | validSearchDetails                  | RelationshipToProband | DiseaseStatusDetails     | merge status on card |
-      | None           | None                 | Merged and Demerged | This record's merge status has been updated | Merged and Demerged | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=9449306680:DOB=16-06-2011 | Father                | DiseaseStatus=Unaffected | Merged               |
+      | None           | None                 | Merged and Demerged | This record's merge status has been updated | Merged and Demerged | 1 patient record found | This record has been the subject of a merge or demerge; additional information not present in the current record may be available by contacting the Genomics England service desk | NHSNumber=9449306680:DOB=14-06-2011 | Father                | DiseaseStatus=Unaffected | Merged               |
 
 
   @NTS_6535_Scenario4
