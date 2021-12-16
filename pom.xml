@@ -96,6 +96,10 @@
                 <configuration>
                     <forkCount>${forkCount}</forkCount>
                     <reuseForks>false</reuseForks>
+                         <systemPropertyVariables>
+				<logLevel>${logLevel}</logLevel>
+				<log4j2.formatMsgNoLookups>True</log4j2.formatMsgNoLookups>
+			</systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
