@@ -97,7 +97,6 @@
                     <forkCount>${forkCount}</forkCount>
                     <reuseForks>false</reuseForks>
                     <systemPropertyVariables>
-                        <logLevel>${logLevel}</logLevel>
                         <log4j2.formatMsgNoLookups>True</log4j2.formatMsgNoLookups>
                     </systemPropertyVariables>
                 </configuration>
@@ -437,11 +436,11 @@
         </dependency>
 
         <!-- dependencies-->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.0.13</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>1.0.13</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
