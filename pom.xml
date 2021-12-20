@@ -96,10 +96,10 @@
                 <configuration>
                     <forkCount>${forkCount}</forkCount>
                     <reuseForks>false</reuseForks>
-                         <systemPropertyVariables>
-				<logLevel>${logLevel}</logLevel>
-				<log4j2.formatMsgNoLookups>True</log4j2.formatMsgNoLookups>
-			</systemPropertyVariables>
+                    <systemPropertyVariables>
+                        <logLevel>${logLevel}</logLevel>
+                        <log4j2.formatMsgNoLookups>True</log4j2.formatMsgNoLookups>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
@@ -143,33 +143,54 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>report.donut</groupId>-->
+            <!--                <artifactId>donut-maven-plugin</artifactId>-->
+            <!--                <version>1.2.2</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>report</id>-->
+            <!--                        <phase>post-integration-test</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>generate</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <resultSources>-->
+            <!--                                <resultSource>-->
+            <!--                                    &lt;!&ndash; optional format, defaults to cucumber &ndash;&gt;-->
+            <!--                                    <format>cucumber</format>-->
+            <!--                                    <directory>${jsonFolder}</directory>-->
+            <!--                                </resultSource>-->
+            <!--                            </resultSources>-->
+            <!--                            <outputPath>${project.build.directory}/test-report</outputPath>-->
+            <!--                            <timestamp>${maven.build.timestamp}</timestamp>-->
+            <!--                            <prefix>${reportName}</prefix>-->
+            <!--                            <template>default</template>-->
+            <!--                            <projectName>TOMS UI-Tests</projectName>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+            <!--            New report Cluecumber added -->
             <plugin>
-                <groupId>report.donut</groupId>
-                <artifactId>donut-maven-plugin</artifactId>
-                <version>1.2.2</version>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cluecumber-report-plugin</artifactId>
+                <version>2.7.1</version>
                 <executions>
                     <execution>
                         <id>report</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>reporting</goal>
                         </goals>
-                        <configuration>
-                            <resultSources>
-                                <resultSource>
-                                    <!-- optional format, defaults to cucumber -->
-                                    <format>cucumber</format>
-                                    <directory>${jsonFolder}</directory>
-                                </resultSource>
-                            </resultSources>
-                            <outputPath>${project.build.directory}/test-report</outputPath>
-                            <timestamp>${maven.build.timestamp}</timestamp>
-                            <prefix>${reportName}</prefix>
-                            <template>default</template>
-                            <projectName>TOMS UI-Tests</projectName>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <expandBeforeAfterHooks>true</expandBeforeAfterHooks>
+                    <customPageTitle>${reportName}</customPageTitle>
+                    <sourceJsonReportDirectory>${project.build.directory}/cucumber-parallel</sourceJsonReportDirectory>
+                    <generatedHtmlReportDirectory>${project.build.directory}/test-report</generatedHtmlReportDirectory>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -376,7 +397,7 @@
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>maven-cucumber-reporting</artifactId>
-            <version>2.4.0</version>
+            <version>5.6.1</version>
         </dependency>
         <!-- apache POI dependencies-->
         <dependency>
@@ -499,17 +520,17 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
         </dependency>
-        <dependency>
-            <groupId>report.donut</groupId>
-            <artifactId>donut-maven-plugin</artifactId>
-            <version>1.2.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>report.donut</groupId>-->
+        <!--            <artifactId>donut-maven-plugin</artifactId>-->
+        <!--            <version>1.2.2</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>ch.qos.logback</groupId>-->
+        <!--                    <artifactId>logback-classic</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
