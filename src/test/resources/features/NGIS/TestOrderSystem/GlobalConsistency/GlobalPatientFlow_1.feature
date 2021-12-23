@@ -143,7 +143,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
     Examples:
       | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  | invalidReferralURL                                                                       |
-      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | https://test-ordering.e2e-latest.ngis.io/test-order/referral/r5E$&%5E943/patient-details |
+      | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | https://test-ordering.int.ngis.io/test-order/referral/r5E$&%5E943/patient-details |
 
   @NTS-3498 @Z-LOGOUT
 #    @E2EUI-1701

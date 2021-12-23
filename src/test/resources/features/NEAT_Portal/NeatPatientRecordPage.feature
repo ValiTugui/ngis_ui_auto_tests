@@ -44,7 +44,8 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
 #    @E2EUI-2557
 
   Scenario Outline:NTS-6654:E2EUI-2557:[E2E|UI] - Prevent users from reactivating a patient whose NHS number exists when deep linking to the status page (form)
-
+# Pre-requisite: Verify the NGIS ID provided in the examples is matching with respect to the provided NHS no and DOB,
+  # if not update the Patient ID which can be verified via Patient search
       #making the patient inactive
 
     Given the user logs into the NEAT admin tool with the following credentials

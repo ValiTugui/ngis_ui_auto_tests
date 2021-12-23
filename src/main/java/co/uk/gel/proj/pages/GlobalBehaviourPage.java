@@ -65,8 +65,9 @@ public class GlobalBehaviourPage {
 
     public void getNGISVersion() {
         driver.get(AppConfig.getTo_NGISVerion_url());
-        String[] a = versionNumber.getText().split("-");
-        String expectedVerion = "NGIS TOMS " + a[0];
+        String[] a = versionNumber.getText().split(":");
+        String expectedVerion = "NGIS TOMS" + a[1];
+        Debugger.println("The NGIS TOMS VERSION IN THE STATUS PAGE IS " +expectedVerion);
         AppConfig.properties.setProperty("NGIS_Version_Number", expectedVerion);
     }
 
