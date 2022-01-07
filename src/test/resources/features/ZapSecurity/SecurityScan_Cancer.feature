@@ -11,7 +11,7 @@ Feature: NTS-3407 - Security Scan for Cancer flow - Create Referral for Proband 
     And the "<patientDetails>" stage is marked as Completed
 
     When the user navigates to the "<requestingOrganisation>" stage
-    And the user enters the keyword "Maidstone" in the search field
+    And the user enters the keyword "MANCHESTER" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -105,7 +105,7 @@ Feature: NTS-3407 - Security Scan for Cancer flow - Create Referral for Proband 
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    When user run security scan
+#    When user run security scan
     Examples:
       | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
       | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
