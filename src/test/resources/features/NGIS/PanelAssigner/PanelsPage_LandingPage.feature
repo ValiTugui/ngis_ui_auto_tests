@@ -30,8 +30,8 @@ Feature: PanelAssigner: Panels Page Landing Page
       | addition of at least one panel     |
     ##NTS-3381
     And the user should be able to see panels page is correctly displayed
-    And the user should see the section with title Suggestions based on the clinical information
-    And the user sees suggested panels under the section Suggestions based on the clinical information
+    And the user should see the section with title Default Panel based on the clinical information
+    And the user sees suggested panels under the section Default Panel based on the clinical information
     ##@E2EUI-1906
     And the user should be able to see a sub title Confirm disease penetrance on panels page
     Then the user should be able to see an additional line "<textLine>" underneath the penetrance title

@@ -156,7 +156,7 @@ public class PanelsSteps extends Pages {
     }
 
     @And("the user should see the section with title (.*)")
-    public void theUserShouldSeeTheSectionWithTitleSuggestionsBasedOnTheClinicalInformation(String sectionName) {
+    public void theUserShouldSeeTheSectionWithTitleDefaultPanelBasedOnTheClinicalInformation(String sectionName) {
         boolean testResult = false;
         testResult = panelsPage.verifyThePresenceOfSuggestedPanelsSection(sectionName);
         if(!testResult){
@@ -165,7 +165,7 @@ public class PanelsSteps extends Pages {
         }
     }
 
-    @And("the user sees suggested panels under the section Suggestions based on the clinical information")
+    @And("the user sees suggested panels under the section Default Panel based on the clinical information")
     public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection() {
         boolean testResult = false;
         testResult = panelsPage.verifySuggestedPanels();
@@ -205,4 +205,13 @@ public class PanelsSteps extends Pages {
         }
     }
 
+    @Then("the user should not be able to deselect the suggested panel")
+    public void theUserShouldNotBeAbleToDeselectTheSuggestedPanel() {
+        boolean testResult = false;
+        testResult = panelsPage.deselectSuggestedPanel();
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
+            Assert.fail("Suggested Panel deselected");
+        }
+    }
 }//end

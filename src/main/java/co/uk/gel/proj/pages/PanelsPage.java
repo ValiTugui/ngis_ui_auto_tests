@@ -91,6 +91,9 @@ public class PanelsPage {
     @FindBy(css = "[class*='button--selected']")
     public WebElement selectedPentrance;
 
+    @FindBy(xpath = "//div[@class='styles_select-panel__39iQ2 styles_select-panel--checked__2fMDV']")
+    public WebElement checkboxDeselected;
+
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
         try {
@@ -513,4 +516,23 @@ public class PanelsPage {
         return true;
     }
 
+    public boolean deselectSuggestedPanel() {
+        try {
+            for (int i = suggestedPanelsList.size() - 1; i >= 0; i--) {
+                seleniumLib.clickOnWebElement(suggestedPanelsList.get(i));
+                Debugger.println("Clicked on the suggested panel");
+                if (seleniumLib.isElementPresent(checkboxDeselected)){
+                    Debugger.println("As expected unable to deselect the suggested panel");
+                    return true;
+                }
+
+                Debugger.println("Able to deselect the suggested panel");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("Suggeted panel got deselected" + exp);
+            SeleniumLib.takeAScreenShot("DeselectedSuggestedPanel.jpg");
+        }
+        return false;
+    }
 }//end

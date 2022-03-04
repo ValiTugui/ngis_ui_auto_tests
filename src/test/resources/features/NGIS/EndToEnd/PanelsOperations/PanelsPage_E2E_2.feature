@@ -61,7 +61,7 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-2
      ###Panels suggested and new addition
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
-    And the user sees suggested panels under the section Suggestions based on the clinical information
+    And the user sees suggested panels under the section Default Panel based on the clinical information
     And the user search and add the "<SearchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

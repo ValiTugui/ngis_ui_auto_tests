@@ -60,8 +60,8 @@ Feature: Submitting the referral after saving the Panels stage
     And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
-    And the user should see the section with title Suggestions based on the clinical information
-    And the user sees suggested panels under the section Suggestions based on the clinical information
+    And the user should see the section with title Default Panel based on the clinical information
+    And the user sees suggested panels under the section Default Panel based on the clinical information
     And the user sees link with title View On PanelApp attached to all the suggested panels
     And the user clicks the Save and Continue button
     When the user submits the referral
@@ -182,8 +182,8 @@ Feature: Submitting the referral after saving the Panels stage
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     And Penetrance section with options Complete and Incomplete
-#    And the user should see the section with title Suggestions based on the clinical information
-#    And the user sees suggested panels are coming as unchecked by default under the section Suggestions based on the clinical information
+#    And the user should see the section with title Default Panel based on the clinical information
+#    And the user sees suggested panels are coming as unchecked by default under the section Default Panel based on the clinical information
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
     Then the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral

@@ -12,8 +12,8 @@ Feature: PanelAssigner: NTOS-5043: Panels are mandatory if there are no suggeste
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     Then the user sees the "<Panels>" stage has no status indicator
-    Then the user should see the section with title Suggestions based on the clinical information
-    And the user sees suggested panels under the section Suggestions based on the clinical information
+    Then the user should see the section with title Default Panel based on the clinical information
+    And the user sees suggested panels under the section Default Panel based on the clinical information
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

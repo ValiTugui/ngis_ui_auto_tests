@@ -61,7 +61,7 @@ Feature: E2E with PanelAssigner: Selection of Panels for a referral which has mo
      ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
-    And the user sees suggested panels under the section Suggestions based on the clinical information
+    And the user sees suggested panels under the section Default Panel based on the clinical information
     And the user search and add the "<SearchPanels>" panels
     And the user sees the selected "<SearchPanels>" panels under added panels
     And the user clicks the Save and Continue button
