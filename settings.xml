@@ -46,17 +46,17 @@
      | line switch), the first proxy specification in this list marked as active
      | will be used.
      |-->
-<!--    <proxies>-->
-<!--        <proxy>-->
-<!--            <id>optional</id>-->
-<!--            <active>true</active>-->
-<!--            <protocol>http</protocol>-->
-<!--            <username>proxyuser</username>-->
-<!--            <password>proxypass</password>-->
-<!--            <host>proxy-dmz.gel.zone</host>-->
-<!--            <port>80</port>-->
-<!--            <nonProxyHosts>localhost|127.0.0.1|localaddress|.localdomain.com|.gel.zone|.genomicsengland.nhs.uk</nonProxyHosts>-->
-<!--        </proxy>-->
-<!--    </proxies>-->
+    <proxies>
+        <proxy>
+            <id>optional</id>
+            <active>true</active>
+            <protocol>http</protocol>
+            <username>proxyuser</username>
+            <password>proxypass</password>
+            <host>proxy-dmz.gel.zone</host>
+            <port>80</port>
+            <nonProxyHosts>localhost|127.0.0.1|localaddress|.localdomain.com|.gel.zone|.genomicsengland.nhs.uk</nonProxyHosts>
+        </proxy>
+    </proxies>
 
 </settings>
