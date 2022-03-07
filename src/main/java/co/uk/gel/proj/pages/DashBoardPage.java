@@ -301,7 +301,7 @@ public class DashBoardPage {
                     nhsTabs.get(3).click();
                     url = driver.getCurrentUrl();
 //                    Debugger.println("Current URL " + url);
-                    if (!url.contains("cipapi-gms")) {
+                    if (!url.contains("cipapi")) {
                         Debugger.println("the user in wrong page : "+url);
                         return false;
                     }
