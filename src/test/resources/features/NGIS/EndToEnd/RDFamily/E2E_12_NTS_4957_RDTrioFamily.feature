@@ -12,7 +12,7 @@ Feature: RDFamily:NTS-4957:E2E20:Referral for Trio Family and add Family Members
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Maidstone" in the search field
+    And the user enters the keyword "Croydon Health Services NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button

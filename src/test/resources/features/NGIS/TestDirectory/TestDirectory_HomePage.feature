@@ -37,7 +37,7 @@ Feature: TestDirectory : Home Page
     And the print forms stage is locked
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "Maidstone" in the search field
+    And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button

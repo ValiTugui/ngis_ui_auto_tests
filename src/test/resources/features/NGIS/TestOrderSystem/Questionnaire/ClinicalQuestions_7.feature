@@ -32,8 +32,8 @@ Feature: ClinicalQuestions 7 - RD Questionnaire
     Then the user is navigated to a page with title Answer clinical questions
     And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
     Examples:
-      | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions  |
-      | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions |
+      | RequestingOrganisation  | ordering_entity_name                    | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions  |
+      | Requesting organisation | Maidstone And Tunbridge Wells NHS Trust | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions |
 
   @NTS-3453 @Z-LOGOUT
 #  @E2EUI-1124

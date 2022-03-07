@@ -1,4 +1,3 @@
-
 #Some History
 #This test used Spine patient data as proband , and creates referrals for the same proband patient when we run this test multiple times (1 proband ->  many cancelled referrals)
 #This causes a issue on DDF when referrals are submitted/cancelled as the payload for this patient becomes very bigger in size
@@ -105,5 +104,5 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     Then the message should display as "<RevokeMessage>"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name                    | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
+      | Patient details | Requesting organisation | Maidstone And Tunbridge Wells NHS Trust | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |

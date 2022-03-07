@@ -53,5 +53,5 @@ Feature: Pedigree - Pedigree Flow 3
       | NHSNumber=NA:DOB=17-07-2011 |
 
     Examples:
-      | Requesting organisation | ordering_entity_name | Test Package | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
-      | Requesting organisation | Maidstone            | Test package | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
+      | Requesting organisation | ordering_entity_name                    | Test Package | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
+      | Requesting organisation | Maidstone And Tunbridge Wells NHS Trust | Test package | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
