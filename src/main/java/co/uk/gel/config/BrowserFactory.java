@@ -240,6 +240,9 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
+        chromeLocalOptions.addArguments("--ignore-ssl-errors");
+        chromeLocalOptions.addArguments("--ignore-certificate-errors");
+        chromeLocalOptions.setAcceptInsecureCerts(true);
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
 //        chromeLocalOptions.setHeadless(true);
