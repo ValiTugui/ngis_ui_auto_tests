@@ -263,6 +263,9 @@ public class BrowserFactory {
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--ignore-ssl-errors");
+        chromeOptions.addArguments("--ignore-certificate-errors");
+        chromeOptions.setAcceptInsecureCerts(true);
         chromeOptions.setExperimentalOption("prefs", downloadPathsetup());
         chromeOptions.setCapability("project", project);
         chromeOptions.setCapability("build", "NGIS UI Browser Stack Chrome");
@@ -449,6 +452,9 @@ public class BrowserFactory {
         Debugger.println("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
 
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--ignore-ssl-errors");
+        chromeOptions.addArguments("--ignore-certificate-errors");
+        chromeOptions.setAcceptInsecureCerts(true);
         chromeOptions.addArguments("--ignore-certificate-errors");
         System.setProperty("webdriver.chrome.driver", path);
         if (OS.equalsIgnoreCase("linux")) {
