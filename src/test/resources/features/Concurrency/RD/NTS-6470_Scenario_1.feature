@@ -12,7 +12,7 @@ Feature: NTS-6470: Proband details updated as family member in another referral,
   Scenario Outline: Login as User A,Complete all stages and do not submit referral,and validate the data updated, when B is updating a stage in different referral, upon referral submission by A.
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | r21896994124 | NTS-6470_Scenario1 |
+      | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | r22319912760 | NTS-6470_Scenario1 |
     Then the user updates the file NTS-6470_Scenario1 with Mandatory Stages Completed by User1
     ##FamilyMembers - Verify
     And the user waits max 10 minutes for the update Family Member details Updated by User2 in the file NTS-6470_Scenario1
@@ -29,7 +29,7 @@ Feature: NTS-6470: Proband details updated as family member in another referral,
   @NTS-6470 @NTS-6470_Scenario1 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r21188547729 | NTS-6470_Scenario1 |
+      | CONCURRENT_USER2_NAME | r22083763968 | NTS-6470_Scenario1 |
     And the user waits max 2 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6470_Scenario1
     ##FamilyMembers - Update
     When the user navigates to the "<FamilyMembers>" stage

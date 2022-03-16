@@ -12,7 +12,7 @@ Feature: NTS-6470: Proband details updated and same proband patient verified in 
   Scenario Outline:Login as User A,Complete all stages and do not submit referral,and validate the data updated,when B is updating a stage in different referral, upon referral submission by A.
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
-      | Childhood onset hereditary spastic paraplegia | CONCURRENT_USER1_NAME | r21771654705 | NTS-6470_Scenario3 |
+      | Childhood onset hereditary spastic paraplegia | CONCURRENT_USER1_NAME | r22139168654 | NTS-6470_Scenario3 |
     Then the user updates the file NTS-6470_Scenario3 with Mandatory Stages Completed by User1
     ##Patient Details - Verify
     And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NTS-6470_Scenario3
@@ -29,7 +29,7 @@ Feature: NTS-6470: Proband details updated and same proband patient verified in 
   @NTS-6470 @NTS-6470_Scenario3 @Z-LOGOUT
   Scenario Outline: Update every stage of new referral created by another user
     Given The user is login to the Test Order Service and access the given referral
-      | CONCURRENT_USER2_NAME | r21535505905 | NTS-6470_Scenario3 |
+      | CONCURRENT_USER2_NAME | r22903019741 | NTS-6470_Scenario3 |
     ##Patient Details - Update
     And the user waits max 10 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6470_Scenario3
     When the user navigates to the "<PatientDetails>" stage
