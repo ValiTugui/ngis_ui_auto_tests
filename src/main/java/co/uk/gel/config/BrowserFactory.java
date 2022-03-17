@@ -1,6 +1,7 @@
 package co.uk.gel.config;
 
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import net.continuumsecurity.proxy.ScanningProxy;
 import net.continuumsecurity.proxy.ZAProxyScanner;
@@ -241,6 +242,7 @@ public class BrowserFactory {
                                                 boolean javascriptEnabled) {
         Debugger.println("Setting Chrome options......."+new Date());
         ChromeOptions chromeLocalOptions = new ChromeOptions();
+        chromeLocalOptions.addArguments("--user-data-dir=${WORKSPACE}/"+ RandomDataCreator.generateRandomNHSNumber());
         chromeLocalOptions.addArguments("--ignore-ssl-errors");
         chromeLocalOptions.addArguments("--ignore-certificate-errors");
         chromeLocalOptions.setAcceptInsecureCerts(true);
