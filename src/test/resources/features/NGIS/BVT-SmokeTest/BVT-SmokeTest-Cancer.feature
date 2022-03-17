@@ -1,10 +1,10 @@
-@BVT_UI_SMOKE_TEST_PACK1
+@BVT_UI_SMOKE_TEST_PACK
 #@userJourneysCancer
 #@BVT_UI_SMOKE_TEST_CANCER
-Feature: NTS-3362: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
-  @NTS-3362 @Z-LOGOUT
+Feature: BTS-2000: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
+  @BTS-2000 @Z-LOGOUT
   #@E2EUI-2372
-  Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
+  Scenario Outline: BTS-2000 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
     ##Patient Details

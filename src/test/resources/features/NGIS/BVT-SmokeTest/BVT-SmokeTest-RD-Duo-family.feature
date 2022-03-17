@@ -2,11 +2,11 @@
 #@userJourneysRD_BVT
 #@BVT_UI_SMOKE_TEST_RD
  ##Chaning BVT back to DUO Family from Trio Family
-Feature: NTS-3407: Create RD Duo Family by completing - Patient Details - Requesting Organisation - Ordering Entity Name - Test Package - No Of Participants - Responsible Clinician - Responsible Clinician Details - Clinical Question - Clinical Question Details - Notes - Notes Details - Family Members - Patient Choice - Panels - Pedigree - Print Forms - Submit
+Feature: ATS-1000: Create RD Duo Family by completing - Patient Details - Requesting Organisation - Ordering Entity Name - Test Package - No Of Participants - Responsible Clinician - Responsible Clinician Details - Clinical Question - Clinical Question Details - Notes - Notes Details - Family Members - Patient Choice - Panels - Pedigree - Print Forms - Submit
 
-  @NTS-3407 @Z-LOGOUT
+  @ATS-1000 @Z-LOGOUT
  #@E2EUI-895
-  Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
+  Scenario Outline: ATS-1000: User Journey by creating new NGIS Referral for Duo Family - By Signature
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
