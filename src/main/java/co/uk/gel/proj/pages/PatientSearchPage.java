@@ -362,7 +362,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(2);
             try {
                 if (loginPassWordError.isDisplayed()) {
-                    Debugger.println("Login Password Error.......");
+//                    Debugger.println("Login Password Error.......");
                     seleniumLib.sendValue(passwordField, password);
                     seleniumLib.clickOnWebElement(nextButton);
                     Wait.seconds(3);
