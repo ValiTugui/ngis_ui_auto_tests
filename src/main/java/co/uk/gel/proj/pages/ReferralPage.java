@@ -17,10 +17,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.sql.Driver;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 
 public class ReferralPage<check> {
@@ -2119,6 +2117,7 @@ public class ReferralPage<check> {
                 }
             }
         }catch (Exception exp){
+            Debugger.println("ExpFrom: verifyFindYourPatientPageTitle:"+new Date()+"\n"+exp);
             //if password submit click not happened button will be displayed, trying again
                 if (PasswordSubmitButton.isDisplayed()) {
                     try {

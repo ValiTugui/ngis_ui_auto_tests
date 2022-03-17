@@ -10,28 +10,28 @@ Feature: BTS-2000: Create Cancer Referral by completing - Patient Details - Requ
     ##Patient Details
     And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation
-#    When the user navigates to the "<requestingOrganisation>" stage
-#    Then the user is navigated to a page with title Add a requesting organisation
-#    And the user enters the keyword "Weston Area Health NHS Trust" in the search field
-#    And the user selects a random entity from the suggestions list
-#    And the details of the new organisation are displayed
-#    And the user clicks the Save and Continue button
-#    Then the "<requestingOrganisation>" stage is marked as Completed
-#    ##Test Package
-#    When the user navigates to the "<testPackage>" stage
-#    And the user selects the "Routine"
-#    And the user clicks the Save and Continue button
-#    Then the "<testPackage>" stage is marked as Completed
-#
-#    And the "<responsibleClinician>" stage is selected
-#    And the correct "1" tests are saved to the referral in  "<testPackage>"
-#    ##Responsible Clinician
-#    When the user navigates to the "<responsibleClinician>" stage
-#    Then the user is navigated to a page with title Add clinician information
-#    And the user fills in all the clinician form fields
-#    And the user clicks the Save and Continue button
-#    Then the "<responsibleClinician>" stage is marked as Completed
-#    And the "<tumours>" stage is selected
+    When the user navigates to the "<requestingOrganisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "Weston Area Health NHS Trust" in the search field
+    And the user selects a random entity from the suggestions list
+    And the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    Then the "<requestingOrganisation>" stage is marked as Completed
+    ##Test Package
+    When the user navigates to the "<testPackage>" stage
+    And the user selects the "Routine"
+    And the user clicks the Save and Continue button
+    Then the "<testPackage>" stage is marked as Completed
+
+    And the "<responsibleClinician>" stage is selected
+    And the correct "1" tests are saved to the referral in  "<testPackage>"
+    ##Responsible Clinician
+    When the user navigates to the "<responsibleClinician>" stage
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills in all the clinician form fields
+    And the user clicks the Save and Continue button
+    Then the "<responsibleClinician>" stage is marked as Completed
+    And the "<tumours>" stage is selected
 #
 #    When the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
 #    And the user clicks the Save and Continue button
