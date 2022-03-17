@@ -1,4 +1,4 @@
-@BVT_UI_SMOKE_TEST_PACK1
+@BVT_UI_SMOKE_TEST_PACK
 #@userJourneysRD_BVT
 #@BVT_UI_SMOKE_TEST_RD
  ##Chaning BVT back to DUO Family from Trio Family
