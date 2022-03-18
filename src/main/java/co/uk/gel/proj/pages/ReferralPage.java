@@ -2111,8 +2111,10 @@ public class ReferralPage<check> {
                 if (PasswordSubmitButton.isDisplayed()) {
                     try {
                         seleniumLib.clickOnWebElement(PasswordSubmitButton);
+                        Debugger.println("Trying to submit the password");
                     } catch (Exception exp1) {
                         Actions.clickElement(driver, PasswordSubmitButton);
+                        Debugger.println("Trying to submit the password");
                     }
                 }
             }
