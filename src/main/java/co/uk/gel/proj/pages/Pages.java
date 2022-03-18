@@ -177,6 +177,11 @@ public class Pages implements Navigable {
                 navigatedURL = driver.getCurrentUrl();
                 Debugger.println("Current URL AFTER dashboard page re-direction:"+navigatedURL);
             }
+            Wait.seconds(5);
+            if (driver.getCurrentUrl().contains("login.microsoft")){
+                Debugger.println("Error in Login to TOMS: "+urlToNavigate+"\nCurrentUrl:"+driver.getCurrentUrl());
+                Assert.fail("Error in Login to TOMS: "+urlToNavigate+"\nCurrentUrl:"+driver.getCurrentUrl());
+            }
         }catch(UnhandledAlertException exp){
             Debugger.println("UnhandledAlertException in Navigating to URL: "+urlToNavigate);
         }catch(Exception exp){
