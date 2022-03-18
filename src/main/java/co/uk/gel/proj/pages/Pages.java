@@ -147,7 +147,7 @@ public class Pages implements Navigable {
             driver.get(urlToNavigate);
             Wait.seconds(5);//Wait for 5 Seconds
             String navigatedURL = driver.getCurrentUrl();
-            //Debugger.println("Current URL before LOGIN is :"+navigatedURL);
+            Debugger.println("Current URL before LOGIN is :"+navigatedURL);
             //Navigate to Test Directory
             if (navigatedURL.contains("test-selection/clinical-tests")) {
                 if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
@@ -177,11 +177,11 @@ public class Pages implements Navigable {
                 navigatedURL = driver.getCurrentUrl();
                 Debugger.println("Current URL AFTER dashboard page re-direction:"+navigatedURL);
             }
-            Wait.seconds(5);
-            if (driver.getCurrentUrl().contains("login.microsoft")){
-                Debugger.println("Error in Login to TOMS: "+urlToNavigate+"\nCurrentUrl:"+driver.getCurrentUrl());
-                Assert.fail("Error in Login to TOMS: "+urlToNavigate+"\nCurrentUrl:"+driver.getCurrentUrl());
-            }
+//            Wait.seconds(5);
+//            if (driver.getCurrentUrl().contains("login.microsoft")){
+//                Debugger.println("Error in Login to TOMS: "+urlToNavigate+"\nCurrentUrl:"+driver.getCurrentUrl());
+//                Assert.fail("Error in Login to TOMS: "+urlToNavigate+"\nCurrentUrl:"+driver.getCurrentUrl());
+//            }
         }catch(UnhandledAlertException exp){
             Debugger.println("UnhandledAlertException in Navigating to URL: "+urlToNavigate);
         }catch(Exception exp){
