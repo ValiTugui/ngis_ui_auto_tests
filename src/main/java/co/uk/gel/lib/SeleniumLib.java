@@ -35,7 +35,7 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "NGIS_UI_Snapshots" + File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator;
     static String referralFileName = "Referrals.json";
     static String referralTextFileName = "ReferralID.txt";
 
