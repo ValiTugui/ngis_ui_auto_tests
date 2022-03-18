@@ -11,33 +11,33 @@ Feature: ATS-1000: Create RD Duo Family by completing - Patient Details - Reques
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
     ##Patient Details
-#    And the "<PatientDetails>" stage is marked as Completed
-#    ##Requesting Organisation
-#    When the user navigates to the "<RequestingOrganisation>" stage
-#    Then the user is navigated to a page with title Add a requesting organisation
-#    And the user enters the keyword "<ordering_entity_name>" in the search field
-#    And the user selects a random entity from the suggestions list
-#    Then the details of the new organisation are displayed
-#    And the user clicks the Save and Continue button
-#    And the "<RequestingOrganisation>" stage is marked as Completed
-#    ##Test Package - No of participants -2
-#    When the user navigates to the "<TestPackage>" stage
-#    Then the user is navigated to a page with title Confirm the test package
-#    And the user selects the number of participants as "<NoOfParticipants>"
-#    And the user clicks the Save and Continue button
-#    And the "<TestPackage>" stage is marked as Completed
-#    ##Responsible Clinician
-#    When the user navigates to the "<ResponsibleClinician>" stage
-#    Then the user is navigated to a page with title Add clinician information
-#    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
-#    And the user clicks the Save and Continue button
-#    And the "<ResponsibleClinician>" stage is marked as Completed
-#    ##Clinical Question
-#    When the user navigates to the "<ClinicalQuestion>" stage
-#    Then the user is navigated to a page with title Answer clinical questions
-#    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the "<ClinicalQuestion>" stage is marked as Completed
+    And the "<PatientDetails>" stage is marked as Completed
+    ##Requesting Organisation
+    When the user navigates to the "<RequestingOrganisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+    ##Test Package - No of participants -2
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the "<TestPackage>" stage is marked as Completed
+    ##Responsible Clinician
+    When the user navigates to the "<ResponsibleClinician>" stage
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    ##Clinical Question
+    When the user navigates to the "<ClinicalQuestion>" stage
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the "<ClinicalQuestion>" stage is marked as Completed
 #    #Notes
 #    When the user navigates to the "<Notes>" stage
 #    Then the user is navigated to a page with title Add clinical notes
