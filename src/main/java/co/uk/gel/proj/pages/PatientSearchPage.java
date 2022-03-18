@@ -324,7 +324,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystem(String email, String password) {
-//        Actions.deleteCookies(driver);
+        Actions.deleteCookies(driver);
         try {
             if (Wait.isElementDisplayed(driver, useAnotherAccount, 5)) {//If the element is not displayed, even after the waiting time
                 Debugger.println("Clicking on useAnotherAccount to Proceed.");

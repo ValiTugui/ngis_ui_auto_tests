@@ -242,7 +242,6 @@ public class BrowserFactory {
                                                 boolean javascriptEnabled) {
         Debugger.println("Setting Chrome options......."+new Date());
         ChromeOptions chromeLocalOptions = new ChromeOptions();
-        chromeLocalOptions.addArguments("--user-data-dir=${WORKSPACE}/"+ RandomDataCreator.generateRandomNHSNumber());
         chromeLocalOptions.addArguments("--ignore-ssl-errors");
         chromeLocalOptions.addArguments("--ignore-certificate-errors");
         chromeLocalOptions.setAcceptInsecureCerts(true);
