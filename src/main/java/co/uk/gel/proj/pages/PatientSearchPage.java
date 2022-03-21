@@ -356,12 +356,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             Wait.seconds(2);
             try {
+                SeleniumLib.takeAScreenShot("TOMSLOGIN00.jpg");
                 seleniumLib.clickOnWebElement(nextButton);
                 Debugger.println("Password Next button clicked"+new Date());
                 Wait.seconds(3);
-                SeleniumLib.takeAScreenShot("TOMSLOGIN0.jpg");
+                SeleniumLib.takeAScreenShot("TOMSLOGIN11.jpg");
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("TOMSLOGIN1.jpg");
             } catch (Exception exp1) {
                 Actions.clickElement(driver, nextButton);
             }
