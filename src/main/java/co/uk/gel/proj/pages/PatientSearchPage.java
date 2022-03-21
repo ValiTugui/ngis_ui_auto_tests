@@ -350,7 +350,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(2);
             try {
                 passwordField.sendKeys(password);
-                Debugger.println("Password provided");
+                Debugger.println("Password provided" +password);
             } catch (Exception exp1) {
                 seleniumLib.sendValue(passwordField, password);
             }
@@ -368,10 +368,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(2);
             try {
                 if (loginPassWordError.isDisplayed()) {
-//                    Debugger.println("Login Password Error.......");
+                    Debugger.println("Login Password Error Retrying.......");
                     seleniumLib.sendValue(passwordField, password);
                     seleniumLib.clickOnWebElement(nextButton);
                     Wait.seconds(3);
+                    SeleniumLib.takeAScreenShot("TOMSLOGIN22.jpg");
+                    Debugger.println("Current URL2 is " +driver.getCurrentUrl());
                 }
                 if (loginPassWordError.isDisplayed()) {
                     SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
