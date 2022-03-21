@@ -756,18 +756,22 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
         //if password next button click not happened. still button is still visible try again
         if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)) {
+            Debugger.println("Patient search is not displayed, waiting for 120 seconds.."+new Date());
             if (nextButton.isDisplayed()) {
                 try {
                     seleniumLib.clickOnWebElement(nextButton);
                 } catch (Exception exp1) {
+                    Debugger.println("Exception from clicking on next button at Patient search page..."+exp1);
                     Actions.clickElement(driver, nextButton);
                 }
             }
         }
         // Find elements
         if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)) {
+            Debugger.println("Patient search STILL not displayed, waiting for 120 seconds.. and returning..."+new Date());
             return false;
         }
+        Debugger.println("Patient search is  displayed, proceeding............."+new Date());
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
