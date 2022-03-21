@@ -657,7 +657,7 @@ public class SeleniumLib {
                     filename = "T" + today[0] + today[1] + filename;
                 }
             }
-            Debugger.println("Taking the snapshot"+defaultSnapshotLocation);
+            Debugger.println("Snapshot Location:"+defaultSnapshotLocation);
             File snapLocation = new File(defaultSnapshotLocation);
             if(!snapLocation.exists()){
                 snapLocation.mkdirs();

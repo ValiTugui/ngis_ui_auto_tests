@@ -341,15 +341,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             } catch (Exception exp1) {
                 seleniumLib.sendValue(emailAddressField, email);
             }
-            Debugger.println("Before Waiting fofr 2 seconds: "+new Date());
-            Wait.seconds(2);
-            Debugger.println("After Waiting fofr 2 seconds: "+new Date());
+            Debugger.println("Before Waiting for 2 seconds: "+new Date());
+            //Wait.seconds(2);
+            SeleniumLib.sleepInSeconds(2);
+            Debugger.println("After Waiting for 2 seconds: "+new Date());
             try {
                 seleniumLib.clickOnWebElement(nextButton);
             } catch (Exception exp1) {
                 Actions.clickElement(driver, nextButton);
             }
-            Wait.seconds(2);
+            //Wait.seconds(2);
+            SeleniumLib.sleepInSeconds(2);
             try {
                 Debugger.println("Providing Password " +password);
                 passwordField.sendKeys(password);
@@ -358,7 +360,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Password provided vial selenium Lib"+exp1);
                 seleniumLib.sendValue(passwordField, password);
             }
-            Wait.seconds(2);
+            //Wait.seconds(2);
+            SeleniumLib.sleepInSeconds(2);
             try {
                 SeleniumLib.takeAScreenShot("TOMSLOGIN00.jpg");
                 seleniumLib.clickOnWebElement(nextButton);
@@ -367,16 +370,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("TOMSLOGIN11.jpg");
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
             } catch (Exception exp1) {
-                Debugger.println("Exeption from next button click..."+exp1);
+                Debugger.println("Exception from next button click..."+exp1);
                 Actions.clickElement(driver, nextButton);
             }
-            Wait.seconds(2);
+           // Wait.seconds(2);
+            SeleniumLib.sleepInSeconds(2);
             try {
                 if (loginPassWordError.isDisplayed()) {
                     Debugger.println("Login Password Error Retrying.......");
                     seleniumLib.sendValue(passwordField, password);
+                    SeleniumLib.sleepInSeconds(2);
                     seleniumLib.clickOnWebElement(nextButton);
-                    Wait.seconds(3);
+                    //Wait.seconds(3);
+                    SeleniumLib.sleepInSeconds(3);
                     SeleniumLib.takeAScreenShot("TOMSLOGIN22.jpg");
                     Debugger.println("Current URL2 is " +driver.getCurrentUrl());
                 }
