@@ -22,7 +22,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -362,6 +361,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             //Wait.seconds(2);
             SeleniumLib.sleepInSeconds(2);
             try {
+                SeleniumLib.takeAScreenShot("PasswordSnap.jpg");
                 seleniumLib.clickOnWebElement(nextButton);
                 Debugger.println("Next button clicked after PWD...."+new Date());
                 Wait.seconds(3);
@@ -374,13 +374,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             //Wait.seconds(2);
             SeleniumLib.sleepInSeconds(2);
             try {
-                if (loginPassWordError.isDisplayed()) {
+                if (seleniumLib.isElementPresent(loginPassWordError)) {
                     Debugger.println("Login Password Error Retrying.......");
                     seleniumLib.sendValue(passwordField, password);
                     SeleniumLib.sleepInSeconds(2);
                     seleniumLib.clickOnWebElement(nextButton);
                     //Wait.seconds(3);
-                    SeleniumLib.sleepInSeconds(3);
+                    //SeleniumLib.sleepInSeconds(3);
                     SeleniumLib.takeAScreenShot("TOMSLOGIN22.jpg");
                     Debugger.println("Current URL2 is " +driver.getCurrentUrl());
                 }
