@@ -849,7 +849,7 @@ public class ReferralSteps extends Pages {
         }
         switchToURL(driver.getCurrentUrl(), userType);
         //if password submit click not happened button will be displayed, trying again
-        referralPage.verifyFindYourPatientPageTitle();
+        //referralPage.verifyFindYourPatientPageTitle();
         stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
         if (!stepResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FindYourPatient.jpg");

@@ -341,7 +341,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             } catch (Exception exp1) {
                 seleniumLib.sendValue(emailAddressField, email);
             }
+            Debugger.println("Before Waiting fofr 2 seconds: "+new Date());
             Wait.seconds(2);
+            Debugger.println("After Waiting fofr 2 seconds: "+new Date());
             try {
                 seleniumLib.clickOnWebElement(nextButton);
             } catch (Exception exp1) {
@@ -349,9 +351,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             Wait.seconds(2);
             try {
+                Debugger.println("Providing Password " +password);
                 passwordField.sendKeys(password);
-                Debugger.println("Password provided" +password);
+                Debugger.println("Password provided");
             } catch (Exception exp1) {
+                Debugger.println("Password provided vial selenium Lib"+exp1);
                 seleniumLib.sendValue(passwordField, password);
             }
             Wait.seconds(2);
@@ -363,6 +367,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("TOMSLOGIN11.jpg");
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
             } catch (Exception exp1) {
+                Debugger.println("Exeption from next button click..."+exp1);
                 Actions.clickElement(driver, nextButton);
             }
             Wait.seconds(2);
