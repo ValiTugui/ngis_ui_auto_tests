@@ -754,6 +754,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
+        Debugger.println("method...verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected...."+new Date());
         //if password next button click not happened. still button is still visible try again
         if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 120)) {
             Debugger.println("Patient search is not displayed, waiting for 120 seconds.."+new Date());
@@ -794,7 +795,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
-
+        Debugger.println("method...verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected...."+new Date());
         Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
 
