@@ -340,32 +340,27 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             } catch (Exception exp1) {
                 seleniumLib.sendValue(emailAddressField, email);
             }
-            Debugger.println("Before Waiting for 2 seconds: "+new Date());
-            //Wait.seconds(2);
-            SeleniumLib.sleepInSeconds(4);
-            Debugger.println("After Waiting for 2 seconds: "+new Date());
+            SeleniumLib.takeAScreenShot("EmailSnap.jpg");
+            Wait.seconds(2);
             try {
                 seleniumLib.clickOnWebElement(nextButton);
             } catch (Exception exp1) {
                 Actions.clickElement(driver, nextButton);
             }
-            //Wait.seconds(2);
-            SeleniumLib.sleepInSeconds(2);
+            SeleniumLib.takeAScreenShot("EmailNextSnap.jpg");
+            Wait.seconds(2);
             try {
-                Debugger.println("Providing Password " +password);
                 seleniumLib.sendValue(passwordField, password);
                 Debugger.println("Password provided");
             } catch (Exception exp1) {
                 passwordField.sendKeys(password);
             }
-            //Wait.seconds(2);
-            SeleniumLib.sleepInSeconds(2);
+            Wait.seconds(2);
+            SeleniumLib.takeAScreenShot("PasswordSnap.jpg");
             try {
-                SeleniumLib.takeAScreenShot("PasswordSnap.jpg");
                 seleniumLib.clickOnWebElement(nextButton);
-                Debugger.println("Next button clicked after PWD...."+new Date());
                 Wait.seconds(3);
-                SeleniumLib.takeAScreenShot("TOMSLOGIN11.jpg");
+                SeleniumLib.takeAScreenShot("PasswordNextSnap.jpg");
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
             } catch (Exception exp1) {
                 Debugger.println("Exception from next button click..."+exp1);
