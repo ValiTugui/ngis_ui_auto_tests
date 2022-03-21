@@ -343,7 +343,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             Debugger.println("Before Waiting for 2 seconds: "+new Date());
             //Wait.seconds(2);
-            SeleniumLib.sleepInSeconds(2);
+            SeleniumLib.sleepInSeconds(4);
             Debugger.println("After Waiting for 2 seconds: "+new Date());
             try {
                 seleniumLib.clickOnWebElement(nextButton);
@@ -354,18 +354,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.sleepInSeconds(2);
             try {
                 Debugger.println("Providing Password " +password);
-                passwordField.sendKeys(password);
+                seleniumLib.sendValue(passwordField, password);
                 Debugger.println("Password provided");
             } catch (Exception exp1) {
-                Debugger.println("Password provided vial selenium Lib"+exp1);
-                seleniumLib.sendValue(passwordField, password);
+                passwordField.sendKeys(password);
             }
             //Wait.seconds(2);
             SeleniumLib.sleepInSeconds(2);
             try {
-                SeleniumLib.takeAScreenShot("TOMSLOGIN00.jpg");
                 seleniumLib.clickOnWebElement(nextButton);
-                Debugger.println("Password Next button clicked"+new Date());
+                Debugger.println("Next button clicked after PWD...."+new Date());
                 Wait.seconds(3);
                 SeleniumLib.takeAScreenShot("TOMSLOGIN11.jpg");
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
@@ -373,7 +371,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Exception from next button click..."+exp1);
                 Actions.clickElement(driver, nextButton);
             }
-           // Wait.seconds(2);
+            //Wait.seconds(2);
             SeleniumLib.sleepInSeconds(2);
             try {
                 if (loginPassWordError.isDisplayed()) {
