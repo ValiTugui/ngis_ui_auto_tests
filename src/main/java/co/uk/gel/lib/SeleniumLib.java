@@ -644,6 +644,7 @@ public class SeleniumLib {
     }
     public static void takeAScreenShot(String filename){
         try{
+            Debugger.println("Taking the snapshot"+filename);
             if(filename == null || filename.isEmpty()){
                 filename = "screenshot";
             }
@@ -656,6 +657,7 @@ public class SeleniumLib {
                     filename = "T" + today[0] + today[1] + filename;
                 }
             }
+            Debugger.println("Taking the snapshot"+defaultSnapshotLocation);
             File snapLocation = new File(defaultSnapshotLocation);
             if(!snapLocation.exists()){
                 snapLocation.mkdirs();
@@ -667,7 +669,7 @@ public class SeleniumLib {
             FileUtils.copyFile(screenshot, new File(defaultSnapshotLocation+filename));
 
         }catch(Exception exp){
-
+            Debugger.println("Exception from taking the snapshot"+exp);
         }
     }
     public static boolean switchToNewTab(){
