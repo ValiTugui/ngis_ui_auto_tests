@@ -247,8 +247,6 @@ public class BrowserFactory {
         chromeLocalOptions.setAcceptInsecureCerts(true);
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
-        WebDriverManager.chromedriver().clearPreferences();
-        WebDriverManager.chromedriver().setup();
 //        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
@@ -266,6 +264,7 @@ public class BrowserFactory {
 
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
+        Debugger.println("Setting Chrome options2 under the method getChromeOptions......."+new Date());
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignore-ssl-errors");
         chromeOptions.addArguments("--ignore-certificate-errors");
@@ -454,7 +453,7 @@ public class BrowserFactory {
 
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path, String OS) {
         Debugger.println("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
-
+        Debugger.println("Setting Chrome options3 under the method createChromeDriver......."+new Date());
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignore-ssl-errors");
         chromeOptions.addArguments("--ignore-certificate-errors");
