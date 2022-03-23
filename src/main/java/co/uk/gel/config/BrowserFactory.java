@@ -70,12 +70,12 @@ public class BrowserFactory {
         if (serverTypeEnum == ServerTypeEnum.LOCAL) {
             switch (browserEnum) {
                 case CHROME:
-                    WebDriverManager.chromedriver().clearResolutionCache();
+//                    WebDriverManager.chromedriver().clearResolutionCache();
                     WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download
                     driver = getChromeDriver(null, javascriptEnabled);
                     break;
                 case FIREFOX:
-                    WebDriverManager.firefoxdriver().clearResolutionCache();
+//                    WebDriverManager.firefoxdriver().clearResolutionCache();
                     WebDriverManager.firefoxdriver().setup();
                     driver = getFirefoxDriverLocal(null, javascriptEnabled);
                     break;
@@ -83,17 +83,17 @@ public class BrowserFactory {
                     driver = getSafariDriver(null, javascriptEnabled);
                     break;
                 case IE:
-                    WebDriverManager.iedriver().clearResolutionCache();
+//                    WebDriverManager.iedriver().clearResolutionCache();
                     WebDriverManager.iedriver().arch32().setup();
                     driver = getInternetExplorer(null, javascriptEnabled);
                     break;
                 case OPERA:
-                    WebDriverManager.operadriver().clearResolutionCache();
+//                    WebDriverManager.operadriver().clearResolutionCache();
                     WebDriverManager.operadriver().setup();
                     driver = getOpera(null, javascriptEnabled);
                     break;
                 case EDGE:
-                    WebDriverManager.edgedriver().clearResolutionCache();
+//                    WebDriverManager.edgedriver().clearResolutionCache();
                     WebDriverManager.edgedriver().forceDownload().setup();
                     driver = getEdge(null, javascriptEnabled);
                     break;
@@ -110,7 +110,7 @@ public class BrowserFactory {
                         zapScanner.clear(); //Start a new session
                         //Debugger.println("Cleared...Initializing zapSpider.....");
                         //Default considering Chrome
-                        WebDriverManager.chromedriver().clearResolutionCache();
+//                        WebDriverManager.chromedriver().clearResolutionCache();
                         WebDriverManager.chromedriver().setup();
                         Debugger.println("ChromePath: " + WebDriverManager.chromedriver().getDownloadedDriverPath());
                         OS = System.getProperty("os.name").toLowerCase();
