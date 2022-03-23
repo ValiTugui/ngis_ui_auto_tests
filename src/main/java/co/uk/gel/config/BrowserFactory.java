@@ -70,12 +70,12 @@ public class BrowserFactory {
         if (serverTypeEnum == ServerTypeEnum.LOCAL) {
             switch (browserEnum) {
                 case CHROME:
-                    WebDriverManager.chromedriver().clearPreferences();
+                    WebDriverManager.chromedriver().clearDriverCache();
                     WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download
                     driver = getChromeDriver(null, javascriptEnabled);
                     break;
                 case FIREFOX:
-                    WebDriverManager.firefoxdriver().clearPreferences();
+                    WebDriverManager.firefoxdriver().clearDriverCache();
                     WebDriverManager.firefoxdriver().setup();
                     driver = getFirefoxDriverLocal(null, javascriptEnabled);
                     break;
@@ -83,17 +83,17 @@ public class BrowserFactory {
                     driver = getSafariDriver(null, javascriptEnabled);
                     break;
                 case IE:
-                    WebDriverManager.iedriver().clearPreferences();
+                    WebDriverManager.iedriver().clearDriverCache();
                     WebDriverManager.iedriver().arch32().setup();
                     driver = getInternetExplorer(null, javascriptEnabled);
                     break;
                 case OPERA:
-                    WebDriverManager.operadriver().clearPreferences();
+                    WebDriverManager.operadriver().clearDriverCache();
                     WebDriverManager.operadriver().setup();
                     driver = getOpera(null, javascriptEnabled);
                     break;
                 case EDGE:
-                    WebDriverManager.edgedriver().clearPreferences();
+                    WebDriverManager.edgedriver().clearDriverCache();
                     WebDriverManager.edgedriver().forceDownload().setup();
                     driver = getEdge(null, javascriptEnabled);
                     break;
@@ -110,17 +110,17 @@ public class BrowserFactory {
                         zapScanner.clear(); //Start a new session
                         //Debugger.println("Cleared...Initializing zapSpider.....");
                         //Default considering Chrome
-                        WebDriverManager.chromedriver().clearPreferences();
+                        WebDriverManager.chromedriver().clearDriverCache();
                         WebDriverManager.chromedriver().setup();
-                        Debugger.println("ChromePath: " + WebDriverManager.chromedriver().getBinaryPath());
+                       // Debugger.println("ChromePath: " + WebDriverManager.chromedriver().getBinaryPath());
                         OS = System.getProperty("os.name").toLowerCase();
                         Debugger.println("OS: " + OS);
                         if (OS.indexOf("win") >= 0) {
-                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath());
+                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getDownloadedDriverPath());
                         } else if (OS.indexOf("linux") >= 0) {
-                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath(), "linux");
+                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getDownloadedDriverPath(), "linux");
                         } else {//Mac
-                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath());
+                            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getDownloadedDriverPath());
                         }
 
                     } catch (Exception exp) {
