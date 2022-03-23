@@ -247,6 +247,8 @@ public class BrowserFactory {
         chromeLocalOptions.setAcceptInsecureCerts(true);
         chromeLocalOptions.addArguments("--disable-gpu");
         chromeLocalOptions.addArguments("--no-sandbox");
+        WebDriverManager.chromedriver().clearPreferences();
+        WebDriverManager.chromedriver().setup();
 //        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
