@@ -61,6 +61,7 @@ public class DashBoardPage {
         if ((driver.getCurrentUrl().contains("login.microsoft"))) {
             Wait.forElementToBeClickable(driver, emailAddressField);
             emailAddressField.sendKeys(AppConfig.getApp_username());
+            Debugger.println("Logged in as normal user");
             nextButton.click();
             Wait.seconds(2);
             Wait.forElementToBeClickable(driver, passwordField);
@@ -247,6 +248,7 @@ public class DashBoardPage {
             Wait.forElementToBeClickable(driver, emailAddressField);
 //            emailAddressField.sendKeys(AppConfig.getApp_username());
             emailAddressField.sendKeys(AppConfig.getApp_superUsername());
+            Debugger.println("Logged in as Super user");
             nextButton.click();
             Wait.seconds(2);
             Wait.forElementToBeClickable(driver, passwordField);
