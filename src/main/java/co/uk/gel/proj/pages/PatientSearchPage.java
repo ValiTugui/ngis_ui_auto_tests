@@ -378,6 +378,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     //SeleniumLib.sleepInSeconds(3);
                     SeleniumLib.takeAScreenShot("TOMSLOGIN22.jpg");
                     Debugger.println("Current URL2 is " +driver.getCurrentUrl());
+                    Wait.seconds(5);
+                    SeleniumLib.takeAScreenShot("TOMSLOGIN33.jpg");
+                    Debugger.println("Current URL3 is " +driver.getCurrentUrl());
                 }
                 if (loginPassWordError.isDisplayed()) {
                     SeleniumLib.takeAScreenShot("TOMSLoginFailed.jpg");
