@@ -241,24 +241,34 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         Debugger.println("Setting Chrome options......."+new Date());
-        ChromeOptions chromeLocalOptions = new ChromeOptions();
-        chromeLocalOptions.addArguments("--ignore-ssl-errors");
-        chromeLocalOptions.addArguments("--ignore-certificate-errors");
-        chromeLocalOptions.setAcceptInsecureCerts(true);
-        chromeLocalOptions.addArguments("--disable-gpu");
-        chromeLocalOptions.addArguments("--no-sandbox");
+//        ChromeOptions chromeLocalOptions = new ChromeOptions();
+//        chromeLocalOptions.addArguments("--ignore-ssl-errors");
+//        chromeLocalOptions.addArguments("--ignore-certificate-errors");
+//        chromeLocalOptions.setAcceptInsecureCerts(true);
+//        chromeLocalOptions.addArguments("--disable-gpu");
+//        chromeLocalOptions.addArguments("--no-sandbox");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("start-maximized");
+        chromeOptions.addArguments("enable-automation");
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--disable-browser-side-navigation");
+        chromeOptions.addArguments("--disable-infobars");
+        chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.addArguments("--no-sandbox");
+
 //        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {
-            chromeLocalOptions.addArguments("user-agent=" + userAgent);
+            chromeOptions.addArguments("user-agent=" + userAgent);
         }
-        chromeLocalOptions.setExperimentalOption("prefs", downloadPathsetup());
+        chromeOptions.setExperimentalOption("prefs", downloadPathsetup());
         if (!javascriptEnabled) {
-            chromeLocalOptions.addArguments("disable-javascript");
+            chromeOptions.addArguments("disable-javascript");
         }
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-        chromeLocalOptions.setCapability("goog:loggingPrefs", logPrefs);
-        return chromeLocalOptions;
+        chromeOptions.setCapability("goog:loggingPrefs", logPrefs);
+        return chromeOptions;
     }
 
 
