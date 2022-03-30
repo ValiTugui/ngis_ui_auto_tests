@@ -248,14 +248,18 @@ public class BrowserFactory {
 //        chromeLocalOptions.addArguments("--disable-gpu");
 //        chromeLocalOptions.addArguments("--no-sandbox");
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("start-maximized");
-        chromeOptions.addArguments("enable-automation");
-        chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("--disable-browser-side-navigation");
-        chromeOptions.addArguments("--disable-infobars");
-        chromeOptions.addArguments("--disable-gpu");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments(
+                "disable-browser-side-navigation",
+                "disable-dev-shm-usage",
+                "disable-gpu",
+                "disable-infobars",
+                "enable-automation",
+                "headless",
+                "ignore-ssl-errors",
+                "ignore-certificate-errors",
+                "no-sandbox",
+                "start-maximized"
+        );
 
 //        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {
