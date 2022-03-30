@@ -248,6 +248,7 @@ public class BrowserFactory {
 //        chromeLocalOptions.addArguments("--disable-gpu");
 //        chromeLocalOptions.addArguments("--no-sandbox");
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("window-size=1920,1080,24");
         chromeOptions.addArguments(
                 "disable-browser-side-navigation",
                 "disable-dev-shm-usage",
