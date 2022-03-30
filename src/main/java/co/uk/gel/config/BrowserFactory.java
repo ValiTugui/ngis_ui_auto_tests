@@ -254,7 +254,6 @@ public class BrowserFactory {
                 "disable-gpu",
                 "disable-infobars",
                 "enable-automation",
-                "headless",
                 "ignore-ssl-errors",
                 "ignore-certificate-errors",
                 "no-sandbox",
