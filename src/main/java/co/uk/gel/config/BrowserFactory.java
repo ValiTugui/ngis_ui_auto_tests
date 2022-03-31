@@ -247,20 +247,20 @@ public class BrowserFactory {
 //        chromeLocalOptions.setAcceptInsecureCerts(true);
 //        chromeLocalOptions.addArguments("--disable-gpu");
 //        chromeLocalOptions.addArguments("--no-sandbox");
+        // Added the new chrome options to work in the AWS Jenkins
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("window-size=1920,1080,24");
-        chromeOptions.addArguments(
-                "disable-browser-side-navigation",
-                "disable-dev-shm-usage",
-                "disable-gpu",
-                "disable-infobars",
-                "enable-automation",
-                "headless",
-                "ignore-ssl-errors",
-                "ignore-certificate-errors",
-                "no-sandbox",
-                "start-maximized"
-        );
+        chromeOptions.addArguments("disable-browser-side-navigation");
+        chromeOptions.addArguments("disable-dev-shm-usage");
+        chromeOptions.addArguments("disable-gpu");
+        chromeOptions.addArguments("disable-infobars");
+        chromeOptions.addArguments("enable-automation");
+        chromeOptions.addArguments("headless");
+        chromeOptions.addArguments("ignore-ssl-errors");
+        chromeOptions.addArguments("ignore-certificate-errors");
+        chromeOptions.addArguments ("no-sandbox");
+        chromeOptions.addArguments ("start-maximized");
+
 
 //        chromeLocalOptions.setHeadless(true);
         if (null != userAgent) {

@@ -1079,6 +1079,7 @@ public class PatientChoicePage {
 
     public boolean drawSignature() {
         try {
+            Actions.scrollToBottom(driver);
             if(!Wait.isElementDisplayed(driver, signatureSection,30)){
                 Debugger.println("DRAW Signature Section not displayed.."+driver.getCurrentUrl());
             }else {
