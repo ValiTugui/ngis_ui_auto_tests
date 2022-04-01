@@ -340,14 +340,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             } catch (Exception exp1) {
                 seleniumLib.sendValue(emailAddressField, email);
             }
-            SeleniumLib.takeAScreenShot("EmailSnap.jpg");
             Wait.seconds(2);
             try {
                 seleniumLib.clickOnWebElement(nextButton);
             } catch (Exception exp1) {
                 Actions.clickElement(driver, nextButton);
             }
-            SeleniumLib.takeAScreenShot("EmailNextSnap.jpg");
             Wait.seconds(2);
             try {
                 seleniumLib.sendValue(passwordField, password);
@@ -356,11 +354,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 passwordField.sendKeys(password);
             }
             Wait.seconds(2);
-            SeleniumLib.takeAScreenShot("PasswordSnap.jpg");
             try {
                 seleniumLib.clickOnWebElement(nextButton);
                 Wait.seconds(3);
-                SeleniumLib.takeAScreenShot("PasswordNextSnap.jpg");
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
             } catch (Exception exp1) {
                 Debugger.println("Exception from next button click..."+exp1);

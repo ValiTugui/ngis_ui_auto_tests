@@ -594,6 +594,7 @@ public class FamilyMemberDetailsPage {
                 int numberOfHPO = hpoTerms.size();
                 return numberOfHPO;
             }
+            Actions.scrollToTop(driver);
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             // determine the total number of HPO terms
             Wait.seconds(2);
