@@ -275,6 +275,9 @@ public class GlobalBehaviourPage {
         try {
             driver.navigate().to(invalidReferralURL);
             driver.get(invalidReferralURL);
+            SeleniumLib.takeAScreenShot("BeforeSleep.jpg");
+            SeleniumLib.sleepInSeconds(60);
+            SeleniumLib.takeAScreenShot("AfterSleep.jpg");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from navigateToURLWithInvalidReferralID:" + exp);

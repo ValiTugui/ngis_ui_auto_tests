@@ -2022,6 +2022,7 @@ public class ReferralPage<check> {
     public boolean verifyPageLoadingWithInvalidReferralURL() {
         try {
             Wait.seconds(3);
+            Debugger.println("The URL IS "+driver.getCurrentUrl());
             if (helix.size() < 1) {
                 Debugger.println("Page should load with helix in action.... but helix not present.");
                 return false;
