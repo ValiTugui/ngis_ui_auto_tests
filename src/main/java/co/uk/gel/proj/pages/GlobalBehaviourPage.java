@@ -276,7 +276,6 @@ public class GlobalBehaviourPage {
             SeleniumLib.takeAScreenShot("BeforeNavigateToInvalidURL.jpg");
             driver.navigate().to(invalidReferralURL);
             driver.get(invalidReferralURL);
-            Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot("BeforeSleep.jpg");
             SeleniumLib.sleepInSeconds(5);
             SeleniumLib.takeAScreenShot("AfterSleep.jpg");
