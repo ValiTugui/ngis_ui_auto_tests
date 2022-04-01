@@ -40,7 +40,7 @@ Feature: Pedigree - Pedigree Flow 2
       | Requesting organisation | Pedigree | NoOfParticipants |
       | Requesting organisation | Pedigree | 1                |
 
-  @NTS-3386_a @Z-LOGOUT
+  @NTS-3386 @Z-LOGOUT
 #    @E2EUI-1194
   Scenario Outline: NTS-3386 :E2EUI-1194: Order the display of HPO Terms in Pedigree
     Given a new patient referral is created with associated tests in Test Order System online service
