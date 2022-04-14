@@ -14,7 +14,7 @@ public class ConcurrencyTest {
        if(referral_base_url == null){
            checkReferralId(filePrefix);
            if(referral_id != null && !referral_id.isEmpty()){
-               if (System.getProperty("TestEnvironment").equalsIgnoreCase("aws_dev")) {
+               if (System.getProperty("TestEnvironment").equalsIgnoreCase("dev")) {
                    referral_base_url = "https://test-ordering.int.ngis.io/test-order/referral/" + referral_id;
                } else {
                    referral_base_url = "https://test-ordering.e2e.ngis.io/test-order/referral/" + referral_id;

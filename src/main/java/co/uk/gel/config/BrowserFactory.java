@@ -241,12 +241,6 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         Debugger.println("Setting Chrome options......."+new Date());
-//        ChromeOptions chromeLocalOptions = new ChromeOptions();
-//        chromeLocalOptions.addArguments("--ignore-ssl-errors");
-//        chromeLocalOptions.addArguments("--ignore-certificate-errors");
-//        chromeLocalOptions.setAcceptInsecureCerts(true);
-//        chromeLocalOptions.addArguments("--disable-gpu");
-//        chromeLocalOptions.addArguments("--no-sandbox");
         // Added the new chrome options to work in the AWS Jenkins
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("window-size=1920,1080,24");
