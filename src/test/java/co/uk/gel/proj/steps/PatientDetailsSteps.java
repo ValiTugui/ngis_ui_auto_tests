@@ -1059,4 +1059,21 @@ public class PatientDetailsSteps extends Pages {
             Assert.fail("MergeStatus displayed :");
         }
     }
+
+    @Then("the user fills in the Gender field in the Patient details")
+    public void theUserFillsInTheGenderFieldInThePatientDetails(DataTable dataTable) {
+        List<List<String >> list=dataTable.asLists();
+        System.out.println("SIZE="+list.get(0).size());
+
+        for(int index=0; index<list.get(0).size();index++) {
+            System.out.println("Value:" + list.get(0).get(index));
+            String expectedGenderValue = list.get(0).get(index);
+
+            boolean testresult = patientDetailsPage.checkGenderDropdownSuggestionInPatientDetails(expectedGenderValue);
+            if (!testresult) {
+                SeleniumLib.takeAScreenShot("CheckingGenderInPatientDetails.jpg");
+                Assert.fail("Checking gender dropdown failed" + testresult);
+            }
+        }
+    }
 }//end

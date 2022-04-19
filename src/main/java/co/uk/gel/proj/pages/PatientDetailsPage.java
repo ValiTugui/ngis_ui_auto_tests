@@ -284,6 +284,25 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@id='lifeStatus']/../../parent::div")
     public WebElement lifeStatusFieldStatus;
 
+    @FindBy(xpath = "//input[@id='administrativeGender']")
+    public WebElement genderPatientDetails;
+
+//    @FindBy(xpath = "//div[@id='react-select-2-option-0']")
+    @FindBy(xpath = "//div[@id='react-select-6-option-0']")
+    public WebElement getGenderFemale;
+
+//    @FindBy(xpath = "//div[@id='react-select-2-option-2']")
+    @FindBy(xpath = "//div[@id='react-select-6-option-2']")
+    public WebElement getGenderOther;
+
+    @FindBy(xpath = "//div[@id='react-select-6-option-3']")
+    public WebElement getGenderUnknown;
+
+    @FindBy(xpath = "//div[@id='react-select-6-option-1']")
+    public WebElement getGenderMale;
+
+
+
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
@@ -2467,6 +2486,43 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception from fillInPatientDetailsFromJson:" + exp);
             SeleniumLib.takeAScreenShot("fillInPatientDetailsFromJson.jpg");
+            return false;
+        }
+    }
+
+    public boolean checkGenderDropdownSuggestionInPatientDetails(String expectedGenderValue) {
+        try{
+            genderPatientDetails.sendKeys(expectedGenderValue);
+            Wait.seconds(1);
+            String actualGender ="";
+            if (expectedGenderValue.equalsIgnoreCase("Fe")) {
+                actualGender = getGenderFemale.getText();
+                getGenderFemale.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Ot")) {
+                actualGender = getGenderOther.getText();
+                getGenderOther.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Un")) {
+                actualGender = getGenderUnknown.getText();
+                getGenderUnknown.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Ma")){
+                actualGender = getGenderMale.getText();
+                getGenderMale.click();
+            }else{
+                Debugger.println("Please check your input..");
+                return false;
+            }
+
+            Wait.seconds(1);
+            String expectedGender = expectedGenderValue;
+
+            if (actualGender.charAt(0) != expectedGender.charAt(0)) {
+                System.out.println("Values are NOT matching Expected Gender= " + expectedGender + ", Actual Gender: " + actualGender);
+                return false;
+            }
+            return true;
+        }catch (Exception msg) {
+            SeleniumLib.takeAScreenShot("CheckingGenderInPatientDetailsFailed.jpg");
+            System.out.println("Failed to check gender in patient details from clickingGenderDropdownInPatientdetails " + msg);
             return false;
         }
     }

@@ -133,6 +133,18 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
     public WebElement addNonTestedFamilyMemberLink;
 
+    @FindBy(xpath = "//div[@id='react-select-9-option-0']")
+    public WebElement genderFemale;
+
+    @FindBy(xpath = "//div[@id='react-select-9-option-1']")
+    public WebElement genderMale;
+
+    @FindBy(xpath = "//div[@id='react-select-9-option-2']")
+    public WebElement genderOther;
+
+    @FindBy(xpath = "//div[@id='react-select-9-option-3']")
+    public WebElement genderUnknown;
+
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -528,4 +540,43 @@ public class FamilyMemberSearchPage {
     public void clickOnAddNonTestedFamilyMemberLink() {
         Actions.clickElement(driver,addNonTestedFamilyMemberLink);
     }
+
+    public boolean checkGenderDropDownSuggestionFamilyMember(String expectedGenderValue) {
+        try {
+            genderInput.sendKeys(expectedGenderValue);
+            Wait.seconds(1);
+            String actualGender;
+            if (expectedGenderValue.equalsIgnoreCase("Fe")) {
+                actualGender = genderFemale.getText();
+                genderFemale.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Ma")) {
+                actualGender = genderMale.getText();
+                genderMale.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Un")) {
+                actualGender = genderUnknown.getText();
+                genderUnknown.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Ot")){
+                actualGender = genderOther.getText();
+                genderOther.click();
+            }else{
+                Debugger.println("Please check your input..");
+                return false;
+            }
+
+            Wait.seconds(1);
+            String expectedGender = expectedGenderValue;
+
+            if (actualGender.charAt(0) != expectedGender.charAt(0)) {
+                System.out.println("Values are NOT matching Expected Gender= " + expectedGender + ", Actual Gender: " + actualGender);
+                return false;
+            }
+
+            return true;
+        } catch (Exception msg) {
+            SeleniumLib.takeAScreenShot("CheckingGenderInFamilyMemberFailed.jpg");
+            System.out.println("Failed to check gender in family member from clickingGenderDropdownInFamilymember " + msg);
+            return false;
+        }
+    }
+
 }//end
