@@ -263,4 +263,20 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickOnAddNonTestedFamilyMemberLink();
     }
 
+    @Then("the user fills in the Gender field in the Family member search page")
+    public void theUserFillsInTheGenderFieldInTheFamilyMemberSearchPage(DataTable dataTable) {
+        List<List<String>> list = dataTable.asLists();
+        System.out.println("SIZE=" + list.get(0).size());
+
+        for (int index = 0; index < list.get(0).size(); index++) {
+            System.out.println("Value:" + list.get(0).get(index));
+            String expectedGenderValue = list.get(0).get(index);
+
+            boolean testresult = familyMemberSearchPage.checkGenderDropDownSuggestionFamilyMember(expectedGenderValue);
+            if (!testresult) {
+                SeleniumLib.takeAScreenShot("CheckingGenderInFamilyMember.jpg");
+                Assert.fail("checking in Gender In FamilyMember failed" + testresult);
+            }
+        }
+    }
 }//end

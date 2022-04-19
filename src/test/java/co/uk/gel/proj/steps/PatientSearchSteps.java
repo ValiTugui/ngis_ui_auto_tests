@@ -687,4 +687,17 @@ public class PatientSearchSteps extends Pages {
     }
 
 
+    @And("the user fills in the Gender field")
+    public void theUserFillsInTheGenderField(DataTable dataTable) {
+        List<List<String>> list= dataTable.asLists();
+        for(int index=0; index<list.get(0).size();index++) {
+            String expectedGenderValue = list.get(0).get(index);
+            boolean testresult = patientSearchPage.checkGenderFieldSuggestionInSearchPatient(expectedGenderValue);
+            if (!testresult) {
+                SeleniumLib.takeAScreenShot("CheckingGender.jpg");
+                Assert.fail("checking Gendername in seraching patient failed" + testresult);
+            }
+        }
+    }
+
 }//end

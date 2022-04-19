@@ -178,6 +178,21 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
 
+    @FindBy(xpath = "//input[@id='gender']")
+    public WebElement gender;
+
+    @FindBy(xpath = "//div[@id='react-select-2-option-0']")
+    public WebElement genderFemale;
+
+    @FindBy(xpath = "//div[@id='react-select-2-option-2']")
+    public WebElement genderOther;
+
+    @FindBy(xpath = "//div[@id='react-select-2-option-3']")
+    public WebElement genderUnknown;
+
+    @FindBy(xpath = "//div[@id='react-select-2-option-1']")
+    public WebElement genderMale;
+
     @FindBy(xpath = "//a[text()='create a new patient record']")
     public WebElement createNewPatientRecordLink; // create a new patient link
 
@@ -1446,6 +1461,43 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from searchParticipantFromJson:" + exp);
+            return false;
+        }
+    }
+
+    public boolean checkGenderFieldSuggestionInSearchPatient(String expectedGenderValue) {
+        try {
+            gender.sendKeys(expectedGenderValue);
+            Wait.seconds(1);
+            String actualGender="";
+            if (expectedGenderValue.equalsIgnoreCase("Fe")) {
+                actualGender = genderFemale.getText();
+                genderFemale.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Ot")) {
+                actualGender = genderOther.getText();
+                genderOther.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Un")) {
+                actualGender = genderUnknown.getText();
+                genderUnknown.click();
+            } else if (expectedGenderValue.equalsIgnoreCase("Ma")) {
+                actualGender = genderMale.getText();
+                genderMale.click();
+            } else{
+                Debugger.println("Please check your input..");
+                return false;
+            }
+
+            Wait.seconds(1);
+            String expectedGender = expectedGenderValue;
+
+            if (actualGender.charAt(0) != expectedGender.charAt(0)) {
+                System.out.println("Values are NOT matching Expected Gender= " + expectedGender + ", Actual Gender: " + actualGender);
+                return false;
+            }
+            return true;
+        } catch (Exception msg) {
+            SeleniumLib.takeAScreenShot("CheckingGenderFailed.jpg");
+            Debugger.println("Failed to check genderName" + msg);
             return false;
         }
     }
