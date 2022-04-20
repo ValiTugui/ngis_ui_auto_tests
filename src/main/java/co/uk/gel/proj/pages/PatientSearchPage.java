@@ -1470,16 +1470,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             gender.sendKeys(expectedGenderValue);
             Wait.seconds(1);
             String actualGender="";
-            if (expectedGenderValue.equalsIgnoreCase("Fe")) {
+            if (expectedGenderValue.equalsIgnoreCase("F")) {
                 actualGender = genderFemale.getText();
                 genderFemale.click();
-            } else if (expectedGenderValue.equalsIgnoreCase("Ot")) {
+            } else if (expectedGenderValue.equalsIgnoreCase("O")) {
                 actualGender = genderOther.getText();
                 genderOther.click();
-            } else if (expectedGenderValue.equalsIgnoreCase("Un")) {
+            } else if (expectedGenderValue.equalsIgnoreCase("U")) {
                 actualGender = genderUnknown.getText();
                 genderUnknown.click();
-            } else if (expectedGenderValue.equalsIgnoreCase("Ma")) {
+            } else if (expectedGenderValue.equalsIgnoreCase("M")) {
                 actualGender = genderMale.getText();
                 genderMale.click();
             } else{
