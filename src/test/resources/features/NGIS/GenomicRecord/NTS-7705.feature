@@ -11,20 +11,20 @@ Feature: Update gender to filter by starting with (instead of including)
     Then the user is navigated to a page with title Find your patient
     And the user clicks the NO button
     And the user fills in the Gender field
-      |Fe|Ot|Un|Ma|
+      |F|O|U|M|
     And the user clicks the Search button
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the user navigates to the "<PatientDetails>" stage
     Then the user fills in the Gender field in the Patient details
-      |Fe|Ot|Un|Ma|
+      |F|O|U|M|
     And the user clicks the Save and Continue button
     When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     When the user clicks the NO button in family member search page
     Then the user fills in the Gender field in the Family member search page
-      |Fe|Ot|Un|Ma|
+      |F|O|U|M|
 
     Examples:
     |PatientDetails|FamilyMember|
