@@ -2495,16 +2495,16 @@ public class PatientDetailsPage {
             genderPatientDetails.sendKeys(expectedGenderValue);
             Wait.seconds(1);
             String actualGender ="";
-            if (expectedGenderValue.equalsIgnoreCase("Fe")) {
+            if (expectedGenderValue.equalsIgnoreCase("F")) {
                 actualGender = getGenderFemale.getText();
                 getGenderFemale.click();
-            } else if (expectedGenderValue.equalsIgnoreCase("Ot")) {
+            } else if (expectedGenderValue.equalsIgnoreCase("O")) {
                 actualGender = getGenderOther.getText();
                 getGenderOther.click();
-            } else if (expectedGenderValue.equalsIgnoreCase("Un")) {
+            } else if (expectedGenderValue.equalsIgnoreCase("U")) {
                 actualGender = getGenderUnknown.getText();
                 getGenderUnknown.click();
-            } else if (expectedGenderValue.equalsIgnoreCase("Ma")){
+            } else if (expectedGenderValue.equalsIgnoreCase("M")){
                 actualGender = getGenderMale.getText();
                 getGenderMale.click();
             }else{
