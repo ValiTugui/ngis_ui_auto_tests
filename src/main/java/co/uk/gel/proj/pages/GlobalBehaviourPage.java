@@ -274,11 +274,11 @@ public class GlobalBehaviourPage {
     public boolean navigateToURLWithInvalidReferralID(String invalidReferralURL) {
         try {
             SeleniumLib.takeAScreenShot("BeforeNavigateToInvalidURL.jpg");
-            driver.navigate().to(invalidReferralURL);
-            driver.get(invalidReferralURL);
-            SeleniumLib.takeAScreenShot("BeforeSleep.jpg");
+            String currentUrl = driver.getCurrentUrl();
+            currentUrl=currentUrl.replace("patient-search",invalidReferralURL);
+            driver.navigate().to(currentUrl);
             SeleniumLib.sleepInSeconds(5);
-            SeleniumLib.takeAScreenShot("AfterSleep.jpg");
+            SeleniumLib.takeAScreenShot("AfterNavigateToInvalidURL.jpg");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from navigateToURLWithInvalidReferralID:" + exp);

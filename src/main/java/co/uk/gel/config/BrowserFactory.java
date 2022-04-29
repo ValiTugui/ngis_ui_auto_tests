@@ -112,7 +112,6 @@ public class BrowserFactory {
                         //Default considering Chrome
                         WebDriverManager.chromedriver().clearResolutionCache();
                         WebDriverManager.chromedriver().setup();
-                        Debugger.println("ChromePath: " + WebDriverManager.chromedriver().getDownloadedDriverPath());
                         OS = System.getProperty("os.name").toLowerCase();
                         Debugger.println("OS: " + OS);
                         if (OS.indexOf("win") >= 0) {
