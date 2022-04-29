@@ -3,6 +3,7 @@ package co.uk.gel.config;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 import net.continuumsecurity.proxy.ScanningProxy;
 import net.continuumsecurity.proxy.ZAProxyScanner;
 import org.junit.Assert;
@@ -75,8 +76,12 @@ public class BrowserFactory {
                     driver = getChromeDriver(null, javascriptEnabled);
                     break;
                 case FIREFOX:
-                    WebDriverManager.firefoxdriver().clearResolutionCache();
-                    WebDriverManager.firefoxdriver().setup();
+                    WebDriverManager firefox = new FirefoxDriverManager();
+//                    WebDriverManager.firefoxdriver().clearResolutionCache();
+//                    WebDriverManager.firefoxdriver().setup();
+                    firefox.clearResolutionCache();
+                    firefox.setup();
+                    Debugger.println("Path of Firefox="+firefox.getDownloadedDriverPath());
                     driver = getFirefoxDriverLocal(null, javascriptEnabled);
                     break;
                 case SAFARI:
