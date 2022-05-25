@@ -1052,7 +1052,7 @@ public class ReferralSteps extends Pages {
             if (System.getProperty("TestEnvironment").equalsIgnoreCase("dev")) {
                 baseURL = "https://test-ordering.int.ngis.io/test-order/referral/" + referralId;
             } else {
-                baseURL = "https://test-ordering.e2e.ngis.io/test-order/referral/" + referralId;
+                baseURL = "https://test-order.toms.test.aws.gel.ac/test-order/referral/" + referralId;
             }
         }
         Debugger.println("BASE_URL: " + baseURL);
