@@ -275,7 +275,7 @@ public class GlobalBehaviourPage {
         try {
             SeleniumLib.takeAScreenShot("BeforeNavigateToInvalidURL.jpg");
             String currentUrl = driver.getCurrentUrl();
-            currentUrl=currentUrl.replace("patient-search",invalidReferralURL);
+            currentUrl=currentUrl.replace("referral",invalidReferralURL);
             driver.navigate().to(currentUrl);
             SeleniumLib.sleepInSeconds(5);
             SeleniumLib.takeAScreenShot("AfterNavigateToInvalidURL.jpg");
