@@ -68,6 +68,7 @@ Feature: TestDirectory: Paper Form
 
 
   #@NTS-7771
+  @NTS-7771
   #@E2EUI-2092
   Scenario Outline:NTS-7771: Retired and Proposed <CI_code> code should not be displayed
     Given a web browser is at the Private Test Selection homepage
