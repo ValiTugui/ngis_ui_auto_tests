@@ -13,7 +13,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -46,8 +49,8 @@ public class HomePageSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         testResult = homePage.selectFirstEntityFromResultList();
         Assert.assertTrue(testResult);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
         }
         Wait.seconds(3);
     }
@@ -119,4 +122,36 @@ public class HomePageSteps extends Pages {
 
     }
 
+    @And("the user types in the {string} term  in the search field")
+    public void theUserTypesInTheTermInTheSearchField(String CITerm) {
+        boolean testResult = false;
+        testResult = homePage.typeInSearchField(CITerm);
+        Assert.assertTrue(testResult);
+        AppConfig.properties.setProperty("Search_Term", CITerm);
+        testResult = homePage.clickSearchIconFromSearchField();
+        Assert.assertTrue(testResult);
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Assert.assertTrue(testResult);
+        homePage.closeCookiesBannerFromFooter();
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
+        }
+        Wait.seconds(3);
+    }
+
+    @Then("the {string} term and first result should not match")
+    public void theTermAndFirstResultShouldNotMatch(String expectedCITerm) {
+        Assert.assertFalse(expectedCITerm.equalsIgnoreCase(homePage.getCiCOdeFromResultsPanels(1)));
+    }
+
+    @And("the {string} term does not appear in any of the search results")
+    public void theTermDoesNotAppearInAnyOfTheSearchResults(String expectedCITerm) {
+    }
+
+    @Then("the {string} full name and first result should not match")
+    public void theFullNameAndFirstResultShouldNotMatch(String expectedFullName) {
+        List<String> panelsFullNames = Actions.getValuesFromDropdown(homePage.panelsMainHeaders);
+        System.out.println(panelsFullNames.get(0));
+        Assert.assertFalse(expectedFullName.equalsIgnoreCase(panelsFullNames.get(0)));
+    }
 }

@@ -56,6 +56,9 @@ public class HomePage {
     @FindBy(css = "a[class*='link']")
     public List<WebElement> resultsPanels;
 
+    @FindBy(xpath = "//h4[@class='styles_mainHeader__3n2V4']")
+    public List<WebElement> panelsMainHeaders;
+
     @FindBy(xpath = "//*[contains(@class,'containerInner')]//descendant::button")
     public List<WebElement> cookiesUnderstandButton;
 
@@ -68,6 +71,12 @@ public class HomePage {
     @FindBy(css = "div[class*='main']")
     public WebElement resultsPanel;
 
+    @FindBy(xpath = "//li[contains(@class,'styles_link__22wKg')]/a")
+    public List<WebElement> resultsPages;
+
+    @FindBy(xpath = "//li[@class='styles_next__E1BtZ']/a")
+    public WebElement nextPageBtn;
+
     public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
     @FindBy(xpath = "//*[contains(@class, 'styles_link')]")
@@ -75,6 +84,7 @@ public class HomePage {
 
     @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logOutLink;
+
 
     public boolean waitUntilHomePageResultsContainerIsLoaded() {
        try {
@@ -294,4 +304,14 @@ public class HomePage {
             return false;
         }
     }
+
+    public String getCiCOdeFromResultsPanels(int panelNumber){
+        return driver.findElement(By.xpath("(//div//h5/span[5])["+panelNumber+"]")).getText();
+    }
+
+    public void moveToClinicalIndicationsPage(int pageNumber){
+        seleniumLib.moveMouseAndClickOnElement(By.xpath("(//li[contains(@class,'styles_link__22wKg')]/a)["+pageNumber+"]"));
+    }
+
+
 }
