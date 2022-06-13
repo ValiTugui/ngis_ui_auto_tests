@@ -134,24 +134,34 @@ public class HomePageSteps extends Pages {
         Assert.assertTrue(testResult);
         homePage.closeCookiesBannerFromFooter();
         if (AppConfig.snapshotRequired) {
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
         }
         Wait.seconds(3);
     }
 
-    @Then("the {string} term and first result should not match")
-    public void theTermAndFirstResultShouldNotMatch(String expectedCITerm) {
-        Assert.assertFalse(expectedCITerm.equalsIgnoreCase(homePage.getCiCOdeFromResultsPanels(1)));
+    @Then("the {string} code and first result should not match")
+    public void theTermAndFirstResultShouldNotMatch(String expectedCICode) {
+        Assert.assertFalse(expectedCICode + " matches the first result", expectedCICode.equalsIgnoreCase(homePage.panelsCICodes.get(0).getText()));
     }
 
-    @And("the {string} term does not appear in any of the search results")
-    public void theTermDoesNotAppearInAnyOfTheSearchResults(String expectedCITerm) {
+    @Then("the {string} code does not appear in any of the search results")
+    public void theTermDoesNotAppearInAnyOfTheSearchResults(String expectedCICode) {
+        homePage.compareExpectedCITermAgainstAllSearchResults(expectedCICode, homePage.panelsCICodes);
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
     }
 
     @Then("the {string} full name and first result should not match")
     public void theFullNameAndFirstResultShouldNotMatch(String expectedFullName) {
-        List<String> panelsFullNames = Actions.getValuesFromDropdown(homePage.panelsMainHeaders);
-        System.out.println(panelsFullNames.get(0));
-        Assert.assertFalse(expectedFullName.equalsIgnoreCase(panelsFullNames.get(0)));
+        Assert.assertFalse(expectedFullName + " matches the first result", expectedFullName.equalsIgnoreCase(homePage.panelsMainHeaders.get(0).getText()));
+    }
+
+    @Then("the {string} full name does not appear in any of the search results")
+    public void theFullNameDoesNotAppearInAnyOfTheSearchResults(String expectedCIFullName) {
+        homePage.compareExpectedCITermAgainstAllSearchResults(expectedCIFullName, homePage.panelsMainHeaders);
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
+        }
     }
 }

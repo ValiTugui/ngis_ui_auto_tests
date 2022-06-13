@@ -55,6 +55,7 @@ public class Wait {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+
     @SuppressWarnings("deprecation")
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
