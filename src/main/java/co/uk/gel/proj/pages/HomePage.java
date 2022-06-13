@@ -327,20 +327,13 @@ public class HomePage {
     }
 
     public void compareExpectedCITermAgainstAllSearchResults(String expectedCITerm, List<WebElement> actualCITermResults) {
-
         List<String> actualCIResults = Actions.getValuesFromDropdown(actualCITermResults);
 
         int clinicalIndications = Integer.parseInt(clinicalIndicationsTabValue.getText().substring(1, clinicalIndicationsTabValue.getText().length() - 1));
-        int numberOfPages = 0;
-        if (clinicalIndications % 10 != 0) {
-            numberOfPages = clinicalIndications/10;
-        } else {
-            numberOfPages = clinicalIndications/10
-                    - 1;
-        }
-
+        int numberOfPages = (clinicalIndications % 10 != 0)?(clinicalIndications / 10):(clinicalIndications / 10 - 1);
         int clinicalIndicationsCounter = 0;
         int i = 1;
+
         do {
             waitForVisibility(panelsMainHeaders.get(0), 10);
             for (int j = 0; j < resultsPanels.size(); j++) {

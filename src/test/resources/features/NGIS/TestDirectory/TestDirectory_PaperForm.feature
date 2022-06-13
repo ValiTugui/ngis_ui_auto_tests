@@ -67,13 +67,13 @@ Feature: TestDirectory: Paper Form
       | 1400        | Not Present      |
 
 
-  #@NTS-7771
+  @NTS-7771
   Scenario Outline:NTS-7771: Retired and Proposed <CI_code> code should not be displayed
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the "<CI_code>" term  in the search field
-    #Then the "<CI_code>" code and first result should not match
-    Then the "<CI_code>" code does not appear in any of the search results
+    Then the "<CI_code>" code and first result should not match
+    #Then the "<CI_code>" code does not appear in any of the search results
     Examples:
       | CI_code |
       | M1      |
@@ -116,8 +116,8 @@ Feature: TestDirectory: Paper Form
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the "<CI_full_name>" term  in the search field
-    #Then the "<CI_full_name>" full name and first result should not match
-    Then the "<CI_full_name>" full name does not appear in any of the search results
+    Then the "<CI_full_name>" full name and first result should not match
+    #Then the "<CI_full_name>" full name does not appear in any of the search results
     Examples:
       | CI_full_name                                                                            |
       | Colorectal Carcinoma                                                                    |
