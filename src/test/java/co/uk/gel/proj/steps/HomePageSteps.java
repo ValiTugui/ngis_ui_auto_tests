@@ -136,12 +136,15 @@ public class HomePageSteps extends Pages {
         if (AppConfig.snapshotRequired) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
         }
-        Wait.seconds(3);
     }
 
     @Then("the {string} code and first result should not match")
     public void theTermAndFirstResultShouldNotMatch(String expectedCICode) {
+        Wait.waitForVisibility(driver, homePage.panelsCICodes.get(0), 10);
         Assert.assertFalse(expectedCICode + " matches the first result", expectedCICode.equalsIgnoreCase(homePage.panelsCICodes.get(0).getText()));
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
     }
 
     @Then("the {string} code does not appear in any of the search results")
@@ -154,7 +157,11 @@ public class HomePageSteps extends Pages {
 
     @Then("the {string} full name and first result should not match")
     public void theFullNameAndFirstResultShouldNotMatch(String expectedFullName) {
+        Wait.waitForVisibility(driver, homePage.panelsMainHeaders.get(0), 10);
         Assert.assertFalse(expectedFullName + " matches the first result", expectedFullName.equalsIgnoreCase(homePage.panelsMainHeaders.get(0).getText()));
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
     }
 
     @Then("the {string} full name does not appear in any of the search results")

@@ -321,10 +321,10 @@ public class HomePage {
         seleniumLib.moveMouseAndClickOnElement(By.xpath("(//li[contains(@class,'styles_link__22wKg')]/a)[" + pageNumber + "]"));
     }
 
-    public WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
+    /*public WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
         WebDriverWait wait = new WebDriverWait(driver, timeToWaitInSec);
         return wait.until(ExpectedConditions.visibilityOf(element));
-    }
+    }*/
 
     public void compareExpectedCITermAgainstAllSearchResults(String expectedCITerm, List<WebElement> actualCITermResults) {
         List<String> actualCIResults = Actions.getValuesFromDropdown(actualCITermResults);
@@ -335,7 +335,7 @@ public class HomePage {
         int i = 1;
 
         do {
-            waitForVisibility(panelsMainHeaders.get(0), 10);
+            Wait.waitForVisibility(driver, panelsMainHeaders.get(0), 10);
             for (int j = 0; j < resultsPanels.size(); j++) {
                 clinicalIndicationsCounter++;
                 Assert.assertFalse(expectedCITerm + " matches one of the search results", expectedCITerm.equalsIgnoreCase(actualCIResults.get(j)));
