@@ -13,7 +13,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -46,8 +49,8 @@ public class HomePageSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         testResult = homePage.selectFirstEntityFromResultList();
         Assert.assertTrue(testResult);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_CISearch.jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
         }
         Wait.seconds(3);
     }
@@ -119,4 +122,53 @@ public class HomePageSteps extends Pages {
 
     }
 
+    @And("the user types in the {string} term  in the search field")
+    public void theUserTypesInTheTermInTheSearchField(String CITerm) {
+        boolean testResult = false;
+        testResult = homePage.typeInSearchField(CITerm);
+        Assert.assertTrue(testResult);
+        AppConfig.properties.setProperty("Search_Term", CITerm);
+        testResult = homePage.clickSearchIconFromSearchField();
+        Assert.assertTrue(testResult);
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Assert.assertTrue(testResult);
+        homePage.closeCookiesBannerFromFooter();
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
+    }
+
+    @Then("the {string} code and first result should not match")
+    public void theTermAndFirstResultShouldNotMatch(String expectedCICode) {
+        Wait.waitForVisibility(driver, homePage.panelsCICodes.get(0), 10);
+        Assert.assertFalse(expectedCICode + " matches the first result", expectedCICode.equalsIgnoreCase(homePage.panelsCICodes.get(0).getText()));
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
+    }
+
+    @Then("the {string} code does not appear in any of the search results")
+    public void theTermDoesNotAppearInAnyOfTheSearchResults(String expectedCICode) {
+        homePage.compareExpectedCITermAgainstAllSearchResults(expectedCICode, homePage.panelsCICodes);
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
+    }
+
+    @Then("the {string} full name and first result should not match")
+    public void theFullNameAndFirstResultShouldNotMatch(String expectedFullName) {
+        Wait.waitForVisibility(driver, homePage.panelsMainHeaders.get(0), 10);
+        Assert.assertFalse(expectedFullName + " matches the first result", expectedFullName.equalsIgnoreCase(homePage.panelsMainHeaders.get(0).getText()));
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
+    }
+
+    @Then("the {string} full name does not appear in any of the search results")
+    public void theFullNameDoesNotAppearInAnyOfTheSearchResults(String expectedCIFullName) {
+        homePage.compareExpectedCITermAgainstAllSearchResults(expectedCIFullName, homePage.panelsMainHeaders);
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
+        }
+    }
 }

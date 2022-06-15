@@ -18,6 +18,11 @@ public class Wait {
         webDriver = driver;
     }
 
+    public static WebElement waitForVisibility(WebDriver driver, WebElement element, int timeToWaitInSec) {
+        WebDriverWait wait = new WebDriverWait(driver, timeToWaitInSec);
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
     @SuppressWarnings("deprecation")
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
@@ -54,6 +59,7 @@ public class Wait {
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
 
     @SuppressWarnings("deprecation")
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {

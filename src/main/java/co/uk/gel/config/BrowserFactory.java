@@ -3,7 +3,6 @@ package co.uk.gel.config;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 import net.continuumsecurity.proxy.ScanningProxy;
 import net.continuumsecurity.proxy.ZAProxyScanner;
 import org.junit.Assert;
@@ -76,12 +75,8 @@ public class BrowserFactory {
                     driver = getChromeDriver(null, javascriptEnabled);
                     break;
                 case FIREFOX:
-                    WebDriverManager firefox = new FirefoxDriverManager();
-//                    WebDriverManager.firefoxdriver().clearResolutionCache();
-//                    WebDriverManager.firefoxdriver().setup();
-                    firefox.clearResolutionCache();
-                    firefox.setup();
-                    Debugger.println("Path of Firefox="+firefox.getDownloadedDriverPath());
+                    WebDriverManager.firefoxdriver().clearResolutionCache();
+                    WebDriverManager.firefoxdriver().setup();
                     driver = getFirefoxDriverLocal(null, javascriptEnabled);
                     break;
                 case SAFARI:
@@ -117,6 +112,7 @@ public class BrowserFactory {
                         //Default considering Chrome
                         WebDriverManager.chromedriver().clearResolutionCache();
                         WebDriverManager.chromedriver().setup();
+                        Debugger.println("ChromePath: " + WebDriverManager.chromedriver().getDownloadedDriverPath());
                         OS = System.getProperty("os.name").toLowerCase();
                         Debugger.println("OS: " + OS);
                         if (OS.indexOf("win") >= 0) {
@@ -245,6 +241,12 @@ public class BrowserFactory {
     private ChromeOptions getChromeLocalOptions(String userAgent,
                                                 boolean javascriptEnabled) {
         Debugger.println("Setting Chrome options......."+new Date());
+//        ChromeOptions chromeLocalOptions = new ChromeOptions();
+//        chromeLocalOptions.addArguments("--ignore-ssl-errors");
+//        chromeLocalOptions.addArguments("--ignore-certificate-errors");
+//        chromeLocalOptions.setAcceptInsecureCerts(true);
+//        chromeLocalOptions.addArguments("--disable-gpu");
+//        chromeLocalOptions.addArguments("--no-sandbox");
         // Added the new chrome options to work in the AWS Jenkins
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("window-size=1920,1080,24");
