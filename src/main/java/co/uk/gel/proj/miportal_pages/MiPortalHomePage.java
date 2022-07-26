@@ -1,6 +1,6 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -193,7 +193,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             try {
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
             } catch (Exception exp) {
                 Debugger.println("MIPortal Menu accessing via SeleniumLib:");
                 try {
@@ -326,7 +326,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(2);
             By buttonElement;
             buttonElement = By.xpath("//button[@data-id=\"" + dropDownButton + "\"]");
-            Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(buttonElement));
+            Action.retryClickAndIgnoreElementInterception(driver, driver.findElement(buttonElement));
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             if (value == null || value.isEmpty()) {
@@ -354,7 +354,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             By buttonElement;
             Wait.seconds(3);
             buttonElement = By.xpath("//button[@data-id=\"" + dropDownButton + "\"]");
-            Actions.clickElement(driver, driver.findElement(buttonElement));
+            Action.clickElement(driver, driver.findElement(buttonElement));
             List<String> actualDropDownValues = new ArrayList<>();
             for (WebElement actualValue : genericDropDropDownValues) {
                 actualDropDownValues.add(actualValue.getText().trim());
@@ -616,9 +616,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return null;
             }
             List<String> actualColumnOrderShowHideLabels = new ArrayList<>();
-            actualColumnOrderShowHideLabels.add(Actions.getText(headerColumnOrdering));
-            actualColumnOrderShowHideLabels.add(Actions.getText(headerShow));
-            actualColumnOrderShowHideLabels.add(Actions.getText(headerHide));
+            actualColumnOrderShowHideLabels.add(Action.getText(headerColumnOrdering));
+            actualColumnOrderShowHideLabels.add(Action.getText(headerShow));
+            actualColumnOrderShowHideLabels.add(Action.getText(headerHide));
             return actualColumnOrderShowHideLabels;
         } catch (Exception exp) {
             Debugger.println("No headerColumn,show or hide element shown:" + exp);
@@ -642,7 +642,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("ShowHideLabelsOnModalPopUp.jpg");
                 return null;
             }
-            return Actions.getText(driver.findElement(columnElement));
+            return Action.getText(driver.findElement(columnElement));
         } catch (Exception exp) {
             Debugger.println("No element shown.");
             SeleniumLib.takeAScreenShot("ShowHideLabelsOnModalPopUp.jpg");
@@ -822,9 +822,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean clickShowAllOrHideAllButton(String displayOption) {
         try {
             if (displayOption.equalsIgnoreCase("Show all")) {
-                Actions.clickElement(driver, headerShowAll);
+                Action.clickElement(driver, headerShowAll);
             } else {
-                Actions.clickElement(driver, headerHideAll);
+                Action.clickElement(driver, headerHideAll);
             }
             return true;
         } catch (Exception exp) {
@@ -914,7 +914,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             //Wait.forElementToBeClickable(driver, saveAndCloseHeaderOrderingButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndCloseHeaderOrderingButton);
+            Action.retryClickAndIgnoreElementInterception(driver, saveAndCloseHeaderOrderingButton);
             //Click.element(driver, resetHeaderOrderingButton);
             return true;
         } catch (Exception exp) {
@@ -1038,7 +1038,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
                 return false;
             }
-            Actions.clickElement(driver, saveAndCloseButton);
+            Action.clickElement(driver, saveAndCloseButton);
             return true;
         } catch (Exception exp) {
             try {
@@ -1499,7 +1499,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("FindLSID.jpg");
                 return false;
             }
-            Actions.clickElement(driver, findLsid);
+            Action.clickElement(driver, findLsid);
             return true;
         } catch (Exception exp) {
             try {
@@ -1737,17 +1737,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("NoMILogOutLink.jpg");
                 return;
             }
-            Actions.clickElement(driver,logOutLink);
+            Action.clickElement(driver,logOutLink);
             Wait.seconds(2);
-            if(Actions.isAlertPresent(driver)){
-                Actions.acceptAlert(driver);
+            if(Action.isAlertPresent(driver)){
+                Action.acceptAlert(driver);
             }
-            Actions.clickElement(driver,logOutEmail);
+            Action.clickElement(driver,logOutEmail);
             Wait.seconds(2);
         } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().defaultContent();
-                Actions.deleteCookies(driver);
+                Action.deleteCookies(driver);
             } catch (NoAlertPresentException e) {
                 e.printStackTrace();
             }
@@ -1780,7 +1780,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key : dataKeyFromSheet) {
                     String[] splitDate = key.split("T");
@@ -1816,7 +1816,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 }
                 Thread.sleep(5000);
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
@@ -1847,7 +1847,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
@@ -1879,7 +1879,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
@@ -1911,7 +1911,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
@@ -1943,7 +1943,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     String newkey=null;
@@ -1974,7 +1974,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                     return false;
                 }
                 miStage = By.xpath("//a[contains(string(),'" + sheetName + "')]");
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
                 Set<String> dataKeyFromSheet = dataFromSheet.keySet();
                 for (String key:dataKeyFromSheet){
                     miNewReferralsPage.selectNewReferralsDropDownSearchColumn("Referral ID");
@@ -2157,7 +2157,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return false;
             }
             try {
-                Actions.clickElement(driver, driver.findElement(miStage));
+                Action.clickElement(driver, driver.findElement(miStage));
             } catch (Exception exp) {
                 Debugger.println("MIPortal Menu accessing via SeleniumLib:");
                 try {

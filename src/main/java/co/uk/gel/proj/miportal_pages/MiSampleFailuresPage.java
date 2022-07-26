@@ -1,6 +1,6 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +151,7 @@ public class MiSampleFailuresPage {
                 return false;
             }
             Wait.seconds(5);  //To load the dropdown elements
-            Actions.clickElement(driver, sampleFailuresGlhDd);
+            Action.clickElement(driver, sampleFailuresGlhDd);
 //            Debugger.println("Glh dropdown is clicked");
             return true;
         }catch (Exception exp){
@@ -196,7 +195,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noSelectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleFailuresGlhSelectAll);
+            Action.clickElement(driver, sampleFailuresGlhSelectAll);
 //            Debugger.println("Selected all the Glh values");
             return true;
         } catch (Exception exp) {
@@ -224,7 +223,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noDeselectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleFailuresGlhDeselectAll);
+            Action.clickElement(driver, sampleFailuresGlhDeselectAll);
 //            Debugger.println("Deselected all the Glh values");
             return true;
         } catch (Exception exp) {
@@ -255,7 +254,7 @@ public class MiSampleFailuresPage {
                 return false;
             }
             Wait.seconds(3); //To load the dropdown elements
-            Actions.clickElement(driver, sampleFailuresProgrammeDd);
+            Action.clickElement(driver, sampleFailuresProgrammeDd);
 //            Debugger.println("Programme dropdown is clicked");
             return true;
         }catch (Exception exp){
@@ -272,7 +271,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noSelectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleFailuresProgrammeSelectAll);
+            Action.clickElement(driver, sampleFailuresProgrammeSelectAll);
 //            Debugger.println("Selected all the values in Programme drop-down");
             return true;
         } catch (Exception exp) {
@@ -289,7 +288,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noDeselectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleFailuresProgrammeDeselectAll);
+            Action.clickElement(driver, sampleFailuresProgrammeDeselectAll);
 //            Debugger.println("Deselected all the values in Programme drop-down");
             return true;
         } catch (Exception exp) {
@@ -323,7 +322,7 @@ public class MiSampleFailuresPage {
                 return false;
             }
             Wait.seconds(5);//To load the dropdown elements
-            Actions.clickElement(driver, sampleFailuresFailureTypeDd);
+            Action.clickElement(driver, sampleFailuresFailureTypeDd);
 //            Debugger.println("Failure Type dropdown is clicked");
             return true;
         }catch (Exception exp){
@@ -340,7 +339,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noSelectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleFailuresFailureTypeSelectAll);
+            Action.clickElement(driver, sampleFailuresFailureTypeSelectAll);
 //            Debugger.println("Selected all the values in Failure Type drop-down");
             return true;
         } catch (Exception exp) {
@@ -357,7 +356,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noDeselectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleFailuresFailureTypeDeselectAll);
+            Action.clickElement(driver, sampleFailuresFailureTypeDeselectAll);
 //            Debugger.println("Deselected all the values in Failure Type drop-down");
             return true;
         } catch (Exception exp) {
@@ -442,7 +441,7 @@ public class MiSampleFailuresPage {
                 SeleniumLib.takeAScreenShot("noApplyFiltersButton.jpg");
                 return false;
             }
-            Actions.clickElement(driver, applyFiltersButton);
+            Action.clickElement(driver, applyFiltersButton);
 //            Debugger.println("Apply filters button clicked");
             Wait.seconds(10); //This wait is for to load the data table
             return true;

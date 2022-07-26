@@ -241,6 +241,9 @@ public class NeatToolSteps extends Pages {
             testResult = referralPage.verifyThePageTitlePresence("Edit this patient record");
             Assert.assertTrue(testResult);
             //Change status to inactive
+
+
+
             theUserClicksOnTheStatusButton("Change status to inactive");
             //Verify confirmation dialog box
             theConfirmationDialogBoxAppearsWithTheHeading("Are you sure?");
