@@ -1,7 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -131,11 +130,11 @@ public class FamilyMemberNewPatientPage {
 
     public String clearFieldsInFamilyMemberNewPatientPage(String clearToDropdown){
         try {
-            Actions.clearInputField(firstName);
-            Actions.clearInputField(lastName);
-            Actions.clearInputField(dateOfBirthDayFM);
-            Actions.clearInputField(dateOfBirthMonthFM);
-            Actions.clearInputField(dateOfBirthYearFM);
+            Action.clearInputField(firstName);
+            Action.clearInputField(lastName);
+            Action.clearInputField(dateOfBirthDayFM);
+            Action.clearInputField(dateOfBirthMonthFM);
+            Action.clearInputField(dateOfBirthYearFM);
             String[] expInputs = null;
             expInputs = clearToDropdown.split(",");
             String pathToElement = "";
@@ -164,7 +163,7 @@ public class FamilyMemberNewPatientPage {
                SeleniumLib.takeAScreenShot("CreateNGISRecord.jpg");
                return false;
            }
-           Actions.clickElement(driver,createNGISRecord);
+           Action.clickElement(driver,createNGISRecord);
            Wait.seconds(2);//To ensure the error messages if any, is loaded.
            return true;
        }catch(Exception exp){
@@ -185,7 +184,7 @@ public class FamilyMemberNewPatientPage {
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             for(int i=0; i<expMessages.length;i++) {
-                actualMessage = Actions.getText(validationErrors.get(i));
+                actualMessage = Action.getText(validationErrors.get(i));
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;

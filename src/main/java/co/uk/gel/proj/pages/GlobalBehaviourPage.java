@@ -1,17 +1,14 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.server.handler.DeleteCookie;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.Keys;
 
 import java.util.List;
 
@@ -95,7 +92,7 @@ public class GlobalBehaviourPage {
     public boolean clickPrivacyPolicy() {
         try {
             Click.element(driver, footerLinks.get(1));
-            Actions.switchTab(driver);
+            Action.switchTab(driver);
             if (!(driver.getCurrentUrl().contains("privacy-policy"))) {
                 Wait.forElementToBeClickable(driver, emailAddressField);
                 emailAddressField.sendKeys(AppConfig.getApp_username());
@@ -207,7 +204,7 @@ public class GlobalBehaviourPage {
     public boolean verifyTheElementsOnReferralBanner() {
         try {
             Wait.forElementToBeDisplayed(driver, referralHeaderBanner);
-            Actions.scrollToBottom(driver);
+            Action.scrollToBottom(driver);
             for (int i = 0; i < referralHeaderDetails.size(); i++) {
                 if(!Wait.isElementDisplayed(driver,referralHeaderDetails.get(i),10)){
                     Debugger.println("Element not found " + referralHeaderDetails.get(i));
@@ -242,7 +239,7 @@ public class GlobalBehaviourPage {
                 nextButton.click();
                 Wait.seconds(4);
             }
-            Actions.clearInputField(passwordField);
+            Action.clearInputField(passwordField);
             passwordField.sendKeys(password);
             nextButton.click();
             return true;
