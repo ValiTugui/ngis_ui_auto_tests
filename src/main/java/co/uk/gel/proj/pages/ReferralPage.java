@@ -723,7 +723,7 @@ public class ReferralPage<check> {
             int titlesSize = titleElements.size();
             int count = 1;
             while (titlesSize == 0) {
-                Wait.seconds(15);
+                Wait.seconds(10);
                 titlesSize = titleElements.size();
                 count++;
                 if (count > 6) {
