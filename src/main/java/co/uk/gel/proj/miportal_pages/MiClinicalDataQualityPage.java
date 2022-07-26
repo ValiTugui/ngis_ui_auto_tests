@@ -1,7 +1,7 @@
 package co.uk.gel.proj.miportal_pages;
 
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -171,7 +171,7 @@ public class MiClinicalDataQualityPage {
                 return false;
             }
             Wait.seconds(5);//To load the dropdown elements
-            Actions.clickElement(driver, orderingEntityDropdown);
+            Action.clickElement(driver, orderingEntityDropdown);
             //Debugger.println("Ordering entity dropdown is clicked");
             return true;
         }catch (Exception exp){
@@ -188,7 +188,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("noDeselectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, deselectAllButton);
+            Action.clickElement(driver, deselectAllButton);
             //Debugger.println("Deselected all the ordering entities");
             return true;
         } catch (Exception exp) {
@@ -205,7 +205,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("noSelectAllButtonIsDisplayed.jpg");
                 return false;
             }
-            Actions.clickElement(driver, selectAllButton);
+            Action.clickElement(driver, selectAllButton);
             //Debugger.println("Selected all the ordering entities");
             return true;
         } catch (Exception exp) {
@@ -222,7 +222,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("noApplyFiltersButton.jpg");
                 return false;
             }
-            Actions.clickElement(driver, applyFiltersButton);
+            Action.clickElement(driver, applyFiltersButton);
             //Debugger.println("Apply filters button clicked");
             Wait.seconds(8); //This wait is for to load the apply filters table
             return true;
@@ -378,7 +378,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("noResetFiltersButton.jpg");
                 return false;
             }
-            Actions.clickElement(driver, resetFiltersButton);
+            Action.clickElement(driver, resetFiltersButton);
             //Debugger.println("Reset filters button is clicked");
             return true;
         } catch (Exception exp) {
@@ -395,7 +395,7 @@ public class MiClinicalDataQualityPage {
                 SeleniumLib.takeAScreenShot("noClinicalDqTabIsPresent.jpg");
                 return false;
             }
-            Actions.clickElement(driver, clinicalDqTab);
+            Action.clickElement(driver, clinicalDqTab);
             //Debugger.println("Clinical Dq report tab is selected");
             return true;
         } catch (Exception exp){

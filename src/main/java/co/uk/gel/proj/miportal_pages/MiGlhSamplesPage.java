@@ -1,6 +1,6 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -65,8 +65,8 @@ public class MiGlhSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("ConsignmentNumberSearchboxNotPresent.jpg");
                 return false;
             }
-            Actions.clickElement(driver, sampleSearchValue);
-            Actions.fillInValue(sampleSearchValue, number);
+            Action.clickElement(driver, sampleSearchValue);
+            Action.fillInValue(sampleSearchValue, number);
             return true;
 
         } catch (Exception exp) {
