@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -107,12 +107,12 @@ public class DashBoardPage {
 
     public void clickOrderAGenomicTest() {
         Wait.forElementToBeDisplayed(driver, testOrderLocator);
-        Actions.clickElement(driver, testOrderLocator);
+        Action.clickElement(driver, testOrderLocator);
     }
 
     public void clickFindAGenomicTest() {
         Wait.forElementToBeDisplayed(driver, testSelectionLocator);
-        Actions.clickElement(driver, testSelectionLocator);
+        Action.clickElement(driver, testSelectionLocator);
     }
 
     public boolean verifyTheNHSLogo() {
@@ -139,7 +139,7 @@ public class DashBoardPage {
 
     public boolean verifyTheDashboardTabs() {
         try {
-            Actions.isTabClickable(driver, 5, nhsTabs);
+            Action.isTabClickable(driver, 5, nhsTabs);
             for (int i = 0; i < nhsTabs.size(); i++) {
                 switch (i) {
                     case 0:
