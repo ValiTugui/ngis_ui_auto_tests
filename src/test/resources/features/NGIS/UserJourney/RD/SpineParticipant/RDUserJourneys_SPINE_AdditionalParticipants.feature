@@ -3,6 +3,8 @@
 #@userJourneysRD_SPINE_AdditionalParticipant
 @SYSTEM_INTEGRATION_TEST
 
+  @inprogress
+
 Feature: Create Referrals for SPINE Patient - Additional Participant
 
     @SYSTEM_INTEGRATION_Temp
