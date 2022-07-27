@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -589,7 +589,7 @@ public class PatientSearchSteps extends Pages {
     @Then("no validation error red mark highlighted on the DOB field")
     public void noValidationErrorRedMarkHighlightedOnTheDOBField() {
         //click on NHSLabel label to move cursor away from DOB field
-        Actions.retryClickAndIgnoreElementInterception(driver,patientSearchPage.nhsNumberLabel);
+        Action.retryClickAndIgnoreElementInterception(driver,patientSearchPage.nhsNumberLabel);
         Wait.forElementToBeDisplayed(driver, patientSearchPage.dateOfBirthLabel);
         Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), patientSearchPage.dateOfBirthLabel.getCssValue("color"));
     }
@@ -609,26 +609,26 @@ public class PatientSearchSteps extends Pages {
 
     @Then("the NHS number field remains empty as invalid characters are not accepted")
     public void theNHSNumberFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
-        Assert.assertTrue(Actions.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
+        Assert.assertTrue(Action.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
     }
 
     @Then("the Day field remains empty as invalid characters are not accepted")
     public void theDayFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
-        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthDay).isEmpty());
+        Assert.assertTrue(Action.getText(patientDetailsPage.dateOfBirthDay).isEmpty());
     }
 
     @Then("the year field remains empty as invalid characters are not accepted")
     public void theyearFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
-        Assert.assertTrue(Actions.getText(patientDetailsPage.dateOfBirthYear).isEmpty());
+        Assert.assertTrue(Action.getText(patientDetailsPage.dateOfBirthYear).isEmpty());
     }
 
     @And("the user sees placeholder texts displayed in the fields - Date of birth {string}, First name {string}, Last name {string} and Postcode {string}")
     public void theUserSeesPlaceholderTextsDisplayedInTheFieldsDateOfBirthFirstNameLastNameAndPostcode(String expectedDOBPlaceHolder, String expectedFirstNamePlaceHolder, String expectedLastNamePlaceHolder, String expectedPostCodePlaceHolder) {
 
-        String actualDOBPlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.dateDay) + "-" + Actions.getPlaceHolderAttribute(patientSearchPage.dateMonth) + "-" + Actions.getPlaceHolderAttribute(patientSearchPage.dateYear);
-        String actualFirstNamePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.firstName);
-        String actualLastNamePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.familyName);
-        String actualPostCodePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.postcode);
+        String actualDOBPlaceHolder = Action.getPlaceHolderAttribute(patientSearchPage.dateDay) + "-" + Action.getPlaceHolderAttribute(patientSearchPage.dateMonth) + "-" + Action.getPlaceHolderAttribute(patientSearchPage.dateYear);
+        String actualFirstNamePlaceHolder = Action.getPlaceHolderAttribute(patientSearchPage.firstName);
+        String actualLastNamePlaceHolder = Action.getPlaceHolderAttribute(patientSearchPage.familyName);
+        String actualPostCodePlaceHolder = Action.getPlaceHolderAttribute(patientSearchPage.postcode);
 
         Debugger.println("Actual placeholder-text: " + "DOB:" + actualDOBPlaceHolder + " FName:" + actualFirstNamePlaceHolder + " LName:" + actualLastNamePlaceHolder + " PostCode:" + actualPostCodePlaceHolder);
         Debugger.println("Expected placeholder-text: " + "DOB:" + expectedDOBPlaceHolder + " FName: " + expectedFirstNamePlaceHolder + " LName:" + expectedLastNamePlaceHolder + " PostCode:" + expectedPostCodePlaceHolder);

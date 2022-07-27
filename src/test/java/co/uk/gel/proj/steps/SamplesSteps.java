@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static co.uk.gel.lib.Actions.getText;
+import static co.uk.gel.lib.Action.getText;
 
 public class SamplesSteps extends Pages {
 

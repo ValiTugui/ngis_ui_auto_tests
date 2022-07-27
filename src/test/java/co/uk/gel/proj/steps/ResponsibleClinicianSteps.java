@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -308,7 +308,7 @@ public class ResponsibleClinicianSteps extends Pages {
 
     @And("the user deletes the data in the Clinician Phone Number field")
     public void theUserDeletesTheDataInTheClinicianPhoneNumberField() {
-        Actions.clearField(responsibleClinicianPage.clinicianPhoneNumberField);
+        Action.clearField(responsibleClinicianPage.clinicianPhoneNumberField);
     }
 
     @When("the user attempts to fill in Clinician Phone Number field {string} with data that exceed the maximum data allowed {int}")

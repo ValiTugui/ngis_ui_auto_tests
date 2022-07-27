@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
@@ -335,7 +335,7 @@ public class ReferralSteps extends Pages {
 
         testResult = patientDetailsPage.clickOnCreateRecord();
         if (!testResult) {
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "PCNotCreated1.jpg");
             Assert.fail("Failed in clickOnCreateRecord and proceed. Probably the form not filled properly.Check PCNotCreated.jpg snapshot.");
         }
@@ -396,7 +396,7 @@ public class ReferralSteps extends Pages {
             Wait.seconds(10);
             String actualWarningText = alertBox.getText();
             Assert.assertTrue(expectedWarningText.contains(actualWarningText));
-            Actions.acceptAlert(driver);
+            Action.acceptAlert(driver);
             Wait.seconds(10);
             Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         } catch (Exception exp) {
@@ -1139,7 +1139,7 @@ public class ReferralSteps extends Pages {
         String expectedBornFormat = expectedDateOfBirthFormat + " " + expectedCalculatedAge;
         Debugger.println("expectedDOBAndAgeBornFormat " + expectedBornFormat);
 
-        String actualBornInReferralHeader = Actions.getText(referralPage.referralHeaderBorn);
+        String actualBornInReferralHeader = Action.getText(referralPage.referralHeaderBorn);
         Debugger.println("actualDOBAndAgeBornFormat " + actualBornInReferralHeader);
         Assert.assertEquals(expectedBornFormat, actualBornInReferralHeader);
     }
@@ -1570,8 +1570,8 @@ public class ReferralSteps extends Pages {
 
     @When("the user refresh the browser")
     public void theUserRefreshTheBrowser() {
-        Actions.refreshBrowser(driver);
-        Actions.acceptAlert(driver);
+        Action.refreshBrowser(driver);
+        Action.acceptAlert(driver);
         SeleniumLib.sleepInSeconds(10);
     }
 
