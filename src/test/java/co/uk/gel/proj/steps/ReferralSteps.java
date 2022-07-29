@@ -20,6 +20,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.*;
@@ -206,6 +207,7 @@ public class ReferralSteps extends Pages {
         Wait.seconds(4);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
+            driver.navigate().refresh();
             if (!testResult) {
                 testResult = referralPage.stageIsCompleted(stage);
                 if (!testResult) {
@@ -1400,9 +1402,19 @@ public class ReferralSteps extends Pages {
         for (int i = 0; i < stages.size(); i++) {
             testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
             if (!testResult) {
-                Debugger.println("Stage: " + stages.get(i).get(0) + " expected to be complete, but not.");
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + " : "+ stages.get(i).get(0)+ "_Stage_Not_complete.jpg");
+                Wait.seconds(2);
+                //navigate back to uncompleted stage
+                driver.findElement(By.xpath("//nav//a[.='"+stages.get(i).get(0)+"']"));
+                Debugger.println("Moving back to the unfinished stage");
+                //click on save and continue button
+                testResult = referralPage.clickSaveAndContinueButton();
+                Debugger.println("Clicking on the save and continue button");
                 Assert.assertTrue(testResult);
+                if(!testResult) {
+                    Debugger.println("Stage: " + stages.get(i).get(0) + " expected to be complete, but not.");
+                    SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + " : " + stages.get(i).get(0) + "_Stage_Not_complete.jpg");
+                    Assert.assertTrue(testResult);
+                }
             }
             Assert.assertTrue(testResult);
         }
