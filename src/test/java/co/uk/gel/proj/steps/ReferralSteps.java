@@ -1404,7 +1404,7 @@ public class ReferralSteps extends Pages {
             if (!testResult) {
                 Wait.seconds(2);
                 //navigate back to uncompleted stage
-                driver.findElement(By.xpath("//nav//a[.='"+stages.get(i).get(0)+"']"));
+                driver.findElement(By.xpath("//nav//a[.='"+stages.get(i).get(0)+"']")).click();
                 Debugger.println("Moving back to the unfinished stage");
                 //click on save and continue button
                 testResult = referralPage.clickSaveAndContinueButton();
