@@ -207,8 +207,8 @@ public class ReferralSteps extends Pages {
         Wait.seconds(4);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
-            driver.navigate().refresh();
             if (!testResult) {
+                driver.navigate().refresh();
                 testResult = referralPage.stageIsCompleted(stage);
                 if (!testResult) {
                     SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(stage, " ") + "StageNotComplete.jpg");

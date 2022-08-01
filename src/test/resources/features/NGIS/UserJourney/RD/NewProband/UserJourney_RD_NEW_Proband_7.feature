@@ -10,32 +10,32 @@ Feature: UserJourney_RD_NEW_Proband_7 - UC07 - E2EUI-1274
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-1987:Gender=Male |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-#    And the "<PatientDetails>" stage is marked as Completed
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     When the user clicks the Save and Continue button
-#    Then the "<RequestingOrganisation>" stage is marked as Completed
+    Then the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package
     When the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<OneParticipant>"
     When the user clicks the Save and Continue button
-#    And the "<TestPackage>" stage is marked as Completed
+    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     When the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     When the user clicks the Save and Continue button
-#    And the "<ResponsibleClinician>" stage is marked as Completed
+    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-#    Then the "<ClinicalQuestion>" stage is marked as Completed
+    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-#    Then the "<Notes>" stage is marked as Completed
+    Then the "<Notes>" stage is marked as Completed
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
@@ -56,18 +56,18 @@ Feature: UserJourney_RD_NEW_Proband_7 - UC07 - E2EUI-1274
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-#    Then the "<PatientChoiceStage>" stage is marked as Completed
+    Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
-#    Then the "<Panels>" stage is marked as Completed
+    Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
-#    Then the "<Pedigree>" stage is marked as Completed
+    Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
    And the below stages marked as completed

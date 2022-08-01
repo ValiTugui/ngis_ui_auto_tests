@@ -325,7 +325,7 @@ public class ReferralPage<check> {
                 Action.scrollToBottom(driver);
             }
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)) {
-                Debugger.println("Save and Continue not visible even after 60 minutes.");
+                Debugger.println("Save and Continue not visible even after 60 seconds.");
                 return false;
             }
             try {
