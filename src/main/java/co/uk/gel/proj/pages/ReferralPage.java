@@ -723,6 +723,7 @@ public class ReferralPage<check> {
             int titlesSize = titleElements.size();
             int count = 1;
             while (titlesSize == 0) {
+                driver.navigate().refresh();
                 Wait.seconds(10);
                 titlesSize = titleElements.size();
                 count++;
