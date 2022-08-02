@@ -322,6 +322,7 @@ public class ReferralPage<check> {
             String currentPageTitle = getTheCurrentPageTitle();
 
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
+                driver.navigate().refresh();
                 Action.scrollToBottom(driver);
             }
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)) {
