@@ -724,7 +724,7 @@ public class ReferralPage<check> {
             int count = 1;
             while (titlesSize == 0) {
                 driver.navigate().refresh();
-                Wait.seconds(10);
+                Wait.seconds(15);
                 titlesSize = titleElements.size();
                 count++;
                 if (count > 6) {
@@ -1003,9 +1003,12 @@ public class ReferralPage<check> {
     public String getSubmissionConfirmationMessageIsDisplayed() {
         try {
             if (!Wait.isElementDisplayed(driver, submissionConfirmationBanner, 60)) {
-                Debugger.println("Submission Confirmation Bar not displayed:");
-                SeleniumLib.takeAScreenShot("submissionConfirmationBanner.jpg");
-                return null;
+                driver.navigate().refresh();
+                if (!Wait.isElementDisplayed(driver, submissionConfirmationBanner, 60)) {
+                    Debugger.println("Submission Confirmation Bar not displayed:");
+                    SeleniumLib.takeAScreenShot("submissionConfirmationBanner.jpg");
+                    return null;
+                }
             }
             if (!Wait.isElementDisplayed(driver, submissionConfirmationBannerTitle, 30)) {
                 Debugger.println("submissionConfirmationBannerTitle not displayed:");
