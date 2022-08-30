@@ -76,7 +76,7 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     And the user fills in the Ethnicity field "A - White - British"
     And the user clicks the Save and Continue button on Patient details page
     Then the user accept the alert with message "OK"
-    Then the user clicks the Start Referral button
+    Then the user clicks the Start a new Referral button
     And the user stores the generated Patient NGIS-ID
     Then the user is navigated to a page with title Add a requesting organisation
 
