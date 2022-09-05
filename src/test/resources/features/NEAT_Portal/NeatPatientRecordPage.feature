@@ -121,5 +121,5 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then User should be able to see the same patient details with old NGIS id
     Examples:
       | patient-search-type1 | NhsNumber  | DOB        | patient-search-type2 | NGIS-ID      |
-      | NGIS                 | 9449306559 | 26-01-2001 | NHS Spine            | p26355635826 |
+      | NGIS                 | 9449303223 | 26-01-2001 | NHS Spine            | p73168204461  |
 
