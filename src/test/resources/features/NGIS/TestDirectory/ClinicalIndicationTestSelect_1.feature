@@ -52,7 +52,7 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
     And the user should able to select online or offline order
 
 
-    @NTS-3260 @E2EUI-1003 @E2EUI-1174
+  @NTS-3260 @E2EUI-1003 @E2EUI-1174
 #    @NTS-3262 @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
 #    @NTS-3265 @E2EUI-1063
 #    @NTS-3268  @E2EUI-948
@@ -86,3 +86,16 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | searchTerm | tabName1             | tabName2     | tabName3             | tab1        | tab2          | tab3                | tab4          | whoCanOrderContent                                                    | sectionName1 | sectionName2             |
       | R100       | Eligibility Criteria | Test Package | Clinical Indications | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     | Who to test  | Test package includes... |
       | M89        | Test Package         | Test Package | Clinical Indications | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing | Who to test  | Test package includes... |
+
+
+  @HTO-420
+  Scenario Outline: Validating the expected CI name of the first result from the results list is <CIName>
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    #Test-Selection
+    When the user types in the "<CITerm>" term  in the search field
+    Then "<CIName>" should be displayed as the first result from the results list
+    Examples:
+      | CITerm                                                           | CIName                                                           |
+      | R15                                                              | Primary immunodeficiency or monogenic inflammatory bowel disease |
+      | Primary immunodeficiency or monogenic inflammatory bowel disease | Primary immunodeficiency or monogenic inflammatory bowel disease |

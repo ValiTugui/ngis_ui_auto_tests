@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.TestUtils;
@@ -213,5 +214,11 @@ public class PanelsSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSuggested.jpg");
             Assert.fail("Suggested Panel deselected");
         }
+    }
+
+    @And("the default panel name is {string}")
+    public void theDefaultPanelIs(String CIName) {
+        Wait.waitForVisibility(driver, panelsPage.defaultPanelName, 15);
+        Assert.assertEquals(CIName, panelsPage.defaultPanelName.getText());
     }
 }//end

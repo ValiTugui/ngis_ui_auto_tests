@@ -171,4 +171,13 @@ public class HomePageSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
         }
     }
+
+    @Then("{string} should be displayed as the first result from the results list")
+    public void shouldBeDisplayedAsTheFirstResultFromTheResultLists(String expectedCIName) {
+        Wait.waitForVisibility(driver, homePage.panelsMainHeaders.get(0), 10);
+        Assert.assertTrue(expectedCIName + " matches the first result", expectedCIName.equalsIgnoreCase(homePage.panelsMainHeaders.get(0).getText()));
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearchResults.jpg");
+        }
+    }
 }

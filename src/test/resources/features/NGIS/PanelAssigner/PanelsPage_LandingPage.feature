@@ -70,3 +70,47 @@ Feature: PanelAssigner: Panels Page Landing Page
     Examples:
       | Panels | ClinicalQuestion   | ClinicalQuestionDetails                                         | searchPanels                                  | textLine                                                                                                                                                                   |
       | Panels | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
+
+  @HTO-420
+  Scenario Outline: Verifies the default panel name is <CIName>
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+    ##Panels Page
+    When the user navigates to the "<Panels>" stage
+    And the user is navigated to a page with title Manage panels
+    And Penetrance section with options Complete and Incomplete
+    And the user clicks on Incomplete button and button will show tick marked
+    And the user should see the section with title Default Panel based on the clinical information
+    And the default panel name is "<CIName>"
+    Examples:
+      | Panels | CIId | CIName                   |
+      | Panels | R15  | Primary immunodeficiency |
+
+  @HTO-420
+  Scenario Outline: Verifies that <searchPanels> is added under added panels
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+    ##Panels Page
+    When the user navigates to the "<Panels>" stage
+    And the user is navigated to a page with title Manage panels
+    And Penetrance section with options Complete and Incomplete
+    And the user clicks on Incomplete button and button will show tick marked
+    And the user should see the section with title Default Panel based on the clinical information
+    And the default panel name is "<CIName>"
+    When the user search and add the "<searchPanels>" panels
+    Then the user sees the selected "<searchPanels>" panels under added panels
+    And the user clicks the Save and Continue button
+    Then the "<Panels>" stage is marked as Completed
+    ##panels
+    When the user navigates to the "<Panels>" stage
+    Then the user is navigated to a page with title Manage panels
+    And the user sees the selected "<searchPanels>" panels under added panels
+
+    Examples:
+      | Panels | CIId | CIName           | searchPanels                                                     |
+      | Panels | R100 | Craniosynostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
+
+
+
+
+

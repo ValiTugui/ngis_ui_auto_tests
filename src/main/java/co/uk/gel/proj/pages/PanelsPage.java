@@ -77,6 +77,9 @@ public class PanelsPage {
     @FindBy(xpath = "//div[contains(@class,'styles_panel-assigner__intro_')]//div//ul")
     public WebElement panelsPageIntroMessage2;
 
+    @FindBy(xpath = "//ul[@class='styles_panel-list__12UNd']//span")
+    public WebElement defaultPanelName;
+
     @FindBy(xpath = "//h3[contains(@class,'subheader')]")
     public List<WebElement> panelSubtitles;
 
