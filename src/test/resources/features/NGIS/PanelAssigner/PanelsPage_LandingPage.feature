@@ -83,8 +83,8 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user should see the section with title Default Panel based on the clinical information
     And the default panel name is "<CIName>"
     Examples:
-      | Panels | CIId | CIName                   |
-      | Panels | R15  | Primary immunodeficiency |
+      | Panels | CIId | CIName                                                           |
+      | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
 
   @HTO-420
   Scenario Outline: Verifies that <searchPanels> is added under added panels
@@ -105,7 +105,6 @@ Feature: PanelAssigner: Panels Page Landing Page
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     And the user sees the selected "<searchPanels>" panels under added panels
-
     Examples:
       | Panels | CIId | CIName           | searchPanels                                                     |
       | Panels | R100 | Craniosynostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
