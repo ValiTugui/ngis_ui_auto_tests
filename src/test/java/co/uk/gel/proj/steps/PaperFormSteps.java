@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -207,6 +207,6 @@ public class PaperFormSteps extends Pages {
     @When("the user clicks the link Cancel Order")
     public void theUseClicksTheLinkCancelOrder() {
         paperFormPage.clickCancelOrderLink();
-        Actions.acceptAlert(driver);
+        Action.acceptAlert(driver);
     }
  }

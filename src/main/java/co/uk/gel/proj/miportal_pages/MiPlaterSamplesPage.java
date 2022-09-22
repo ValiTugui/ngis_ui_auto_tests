@@ -1,6 +1,6 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -69,16 +69,16 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("today's date in dd-mm-yyyy " + dateToday);
                 String updatedFutureDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1, 0, 0); //Add future day +1
                 Debugger.println("future date in dd-mm-yyyy " + updatedFutureDate);
-                Actions.clickElement(driver, getPlaterSamplesDate);
-                Actions.clearInputField(getPlaterSamplesDate);
+                Action.clickElement(driver, getPlaterSamplesDate);
+                Action.clearInputField(getPlaterSamplesDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getPlaterSamplesDate, updatedFutureDate);
+                Action.fillInValue(getPlaterSamplesDate, updatedFutureDate);
             } else {
                 Wait.seconds(1);
-                Actions.clickElement(driver, getPlaterSamplesDate);
-                Actions.clearInputField(getPlaterSamplesDate);
+                Action.clickElement(driver, getPlaterSamplesDate);
+                Action.clearInputField(getPlaterSamplesDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getPlaterSamplesDate, date);
+                Action.fillInValue(getPlaterSamplesDate, date);
             }
             return true;
         } catch (Exception exp) {
@@ -101,10 +101,10 @@ public class MiPlaterSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
             String dateToday = TestUtils.todayInDDMMYYYFormat();
             dateToday = dateToday.replace("/", "-");
             pastDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore, 0, 0); //Add future day +1
-            Actions.clickElement(driver, getPlaterSamplesDate);
-            Actions.clearInputField(getPlaterSamplesDate);
+            Action.clickElement(driver, getPlaterSamplesDate);
+            Action.clearInputField(getPlaterSamplesDate);
             Wait.seconds(2);
-            Actions.fillInValue(getPlaterSamplesDate, pastDate);
+            Action.fillInValue(getPlaterSamplesDate, pastDate);
             return true;
 
         } catch (Exception exp) {

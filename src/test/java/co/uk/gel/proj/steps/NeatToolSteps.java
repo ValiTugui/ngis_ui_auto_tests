@@ -99,6 +99,10 @@ public class NeatToolSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    public boolean confirmationBox(String dialogHeader){
+        return neatPatientRecordPage.verifyDialogBox(dialogHeader);
+    }
+
     @And("the user enters the justification reason in the text box as {string}")
     public void theUserEntersTheJustificationReasonInTheTextBoxAs(String reason) {
         boolean testResult = false;
@@ -207,13 +211,14 @@ public class NeatToolSteps extends Pages {
     @Then("the user sees the result as NGIS patient and converts that into SPINE patient from the NEAT Tool")
     public void theUserSeesTheResultAsNGISPatientAndConvertsThatIntoSPINEPatientFromTheNEATTool() {
         boolean testResult = false;
+        boolean isDialogBoxPresent = false;
         //Checking for NGIS
         String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
         if (actualBadge == null) {
             Assert.fail("Could not read the Patient Card ID");
         }
         if (actualBadge.equalsIgnoreCase("NGIS")) {
-            //Steps integrated to goto NEAT Tool and convert to SPINE
+            //Steps integrated to go to NEAT Tool and convert to SPINE
             //Click on patient result card
             testResult = patientSearchPage.clickPatientCard();
             Assert.assertTrue(testResult);
@@ -243,9 +248,11 @@ public class NeatToolSteps extends Pages {
             //Change status to inactive
             theUserClicksOnTheStatusButton("Change status to inactive");
             //Verify confirmation dialog box
-            theConfirmationDialogBoxAppearsWithTheHeading("Are you sure?");
-            //Click on continue in the dialog box
-            theUserClicksOnTheStatusButton("Continue");
+            isDialogBoxPresent = confirmationBox("Are you sure?");
+            if(isDialogBoxPresent) {
+                //Click on continue in the dialog box
+                theUserClicksOnTheStatusButton("Continue");
+            }
             //Check the page title
             testResult = referralPage.verifyThePageTitlePresence("Make this patient record inactive");
             Assert.assertTrue(testResult);

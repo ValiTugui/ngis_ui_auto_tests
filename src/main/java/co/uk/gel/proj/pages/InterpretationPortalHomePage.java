@@ -2,8 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.config.AppConfig;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.proj.util.Debugger;;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -66,7 +65,7 @@ public class InterpretationPortalHomePage {
                 Wait.forElementToBeDisplayed(driver, nextButton);
                 seleniumLib.clickOnWebElement(nextButton);
             }catch(Exception exp1){
-                Actions.clickElement(driver, nextButton);
+                Action.clickElement(driver, nextButton);
             }
             Wait.seconds(4);
             try {
@@ -82,7 +81,7 @@ public class InterpretationPortalHomePage {
                 Wait.forElementToBeDisplayed(driver, signInButton);
                 seleniumLib.clickOnWebElement(signInButton);
             }catch(Exception exp1){
-                Actions.clickElement(driver,signInButton);
+                Action.clickElement(driver,signInButton);
             }
             Wait.seconds(5);
         }catch(Exception exp){

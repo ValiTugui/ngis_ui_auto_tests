@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -122,7 +122,7 @@ public class PaperFormPage {
                 SeleniumLib.takeAScreenShot("orderingEntitySearchFieldNotVisible.jpg");
                 return false;
             }
-            Actions.clearInputField(orderEntitySearchField);
+            Action.clearInputField(orderEntitySearchField);
             orderEntitySearchField.sendKeys(keyword);
             Wait.seconds(4);
             return true;
@@ -291,7 +291,7 @@ public class PaperFormPage {
 
     public boolean checkThataddressOfLabIsDisplayed(String placeSearchTerm) {
         Wait.forElementToBeDisplayed(driver, addressPanelTitle);
-        return (!Actions.getText(sendFormsAndSamplesHospitalName).isEmpty() && (Actions.getText(addressPanelTitle).matches("Send to")) && (Actions.getText(addressPanelBody).contains(placeSearchTerm)));
+        return (!Action.getText(sendFormsAndSamplesHospitalName).isEmpty() && (Action.getText(addressPanelTitle).matches("Send to")) && (Action.getText(addressPanelBody).contains(placeSearchTerm)));
     }
 
     public boolean checkThatDownloadButtonsAreDisplayed() {
@@ -341,7 +341,7 @@ public class PaperFormPage {
     }
 
     public void clickOnUsePDFOrderFormButton() {
-        Actions.clickElement(driver, usePDFOrderFormButton);
+        Action.clickElement(driver, usePDFOrderFormButton);
     }
 
 }

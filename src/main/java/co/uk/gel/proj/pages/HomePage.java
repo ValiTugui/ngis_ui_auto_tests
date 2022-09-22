@@ -1,24 +1,17 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.java.en_old.Ac;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-
-import static co.uk.gel.lib.Actions.acceptAlert;
-import static co.uk.gel.lib.Actions.isAlertPresent;
 
 public class HomePage {
 
@@ -190,7 +183,7 @@ public class HomePage {
                 SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesChkBox.jpg");
                 return 0;
             }
-            Actions.clickElement(driver, rareAndInheritedDiseasesChkBox);
+            Action.clickElement(driver, rareAndInheritedDiseasesChkBox);
             if (!waitUntilHomePageResultsContainerIsLoaded()) {
                 Debugger.println("Results Panel not Reloaded." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesChkBox.jpg");
@@ -201,7 +194,7 @@ public class HomePage {
             String tests = TestUtils.fetchNumberFromAGivenString(testsTabValue.getText());
             //Debugger.println("RD: ClinicalIndications:"+clinicalIndications+",Tests:"+tests);
             //Deselect
-            Actions.clickElement(driver, rareAndInheritedDiseasesChkBox);
+            Action.clickElement(driver, rareAndInheritedDiseasesChkBox);
             Wait.seconds(2);
             return Integer.parseInt(clinicalIndications) + Integer.parseInt(tests);
 
@@ -219,7 +212,7 @@ public class HomePage {
                 SeleniumLib.takeAScreenShot("tumourChkBox.jpg");
                 return 0;
             }
-            Actions.clickElement(driver, tumourChkBox);
+            Action.clickElement(driver, tumourChkBox);
             if (!waitUntilHomePageResultsContainerIsLoaded()) {
                 Debugger.println("Results Panel not Reloaded." + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("tumourChkBox.jpg");
@@ -230,7 +223,7 @@ public class HomePage {
             String tests = TestUtils.fetchNumberFromAGivenString(testsTabValue.getText());
             Debugger.println("Tumour ClinicalIndications:" + clinicalIndications + ",Tests:" + tests);
             //Deselect
-            Actions.clickElement(driver, tumourChkBox);
+            Action.clickElement(driver, tumourChkBox);
             Wait.seconds(2);
             return Integer.parseInt(clinicalIndications) + Integer.parseInt(tests);
 
@@ -265,17 +258,17 @@ public class HomePage {
                 Debugger.println("Could not locate Log out Link...");
                 return;
             }
-            Actions.clickElement(driver, logOutLink);
+            Action.clickElement(driver, logOutLink);
             Wait.seconds(2);
-            if (Actions.isAlertPresent(driver)) {
-                Actions.acceptAlert(driver);
+            if (Action.isAlertPresent(driver)) {
+                Action.acceptAlert(driver);
             }
-            Actions.deleteCookies(driver);
+            Action.deleteCookies(driver);
             Wait.seconds(15);
         } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().defaultContent();
-                Actions.deleteCookies(driver);
+                Action.deleteCookies(driver);
             } catch (NoAlertPresentException e) {
                 e.printStackTrace();
             }
@@ -327,7 +320,7 @@ public class HomePage {
     }*/
 
     public void compareExpectedCITermAgainstAllSearchResults(String expectedCITerm, List<WebElement> actualCITermResults) {
-        List<String> actualCIResults = Actions.getValuesFromDropdown(actualCITermResults);
+        List<String> actualCIResults = Action.getValuesFromDropdown(actualCITermResults);
 
         int clinicalIndications = Integer.parseInt(clinicalIndicationsTabValue.getText().substring(1, clinicalIndicationsTabValue.getText().length() - 1));
         int numberOfPages = (clinicalIndications % 10 != 0)?(clinicalIndications / 10):(clinicalIndications / 10 - 1);

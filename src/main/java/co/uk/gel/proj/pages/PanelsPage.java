@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -175,7 +175,7 @@ public class PanelsPage {
             return false;
         }
         try {
-            Actions.clickElement(driver, visitPanelApp);
+            Action.clickElement(driver, visitPanelApp);
         } catch (Exception exp) {
             try {
                 seleniumLib.clickOnWebElement(visitPanelApp);
@@ -213,9 +213,9 @@ public class PanelsPage {
         try {
             seleniumLib.scrollToElement(penetranceTitle);
             if ("true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
-                Actions.clickElement(driver, completeButton);
+                Action.clickElement(driver, completeButton);
             } else if ("true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
-                Actions.clickElement(driver, incompleteButton);
+                Action.clickElement(driver, incompleteButton);
             }
             return true;
         } catch (Exception exp) {

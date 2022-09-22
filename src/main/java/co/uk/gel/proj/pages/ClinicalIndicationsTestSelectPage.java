@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -109,7 +109,7 @@ public class ClinicalIndicationsTestSelectPage {
             if (!Wait.isElementDisplayed(driver, startTestOrderButton, 80)) {
                 return false;
             }
-            Actions.clickElement(driver,startTestOrderButton);
+            Action.clickElement(driver,startTestOrderButton);
             return true;
         } catch (Exception exp) {
             try{
@@ -125,9 +125,9 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean clickBackToSearchButton() {
         try {
             if (!Wait.isElementDisplayed(driver, backToSearch, 10)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            Actions.clickElement(driver, backToSearch);
+            Action.clickElement(driver, backToSearch);
             return true;
         }catch(Exception exp){
             try {
@@ -444,7 +444,7 @@ public class ClinicalIndicationsTestSelectPage {
             if(!Wait.isElementDisplayed(driver,testInfoIcon,10)){
                 return false;
             }
-            Actions.clickElement(driver,testInfoIcon);
+            Action.clickElement(driver,testInfoIcon);
             return true;
         }catch(Exception exp){
            return false;

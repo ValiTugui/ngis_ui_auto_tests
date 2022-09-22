@@ -1,6 +1,6 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -98,40 +98,40 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 dateToday = dateToday.replace("/", "-");
                 String updatedFutureDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1, 0, 0); //Add future day +1
                 try {
-                    Actions.clickElement(driver, getFileSubmissionDate);
+                    Action.clickElement(driver, getFileSubmissionDate);
                 } catch (Exception exp1) {
                     Debugger.println("Exception in clicking on Date field...trying again..." + exp1);
                     seleniumLib.clickOnWebElement(getFileSubmissionDate);
                 }
-                Actions.clearInputField(getFileSubmissionDate);
+                Action.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getFileSubmissionDate, updatedFutureDate);
+                Action.fillInValue(getFileSubmissionDate, updatedFutureDate);
                 return true;
             } else if (date.equalsIgnoreCase("past_date")) {
                 String dateToday = TestUtils.todayInDDMMYYYFormat();
                 dateToday = dateToday.replace("/", "-");
                 String updatedFutureDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, -5, 0, 0); //Add future day +1
                 try {
-                    Actions.clickElement(driver, getFileSubmissionDate);
+                    Action.clickElement(driver, getFileSubmissionDate);
                 } catch (Exception exp1) {
                     Debugger.println("Exception in clicking on Date field...trying again..." + exp1);
                     seleniumLib.clickOnWebElement(getFileSubmissionDate);
                 }
-                Actions.clearInputField(getFileSubmissionDate);
+                Action.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getFileSubmissionDate, updatedFutureDate);
+                Action.fillInValue(getFileSubmissionDate, updatedFutureDate);
                 return true;
             } else {
                 Wait.seconds(2);
                 try {
-                    Actions.clickElement(driver, getFileSubmissionDate);
+                    Action.clickElement(driver, getFileSubmissionDate);
                 } catch (Exception exp1) {
                     Debugger.println("Exception in clicking on Date field...trying again..." + exp1);
                     seleniumLib.clickOnWebElement(getFileSubmissionDate);
                 }
-                Actions.clearInputField(getFileSubmissionDate);
+                Action.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
-                Actions.fillInValue(getFileSubmissionDate, date);
+                Action.fillInValue(getFileSubmissionDate, date);
             }
             return true;
         } catch (Exception exp) {
@@ -150,11 +150,11 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             String dateToday = TestUtils.todayInDDMMYYYFormat();
             dateToday = dateToday.replace("/", "-");
             pastDate = TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, daysBefore, 0, 0); //Add future day +1
-            Actions.clickElement(driver, getFileSubmissionDate);
+            Action.clickElement(driver, getFileSubmissionDate);
             Wait.seconds(2);
-            Actions.clearInputField(getFileSubmissionDate);
+            Action.clearInputField(getFileSubmissionDate);
             Wait.seconds(2);
-            Actions.fillInValue(getFileSubmissionDate, pastDate);
+            Action.fillInValue(getFileSubmissionDate, pastDate);
             return true;
 
         } catch (Exception exp) {
@@ -439,12 +439,12 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if (showAllButtonOnModalContentPage.isDisplayed()) {
                 if (showAllButtonOnModalContentPage.getText().contains(buttonOnModalContentPage)) {
-                    Actions.clickElement(driver, showAllButtonOnModalContentPage);
+                    Action.clickElement(driver, showAllButtonOnModalContentPage);
                     Debugger.println("Show All button clicked");
                     Wait.seconds(5);
                     return true;
                 } else {
-                    Actions.clickElement(driver, hideAllButtonOnModalContentPage);
+                    Action.clickElement(driver, hideAllButtonOnModalContentPage);
                     Debugger.println("Hide All button clicked");
                     Wait.seconds(5);
                     return true;

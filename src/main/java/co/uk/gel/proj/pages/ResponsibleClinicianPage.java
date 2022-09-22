@@ -1,7 +1,7 @@
 package co.uk.gel.proj.pages;
 
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -152,18 +152,18 @@ public class ResponsibleClinicianPage {
             String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
 
             Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-            Actions.clearField(clinicianFirstNameField);
-            Actions.fillInValue(clinicianFirstNameField, firstName);
-            Actions.clearField(clinicianLastNameField);
-            Actions.fillInValue(clinicianLastNameField, lastName);
-            Actions.clearField(clinicianPhoneNumberField);
-            Actions.fillInValue(clinicianPhoneNumberField, phoneNumber);
-            Actions.clearField(clinicianEmailField);
-            Actions.fillInValue(clinicianEmailField, email);
-            Actions.clearField(clinicianDepartmentAddressField);
-            Actions.fillInValue(clinicianDepartmentAddressField, departmentAddress);
-            Actions.clearField(clinicianProfesionalRegistrationNumberField);
-            Actions.fillInValue(clinicianProfesionalRegistrationNumberField, professionalRegistrationNumber);
+            Action.clearField(clinicianFirstNameField);
+            Action.fillInValue(clinicianFirstNameField, firstName);
+            Action.clearField(clinicianLastNameField);
+            Action.fillInValue(clinicianLastNameField, lastName);
+            Action.clearField(clinicianPhoneNumberField);
+            Action.fillInValue(clinicianPhoneNumberField, phoneNumber);
+            Action.clearField(clinicianEmailField);
+            Action.fillInValue(clinicianEmailField, email);
+            Action.clearField(clinicianDepartmentAddressField);
+            Action.fillInValue(clinicianDepartmentAddressField, departmentAddress);
+            Action.clearField(clinicianProfesionalRegistrationNumberField);
+            Action.fillInValue(clinicianProfesionalRegistrationNumberField, professionalRegistrationNumber);
 
             ArrayList clinicianDetails = new ArrayList();
             clinicianDetails.add(0, firstName);
@@ -213,28 +213,28 @@ public class ResponsibleClinicianPage {
 
     public void fillInClinicianFormFieldsExceptLastNameAndDepartmentAddress() {
         Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-        Actions.clearField(clinicianFirstNameField);
-        Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
-        Actions.clearField(clinicianPhoneNumberField);
-        Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
-        Actions.clearField(clinicianEmailField);
-        Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
-        Actions.clearField(clinicianProfesionalRegistrationNumberField);
-        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+        Action.clearField(clinicianFirstNameField);
+        Action.fillInValue(clinicianFirstNameField, fake.name().firstName());
+        Action.clearField(clinicianPhoneNumberField);
+        Action.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+        Action.clearField(clinicianEmailField);
+        Action.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+        Action.clearField(clinicianProfesionalRegistrationNumberField);
+        Action.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
     }
 
     public void fillInClinicianFormFieldsExceptDepartmentAddressField() {
         Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-        Actions.clearField(clinicianFirstNameField);
-        Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
-        Actions.clearField(clinicianLastNameField);
-        Actions.fillInValue(clinicianLastNameField, fake.name().lastName());
-        Actions.clearField(clinicianPhoneNumberField);
-        Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
-        Actions.clearField(clinicianEmailField);
-        Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
-        Actions.clearField(clinicianProfesionalRegistrationNumberField);
-        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+        Action.clearField(clinicianFirstNameField);
+        Action.fillInValue(clinicianFirstNameField, fake.name().firstName());
+        Action.clearField(clinicianLastNameField);
+        Action.fillInValue(clinicianLastNameField, fake.name().lastName());
+        Action.clearField(clinicianPhoneNumberField);
+        Action.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+        Action.clearField(clinicianEmailField);
+        Action.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+        Action.clearField(clinicianProfesionalRegistrationNumberField);
+        Action.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
     }
 
 
@@ -248,7 +248,7 @@ public class ResponsibleClinicianPage {
 
     public boolean verifyRemoveHyperlinkExists(String expectedHyperlinkText) {
         Wait.forElementToBeDisplayed(driver, removeClinicianButton.get(0));
-        return removeClinicianButton.get(0).isDisplayed() && Actions.getText(removeClinicianButton.get(0)).contains(expectedHyperlinkText);
+        return removeClinicianButton.get(0).isDisplayed() && Action.getText(removeClinicianButton.get(0)).contains(expectedHyperlinkText);
     }
 
     public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
@@ -288,22 +288,22 @@ public class ResponsibleClinicianPage {
 
     public void fillInClinicianFormFieldsExceptLastNameField() {
         Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-        Actions.clearField(clinicianFirstNameField);
-        Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
-        Actions.clearField(clinicianPhoneNumberField);
-        Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
-        Actions.clearField(clinicianEmailField);
-        Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
-        Actions.clearField(clinicianDepartmentAddressField);
-        Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
-        Actions.clearField(clinicianProfesionalRegistrationNumberField);
-        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+        Action.clearField(clinicianFirstNameField);
+        Action.fillInValue(clinicianFirstNameField, fake.name().firstName());
+        Action.clearField(clinicianPhoneNumberField);
+        Action.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+        Action.clearField(clinicianEmailField);
+        Action.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+        Action.clearField(clinicianDepartmentAddressField);
+        Action.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+        Action.clearField(clinicianProfesionalRegistrationNumberField);
+        Action.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
     }
 
     public void fillInDepartmentDetailsField() {
         Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressField);
-        Actions.clearField(clinicianDepartmentAddressField);
-        Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+        Action.clearField(clinicianDepartmentAddressField);
+        Action.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
     }
 
     public void confirmTheExpectedFieldsToBeSeemInClinicianForm() {
@@ -317,7 +317,7 @@ public class ResponsibleClinicianPage {
     }
 
     public void clickAddAnotherLink() {
-        Actions.clickElement(driver, addAnotherClinicianButton);
+        Action.clickElement(driver, addAnotherClinicianButton);
     }
 
     public void fillInAdditionalClinicianOneFormFields() {
@@ -329,12 +329,12 @@ public class ResponsibleClinicianPage {
         String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
 
         Wait.forElementToBeDisplayed(driver, additionalClinician1FirstNameField);
-        Actions.fillInValue(additionalClinician1FirstNameField, firstName);
-        Actions.fillInValue(additionalClinician1LastNameField, lastName);
-        Actions.fillInValue(additionalClinician1PhoneNumberField, phoneNumber);
-        Actions.fillInValue(additionalClinician1EmailField, email);
-        Actions.fillInValue(additionalClinician1DepartmentAddressField, departmentAddress);
-        Actions.fillInValue(additionalClinician1ProfessionalRegistrationNumberField, professionalRegistrationNumber);
+        Action.fillInValue(additionalClinician1FirstNameField, firstName);
+        Action.fillInValue(additionalClinician1LastNameField, lastName);
+        Action.fillInValue(additionalClinician1PhoneNumberField, phoneNumber);
+        Action.fillInValue(additionalClinician1EmailField, email);
+        Action.fillInValue(additionalClinician1DepartmentAddressField, departmentAddress);
+        Action.fillInValue(additionalClinician1ProfessionalRegistrationNumberField, professionalRegistrationNumber);
 
         ArrayList<String> clinicianDetails = new ArrayList<>();
         clinicianDetails.add(0, firstName);
@@ -357,12 +357,12 @@ public class ResponsibleClinicianPage {
         String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
 
         Wait.forElementToBeDisplayed(driver, additionalClinician2FirstNameField);
-        Actions.fillInValue(additionalClinician2FirstNameField, firstName);
-        Actions.fillInValue(additionalClinician2LastNameField, lastName);
-        Actions.fillInValue(additionalClinician2PhoneNumberField, phoneNumber);
-        Actions.fillInValue(additionalClinician2EmailField, email);
-        Actions.fillInValue(additionalClinician2DepartmentAddressField, departmentAddress);
-        Actions.fillInValue(additionalClinician2ProfessionalRegistrationNumberField, professionalRegistrationNumber);
+        Action.fillInValue(additionalClinician2FirstNameField, firstName);
+        Action.fillInValue(additionalClinician2LastNameField, lastName);
+        Action.fillInValue(additionalClinician2PhoneNumberField, phoneNumber);
+        Action.fillInValue(additionalClinician2EmailField, email);
+        Action.fillInValue(additionalClinician2DepartmentAddressField, departmentAddress);
+        Action.fillInValue(additionalClinician2ProfessionalRegistrationNumberField, professionalRegistrationNumber);
 
         ArrayList<String> clinicianDetails = new ArrayList<>();
         clinicianDetails.add(0, firstName);
@@ -384,45 +384,45 @@ public class ResponsibleClinicianPage {
         String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
 
         Wait.forElementToBeDisplayed(driver, additionalClinician1FirstNameField);
-        Actions.fillInValue(additionalClinician1FirstNameField, firstName);
-        Actions.fillInValue(additionalClinician1PhoneNumberField, phoneNumber);
-        Actions.fillInValue(additionalClinician1EmailField, email);
-        Actions.fillInValue(additionalClinician1DepartmentAddressField, departmentAddress);
-        Actions.fillInValue(additionalClinician1ProfessionalRegistrationNumberField, professionalRegistrationNumber);
+        Action.fillInValue(additionalClinician1FirstNameField, firstName);
+        Action.fillInValue(additionalClinician1PhoneNumberField, phoneNumber);
+        Action.fillInValue(additionalClinician1EmailField, email);
+        Action.fillInValue(additionalClinician1DepartmentAddressField, departmentAddress);
+        Action.fillInValue(additionalClinician1ProfessionalRegistrationNumberField, professionalRegistrationNumber);
     }
 
     public boolean clinicianDetailsArePersistedAtLoad() {
         Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-        boolean doesFirstNameMatch = Actions.getValue(clinicianFirstNameField).matches(cliniciansMap.get(key1).get(0));
-        boolean doesLastNameMatch = Actions.getValue(clinicianLastNameField).matches(cliniciansMap.get(key1).get(1));
-        boolean doesPhoneNumberMatch = Actions.getValue(clinicianPhoneNumberField).matches(cliniciansMap.get(key1).get(2));
-        boolean doesEmailMatch = Actions.getValue(clinicianEmailField).matches(cliniciansMap.get(key1).get(3));
-        boolean doesDepartmentAddressMatch = Actions.getValue(clinicianDepartmentAddressField).matches(cliniciansMap.get(key1).get(4));
-        boolean doesProfessionalRegistrationNumberMatch = Actions.getValue(clinicianProfesionalRegistrationNumberField).matches(cliniciansMap.get(key1).get(5));
+        boolean doesFirstNameMatch = Action.getValue(clinicianFirstNameField).matches(cliniciansMap.get(key1).get(0));
+        boolean doesLastNameMatch = Action.getValue(clinicianLastNameField).matches(cliniciansMap.get(key1).get(1));
+        boolean doesPhoneNumberMatch = Action.getValue(clinicianPhoneNumberField).matches(cliniciansMap.get(key1).get(2));
+        boolean doesEmailMatch = Action.getValue(clinicianEmailField).matches(cliniciansMap.get(key1).get(3));
+        boolean doesDepartmentAddressMatch = Action.getValue(clinicianDepartmentAddressField).matches(cliniciansMap.get(key1).get(4));
+        boolean doesProfessionalRegistrationNumberMatch = Action.getValue(clinicianProfesionalRegistrationNumberField).matches(cliniciansMap.get(key1).get(5));
 
         return doesFirstNameMatch && doesLastNameMatch && doesPhoneNumberMatch && doesEmailMatch && doesDepartmentAddressMatch && doesProfessionalRegistrationNumberMatch;
     }
 
     public boolean additionalClinicianOneDetailsArePersistedAtLoad() {
         Wait.forElementToBeDisplayed(driver, additionalClinician1FirstNameField);
-        boolean doesFirstNameMatch = Actions.getValue(additionalClinician1FirstNameField).matches(cliniciansMap.get(key2).get(0));
-        boolean doesLastNameMatch = Actions.getValue(additionalClinician1LastNameField).matches(cliniciansMap.get(key2).get(1));
-        boolean doesPhoneNumberMatch = Actions.getValue(additionalClinician1PhoneNumberField).matches(cliniciansMap.get(key2).get(2));
-        boolean doesEmailMatch = Actions.getValue(additionalClinician1EmailField).matches(cliniciansMap.get(key2).get(3));
-        boolean doesDepartmentAddressMatch = Actions.getValue(additionalClinician1DepartmentAddressField).matches(cliniciansMap.get(key2).get(4));
-        boolean doesProfessionalRegistrationNumberMatch = Actions.getValue(additionalClinician1ProfessionalRegistrationNumberField).matches(cliniciansMap.get(key2).get(5));
+        boolean doesFirstNameMatch = Action.getValue(additionalClinician1FirstNameField).matches(cliniciansMap.get(key2).get(0));
+        boolean doesLastNameMatch = Action.getValue(additionalClinician1LastNameField).matches(cliniciansMap.get(key2).get(1));
+        boolean doesPhoneNumberMatch = Action.getValue(additionalClinician1PhoneNumberField).matches(cliniciansMap.get(key2).get(2));
+        boolean doesEmailMatch = Action.getValue(additionalClinician1EmailField).matches(cliniciansMap.get(key2).get(3));
+        boolean doesDepartmentAddressMatch = Action.getValue(additionalClinician1DepartmentAddressField).matches(cliniciansMap.get(key2).get(4));
+        boolean doesProfessionalRegistrationNumberMatch = Action.getValue(additionalClinician1ProfessionalRegistrationNumberField).matches(cliniciansMap.get(key2).get(5));
 
         return doesFirstNameMatch && doesLastNameMatch && doesPhoneNumberMatch && doesEmailMatch && doesDepartmentAddressMatch && doesProfessionalRegistrationNumberMatch;
     }
 
     public boolean additionalClinicianTwoDetailsArePersistedAtLoad() {
         Wait.forElementToBeDisplayed(driver, additionalClinician2FirstNameField);
-        boolean doesFirstNameMatch = Actions.getValue(additionalClinician2FirstNameField).matches(cliniciansMap.get(key3).get(0));
-        boolean doesLastNameMatch = Actions.getValue(additionalClinician2LastNameField).matches(cliniciansMap.get(key3).get(1));
-        boolean doesPhoneNumberMatch = Actions.getValue(additionalClinician2PhoneNumberField).matches(cliniciansMap.get(key3).get(2));
-        boolean doesEmailMatch = Actions.getValue(additionalClinician2EmailField).matches(cliniciansMap.get(key3).get(3));
-        boolean doesDepartmentAddressMatch = Actions.getValue(additionalClinician2DepartmentAddressField).matches(cliniciansMap.get(key3).get(4));
-        boolean doesProfessionalRegistrationNumberMatch = Actions.getValue(additionalClinician2ProfessionalRegistrationNumberField).matches(cliniciansMap.get(key3).get(5));
+        boolean doesFirstNameMatch = Action.getValue(additionalClinician2FirstNameField).matches(cliniciansMap.get(key3).get(0));
+        boolean doesLastNameMatch = Action.getValue(additionalClinician2LastNameField).matches(cliniciansMap.get(key3).get(1));
+        boolean doesPhoneNumberMatch = Action.getValue(additionalClinician2PhoneNumberField).matches(cliniciansMap.get(key3).get(2));
+        boolean doesEmailMatch = Action.getValue(additionalClinician2EmailField).matches(cliniciansMap.get(key3).get(3));
+        boolean doesDepartmentAddressMatch = Action.getValue(additionalClinician2DepartmentAddressField).matches(cliniciansMap.get(key3).get(4));
+        boolean doesProfessionalRegistrationNumberMatch = Action.getValue(additionalClinician2ProfessionalRegistrationNumberField).matches(cliniciansMap.get(key3).get(5));
 
         return doesFirstNameMatch && doesLastNameMatch && doesPhoneNumberMatch && doesEmailMatch && doesDepartmentAddressMatch && doesProfessionalRegistrationNumberMatch;
     }
@@ -433,12 +433,12 @@ public class ResponsibleClinicianPage {
 
     public String getClinicianHelpText() {
         Wait.forElementToBeDisplayed(driver, clinicianDetails);
-        return Actions.getText(clinicianDetails);
+        return Action.getText(clinicianDetails);
     }
 
     public String getSectionTitle() {
         Wait.forElementToBeDisplayed(driver, clinicianFormHeader);
-        return Actions.getText(clinicianFormHeader);
+        return Action.getText(clinicianFormHeader);
     }
 
     public boolean firstNameFieldDisplayed() {
@@ -447,7 +447,7 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean firstNameFieldIsEmpty() {
-        return Actions.getText(clinicianFirstNameField).isEmpty();
+        return Action.getText(clinicianFirstNameField).isEmpty();
     }
 
     public boolean lastNameFieldDisplayed() {
@@ -456,7 +456,7 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean lastNameFieldIsEmpty() {
-        return Actions.getText(clinicianLastNameField).isEmpty();
+        return Action.getText(clinicianLastNameField).isEmpty();
     }
 
     public boolean emailFieldDisplayed() {
@@ -465,7 +465,7 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean emailFieldIsEmpty() {
-        return Actions.getText(clinicianEmailField).isEmpty();
+        return Action.getText(clinicianEmailField).isEmpty();
     }
 
     public boolean phoneNumberFieldDisplayed() {
@@ -474,7 +474,7 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean phoneNumberFieldIsEmpty() {
-        return Actions.getText(clinicianPhoneNumberField).isEmpty();
+        return Action.getText(clinicianPhoneNumberField).isEmpty();
     }
 
     public boolean departmentNameAndAddressFieldDisplayed() {
@@ -483,7 +483,7 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean departmentNameAndAddressFieldIsEmpty() {
-        return Actions.getText(clinicianDepartmentAddressField).isEmpty();
+        return Action.getText(clinicianDepartmentAddressField).isEmpty();
     }
 
     public boolean professionalRegistrationNumberFieldDisplayed() {
@@ -492,63 +492,63 @@ public class ResponsibleClinicianPage {
     }
 
     public boolean professionalRegistrationNumberFieldIsEmpty() {
-        return Actions.getText(clinicianProfesionalRegistrationNumberField).isEmpty();
+        return Action.getText(clinicianProfesionalRegistrationNumberField).isEmpty();
     }
 
     public String getContactSectionTitle() {
         Wait.forElementToBeDisplayed(driver, clinicianContactSectionLabel);
-        return Actions.getText(clinicianContactSectionLabel);
+        return Action.getText(clinicianContactSectionLabel);
     }
 
     public String getContactSectionHelpText() {
         Wait.forElementToBeDisplayed(driver, clinicianFormInfo);
-        return Actions.getText(clinicianFormInfo);
+        return Action.getText(clinicianFormInfo);
     }
 
     public String getEmailSectionHelpText() {
         Wait.forElementToBeDisplayed(driver, hintTexts.get(0));
-        return Actions.getText(hintTexts.get(0));
+        return Action.getText(hintTexts.get(0));
     }
 
     public boolean verifyDepartmentNameAndAddressLabelIsShownAsMandatory() {
         Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressLabel);
         Wait.isElementDisplayed(driver, clinicianDepartmentAddressLabelWithAsterisk, 1);
-        return Actions.getClassName(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
+        return Action.getClassName(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
     }
 
     public boolean professionalRegistrationNumberFieldIsEmptyForAdditionalClinicianOne() {
         boolean fieldIsDisplayed = additionalClinician1ProfessionalRegistrationNumberField.isDisplayed();
-        boolean fieldIsBlank = Actions.getText(additionalClinician1ProfessionalRegistrationNumberField).isEmpty();
+        boolean fieldIsBlank = Action.getText(additionalClinician1ProfessionalRegistrationNumberField).isEmpty();
         return fieldIsDisplayed && fieldIsBlank;
     }
 
     public boolean departmentNameAndAddressFieldIsEmptyForAdditionalClinicianOne() {
         boolean fieldIsDisplayed = additionalClinician1DepartmentAddressField.isDisplayed();
-        boolean fieldIsBlank = Actions.getText(additionalClinician1DepartmentAddressField).isEmpty();
+        boolean fieldIsBlank = Action.getText(additionalClinician1DepartmentAddressField).isEmpty();
         return fieldIsDisplayed && fieldIsBlank;
     }
 
     public boolean emailFieldIsEmptyForAdditionalClinicianOne() {
         boolean fieldIsDisplayed = additionalClinician1EmailField.isDisplayed();
-        boolean fieldIsBlank = Actions.getText(additionalClinician1EmailField).isEmpty();
+        boolean fieldIsBlank = Action.getText(additionalClinician1EmailField).isEmpty();
         return fieldIsDisplayed && fieldIsBlank;
     }
 
     public boolean phoneNumberFieldIsEmptyForAdditionalClinicianOne() {
         boolean fieldIsDisplayed = additionalClinician1PhoneNumberField.isDisplayed();
-        boolean fieldIsBlank = Actions.getText(additionalClinician1PhoneNumberField).isEmpty();
+        boolean fieldIsBlank = Action.getText(additionalClinician1PhoneNumberField).isEmpty();
         return fieldIsDisplayed && fieldIsBlank;
     }
 
     public boolean lastNameFieldIsEmptyForAdditionalClinicianOne() {
         boolean fieldIsDisplayed = additionalClinician1LastNameField.isDisplayed();
-        boolean fieldIsBlank = Actions.getText(additionalClinician1LastNameField).isEmpty();
+        boolean fieldIsBlank = Action.getText(additionalClinician1LastNameField).isEmpty();
         return fieldIsDisplayed && fieldIsBlank;
     }
 
     public boolean firstNameFieldIsEmptyForAdditionalClinicianOne() {
         boolean fieldIsDisplayed = additionalClinician1FirstNameField.isDisplayed();
-        boolean fieldIsBlank = Actions.getText(additionalClinician1FirstNameField).isEmpty();
+        boolean fieldIsBlank = Action.getText(additionalClinician1FirstNameField).isEmpty();
         return fieldIsDisplayed && fieldIsBlank;
     }
 

@@ -1,7 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.config.BrowserConfig;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -13,7 +13,6 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -394,7 +393,7 @@ public class PatientChoicePage {
             for (int i = 0; i < optionsList.size(); i++) {
                 if (optionsList.get(i).getText().equalsIgnoreCase(optionName)) {
                     isFound = true;
-                    Actions.clickElement(driver, optionsList.get(i));
+                    Action.clickElement(driver, optionsList.get(i));
                     break;
                 }
                 Wait.seconds(2);
@@ -506,19 +505,19 @@ public class PatientChoicePage {
         try {
             if (Wait.isElementDisplayed(driver, continueButton, 10)) {
                 try {
-                    Actions.clickElement(driver, continueButton);
+                    Action.clickElement(driver, continueButton);
                 }catch(Exception exp1){
                     seleniumLib.clickOnWebElement(continueButton);
                 }
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
                 try {
-                    Actions.clickElement(driver, formToFollow);
+                    Action.clickElement(driver, formToFollow);
                 }catch(Exception exp1){
                     seleniumLib.clickOnWebElement(formToFollow);
                 }
             }else if (Wait.isElementDisplayed(driver, continueOnRecordByButton, 10)) {
                 try {
-                    Actions.clickElement(driver, continueOnRecordByButton);
+                    Action.clickElement(driver, continueOnRecordByButton);
                 }catch(Exception exp1){
                     seleniumLib.clickOnWebElement(continueOnRecordByButton);
                 }
@@ -587,7 +586,7 @@ public class PatientChoicePage {
     public boolean selectOptionForQuestion(String option, String question) {
         try {
            Wait.seconds(3);
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             String optionsString = questionOptions.replaceAll("dummyQuestion", question);
             List<WebElement> options = driver.findElements(By.xpath(optionsString));
             boolean isFound = false;
@@ -611,7 +610,7 @@ public class PatientChoicePage {
             if (!Wait.isElementDisplayed(driver, childAssentTitle, 100)) {
                 return true;//Child assent not present and may not be required - for new patient's family members
             }
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             String chdAssent = childAssent.replaceAll("dummyAssent", child_assent);
             Wait.seconds(1);
             WebElement webElement = driver.findElement(By.xpath(chdAssent));
@@ -732,8 +731,8 @@ public class PatientChoicePage {
 
     public boolean verifyTheSectionTitle(String sectionName) {
         try {
-            if (Actions.isAlertPresent(driver)) {
-                Actions.dismissAlert(driver);
+            if (Action.isAlertPresent(driver)) {
+                Action.dismissAlert(driver);
             }
             String section = sectionTitle.replaceAll("dummySection", sectionName);
             if(!seleniumLib.isElementPresent(By.xpath(section))){
@@ -760,7 +759,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             try {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
                 if (!Wait.isElementDisplayed(driver, webElementLocator, 60)) {
                     Debugger.println("Option " + option + " is not marked as completed as expected.");
                     return false;
@@ -901,7 +900,7 @@ public class PatientChoicePage {
             if (!Wait.isElementDisplayed(driver,editButtonResult,10)){
                 Debugger.println("Edit button not present");
             }
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             seleniumLib.clickOnWebElement(editButtonResult);
             return true;
         } catch (Exception exp) {
@@ -924,7 +923,7 @@ public class PatientChoicePage {
 
     public boolean errorMessageInPatientChoicePage(String boxColor, String message) {
         try {
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             Wait.forElementToBeDisplayed(driver, errorMessageBox);
             if (!seleniumLib.isElementPresent(errorMessageBox)) {
                 Debugger.println("Error box not found.");
@@ -948,7 +947,7 @@ public class PatientChoicePage {
     public boolean patientChoiceFormCompleted() {
         try {
             if (!Wait.isElementDisplayed(driver, patientChoiceFormCompletedMessage, 60)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
                 if (!Wait.isElementDisplayed(driver, patientChoiceFormCompletedMessage, 10)) {
                     Debugger.println("patientChoiceFormCompletedMessage not loaded...."+driver.getCurrentUrl());
                     return false;
@@ -1024,7 +1023,7 @@ public class PatientChoicePage {
         try {
 
             Wait.forElementToBeDisplayed(driver, recordedByField);
-            co.uk.gel.lib.Actions.fillInValue(recordedByField, "Sue");
+            Action.fillInValue(recordedByField, "Sue");
             Click.element(driver, recordedByContinueButton);
             return true;
         }catch(Exception exp){
@@ -1064,7 +1063,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             try {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
                 Click.element(driver, agreeTestChoice);
                 Click.element(driver, agreeResearchParticipation);
                 Click.element(driver, agreeSampleUsage);
@@ -1079,7 +1078,7 @@ public class PatientChoicePage {
 
     public boolean drawSignature() {
         try {
-            Actions.scrollToBottom(driver);
+            Action.scrollToBottom(driver);
             if(!Wait.isElementDisplayed(driver, signatureSection,30)){
                 Debugger.println("DRAW Signature Section not displayed.."+driver.getCurrentUrl());
             }else {
@@ -1091,7 +1090,7 @@ public class PatientChoicePage {
                 }
             }
             org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
-            Action drawAction = builder.moveToElement(signaturePad, 135, 15) //start points x axis and y axis.
+            org.openqa.selenium.interactions.Action drawAction = builder.moveToElement(signaturePad, 135, 15) //start points x axis and y axis.
                     .clickAndHold()
                     .moveByOffset(80, 80)
                     .moveByOffset(50, 20)
@@ -1109,7 +1108,7 @@ public class PatientChoicePage {
     public boolean clickOnSaveAndContinueButton(){
         try{
             if(!Wait.isElementDisplayed(driver,saveAndContinuePC,30)){
-                Actions.scrollToBottom(driver);
+                Action.scrollToBottom(driver);
             }
             Wait.seconds(3);
             int count = 1;
@@ -1262,7 +1261,7 @@ public class PatientChoicePage {
             }
             String actualMessage = "";
             for (int i = 0; i < expMessages.length; i++) {
-                actualMessage = Actions.getText(errorMessageOnPatientChoiceForm.get(i));
+                actualMessage = Action.getText(errorMessageOnPatientChoiceForm.get(i));
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;
@@ -1378,7 +1377,7 @@ public class PatientChoicePage {
                 Debugger.println("Patient Choice Page: Amend button not displayed");
                 return false;
             }
-            Actions.clickElement(driver, amendPatientChoice);
+            Action.clickElement(driver, amendPatientChoice);
             Wait.seconds(5);//Observed some delay here while running from jenkins
             return true;
         } catch (Exception exp) {
@@ -1419,7 +1418,7 @@ public class PatientChoicePage {
     public boolean clearTheSignature() {
         try {
             Wait.forElementToBeClickable(driver, signatureClearButton);
-            Actions.clickElement(driver, signatureClearButton);
+            Action.clickElement(driver, signatureClearButton);
             Wait.seconds(2);
             return true;
         } catch (Exception exp) {
@@ -1513,7 +1512,7 @@ public class PatientChoicePage {
                     if (formSubHeader.getText().equalsIgnoreCase(linkForm)) {
                         isPresent = true;
                     }
-                    Actions.scrollToTop(driver);
+                    Action.scrollToTop(driver);
                     seleniumLib.clickOnWebElement(formLiraryBackButton);
                     Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
@@ -1593,7 +1592,7 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, fileTypeDropDownList.get(formNum), 30);
             String[] expValues = expectedOptions.toArray(new String[0]);
             SeleniumLib.scrollToElement(uploadDocumentButton);
-            Actions.clickElement(driver, fileTypeDropDownList.get(formNum));
+            Action.clickElement(driver, fileTypeDropDownList.get(formNum));
             Wait.seconds(2);
             boolean isPresent = false;
             //Check the size of the drop down fields - to ensure no extra values present
@@ -1611,7 +1610,7 @@ public class PatientChoicePage {
                 }//for actual
 
             }//for expValues
-            Actions.clickElement(driver, fileTypeDropDownList.get(formNum));//Click again to collapse
+            Action.clickElement(driver, fileTypeDropDownList.get(formNum));//Click again to collapse
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying file type dropdown options  : " + exp);
@@ -1638,7 +1637,7 @@ public class PatientChoicePage {
                 Debugger.println("Could not locate fileTypeDropdown in PC.");
                 return false;
             }
-            Actions.clickElement(driver, fileTypeDropDown);
+            Action.clickElement(driver, fileTypeDropDown);
             Wait.seconds(2);
             boolean isSelected = false;
             for (int j = 0; j < dropDownValues.size(); j++) {//For the actual dropdown values
@@ -1662,7 +1661,7 @@ public class PatientChoicePage {
                 Debugger.println("Could not locate fileTypeDropdown for form number "+formNum+" in PC.");
                 return false;
             }
-            Actions.clickElement(driver, fileTypeDropDownList.get(formNum));
+            Action.clickElement(driver, fileTypeDropDownList.get(formNum));
             Wait.seconds(2);
             boolean isSelected = false;
             for (int j = 0; j < dropDownValues.size(); j++) {//For the actual dropdown values
@@ -1782,7 +1781,7 @@ public class PatientChoicePage {
                 return false;
             }
             Wait.forElementToBeDisplayed(driver, patientChoiceStatus.get(index), 30);
-            Actions.clickElement(driver, patientChoiceStatus.get(index));
+            Action.clickElement(driver, patientChoiceStatus.get(index));
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in clicking patient choice status link" + exp);
@@ -1924,9 +1923,9 @@ public class PatientChoicePage {
     public boolean clickOnFormToFollow() {
         try {
             if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
-                Actions.clickElement(driver, formToFollow);
+                Action.clickElement(driver, formToFollow);
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
-                Actions.clickElement(driver, formToFollow);
+                Action.clickElement(driver, formToFollow);
             }
             return true;
         } catch (Exception exp) {
@@ -1943,9 +1942,9 @@ public class PatientChoicePage {
     public boolean clickOnCancelUpload() {
         try {
             if (Wait.isElementDisplayed(driver, cancelUpload, 10)) {
-                Actions.clickElement(driver, cancelUpload);
+                Action.clickElement(driver, cancelUpload);
             } else if (Wait.isElementDisplayed(driver, cancelUpload, 10)) {
-                Actions.clickElement(driver, cancelUpload);
+                Action.clickElement(driver, cancelUpload);
             }
             return true;
         } catch (Exception exp) {
@@ -1977,27 +1976,27 @@ public class PatientChoicePage {
             clickOnContinue();
             Wait.seconds(3);
             verifyTheSectionTitle("Patient choice");
-            Actions.scrollToTop(driver);
-            Actions.clickElement(driver, agreeTestChoice);
-            Actions.clickElement(driver, agreeResearchParticipation);
-            Actions.clickElement(driver, agreeSampleUsage);
+            Action.scrollToTop(driver);
+            Action.clickElement(driver, agreeTestChoice);
+            Action.clickElement(driver, agreeResearchParticipation);
+            Action.clickElement(driver, agreeSampleUsage);
             Wait.seconds(5);
             clickOnContinue();
             Wait.seconds(2);
             if (category.equalsIgnoreCase("Child")) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
                 verifyTheSectionTitle("Child assent");
-                Actions.scrollToTop(driver);
-                Actions.clickElement(driver, childAssentYes);
+                Action.scrollToTop(driver);
+                Action.clickElement(driver, childAssentYes);
                 Wait.seconds(2);
                 clickOnContinue();
                 Wait.seconds(2);
             } else if (category.equalsIgnoreCase("Adult (Without Capacity)")) {
                 verifyTheSectionTitle("Consultee attestation");
-                Actions.scrollToTop(driver);
-                Actions.clickElement(driver, consulteeReadYes);
-                Actions.clickElement(driver, consulteeConsultedYes);
-                Actions.clickElement(driver, consulteeAgreedYes);
+                Action.scrollToTop(driver);
+                Action.clickElement(driver, consulteeReadYes);
+                Action.clickElement(driver, consulteeConsultedYes);
+                Action.clickElement(driver, consulteeAgreedYes);
                 Wait.seconds(2);
                 clickOnContinue();
                 Wait.seconds(2);
@@ -2018,7 +2017,7 @@ public class PatientChoicePage {
                 Debugger.println("The completed referral card is not displayed");
                 return false;
             }
-            Actions.clickElement(driver, completedRefCard);
+            Action.clickElement(driver, completedRefCard);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectCompletedReferral:" + exp);
@@ -2051,7 +2050,7 @@ public class PatientChoicePage {
                 Debugger.println("Confirmation ID is not found...");
                 return false;
             }
-            Actions.clickElement(driver, patientChoiceResultTab);
+            Action.clickElement(driver, patientChoiceResultTab);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from: clickOnRecordOfDiscussionForm: " +exp);
@@ -2074,12 +2073,12 @@ public class PatientChoicePage {
     public boolean clickOnWithdrawButton() {
         Wait.seconds(5);//To load the record of discussion form
         try {
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             if(!seleniumLib.isElementPresent(withdrawFromResearchButton)){
                 Debugger.println("Withdraw from research button is not displayed");
                 return false;
             }
-            Actions.clickElement(driver, withdrawFromResearchButton);
+            Action.clickElement(driver, withdrawFromResearchButton);
             return true;
         } catch (Exception exp){
             Debugger.println("Exception from: clickOnWithdrawButton: " +exp);
@@ -2106,7 +2105,7 @@ public class PatientChoicePage {
                 Debugger.println("Withdrawal Details: " + expButton + " is not found");
                 return false;
             }
-            Actions.clickElement(driver, driver.findElement(By.xpath(withdrawalOptions)));
+            Action.clickElement(driver, driver.findElement(By.xpath(withdrawalOptions)));
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from: selectWithdrawalDetails " +exp);
@@ -2141,13 +2140,13 @@ public class PatientChoicePage {
 
     public boolean clickOnWithdrawalForm() {
         try {
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             Wait.forElementToBeDisplayed(driver, withdrawalForm);
             if (!seleniumLib.isElementPresent(confirmationIdOnWithdrawalForm)) {
                 Debugger.println("Confirmation ID is not found on withdrawal form");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, withdrawalForm);
+            Action.retryClickAndIgnoreElementInterception(driver, withdrawalForm);
             Wait.seconds(5); //To load the Withdrawal Form
             return true;
         } catch (Exception exp) {
@@ -2181,7 +2180,7 @@ public class PatientChoicePage {
                 Debugger.println("Continue Button On Withdrawal Form is not displayed");
                 return false;
             }
-            Actions.clickElement(driver, continueButtonOnWithdrawalForm);
+            Action.clickElement(driver, continueButtonOnWithdrawalForm);
             return true;
         }catch (Exception exp) {
             Debugger.println("Exception from: clickOnContinueButton " +exp);
@@ -2233,7 +2232,7 @@ public class PatientChoicePage {
     public boolean enterRecordedDetails(String recordedByName) {
         try {
             Wait.forElementToBeDisplayed(driver, recordedByField);
-            co.uk.gel.lib.Actions.fillInValue(recordedByField, recordedByName);
+            Action.fillInValue(recordedByField, recordedByName);
             Click.element(driver, recordedByContinueButton);
             return true;
         }catch(Exception exp){
@@ -2306,7 +2305,7 @@ public class PatientChoicePage {
             try {
                 seleniumLib.clickOnWebElement(submitPatientChoiceButton);
             } catch (Exception exp1) {
-                Actions.clickElement(driver, submitPatientChoiceButton);
+                Action.clickElement(driver, submitPatientChoiceButton);
             }
             if (!Wait.isElementDisplayed(driver, submitPatientChoiceConcurrenyMessage, 60)) {
                 Debugger.println("Concurrency alert message popup not displayed even after clicking on Submit Patient Choice button.");

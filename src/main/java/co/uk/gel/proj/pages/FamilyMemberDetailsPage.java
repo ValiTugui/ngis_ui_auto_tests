@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -354,7 +354,7 @@ public class FamilyMemberDetailsPage {
             if(!Wait.isElementDisplayed(driver, patientCard,10)){
                 return false;
             }
-            Actions.clickElement(driver, patientCard);
+            Action.clickElement(driver, patientCard);
             return true;
         } catch (Exception exp) {
             return false;
@@ -366,7 +366,7 @@ public class FamilyMemberDetailsPage {
             if(!Wait.isElementDisplayed(driver, editPatientDetailsLink,10)){
                 return false;
             }
-            Actions.clickElement(driver,editPatientDetailsLink);
+            Action.clickElement(driver,editPatientDetailsLink);
             return true;
         }catch(Exception exp){
             return false;
@@ -377,7 +377,7 @@ public class FamilyMemberDetailsPage {
         try {
             Debugger.println("Filling RelationShip To Proband URL: "+driver.getCurrentUrl());
             validationErrors.clear();
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
                 Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
                 SeleniumLib.takeAScreenShot("fillTheRelationshipToProband.jpg");
@@ -436,7 +436,7 @@ public class FamilyMemberDetailsPage {
             //Select the test if not selected by default
             //Added this step to select, if not selected = IT is a BUG in Demo
             if (!Wait.isElementDisplayed(driver, selectedTest, 5)) {
-                Actions.clickElement(driver,unSelectedTest);
+                Action.clickElement(driver,unSelectedTest);
                 Wait.seconds(2);
             }
 
@@ -465,7 +465,7 @@ public class FamilyMemberDetailsPage {
                     SeleniumLib.takeAScreenShot("SelectDeselectTest.jpg");
                     return false;
                 } else {
-                    Actions.clickElement(driver, unSelectedTest);//To make the test selected by default.
+                    Action.clickElement(driver, unSelectedTest);//To make the test selected by default.
                 }
             }
             Debugger.println("Verified Test selection Page successfully");
@@ -479,7 +479,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean editFMDropdownField(WebElement element, String value) {
         try {
-            Actions.clickElement(driver, element);
+            Action.clickElement(driver, element);
             Wait.seconds(3);
             boolean isPresent = false;
             for (WebElement ddElemt : dropdownValues) {
@@ -552,7 +552,7 @@ public class FamilyMemberDetailsPage {
                 seleniumLib.sendValue(rareDiseaseDiagnosesInput, diagnoses);
             }
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Action.selectByIndexFromDropDown(dropdownValues, 0);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in selectRareDiseaseDiagnoses: " + exp);
@@ -594,8 +594,8 @@ public class FamilyMemberDetailsPage {
                 int numberOfHPO = hpoTerms.size();
                 return numberOfHPO;
             }
-            Actions.scrollToTop(driver);
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Action.scrollToTop(driver);
+            Action.selectByIndexFromDropDown(dropdownValues, 0);
             // determine the total number of HPO terms
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -774,12 +774,12 @@ public class FamilyMemberDetailsPage {
             return false;
         }
         Wait.seconds(2);
-        if (!Actions.getValue(firstName).equalsIgnoreCase(familyMember.getFIRST_NAME())) {
-            Debugger.println("Expected first name: " + familyMember.getFIRST_NAME() + ",actual:" + Actions.getValue(firstName));
+        if (!Action.getValue(firstName).equalsIgnoreCase(familyMember.getFIRST_NAME())) {
+            Debugger.println("Expected first name: " + familyMember.getFIRST_NAME() + ",actual:" + Action.getValue(firstName));
             return false;
         }
-        if (!Actions.getValue(lastName).equalsIgnoreCase(familyMember.getLAST_NAME())) {
-            Debugger.println("Expected last name: " + familyMember.getLAST_NAME() + ",actual:" + Actions.getValue(lastName));
+        if (!Action.getValue(lastName).equalsIgnoreCase(familyMember.getLAST_NAME())) {
+            Debugger.println("Expected last name: " + familyMember.getLAST_NAME() + ",actual:" + Action.getValue(lastName));
             return false;
         }
         By selectedGenderElement = By.xpath(selectedGender.replaceAll("dummyGender", familyMember.getGENDER()));
@@ -787,8 +787,8 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Expected gender: " + familyMember.getGENDER() + " not loaded.");
             return false;
         }
-        if (!Actions.getValue(nhsNumber).equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
-            Debugger.println("Expected NHSNumber: " + familyMember.getNHS_NUMBER() + ",actual:" + Actions.getValue(nhsNumber));
+        if (!Action.getValue(nhsNumber).equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
+            Debugger.println("Expected NHSNumber: " + familyMember.getNHS_NUMBER() + ",actual:" + Action.getValue(nhsNumber));
             return false;
         }
         return true;
@@ -825,7 +825,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             try {
-                Actions.clickElement(driver, selectedTest);
+                Action.clickElement(driver, selectedTest);
             }catch(Exception exp1){
                 seleniumLib.clickOnWebElement(selectedTest);
             }
@@ -854,7 +854,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean clickOnBackButton() {
         try {
-            Actions.clickElement(driver, backButton);
+            Action.clickElement(driver, backButton);
             return true;
         } catch (Exception exp) {
             try {
@@ -904,7 +904,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean editSpecificFamilyMember(int num) {
         try {
-            Actions.clickElement(driver, editButton.get(num));
+            Action.clickElement(driver, editButton.get(num));
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on edit button for family Member:" + exp);
@@ -915,7 +915,7 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheDeleteMessage(String deleteMessage) {
         try {
             if(!Wait.isElementDisplayed(driver,successDeletionMessageOfFamilyMember,10)){
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
             String actualMessage = "";
             try{
@@ -948,17 +948,17 @@ public class FamilyMemberDetailsPage {
             //This method is to verify whether we can click on an unselected test check box
             //If the test is in selected mode, then making it as unselected and clicking
             if(Wait.isElementDisplayed(driver, selectedTest,30)){
-                Actions.clickElement(driver,selectedTest);
+                Action.clickElement(driver,selectedTest);
                 Wait.seconds(2);
             }
-            Actions.clickElement(driver,unSelectedTest);
+            Action.clickElement(driver,unSelectedTest);
             return true;//Already deselected
         }catch(ElementClickInterceptedException exp){
             //The box might be in selected stage and element may not be able to click.
             // So moving control out and click again
-            Actions.clickElement(driver,selectedFamilyMembersLabel);
+            Action.clickElement(driver,selectedFamilyMembersLabel);
             Wait.seconds(2);
-            Actions.clickElement(driver,unSelectedTest);
+            Action.clickElement(driver,unSelectedTest);
             Wait.seconds(2);
             return true;
         }catch(Exception exp){
@@ -1438,7 +1438,7 @@ public class FamilyMemberDetailsPage {
             boolean isPresent = false;
             if (testBadge.equalsIgnoreCase("Being tested")) {
                 for (int i = 0; i < familyPageBeingTestedField.size(); i++) {
-                    actualMessage = Actions.getText(familyPageBeingTestedField.get(i));
+                    actualMessage = Action.getText(familyPageBeingTestedField.get(i));
                     if (testBadge.equalsIgnoreCase(actualMessage)) {
                         isPresent = true;
                         break;
@@ -1446,7 +1446,7 @@ public class FamilyMemberDetailsPage {
                 }
             } else if (testBadge.equalsIgnoreCase("Not being tested")) {
                 for (int i = 0; i < familyPageNotBeingTestedField.size(); i++) {
-                    actualMessage = Actions.getText(familyPageNotBeingTestedField.get(i));
+                    actualMessage = Action.getText(familyPageNotBeingTestedField.get(i));
                     if (testBadge.equalsIgnoreCase(actualMessage)) {
                         isPresent = true;
                         break;
@@ -1466,7 +1466,7 @@ public class FamilyMemberDetailsPage {
         try {
             Wait.forElementToBeDisplayed(driver, displayedChildElements.get(0));
             for (int i = 0; i < displayedChildElements.size(); i++) {
-                String name = Actions.getText(displayedChildElements.get(i));
+                String name = Action.getText(displayedChildElements.get(i));
                 if (name.equalsIgnoreCase(referralIdentifierName)) {
                     return i;
                 }
@@ -1484,7 +1484,7 @@ public class FamilyMemberDetailsPage {
     public boolean editFamilyMember() {
         try {
             Wait.forElementToBeDisplayed(driver, editButtonForParticipant);
-            Actions.clickElement(driver, editButtonForParticipant);
+            Action.clickElement(driver, editButtonForParticipant);
             return true;
         } catch (Exception exp) {
             try{
@@ -1517,7 +1517,7 @@ public class FamilyMemberDetailsPage {
     public boolean selectTheTest() {
         try {
             if (!Wait.isElementDisplayed(driver, selectedTest, 10)) {
-                Actions.clickElement(driver,unSelectedTest);
+                Action.clickElement(driver,unSelectedTest);
                 return true;
             }
             return false;

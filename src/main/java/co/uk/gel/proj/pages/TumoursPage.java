@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -8,13 +8,11 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import co.uk.gel.lib.SeleniumLib;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -231,9 +229,9 @@ public class TumoursPage {
     }
 
     public void clearDateOfDiagnosisFields() {
-        Actions.clearInputField(dateDay);
-        Actions.clearInputField(dateMonth);
-        Actions.clearInputField(dateYear);
+        Action.clearInputField(dateDay);
+        Action.clearInputField(dateMonth);
+        Action.clearInputField(dateYear);
         Wait.seconds(2);
     }
 
@@ -256,11 +254,11 @@ public class TumoursPage {
     public String selectTumourType(String type) {
         try {
             Wait.forElementToBeClickable(driver, tumourType);
-            Actions.retryClickAndIgnoreElementInterception(driver, tumourType);
+            Action.retryClickAndIgnoreElementInterception(driver, tumourType);
             Wait.forElementToBeClickable(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, type);
+            Action.selectValueFromDropdown(dropdownValue, type);
             tumourDetails.setTumourType(type);
-            return Actions.getText(tumourType);
+            return Action.getText(tumourType);
         } catch (Exception exp) {
             Debugger.println("Exception in selectTumourType:" + exp);
             return null;
@@ -270,7 +268,7 @@ public class TumoursPage {
     public String fillInSpecimenID() {
         try {
             String ID = faker.numerify("N#####");
-            Actions.fillInValue(pathologyReportId, ID);
+            Action.fillInValue(pathologyReportId, ID);
             tumourDetails.setTumourSpecimenID(ID);
             return ID;
         } catch (Exception exp) {
@@ -280,7 +278,7 @@ public class TumoursPage {
     }
     public String fillInSpecimenID(String ID) {
         try {
-            Actions.fillInValue(pathologyReportId, ID);
+            Action.fillInValue(pathologyReportId, ID);
 //            tumourDetails.setTumourSpecimenID(ID);
             return ID;
         } catch (Exception exp) {
@@ -296,16 +294,16 @@ public class TumoursPage {
                 Debugger.println("selectTumourFirstPresentationOrOccurrenceValue Not displayed.");
                 return false;
             }
-            Actions.clickElement(driver, tumourCoreDataDropdown);
+            Action.clickElement(driver, tumourCoreDataDropdown);
             Wait.seconds(2);
-            Actions.selectValueFromDropdown(dropdownValue, value);
+            Action.selectValueFromDropdown(dropdownValue, value);
             return true;
         } catch (Exception exp) {
             try {
                 //Trying again - added based on Jenkins run failure
                 seleniumLib.clickOnWebElement(tumourCoreDataDropdown);
                 Wait.seconds(2);
-                Actions.selectValueFromDropdown(dropdownValue, value);
+                Action.selectValueFromDropdown(dropdownValue, value);
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception in selectTumourFirstPresentationOrOccurrenceValue: " + exp + " : " + value);
@@ -317,15 +315,15 @@ public class TumoursPage {
     public boolean answerTumourDiagnosisQuestions(String diagnosis) {
         try {
             Wait.forElementToBeDisplayed(driver, topographyOfPrimaryTumourField);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectRandomValueFromDropdown(dropdownValues);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
+            Action.selectRandomValueFromDropdown(dropdownValues);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectRandomValueFromDropdown(dropdownValues);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
+            Action.selectRandomValueFromDropdown(dropdownValues);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            Action.retrySelectRandomValueFromDropDown(dropdownValues);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Actions.selectRandomValueFromDropdown(dropdownValues);
             return true;
@@ -339,42 +337,42 @@ public class TumoursPage {
         //Debugger.println("URL : " + driver.getCurrentUrl() + "\n" + tumourType + "\n" + diagnosis);
         switch (tumourType) {
             case "Solid tumour: metastatic": {
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
+                Action.selectRandomValueFromDropdown(dropdownValues);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
+                Action.selectRandomValueFromDropdown(dropdownValues);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Action.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: primary": {
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
+                Action.selectRandomValueFromDropdown(dropdownValues);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Action.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: unknown":
             case "Brain tumour": {
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
+                Action.selectRandomValueFromDropdown(dropdownValues);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Action.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
 
             case "Haematological malignancy: liquid sample":
             case "Haematological malignancy: solid sample": {
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.seconds(3);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Action.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             default:
@@ -514,7 +512,7 @@ public class TumoursPage {
                 return false;
             }
             Wait.seconds(3);
-            Actions.clickElement(driver, editTumourArrow);
+            Action.clickElement(driver, editTumourArrow);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clickEditTumourArrow:" + exp);
@@ -525,9 +523,9 @@ public class TumoursPage {
     public boolean editTumourDescription() {
         try {
             if (!Wait.isElementDisplayed(driver, descriptiveName, 10)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            Actions.clearTextField(descriptiveName);
+            Action.clearTextField(descriptiveName);
             if (fillInTumourDescription() == null) {
                 return false;
             }
@@ -540,9 +538,9 @@ public class TumoursPage {
 
     public boolean editDateOfDiagnosis() {
         try {
-            Actions.clearInputField(dateDay);
-            Actions.clearInputField(dateMonth);
-            Actions.clearInputField(dateYear);
+            Action.clearInputField(dateDay);
+            Action.clearInputField(dateMonth);
+            Action.clearInputField(dateYear);
             return fillInDateOfDiagnosis();
         } catch (Exception exp) {
             Debugger.println("Exception in editDateOfDiagnosis:" + exp);
@@ -552,7 +550,7 @@ public class TumoursPage {
 
     public boolean editSpecimenID() {
         try {
-            Actions.clearTextField(pathologyReportId);
+            Action.clearTextField(pathologyReportId);
             if (fillInSpecimenID() == null) {
                 return false;
             }
@@ -603,9 +601,9 @@ public class TumoursPage {
         Wait.forElementToBeDisplayed(driver, descriptiveName);
         List<String> actualTumourDetails = new ArrayList<>();
 
-        actualTumourDetails.add(Actions.getValue(descriptiveName));
-        actualTumourDetails.add(Actions.getText(tumourType));
-        actualTumourDetails.add(Actions.getValue(pathologyReportId));
+        actualTumourDetails.add(Action.getValue(descriptiveName));
+        actualTumourDetails.add(Action.getText(tumourType));
+        actualTumourDetails.add(Action.getValue(pathologyReportId));
 
         Debugger.println("Actual Tumour Details on Edit a Tumour " + actualTumourDetails);
         return actualTumourDetails;
@@ -625,7 +623,7 @@ public class TumoursPage {
 
     public String successNotificationIsDisplayed() {
         Wait.forElementToBeDisplayed(driver, successNotification);
-        return Actions.getText(successNotification);
+        return Action.getText(successNotification);
     }
 
     public List<String> getTheTumourFieldsLabelsOnAddATumourPage() {
@@ -633,10 +631,10 @@ public class TumoursPage {
         Wait.forElementToBeDisplayed(driver, descriptiveName);
         List<String> expectedTumourFieldsLabels = new ArrayList<>();
 
-        expectedTumourFieldsLabels.add(Actions.getText(descriptiveNameLabel));
-        expectedTumourFieldsLabels.add(Actions.getText(dateOfDiagnosisLabel));
-        expectedTumourFieldsLabels.add(Actions.getText(PathologyIdOrSampleIdLabel));
-        expectedTumourFieldsLabels.add(Actions.getText(tumourTypeLabel));
+        expectedTumourFieldsLabels.add(Action.getText(descriptiveNameLabel));
+        expectedTumourFieldsLabels.add(Action.getText(dateOfDiagnosisLabel));
+        expectedTumourFieldsLabels.add(Action.getText(PathologyIdOrSampleIdLabel));
+        expectedTumourFieldsLabels.add(Action.getText(tumourTypeLabel));
 
         Debugger.println("Expected Tumour Fields-Labels " + expectedTumourFieldsLabels);
         return expectedTumourFieldsLabels;
@@ -700,8 +698,8 @@ public class TumoursPage {
         try {
             for (WebElement element : addedTumours) {
                 if (!element.isSelected()) {
-                    Actions.clickElement(driver, element);
-                    Actions.acceptAlert(driver);
+                    Action.clickElement(driver, element);
+                    Action.acceptAlert(driver);
                 }
             }
             return true;
@@ -762,14 +760,14 @@ public class TumoursPage {
             //Getting the last field and adding the value
             int lastSearchField = topographyOfPrimaryTumourFieldList.size() - 1;
             int lastSearchField2 = topographyOfThisMetastaticDepositFieldList.size() - 1;
-            Actions.fillInValue(topographyOfPrimaryTumourFieldList.get(lastSearchField), primaryTumour);
+            Action.fillInValue(topographyOfPrimaryTumourFieldList.get(lastSearchField), primaryTumour);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            Action.retrySelectRandomValueFromDropDown(dropdownValues);
             Wait.seconds(3);//As observed it take time to fill the search field
 
-            Actions.fillInValue(topographyOfThisMetastaticDepositFieldList.get(lastSearchField2), tumour);
+            Action.fillInValue(topographyOfThisMetastaticDepositFieldList.get(lastSearchField2), tumour);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            Action.retrySelectRandomValueFromDropDown(dropdownValues);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from fillTumourDiagnosisTable" + exp);
@@ -783,7 +781,7 @@ public class TumoursPage {
                 Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page\n" + driver.getCurrentUrl());
                 return false;
             }
-            Actions.clickElement(driver, addAnotherLinkForTumourDiagnosis);
+            Action.clickElement(driver, addAnotherLinkForTumourDiagnosis);
             return true;
         } catch (Exception exp) {
             Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page :" + exp + "\n" + driver.getCurrentUrl());
@@ -797,7 +795,7 @@ public class TumoursPage {
                 Debugger.println("Add Another Link For Working Diagnosis Morphology Link not available : Tumour page");
                 return false;
             }
-            Actions.clickElement(driver, addAnotherLinkForWorkingDiagnosisMorphology);
+            Action.clickElement(driver, addAnotherLinkForWorkingDiagnosisMorphology);
             return true;
         } catch (Exception exp) {
             Debugger.println("Add Another Link For Working Diagnosis Morphology Link not available : Tumour page :" + exp);
@@ -812,9 +810,9 @@ public class TumoursPage {
                 return false;
             }
             int lastSearchField = workingDiagnosisMorphologyFieldList.size() - 1;
-            Actions.fillInValue(workingDiagnosisMorphologyFieldList.get(lastSearchField), morphology);
+            Action.fillInValue(workingDiagnosisMorphologyFieldList.get(lastSearchField), morphology);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            Action.retrySelectRandomValueFromDropDown(dropdownValues);
             return true;
         } catch (Exception exp) {
             Debugger.println(" Exception from : TumoursPage :answerWorkingDiagnosis: Exception found " + exp);

@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -194,8 +194,8 @@ public class SamplesPage {
 
     public boolean selectSampleType(String type) {
         try {
-            Actions.clickElement(driver, sampleType);
-            Actions.selectValueFromDropdown(dropdownValue, type);
+            Action.clickElement(driver, sampleType);
+            Action.selectValueFromDropdown(dropdownValue, type);
             sampleDetails.setSampleType(type);
             Wait.seconds(1);
             return true;
@@ -207,9 +207,9 @@ public class SamplesPage {
 
     public boolean selectSpecificSampleType(String sampleTypeValue) {
         try {
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             sampleType.click();
-            Actions.selectValueFromDropdown(sampleType, sampleTypeValue);
+            Action.selectValueFromDropdown(sampleType, sampleTypeValue);
             sampleDetails.setSampleType(sampleTypeValue);
             Wait.seconds(1);
             return true;
@@ -222,12 +222,12 @@ public class SamplesPage {
     public void selectSampleState() {
         try {
             Wait.isElementDisplayed(driver, sampleState, 30);
-            Actions.clickElement(driver, sampleState);
+            Action.clickElement(driver, sampleState);
             // Counter for number of tries -loop for when error message is triggered upon selecting sample state
             int numberOfAttempts = 5;
-            Actions.reClickDropDownFieldIfLabelErrorIsShown(driver, fieldsLabelErrors, sampleState, sampleStateLabel, numberOfAttempts);
-            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
-            sampleDetails.setSampleState(Actions.getText(selectedSampleStateValue));
+            Action.reClickDropDownFieldIfLabelErrorIsShown(driver, fieldsLabelErrors, sampleState, sampleStateLabel, numberOfAttempts);
+            Action.retrySelectRandomValueFromDropDown(dropdownValues);
+            sampleDetails.setSampleState(Action.getText(selectedSampleStateValue));
         } catch (Exception exp) {
 
         }
@@ -236,15 +236,15 @@ public class SamplesPage {
     public boolean selectSpecificSampleState(String sampleStateValue) {
         try {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            Actions.clickElement(driver, sampleState);
+            Action.clickElement(driver, sampleState);
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("SampleState Drop values not loaded: ");
                 return false;
             }
-            Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
+            Action.selectValueFromDropdown(dropdownValue, sampleStateValue);
             sampleDetails.setSampleState(sampleStateValue);
             return true;
         } catch (Exception exp) {
@@ -257,11 +257,11 @@ public class SamplesPage {
         try {
             Wait.forElementToBeDisplayed(driver, labId);
             String ID = faker.numerify("S#####");
-            if (Actions.getValue(labId).isEmpty()) {
-                Actions.fillInValue(labId, ID);
+            if (Action.getValue(labId).isEmpty()) {
+                Action.fillInValue(labId, ID);
             } else {
-                Actions.clearTextField(labId);
-                Actions.fillInValue(labId, ID);
+                Action.clearTextField(labId);
+                Action.fillInValue(labId, ID);
             }
             sampleDetails.setSampleID(ID);
             return true;
@@ -274,11 +274,11 @@ public class SamplesPage {
     public boolean fillInSampleID(String labSampleId) {
         try {
             Wait.forElementToBeDisplayed(driver, labId);
-            if (Actions.getValue(labId).isEmpty()) {
-                Actions.fillInValue(labId, labSampleId);
+            if (Action.getValue(labId).isEmpty()) {
+                Action.fillInValue(labId, labSampleId);
             } else {
-                Actions.clearTextField(labId);
-                Actions.fillInValue(labId, labSampleId);
+                Action.clearTextField(labId);
+                Action.fillInValue(labId, labSampleId);
             }
 //            sampleDetails.setSampleID(labSampleId);
             return true;
@@ -291,9 +291,9 @@ public class SamplesPage {
     public boolean answerSampleTopography(String value) {
         try {
             Wait.forElementToBeDisplayed(driver, sampleTopographyField);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Action.selectRandomValueFromDropdown(dropdownValues);
             return true;
         } catch (Exception exp) {
             Debugger.println(" Sample Topography value " + value + " is not displayed in the dynamic dropdown list");
@@ -304,9 +304,9 @@ public class SamplesPage {
     public boolean answerSampleMorphology(String value) {
         try {
             Wait.forElementToBeDisplayed(driver, sampleMorphologyField);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleMorphologyField, value);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleMorphologyField, value);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Action.selectRandomValueFromDropdown(dropdownValues);
             return true;
         } catch (Exception exp) {
             Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
@@ -318,7 +318,7 @@ public class SamplesPage {
         try {
             Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
             int percentage = faker.number().numberBetween(2, 99);
-            Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+            Action.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
             return percentage;
         }catch(Exception exp){
             return -1;
@@ -328,21 +328,21 @@ public class SamplesPage {
     public int fillInPercentageOfMalignantNucleiBelow30() {
         Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
         int percentage = faker.number().numberBetween(2, 30);
-        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+        Action.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
         return percentage;
     }
 
     public int fillInPercentageOfMalignantNucleiAbove30() {
         Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
         int percentage = faker.number().numberBetween(31, 99);
-        Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+        Action.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
         return percentage;
     }
 
     public int fillInNumberOfSlides() {
         Wait.forElementToBeDisplayed(driver, numberOfSlidesField);
         int slides = faker.number().randomDigitNotZero();
-        Actions.fillInValue(numberOfSlidesField, String.valueOf(slides));
+        Action.fillInValue(numberOfSlidesField, String.valueOf(slides));
         return slides;
     }
 
@@ -358,7 +358,7 @@ public class SamplesPage {
     public String fillInSampleComments() {
         Wait.forElementToBeDisplayed(driver, sampleCommentsField);
         String comment = faker.chuckNorris().fact();
-        Actions.fillInValue(sampleCommentsField, comment);
+        Action.fillInValue(sampleCommentsField, comment);
         return comment;
     }
 
@@ -377,7 +377,7 @@ public class SamplesPage {
                 Debugger.println("Add sample button not displayed\n" + driver.getCurrentUrl());
                 return false;
             }
-            Actions.clickElement(driver, addSampleButton);
+            Action.clickElement(driver, addSampleButton);
             return true;
         } catch (Exception exp) {
             try {
@@ -403,7 +403,7 @@ public class SamplesPage {
 
     public List<String> getSampleTypesOptions() {
         Wait.forElementToBeClickable(driver, sampleTypeDropDown);
-        Actions.clickElement(driver, sampleTypeDropDown);
+        Action.clickElement(driver, sampleTypeDropDown);
         List<String> actualSampleTypes = new ArrayList<String>();
         for (WebElement sampleType : sampleTypesDropDownValues) {
             actualSampleTypes.add(sampleType.getText().trim());
@@ -472,8 +472,8 @@ public class SamplesPage {
         Wait.forElementToBeClickable(driver, sampleTypeDropDown);
         List<String> actualFieldPlaceHolderTexts = new ArrayList<>();
 
-        actualFieldPlaceHolderTexts.add(Actions.getText(sampleTypeDropDownPlaceHolder));
-        actualFieldPlaceHolderTexts.add(Actions.getText(sampleStateDropDownPlaceHolder));
+        actualFieldPlaceHolderTexts.add(Action.getText(sampleTypeDropDownPlaceHolder));
+        actualFieldPlaceHolderTexts.add(Action.getText(sampleStateDropDownPlaceHolder));
         actualFieldPlaceHolderTexts.add(labId.getAttribute("placeholder"));
 
         //Debugger.println("Actual PlaceHolder on Add a Sample page " + actualFieldPlaceHolderTexts);
@@ -499,7 +499,7 @@ public class SamplesPage {
 
     public List<String> getTheSampleStateDropDownValues() {
         Wait.forElementToBeClickable(driver, sampleState);
-        Actions.clickElement(driver, sampleState);
+        Action.clickElement(driver, sampleState);
         List<String> actualSampleStateValues = new ArrayList<>();
 
         for (WebElement actualSampleStateValue : sampleStateDropDownValues) {
@@ -515,7 +515,7 @@ public class SamplesPage {
                 Debugger.println("Edit Sample type option not present.");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, editSampleButton);
+            Action.retryClickAndIgnoreElementInterception(driver, editSampleButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectSampleFromLandingPage:" + exp);
@@ -530,7 +530,7 @@ public class SamplesPage {
                 return false;
             }
             Wait.seconds(3);
-            Actions.clickElement(driver, editSampleArrow);
+            Action.clickElement(driver, editSampleArrow);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clickEditSampleArrow:" + exp);
@@ -543,9 +543,9 @@ public class SamplesPage {
         Wait.forElementToBeDisplayed(driver, sampleType);
         List<String> actualSampleDetails = new ArrayList<>();
 
-        actualSampleDetails.add(Actions.getText(sampleType));
-        actualSampleDetails.add(Actions.getText(sampleState));
-        actualSampleDetails.add(Actions.getValue(labId));
+        actualSampleDetails.add(Action.getText(sampleType));
+        actualSampleDetails.add(Action.getText(sampleState));
+        actualSampleDetails.add(Action.getValue(labId));
 
         //Debugger.println("Actual Sample Details on Edit a Sample " + actualSampleDetails);
         return actualSampleDetails;
@@ -564,7 +564,7 @@ public class SamplesPage {
     }
 
     public void selectASampleAsParentSample() {
-        Actions.clickElement(driver, parentSampleCheckbox);
+        Action.clickElement(driver, parentSampleCheckbox);
     }
 
     public List<String> getTheSampleDetailsOnTableList() {
@@ -609,26 +609,26 @@ public class SamplesPage {
 
     public String getTheDisplayedAddTumourErrorMessage() {
         Wait.forElementToBeDisplayed(driver, addTumourErrorMessage);
-        return Actions.getText(addTumourErrorMessage);
+        return Action.getText(addTumourErrorMessage);
     }
 
     public void clickAddTumourLinkFromErrorMessage() {
-        Actions.retryClickAndIgnoreElementInterception(driver, addTumourLink);
+        Action.retryClickAndIgnoreElementInterception(driver, addTumourLink);
     }
 
     public String getTheDisplayedTumourTextLinkOnAddASamplePage() {
         Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
-        return Actions.getText(notTheRightTumourLink);
+        return Action.getText(notTheRightTumourLink);
     }
 
     public void clickTheNotTheRightTumourLink() {
         Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
-        Actions.retryClickAndIgnoreElementInterception(driver, notTheRightTumourLink);
+        Action.retryClickAndIgnoreElementInterception(driver, notTheRightTumourLink);
     }
 
     public String getTheDisplayedSampleTextLinkOnAddASamplePage() {
         Wait.forElementToBeDisplayed(driver, infoTextForLinkingSamples);
-        return Actions.getText(infoTextForLinkingSamples);
+        return Action.getText(infoTextForLinkingSamples);
     }
 
     public boolean verifyTheElementsOnAddSampleDetailsForSampleNonTumourType() {
@@ -673,7 +673,7 @@ public class SamplesPage {
     }
 
     public String getTheLabelForTumourContentPercentageField() {
-        return Actions.getText(tumourContentPercentageOfMalignantNucleiFieldLabel);
+        return Action.getText(tumourContentPercentageOfMalignantNucleiFieldLabel);
     }
 
     public boolean ensureTickMarkIsDisplayedNextToSampleType() {
@@ -690,7 +690,7 @@ public class SamplesPage {
                 Debugger.println("Edit Sample Button Not Present ");
                 return false;
             }
-            Actions.clickElement(driver, editSampleButton);
+            Action.clickElement(driver, editSampleButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in :editSpecificSample" + exp);
@@ -713,7 +713,7 @@ public class SamplesPage {
                 Debugger.println("Edit Sample Button Not Present ");
                 return false;
             }
-            Actions.clickElement(driver, sampleEditButtons.get((noOfSamples - 1)));
+            Action.clickElement(driver, sampleEditButtons.get((noOfSamples - 1)));
             return true;
         } catch (NumberFormatException exp) {
             Debugger.println("Exception in : editSpecificSample" + exp);
