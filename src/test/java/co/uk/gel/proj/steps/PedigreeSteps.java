@@ -2,7 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
@@ -222,7 +222,7 @@ public class PedigreeSteps extends Pages {
     //This step introduced as navigating back from pedigree stage sometimes not working due to some overlay on other stage elements
     @When("the user scroll to the top of landing page")
     public void theUserScrollToTopOfLandingPage() {
-        Actions.scrollToTop(driver);
+        Action.scrollToTop(driver);
         Wait.seconds(3);
     }
 

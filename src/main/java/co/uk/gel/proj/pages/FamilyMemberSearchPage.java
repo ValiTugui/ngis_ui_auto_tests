@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -194,7 +194,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickNoButton() {
-        Actions.clickElement(driver,noButton);
+        Action.clickElement(driver,noButton);
     }
 
     public void clickYesButton() {
@@ -262,7 +262,7 @@ public class FamilyMemberSearchPage {
             for (String key : paramsKey) {
                  switch (key) {
                     case "NHSNumber": {
-                        Actions.clearInputField(nhsNumber);
+                        Action.clearInputField(nhsNumber);
                         seleniumLib.sendValue(nhsNumber, paramNameValue.get(key));
                         break;
                     }
@@ -315,12 +315,12 @@ public class FamilyMemberSearchPage {
     public void selectFamilyMemberGender(WebElement element, String optionValue){
         WebElement ddValue = null;
         try {
-            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            Action.retryClickAndIgnoreElementInterception(driver, element);
             Wait.seconds(2);
             List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='gender']/..//div//span[text()='"+optionValue+"']"));
             if(ddElements.size() > 0) {
                 Wait.forElementToBeClickable(driver, ddElements.get(0));
-                Actions.clickElement(driver, ddElements.get(0));
+                Action.clickElement(driver, ddElements.get(0));
                 Wait.seconds(2);
             }
         }catch(Exception exp){
@@ -419,7 +419,7 @@ public class FamilyMemberSearchPage {
             if(!Wait.isElementDisplayed(driver,createNewPatientLink,10)){
                 return false;
             }
-            Actions.clickElement(driver,createNewPatientLink);
+            Action.clickElement(driver,createNewPatientLink);
             return true;
         }catch(Exception exp){
             return false;
@@ -521,13 +521,13 @@ public class FamilyMemberSearchPage {
             Wait.forElementToBeDisplayed(driver, noButton);
             Wait.forElementToBeDisplayed(driver, yesButton);
             if (!noButton.isSelected()) {//Select No, if not selected and verify presence of SVG
-                Actions.clickElement(driver,noButton);
+                Action.clickElement(driver,noButton);
                 if(!Wait.isElementDisplayed(driver,noButtonSVG,5)){
                     return false;
                 }
             }
             if (!yesButton.isSelected()) {
-                Actions.clickElement(driver,yesButton);
+                Action.clickElement(driver,yesButton);
                 if(!Wait.isElementDisplayed(driver,yesButtonSVG,5)){
                     return false;
                 }
@@ -538,7 +538,7 @@ public class FamilyMemberSearchPage {
         }
     }
     public void clickOnAddNonTestedFamilyMemberLink() {
-        Actions.clickElement(driver,addNonTestedFamilyMemberLink);
+        Action.clickElement(driver,addNonTestedFamilyMemberLink);
     }
 
     public boolean checkGenderDropDownSuggestionFamilyMember(String expectedGenderValue) {

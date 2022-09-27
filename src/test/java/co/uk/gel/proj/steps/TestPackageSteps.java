@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -95,14 +95,14 @@ public class TestPackageSteps extends Pages {
     public void theUserAttemptsToNavigateAwayByClicking(String browserInteraction) {
         switch (browserInteraction) {
             case "refresh":
-                Actions.refreshBrowser(driver);
+                Action.refreshBrowser(driver);
                 Wait.seconds(5);
                 break;
             case "back":
-                Actions.browseBackward(driver);
+                Action.browseBackward(driver);
                 break;
             case "close":
-                Actions.closeBrowser(driver);
+                Action.closeBrowser(driver);
                 break;
             default:
                 throw new IllegalStateException("Unexpected Browser Interaction value: " + browserInteraction);
@@ -113,13 +113,13 @@ public class TestPackageSteps extends Pages {
     public void theUserSeesAWarningMessageOnThePage() {
         try {
             Wait.seconds(2);
-            if(!Actions.isAlertPresent(driver)){
+            if(!Action.isAlertPresent(driver)){
                 Debugger.println("No Alert message present as expected.");
                 SeleniumLib.takeAScreenShot("AlertMessage.jpg");
                 return;
             }
             //Wait.forAlertToBePresent(driver);
-            Actions.acceptAlert(driver);
+            Action.acceptAlert(driver);
             Wait.seconds(5);
             System.out.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         }catch(Exception exp){

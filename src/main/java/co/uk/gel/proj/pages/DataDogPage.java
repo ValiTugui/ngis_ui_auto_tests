@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -164,7 +164,7 @@ public class DataDogPage {
             searchBox1.sendKeys(values);
             seleniumLib.sleepInSeconds(2);
             try {
-                Actions.selectValueFromDropdown(dropdownValue, values);
+                Action.selectValueFromDropdown(dropdownValue, values);
             } catch (Exception exp1) {
                 Click.element(driver, searchBoxOptionsList.get(new Random().nextInt(searchBoxOptionsList.size())));
             }

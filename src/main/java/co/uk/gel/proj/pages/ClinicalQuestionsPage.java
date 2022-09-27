@@ -1,19 +1,16 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
-import java.sql.Driver;
 import java.util.*;
 import java.util.List;
 
@@ -168,7 +165,7 @@ public class ClinicalQuestionsPage {
                 //Scroll to the element and try
                 SeleniumLib.scrollToElement(hpoSearchField.get(0));
                 if (!Wait.isElementDisplayed(driver, hpoSearchField.get(0), 10)) {
-                    Actions.scrollToTop(driver);
+                    Action.scrollToTop(driver);
                 }
             }
             hpoSearchField.get(0).sendKeys(hpoTerm);
@@ -178,14 +175,14 @@ public class ClinicalQuestionsPage {
             if (dropdownValues.size() < 1) {
                 return 0;
             }
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Action.selectByIndexFromDropDown(dropdownValues, 0);
             // determine the total number of HPO terms Loaded - If selected, it would be minimum one
             Wait.seconds(2);
             int numberOfHPO = hpoTerms.size();
             if (numberOfHPO < 1) {
                 //Scrolling to search field and Selecting as some time overlay observed while running from jenkins
                 SeleniumLib.scrollToElement(hpoSearchField.get(0));
-                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                Action.selectByIndexFromDropDown(dropdownValues, 0);
                 // determine the total number of HPO terms Loaded - If selected, it would be minimum one
                 Wait.seconds(2);
             }
@@ -197,7 +194,7 @@ public class ClinicalQuestionsPage {
             //One reason observed is the overlay of global patient card on phenotype element...so trying to scroll down and select
             //Scroll to Top also may cause the same issue, so scrolling to previous element and trying
             SeleniumLib.scrollToElement(ageOfOnsetYearsField);
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Action.selectByIndexFromDropDown(dropdownValues, 0);
             return 0;
         } catch (Exception exp) {
             return 0;
@@ -228,7 +225,7 @@ public class ClinicalQuestionsPage {
             seleniumLib.sendValue(diagnosisValue, diagnosis);
             seleniumLib.sleepInSeconds(3);
             if (dropdownValues.size() > 0) {
-                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                Action.selectByIndexFromDropDown(dropdownValues, 0);
             }
             return "Success";
         } catch (Exception exp) {
@@ -242,23 +239,23 @@ public class ClinicalQuestionsPage {
             if (!Wait.isElementDisplayed(driver, diagnosisValue, 30)) {
                 return null;
             }
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 //Try again
                 diagnosisValue.clear();
-                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
+                Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
                 if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                     return null;
                 }
             }
             Wait.seconds(2);
-            boolean testResult = Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            boolean testResult = Action.selectByIndexFromDropDown(dropdownValues, 0);
             if (!testResult) {
                 Debugger.println("Could not select the drop down value.." + driver.getCurrentUrl());
                 return null;
             }
             Wait.seconds(2);
-            String actText = Actions.getText(diagnosisField);
+            String actText = Action.getText(diagnosisField);
             if (actText == null || !actText.equalsIgnoreCase(diagnosis)) {
                 By selectedField = By.xpath("//div[contains(@id,'id-q111')]//div[contains(@class,'singleValue')]//span/span");
                 actText = seleniumLib.getText(selectedField);
@@ -274,14 +271,14 @@ public class ClinicalQuestionsPage {
         try {
             Wait.forElementToBeDisplayed(driver, diagnosisValueSecondField);
             Wait.seconds(2);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValueSecondField, diagnosis);
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValueSecondField, diagnosis);
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
             }
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Action.selectByIndexFromDropDown(dropdownValues, 0);
             Wait.seconds(2);
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("RareDiseaseDiagnosisSecondField.jpg");
@@ -290,9 +287,9 @@ public class ClinicalQuestionsPage {
 
 
     public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
-        if (!Actions.getText(diagnosisField).isEmpty()) {
+        if (!Action.getText(diagnosisField).isEmpty()) {
             diagnosisValue.click();
-            Actions.clearField(diagnosisValue);
+            Action.clearField(diagnosisValue);
             Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
         }
     }
@@ -305,19 +302,19 @@ public class ClinicalQuestionsPage {
     public String selectDiseaseStatus(String diseaseStatusValue) {
         try {
             if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 30)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            String selectedValue = Actions.getText(diseaseStatusDropdown);
+            String selectedValue = Action.getText(diseaseStatusDropdown);
             if (selectedValue != null &&
                     selectedValue.equalsIgnoreCase(diseaseStatusValue)) {
                 return selectedValue;//Already Selected the Specified Value
             }
-            Actions.clickElement(driver, diseaseStatusDropdown);
+            Action.clickElement(driver, diseaseStatusDropdown);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 return null;
             }
-            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
-            selectedValue = Actions.getText(diseaseStatusDropdown);
+            Action.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            selectedValue = Action.getText(diseaseStatusDropdown);
             return selectedValue;
         } catch (Exception exp) {
             return null;
@@ -340,7 +337,7 @@ public class ClinicalQuestionsPage {
         try {
             Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
             ageOfOnsetYearsField.clear();
-            Actions.fillInValue(ageOfOnsetYearsField, years);
+            Action.fillInValue(ageOfOnsetYearsField, years);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInYearsOfOnset:" + exp);
@@ -350,19 +347,19 @@ public class ClinicalQuestionsPage {
 
     public void clearValueFromYearsOfOnset() {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
-        Actions.clearTextField(ageOfOnsetYearsField);
+        Action.clearTextField(ageOfOnsetYearsField);
     }
 
     public void clearValueFromMonthsOfOnset() {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
-        Actions.clearTextField(ageOfOnsetMonthsField);
+        Action.clearTextField(ageOfOnsetMonthsField);
     }
 
     public boolean fillInMonthsOfOnset(String months) {
         try {
             Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
             ageOfOnsetMonthsField.clear();
-            Actions.fillInValue(ageOfOnsetMonthsField, months);
+            Action.fillInValue(ageOfOnsetMonthsField, months);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInMonthsOfOnset:" + exp);
@@ -598,7 +595,7 @@ public class ClinicalQuestionsPage {
             if (!seleniumLib.isElementPresent(hpoRows)) {
                 return false;
             }
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             List<WebElement> rows = seleniumLib.getElements(hpoRows);
             if (rows != null && rows.size() > 0) {
                 for (WebElement row : rows) {
@@ -624,7 +621,7 @@ public class ClinicalQuestionsPage {
                 Debugger.println("HPO Phenotype not displayed.");
                 return false;
             }
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField.get(0), "Nephritis");
+            Action.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField.get(0), "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
             int numberOfElements = dropdownValues.size();
@@ -637,8 +634,8 @@ public class ClinicalQuestionsPage {
 
     public boolean verifyMaxAllowedValuesOMIMField(int maxAllowedValues) {
         try {
-            if (Actions.getText(diagnosisField).isEmpty()) {
-                Actions.fillInValue(driver, diagnosisValue, "linear");
+            if (Action.getText(diagnosisField).isEmpty()) {
+                Action.fillInValue(driver, diagnosisValue, "linear");
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Wait.seconds(10);
             }
@@ -651,9 +648,9 @@ public class ClinicalQuestionsPage {
     }
 
     public void clickCloseIcon() {
-        Actions.scrollToTop(driver);//Added this line as click intercepted exception observed for closeIcon
+        Action.scrollToTop(driver);//Added this line as click intercepted exception observed for closeIcon
         Wait.forElementToBeDisplayed(driver, diseaseStatusCloseIcon);
-        Actions.clickElement(driver, diseaseStatusCloseIcon);
+        Action.clickElement(driver, diseaseStatusCloseIcon);
         Wait.seconds(2);
     }
 
@@ -662,7 +659,7 @@ public class ClinicalQuestionsPage {
             Debugger.println("Disease Status drop down not displayed: " + driver.getCurrentUrl());
             return "";
         }
-        return Actions.getText(diseaseStatusDropdown);
+        return Action.getText(diseaseStatusDropdown);
     }
 
     public boolean deleteHPOTerm(String hpoTerm) {
@@ -672,7 +669,7 @@ public class ClinicalQuestionsPage {
         String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
         if (actualHPOTermDisplayedInTheFirstRow.contains(hpoTerm)) {
             Wait.forElementToBeDisplayed(driver, hpoTermsDeleteIcons.get(0));
-            Actions.clickElement(driver, hpoTermsDeleteIcons.get(0));
+            Action.clickElement(driver, hpoTermsDeleteIcons.get(0));
             return true;
         } else {
             Debugger.println("unable to locate delete icon for the HPO terms : " + hpoTerm);
@@ -687,7 +684,7 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, hpoTable);
         for (int i = 0; i < radioButtons.size(); i++) {
             if (radioButtonsTexts.get(i).getText().contains(presence)) {
-                Actions.clickElement(driver, radioButtons.get(i));
+                Action.clickElement(driver, radioButtons.get(i));
                 testResult = true;
                 break;
             }
@@ -697,27 +694,27 @@ public class ClinicalQuestionsPage {
 
     public String selectRandomModifier() {
         Wait.forElementToBeDisplayed(driver, hpoModifiersDropdown);
-        Actions.clickElement(driver, hpoModifiersDropdown);
+        Action.clickElement(driver, hpoModifiersDropdown);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Wait.seconds(1);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
-        return Actions.getText(hpoModifierValue);
+        Action.selectRandomValueFromDropdown(dropdownValues);
+        return Action.getText(hpoModifierValue);
     }
 
     public String selectRandomPhenotypicSex() {
-        Actions.clickElement(driver, phenotypicSexDropdown);
+        Action.clickElement(driver, phenotypicSexDropdown);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Action.selectRandomValueFromDropdown(dropdownValues);
         Wait.seconds(1);
-        return Actions.getText(phenotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
+        return Action.getText(phenotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
     }
 
     public String selectRandomKaryotypicSex() {
-        Actions.clickElement(driver, karyotypicSexDropdown);
+        Action.clickElement(driver, karyotypicSexDropdown);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Action.selectRandomValueFromDropdown(dropdownValues);
         Wait.seconds(1);
-        return Actions.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
+        return Action.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
     }
 
     public boolean verifySpecificAgeOnSetYearsValue(String years) {
@@ -755,8 +752,8 @@ public class ClinicalQuestionsPage {
             return false;
         }
         Debugger.println("Expected diseaseStatus       : " + expectedDiseaseStatus);
-        Debugger.println("Actual diseaseStatusDropdown : " + Actions.getText(diseaseStatusDropdown));
-        return Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
+        Debugger.println("Actual diseaseStatusDropdown : " + Action.getText(diseaseStatusDropdown));
+        return Action.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
     }
 
     public boolean verifySpecificRareDiseaseValue(String expectedRareDisease) {
@@ -764,8 +761,8 @@ public class ClinicalQuestionsPage {
             Debugger.println("Expected diagnosisField not loaded ");
             return false;
         }
-        Debugger.println("Rare disease diagnosisField: " + Actions.getText(diagnosisField));
-        return Actions.getText(diagnosisField).equalsIgnoreCase(expectedRareDisease);
+        Debugger.println("Rare disease diagnosisField: " + Action.getText(diagnosisField));
+        return Action.getText(diagnosisField).equalsIgnoreCase(expectedRareDisease);
     }
 
     public String getPhenotypicSexDropdownValue() {
@@ -773,23 +770,23 @@ public class ClinicalQuestionsPage {
             Debugger.println("Expected phenotypicSexDropdown not loaded ");
             return "";
         }
-        return Actions.getText(phenotypicSexDropdown);
+        return Action.getText(phenotypicSexDropdown);
     }
 
     public String getKaryotypicSexDropdownValue() {
         Wait.forElementToBeDisplayed(driver, karyotypicSexDropdown);
-        return Actions.getText(karyotypicSexDropdown);
+        return Action.getText(karyotypicSexDropdown);
     }
 
     public String selectSpecificKaryotypicSexDropdownValue(String value) {
         try {
             if (!Wait.isElementDisplayed(driver, karyotypicSexDropdown, 15)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            Actions.clickElement(driver, karyotypicSexDropdown);
+            Action.clickElement(driver, karyotypicSexDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, value);
-            return Actions.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
+            Action.selectValueFromDropdown(dropdownValue, value);
+            return Action.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
         } catch (Exception exp) {
             Debugger.println("Clinical Questions Page : Exception from selecting Karyotypic Sex : " + exp);
             SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
@@ -822,15 +819,15 @@ public class ClinicalQuestionsPage {
             String diagnosisType = null;
             Wait.forElementToBeDisplayed(driver, omimRadioButton);
             Wait.forElementToBeDisplayed(driver, orphanetRadioButton);
-            Actions.scrollToTop(driver);
+            Action.scrollToTop(driver);
             if (expectedDiseaseDiagnosisType.equalsIgnoreCase("Omim")) {
-                Actions.clickElement(driver, omimRadioButton);
+                Action.clickElement(driver, omimRadioButton);
             } else {
-                Actions.clickElement(driver, orphanetRadioButton);
+                Action.clickElement(driver, orphanetRadioButton);
             }
             for (WebElement element : rareDiseaseDiagnosesRadioButtons) {
                 if (element.findElement(By.tagName(tagName)).getCssValue("border-color").equals("rgb(74, 139, 202)")) {
-                    diagnosisType = Actions.getText(element);
+                    diagnosisType = Action.getText(element);
                 }
             }
             if (diagnosisType != null && diagnosisType.contains(expectedDiseaseDiagnosisType)) {
@@ -850,15 +847,15 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, omimRadioButtons.get(index));
         Wait.forElementToBeDisplayed(driver, orphanetRadioButtons.get(index));
         if (expectedDiseaseDiagnosisType.equalsIgnoreCase("Omim")) {
-            Actions.clickElement(driver, omimRadioButtons.get(index));
+            Action.clickElement(driver, omimRadioButtons.get(index));
         } else {
-            Actions.clickElement(driver, orphanetRadioButtons.get(index));
+            Action.clickElement(driver, orphanetRadioButtons.get(index));
         }
         for (WebElement element : rareDiseaseDiagnosesRadioButtons) {
             boolean check1 = element.findElement(By.tagName(tagName)).getCssValue("border-color").equals("rgb(74, 139, 202)");
-            boolean check2 = Actions.getText(element).equalsIgnoreCase(expectedDiseaseDiagnosisType);
+            boolean check2 = Action.getText(element).equalsIgnoreCase(expectedDiseaseDiagnosisType);
             if (check1 && check2) {
-                diagnosisType = Actions.getText(element);
+                diagnosisType = Action.getText(element);
             }
         }
         return diagnosisType;
@@ -866,10 +863,10 @@ public class ClinicalQuestionsPage {
 
     public boolean selectRareDiseaseStatus(String value) {
         try {
-            Actions.clickElement(driver, rareDiseaseDiagnosisStatusDropdown);
+            Action.clickElement(driver, rareDiseaseDiagnosisStatusDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, value);
-            String actual = Actions.getText(rareDiseaseDiagnosisStatusDropdown.findElement(By.cssSelector(selectSingleValue)));
+            Action.selectValueFromDropdown(dropdownValue, value);
+            String actual = Action.getText(rareDiseaseDiagnosisStatusDropdown.findElement(By.cssSelector(selectSingleValue)));
             if (actual.contains(value)) {
                 return true;
             }
@@ -883,10 +880,10 @@ public class ClinicalQuestionsPage {
     public String selectRareDiseaseStatus(String value, int itemPositionInTable) {
         try {
             int index = itemPositionInTable - 1; // second text field the table is denoted by array [1] and third item is denoted by array [2]
-            Actions.clickElement(driver, rareDiseaseDiagnosisStatusDropdowns.get(index));
+            Action.clickElement(driver, rareDiseaseDiagnosisStatusDropdowns.get(index));
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, value);
-            return Actions.getText(rareDiseaseDiagnosisStatusDropdowns.get(index).findElement(By.cssSelector(selectSingleValue)));
+            Action.selectValueFromDropdown(dropdownValue, value);
+            return Action.getText(rareDiseaseDiagnosisStatusDropdowns.get(index).findElement(By.cssSelector(selectSingleValue)));
         } catch (Exception exp) {
             Debugger.println("Clinical Questions Page : Exception from selecting RareDiseaseStatus value  : " + exp);
             SeleniumLib.takeAScreenShot("RareDiseaseStatusDropdown.jpg");
@@ -899,8 +896,8 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, hpoTable);
         for (int i = 0; i < getSelectedRadioButtonsOnClinicalQuestions.size(); i++) {
             //Debugger.println("TermPresence " + i + " " + Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)));
-            if (Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)).contains(presence)) {
-                testResult = Actions.isRadioButtonIsSelected(getSelectedRadioButtonsOnClinicalQuestions.get(i));
+            if (Action.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)).contains(presence)) {
+                testResult = Action.isRadioButtonIsSelected(getSelectedRadioButtonsOnClinicalQuestions.get(i));
                 break;
             }
         }
@@ -912,8 +909,8 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, rareDiseaseDiagnosisTable);
         for (int i = 0; i < getSelectedRadioButtonsOnClinicalQuestions.size(); i++) {
             //Debugger.println("DiagnosisType " + i + " " + Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)));
-            if (Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)).contains(diagnosis)) {
-                testResult = Actions.isRadioButtonIsSelected(getSelectedRadioButtonsOnClinicalQuestions.get(i));
+            if (Action.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)).contains(diagnosis)) {
+                testResult = Action.isRadioButtonIsSelected(getSelectedRadioButtonsOnClinicalQuestions.get(i));
                 break;
             }
         }
@@ -926,7 +923,7 @@ public class ClinicalQuestionsPage {
             //SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseDiagnosisStatusValue.jpg");
             return false;
         }
-        String actText = Actions.getText(rareDiseaseDiagnosisStatusDropdown);
+        String actText = Action.getText(rareDiseaseDiagnosisStatusDropdown);
         if (!actText.equalsIgnoreCase(expectedStatus)) {
             //Debugger.println("Expected RDDiagnosis status :" + expectedStatus + ",Actual:" + actText);
             //SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseDiagnosisStatusValue.jpg");
@@ -937,17 +934,17 @@ public class ClinicalQuestionsPage {
 
     public String getErrorMessageFromHPOPhenotypeSection() {
         Wait.forElementToBeDisplayed(driver, hpoErrorNotification);
-        return Actions.getText(hpoErrorNotification);
+        return Action.getText(hpoErrorNotification);
     }
 
     public List<String> getValuesFromPhenotypicSexDropDown() {
         try {
-            Actions.clickElement(driver, phenotypicSexDropdown);
+            Action.clickElement(driver, phenotypicSexDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+            List<String> values = Action.getValuesFromDropdown(dropdownValues);
             Wait.seconds(1);
             // this step is necessary to make the dropdown to disappear
-            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Action.selectRandomValueFromDropdown(dropdownValues);
             Wait.seconds(1);
             return values;
         } catch (Exception exp) {
@@ -959,9 +956,9 @@ public class ClinicalQuestionsPage {
 
     public List<String> getValuesFromKaryotypicSexDropDown() {
         try {
-            Actions.clickElement(driver, karyotypicSexDropdown);
+            Action.clickElement(driver, karyotypicSexDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+            List<String> values = Action.getValuesFromDropdown(dropdownValues);
             Wait.seconds(1);
             return values;
         } catch (Exception exp) {
@@ -978,7 +975,7 @@ public class ClinicalQuestionsPage {
             return false;
         }
         try {
-            Actions.clickElement(driver, addAnotherRareDiseaseLink);
+            Action.clickElement(driver, addAnotherRareDiseaseLink);
             return true;
         } catch (Exception exp) {
             try {
@@ -1198,13 +1195,13 @@ public class ClinicalQuestionsPage {
                 return false;
             }
             if (!Wait.isElementDisplayed(driver, phenotypicSexDropdown, 15)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            Actions.clickElement(driver, phenotypicSexDropdown);
+            Action.clickElement(driver, phenotypicSexDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Wait.seconds(5);//Explicitly waiting here as below element is dynamically created
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + genderValue + "']")));
-            String selectedValue = Actions.getText(phenotypicSexDropdown.findElement(By.xpath("//span[text()='" + genderValue + "']")));
+            String selectedValue = Action.getText(phenotypicSexDropdown.findElement(By.xpath("//span[text()='" + genderValue + "']")));
             if (selectedValue != null && selectedValue.equalsIgnoreCase(genderValue)) {
                 return true;//Already Selected the Specified Value
             }

@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -338,9 +338,9 @@ public class PatientDetailsSteps extends Pages {
     @And("the newly edited patient's Gender {string}, Life Status {string} and Ethnicity {string} are displayed in Patient Details page")
     public void theNewlyEditedPatientSGenderLifeStatusAndEthnicityAreDisplayedInPatientDetailsPage(String expectedGender, String expectedLifeStatus, String expectedEthnicity) {
 
-        String actualGender = Actions.getText(patientDetailsPage.genderFieldStatus);
-        String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusFieldStatus);
-        String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityFieldStatus);
+        String actualGender = Action.getText(patientDetailsPage.genderFieldStatus);
+        String actualLifeStatus = Action.getText(patientDetailsPage.lifeStatusFieldStatus);
+        String actualEthnicity = Action.getText(patientDetailsPage.ethnicityFieldStatus);
         Assert.assertEquals(expectedGender, actualGender);
         Assert.assertEquals(expectedLifeStatus, actualLifeStatus);
         Assert.assertEquals(expectedEthnicity, actualEthnicity);
@@ -385,7 +385,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user click YES button for the question - Do you have the NHS no?")
     public void theUserClickYESButtonForTheQuestionDoYouHaveTheNHSNo() {
-        Actions.scrollToTop(driver);
+        Action.scrollToTop(driver);
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.yesButton);
         patientDetailsPage.yesButton.click();
     }
@@ -481,7 +481,7 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
     public void theUserFillsInAllFieldsWithoutNHSNumberEntersAReasonForNoNhsNumberAndLeavesHospitalNoFieldBlank(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-        Actions.clearInputField(patientDetailsPage.hospitalNumber);
+        Action.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
     @And("the NHS number field is displayed")
@@ -496,15 +496,15 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user fills in all fields with the NHS number and leaves HospitalNo blank")
     public void theUserFillsInAllFieldsWithTheNHSNumberAndLeavesHospitalNoBlank() {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
-        Actions.clearInputField(patientDetailsPage.hospitalNumber);
+        Action.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
 
     @Then("the user fills in all fields and leaves NHS Number and HospitalNo fields blank")
     public void theUserFillsInAllFieldsAndLeavesNHSNumberAndHospitalNoFieldsBlank() {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
-        Actions.clearInputField(patientDetailsPage.hospitalNumber);
-        Actions.clearInputField(patientDetailsPage.nhsNumber);
+        Action.clearInputField(patientDetailsPage.hospitalNumber);
+        Action.clearInputField(patientDetailsPage.nhsNumber);
     }
 
     @When("the user fills in the NHS Number field")
@@ -704,9 +704,9 @@ public class PatientDetailsSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.ethnicityButton);
         if (Wait.isElementDisplayed(driver, patientDetailsPage.clearEthnicityDropDownValue, 10)) {
             Wait.seconds(1);
-            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
-            Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
-            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
+            Action.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+            Debugger.println("Content of Ethnicity field is now deleted: " + Action.getText(patientDetailsPage.ethnicityButton));
+            Action.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
             Wait.seconds(1); // Wait for the error to be triggered after deleting drop-down value
         }
 
@@ -721,7 +721,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the Relationship to Proband from the patient referral card is {string}")
     public void theRelationshipToProbandFromThePatientReferralCardIs(String expectedRelationShipToProband) {
-        String actualRelationShipToProband = Actions.getText(patientDetailsPage.referralProbandRelationShipStatus);
+        String actualRelationShipToProband = Action.getText(patientDetailsPage.referralProbandRelationShipStatus);
         Debugger.println("actual relationShip : " + actualRelationShipToProband);
         Debugger.println("Expected relationShip : " + expectedRelationShipToProband);
         Assert.assertEquals(expectedRelationShipToProband,actualRelationShipToProband);
@@ -785,7 +785,7 @@ public class PatientDetailsSteps extends Pages {
                 break;
             }
             case "TumourDescription": {
-                String actualTumourDescription = Actions.getValue(tumoursPage.descriptiveName).trim();
+                String actualTumourDescription = Action.getValue(tumoursPage.descriptiveName).trim();
                 Debugger.println("Actual actualTumourDescription :" + actualTumourDescription + " : " + actualTumourDescription.length());
                 Assert.assertEquals(actualTumourDescription.length(), maximumCharactersAllowed);
                 break;
@@ -798,14 +798,14 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user deletes data in the NHS Number field")
     public void theUserDeletesDataInTheNHSNumberField() {
-        Actions.clearInputField(patientDetailsPage.nhsNumber);
+        Action.clearInputField(patientDetailsPage.nhsNumber);
         Wait.seconds(1);
     }
 
     @And("the user deletes the data in the Hospital Number field")
     public void theUserDeletesTheDataInTheHospitalNumberField() {
         Wait.seconds(1);
-        Actions.clearInputField(patientDetailsPage.hospitalNumber);
+        Action.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
     @And("the correct patient address is displayed on patient details page")
@@ -831,7 +831,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the Hospital number field displays the hint text {string}")
     public void theHospitalNumberFieldDisplaysTheHintText(String expectedHintText) {
-        String actualHintText = Actions.getPlaceHolderAttribute(patientDetailsPage.hospitalNumber);
+        String actualHintText = Action.getPlaceHolderAttribute(patientDetailsPage.hospitalNumber);
         if(!actualHintText.contains(expectedHintText)){
             Assert.fail("Actual Hint:"+actualHintText+",Expected:"+expectedHintText);
         }
@@ -840,22 +840,22 @@ public class PatientDetailsSteps extends Pages {
     @And("the user deletes data in the fields - First Name, Last Name, Date of Birth, Gender, Life Status and Ethnicity")
     public void theUserDeletesDataInTheFieldsFirstNameLastNameDateOfBirthGenderLifeStatusAndEthnicity() {
 
-        Actions.clearInputField(patientDetailsPage.firstName);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
-        Actions.clearInputField(patientDetailsPage.familyName);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
+        Action.clearInputField(patientDetailsPage.firstName);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
+        Action.clearInputField(patientDetailsPage.familyName);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
         //patientDetailsPage.dateOfBirth.click();
-        Actions.clearInputField(patientDetailsPage.dateOfBirthDay);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthMonth);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthYear);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
+        Action.clearInputField(patientDetailsPage.dateOfBirthDay);
+        Action.clearInputField(patientDetailsPage.dateOfBirthMonth);
+        Action.clearInputField(patientDetailsPage.dateOfBirthYear);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
         Wait.seconds(1);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.lifeStatusButton);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDown);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.lifeStatusButton);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDown);
         Wait.seconds(1);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDownValue);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDownValue);
 
     }
 
@@ -875,24 +875,24 @@ public class PatientDetailsSteps extends Pages {
     @And("the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode")
     public void theUserDeletesThePrePopulatedFieldsFirstNameLastNameDateOfBirthGenderAndPostCode() {
 
-        Actions.clearInputField(patientDetailsPage.firstName);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
-        Actions.clearInputField(patientDetailsPage.familyName);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
+        Action.clearInputField(patientDetailsPage.firstName);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
+        Action.clearInputField(patientDetailsPage.familyName);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
         //patientDetailsPage.dateOfBirth.click();
-        Actions.clearInputField(patientDetailsPage.dateOfBirthDay);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthMonth);
-        Actions.clearInputField(patientDetailsPage.dateOfBirthYear);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
+        Action.clearInputField(patientDetailsPage.dateOfBirthDay);
+        Action.clearInputField(patientDetailsPage.dateOfBirthMonth);
+        Action.clearInputField(patientDetailsPage.dateOfBirthYear);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
         Wait.seconds(1);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.postcode);
-        Actions.clearInputField(patientDetailsPage.postcode);
+        Action.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.postcode);
+        Action.clearInputField(patientDetailsPage.postcode);
     }
 
     @When("the user select the gender {string}")
     public void theUserSelectTheGender(String gender) {
-        Actions.scrollToTop(driver);
+        Action.scrollToTop(driver);
         boolean testResult = false;
         testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
         Assert.assertTrue(testResult);
@@ -900,7 +900,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the Add To Patient Details {string} button is displayed")
     public void theAddToPatientDetailsButtonIsDisplayed(String expectedPatientButton) {
-        String actualPatientSubmitButton = Actions.getText(patientDetailsPage.addDetailsToNGISButton);
+        String actualPatientSubmitButton = Action.getText(patientDetailsPage.addDetailsToNGISButton);
         Debugger.println("Actual Patient Submit: " + actualPatientSubmitButton);
         Debugger.println("Expected Patient Submit: " + expectedPatientButton);
         Assert.assertEquals(expectedPatientButton,actualPatientSubmitButton);

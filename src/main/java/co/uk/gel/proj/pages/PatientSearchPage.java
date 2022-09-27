@@ -1,7 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -338,7 +338,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystem(String email, String password) {
-        Actions.deleteCookies(driver);
+        Action.deleteCookies(driver);
         try {
             if (Wait.isElementDisplayed(driver, useAnotherAccount, 5)) {//If the element is not displayed, even after the waiting time
                 Debugger.println("Clicking on useAnotherAccount to Proceed.");
@@ -359,7 +359,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             try {
                 seleniumLib.clickOnWebElement(nextButton);
             } catch (Exception exp1) {
-                Actions.clickElement(driver, nextButton);
+                Action.clickElement(driver, nextButton);
             }
             Wait.seconds(2);
             try {
@@ -375,7 +375,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Current URL is " +driver.getCurrentUrl());
             } catch (Exception exp1) {
                 Debugger.println("Exception from next button click..."+exp1);
-                Actions.clickElement(driver, nextButton);
+                Action.clickElement(driver, nextButton);
             }
             //Wait.seconds(2);
             SeleniumLib.sleepInSeconds(2);
@@ -507,7 +507,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickPatientCard() {
         try {
-            Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
+            Action.retryClickAndIgnoreElementInterception(driver, patientCard);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // patientCard.click();
             return true;
@@ -520,13 +520,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
 
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        Actions.clearInputField(nhsNumber);  //nhsNumber.clear();
+        Action.clearInputField(nhsNumber);  //nhsNumber.clear();
         nhsNumber.sendKeys(nhsNo);
-        Actions.clearInputField(dateDay);
+        Action.clearInputField(dateDay);
         dateDay.sendKeys(dayOfBirth);
-        Actions.clearInputField(dateMonth);
+        Action.clearInputField(dateMonth);
         dateMonth.sendKeys(monthOfBirth);
-        Actions.clearInputField(dateYear);
+        Action.clearInputField(dateYear);
         dateYear.sendKeys(yearOfBirth);
     }
 
@@ -663,19 +663,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 case "DOB": {
                     String dobValue = paramNameValue.get(key);
                     String[] dobSplit = dobValue.split("-");
-                    Actions.clearInputField(dateDay);
+                    Action.clearInputField(dateDay);
                     Wait.seconds(1);
                     dateDay.sendKeys(dobSplit[0]);
-                    Actions.clearInputField(dateMonth);
+                    Action.clearInputField(dateMonth);
                     Wait.seconds(1);
                     dateMonth.sendKeys(dobSplit[1]);
-                    Actions.clearInputField(dateYear);
+                    Action.clearInputField(dateYear);
                     Wait.seconds(1);
                     dateYear.sendKeys(dobSplit[2]);
                     break;
                 }
                 case "FirstName": {
-                    Actions.clearTextField(firstName);
+                    Action.clearTextField(firstName);
                     firstName.sendKeys(paramNameValue.get(key));
                     break;
                 }
@@ -690,7 +690,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     break;
                 }
                 case "Postcode": {
-                    Actions.clearTextField(postcode);
+                    Action.clearTextField(postcode);
                     postcode.sendKeys(paramNameValue.get(key));
                     break;
                 }
@@ -781,7 +781,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     seleniumLib.clickOnWebElement(nextButton);
                 } catch (Exception exp1) {
                     Debugger.println("Exception from clicking on next button at Patient search page..."+exp1);
-                    Actions.clickElement(driver, nextButton);
+                    Action.clickElement(driver, nextButton);
                 }
             }
         }
@@ -861,7 +861,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean clickCreateNewPatientLinkFromNoSearchResultsPage() {
         try {
             Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-            Actions.clickElement(driver, createNewPatientRecordLink);
+            Action.clickElement(driver, createNewPatientRecordLink);
             return true;
         } catch (Exception exp) {
             try {
@@ -1009,10 +1009,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void noFieldsArePrePopulatedInNewPatientPage() {
         String DOB = testData.getDay() + "/" + testData.getMonth() + "/" + testData.getYear();
         //Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
-        Assert.assertEquals(testData.getFirstName(), Actions.getValue(firstName));
-        Assert.assertEquals(testData.getLastName(), Actions.getValue(familyName));
-        Assert.assertEquals("Male", Actions.getText(administrativeGenderButton));
-        Assert.assertEquals(testData.getPostCode(), Actions.getValue(postcode));
+        Assert.assertEquals(testData.getFirstName(), Action.getValue(firstName));
+        Assert.assertEquals(testData.getLastName(), Action.getValue(familyName));
+        Assert.assertEquals("Male", Action.getText(administrativeGenderButton));
+        Assert.assertEquals(testData.getPostCode(), Action.getValue(postcode));
     }
 
     public boolean fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
@@ -1081,7 +1081,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean confirmAutoCompleteOffOnNHSNumberField() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        return Actions.getAutoCompleteAttribute(nhsNumber).equalsIgnoreCase(autoCompleteAttributeOff);
+        return Action.getAutoCompleteAttribute(nhsNumber).equalsIgnoreCase(autoCompleteAttributeOff);
 
     }
 
@@ -1253,7 +1253,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean selectGender(WebElement element, String optionValue) {
         try {
             try {
-                Actions.clickElement(driver, element);
+                Action.clickElement(driver, element);
             } catch (Exception exp1) {
                 seleniumLib.clickOnWebElement(element);
             }
@@ -1266,7 +1266,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             if (ddElements.size() > 0) {
                 try {
                     Wait.forElementToBeClickable(driver, ddElements.get(0));
-                    Actions.clickElement(driver, ddElements.get(0));
+                    Action.clickElement(driver, ddElements.get(0));
                     Wait.seconds(2);
                 } catch (Exception exp1) {
                     seleniumLib.clickOnWebElement(ddElements.get(0));
@@ -1284,9 +1284,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public List<String> getTheGenderDropDownValues() {
         try {
-            Actions.clickElement(driver, genderButton);
+            Action.clickElement(driver, genderButton);
         } catch (Exception exp) {
-            Actions.clickElement(driver, administrativeGenderButton);
+            Action.clickElement(driver, administrativeGenderButton);
         }
         //selectGender(administrativeGenderButton,"Male");
         List<String> actualGenderValues = new ArrayList<String>();
@@ -1343,7 +1343,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Edit Patient Details Link not exists.");
                 return false;
             }
-            Actions.clickElement(driver, editPatientDetails);
+            Action.clickElement(driver, editPatientDetails);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from editPatientDetails:" + exp);
@@ -1378,7 +1378,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             } else {
                 SeleniumLib.takeAScreenShot("PatientCardDisplayed");
             }
-            Actions.scrollToBottom(driver);
+            Action.scrollToBottom(driver);
 
             if (!Wait.isElementDisplayed(driver, mergeStatusOnPatientCard, 10)) {
                 Debugger.println("Expected patientCardBadge not displayed." + driver.getCurrentUrl());
@@ -1430,7 +1430,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Expected Patient card not displayed." + driver.getCurrentUrl());
                 return false;
             }
-            Actions.scrollToBottom(driver);
+            Action.scrollToBottom(driver);
 
             if (Wait.isElementDisplayed(driver, mergeStatusOnPatientCard, 10)) {
                 Debugger.println("PatientCardBadge is displayed." + driver.getCurrentUrl());

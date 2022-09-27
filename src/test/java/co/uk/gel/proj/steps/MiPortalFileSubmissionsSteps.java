@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -17,7 +17,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.text.ParseException;
 import java.util.*;
 
 
@@ -42,9 +41,9 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Debugger.println("Refreshing the browser page before starting...");
         SeleniumLib.refreshPage();
         Wait.seconds(2);
-        Actions.acceptAlert(driver);
+        Action.acceptAlert(driver);
         Wait.seconds(1);
-        Actions.acceptAlert(driver);
+        Action.acceptAlert(driver);
     }
 
     @And("the user enters a date (.*) in the file-submission date field")
