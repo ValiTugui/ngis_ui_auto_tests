@@ -360,10 +360,10 @@ Feature: GenomicRecord: New Patient page
     And the user clicks the Save patient details to NGIS button
     And the patient is successfully created with a message "NGIS patient record created"
     ### @E2EUI-1128
-    And the clinical indication ID missing banner is displayed
-    And the Start New Referral button is disabled
-    And the user clicks the "Test Directory" link on the notification banner
-    Then the Test Directory homepage is displayed
+#    And the clinical indication ID missing banner is displayed
+#    And the Start New Referral button is disabled
+#    And the user clicks the "Test Directory" link on the notification banner
+#    Then the Test Directory homepage is displayed
 
     Examples:
       | reason_for_no_nhsNumber       | maximumAllowedValues |
