@@ -149,7 +149,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")
     public WebElement createRecord;
 
-    @FindBy(xpath = "//button[@type='submit']/span[text()='Start referral']")
+    @FindBy(xpath = "//button[@type='submit']/span[contains(text(),'Start referral')]")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Yes, start referral']")

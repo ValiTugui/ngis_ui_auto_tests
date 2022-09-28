@@ -255,7 +255,7 @@ public class BrowserFactory {
         chromeOptions.addArguments("disable-gpu");
         chromeOptions.addArguments("disable-infobars");
         chromeOptions.addArguments("enable-automation");
-        //chromeOptions.addArguments("headless");
+        chromeOptions.addArguments("headless");
         chromeOptions.addArguments("ignore-ssl-errors");
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments ("no-sandbox");
