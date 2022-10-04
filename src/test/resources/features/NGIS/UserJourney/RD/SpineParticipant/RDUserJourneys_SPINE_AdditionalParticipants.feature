@@ -112,8 +112,6 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
       | NhsNumber  | DOB        | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
       | 2000001807 | 20-08-2010 | Patient details |Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2012:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=00,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-
-  @inprogress
   @NTS-4602 @Z-LOGOUT 
 #    @E2EUI-1451 @UseCase15
   Scenario Outline: NTS-4602: Use Case#15: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search Spine Patient

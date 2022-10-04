@@ -29,12 +29,14 @@ Feature: GenomicRecord: Patient Record
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
-#    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
 #    And the clinical indication ID missing banner is displayed
-    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
-    When the user clicks the "Test Directory" link on the notification banner
-    Then the Test Directory homepage is displayed
-    #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
+#    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
+#    When the user clicks the "Test Directory" link on the notification banner
+#    Then the Test Directory homepage is displayed
+#    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
+    And the Start New Referral button is enabled
+    And the user clicks the Start Referral button
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | GEL_NORMAL_USER |
     Then the "<pageTitle2>" page is displayed

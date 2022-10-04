@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -31,6 +33,15 @@ public class HomePage {
 
     @FindBy(xpath = "//*[contains(@class,'searchPanel')]//child::input")
     public WebElement searchField;
+
+    @FindBy(id = "clinical-indications")
+    public WebElement testOrderingCiInputValue;
+
+    @FindBy(xpath = "//div[@class='css-1hwfws3']")
+    public WebElement testOrderingCiSearchBox;
+
+    @FindBy(xpath = "//div[@class='styles_results__header-warning__1QCvT']//span")
+    public WebElement relationshipWIthPatientMessage;
 
     @FindBy(css = "button[class*='searchButton']")
     public WebElement searchIcon;
@@ -65,7 +76,7 @@ public class HomePage {
     @FindBy(css = "div[class*='aside']")
     public WebElement filtersPanel2;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_filter__')]")    // //div[contains(@class,'styles_filter__')]
+    @FindBy(xpath = "//div[contains(@class,'styles_filter__')]")
     public WebElement filtersPanel;
 
     @FindBy(css = "div[class*='main']")
@@ -119,6 +130,27 @@ public class HomePage {
             } catch (Exception exp1) {
                 Debugger.println("Exception from entering the search Term: " + exp1);
                 return false;
+            }
+        }
+    }
+
+    public void testOrderingCiSearchField(String searchTerm) {
+        try {
+            if (!Wait.isElementDisplayed(driver, testOrderingCiSearchBox, 60)) {
+                Debugger.println("searchField not present even after waiting period: ");
+            }
+            testOrderingCiSearchBox.click();
+            //testOrderingCiSearchBox.clear();
+            testOrderingCiInputValue.sendKeys(searchTerm);
+            new WebDriverWait(driver,20).until(ExpectedConditions.attributeContains(testOrderingCiInputValue,"value", searchTerm));
+            Wait.seconds(3);
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(testOrderingCiSearchBox);
+                testOrderingCiSearchBox.clear();
+                testOrderingCiInputValue.sendKeys(searchTerm);
+            } catch (Exception exp1) {
+                Debugger.println("Exception from entering the search Term: " + exp1);
             }
         }
     }

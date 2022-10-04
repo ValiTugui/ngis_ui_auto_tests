@@ -39,6 +39,7 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     And the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
+    And the "<auditMessage>" message "<visibility>" displayed
     When the user clicks on the patient card
     Then the user is navigated to a page with title Add missing family member details
     When the user clicks on edit patient details
@@ -59,8 +60,8 @@ Feature: Test Directory: ClinicalIndicationSelect_3
     Then the user is navigated to a page with title Add a family member to this referral
 
     Examples:
-      | PatientDetails  | FamilyMember   | TestPackage  | ClinicalQuestions  | RelationshipToProband | FamilyMemberDetails                 |
-      | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=2000003869:DOB=18-09-2011 |
+      | PatientDetails  | FamilyMember   | TestPackage  | ClinicalQuestions  | RelationshipToProband | FamilyMemberDetails                 | auditMessage                                                                                | visibility |
+      | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=2000003869:DOB=18-09-2011 | Your access will be audited to validate there is a legitimate relationship with the patient | is not     |
 
   @NTS-4701 @Z-LOGOUT
 #    @E2EUI-1645

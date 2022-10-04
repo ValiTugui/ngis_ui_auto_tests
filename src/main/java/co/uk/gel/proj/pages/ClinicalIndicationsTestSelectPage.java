@@ -87,6 +87,18 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'styles_card')]")
     public List<WebElement> clinicalIndicationsResults;
 
+    @FindBy(xpath = "//div[@class='styles_clinical-card__content__1JOHt']")
+    public List<WebElement> testOrderCiResultsPanels;
+
+    @FindBy(xpath = "//button[@class='css-fe8tch']")
+    public List<WebElement> aboutThisTestCiResultsPanels;
+
+    @FindBy(xpath = "//div[@class='css-v7cv2m']//h3")
+    public List<WebElement> modalTabsTitle;
+
+    @FindBy(xpath = "//span[.='Continue test ordering']")
+    public WebElement continueTestOrderingBtn;
+
     @FindBy(xpath = "//*[contains (@class, 'styles_processCardImg')]")
     public List<WebElement> orderProcessResults;
 
@@ -381,6 +393,10 @@ public class ClinicalIndicationsTestSelectPage {
 
     public void clickFirstResultInClinicalIndications() {
         Click.element(driver, clinicalIndicationsResults.get(0));
+    }
+
+    public void clickFirstResultInTestOrderingClinicalIndications() {
+        Click.element(driver, testOrderCiResultsPanels.get(0));
     }
 
     public boolean clinicalIndicationsTabValidation(String buttonName, String sectionName1, String sectionName2) {

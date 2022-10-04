@@ -1076,4 +1076,26 @@ public class PatientDetailsSteps extends Pages {
             }
         }
     }
+
+    @And("the {string} message {string} displayed")
+    public void messageDisplayed(String auditMessage, String visibility) {
+        if(visibility.trim().equalsIgnoreCase("is")){
+            if(!Wait.isElementDisplayed(driver,homePage.relationshipWIthPatientMessage,15)){
+                Action.scrollToBottom(driver);
+                SeleniumLib.takeAScreenShot("AuditMessageNotDisplayed.jpg");
+            }
+            Assert.assertEquals("\"Your access will be audited to validate there is a legitimate relationship with the patient\" is not displayed", auditMessage, homePage.relationshipWIthPatientMessage.getText());
+        }else if(visibility.trim().equalsIgnoreCase("is not")){
+            boolean flag = false;
+            if(driver.getPageSource().contains(auditMessage)){
+                Action.scrollToBottom(driver);
+                SeleniumLib.takeAScreenShot("AuditMessageIsDisplayed.jpg");
+                flag=true;
+                Assert.assertFalse("\"Your access will be audited to validate there is a legitimate relationship with the patient\" is displayed", flag);
+            }
+        }
+        else{
+            Debugger.println("Incorrect value for visibility");
+        }
+    }
 }//end
