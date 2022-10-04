@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -11,7 +11,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -207,7 +206,7 @@ public class PrintFormsPage {
                 //SeleniumLib.takeAScreenShot("probandPrintForm.jpg");
                 return false;
             }
-            Actions.clickElement(driver, probandPrintFormDownloadLocator);
+            Action.clickElement(driver, probandPrintFormDownloadLocator);
             Wait.seconds(5);
             return true;
         } catch (Exception exp) {
@@ -277,9 +276,9 @@ public class PrintFormsPage {
         if (Wait.isElementDisplayed(driver, laboratoryAddress.get(0), 5)) {
             for (WebElement ele : laboratoryAddress) {
                 if (address == null) {
-                    address = new StringBuilder(Actions.getText(ele) + ", ");
+                    address = new StringBuilder(Action.getText(ele) + ", ");
                 } else {
-                    address.append(Actions.getText(ele)).append(", ");
+                    address.append(Action.getText(ele)).append(", ");
                 }
             }
         }
@@ -294,12 +293,12 @@ public class PrintFormsPage {
 
     public String getTumourInfo() {
         Wait.isElementDisplayed(driver, tumourInfo, 5);
-        return Actions.getText(tumourInfo);
+        return Action.getText(tumourInfo);
     }
 
     public String getSampleInfo() {
         Wait.isElementDisplayed(driver, sampleInfo, 5);
-        return Actions.getText(sampleInfo);
+        return Action.getText(sampleInfo);
     }
 
     public boolean verifyWarningMessageOnPrintFormsPage(String warningMessage) {
@@ -506,7 +505,7 @@ public class PrintFormsPage {
                         Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
                         break;
                     } else {
-                        Actions.retryClickAndIgnoreElementInterception(driver, downloadButton.get(i));
+                        Action.retryClickAndIgnoreElementInterception(driver, downloadButton.get(i));
                         isDownloaded = true;
                         Wait.seconds(3);//Wait for 3 seconds to ensure file got downloaded, large file taking time to download
                         break;
@@ -577,7 +576,7 @@ public class PrintFormsPage {
                 Debugger.println("PrintFormsPage : Referral Submitted :Start New Referral Button Not found");
                 return false;
             }
-            Actions.clickElement(driver, startANewReferralButton);
+            Action.clickElement(driver, startANewReferralButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);

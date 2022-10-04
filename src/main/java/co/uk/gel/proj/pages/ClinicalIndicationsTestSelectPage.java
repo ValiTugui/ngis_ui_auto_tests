@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -87,6 +87,18 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'styles_card')]")
     public List<WebElement> clinicalIndicationsResults;
 
+    @FindBy(xpath = "//div[@class='styles_clinical-card__content__1JOHt']")
+    public List<WebElement> testOrderCiResultsPanels;
+
+    @FindBy(xpath = "//button[@class='css-fe8tch']")
+    public List<WebElement> aboutThisTestCiResultsPanels;
+
+    @FindBy(xpath = "//div[@class='css-v7cv2m']//h3")
+    public List<WebElement> modalTabsTitle;
+
+    @FindBy(xpath = "//span[.='Continue test ordering']")
+    public WebElement continueTestOrderingBtn;
+
     @FindBy(xpath = "//*[contains (@class, 'styles_processCardImg')]")
     public List<WebElement> orderProcessResults;
 
@@ -109,7 +121,7 @@ public class ClinicalIndicationsTestSelectPage {
             if (!Wait.isElementDisplayed(driver, startTestOrderButton, 80)) {
                 return false;
             }
-            Actions.clickElement(driver,startTestOrderButton);
+            Action.clickElement(driver,startTestOrderButton);
             return true;
         } catch (Exception exp) {
             try{
@@ -125,9 +137,9 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean clickBackToSearchButton() {
         try {
             if (!Wait.isElementDisplayed(driver, backToSearch, 10)) {
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
             }
-            Actions.clickElement(driver, backToSearch);
+            Action.clickElement(driver, backToSearch);
             return true;
         }catch(Exception exp){
             try {
@@ -383,6 +395,10 @@ public class ClinicalIndicationsTestSelectPage {
         Click.element(driver, clinicalIndicationsResults.get(0));
     }
 
+    public void clickFirstResultInTestOrderingClinicalIndications() {
+        Click.element(driver, testOrderCiResultsPanels.get(0));
+    }
+
     public boolean clinicalIndicationsTabValidation(String buttonName, String sectionName1, String sectionName2) {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath(clinicalIndicationsHeadingsLocator), 0);
         return (((goToClinicalIndicationsButtonInPopup.getText().matches(buttonName)) && (closePopupButton.isDisplayed()) && clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
@@ -444,7 +460,7 @@ public class ClinicalIndicationsTestSelectPage {
             if(!Wait.isElementDisplayed(driver,testInfoIcon,10)){
                 return false;
             }
-            Actions.clickElement(driver,testInfoIcon);
+            Action.clickElement(driver,testInfoIcon);
             return true;
         }catch(Exception exp){
            return false;

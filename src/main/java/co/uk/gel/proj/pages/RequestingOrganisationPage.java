@@ -1,8 +1,7 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
-import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
@@ -164,7 +163,7 @@ public class RequestingOrganisationPage {
     public String getNoResultMessage() {
         try {
             Wait.forElementToBeDisplayed(driver, noSearchResult);
-            return Actions.getText(noSearchResult);
+            return Action.getText(noSearchResult);
         } catch (Exception exp) {
             Debugger.println("Exception during RequestingOrganisationPage -> getNoResultMessage() : " + exp);
             return null;

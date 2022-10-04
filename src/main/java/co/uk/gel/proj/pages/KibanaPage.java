@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -111,7 +111,7 @@ public class KibanaPage {
                 SeleniumLib.takeAScreenShot("clickOnButton.jpg");
                 return false;
             }
-            Actions.clickElement(driver, buttonElement);
+            Action.clickElement(driver, buttonElement);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clickOnButton:" + exp);

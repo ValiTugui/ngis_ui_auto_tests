@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static co.uk.gel.lib.Actions.getText;
+import static co.uk.gel.lib.Action.getText;
 
 public class TumoursSteps extends Pages {
     SeleniumLib seleniumLib = new SeleniumLib(driver);
@@ -49,7 +49,7 @@ public class TumoursSteps extends Pages {
                 dateOfDiagnosis = TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth, 0, -10, 0);
                 String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-                Actions.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
+                Action.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
                 //click on tumourTypeLabel label to move cursor away from dateYear field
                 break;
             }
@@ -57,20 +57,20 @@ public class TumoursSteps extends Pages {
                 dateOfDiagnosis = TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth, -2, -9, 0);
                 String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-                Actions.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
+                Action.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
                 break;
             }
             case "Year_is_more_than_9_months_before_date_of_birth": {
                 dateOfDiagnosis = TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth, 0, 0, -1);
                 String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-                Actions.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
+                Action.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
                 break;
             }
             default:
                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-                Actions.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
+                Action.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
                 break;
             // throw new IllegalArgumentException("Invalid text field name");
         }
@@ -504,7 +504,7 @@ public class TumoursSteps extends Pages {
 
     @And("the user enters {string} in the Pathology Sample ID field")
     public void theUserEntersInThePathologySampleIDField(String pathologySampleId) {
-        Actions.fillInValue(tumoursPage.pathologyReportId, pathologySampleId);
+        Action.fillInValue(tumoursPage.pathologyReportId, pathologySampleId);
     }
 
 

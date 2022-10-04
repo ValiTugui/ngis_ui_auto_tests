@@ -1,12 +1,11 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -123,7 +122,7 @@ public class TestPackagePage {
     public boolean verifyTheHelpText(String expectedHelpText) {
         try {
             Wait.forElementToBeDisplayed(driver, priorityHintText);
-            String actualHelpText = Actions.getText(priorityHintText);
+            String actualHelpText = Action.getText(priorityHintText);
             //Debugger.println("Help text info : " + actualHelpText);
             return actualHelpText.contains(expectedHelpText);
         }catch(Exception exp){
@@ -179,7 +178,7 @@ public class TestPackagePage {
             numberOfParticipants.click();
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+            Action.selectValueFromDropdown(dropdownValue, String.valueOf(number));
             Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
             //Ensure that the test package is selected
             By selectedPack = By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']");
@@ -190,7 +189,7 @@ public class TestPackagePage {
                     seleniumLib.clickOnWebElement(numberOfParticipants);
                     Wait.seconds(2);
                 }
-                Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+                Action.selectValueFromDropdown(dropdownValue, String.valueOf(number));
                 Wait.seconds(4);
             }
             //Debugger.println("Selected TestPack: "+seleniumLib.getText(selectedPack));
@@ -279,9 +278,9 @@ public class TestPackagePage {
     public void setTotalNumberOfParticipantsField(int number) {
         try {
             Wait.forElementToBeDisplayed(driver, numberOfParticipants);
-            Actions.clickElement(driver, numberOfParticipants);
+            Action.clickElement(driver, numberOfParticipants);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+            Action.selectValueFromDropdown(dropdownValue, String.valueOf(number));
         }catch(Exception exp){
             Debugger.println("setTotalNumberOfParticipantsField");
         }
@@ -293,7 +292,7 @@ public class TestPackagePage {
     }
 
     public boolean verifyPrioritySectionHeaderText(String expectedHeaderText) {
-        String actualHeaderText = Actions.getText(priorityLabel);
+        String actualHeaderText = Action.getText(priorityLabel);
         //Debugger.println("Actual Priority label header text : " + actualHeaderText);
         return actualHeaderText.contains(expectedHeaderText);
     }
@@ -303,7 +302,7 @@ public class TestPackagePage {
             if(!Wait.isElementDisplayed(driver, chosenPriorityButton, 30)){
                 return false;
             }
-            String actualText = Actions.getText(chosenPriorityButton);
+            String actualText = Action.getText(chosenPriorityButton);
             return actualText.contains(expectedPriority);
         }catch(Exception exp){
             Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
@@ -315,7 +314,7 @@ public class TestPackagePage {
             if(!Wait.isElementDisplayed(driver, chosenPriorityButton, 30)){
                 return false;
             }
-            String actualText = Actions.getText(chosenPriorityButton);
+            String actualText = Action.getText(chosenPriorityButton);
             if(actualText.contains(unSelectedPriority)) {
                 return false;//Should not contain
             }
@@ -349,7 +348,7 @@ public class TestPackagePage {
 
     public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue) {
         Wait.forElementToBeDisplayed(driver, numberOfParticipants);
-        Actions.clickElement(driver, numberOfParticipants);
+        Action.clickElement(driver, numberOfParticipants);
         dropDownBoxValues = numberOfParticipants.getText();
         return (dropDownBoxValues.contains(String.valueOf(minExpectedValue)) && dropDownBoxValues.contains(String.valueOf(maxExpectedValue)));
     }
@@ -372,8 +371,8 @@ public class TestPackagePage {
         try {
             currentValue = getText(numberOfParticipants);
             if (!currentValue.contains("Select")) {
-                Actions.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
-                Actions.clickElement(driver, selectTestsHeader);
+                Action.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
+                Action.clickElement(driver, selectTestsHeader);
                 if(!Wait.isElementDisplayed(driver, errorMessage,10)){
                     Debugger.println("Expected Error message to be displayed in TestPackage, but not.");
                     return false;
@@ -439,7 +438,7 @@ public class TestPackagePage {
                 return false;
             }
             try {
-                Actions.clickElement(driver, testPackageCheckBox);
+                Action.clickElement(driver, testPackageCheckBox);
             }catch(Exception exp1){
                 seleniumLib.clickOnWebElement(testPackageCheckBox);
             }

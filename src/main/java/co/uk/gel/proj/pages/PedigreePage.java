@@ -1,6 +1,6 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
@@ -187,7 +187,7 @@ public class PedigreePage {
     public void closePopup() {
         try {
             Wait.forElementToBeClickable(driver, closePopup);
-            Actions.clickElement(driver, closePopup);
+            Action.clickElement(driver, closePopup);
         } catch (Exception exp) {
             try {
                 seleniumLib.clickOnWebElement(closePopup);
@@ -205,7 +205,7 @@ public class PedigreePage {
                 Debugger.println("Expected Tab: " + tabName + " Not loaded in Pedigree popup.");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, selectTabOption);
+            Action.retryClickAndIgnoreElementInterception(driver, selectTabOption);
             Wait.seconds(2);
             return true;
         } catch (Exception exp) {
@@ -445,7 +445,7 @@ public class PedigreePage {
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                    Actions.clickElement(driver, zoomOutButton);
+                    Action.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
                     clickSpecificNodeOnPedigreeDiagram(patient, patientType);
                 } else {
@@ -495,7 +495,7 @@ public class PedigreePage {
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                    Actions.clickElement(driver, zoomOutButton);
+                    Action.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
                     clickProbandNodeOnPedigreeDiagram(NGISID, patientType, gender);
                 } else {
@@ -610,7 +610,7 @@ public class PedigreePage {
 
         } catch (MoveTargetOutOfBoundsException exp) {
             Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-            Actions.clickElement(driver, zoomOutButton);
+            Action.clickElement(driver, zoomOutButton);
             if (!zoomOutFlag) {
                 zoomOutFlag = true;
                 clickOnFemaleNode(ngsIdX, patientType);
@@ -630,7 +630,7 @@ public class PedigreePage {
                 seleniumLib.moveMouseAndClickOnElement(By.xpath(Xpath));
             } catch (MoveTargetOutOfBoundsException mtobe) {
                 Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                Actions.clickElement(driver, zoomOutButton);
+                Action.clickElement(driver, zoomOutButton);
                 if (!zoomOutFlag) {
                     zoomOutFlag = true;
                     clickOnFemaleNode(ngsIdX, patientType);
@@ -703,7 +703,7 @@ public class PedigreePage {
             }
             if (!isPresent) {
                 Debugger.println("Expected " + buttonName + " not present in Pedigree Stage.\n" + driver.getCurrentUrl());
-                Actions.scrollToBottom(driver);
+                Action.scrollToBottom(driver);
                 return false;
             }
             return true;
@@ -722,17 +722,17 @@ public class PedigreePage {
                 Debugger.println("SaveAndContinueButton on Pedigree diagram not loaded after waiting a minute.");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            Action.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             Wait.seconds(3);//Observed some alert many times.
-            Actions.acceptAlert(driver);
+            Action.acceptAlert(driver);
             Wait.seconds(3);
             if (Wait.isElementDisplayed(driver, tryAgainButton, 5)) {
-                Actions.clickElement(driver, tryAgainButton);
+                Action.clickElement(driver, tryAgainButton);
             }
             return true;
 
         } catch (Exception exp) {
-            Actions.scrollToBottom(driver);
+            Action.scrollToBottom(driver);
             return false;
         }
     }
@@ -781,7 +781,7 @@ public class PedigreePage {
                 actualCiName = clinicalIndicationName.getText();
                 if (!expectedCiName.equalsIgnoreCase(actualCiName)) {
                     //Debugger.println("Clinical Indication Name mismatch in Pedigree Page.Expected:" + expectedCiName + ",Actual:" + actualCiName);
-                    Actions.scrollToBottom(driver);
+                    Action.scrollToBottom(driver);
                     return false;
                 }
             }
@@ -918,29 +918,29 @@ public class PedigreePage {
         try {
 
             if (buttonName.equalsIgnoreCase("Undo")) {
-                Actions.retryClickAndIgnoreElementInterception(driver, undoButton);
+                Action.retryClickAndIgnoreElementInterception(driver, undoButton);
                 Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Redo")) {
-                Actions.retryClickAndIgnoreElementInterception(driver, redoButton);
+                Action.retryClickAndIgnoreElementInterception(driver, redoButton);
                 Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Reset")) {
-                Actions.retryClickAndIgnoreElementInterception(driver, resetButton);
+                Action.retryClickAndIgnoreElementInterception(driver, resetButton);
                 //Popup will display for Reset button click
                 Wait.seconds(2);
                 SeleniumLib.scrollToElement(confirmationDialog);
                 Wait.seconds(2);
-                Actions.clickElement(driver, confirmationYes);
+                Action.clickElement(driver, confirmationYes);
                 Wait.seconds(2);
-                Actions.scrollToTop(driver);
+                Action.scrollToTop(driver);
                 Wait.seconds(2);
                 waitForThePedigreeDiagramToBeLoaded();
                 Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Save")) {
-                Actions.scrollToTop(driver);
-                Actions.retryClickAndIgnoreElementInterception(driver, saveAndExitButton);
+                Action.scrollToTop(driver);
+                Action.retryClickAndIgnoreElementInterception(driver, saveAndExitButton);
                 Wait.seconds(3);//Wait to save the diagram
             } else if (buttonName.equalsIgnoreCase("Export")) {
-                Actions.retryClickAndIgnoreElementInterception(driver, exportButton);
+                Action.retryClickAndIgnoreElementInterception(driver, exportButton);
                 Wait.seconds(2);
             }
             return true;
@@ -969,7 +969,7 @@ public class PedigreePage {
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                    Actions.clickElement(driver, zoomOutButton);
+                    Action.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
                     addParentNodeToProband(patient);
                 } else {
@@ -1232,7 +1232,7 @@ public class PedigreePage {
                     isPresent = true;
                 }
             }
-            Actions.clickElement(driver, confirmationYes);
+            Action.clickElement(driver, confirmationYes);
             Wait.seconds(2);
             return isPresent;
 
@@ -1370,7 +1370,7 @@ public class PedigreePage {
                 Debugger.println("Document Evalution Option not present.");
                 return false;
             }
-            Actions.clickElement(driver, clinicalTab__documentEvaluation);
+            Action.clickElement(driver, clinicalTab__documentEvaluation);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selectDocumentEvaluationOption " + exp);
@@ -1403,7 +1403,7 @@ public class PedigreePage {
                 if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 100)) {
                     if (!zoomOutFlag) {
                         Wait.forElementToBeDisplayed(driver, zoomOutButton, 100);
-                        Actions.clickElement(driver, zoomOutButton);
+                        Action.clickElement(driver, zoomOutButton);
                         zoomOutFlag = true;
                         clickProbandNodeOnPedigree(patientType, gender, ngisId);
                     } else {
@@ -1456,7 +1456,7 @@ public class PedigreePage {
                 if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 100)) {
                     if (!zoomOutFlag) {
                         Wait.forElementToBeDisplayed(driver, zoomOutButton, 100);
-                        Actions.clickElement(driver, zoomOutButton);
+                        Action.clickElement(driver, zoomOutButton);
                         zoomOutFlag = true;
                         clickFamilyMemberNodeOnPedigreeDiagram(patientType, gender, id[1].trim());
                     } else {
@@ -1545,7 +1545,7 @@ public class PedigreePage {
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                    Actions.clickElement(driver, zoomOutButton);
+                    Action.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
                     addParentNodeToProband(patient);
                 } else {
@@ -1578,7 +1578,7 @@ public class PedigreePage {
                     diagramClicked = true;
                 } catch (MoveTargetOutOfBoundsException exp) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                    Actions.clickElement(driver, zoomOutButton);
+                    Action.clickElement(driver, zoomOutButton);
                     if (!zoomOutFlag) {
                         zoomOutFlag = true;
                     }
@@ -1680,7 +1680,7 @@ public class PedigreePage {
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
-                    Actions.clickElement(driver, zoomOutButton);
+                    Action.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
                     clickOnNonNGISParentNode(patient, patientType);
                 } else {

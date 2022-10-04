@@ -1,26 +1,18 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
-import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
+
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class NotesPage {
 
@@ -49,7 +41,7 @@ public class NotesPage {
 
     public String getText(WebElement element) {
         Wait.forElementToBeDisplayed(driver, element);
-        return Actions.getText(element);
+        return Action.getText(element);
     }
 
     public void fillInValue(WebElement element, String value) {

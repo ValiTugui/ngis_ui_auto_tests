@@ -4,6 +4,7 @@ import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.interactions.Actions;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +12,7 @@ import java.text.DateFormatSymbols;
 import java.util.List;
 import java.util.*;
 
-public class Actions {
+public class Action {
 
     static Random random = new Random();
 
@@ -64,7 +65,7 @@ public class Actions {
         try {
             ArrayList<String> values = new ArrayList<String>();
             for (WebElement element : dropdownValues) {
-                values.add(Actions.getText(element));
+                values.add(Action.getText(element));
             }
             if (!values.isEmpty()) {
                 return values;
@@ -111,7 +112,7 @@ public class Actions {
 
 
     public static void fillInValue(WebElement element, String value) {
-        Actions.clearInputField(element);
+        Action.clearInputField(element);
         element.sendKeys(value);
     }
 
@@ -127,7 +128,7 @@ public class Actions {
         // so the approach is to pass partial values into the web element and wait for the auto-suggest dropdown to appear, and choose the specific/random values from the auto suggest dropdown list
         List<String> charList = Arrays.asList(strValue.split(""));
         for (String character : charList) {
-            Actions.fillInValue(element, character);
+            Action.fillInValue(element, character);
             Wait.seconds(1);
         }
     }
@@ -323,7 +324,7 @@ public class Actions {
     public static void reClickDropDownFieldIfLabelErrorIsShown(WebDriver driver, List<WebElement> fieldErrors, WebElement element, WebElement elementLabel, int counter) {
         for (int i = 1; i <= counter; i++) {
             if (fieldErrors.size() > 0) {
-                Actions.clickElement(driver, element);
+                Action.clickElement(driver, element);
                 Debugger.println("Error message triggered on clicking the element " + getText(elementLabel) + ":" + i);
                 break;
             }

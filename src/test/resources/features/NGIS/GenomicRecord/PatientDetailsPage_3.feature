@@ -22,12 +22,14 @@ Feature: GenomicRecord: Patient details page 3
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    And the clinical indication ID missing banner is displayed
-    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
-    And the Start New Referral button is disabled
-    When the user clicks the "Test Directory" link on the notification banner
-    Then the Test Directory homepage is displayed
+#    And the clinical indication ID missing banner is displayed
+#    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
+#    And the Start New Referral button is disabled
+#    When the user clicks the "Test Directory" link on the notification banner
+#    Then the Test Directory homepage is displayed
 #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
+    And the Start New Referral button is enabled
+    And the user clicks the Start Referral button
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
@@ -167,8 +169,8 @@ Feature: GenomicRecord: Patient details page 3
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    And the clinical indication ID missing banner is displayed
-    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
+#    And the clinical indication ID missing banner is displayed
+#    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
     And the Start New Referral button is disabled
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed

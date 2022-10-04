@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
@@ -11,12 +11,8 @@ import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -110,7 +106,7 @@ public class HomePageSteps extends Pages {
 
     @And("the user has scrolled down the page to the bottom \\(Footer)")
     public void theUserHasScrolledDownThePageToTheBottomFooter() {
-        Actions.scrollToBottom(driver);
+        Action.scrollToBottom(driver);
         Wait.forElementToBeDisplayed(driver, globalBehaviourPage.footerText);
     }
 

@@ -10,32 +10,32 @@ Feature: UserJourney_RD_NGIS_AP_1 - UC14 - E2EUI-1193
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-07-2002:Gender=Male |
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-#    And the "<PatientDetails>" stage is marked as Completed
+    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-#    And the "<RequestingOrganisation>" stage is marked as Completed
+    And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - No of participants -1
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
-#    And the "<TestPackage>" stage is marked as Completed
+    And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
-#    And the "<ResponsibleClinician>" stage is marked as Completed
+    And the "<ResponsibleClinician>" stage is marked as Completed
     ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-#    Then the "<ClinicalQuestion>" stage is marked as Completed
+    Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
     Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
-#    Then the "<Notes>" stage is marked as Completed
+    Then the "<Notes>" stage is marked as Completed
     ##Family Members - for Additional Participants, need to deselect the test
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -51,7 +51,7 @@ Feature: UserJourney_RD_NGIS_AP_1 - UC14 - E2EUI-1193
     Then the user is navigated to a page with title Add a family member to this referral
     And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
     And the user clicks the Save and Continue button
-#    Then the "<FamilyMemberStage>" stage is marked as Completed
+    Then the "<FamilyMemberStage>" stage is marked as Completed
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -72,15 +72,15 @@ Feature: UserJourney_RD_NGIS_AP_1 - UC14 - E2EUI-1193
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
-#    Then the "<PatientChoiceStage>" stage is marked as Completed
+    Then the "<PatientChoiceStage>" stage is marked as Completed
     ###Panels
     Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
-#    Then the "<Panels>" stage is marked as Completed
+    Then the "<Panels>" stage is marked as Completed
     ##Pedigree - Need to check if modify pedigree is required
     Then the user is navigated to a page with title Build a pedigree
     When the user clicks the Save and Continue button
-#    Then the "<Pedigree>" stage is marked as Completed
+    Then the "<Pedigree>" stage is marked as Completed
      ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the below stages marked as completed

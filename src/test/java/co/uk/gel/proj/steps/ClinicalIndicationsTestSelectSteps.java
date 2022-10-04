@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
@@ -117,7 +117,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user should be able to see all {string} tabs and are clickable")
     public void theUserShouldBeAbleToSeeAllTabsAndAreClickable(String tabCount, List<String> tabName) {
         Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tabName.get(0), tabName.get(1), tabName.get(2), tabName.get(3)));
-        Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount), clinicalIndicationsTestSelect.clinicalIndicationTabs));
+        Assert.assertTrue(Action.isTabClickable(driver, Integer.parseInt(tabCount), clinicalIndicationsTestSelect.clinicalIndicationTabs));
     }
 
     @Then("the user should be able to see a new modal window")
@@ -178,6 +178,11 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         clinicalIndicationsTestSelect.clickFirstResultInClinicalIndications();
     }
 
+    @And("the user clicks on first Clinical indications results displayed in Test Oder")
+    public void theUserClicksOnFirstClinicalIndicationsResultsDisplayedInTestOder() {
+        clinicalIndicationsTestSelect.clickFirstResultInTestOrderingClinicalIndications();
+    }
+
     @And("the user sees Clinical indications modal with two sections and {string} is present")
     public void theUserSeesClinicalIndicationsModalWithTwoSections(String buttonName, List<String> sectionName) {
         Assert.assertTrue(clinicalIndicationsTestSelect.clinicalIndicationsTabValidation(buttonName, sectionName.get(0), sectionName.get(1)));
@@ -229,4 +234,31 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
             Assert.fail("Could not click on Close icon of Clinical Indication Pop up");
         }
     }//end
+
+    @And("the user types in the {string} in the search field")
+    public void theUserTypesInTheInTheSearchField(String ciTerm) {
+        homePage.testOrderingCiSearchField(ciTerm);
+    }
+
+
+    @And("the user clicks on the about this test button")
+    public void theUserClicksOnTheAboutThisTestButton() {
+        Wait.forElementToBeClickable(driver, clinicalIndicationsTestSelect.aboutThisTestCiResultsPanels.get(0));
+        clinicalIndicationsTestSelect.aboutThisTestCiResultsPanels.get(0).click();
+    }
+
+    @Then("the user should be able to see details about this test in a new modal window")
+    public void theUserShouldBeAbleToSeeDetailsAboutThisTestInANewModalWindow(List<String> titles) {
+        for(int i = 0; i< titles.size();i++){
+            Wait.waitForVisibility(driver, clinicalIndicationsTestSelect.modalTabsTitle.get(i), 10);
+            Assert.assertEquals(titles.get(i), clinicalIndicationsTestSelect.modalTabsTitle.get(i).getText());
+        }
+
+    }
+
+    @And("the user click on Continue test ordering button")
+    public void theUserClickOnContinueTestOrderingButton() {
+        Wait.forElementToBeClickable(driver, clinicalIndicationsTestSelect.continueTestOrderingBtn);
+        clinicalIndicationsTestSelect.continueTestOrderingBtn.click();
+    }
 }

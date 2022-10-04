@@ -1,7 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -34,7 +34,7 @@ public class RequestingOrganisationSteps extends Pages {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrderingEntity");
             }
             // to store Ordering entity name and address
-            PatientDetailsPage.newPatient.setOrderingEntity(Actions.getText(requestingOrganisationPage.organisationDetailText.get(1)));
+            PatientDetailsPage.newPatient.setOrderingEntity(Action.getText(requestingOrganisationPage.organisationDetailText.get(1)));
 
         }catch(Exception exp){
             Debugger.println("Exception from verifying details of Selected Organization Details: "+exp);

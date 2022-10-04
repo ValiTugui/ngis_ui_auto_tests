@@ -1,14 +1,8 @@
 package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.ExcelDataRead;
-import co.uk.gel.proj.util.MIPortalTestData;
-import co.uk.gel.proj.util.TestUtils;
-import org.apache.tools.ant.taskdefs.Echo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
