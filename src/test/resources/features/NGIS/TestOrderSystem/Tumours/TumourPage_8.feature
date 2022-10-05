@@ -95,7 +95,7 @@ Feature: TestOrder - Tumours Page - 8
       | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         | Clinical Indication | M89    |
 
 
-  #@NTS-6026  @Z-LOGOUT
+  @NTS-6026  @Z-LOGOUT
   Scenario Outline:NTS-6026_Scenario2: As a user, I should see the tumour details which I created earlier for a referral for a spine patient in another referral for the same patient (populated)
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
