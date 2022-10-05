@@ -2,7 +2,7 @@
 @Tumours
 @SYSTEM_TEST
 @SYSTEM_TEST_3
-Feature: TestOrder - Tumours Page - 9
+Feature: TestOrder - Tumours Page - 8
 
 
   @NTS-6026  @Z-LOGOUT
@@ -62,12 +62,12 @@ Feature: TestOrder - Tumours Page - 9
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Then the user clicks on start a new referral button
-    When the user types in the CI term  in the search field and selects the first result from the results list
-      | M89 |
-    And the user sees the button "Yes, start Referral" on Bottom right
-    Then the user clicks the Start Test Order Referral button
-    And the user clicks the Sign in hyperlink
-      | Sign in to the online service |
+#    When the user types in the CI term  in the search field and selects the first result from the results list
+#      | M89 |
+#    And the user sees the button "Yes, start Referral" on Bottom right
+#    Then the user clicks the Start Test Order Referral button
+#    And the user clicks the Sign in hyperlink
+#      | Sign in to the online service |
     And the user logs in to the Test Order system successfully
       | Find your patient |
     And the user clicks the NO button
@@ -75,7 +75,15 @@ Feature: TestOrder - Tumours Page - 9
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned
     And the user clicks the patient result card
-    And the user clicks the Start Referral button to display the referral page
+#    And the user clicks the Start Referral button to display the referral page
+    ##added according to the new flow HTO-483
+    When the Start New Referral button is enabled
+    And the user clicks the Start a new Referral button
+    Then the "<newpageTitle>" page is displayed
+    And the user types in the "<ciTerm>" in the search field
+    And the user clicks on first Clinical indications results displayed in Test Oder
+    Then the user is navigated to a page with title Add a requesting organisation
+    ##end of HTO-483
     And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
     Then the user is navigated to a page with title Select or edit a tumour
@@ -83,11 +91,11 @@ Feature: TestOrder - Tumours Page - 9
     Then on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | tumour_type              | presentationType | RecordedBy                            | PatientDetails  | Tumours | patient-type |
-      | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         |
+      | tumour_type              | presentationType | RecordedBy                            | PatientDetails  | Tumours | patient-type | newpageTitle        | ciTerm |
+      | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         | Clinical Indication | M89    |
 
 
-  @NTS-6026  @Z-LOGOUT
+  #@NTS-6026  @Z-LOGOUT
   Scenario Outline:NTS-6026_Scenario2: As a user, I should see the tumour details which I created earlier for a referral for a spine patient in another referral for the same patient (populated)
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -152,19 +160,26 @@ Feature: TestOrder - Tumours Page - 9
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Then the user clicks on start a new referral button
-    When the user types in the CI term  in the search field and selects the first result from the results list
-      | M89 |
-    And the user sees the button "Yes, start Referral" on Bottom right
-    Then the user clicks the Start Test Order Referral button
-    And the user clicks the Sign in hyperlink
-      | Sign in to the online service |
+#    When the user types in the CI term  in the search field and selects the first result from the results list
+#      | M89 |
+#    And the user sees the button "Yes, start Referral" on Bottom right
+#    Then the user clicks the Start Test Order Referral button
+#    And the user clicks the Sign in hyperlink
+#      | Sign in to the online service |
     And the user logs in to the Test Order system successfully
       | Find your patient |
     When the user types in valid details of a "<patient-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned
     And the user clicks the patient result card
-    And the user clicks the Start Referral button to display the referral page
+    ##added according to the new flow HTO-483
+    When the Start New Referral button is enabled
+    And the user clicks the Start a new Referral button
+    Then the "<newpageTitle>" page is displayed
+    And the user types in the "<ciTerm>" in the search field
+    And the user clicks on first Clinical indications results displayed in Test Oder
+    Then the user is navigated to a page with title Add a requesting organisation
+    ##end of HTO-483
     And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
     Then the user is navigated to a page with title Select or edit a tumour
@@ -172,5 +187,5 @@ Feature: TestOrder - Tumours Page - 9
     Then on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | NhsNumber  | DOB        | tumour_type              | presentationType | RecordedBy                            | PatientDetails  | Tumours | patient-type |
-      | 9449306052 | 28-04-2007 | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         |
+      | NhsNumber  | DOB        | tumour_type              | presentationType | RecordedBy                            | PatientDetails  | Tumours | patient-type | newpageTitle        | ciTerm |
+      | 9449306052 | 28-04-2007 | Solid tumour: metastatic | Recurrence       | ClinicianName=John:HospitalNumber=123 | Patient details | Tumours | NGIS         | Clinical Indication | M89    |
