@@ -90,6 +90,10 @@ public class NeatToolSteps extends Pages {
         boolean testResult = false;
         testResult = neatPatientRecordPage.clickOnButton(buttonText);
         Assert.assertTrue(testResult);
+        if(neatPatientRecordPage.verifyDialogBox("Are you sure?")){
+            testResult = neatPatientRecordPage.clickOnButton("Continue");
+            Assert.assertTrue(testResult);
+        }
     }
 
     @And("the confirmation dialog box appears with the heading {string}")

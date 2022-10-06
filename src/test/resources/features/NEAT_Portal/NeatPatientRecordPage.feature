@@ -18,8 +18,8 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the Patient record status as "Active"
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+ #   And the confirmation dialog box appears with the heading "Are you sure?"
+ #   And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     Then the user verifies the patient record history
     And the user sees the "<Current status>" and "<Updated status>"
@@ -55,8 +55,8 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the Patient record status as "Active"
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#    And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Created in error"
     And the user enters the justification reason in the text box as "from automation script"
@@ -76,7 +76,7 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     And the user fills in the Ethnicity field "A - White - British"
     And the user clicks the Save and Continue button on Patient details page
     Then the user accept the alert with message "OK"
-    Then the user clicks the Start Referral button
+    Then the user clicks the Start a new Referral button
     And the user stores the generated Patient NGIS-ID
     Then the user is navigated to a page with title Add a requesting organisation
 
@@ -88,8 +88,8 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the Patient record status as "Active"
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#   And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Created in error"
     And the user enters the justification reason in the text box as "from automation script"
@@ -121,5 +121,5 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then User should be able to see the same patient details with old NGIS id
     Examples:
       | patient-search-type1 | NhsNumber  | DOB        | patient-search-type2 | NGIS-ID      |
-      | NGIS                 | 9449303223 | 26-01-2010 | NHS Spine            | p73168204461 |
+      | NGIS                 | 9449305552 | 20-09-2008 | NHS Spine            | p17223611227 |
 

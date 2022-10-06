@@ -54,8 +54,8 @@ Feature: Patient merge status
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the Patient record status as "Active"
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#    And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Created in error"
     And the user enters the justification reason in the text box as "from automation script"
