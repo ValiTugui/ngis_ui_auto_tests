@@ -16,8 +16,8 @@ Feature: NEAT application login and Patient search
     And the user searches the NGIS-ID in the search box
     Then the user is navigated to a page with title Edit this patient record
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+ #   And the confirmation dialog box appears with the heading "Are you sure?"
+ #   And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Created in error"
     And the user enters the justification reason in the text box as "from automation script"
@@ -42,8 +42,8 @@ Feature: NEAT application login and Patient search
     Then the user is navigated to a page with title Edit this patient record
     ### Make it inactive first
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+  #  And the confirmation dialog box appears with the heading "Are you sure?"
+  #  And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Created in error"
     And the user enters the justification reason in the text box as "from automation script"
@@ -74,8 +74,8 @@ Feature: NEAT application login and Patient search
     And the user searches the NGIS-ID in the search box
     Then the user is navigated to a page with title Edit this patient record
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#    And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Duplicate"
     And the user enters the justification reason in the text box as "from automation script"
@@ -90,8 +90,8 @@ Feature: NEAT application login and Patient search
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the notification "This record is now active"
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#    And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user clicks on the reason button "Created in error"
     And the user enters the justification reason in the text box as "from automation script"
@@ -118,8 +118,8 @@ Feature: NEAT application login and Patient search
     And the user searches the NGIS-ID in the search box
     Then the user is navigated to a page with title Edit this patient record
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#    And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     Then the user sees the notification "There are active referrals linked to this patient record"
     And the user clicks on the link "Back to patient record"
@@ -173,8 +173,8 @@ Feature: NEAT application login and Patient search
     And the user clicks on the link "Back to patient record"
     Then the user is navigated to a page with title Edit this patient record
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+#    And the confirmation dialog box appears with the heading "Are you sure?"
+#    And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     And the user sees the "<Current status>" and "<Updated status>"
     And the user clicks on the reason button "Created in error"

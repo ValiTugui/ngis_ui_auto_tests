@@ -18,8 +18,8 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user is navigated to a page with title Edit this patient record
     Then the user sees the Patient record status as "Active"
     And the user clicks on the status button "Change status to inactive"
-    And the confirmation dialog box appears with the heading "Are you sure?"
-    And the user clicks on the status button "Continue"
+ #   And the confirmation dialog box appears with the heading "Are you sure?"
+ #   And the user clicks on the status button "Continue"
     Then the user is navigated to a page with title Make this patient record inactive
     Then the user verifies the patient record history
     And the user sees the "<Current status>" and "<Updated status>"
