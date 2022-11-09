@@ -217,8 +217,10 @@ public class PanelsSteps extends Pages {
     }
 
     @And("the default panel name is {string}")
-    public void theDefaultPanelIs(String CIName) {
-        Wait.waitForVisibility(driver, panelsPage.defaultPanelName, 15);
-        Assert.assertEquals(CIName, panelsPage.defaultPanelName.getText());
+    public void theDefaultPanelIs(String panelName) {
+        if(!panelName.trim().isEmpty() || panelName.trim().length()!=0){
+            Wait.waitForVisibility(driver, panelsPage.defaultPanelName, 15);
+            Assert.assertEquals(panelName, panelsPage.defaultPanelName.getText());
+        }
     }
 }//end

@@ -89,7 +89,7 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
 
 
   @HTO-420
-  Scenario Outline: Validating the expected CI name of the first result from the results list is <CIName>
+  Scenario Outline: HTO-420 Validating the expected CI name of the first result from the results list is <CIName>
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     #Test-Selection

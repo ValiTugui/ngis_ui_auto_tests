@@ -72,22 +72,43 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
 
   @HTO-420
-  Scenario Outline: Verifies the default panel name is <CIName>
+  Scenario Outline: HTO-420 Verifies the default panel name is <panelName>
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     ##Panels Page
     When the user navigates to the "<Panels>" stage
     And the user is navigated to a page with title Manage panels
     And Penetrance section with options Complete and Incomplete
-    And the user clicks on Incomplete button and button will show tick marked
-    And the user should see the section with title Default Panel based on the clinical information
-    And the default panel name is "<CIName>"
+#    And the user clicks on Incomplete button and button will show tick marked
+#    And the user should see the section with title Default Panel based on the clinical information
+    And the user should see the default status of penetrance button as "Incomplete"
+    And the default panel name is "<panelName>"
     Examples:
-      | Panels | CIId | CIName                                                           |
+      | Panels | CIId | panelName                                                        |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
+      | Panels | R27  | Paediatric disorders                                             |
+      | Panels | R29  | Intellectual disability                                          |
+      | Panels | R143 | Diabetes - neonatal onset                                        |
+      | Panels | R98  | Inborn errors of metabolism                                      |
+      | Panels | R104 | Skeletal dysplasia                                               |
+      | Panels | R100 | Craniosynostosis                                                 |
+      | Panels | R54  | Hereditary ataxia - adult onset                                  |
+      | Panels | R55  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
+      | Panels | R59  | Genetic epilepsy syndromes                                       |
+      | Panels | R61  | Hereditary spastic paraplegia - childhood onset                  |
+      | Panels | R83  | Arthrogryposis                                                   |
+      | Panels | R381 | Neuromuscular disorders                                          |
+      | Panels | R84  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
+      | Panels | R85  | Holoprosencephaly                                                |
+      | Panels | R86  | Hydrocephalus                                                    |
+      | Panels | R87  | Cerebral malformations                                           |
+      | Panels | R88  | Severe microcephaly                                              |
+      | Panels | R109 | White matter disorders - childhood onset                         |
+      | Panels | R193 | Cystic renal disease                                             |
+      | Panels | R89  |                                                                  |
 
   @HTO-420
-  Scenario Outline: Verifies that <searchPanels> is added under added panels
+  Scenario Outline: HTO-420 Verifies that <searchPanels> is added under added panels
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     ##Panels Page
@@ -96,7 +117,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
     And the user should see the section with title Default Panel based on the clinical information
-    And the default panel name is "<CIName>"
+    And the default panel name is "<panelName>"
     When the user search and add the "<searchPanels>" panels
     Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
@@ -106,7 +127,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     Then the user is navigated to a page with title Manage panels
     And the user sees the selected "<searchPanels>" panels under added panels
     Examples:
-      | Panels | CIId | CIName           | searchPanels                                                     |
+      | Panels | CIId | panelName        | searchPanels                                                     |
       | Panels | R100 | Craniosynostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
 
 

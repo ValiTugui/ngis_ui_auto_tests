@@ -20,7 +20,7 @@ Feature: Test Directory: TestOrder
       | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
 
   @HTO-483
-  Scenario Outline:User searches for Clinical indication after the patient details are loaded
+  Scenario Outline:HTO-483 User searches for Clinical indication after the patient details are loaded
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -40,7 +40,7 @@ Feature: Test Directory: TestOrder
 
 
   @HTO-483
-  Scenario Outline:  User can view the test details from the CI search page
+  Scenario Outline:HTO-483 User can view the test details from the CI search page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -68,7 +68,7 @@ Feature: Test Directory: TestOrder
       | create a new patient record | Angiomatoid Fibrous Histiocytoma | Other (please provide reason) | Clinical Indication |
 
   @HTO-494
-  Scenario Outline: User sees <auditMessage> when starting a new referral for an existing patient
+  Scenario Outline:HTO-494 User sees <auditMessage> when starting a new referral for an existing patient
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
