@@ -86,8 +86,8 @@ Feature: PanelAssigner: Panels Page Landing Page
     Examples:
       | Panels | CIId | panelName                                                        |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
-      | Panels | R27  | Paediatric disorders                                             |
-      | Panels | R29  | Intellectual disability                                          |
+#      | Panels | R27  | Paediatric disorders                                             |
+#      | Panels | R29  | Intellectual disability                                          |
       | Panels | R143 | Diabetes - neonatal onset                                        |
       | Panels | R98  | Inborn errors of metabolism                                      |
       | Panels | R104 | Skeletal dysplasia                                               |
