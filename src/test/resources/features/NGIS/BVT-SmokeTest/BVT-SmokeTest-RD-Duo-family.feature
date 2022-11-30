@@ -9,7 +9,7 @@ Feature: NTS-3407: Create RD Duo Family by completing - Patient Details - Reques
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55| GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -94,4 +94,4 @@ Feature: NTS-3407: Create RD Duo Family by completing - Patient Details - Reques
     And the referral status is set to "Submitted"
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name                   | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
-      | Patient details | Requesting organisation | Sussex Community NHS Trust | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
+      | Patient details | Requesting organisation | Kingston Hospital NHS Foundation Trust | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
