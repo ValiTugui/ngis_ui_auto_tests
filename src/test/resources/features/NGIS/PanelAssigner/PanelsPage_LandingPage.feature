@@ -71,7 +71,7 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | ClinicalQuestion   | ClinicalQuestionDetails                                         | searchPanels                                  | textLine                                                                                                                                                                   |
       | Panels | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
 
-  @HTO-420 @inprogress
+  @HTO-420 @inprogress @herc
   Scenario Outline: HTO-420 Verifies the default panel name is <panelName>
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
@@ -85,7 +85,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the default panel name is "<panelName>"
     Examples:
       | Panels | CIId | panelName                                                        |
-      | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
+     # | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
 #      | Panels | R27  | Paediatric disorders                                             |
 #      | Panels | R29  | Intellectual disability                                          |
       | Panels | R143 | Diabetes - neonatal onset                                        |
@@ -105,7 +105,9 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | R88  | Severe microcephaly                                              |
       | Panels | R109 | White matter disorders - childhood onset                         |
       | Panels | R193 | Cystic renal disease                                             |
+      | Panels | R69  | Hypotonic infant                                                |
       | Panels | R89  |                                                                  |
+
 
   @HTO-420
   Scenario Outline: HTO-420 Verifies that <searchPanels> is added under added panels
