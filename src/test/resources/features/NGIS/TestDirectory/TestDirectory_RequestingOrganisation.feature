@@ -47,4 +47,21 @@ Feature: TestDirectory: Requesting Organisation page
     When the user clicks the link Cancel Order
     Then the browser navigates to the previously selected Clinical Indication Details page while still saving the user's most recent search for further page navigation
 
+  @HTO-782
+  Scenario Outline: HTO-782 TD - Find/Select Ordering Entity - With Valid Search Term - <ordering_entity_name>
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user types in the "<ci_term>"  in the search field and selects the first result from the results list
+    When the user clicks the Start Test Order Referral button
+    And the user clicks the PDF order form button
+    Then the requesting organisation page in Test Directory is displayed with Title, title copy text, search icon and search placeholder text
+      | Add a requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the search results are displayed
+    And  the Continue button should be clickable
+    Examples:
+      | ci_term                    | ordering_entity_name         |
+      | Cancer of Unknown Primary  | BANBURY CROSS HEALTH CENTRE  |
+      | Sudden cardiac death PILOT | MIDLANDS MEDICAL PARTNERSHIP |
 
