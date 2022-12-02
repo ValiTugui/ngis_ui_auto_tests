@@ -51,6 +51,24 @@ public class HomePageSteps extends Pages {
         Wait.seconds(3);
     }
 
+    @And("the user types in the {string}  in the search field and selects the first result from the results list")
+    public void theUserTypesInTheInTheSearchFieldAndSelectsTheFirstResultFromTheResultsList(String ciTerm) {
+        boolean testResult = false;
+        testResult = homePage.typeInSearchField(ciTerm);
+        Assert.assertTrue(testResult);
+        AppConfig.properties.setProperty("Search_Term", ciTerm);
+        testResult = homePage.clickSearchIconFromSearchField();
+        Assert.assertTrue(testResult);
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Assert.assertTrue(testResult);
+        homePage.closeCookiesBannerFromFooter();
+        testResult = homePage.selectFirstEntityFromResultList();
+        Assert.assertTrue(testResult);
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_CISearch.jpg");
+        }
+        Wait.seconds(3);
+    }
     @And("the user types in the CI term  in the search field")
     public void theUserTypesInTheCITermInTheSearchField(List<String> searchTerms) {
         homePage.typeInSearchField(searchTerms.get(0));

@@ -54,3 +54,24 @@ Feature: TestOrder - Requesting Organisation page 1
       | stage                   | introMessage                                                   | placeholderText                                                                         | ordering_entity_name |
       | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | Bedford              |
 
+  @HTO-782
+  Scenario Outline: HTO-782 TO - Find/Select Ordering Entity - With Valid Search Term - <ordering_entity_name>
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <ci_term> | <ci_type> | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
+    And the user sees the search label with "<introMessage>"
+    Then the user should be able to see hint text in search box on requesting organisation page
+    And the user sees the search field with search icon
+    And the user see the search field has placeholder text as "<placeholderText>"
+    And the Save and Continue button should be disabled
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    And the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    Then the "<stage>" stage is marked as Completed
+
+    Examples:
+      | ci_term                    | ci_type | stage                   | introMessage                                                   | placeholderText                                                                         | ordering_entity_name         |
+      | Cancer of Unknown Primary  | cancer  | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | BANBURY CROSS HEALTH CENTRE  |
+      | Sudden cardiac death PILOT | RD      | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | MIDLANDS MEDICAL PARTNERSHIP |
