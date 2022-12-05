@@ -59,9 +59,18 @@ Feature: TestDirectory: Requesting Organisation page
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the search results are displayed
+    And Requesting Organisation ID "<ordering_entity_id>" and Managing Entity "<managing_entity_name>" are correct for "<ordering_entity_name>"
     And  the Continue button should be clickable
     Examples:
-      | ci_term                    | ordering_entity_name         |
-      | Cancer of Unknown Primary  | BANBURY CROSS HEALTH CENTRE  |
-      | Sudden cardiac death PILOT | MIDLANDS MEDICAL PARTNERSHIP |
+      | ci_term                                   | ordering_entity_name         | ordering_entity_id | managing_entity_name                     |
+      | Cancer of Unknown Primary                 | BANBURY CROSS HEALTH CENTRE  | K84028             | Central and South Genomic Laboratory Hub |
+      | Paediatric Tumours                        | BANBURY CROSS HEALTH CENTRE  | K84028             | Central and South Genomic Laboratory Hub |
+      | Ewing Sarcoma of Bone                     | BANBURY CROSS HEALTH CENTRE  | K84028             | Central and South Genomic Laboratory Hub |
+      | Skeletal dysplasia                        | BANBURY CROSS HEALTH CENTRE  | K84028             | Central and South Genomic Laboratory Hub |
+      | Cystic renal disease                      | BANBURY CROSS HEALTH CENTRE  | K84028             | Central and South Genomic Laboratory Hub |
+      | Skeletal dysplasia                        | MIDLANDS MEDICAL PARTNERSHIP | M85063             | Central and South Genomic Laboratory Hub |
+      | Hereditary ataxia with onset in adulthood | MIDLANDS MEDICAL PARTNERSHIP | M85063             | Central and South Genomic Laboratory Hub |
+      | Endometrial Stromal Sarcoma               | MIDLANDS MEDICAL PARTNERSHIP | M85063             | Central and South Genomic Laboratory Hub |
+      | Ewing Sarcoma of Bone                     | MIDLANDS MEDICAL PARTNERSHIP | M85063             | Central and South Genomic Laboratory Hub |
+      | Retinal disorders                         | MIDLANDS MEDICAL PARTNERSHIP | M85063             | Central and South Genomic Laboratory Hub |
 

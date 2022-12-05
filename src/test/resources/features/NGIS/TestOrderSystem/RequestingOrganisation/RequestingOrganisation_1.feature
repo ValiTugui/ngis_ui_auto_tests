@@ -74,4 +74,6 @@ Feature: TestOrder - Requesting Organisation page 1
     Examples:
       | ci_term                    | ci_type | stage                   | introMessage                                                   | placeholderText                                                                         | ordering_entity_name         |
       | Cancer of Unknown Primary  | cancer  | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | BANBURY CROSS HEALTH CENTRE  |
+      | Skeletal dysplasia         | RD      | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | BANBURY CROSS HEALTH CENTRE  |
+      | Paediatric Tumours         | cancer  | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | MIDLANDS MEDICAL PARTNERSHIP |
       | Sudden cardiac death PILOT | RD      | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust | MIDLANDS MEDICAL PARTNERSHIP |

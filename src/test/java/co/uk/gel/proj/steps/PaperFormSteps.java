@@ -209,4 +209,10 @@ public class PaperFormSteps extends Pages {
         paperFormPage.clickCancelOrderLink();
         Action.acceptAlert(driver);
     }
- }
+
+    @And("Requesting Organisation ID {string} and Managing Entity {string} are correct for {string}")
+    public void requestingOrganisationIDAndManagingEntityNameAreCorrect(String orderingEntityId, String managingEntity, String OE) {
+        Wait.waitForVisibility(driver,paperFormPage.selectedOrderEntityName, 15);
+        paperFormPage.checkOrganizationNameIdAndManagingEntity(orderingEntityId, managingEntity, OE);
+    }
+}

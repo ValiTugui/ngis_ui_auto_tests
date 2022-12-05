@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,8 +48,11 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='selected']")
     public WebElement selectedOrderEntityInformationBox;
 
-    @FindBy(css = "h4[class*='selectedHeader']")
+    @FindBy(css = "div[class*='selected']")
     public WebElement selectedOrderEntityName;
+
+    @FindBy(xpath = "//h4[@class='styles_selectedHeader__2sJ1h']")
+    public WebElement orderEntityConfirmationName;
 
     @FindBy(css = "p[class*='styles_headerText']")
     public WebElement confirmTestsSubHeader;
@@ -332,7 +336,7 @@ public class PaperFormPage {
     public boolean checkThatSelectedEntityNameIsTheSameAsTheSearchValue() {
         Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
         String entitySearchValue = orderEntitySearchField.getAttribute("value");
-        String selectedEntityName = selectedOrderEntityName.getText();
+        String selectedEntityName = orderEntityConfirmationName.getText().trim();
         return entitySearchValue.matches(selectedEntityName);
     }
 
@@ -342,6 +346,21 @@ public class PaperFormPage {
 
     public void clickOnUsePDFOrderFormButton() {
         Action.clickElement(driver, usePDFOrderFormButton);
+    }
+
+    public String getOrderingEntityDetails(int categoryName){
+        WebElement elementxpath = driver.findElement(By.xpath("(//li[@class='styles_detail__2AHFT'])["+categoryName+"]/p[2]"));
+        String detailValue = elementxpath.getAttribute("textContent");
+        return detailValue;
+    }
+
+    public void checkOrganizationNameIdAndManagingEntity(String organisationId, String managingEntity, String OEName){
+        if(OEName.equalsIgnoreCase(orderEntityConfirmationName.getText().trim())){
+            Assert.assertEquals(organisationId, getOrderingEntityDetails(3));
+            Assert.assertEquals(managingEntity, getOrderingEntityDetails(4));
+        }else{
+            Debugger.println("Expected OE name "+OEName+" is different than the actual OE: " + orderEntityConfirmationName.getText());
+        }
     }
 
 }
