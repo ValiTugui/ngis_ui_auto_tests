@@ -247,6 +247,7 @@ public class DashBoardPage {
 
     public void navigateToDashboardPageWithSuperUser() {
         driver.get(AppConfig.getTo_dashboard_url());
+        new WebDriverWait(driver,10).until(ExpectedConditions.urlContains("login.microsoft"));
         if ((driver.getCurrentUrl().contains("login.microsoft"))) {
             Wait.forElementToBeClickable(driver, emailAddressField);
 //            emailAddressField.sendKeys(AppConfig.getApp_username());
