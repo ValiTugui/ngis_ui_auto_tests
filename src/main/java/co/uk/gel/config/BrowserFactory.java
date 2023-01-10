@@ -68,6 +68,7 @@ public class BrowserFactory {
         Map<String,String> browserStackOptions = new HashMap<>();
         browserStackOptions.put("key",AUTOMATE_KEY);
         browserStackOptions.put("forcelocal", "true");
+        browserStackOptions.put("acceptInsecureCerts", "true");
         return browserStackOptions;
     }
     public WebDriver getDriver(String serverType, String browser,
