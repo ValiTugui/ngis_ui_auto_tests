@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -63,6 +64,12 @@ public class BrowserFactory {
         return getDriver(BrowserConfig.getServerType(), BrowserConfig.getBrowser(), true);
     }
 
+    public Map<String,String> getBrowserStackLocalConnection() throws Exception {
+        Map<String,String> browserStackOptions = new HashMap<>();
+        browserStackOptions.put("key",AUTOMATE_KEY);
+        browserStackOptions.put("forcelocal", "true");
+        return browserStackOptions;
+    }
     public WebDriver getDriver(String serverType, String browser,
                                boolean javascriptEnabled) throws MalformedURLException {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
@@ -255,7 +262,7 @@ public class BrowserFactory {
         chromeOptions.addArguments("disable-gpu");
         chromeOptions.addArguments("disable-infobars");
         chromeOptions.addArguments("enable-automation");
-        chromeOptions.addArguments("headless");
+       // chromeOptions.addArguments("headless");
         chromeOptions.addArguments("ignore-ssl-errors");
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments ("no-sandbox");
@@ -293,6 +300,7 @@ public class BrowserFactory {
         chromeOptions.setCapability("os_version", getOsVersion());
         chromeOptions.setCapability("resolution", resolution);
         chromeOptions.setCapability("name", strDate);
+        chromeOptions.setCapability("browserstack.local", true);
         chromeOptions.addArguments("--disable-gpu");
         chromeOptions.addArguments("--no-sandbox");
         return chromeOptions;
