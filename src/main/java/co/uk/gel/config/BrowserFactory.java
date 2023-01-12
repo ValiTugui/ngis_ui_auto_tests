@@ -70,7 +70,7 @@ public class BrowserFactory {
 //        browserStackOptions.put("forcelocal", "true");
 //        browserStackOptions.put("acceptInsecureCerts", "true");
 //        return browserStackOptions;
-    }
+//    }
     public WebDriver getDriver(String serverType, String browser,
                                boolean javascriptEnabled) throws MalformedURLException {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
