@@ -4,7 +4,7 @@ package co.uk.gel.config;
 import co.uk.gel.lib.Action;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.Capabilities;
-import com.browserstack.local.Local;
+//import com.browserstack.local.Local;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
