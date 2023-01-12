@@ -15,14 +15,14 @@ import java.util.concurrent.TimeUnit;
 public class SeleniumDriver extends EventFiringWebDriver {
 
     private static  WebDriver DRIVER;
-    private static Local bsLocal;
+    //private static Local bsLocal;
 
     private static final Thread CLOSE_THREAD = new Thread() {
         @Override
         public void run() {
             try {
                 DRIVER.quit();
-                bsLocal.stop();
+             //  bsLocal.stop();
             } catch (Exception exp) {
                 Debugger.println("Exception from Quiting the Driver...." + exp.getLocalizedMessage());
             }
@@ -31,8 +31,8 @@ public class SeleniumDriver extends EventFiringWebDriver {
 
     static {
         try {
-            bsLocal = new Local();
-            bsLocal.start(new BrowserFactory().getBrowserStackLocalConnection());
+//            bsLocal = new Local();
+//            bsLocal.start(new BrowserFactory().getBrowserStackLocalConnection());
             DRIVER = new BrowserFactory().getDriver();
         } catch (Exception e) {
             e.printStackTrace();

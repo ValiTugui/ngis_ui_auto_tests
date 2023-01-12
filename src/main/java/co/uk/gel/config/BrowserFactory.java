@@ -64,12 +64,12 @@ public class BrowserFactory {
         return getDriver(BrowserConfig.getServerType(), BrowserConfig.getBrowser(), true);
     }
 
-    public Map<String,String> getBrowserStackLocalConnection() throws Exception {
-        Map<String,String> browserStackOptions = new HashMap<>();
-        browserStackOptions.put("key",AUTOMATE_KEY);
-        browserStackOptions.put("forcelocal", "true");
-        browserStackOptions.put("acceptInsecureCerts", "true");
-        return browserStackOptions;
+//    public Map<String,String> getBrowserStackLocalConnection() throws Exception {
+//        Map<String,String> browserStackOptions = new HashMap<>();
+//        browserStackOptions.put("key",AUTOMATE_KEY);
+//        browserStackOptions.put("forcelocal", "true");
+//        browserStackOptions.put("acceptInsecureCerts", "true");
+//        return browserStackOptions;
     }
     public WebDriver getDriver(String serverType, String browser,
                                boolean javascriptEnabled) throws MalformedURLException {
@@ -301,7 +301,7 @@ public class BrowserFactory {
         chromeOptions.setCapability("os_version", getOsVersion());
         chromeOptions.setCapability("resolution", resolution);
         chromeOptions.setCapability("name", strDate);
-        chromeOptions.setCapability("browserstack.local", true);
+        //chromeOptions.setCapability("browserstack.local", true);
         chromeOptions.addArguments("--disable-gpu");
         chromeOptions.addArguments("--no-sandbox");
         return chromeOptions;
