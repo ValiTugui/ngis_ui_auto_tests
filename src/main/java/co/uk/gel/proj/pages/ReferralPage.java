@@ -565,6 +565,17 @@ public class ReferralPage<check> {
             }
             //Debugger.println("Accepted the alert message :: " + actualAlertText);
             //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        } else if (acknowledgeMessage.equalsIgnoreCase("OK")) {
+            //Wait.forAlertToBePresent(driver);
+            Wait.seconds(3);
+            try {
+                actualAlertText = Action.getTextOfAlertMessage(driver);
+                Action.dismissAlert(driver);
+            } catch (NoAlertPresentException ex) {
+                Debugger.println("Expected alert message, but not present.");
+            }
+            //Debugger.println("Dismissed the alert message :: " + actualAlertText);
+            //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
             //Wait.forAlertToBePresent(driver);
             Wait.seconds(2);

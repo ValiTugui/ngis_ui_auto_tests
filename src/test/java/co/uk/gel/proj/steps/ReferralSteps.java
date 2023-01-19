@@ -369,7 +369,7 @@ public class ReferralSteps extends Pages {
     @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
     public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
         String actualAlertMessage;
-        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour"))))) {
+        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour") || (browserInteraction.equals("Clinical questions")))))) {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
             if (!actualAlertMessage.contains(partOfMessage)) {
                 SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "PCNotCreated.jpg");
