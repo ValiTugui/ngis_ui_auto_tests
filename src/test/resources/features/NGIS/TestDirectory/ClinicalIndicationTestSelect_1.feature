@@ -88,8 +88,8 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | M89        | Test Package         | Test Package | Clinical Indications | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing | Who to test  | Test package includes... |
 
 
-  @HTO-420
-  Scenario Outline: HTO-420 Validating the expected CI name of the first result from the results list is <CIName>
+  @HTO-420 @HTO-420-3
+  Scenario Outline: HTO-420-3 Validating the expected CI name of the first result from the results list is <CIName>
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     #Test-Selection

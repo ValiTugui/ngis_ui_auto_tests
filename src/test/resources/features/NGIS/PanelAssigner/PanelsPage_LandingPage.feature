@@ -71,8 +71,8 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | ClinicalQuestion   | ClinicalQuestionDetails                                         | searchPanels                                  | textLine                                                                                                                                                                   |
       | Panels | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Cardiac arrhythmias,Pigmentary skin disorders | Change suggested penetrance if: there is a referral form that confirms a different penetrance local decision-making processes indicate a different penetrance is preferred |
 
-  @HTO-420 @HTO-699
-  Scenario Outline: HTO-420 Verifies the default panel name is <panelName>
+  @HTO-420 @HTO-699 @HTO-420-1
+  Scenario Outline: HTO-420-1 Verifies the default panel name is <panelName>
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     ##Panels Page
@@ -109,8 +109,8 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | R193 | Cystic renal disease                                             |
       | Panels | R89  |                                                                  |
 
-  @HTO-420
-  Scenario Outline: HTO-420 Verifies that <searchPanels> is added under added panels
+  @HTO-420 @HTO-420-2
+  Scenario Outline: HTO-420-2 Verifies that <searchPanels> is added under added panels
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CIId> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     ##Panels Page
