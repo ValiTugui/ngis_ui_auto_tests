@@ -30,6 +30,7 @@ public class DashBoardSteps extends Pages {
 
     @And("User should be able to see my Dashboard")
     public void userShouldBeAbleToSeeMyDashBoardPage() {
+        SeleniumLib.sleepInSeconds(20);
         if(!dashBoardPage.dashboardPageResultsIsLoaded()){
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_DashBoard.jpg");
             Assert.fail("Dashboard not visible.");
