@@ -48,7 +48,7 @@ Feature: Navigation of Test Selection, Test Order and Panel App with Basic Check
 #    When the user should be able to see data quality menu is displayed
 #    Then the user click on Clinical Data Quality section select the filters Yorkshire & North East and click on Add Filters button and verify the table loaded
     When the user clicks the MIPortal Log out button
-#    When a web browser is at the dashboard page
+    When a web browser is at the dashboard page
     And User should be able to see my Dashboard
     ##Test Order from Dashboard
     When the user clicks on "Order a genomic test" Tab
