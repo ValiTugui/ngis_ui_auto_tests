@@ -6,6 +6,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -58,24 +59,51 @@ public class DashBoardPage {
     @FindBy(xpath = "//div[contains(text(),'Manage samples')]")
     public WebElement ManageSamplesTab;
 
+//    public void navigateToDashboardPage() {
+//        Debugger.println("before getTo_dashboard_url  .");
+//        driver.get(AppConfig.getTo_dashboard_url());
+//        Debugger.println("getTo_dashboard_url  Successfully.");
+//        new WebDriverWait(driver,10).until(ExpectedConditions.urlContains("login.microsoft"));
+//        if ((driver.getCurrentUrl().contains("login.microsoft"))) {
+//            Wait.forElementToBeClickable(driver, emailAddressField);
+//            emailAddressField.sendKeys(AppConfig.getApp_username());
+//            Debugger.println("Logged in as normal user");
+//            nextButton.click();
+//            Wait.seconds(2);
+//            Wait.forElementToBeClickable(driver, passwordField);
+//            passwordField.sendKeys(AppConfig.getApp_password());
+//            nextButton.click();
+//            Wait.seconds(2);
+//            if (driver.getCurrentUrl().contains("/Error")){
+//                driver.navigate().to(AppConfig.getTo_dashboard_url());
+//            }
+//        }
+//    }
     public void navigateToDashboardPage() {
         driver.get(AppConfig.getTo_dashboard_url());
-        new WebDriverWait(driver,10).until(ExpectedConditions.urlContains("login.microsoft"));
-        if ((driver.getCurrentUrl().contains("login.microsoft"))) {
-            Wait.forElementToBeClickable(driver, emailAddressField);
-            emailAddressField.sendKeys(AppConfig.getApp_username());
-            Debugger.println("Logged in as normal user");
-            nextButton.click();
-            Wait.seconds(2);
-            Wait.forElementToBeClickable(driver, passwordField);
-            passwordField.sendKeys(AppConfig.getApp_password());
-            nextButton.click();
-            Wait.seconds(2);
-            if (driver.getCurrentUrl().contains("/Error")){
-                driver.navigate().to(AppConfig.getTo_dashboard_url());
+        try {
+            new WebDriverWait(driver, 10).until(ExpectedConditions.urlContains("login.microsoft"));
+            if ((driver.getCurrentUrl().contains("login.microsoft"))) {
+                Wait.forElementToBeClickable(driver, emailAddressField);
+                emailAddressField.sendKeys(AppConfig.getApp_username());
+                Debugger.println("Logged in as normal user");
+                nextButton.click();
+                Wait.seconds(2);
+                Wait.forElementToBeClickable(driver, passwordField);
+                passwordField.sendKeys(AppConfig.getApp_password());
+                nextButton.click();
+                Wait.seconds(2);
+                if (driver.getCurrentUrl().contains("/Error")) {
+                    driver.navigate().to(AppConfig.getTo_dashboard_url());
+                }
             }
-        }
+        }catch (TimeoutException exc){
+            Debugger.println("Failed in waiting for 'login.microsoft' page:"+exc);
+            if(driver.getCurrentUrl().contains("dashboard")){
+                Debugger.println("Dashboard is already loaded without Login..");
+            }
     }
+}
 
     @FindBy(xpath = "//h1[contains(text(),'Welcome to the National')]")
     public WebElement resultsPanelPageTitle;
