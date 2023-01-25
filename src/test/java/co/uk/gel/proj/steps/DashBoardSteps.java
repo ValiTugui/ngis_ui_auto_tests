@@ -18,8 +18,8 @@ public class DashBoardSteps extends Pages {
 
     @Given("a web browser is at the dashboard page")
     public void aWebBrowserIsAtTheDashBoardPage() {
-//        dashBoardPage.navigateToDashboardPage();
-        SeleniumLib.sleepInSeconds(5);
+        dashBoardPage.navigateToDashboardPage();
+        SeleniumLib.sleepInSeconds(10);
         dashBoardPage.waitUntilDashboardPageResultsContainerIsLoaded();
         if(!driver.getTitle().equalsIgnoreCase(dashBoardPage.tabTitle)) {
             Debugger.println("Dashboard Page title is not as expected.");
