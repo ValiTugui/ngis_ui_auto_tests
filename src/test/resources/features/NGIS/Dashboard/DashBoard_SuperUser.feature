@@ -5,7 +5,7 @@
 Feature: DashBoard - Dashboard Page
 
   @NTS-3158
-  Scenario Outline: NTS-3158 - Dashboard - To verify the Dashboard - Home Page after login as Super user
+ Scenario Outline: NTS-3158 - Dashboard - To verify the Dashboard - Home Page after login as Super user
 #    Given the user clears all the current session cookies
     Given a web browser is at the dashboard page with super user
     And User should be able to see my Dashboard

@@ -1046,16 +1046,19 @@ public class ReferralSteps extends Pages {
 
     private void loginForExistingReferral(String userType, String referralId, String filePrefix) {
         String baseURL = "";
+        String env = System.getProperty("TestEnvironment");
+        Debugger.println("env: " + env);
         if (referralId.equalsIgnoreCase("New Referral")) {
             baseURL = ConcurrencyTest.getReferral_base_url(filePrefix);
         } else {
             ConcurrencyTest.setReferral_id(referralId, filePrefix);
             ConcurrencyTest.writeToControllerFile(filePrefix, "ReferralId=" + referralId);
-            if (System.getProperty("TestEnvironment").equalsIgnoreCase("test")) {
-                baseURL = "https://test-order.toms.test.aws.gel.ac/test-order/referral/" + referralId;
-            } else {
-                baseURL = "https://test-ordering.test.genomics.nhs.uk/test-order/referral/" + referralId;
-            }
+            baseURL = "https://test-ordering."+env+".genomics.nhs.uk/test-order/referral/" + referralId;
+//            if (System.getProperty("TestEnvironment").equalsIgnoreCase("test")) {
+//                baseURL = "https://test-order.toms.test.aws.gel.ac/test-order/referral/" + referralId;
+//            } else {
+//                baseURL = "https://test-ordering.test.genomics.nhs.uk/test-order/referral/" + referralId;
+//            }
         }
         Debugger.println("BASE_URL: " + baseURL);
         boolean isReferralExists = false;

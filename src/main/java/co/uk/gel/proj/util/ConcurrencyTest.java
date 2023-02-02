@@ -11,14 +11,16 @@ public class ConcurrencyTest {
     static String fileLocation = System.getProperty("user.dir") + File.separator + "target" + File.separator + "Concurrency"+ File.separator;
 
     public static String getReferral_base_url(String filePrefix) {
+        String env = System.getProperty("TestEnvironment");
        if(referral_base_url == null){
            checkReferralId(filePrefix);
            if(referral_id != null && !referral_id.isEmpty()){
-               if (System.getProperty("TestEnvironment").equalsIgnoreCase("test")) {
+               referral_base_url = "https://test-ordering."+env+".genomics.nhs.uk/test-order/referral/" + referral_id;
+               /*if (System.getProperty("TestEnvironment").equalsIgnoreCase("test")) {
                    referral_base_url = "https://test-order.toms.test.aws.gel.ac/test-order/referral/" + referral_id;
                } else {
                    referral_base_url = "https://test-ordering.test.genomics.nhs.uk/test-order/referral/" + referral_id;
-               }
+               }*/
            }
        }
         return referral_base_url;
