@@ -265,6 +265,12 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Reload referral']")
     public WebElement reloadReferral;
 
+    @FindBy(xpath = "//div[@class='row text-body']")
+    public WebElement microsoftLoginSubtitle;
+
+    @FindBy(xpath = "//div[@class='table-row']")
+    public WebElement logoutAcc;
+
 
     private String incompleteStageInDialogBox = "//*[contains(@class,'referral-header__stage-list')]//a[contains(text(),'" + "dummyValue" + "')]";
 
@@ -1977,6 +1983,11 @@ public class ReferralPage<check> {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser...." + nhsMail + "," + nhsPassword);
         try {
             Wait.seconds(5);
+            if(Wait.isElementDisplayed(driver, microsoftLoginSubtitle, 20)){
+                Debugger.println("Clicking on which account do you want to sign out of?");
+                logoutAcc.click();
+                Wait.seconds(3);
+            }
             if (!Wait.isElementDisplayed(driver, emailAddressField, 120)) {//If the element is not displayed, even after the waiting time
                 Debugger.println("Email Address Field is not visible, even after the waiting period.");
                 if (Wait.isElementDisplayed(driver, useAnotherAccount, 120)) {//Click on UseAnotherAccount and Proceed.
