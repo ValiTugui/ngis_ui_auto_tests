@@ -37,6 +37,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     static Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
+    ReferralPage referralPage;
+
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -341,6 +343,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Action.deleteCookies(driver);
         Wait.seconds(3);
         try {
+            Wait.seconds(5);
+            if(Wait.isElementDisplayed(driver, referralPage.microsoftLoginSubtitle, 20)){
+                Debugger.println("Clicking on which account do you want to sign out of?");
+                referralPage.logoutAcc.click();
+                Wait.seconds(3);
+            }
+
             if (Wait.isElementDisplayed(driver, useAnotherAccount, 5)) {//If the element is not displayed, even after the waiting time
                 Debugger.println("Clicking on useAnotherAccount to Proceed.");
                 useAnotherAccount.click();

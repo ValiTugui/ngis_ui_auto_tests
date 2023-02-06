@@ -1,21 +1,27 @@
 @BVT_UI_SMOKE_TEST_PACK
-@SMOKE_TEST_TD
+@SMOKE_TEST_TO
 #@userJourneysRD_BVT
 #@BVT_UI_SMOKE_TEST_RD
  ##Chaning BVT back to DUO Family from Trio Family
-Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Requesting Organisation - Ordering Entity Name - Test Package - No Of Participants - Responsible Clinician - Responsible Clinician Details - Clinical Question - Clinical Question Details - Notes - Notes Details - Family Members - Patient Choice - Panels - Pedigree - Print Forms - Submit
+Feature: NTS-3407-TO: Create RD Duo Family by completing - Patient Details - Requesting Organisation - Ordering Entity Name - Test Package - No Of Participants - Responsible Clinician - Responsible Clinician Details - Clinical Question - Clinical Question Details - Notes - Notes Details - Family Members - Patient Choice - Panels - Pedigree - Print Forms - Submit
 
-  @NTS-3407-TD @Z-LOGOUT
+  @NTS-3407-TO @Z-LOGOUT
  #@E2EUI-895
-  Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
-    ##Create referral with new patient without providing NHS number
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
-    ##Patient Details
-    And the "<PatientDetails>" stage is marked as Completed
-    ##Requesting Organisation
-    When the user navigates to the "<RequestingOrganisation>" stage
+  Scenario Outline: NTS-3407-TO: User Journey by creating new NGIS Referral for Duo Family - By Signature
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    Then the Patient Details page is displayed
+    And the Start New Referral button is enabled
+    And the user clicks the Start Referral button
+    Then the "<newpageTitle>" page is displayed
+    And the user types in the "<ciTerm>" in the search field
+    And the user clicks on first Clinical indications results displayed in Test Oder
+    #Requesting organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<patientDetails>" stage is marked as Completed
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
@@ -93,6 +99,7 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
+
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name        | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
-      | Patient details | Requesting organisation | BANBURY CROSS HEALTH CENTRE | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
+      | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm | newpageTitle        | patientDetails  | RequestingOrganisation  | ordering_entity_name        | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
+      | create a new patient record | Other (please provide reason) | R100   | Clinical Indication | Patient details | Requesting organisation | BANBURY CROSS HEALTH CENTRE | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |

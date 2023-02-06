@@ -1,18 +1,26 @@
 @BVT_UI_SMOKE_TEST_PACK
-@SMOKE_TEST_TD
+@SMOKE_TEST_TO
 #@userJourneysCancer
 #@BVT_UI_SMOKE_TEST_CANCER
-Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
-  @NTS-3362-TD @Z-LOGOUT
+Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
+
+  @NTS-3362-TO @Z-LOGOUT
   #@E2EUI-2372
-  Scenario Outline: NTS-3362-TD - Create Referral for Proband Only - Standard user - patient choice Yes
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    ##Patient Details
-    And the "<patientDetails>" stage is marked as Completed
-    ##Requesting Organisation
-    When the user navigates to the "<requestingOrganisation>" stage
+  Scenario Outline: NTS-3362-TO - Create Referral for Proband Only - Standard user - patient choice Yes
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    Then the Patient Details page is displayed
+    And the Start New Referral button is enabled
+    And the user clicks the Start Referral button
+    Then the "<newpageTitle>" page is displayed
+    And the user types in the "<ciTerm>" in the search field
+    And the user clicks on first Clinical indications results displayed in Test Oder
+    #Requesting organisation
     Then the user is navigated to a page with title Add a requesting organisation
+    And the "<patientDetails>" stage is marked as Completed
     And the user enters the keyword "MIDLANDS MEDICAL PARTNERSHIP" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
@@ -32,6 +40,7 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     And the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
     Then the "<responsibleClinician>" stage is marked as Completed
+    ##Tumors
     And the "<tumours>" stage is selected
 
     When the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
@@ -80,14 +89,14 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
-
+    ##Notes
     When the user navigates to the "<notes>" stage
     Then the user is navigated to a page with title Add clinical notes
     And the "<notes>" stage is selected
     When the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<notes>" stage is marked as Completed
-
+    ##Patient choice
     When the user navigates to the "<patientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -98,7 +107,7 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     Then the user is navigated to a page with title Patient choice
     And the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-
+    ##Print forms
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
     And the user is able to download print form for the proband
@@ -106,6 +115,7 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
+
     Examples:
-      | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
-      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
+      | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm                    | newpageTitle        | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
+      | create a new patient record | Other (please provide reason) | Cancer of Unknown Primary | Clinical Indication | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
