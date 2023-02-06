@@ -340,6 +340,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystem(String email, String password) {
+
+        referralPage = new ReferralPage<>(driver);
         Action.deleteCookies(driver);
         Wait.seconds(3);
         try {
