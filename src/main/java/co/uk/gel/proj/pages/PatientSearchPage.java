@@ -341,7 +341,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystem(String email, String password) {
 
-        referralPage = new ReferralPage<>(driver);
+        referralPage = new ReferralPage(driver);
         Action.deleteCookies(driver);
         Wait.seconds(3);
         try {
@@ -350,6 +350,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Clicking on which account do you want to sign out of?");
                 referralPage.logoutAcc.click();
                 Wait.seconds(3);
+            }else{
+                Debugger.println("Clicking on which account do you want to sign out of? not present");
             }
 
             if (Wait.isElementDisplayed(driver, useAnotherAccount, 5)) {//If the element is not displayed, even after the waiting time
@@ -361,7 +363,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
                     Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
+            }else{
+                Debugger.println("Clicking on useAnotherAccount to Proceed not present");
             }
+
+            Wait.seconds(10);
             try {
                 emailAddressField.sendKeys(email);
             } catch (Exception exp1) {
