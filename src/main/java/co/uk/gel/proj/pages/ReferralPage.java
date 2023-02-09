@@ -2031,7 +2031,9 @@ public class ReferralPage<check> {
 
     public boolean verifyMicrosoftLoginPage(String loginPageUrl) {
         try {
-            if (!Wait.isElementDisplayed(driver, useAnotherAccount, 20)) {
+            if(Wait.isElementDisplayed(driver, logoutAcc, 10)){
+                logoutAcc.click();
+            }else if (!Wait.isElementDisplayed(driver, useAnotherAccount, 20)) {
                 return false;
             }
             String fullCurrentURL = driver.getCurrentUrl();

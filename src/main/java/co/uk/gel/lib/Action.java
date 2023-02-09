@@ -112,7 +112,7 @@ public class Action {
 
 
     public static void fillInValue(WebElement element, String value) {
-        Action.clearInputField(element);
+        //Action.clearInputField(element);
         element.sendKeys(value);
     }
 

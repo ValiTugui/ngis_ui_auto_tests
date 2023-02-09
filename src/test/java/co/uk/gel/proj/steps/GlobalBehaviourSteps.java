@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -43,6 +44,7 @@ public class GlobalBehaviourSteps extends Pages {
 
     @Then("the {string} page should be opened in the next tab")
     public void thePageShouldBeOpenedInTheNextTab(String pageTitle) {
+        Wait.seconds(3);
         Assert.assertTrue(driver.getCurrentUrl().contains("privacy-policy"));
         Assert.assertTrue(globalBehaviourPage.checkPrivacyPolicyLinkPage(pageTitle));
         SeleniumLib.closeCurrentAndMoveToFirstTab();
