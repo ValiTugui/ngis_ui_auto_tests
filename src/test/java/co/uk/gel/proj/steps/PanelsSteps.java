@@ -223,4 +223,16 @@ public class PanelsSteps extends Pages {
             Assert.assertEquals(panelName, panelsPage.defaultPanelName.getText());
         }
     }
+
+    @When("the user searches and adds the following panels")
+    public void theUserSearchesAndAddsTheFollowingPanels(List<String> panels) {
+        boolean testResult = false;
+        for (String panel: panels){
+            testResult = panelsPage.searchAndAddPanel(panel);
+            if(!testResult){
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PanelSearch.jpg");
+                Assert.fail("Could search Panel");
+            }
+        }
+    }
 }//end

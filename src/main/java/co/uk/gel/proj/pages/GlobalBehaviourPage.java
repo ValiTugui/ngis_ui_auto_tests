@@ -89,7 +89,8 @@ public class GlobalBehaviourPage {
         return privacyPolicyPageTitle.getText().matches(pageTitle);
     }
 
-    public boolean clickPrivacyPolicy() {
+    public boolean
+    clickPrivacyPolicy() {
         try {
             Click.element(driver, footerLinks.get(1));
             Action.switchTab(driver);

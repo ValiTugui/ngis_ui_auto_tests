@@ -132,6 +132,65 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | CIId | panelName        | searchPanels                                                     |
       | Panels | R100 | Craniosynostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
 
+  #@HTO-877
+  Scenario: HTO-877 Search for panels using their full name and add them as additional panels
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R98 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+    ##Panels Page
+    When the user navigates to the "Panels" stage
+    And the user is navigated to a page with title Manage panels
+    And Penetrance section with options Complete and Incomplete
+    And the user clicks on Incomplete button and button will show tick marked
+    And the user should see the section with title Default Panel based on the clinical information
+#    And the default panel name is "Craniosynostosis"
+    When the user searches and adds the following panels
+    ## New panel names
+      | Intellectual disability - microarray and sequencing                             |
+      | Neonatal diabetes                                                               |
+      | Likely inborn error of metabolism                                               |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis              |
+      | Early onset or syndromic epilepsy                                               |
+      | Hereditary ataxia with onset in adulthood                                       |
+      | Hereditary neuropathy or pain disorder - NOT PMP22 copy number                  |
+      | Adult onset hereditary spastic paraplegia                                       |
+      | Childhood onset hereditary spastic paraplegia                                   |
+      | Holoprosencephaly - NOT chromosomal                                             |
+      | Adult onset neurodegenerative disorder                                          |
+      | Adult onset leukodystrophy                                                      |
+      | Bilateral congenital or childhood onset cataracts                               |
+      | Paediatric or syndromic cardiomyopathy                                          |
+      | Adult onset dystonia, chorea or related movement disorder                       |
+      | Childhood onset dystonia, chorea or related movement disorder                   |
+      | Unexplained young onset end-stage renal disease                                 |
+      | Childhood solid tumours                                                         |
+      | Cerebral malformation                                                           |
+      | Other rare neuromuscular disorders                                              |
+      | Childhood onset leukodystrophy                                                  |
+      | Arrhythmogenic right ventricular cardiomyopathy                                 |
+      | Brugada syndrome and cardiac sodium channel disease                             |
+      | Dilated and arrhythmogenic cardiomyopathy                                       |
+      | Hypertrophic cardiomyopathy                                                     |
+      | Thoracic aortic aneurysm or dissection                                          |
+      | Polycystic liver disease                                                        |
+      | Iron metabolism disorders - NOT common HFE mutations                            |
+      | Thrombophilia with a likely monogenic cause                                     |
+      | Familial chylomicronaemia syndrome (FCS)                                        |
+      | Ehlers Danlos syndrome with a likely monogenic cause                            |
+      | Sporadic aniridia                                                               |
+      | Corneal dystrophy                                                               |
+      | Hereditary systemic amyloidosis                                                 |
+      | Membranoproliferative glomerulonephritis including C3 glomerulopathy            |
+      | Familial hypercholesterolaemia (GMS)                                            |
+      | Hypogonadotropic hypogonadism (GMS)                                             |
+      | Segmental overgrowth disorders - Deep sequencing                                |
+      | Limb girdle muscular dystrophies, myofibrillar myopathies and distal myopathies |
+      ## NEW WGS PANELS
+      | Arrhythmogenic right ventricular cardiomyopathy*                                |
+      | Congenital muscular dystrophy and congenital myopathy                           |
+    And the user clicks the Save and Continue button
+    Then the "Panels" stage is marked as Completed
+
+
 
 
 

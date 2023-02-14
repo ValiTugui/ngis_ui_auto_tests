@@ -350,8 +350,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Clicking on which account do you want to sign out of?");
                 referralPage.logoutAcc.click();
                 Wait.seconds(3);
-            }else{
-                Debugger.println("Clicking on which account do you want to sign out of? not present");
             }
 
             if (Wait.isElementDisplayed(driver, useAnotherAccount, 5)) {//If the element is not displayed, even after the waiting time
@@ -363,34 +361,32 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
                     Assert.fail("Email field or UseAnotherAccount option are not available.");
                 }
-            }else{
-                Debugger.println("Clicking on useAnotherAccount to Proceed not present");
             }
 
             Wait.seconds(10);
             try {
-                emailAddressField.sendKeys(email);
+                    emailAddressField.sendKeys(email);
             } catch (Exception exp1) {
                 seleniumLib.sendValue(emailAddressField, email);
             }
             Wait.seconds(2);
             try {
-                seleniumLib.clickOnWebElement(nextButton);
+                    seleniumLib.clickOnWebElement(nextButton);
             } catch (Exception exp1) {
                 Action.clickElement(driver, nextButton);
             }
             Wait.seconds(2);
             try {
-                seleniumLib.sendValue(passwordField, password);
-                Debugger.println("Password provided");
+                    seleniumLib.sendValue(passwordField, password);
+                    Debugger.println("Password provided");
             } catch (Exception exp1) {
                 passwordField.sendKeys(password);
             }
             Wait.seconds(2);
             try {
-                seleniumLib.clickOnWebElement(nextButton);
-                Wait.seconds(3);
-                Debugger.println("Current URL is " +driver.getCurrentUrl());
+                    seleniumLib.clickOnWebElement(nextButton);
+                    Wait.seconds(3);
+                    Debugger.println("Current URL is " +driver.getCurrentUrl());
             } catch (Exception exp1) {
                 Debugger.println("Exception from next button click..."+exp1);
                 Action.clickElement(driver, nextButton);
