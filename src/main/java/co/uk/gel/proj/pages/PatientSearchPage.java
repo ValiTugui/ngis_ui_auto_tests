@@ -234,6 +234,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//span[@data-tip]")
     public WebElement tooltipOnPatientCard;
 
+    @FindBy(xpath = "//div[@class = 'css-1hwfws3']")
+    public WebElement relationshipToProbandDropdownButton;
+
+    @FindBy(xpath = "//div[@class = 'css-46to1u-menu']")
+    public WebElement relationshipToProbandDropdownList;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -1119,6 +1125,38 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
 //            seleniumLib.clickOnWebElement(genderButton);
 //            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:" + exp + "\n" + driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("fillInNewPatientDetailsInTheNoFields.jpg");
+            return false;
+        }
+    }
+
+    public boolean fillInExistingPatientDetailsInTheNoFields(String DOB, String fName, String lName, String gender) {
+        String[] dob = DOB.split("-");
+        try {
+            seleniumLib.sendValue(dateDay, dob[0]);
+            seleniumLib.sendValue(dateMonth, dob[1]);
+            seleniumLib.sendValue(dateYear, dob[2]);
+            seleniumLib.sendValue(firstName, fName);
+            try {
+                seleniumLib.sendValue(lastName, lName);
+            } catch (Exception exp1) {
+                seleniumLib.sendValue(familyName, lName);
+            }
+            if (!selectGender(genderButton, gender)) {
+                selectGender(administrativeGenderButton, gender);
+            }
+//            seleniumLib.clickOnWebElement(genderButton);
+//            seleniumLib.clickOnElement(By.xpath("//span[text()='Male']"));
+
+            if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 30)) {
+                Debugger.println("Search Button could not locate on Patient Search Page.\n" + driver.getCurrentUrl());
+                return false;
+            }
+            seleniumLib.clickOnWebElement(searchButtonByXpath);
+            seleniumLib.sleepInSeconds(2);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fillInNewPatientDetailsInTheNoFields:" + exp + "\n" + driver.getCurrentUrl());

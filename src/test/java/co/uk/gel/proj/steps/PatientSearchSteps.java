@@ -586,6 +586,14 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.fillInNewPatientDetailsWithPostCodeInTheNoFields();
     }
 
+    @And("the user searches for an existing family member using {string} for DOB, {string} for first name, {string} for last name and {string} for gender")
+    public void theUserSearchesForAnExistingFamilyMemberUsingForDOBForFirstNameForLastNameAndForGender(String DOB, String firstName, String lastName, String gender) {
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.noButton,10);
+        patientSearchPage.noButton.click();
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.firstName, 10);
+        patientSearchPage.fillInExistingPatientDetailsInTheNoFields(DOB, firstName, lastName, gender);
+    }
+
     @Then("no validation error red mark highlighted on the DOB field")
     public void noValidationErrorRedMarkHighlightedOnTheDOBField() {
         //click on NHSLabel label to move cursor away from DOB field
@@ -700,4 +708,22 @@ public class PatientSearchSteps extends Pages {
         }
     }
 
+    @Then("the relationship with the patient list order should be as follow")
+    public void theUserGetsThePedigreeDropdownList(List<String> expectedRelationshipList) {
+        //waiting for the dropdown list to be displayed
+        if(Wait.isElementDisplayed(driver,patientSearchPage.relationshipToProbandDropdownButton, 10))
+        {
+            patientSearchPage.relationshipToProbandDropdownButton.click();
+        }else{
+            Debugger.println("Relationship with proband dropdown is not displayed");
+        }
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.relationshipToProbandDropdownList, 10);
+
+        // The pedigree list is displayed as one string on multiple lines using the "\n" line separator
+        //Therefore, split is required to add each element to the array so we can then compare the actual UI elements order with the expected elements order
+        String[] actualRelationshipList = patientSearchPage.relationshipToProbandDropdownList.getText().split("\n");
+        for(int i = 0; i<expectedRelationshipList.size(); i++){
+            Assert.assertEquals("The actual pedigree list from the UI didn't match the expected list", expectedRelationshipList.get(i), actualRelationshipList[i]);
+        }
+    }
 }//end
