@@ -13,7 +13,7 @@ Feature: Pedigree dropdown list
     And the user selects the number of participants as "2"
     And the user clicks the Save and Continue button
     And the "Test package" stage is marked as Completed
-    ##Family Members - searching for an existing referral
+    ##Family Members - searching for an existing patient
     When the user navigates to the "Family members" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
@@ -21,7 +21,7 @@ Feature: Pedigree dropdown list
     When the user types in valid details of a "NHS Spine" patient in the NHS number "9449305552" and Date of Birth "20-09-2008" fields
     And the user clicks the Search button
     And the user clicks on the patient card
-    Then the relationship with the patient list order should be as follow
+    Then the pedigree list order should be as follows
       | Mother                              |
       | Father                              |
       | Full Sibling                        |
