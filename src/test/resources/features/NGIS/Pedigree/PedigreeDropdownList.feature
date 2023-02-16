@@ -1,8 +1,8 @@
-#@SYSTEM_TEST
-#@07-PEDIGREE
+@SYSTEM_TEST
+@07-PEDIGREE
 Feature: Pedigree dropdown list
 
-  #@HTO-992
+  @HTO-992
   Scenario: Update pedigree dropdown list to have immediate family members at/near top
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Female |
@@ -30,9 +30,10 @@ Feature: Pedigree dropdown list
       | Twins Dizygous                      |
       | Maternal Half Sibling               |
       | Paternal Half Sibling               |
-      | Other                               |
       | Maternal Grandparent                |
       | Paternal Grandparent                |
+      | Maternal Grandfather's Parent       |
+      | Maternal Grandmother's Parent       |
       | Paternal Grandfather's Parent       |
       | Paternal Grandmother's Parent       |
       | Maternal Aunt                       |
@@ -52,3 +53,4 @@ Feature: Pedigree dropdown list
       | Maternal Third Cousin               |
       | Paternal Third Cousin               |
       | Double First Cousin                 |
+      | Other                               |
