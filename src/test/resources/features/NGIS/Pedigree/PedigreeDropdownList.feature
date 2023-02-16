@@ -17,7 +17,9 @@ Feature: Pedigree dropdown list
     When the user navigates to the "Family members" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
-    And the user searches for an existing family member using "10-01-1950" for DOB, "John" for first name, "Jones" for last name and "Male" for gender
+    #And the user searches for an existing family member using "10-01-1950" for DOB, "John" for first name, "Jones" for last name and "Male" for gender
+    When the user types in valid details of a "NHS Spine" patient in the NHS number "9449305552" and Date of Birth "20-09-2008" fields
+    And the user clicks the Search button
     And the user clicks on the patient card
     Then the relationship with the patient list order should be as follow
       | Mother                              |
