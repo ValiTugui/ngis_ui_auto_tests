@@ -752,13 +752,13 @@ public class PatientDetailsPage {
             }
             seleniumLib.clickOnWebElement(startReferralButton);
             //Adding verification for URL change to click again on Start Referral button again if URL does not change
-            while(driver.getCurrentUrl().equals(currentURL)) {
+            while(driver.getCurrentUrl().equals(currentURL) && timer>=0) {
                 startNewReferralButton.click();
                 Wait.seconds(1);
-                --timer;
                 if(timer==0){
                     Debugger.println("PatientDetailsPage: clickStartNewReferralButton didn't happen after trying 10 times");
                 }
+                --timer;
             }
 
             return true;
