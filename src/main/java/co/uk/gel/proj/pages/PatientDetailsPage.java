@@ -143,7 +143,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
-    @FindBy(xpath = "//*[text()='Save and continue']")
+    @FindBy(xpath = "//button/span[text()='Save and continue']")
     public WebElement saveAndContinue;
 
     @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")
@@ -158,7 +158,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@name='ci-radio']")
     public WebElement selectCIRadio;
 
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//button/span[contains(.,'Start referral')]")
     public WebElement startNewReferralButton;
 
     @FindBy(xpath = "//div[@data-testid='notification-success']//span")
@@ -739,16 +739,27 @@ public class PatientDetailsPage {
     }
 
     public boolean clickStartNewReferralButton() {
+        int timer = 10;
         try {
             if (!Wait.isElementDisplayed(driver, startNewReferralButton, 30)) {
                 Debugger.println("Start New Referral Button not displayed.");
                 return false;
             }
+            String currentURL = driver.getCurrentUrl();
             //Debugger.println("Status: " + startNewReferralButton.isEnabled());
             if (!startNewReferralButton.isEnabled()) {
                 Wait.seconds(3);
             }
-            Action.clickElement(driver, startNewReferralButton);
+            seleniumLib.clickOnWebElement(startReferralButton);
+            //Adding verification for URL change to click again on Start Referral button again if URL does not change
+            while(driver.getCurrentUrl().equals(currentURL)) {
+                startNewReferralButton.click();
+                Wait.seconds(1);
+                --timer;
+                if(timer==0){
+                    Debugger.println("PatientDetailsPage: clickStartNewReferralButton didn't happen after trying 10 times");
+                }
+            }
 
             return true;
         } catch (Exception exp) {
@@ -1539,13 +1550,21 @@ public class PatientDetailsPage {
     }
 
     public boolean clickOnSaveAndContinueButton() {
+        String currentURL = driver.getCurrentUrl();
         try {
-            //This is different from Referral page save nd Continue
+            //This is different from Referral page save and Continue
             if (!Wait.isElementDisplayed(driver, saveAndContinue, 10)) {
                 Debugger.println("saveAndContinue button not exists.");
                 return false;
             }
             Action.clickElement(driver, saveAndContinue);
+            //It will wait 3 seconds and then verifies if the URL changes
+            //If the URL didn't change, it will click again on Save and Continue button
+            Wait.seconds(3);
+            if(currentURL.equalsIgnoreCase(driver.getCurrentUrl())){
+                Action.clickElement(driver, saveAndContinue);
+                Debugger.println("Clicking Save and Continue button again.");
+            }
             return true;
         } catch (Exception exp) {
             try {

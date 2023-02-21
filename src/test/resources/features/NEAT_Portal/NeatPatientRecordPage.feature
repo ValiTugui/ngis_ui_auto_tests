@@ -75,8 +75,9 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user clicks on edit patient details
     And the user fills in the Ethnicity field "A - White - British"
     And the user clicks the Save and Continue button on Patient details page
-    Then the user accept the alert with message "OK"
+    #Then the user accept the alert with message "OK"
     Then the user clicks the Start a new Referral button
+    And the "Patient details" stage is marked as Completed
     And the user stores the generated Patient NGIS-ID
     Then the user is navigated to a page with title Add a requesting organisation
 
@@ -121,5 +122,5 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then User should be able to see the same patient details with old NGIS id
     Examples:
       | patient-search-type1 | NhsNumber  | DOB        | patient-search-type2 | NGIS-ID      |
-      | NGIS                 | 9449305552 | 20-09-2008 | NHS Spine            | p17223611227 |
+      | NGIS                 | 9449305552 | 20-09-2008 | NHS Spine            | p31224922281 |
 

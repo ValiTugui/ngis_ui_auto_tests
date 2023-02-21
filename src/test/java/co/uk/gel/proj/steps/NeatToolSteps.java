@@ -61,6 +61,8 @@ public class NeatToolSteps extends Pages {
     @And("the user stores the generated Patient NGIS-ID")
     public void theUserStoresTheGeneratedPatientNGISID() {
         boolean testResult = false;
+        Wait.seconds(2);
+        Wait.forElementToBeDisplayed(driver, referralPage.referralHeaderPatientNgisId, 10);
         searchNgisId = referralPage.getPatientNGISId();
         if (searchNgisId == null || searchNgisId.isEmpty()) {
             Debugger.println("Did not catch the generated NGIS Id.");
