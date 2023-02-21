@@ -158,7 +158,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//input[@name='ci-radio']")
     public WebElement selectCIRadio;
 
-    @FindBy(xpath = "//button/span[contains(.,'Start referral')]")
+    @FindBy(xpath = "//button/span[contains(.,'Start referral') or contains(., 'Start new referral')]")
     public WebElement startNewReferralButton;
 
     @FindBy(xpath = "//div[@data-testid='notification-success']//span")
@@ -752,13 +752,14 @@ public class PatientDetailsPage {
             }
             seleniumLib.clickOnWebElement(startReferralButton);
             //Adding verification for URL change to click again on Start Referral button again if URL does not change
-            while(driver.getCurrentUrl().equals(currentURL) && timer>=0) {
+            while(driver.getCurrentUrl().equals(currentURL)) {
                 startNewReferralButton.click();
                 Wait.seconds(1);
                 if(timer==0){
                     Debugger.println("PatientDetailsPage: clickStartNewReferralButton didn't happen after trying 10 times");
+                    return false;
                 }
-                --timer;
+                timer--;
             }
 
             return true;
