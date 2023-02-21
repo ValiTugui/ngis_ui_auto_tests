@@ -137,7 +137,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "button[class*='search']")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//button[@type='submit'][contains(@class,'SearchForm')]")
+    @FindBy(xpath = "//button[@type='submit' or contains(@class,'SearchForm')]")
     public WebElement searchButtonByXpath;
 
 
@@ -302,7 +302,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean clickSearchButtonByXpath() {
         try {
             if (!Wait.isElementDisplayed(driver, searchButtonByXpath, 30)) {
-                Debugger.println("Search Button could not locate on Patient Search Page.\n" + driver.getCurrentUrl());
+                Debugger.println("Search/Continue Button could not locate on Patient Search Page.\n" + driver.getCurrentUrl());
                 return false;
             }
             seleniumLib.clickOnWebElement(searchButtonByXpath);

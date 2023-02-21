@@ -942,7 +942,8 @@ public class ReferralSteps extends Pages {
                 if (searchPatient.getETHNICITY() != null && !searchPatient.getETHNICITY().isEmpty()) {
                     patientDetailsPage.addPatientEthnicity(searchPatient.getETHNICITY());
                     //click on continue
-                    patientDetailsPage.clickStartNewReferralButton();
+                    patientSearchPage.clickSearchButtonByXpath();
+                    //patientDetailsPage.clickStartNewReferralButton();
                 } else {
                     Assert.fail("No Ethnicity value...Please provide the Ethnicity value");
                 }
