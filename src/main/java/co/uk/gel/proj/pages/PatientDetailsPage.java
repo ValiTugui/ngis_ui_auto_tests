@@ -740,6 +740,7 @@ public class PatientDetailsPage {
 
     public boolean clickStartNewReferralButton() {
         int timer = 10;
+        Wait.seconds(2);
         try {
             if (!Wait.isElementDisplayed(driver, startNewReferralButton, 30)) {
                 Debugger.println("Start New Referral Button not displayed.");
