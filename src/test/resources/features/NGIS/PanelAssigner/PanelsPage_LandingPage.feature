@@ -88,10 +88,10 @@ Feature: PanelAssigner: Panels Page Landing Page
     Examples:
       | Panels | CIId | panelName                                                        |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
-#      | Panels | R27  | Paediatric disorders                                             |
-#      | Panels | R29  | Intellectual disability                                          |
-      | Panels | R143 | Diabetes - neonatal onset                                        |
-      | Panels | R98  | Inborn errors of metabolism                                      |
+      | Panels | R27  | Paediatric disorders                                             |
+      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
+      | Panels | R143 | Neonatal diabetes                                        |
+      | Panels | R98  | Likely inborn error of metabolism                                      |
       | Panels | R104 | Skeletal dysplasia                                               |
       | Panels | R100 | Craniosynostosis                                                 |
       | Panels | R54  | Hereditary ataxia - adult onset                                  |
@@ -132,7 +132,7 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | CIId | panelName        | searchPanels                                                     |
       | Panels | R100 | Craniosynostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
 
-  #@HTO-877
+  @HTO-877
   Scenario: HTO-877 Search for panels using their full name and add them as additional panels
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R98 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
@@ -147,7 +147,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     ## New panel names
       | Intellectual disability - microarray and sequencing                             |
       | Neonatal diabetes                                                               |
-      | Likely inborn error of metabolism                                               |
+#      | Likely inborn error of metabolism - targeted testing not possible                                               |
       | Rare syndromic craniosynostosis or isolated multisuture synostosis              |
       | Early onset or syndromic epilepsy                                               |
       | Hereditary ataxia with onset in adulthood                                       |
@@ -162,12 +162,12 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Adult onset dystonia, chorea or related movement disorder                       |
       | Childhood onset dystonia, chorea or related movement disorder                   |
       | Unexplained young onset end-stage renal disease                                 |
-      | Childhood solid tumours                                                         |
+#     no | Childhood solid tumours                                                         |
       | Cerebral malformation                                                           |
       | Other rare neuromuscular disorders                                              |
       | Childhood onset leukodystrophy                                                  |
       | Arrhythmogenic right ventricular cardiomyopathy                                 |
-      | Brugada syndrome and cardiac sodium channel disease                             |
+# no     | Brugada syndrome and cardiac sodium channel disease                             |
       | Dilated and arrhythmogenic cardiomyopathy                                       |
       | Hypertrophic cardiomyopathy                                                     |
       | Thoracic aortic aneurysm or dissection                                          |
@@ -181,15 +181,65 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Hereditary systemic amyloidosis                                                 |
       | Membranoproliferative glomerulonephritis including C3 glomerulopathy            |
       | Familial hypercholesterolaemia (GMS)                                            |
-      | Hypogonadotropic hypogonadism (GMS)                                             |
+#   no   | Hypogonadotropic hypogonadism (GMS)                                             |
       | Segmental overgrowth disorders - Deep sequencing                                |
-      | Limb girdle muscular dystrophies, myofibrillar myopathies and distal myopathies |
+#   no   | Limb girdle muscular dystrophies, myofibrillar myopathies and distal myopathies |
       ## NEW WGS PANELS
       | Arrhythmogenic right ventricular cardiomyopathy*                                |
-      | Congenital muscular dystrophy and congenital myopathy                           |
+#     no | Congenital muscular dystrophy and congenital myopathy                           |
     And the user clicks the Save and Continue button
     Then the "Panels" stage is marked as Completed
 
+  @HTO-877-2
+  Scenario Outline: HTO-877-2 Verifies the default panel name  of  CI
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <CI> | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+    ##Panels Page
+    When the user navigates to the "<Panels>" stage
+    And the user is navigated to a page with title Manage panels
+    And Penetrance section with options Complete and Incomplete
+#    And the user clicks on Incomplete button and button will show tick marked
+#    And the user should see the section with title Default Panel based on the clinical information
+    And the user should see the default status of penetrance button as Incomplete
+    And the default panel name is "<panelName>"
+    And the user clicks the Save and Continue button
+
+    Examples:
+      | Panels | CI | panelName                                                        |
+      | Panels | Primary immunodeficiency or monogenic inflammatory bowel disease  | Primary immunodeficiency or monogenic inflammatory bowel disease |
+      | Panels | Congenital malformation and dysmorphism syndromes  | Paediatric disorders                                             |
+      | Panels | Intellectual disability  | Intellectual disability - microarray and sequencing                                         |
+      | Panels | Neonatal diabetes | Neonatal diabetes                                        |
+      | Panels | Likely inborn error of metabolism  | Likely inborn error of metabolism - targeted testing not possible                                   |
+      | Panels | Skeletal dysplasia | Skeletal dysplasia                                               |
+      | Panels | Rare syndromic craniosynostosis or isolated multisuture synostosis | Rare syndromic craniosynostosis or isolated multisuture synostosis                                                 |
+      | Panels | Hereditary ataxia with onset in adulthood  | Hereditary ataxia with onset in adulthood                                  |
+      | Panels | Hereditary ataxia with onset in childhood  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
+      | Panels | Early onset or syndromic epilepsy  | Early onset or syndromic epilepsy                                       |
+      | Panels | Childhood onset hereditary spastic paraplegia  | Childhood onset hereditary spastic paraplegia                  |
+      | Panels | Arthrogryposis  | Arthrogryposis                                                   |
+      | Panels | Other rare neuromuscular disorders | Other rare neuromuscular disorders                                          |
+      | Panels | Cerebellar anomalies  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
+      | Panels | Holoprosencephaly - NOT chromosomal  | Holoprosencephaly - NOT chromosomal                                                |
+      | Panels | Hydrocephalus  | Hydrocephalus                                                    |
+      | Panels | Cerebral malformation  | Cerebral malformation                                          |
+      | Panels | Severe microcephaly  | Severe microcephaly                                             |
+      | Panels | Childhood onset leukodystrophy | Childhood onset leukodystrophy                        |
+      | Panels | Cystic renal disease | Cystic renal disease                                            |
+#      | r89Panels | Ultra-rare and atypical monogenic disorders  |                                                                  |
+      | Panels | Bilateral congenital or childhood onset cataracts  |Bilateral congenital or childhood onset cataracts                                                                 |
+      | Panels | Retinal disorders  |  Retinal disorders                                                                |
+      | Panels | Structural eye disease  |   Structural eye disease                                                               |
+      | Panels | Adult onset dystonia, chorea or related movement disorder  | Adult onset dystonia, chorea or related movement disorder                                                                |
+      | Panels | Childhood onset dystonia, chorea or related movement disorder  | Childhood onset dystonia, chorea or related movement disorder                                                                 |
+      | Panels | Adult onset neurodegenerative disorder  |  Adult onset neurodegenerative disorder                                                                |
+      | Panels | Adult onset hereditary spastic paraplegia  | Adult onset hereditary spastic paraplegia                                                                 |
+      | Panels | Adult onset leukodystrophy  |   Adult onset leukodystrophy                                                               |
+      | Panels | Hypotonic infant  | Hypotonic infant                                                                 |
+      | Panels | Hereditary neuropathy or pain disorder - NOT PMP22 copy number  |Hereditary neuropathy or pain disorder - NOT PMP22 copy number                                                                  |
+      | Panels | Paediatric or syndromic cardiomyopathy  |Cardiomyopathies - including childhood onset                                                                  |
+      | Panels | Unexplained paediatric onset end-stage renal disease  |    Unexplained young onset end-stage renal disease                                                              |
+      | Panels | Sudden cardiac death PILOT  | Sudden unexplained death or survivors of a cardiac event                                                                 |
 
 
 
