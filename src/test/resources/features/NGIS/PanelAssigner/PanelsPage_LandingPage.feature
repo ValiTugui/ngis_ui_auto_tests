@@ -1,5 +1,5 @@
 #@regression
-#@panelsPage_LandingPage
+@panelsPage_LandingPage
 @06-PANEL_ASSIGNER
 @SYSTEM_TEST
 @SYSTEM_TEST_2
