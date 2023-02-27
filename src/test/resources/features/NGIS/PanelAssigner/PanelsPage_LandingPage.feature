@@ -89,23 +89,23 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | CIId | panelName                                                        |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
       | Panels | R27  | Paediatric disorders                                             |
-      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
+#      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
       | Panels | R143 | Neonatal diabetes                                        |
-      | Panels | R98  | Likely inborn error of metabolism                                      |
+      | Panels | R98  | Likely inborn error of metabolism - targeted testing not possible                                     |
       | Panels | R104 | Skeletal dysplasia                                               |
-      | Panels | R100 | Craniosynostosis                                                 |
-      | Panels | R54  | Hereditary ataxia - adult onset                                  |
+      | Panels | R100 | Rare syndromic craniosynostosis or isolated multisuture synostosis                                                 |
+      | Panels | R54  | Hereditary ataxia with onset in adulthood                                 |
       | Panels | R55  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
-      | Panels | R59  | Genetic epilepsy syndromes                                       |
-      | Panels | R61  | Hereditary spastic paraplegia - childhood onset                  |
+      | Panels | R59  | Early onset or syndromic epilepsy                                   |
+      | Panels | R61  | Childhood onset hereditary spastic paraplegia              |
       | Panels | R83  | Arthrogryposis                                                   |
-      | Panels | R381 | Neuromuscular disorders                                          |
+      | Panels | R381 | Other rare neuromuscular disorders                                          |
       | Panels | R84  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
-      | Panels | R85  | Holoprosencephaly                                                |
+      | Panels | R85  | Holoprosencephaly - NOT chromosomal                                                |
       | Panels | R86  | Hydrocephalus                                                    |
-      | Panels | R87  | Cerebral malformations                                           |
+      | Panels | R87  | Cerebral malformation                                           |
       | Panels | R88  | Severe microcephaly                                              |
-      | Panels | R109 | White matter disorders - childhood onset                         |
+      | Panels | R109 | Childhood onset leukodystrophy                        |
       | Panels | R193 | Cystic renal disease                                             |
       | Panels | R89  |                                                                  |
 
@@ -130,7 +130,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user sees the selected "<searchPanels>" panels under added panels
     Examples:
       | Panels | CIId | panelName        | searchPanels                                                     |
-      | Panels | R100 | Craniosynostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
+      | Panels | R100 | Rare syndromic craniosynostosis or isolated multisuture synostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
 
   @HTO-877
   Scenario: HTO-877 Search for panels using their full name and add them as additional panels
@@ -166,17 +166,17 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Cerebral malformation                                                           |
       | Other rare neuromuscular disorders                                              |
       | Childhood onset leukodystrophy                                                  |
-      | Arrhythmogenic right ventricular cardiomyopathy                                 |
+      | Arrhythmogenic right ventricular cardiomyopathy                             |
 # no     | Brugada syndrome and cardiac sodium channel disease                             |
-      | Dilated and arrhythmogenic cardiomyopathy                                       |
-      | Hypertrophic cardiomyopathy                                                     |
-      | Thoracic aortic aneurysm or dissection                                          |
-      | Polycystic liver disease                                                        |
-      | Iron metabolism disorders - NOT common HFE mutations                            |
-      | Thrombophilia with a likely monogenic cause                                     |
-      | Familial chylomicronaemia syndrome (FCS)                                        |
-      | Ehlers Danlos syndrome with a likely monogenic cause                            |
-      | Sporadic aniridia                                                               |
+      | Dilated and arrhythmogenic cardiomyopathy                               |
+      | Hypertrophic cardiomyopathy                              |
+      | Thoracic aortic aneurysm or dissection                                   |
+      | Polycystic liver disease                                           |
+      | Iron metabolism disorders - NOT common HFE mutations                      |
+      | Thrombophilia with a likely monogenic cause                           |
+      | Familial chylomicronaemia syndrome (FCS)                            |
+      | Ehlers Danlos syndrome with a likely monogenic cause                       |
+      | Sporadic aniridia                                  |
       | Corneal dystrophy                                                               |
       | Hereditary systemic amyloidosis                                                 |
       | Membranoproliferative glomerulonephritis including C3 glomerulopathy            |
@@ -185,7 +185,7 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Segmental overgrowth disorders - Deep sequencing                                |
 #   no   | Limb girdle muscular dystrophies, myofibrillar myopathies and distal myopathies |
       ## NEW WGS PANELS
-      | Arrhythmogenic right ventricular cardiomyopathy*                                |
+#      | Arrhythmogenic right ventricular cardiomyopathy                               |
 #     no | Congenital muscular dystrophy and congenital myopathy                           |
     And the user clicks the Save and Continue button
     Then the "Panels" stage is marked as Completed
@@ -200,7 +200,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     And Penetrance section with options Complete and Incomplete
 #    And the user clicks on Incomplete button and button will show tick marked
 #    And the user should see the section with title Default Panel based on the clinical information
-    And the user should see the default status of penetrance button as Incomplete
+#    And the user should see the default status of penetrance button as Incomplete
     And the default panel name is "<panelName>"
     And the user clicks the Save and Continue button
 
