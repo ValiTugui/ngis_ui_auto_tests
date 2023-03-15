@@ -223,7 +223,9 @@ public class PaperFormPage {
     }
 
     public void clickCancelOrderLink() {
-        Click.element(driver, cancelOrderLink);
+        Wait.forElementToBeDisplayed(driver, cancelOrderLink);
+        Wait.seconds(8);
+    Click.element(driver, cancelOrderLink);
     }
 
     public boolean checkThatReviewTestSelectionIsOpened() {
