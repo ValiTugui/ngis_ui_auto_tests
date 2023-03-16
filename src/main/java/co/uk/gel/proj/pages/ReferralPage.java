@@ -1989,14 +1989,14 @@ public class ReferralPage<check> {
             if(Wait.isElementDisplayed(driver, microsoftLoginSubtitle, 20)){
                 Debugger.println("Clicking on which account do you want to sign out of?");
                 logoutAcc.click();
-                Wait.seconds(3);
+                Wait.seconds(5);
             }
             if (!Wait.isElementDisplayed(driver, emailAddressField, 120)) {//If the element is not displayed, even after the waiting time
                 Debugger.println("Email Address Field is not visible, even after the waiting period.");
                 if (Wait.isElementDisplayed(driver, useAnotherAccount, 120)) {//Click on UseAnotherAccount and Proceed.
                     Debugger.println("Clicking on useAnotherAccount to Proceed.");
                     useAnotherAccount.click();
-                    Wait.seconds(3);
+                    Wait.seconds(5);
                 } else {
                     Debugger.println("Email field or UseAnotherAccount option are not available. URL:" + driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
