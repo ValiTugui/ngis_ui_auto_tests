@@ -224,8 +224,7 @@ public class PaperFormPage {
 
     public void clickCancelOrderLink() {
         Wait.forElementToBeDisplayed(driver, cancelOrderLink);
-        Wait.seconds(8);
-    Click.element(driver, cancelOrderLink);
+        Click.element(driver, cancelOrderLink);
     }
 
     public boolean checkThatReviewTestSelectionIsOpened() {
@@ -350,18 +349,18 @@ public class PaperFormPage {
         Action.clickElement(driver, usePDFOrderFormButton);
     }
 
-    public String getOrderingEntityDetails(int categoryName){
-        WebElement elementxpath = driver.findElement(By.xpath("(//li[@class='styles_detail__2AHFT'])["+categoryName+"]/p[2]"));
+    public String getOrderingEntityDetails(int categoryName) {
+        WebElement elementxpath = driver.findElement(By.xpath("(//li[@class='styles_detail__2AHFT'])[" + categoryName + "]/p[2]"));
         String detailValue = elementxpath.getAttribute("textContent");
         return detailValue;
     }
 
-    public void checkOrganizationNameIdAndManagingEntity(String organisationId, String managingEntity, String OEName){
-        if(OEName.equalsIgnoreCase(orderEntityConfirmationName.getText().trim())){
+    public void checkOrganizationNameIdAndManagingEntity(String organisationId, String managingEntity, String OEName) {
+        if (OEName.equalsIgnoreCase(orderEntityConfirmationName.getText().trim())) {
             Assert.assertEquals(organisationId, getOrderingEntityDetails(3));
             Assert.assertEquals(managingEntity, getOrderingEntityDetails(4));
-        }else{
-            Debugger.println("Expected OE name "+OEName+" is different than the actual OE: " + orderEntityConfirmationName.getText());
+        } else {
+            Debugger.println("Expected OE name " + OEName + " is different than the actual OE: " + orderEntityConfirmationName.getText());
         }
     }
 
