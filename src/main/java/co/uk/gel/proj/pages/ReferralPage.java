@@ -600,6 +600,9 @@ public class ReferralPage<check> {
     public boolean clickLogoutButton() {
         try {
             Action.clickElement(driver, logoutButton);
+            if(Wait.isElementDisplayed(driver, logoutAcc, 10)){
+                logoutAcc.click();
+            }
             return true;
         } catch (Exception exp) {
             return false;
