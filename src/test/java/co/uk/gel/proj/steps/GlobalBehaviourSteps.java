@@ -44,7 +44,7 @@ public class GlobalBehaviourSteps extends Pages {
 
     @Then("the {string} page should be opened in the next tab")
     public void thePageShouldBeOpenedInTheNextTab(String pageTitle) {
-        Wait.seconds(3);
+        Wait.seconds(5);
         Assert.assertTrue(driver.getCurrentUrl().contains("privacy-policy"));
         Assert.assertTrue(globalBehaviourPage.checkPrivacyPolicyLinkPage(pageTitle));
         SeleniumLib.closeCurrentAndMoveToFirstTab();

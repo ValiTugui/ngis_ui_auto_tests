@@ -11,7 +11,7 @@ Feature: Test Directory - Global Behaviour Page 1
      And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
     When the user clicks the privacy policy link
-    Then the "Your privacy and data" page should be opened in the next tab
+    Then the "Genomics England privacy notice" page should be opened in the next tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user has scrolled down the page to the bottom (Footer)
