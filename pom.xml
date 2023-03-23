@@ -20,7 +20,7 @@
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
-        <forkCount>4</forkCount>
+        <forkCount>1</forkCount>
         <reportName>TOMSUItest</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
         <browser>chrome</browser>
@@ -79,7 +79,7 @@
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
                             <featuresDirectory>src/test/resources/features/${features}</featuresDirectory>
-                            <tags>@SecurityScan_RD</tags>
+                            <tags>@NTS-3236</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
