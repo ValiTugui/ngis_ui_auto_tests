@@ -145,6 +145,7 @@ Feature: PanelAssigner: Panels Page Landing Page
 #    And the default panel name is "Craniosynostosis"
     When the user searches and adds the following panels
     ## New panel names
+      | Acute rhabdomyolysis                                                 |
       | Intellectual disability - microarray and sequencing                  |
       | Neonatal diabetes                                                    |
 #      | Likely inborn error of metabolism - targeted testing not possible                                               |
