@@ -86,28 +86,28 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user clicks the Save and Continue button
 
     Examples:
-      | Panels | CIId | panelName                                                        |
-      | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease |
-      | Panels | R27  | Paediatric disorders                                             |
+      | Panels | CIId | panelName                                                          |
+      | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease   |
+      | Panels | R27  | Paediatric disorders                                               |
 #      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
-      | Panels | R143 | Neonatal diabetes                                        |
-      | Panels | R98  | Likely inborn error of metabolism - targeted testing not possible                                     |
-      | Panels | R104 | Skeletal dysplasia                                               |
-      | Panels | R100 | Rare syndromic craniosynostosis or isolated multisuture synostosis                                                 |
-      | Panels | R54  | Hereditary ataxia with onset in adulthood                                 |
-      | Panels | R55  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
-      | Panels | R59  | Early onset or syndromic epilepsy                                   |
-      | Panels | R61  | Childhood onset hereditary spastic paraplegia              |
-      | Panels | R83  | Arthrogryposis                                                   |
-      | Panels | R381 | Other rare neuromuscular disorders                                          |
-      | Panels | R84  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
-      | Panels | R85  | Holoprosencephaly - NOT chromosomal                                                |
-      | Panels | R86  | Hydrocephalus                                                    |
-      | Panels | R87  | Cerebral malformation                                           |
-      | Panels | R88  | Severe microcephaly                                              |
-      | Panels | R109 | Childhood onset leukodystrophy                        |
-      | Panels | R193 | Cystic renal disease                                             |
-      | Panels | R89  |                                                                  |
+      | Panels | R143 | Neonatal diabetes                                                  |
+      | Panels | R98  | Likely inborn error of metabolism - targeted testing not possible  |
+      | Panels | R104 | Skeletal dysplasia                                                 |
+      | Panels | R100 | Rare syndromic craniosynostosis or isolated multisuture synostosis |
+      | Panels | R54  | Hereditary ataxia with onset in adulthood                          |
+      | Panels | R55  | Hereditary ataxia and cerebellar anomalies - childhood onset       |
+      | Panels | R59  | Early onset or syndromic epilepsy                                  |
+      | Panels | R61  | Childhood onset hereditary spastic paraplegia                      |
+      | Panels | R83  | Arthrogryposis                                                     |
+      | Panels | R381 | Other rare neuromuscular disorders                                 |
+      | Panels | R84  | Hereditary ataxia and cerebellar anomalies - childhood onset       |
+      | Panels | R85  | Holoprosencephaly - NOT chromosomal                                |
+      | Panels | R86  | Hydrocephalus                                                      |
+      | Panels | R87  | Cerebral malformation                                              |
+      | Panels | R88  | Severe microcephaly                                                |
+      | Panels | R109 | Childhood onset leukodystrophy                                     |
+      | Panels | R193 | Cystic renal disease                                               |
+      | Panels | R89  |                                                                    |
 
   @HTO-420 @HTO-420-2
   Scenario Outline: HTO-420-2 Verifies that <searchPanels> is added under added panels
@@ -129,7 +129,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     Then the user is navigated to a page with title Manage panels
     And the user sees the selected "<searchPanels>" panels under added panels
     Examples:
-      | Panels | CIId | panelName        | searchPanels                                                     |
+      | Panels | CIId | panelName                                                          | searchPanels                                                     |
       | Panels | R100 | Rare syndromic craniosynostosis or isolated multisuture synostosis | Primary immunodeficiency or monogenic inflammatory bowel disease |
 
   @HTO-877
@@ -145,47 +145,48 @@ Feature: PanelAssigner: Panels Page Landing Page
 #    And the default panel name is "Craniosynostosis"
     When the user searches and adds the following panels
     ## New panel names
-      | Intellectual disability - microarray and sequencing                             |
-      | Neonatal diabetes                                                               |
+      | Acute rhabdomyolysis                                                 |
+      | Intellectual disability - microarray and sequencing                  |
+      | Neonatal diabetes                                                    |
 #      | Likely inborn error of metabolism - targeted testing not possible                                               |
-      | Rare syndromic craniosynostosis or isolated multisuture synostosis              |
-      | Early onset or syndromic epilepsy                                               |
-      | Hereditary ataxia with onset in adulthood                                       |
-      | Hereditary neuropathy or pain disorder - NOT PMP22 copy number                  |
-      | Adult onset hereditary spastic paraplegia                                       |
-      | Childhood onset hereditary spastic paraplegia                                   |
-      | Holoprosencephaly - NOT chromosomal                                             |
-      | Adult onset neurodegenerative disorder                                          |
-      | Adult onset leukodystrophy                                                      |
-      | Bilateral congenital or childhood onset cataracts                               |
-      | Paediatric or syndromic cardiomyopathy                                          |
-      | Adult onset dystonia, chorea or related movement disorder                       |
-      | Childhood onset dystonia, chorea or related movement disorder                   |
-      | Unexplained young onset end-stage renal disease                                 |
+      | Rare syndromic craniosynostosis or isolated multisuture synostosis   |
+      | Early onset or syndromic epilepsy                                    |
+      | Hereditary ataxia with onset in adulthood                            |
+      | Hereditary neuropathy or pain disorder                               |
+      | Adult onset hereditary spastic paraplegia                            |
+      | Childhood onset hereditary spastic paraplegia                        |
+      | Holoprosencephaly - NOT chromosomal                                  |
+      | Adult onset neurodegenerative disorder                               |
+      | Adult onset leukodystrophy                                           |
+      | Bilateral congenital or childhood onset cataracts                    |
+      | Paediatric or syndromic cardiomyopathy                               |
+      | Adult onset dystonia, chorea or related movement disorder            |
+      | Childhood onset dystonia, chorea or related movement disorder        |
+      | Unexplained young onset end-stage renal disease                      |
 #     no | Childhood solid tumours                                                         |
-      | Cerebral malformation                                                           |
-      | Other rare neuromuscular disorders                                              |
-      | Childhood onset leukodystrophy                                                  |
-      | Arrhythmogenic right ventricular cardiomyopathy                             |
+      | Cerebral malformation                                                |
+      | Other rare neuromuscular disorders                                   |
+      | Childhood onset leukodystrophy                                       |
+      | Arrhythmogenic right ventricular cardiomyopathy                      |
 # no     | Brugada syndrome and cardiac sodium channel disease                             |
-      | Dilated and arrhythmogenic cardiomyopathy                               |
-      | Hypertrophic cardiomyopathy                              |
-      | Thoracic aortic aneurysm or dissection                                   |
-      | Polycystic liver disease                                           |
-      | Iron metabolism disorders - NOT common HFE mutations                      |
-      | Thrombophilia with a likely monogenic cause                           |
-      | Familial chylomicronaemia syndrome (FCS)                            |
-      | Ehlers Danlos syndrome with a likely monogenic cause                       |
-      | Sporadic aniridia                                  |
-      | Corneal dystrophy                                                               |
-      | Hereditary systemic amyloidosis                                                 |
-      | Membranoproliferative glomerulonephritis including C3 glomerulopathy            |
-      | Familial hypercholesterolaemia (GMS)                                            |
+      | Dilated and arrhythmogenic cardiomyopathy                            |
+      | Hypertrophic cardiomyopathy                                          |
+      | Thoracic aortic aneurysm or dissection                               |
+      | Polycystic liver disease                                             |
+      | Iron metabolism disorders - NOT common HFE mutations                 |
+      | Thrombophilia with a likely monogenic cause                          |
+      | Familial chylomicronaemia syndrome (FCS)                             |
+      | Ehlers Danlos syndrome with a likely monogenic cause                 |
+      | Sporadic aniridia                                                    |
+      | Corneal dystrophy                                                    |
+      | Hereditary systemic amyloidosis                                      |
+      | Membranoproliferative glomerulonephritis including C3 glomerulopathy |
+      | Familial hypercholesterolaemia (GMS)                                 |
 #   no   | Hypogonadotropic hypogonadism (GMS)                                             |
-      | Segmental overgrowth disorders - Deep sequencing                                |
+      | Segmental overgrowth disorders - Deep sequencing                     |
 #   no   | Limb girdle muscular dystrophies, myofibrillar myopathies and distal myopathies |
       ## NEW WGS PANELS
-#      | Arrhythmogenic right ventricular cardiomyopathy                               |
+#      | Arrhythmogenic right ventricular cardiomyopathy                      |
 #     no | Congenital muscular dystrophy and congenital myopathy                           |
     And the user clicks the Save and Continue button
     Then the "Panels" stage is marked as Completed
@@ -205,41 +206,41 @@ Feature: PanelAssigner: Panels Page Landing Page
     And the user clicks the Save and Continue button
 
     Examples:
-      | Panels | CI | panelName                                                        |
-      | Panels | Primary immunodeficiency or monogenic inflammatory bowel disease  | Primary immunodeficiency or monogenic inflammatory bowel disease |
-      | Panels | Congenital malformation and dysmorphism syndromes  | Paediatric disorders                                             |
-      | Panels | Intellectual disability  | Intellectual disability - microarray and sequencing                                         |
-      | Panels | Neonatal diabetes | Neonatal diabetes                                        |
-      | Panels | Likely inborn error of metabolism  | Likely inborn error of metabolism - targeted testing not possible                                   |
-      | Panels | Skeletal dysplasia | Skeletal dysplasia                                               |
-      | Panels | Rare syndromic craniosynostosis or isolated multisuture synostosis | Rare syndromic craniosynostosis or isolated multisuture synostosis                                                 |
-      | Panels | Hereditary ataxia with onset in adulthood  | Hereditary ataxia with onset in adulthood                                  |
-      | Panels | Hereditary ataxia with onset in childhood  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
-      | Panels | Early onset or syndromic epilepsy  | Early onset or syndromic epilepsy                                       |
-      | Panels | Childhood onset hereditary spastic paraplegia  | Childhood onset hereditary spastic paraplegia                  |
-      | Panels | Arthrogryposis  | Arthrogryposis                                                   |
-      | Panels | Other rare neuromuscular disorders | Other rare neuromuscular disorders                                          |
-      | Panels | Cerebellar anomalies  | Hereditary ataxia and cerebellar anomalies - childhood onset     |
-      | Panels | Holoprosencephaly - NOT chromosomal  | Holoprosencephaly - NOT chromosomal                                                |
-      | Panels | Hydrocephalus  | Hydrocephalus                                                    |
-      | Panels | Cerebral malformation  | Cerebral malformation                                          |
-      | Panels | Severe microcephaly  | Severe microcephaly                                             |
-      | Panels | Childhood onset leukodystrophy | Childhood onset leukodystrophy                        |
-      | Panels | Cystic renal disease | Cystic renal disease                                            |
+      | Panels | CI                                                                 | panelName                                                          |
+      | Panels | Primary immunodeficiency or monogenic inflammatory bowel disease   | Primary immunodeficiency or monogenic inflammatory bowel disease   |
+      | Panels | Congenital malformation and dysmorphism syndromes                  | Paediatric disorders                                               |
+      | Panels | Intellectual disability                                            | Intellectual disability - microarray and sequencing                |
+      | Panels | Neonatal diabetes                                                  | Neonatal diabetes                                                  |
+      | Panels | Likely inborn error of metabolism                                  | Likely inborn error of metabolism - targeted testing not possible  |
+      | Panels | Skeletal dysplasia                                                 | Skeletal dysplasia                                                 |
+      | Panels | Rare syndromic craniosynostosis or isolated multisuture synostosis | Rare syndromic craniosynostosis or isolated multisuture synostosis |
+      | Panels | Hereditary ataxia with onset in adulthood                          | Hereditary ataxia with onset in adulthood                          |
+      | Panels | Hereditary ataxia with onset in childhood                          | Hereditary ataxia and cerebellar anomalies - childhood onset       |
+      | Panels | Early onset or syndromic epilepsy                                  | Early onset or syndromic epilepsy                                  |
+      | Panels | Childhood onset hereditary spastic paraplegia                      | Childhood onset hereditary spastic paraplegia                      |
+      | Panels | Arthrogryposis                                                     | Arthrogryposis                                                     |
+      | Panels | Other rare neuromuscular disorders                                 | Other rare neuromuscular disorders                                 |
+      | Panels | Cerebellar anomalies                                               | Hereditary ataxia and cerebellar anomalies - childhood onset       |
+      | Panels | Holoprosencephaly - NOT chromosomal                                | Holoprosencephaly - NOT chromosomal                                |
+      | Panels | Hydrocephalus                                                      | Hydrocephalus                                                      |
+      | Panels | Cerebral malformation                                              | Cerebral malformation                                              |
+      | Panels | Severe microcephaly                                                | Severe microcephaly                                                |
+      | Panels | Childhood onset leukodystrophy                                     | Childhood onset leukodystrophy                                     |
+      | Panels | Cystic renal disease                                               | Cystic renal disease                                               |
 #      | r89Panels | Ultra-rare and atypical monogenic disorders  |                                                                  |
-      | Panels | Bilateral congenital or childhood onset cataracts  |Bilateral congenital or childhood onset cataracts                                                                 |
-      | Panels | Retinal disorders  |  Retinal disorders                                                                |
-      | Panels | Structural eye disease  |   Structural eye disease                                                               |
-      | Panels | Adult onset dystonia, chorea or related movement disorder  | Adult onset dystonia, chorea or related movement disorder                                                                |
-      | Panels | Childhood onset dystonia, chorea or related movement disorder  | Childhood onset dystonia, chorea or related movement disorder                                                                 |
-      | Panels | Adult onset neurodegenerative disorder  |  Adult onset neurodegenerative disorder                                                                |
-      | Panels | Adult onset hereditary spastic paraplegia  | Adult onset hereditary spastic paraplegia                                                                 |
-      | Panels | Adult onset leukodystrophy  |   Adult onset leukodystrophy                                                               |
-      | Panels | Hypotonic infant  | Hypotonic infant                                                                 |
-      | Panels | Hereditary neuropathy or pain disorder - NOT PMP22 copy number  |Hereditary neuropathy or pain disorder - NOT PMP22 copy number                                                                  |
-      | Panels | Paediatric or syndromic cardiomyopathy  |Paediatric or syndromic cardiomyopathy                                                                |
-      | Panels | Unexplained paediatric onset end-stage renal disease  |    Unexplained young onset end-stage renal disease                                                              |
-      | Panels | Sudden cardiac death PILOT  | Sudden unexplained death or survivors of a cardiac event                                                                 |
+      | Panels | Bilateral congenital or childhood onset cataracts                  | Bilateral congenital or childhood onset cataracts                  |
+      | Panels | Retinal disorders                                                  | Retinal disorders                                                  |
+      | Panels | Structural eye disease                                             | Structural eye disease                                             |
+      | Panels | Adult onset dystonia, chorea or related movement disorder          | Adult onset dystonia, chorea or related movement disorder          |
+      | Panels | Childhood onset dystonia, chorea or related movement disorder      | Childhood onset dystonia, chorea or related movement disorder      |
+      | Panels | Adult onset neurodegenerative disorder                             | Adult onset neurodegenerative disorder                             |
+      | Panels | Adult onset hereditary spastic paraplegia                          | Adult onset hereditary spastic paraplegia                          |
+      | Panels | Adult onset leukodystrophy                                         | Adult onset leukodystrophy                                         |
+      | Panels | Hypotonic infant                                                   | Hypotonic infant                                                   |
+      | Panels | Hereditary neuropathy or pain disorder - NOT PMP22 copy number     | Hereditary neuropathy or pain disorder                             |
+      | Panels | Paediatric or syndromic cardiomyopathy                             | Paediatric or syndromic cardiomyopathy                             |
+      | Panels | Unexplained paediatric onset end-stage renal disease               | Unexplained young onset end-stage renal disease                    |
+      | Panels | Sudden cardiac death PILOT                                         | Sudden unexplained death or survivors of a cardiac event           |
 
 
 
