@@ -237,7 +237,7 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | Adult onset hereditary spastic paraplegia                          | Adult onset hereditary spastic paraplegia                          |
       | Panels | Adult onset leukodystrophy                                         | Adult onset leukodystrophy                                         |
       | Panels | Hypotonic infant                                                   | Hypotonic infant                                                   |
-      | Panels | Hereditary neuropathy or pain disorder - NOT PMP22 copy number     | Hereditary neuropathy or pain disorder                             |
+      | Panels |Hereditary neuropathy or pain disorder                              | Hereditary neuropathy or pain disorder                             |
       | Panels | Paediatric or syndromic cardiomyopathy                             | Paediatric or syndromic cardiomyopathy                             |
       | Panels | Unexplained paediatric onset end-stage renal disease               | Unexplained young onset end-stage renal disease                    |
       | Panels | Sudden cardiac death PILOT                                         | Sudden unexplained death or survivors of a cardiac event           |
