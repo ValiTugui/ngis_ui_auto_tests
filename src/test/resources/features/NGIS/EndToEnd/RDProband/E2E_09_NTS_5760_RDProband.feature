@@ -6,11 +6,11 @@ Feature: NTS-5760 Gender issues - phenotypic sex does not match gender as record
   Scenario Outline: NTS-5760 Gender issues - phenotypic sex does not match gender as recorded on form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1985:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "South London and Maudsley NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

@@ -7,8 +7,12 @@ Feature: Cancer:NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband
   Scenario Outline: NTS-4946: E2E#20 : Submit a Cancel referral with patient choice Yes and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=23-01-2007:Gender=Male |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user clicks on Continue Button
     ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation

@@ -105,6 +105,17 @@ public class Wait {
         }
     }
 
+
+    public static void forInvisibilityOf(WebDriver driver, WebElement element, int number) {
+        try {
+            Debugger.println("Wait for "+element+" element to be invisible");
+            WebDriverWait wait = new WebDriverWait(driver, number);
+            wait.until(ExpectedConditions.invisibilityOf(element));
+        }catch(Exception exp){
+            Debugger.println("Wait for "+element+" element to be invisible " + exp);
+        }
+    }
+
     public static void forURLToContainSpecificText(WebDriver driver, String text) {
         WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.urlContains(text));

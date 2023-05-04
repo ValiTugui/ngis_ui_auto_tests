@@ -7,11 +7,11 @@ Feature: RDReferral:NTS-4951: Create Referral for Additional Participants (not p
   Scenario Outline: NTS-4951 : Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R99 | GEL_NORMAL_USER | NHSNumber=2000000584:DOB=06-06-1937 |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

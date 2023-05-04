@@ -5,11 +5,11 @@ Feature: RD Duo Family : NTS-5698: Create a RD referral for one family member, A
   Scenario Outline: NTS-5698: User should see the valid message generated in the GEL 1001 file if Age of mother is less than 12 when child was born and process GEL 1001
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list

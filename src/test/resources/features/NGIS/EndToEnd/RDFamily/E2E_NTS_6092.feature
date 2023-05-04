@@ -2,15 +2,15 @@
 
 Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizygous relationship with Proband verification
 
-  @NTS-6092 @NTS-6092_Scenario1 @Z-LOGOUT
+  @NTS-6092 @NTS-6092_Scenario1 @Z-LOGOUT @inprogress2
   Scenario Outline:NTS-6092_Scenario-1:Twins Monozygous relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-s?election/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -94,11 +94,11 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
   Scenario Outline: NTS-6092_Scenario-2: Twins Unknown relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -182,11 +182,11 @@ Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizy
   Scenario Outline: NTS-6092_Scenario-3: Twins Dizygous relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list

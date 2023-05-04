@@ -26,11 +26,11 @@ Feature: NTS-5705 Patient demographics are unclear - missing NHS number and typo
     And the user clicks the Save patient details to NGIS button
     Then the patient is successfully created with a message "NGIS patient record created"
     Then the user clicks the Start Referral button to display the referral page
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Greater Manchester Mental Health" in the search field
     And the user selects a random entity from the suggestions list

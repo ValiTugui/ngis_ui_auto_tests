@@ -6,10 +6,14 @@ Feature: PanelAssigner: Selection operations in Panels in E2E user journey-4
   Scenario Outline: NTS-5797:E2EUI-2981: Create and submit a referral with no suggested panels, and verify the Payload.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R89 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=06-08-1998:Gender=Male |
-     ###Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user clicks on Continue Button
+    ##Patient Details
+    Then the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-     ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

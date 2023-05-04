@@ -7,10 +7,11 @@ Feature: RDFamily:NTS-4963:Submit an RD referral for 7 participants with various
   Scenario Outline:NTS-4963: Create a referral with 2 siblings,2 grand parents,father,mother for a proband and process the CSVs and check in DDF payload
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-1999:Gender=Male |
-    ###Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    ###Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list

@@ -7,10 +7,11 @@ Feature: RDFamily:NTS-4956: Create Referral for Trio Family with Patient Choice 
   Scenario Outline: NTS-4956: E2EUI-2669 E2E #11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-05-1999:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

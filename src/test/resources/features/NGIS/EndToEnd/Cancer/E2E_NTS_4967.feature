@@ -21,10 +21,11 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
     When the user clicks the Start a new Referral button
-      ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
-      ##Requesting Organisation
+    ##Requesting Organisation
+    When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

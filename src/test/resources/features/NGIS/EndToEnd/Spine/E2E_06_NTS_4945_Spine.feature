@@ -7,9 +7,12 @@ Feature: NTS-4945:E2E06: Create Referrals for SPINE Patient_E2E
   Scenario Outline: NTS-4945: Use Case_E2E#06: Submit a RD referral for Proband with Patient Choice Not Given and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=2000003745:DOB=12-10-2011 |
-    ##Requesting Organisation
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
+    ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "South London and Maudsley NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

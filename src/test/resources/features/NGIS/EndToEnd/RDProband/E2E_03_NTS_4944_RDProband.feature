@@ -7,11 +7,11 @@ Feature: RDProband:NTS-4944:E2E03: Create Referrals for NEW Patient - Proband On
   Scenario Outline: NTS-4944: Use Case_E2E#03: Submit a RD Referral for Proband with Patient Choice Yes and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1985:Gender=Female |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "South London and Maudsley NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

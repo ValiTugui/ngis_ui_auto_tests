@@ -7,10 +7,14 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-1: CSV-Verify the payload by adding additional panel to suggested panels for New patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=12-08-1988:Gender=Male |
-     ###Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user clicks on Continue Button
+    ##Patient Details
+    Then the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-     ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Central and North West London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -86,10 +90,14 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-2: CSV-Verify the payload by adding additional panel to suggested panels for existing NGIS patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=2000003117:DOB=13-05-1994 |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user clicks on Continue Button
     ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-     ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Central and North West London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -165,10 +173,14 @@ Feature:E2E with PanelAssigner: CSV-Verify the payload by adding additional pane
   Scenario Outline: NTS-5747:E2EUI-2963:Scenario-3: CSV-Verify the payload by adding additional panel to suggested panels for SPINE patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000003117:DOB=13-05-1994 |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user clicks on Continue Button
     ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-     ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Central and North West London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

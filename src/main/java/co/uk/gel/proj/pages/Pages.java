@@ -39,6 +39,7 @@ public class Pages implements Navigable {
     protected PatientDetailsPage patientDetailsPage;
     protected RequestingOrganisationPage requestingOrganisationPage;
     protected TestPackagePage testPackagePage;
+    protected TestOrderFormsPage testOrderFormsPage;
     protected ResponsibleClinicianPage responsibleClinicianPage;
     protected TumoursPage tumoursPage;
     protected SamplesPage samplesPage;
@@ -88,6 +89,7 @@ public class Pages implements Navigable {
         patientDetailsPage              = PageFactory.initElements(driver, PatientDetailsPage.class);
         requestingOrganisationPage      = PageFactory.initElements(driver, RequestingOrganisationPage.class);
         testPackagePage                 = PageFactory.initElements(driver, TestPackagePage.class);
+        testOrderFormsPage              = PageFactory.initElements(driver, TestOrderFormsPage.class);
         responsibleClinicianPage        = PageFactory.initElements(driver, ResponsibleClinicianPage.class);
         tumoursPage                     = PageFactory.initElements(driver, TumoursPage.class);
         samplesPage                     = PageFactory.initElements(driver, SamplesPage.class);

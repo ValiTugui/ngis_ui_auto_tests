@@ -7,10 +7,11 @@ Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Pat
   Scenario Outline:NTS:4940: E2E#09: Verify payload for RD Referral for Trio Family with one parent with disease and another no disease with Patient Choice Yes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-05-2000:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "South London and Maudsley NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

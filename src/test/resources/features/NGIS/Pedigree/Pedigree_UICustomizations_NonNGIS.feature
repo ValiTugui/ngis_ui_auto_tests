@@ -10,7 +10,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1986:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     ##Pedigree Stage
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree
@@ -43,7 +43,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-2003:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     ##Pedigree Stage
     When the user navigates to the "<PedigreeStage>" stage
     Then the user is navigated to a page with title Build a pedigree

@@ -9,7 +9,7 @@ Feature: GenomicRecord: Patient details page 5
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field- update a patient record by passing postcode.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-2005:Gender=Male |
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
   #@NTS-4762 @E2EUI-1192
     When the user navigates to the "<PatientDetails>" stage
     Then the "<PatientDetails>" stage is selected
@@ -90,7 +90,7 @@ Feature: GenomicRecord: Patient details page 5
   Scenario Outline:NTOS-4986:NTS-7032: Verify Postcode field error message with invalid format value.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-2005:Gender=Male |
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient's details
     And the user fills in the Postcode field box with "<Postcode1>"

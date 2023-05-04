@@ -11,8 +11,8 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     ##Note: E2EUI-933 talks about pedigree diagram embedded as part of NGIS app - Can be part of any diagram click ticket
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1990:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     ##Family Member
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -94,8 +94,8 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
   Scenario Outline: NTS-4796:(E2EUI-1345,1160): Editable Fields for Non NGIS Participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-11-1991:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test
+    Then the user is navigated to a page with title Test Order Forms
     ##Family Member
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral

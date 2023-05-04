@@ -7,10 +7,11 @@ Feature:Process a referral with tumour content more than 30% and less than 30% a
   Scenario Outline:NTS-5756:E2EUI-2764:Scenario-1:Cancer referral with tumour content less than 30% process and check CSV status in MI and DDF
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=23-01-2007:Gender=Male |
-      ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
-      ##Requesting Organisation
+    ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -83,10 +84,11 @@ Feature:Process a referral with tumour content more than 30% and less than 30% a
   Scenario Outline:NTS-5756:E2EUI-2764:Scenario-2:Cancer referral with tumour content more than 30%, process and check CSV status in MI and DDF
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=21-01-2007:Gender=Female |
-      ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
-      ##Requesting Organisation
+    ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

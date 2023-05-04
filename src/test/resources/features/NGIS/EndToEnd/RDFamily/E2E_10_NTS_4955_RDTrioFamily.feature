@@ -7,10 +7,11 @@ Feature: RDFamily:NTS-4955: Create Referral for Trio Family with Patient Choice 
   Scenario Outline: NTS-4955: E2EUI-2667 E2E #10: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice No
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-2000:Gender=Male |
-    ###Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
-    ###Requesting Organisation
+    ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Medway NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
