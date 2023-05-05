@@ -11,15 +11,19 @@ Feature: TestOrder - Responsible Clinician 3
   Scenario Outline: NTS-3324 - Responsible Clinician Page - Verify the mandatory fields validations under 'Add Another Clinician' section
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    And the user is navigated to a page with title Add a requesting organisation
-#NTS-3895
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#NTS-3895
+#    And the "Patient details" stage is marked as Completed
     When the user submits the referral
     Then the user should see a new popup dialog with title "<Title>"
 #NTS-3895
     And the user should be able to close the pop up dialog box
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "Patient details" stage is marked as Completed
+#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user is navigated to a page with title <pageTitle>
 
@@ -73,10 +77,16 @@ Feature: TestOrder - Responsible Clinician 3
   Scenario Outline: NTS-7212 - Ability to add 2 emails to the email address for clinicians in TOMS
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Add a requesting organisation
+   ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
-    ##Requesting Organisation
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the "<PatientDetails>" stage is marked as Completed
+#    ##Requesting Organisation
+#    Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "East London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button

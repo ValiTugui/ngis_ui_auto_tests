@@ -9,8 +9,13 @@ Feature: Test Package 1  - Cancer
   Scenario Outline: NTS-3080:E2EUI-911: Page Layout - Rare Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    And the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
     And the Test Package page has two "<priorityButtons>" buttons
@@ -42,6 +47,8 @@ Feature: Test Package 1  - Cancer
   Scenario Outline: NTS-3073 - Test package - Page Layout - Cancer
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
@@ -67,6 +74,9 @@ Feature: Test Package 1  - Cancer
   Scenario Outline: NTS-3457: Warn a user that they will lose their changes when navigating away from patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2014:Gender=Male |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+#    When the user clicks on Continue Button
     And the "Patient details" stage is marked as Completed
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage

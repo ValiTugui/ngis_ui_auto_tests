@@ -16,7 +16,7 @@ Feature: Pedigree - Pedigree Flow 1
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
+    And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Requesting_organisation>" stage

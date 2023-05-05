@@ -8,10 +8,16 @@ Feature: Submitting the referral after saving the Panels stage
   Scenario Outline: NTS-5947:Automatically save suggested panels, if no other panels have been saved upon submission of the referral.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
-    ##Patient Details Page
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+   ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
+#    ##Patient Details Page
+#    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user clicks the Save and Continue button
+#    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field
@@ -76,9 +82,14 @@ Feature: Submitting the referral after saving the Panels stage
   Scenario Outline:NTS-5947:Saving selected panel suggestions(Disease status=affected),if the panels are not previously saved.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
-    ##Patient Details Page
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+     ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+      ##Patient Details Page
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the user clicks the Save and Continue button
     ##Requesting Organisation
     And the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field
@@ -133,9 +144,14 @@ Feature: Submitting the referral after saving the Panels stage
   Scenario Outline:NTS-5947:Saving unselected panel suggestions(Disease status= unaffected),if the panels are not previously saved.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
+   ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     ##Patient Details Page
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+#    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user clicks the Save and Continue button
     ##Requesting Organisation
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field

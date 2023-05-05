@@ -9,7 +9,13 @@ Feature: Samples Page -6
   Scenario Outline: NTS-3345:E2EUI-838,857:Edit a non tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-    And the user is navigated to a page with title Add a requesting organisation
+     ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button

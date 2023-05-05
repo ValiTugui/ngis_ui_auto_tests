@@ -10,6 +10,7 @@ Feature: TestOrder - Notes page
   Scenario Outline: Responsible Clinician Page - Phone number field - maximum length validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user is navigated to a page with title Add clinical notes

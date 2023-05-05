@@ -10,7 +10,9 @@ Feature: Family Members Details Page 8- Post Code validation_2
   Scenario Outline:NTS-5810:E2EUI-3018: Verify Postcode update - handling whitespace in the postcode field -Create a new family member, pass postcode
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     Then the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -109,7 +111,9 @@ Feature: Family Members Details Page 8- Post Code validation_2
   Scenario Outline:NTS-7032:NTOS-4986: Creating new Family member : Verify Postcode field error message with invalid format value.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     Then the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -147,7 +151,9 @@ Feature: Family Members Details Page 8- Post Code validation_2
   Scenario Outline:NTS-7032:NTOS-4986: Updating Family member : Verify Postcode field error message with invalid format value.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     Then the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button

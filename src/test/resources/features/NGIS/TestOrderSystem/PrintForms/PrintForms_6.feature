@@ -10,6 +10,8 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
   Scenario Outline: NTS-4802:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=15-10-2001:Gender=Female |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
      ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "NHS Foundation Trust" in the search field
@@ -84,6 +86,8 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
   Scenario Outline: NTS-6040:  As a user viewing the print forms section, I should be able to see routing lab details correctly
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R85 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=15-10-2001:Gender=Female |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
      ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<Requesting_Organisation_key>" in the search field

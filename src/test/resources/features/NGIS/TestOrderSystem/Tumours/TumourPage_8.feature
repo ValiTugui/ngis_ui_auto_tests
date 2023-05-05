@@ -108,6 +108,12 @@ Feature: TestOrder - Tumours Page - 8
     ##Start the referral
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M45 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "University College London Hospitals NHS Foundation Trust" in the search field
@@ -178,9 +184,15 @@ Feature: TestOrder - Tumours Page - 8
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
     And the user clicks on first Clinical indications results displayed in Test Oder
+     ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
+#    Then the user is navigated to a page with title Add a requesting organisation
     ##end of HTO-483
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
     Then the user is navigated to a page with title Select or edit a tumour
     And the "<Tumours>" stage is marked as Mandatory To Do

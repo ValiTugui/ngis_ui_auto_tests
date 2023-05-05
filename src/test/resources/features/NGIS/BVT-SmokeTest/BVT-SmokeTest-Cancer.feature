@@ -8,6 +8,8 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
   Scenario Outline: NTS-3362-TD - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
+   ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     ##Patient Details
     And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation

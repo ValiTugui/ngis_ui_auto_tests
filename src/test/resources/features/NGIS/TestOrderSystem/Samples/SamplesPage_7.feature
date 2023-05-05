@@ -9,7 +9,13 @@ Feature: Samples Page -7
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-    And the user is navigated to a page with title Add a requesting organisation
+     ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user adds a new tumour
       | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
@@ -50,7 +56,13 @@ Feature: Samples Page -7
   Scenario Outline:  NTS-3376: Add Sample Details - Sample Tumour type -  Verify the fields elements are displayed on Add Sample Details page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
-    And the user is navigated to a page with title Add a requesting organisation
+     ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
+##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user adds a new tumour
       | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |

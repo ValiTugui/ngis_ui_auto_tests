@@ -18,9 +18,12 @@ Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - R
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
     And the user clicks on first Clinical indications results displayed in Test Oder
-    #Requesting organisation
-    Then the user is navigated to a page with title Add a requesting organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     And the "<patientDetails>" stage is marked as Completed
+    #Requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "MIDLANDS MEDICAL PARTNERSHIP" in the search field
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
