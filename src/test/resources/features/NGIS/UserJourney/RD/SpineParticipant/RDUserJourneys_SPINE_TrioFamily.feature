@@ -9,7 +9,9 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4592: Use Case#08: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-    ##Patient Details
+   ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+   ##Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
@@ -174,6 +176,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4567: Use Case#10: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     ##Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -261,7 +265,9 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4607: Use Case#11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-    ###Patient Details
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+      ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
@@ -345,6 +351,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4577: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
+   ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button

@@ -8,9 +8,13 @@ Feature: UserJourney_RD_NGIS_Proband_4 - UC03 - E2EUI-991
   Scenario Outline: NTS-4553: Use Case#03: Create NGIS Referral for Proband Only + Edit Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1981:Gender=Male |
-    ##Requesting Organisation
+    ##Test Order Forms
+     Then the user is navigated to a page with title Test Order Forms
+     And the "<PatientDetails>" stage is marked as Completed
+    #Requesting Organisation
+     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Rotherham Doncaster and" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed

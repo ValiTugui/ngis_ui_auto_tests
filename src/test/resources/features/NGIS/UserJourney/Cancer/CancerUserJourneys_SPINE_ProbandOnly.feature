@@ -9,10 +9,11 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
   Scenario Outline: NTS-4684: Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M39 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Portsmouth Hospitals NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -80,10 +81,11 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
   Scenario Outline: Use Case #28: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_SUPER_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male |
-    ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "East London NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

@@ -8,7 +8,10 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
   Scenario Outline: NTS-3348 - UC#29:E2EUI-1804-905: Create Referral for Proband Only - Patient Choice Not given
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Small cell lung cancer | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
-    ##Requesting Organisation
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    And the "<PatientDetails>" stage is marked as Completed
+    #Requesting Organisation
     And the user navigates to the "<stage2>" stage
 #    And the "<PatientDetails>" stage is marked as Completed
     And the user enters the keyword "Maidstone" in the search field
