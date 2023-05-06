@@ -25,12 +25,29 @@ public class TestOrderFormsPage {
     }
 
 
-
     @FindBy(xpath = "//input[@data-testid='test-file-input']")
     public WebElement chooseFilesButton;
 
-    @FindBy(xpath = "//div[@class='styles_item__stgKp styles_item__first__2UxVc']")
+    @FindBy(xpath = "//h3[contains(.,'Uploaded')]/..//div[@class='styles_item__stgKp styles_item__first__2UxVc']")
      public List<WebElement> uploadedFilesList;
+
+    @FindBy(xpath = "//h3[contains(.,'Uploading')]/..//div[@class='styles_item__stgKp styles_item__first__2UxVc']")
+    public List<WebElement> uploadingFilesList;
+
+    @FindBy(xpath = "//h3[contains(.,'Deleted')]/..//div[@class='styles_item__stgKp styles_item__first__2UxVc']")
+    public List<WebElement> deletedFilesList;
+
+    @FindBy(xpath = "//h3[contains(.,'Uploading')]")
+    public WebElement uploadingFilesHeader;
+
+    @FindBy(xpath = "//h3[contains(.,'Uploaded')]")
+    public WebElement uploadedFilesHeader;
+    @FindBy(xpath = "//div[@class='styles_text__1aikh styles_text--4__3fmMD styles_rtc__2cRkG']")
+    public WebElement uploadHasFailedBanner;
+
+    @FindBy(xpath = "//div[@class='styles_stage-error__description__1L9UJ']/div[string-length(text()) > 0]")
+    public List<WebElement> uploadFailedErrorMessages;
+
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator;
 
@@ -77,10 +94,51 @@ public class TestOrderFormsPage {
         }
     }
 
-    public boolean verifyUploadedFiles(List<String> expectedUploadedFiles){
-        Wait.isElementDisplayed(driver, uploadedFilesList.get(0), 10);
-        Wait.seconds(2);
-        List<String> actualUploadedList = Action.getValuesFromDropdown(uploadedFilesList);
-        return actualUploadedList.containsAll(expectedUploadedFiles);
+    public boolean verifyUploadedForms(String listName, List<String> expectedListFiles){
+        List<String> actualListFiles = null;
+        if(listName.equalsIgnoreCase("uploaded")){
+            Wait.forElementToBeDisplayed(driver, uploadedFilesList.get(0), 10);
+            Wait.seconds(2);
+            actualListFiles = Action.getValuesFromDropdown(uploadedFilesList);
+        }else if(listName.equalsIgnoreCase("uploading")){
+            Wait.forElementToBeDisplayed(driver, uploadingFilesList.get(0), 10);
+            Wait.seconds(2);
+            actualListFiles = Action.getValuesFromDropdown(uploadingFilesList);
+        }else if(listName.equalsIgnoreCase("deleted")){
+            Wait.forElementToBeDisplayed(driver, deletedFilesList.get(0), 10);
+            Wait.seconds(2);
+            actualListFiles = Action.getValuesFromDropdown(deletedFilesList);
+        }else{
+            return false;
+        }
+        return actualListFiles.containsAll(expectedListFiles);
+    }
+
+    public boolean verifyUploadOrderFormsErrors(List<String> expectedErrors){
+        Wait.forElementToBeDisplayed(driver, uploadFailedErrorMessages.get(0), 10);
+        List<String> actualErrors = Action.getValuesFromDropdown(uploadFailedErrorMessages);
+        return actualErrors.containsAll(expectedErrors);
+    }
+
+    public int getTheNumberOfFilesInTheList(String headerName){
+        int numberOfFilesInTheList = 0;
+
+        switch (headerName.toLowerCase()){
+            case "uploading":
+                numberOfFilesInTheList = getNumberOfFiles(uploadingFilesHeader);
+                break;
+            case "uploaded":
+                numberOfFilesInTheList = getNumberOfFiles(uploadedFilesHeader);
+                break;
+            default:
+                numberOfFilesInTheList = -1;
+        }
+
+        return numberOfFilesInTheList;
+    }
+
+    public int getNumberOfFiles(WebElement headerTitle) {
+        Wait.forElementToBeDisplayed(driver, headerTitle, 10);
+        return Integer.parseInt(headerTitle.getText().split(" ")[1]);
     }
 }
