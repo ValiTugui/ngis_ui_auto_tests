@@ -92,9 +92,9 @@ Feature: Test Order Forms
     And the list of "Uploaded" files contains the following
       | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
 
-  ##This below scenario has to be reviewed if the current design flow changes
+  ##The below scenario has to be reviewed if the current design flow changes
 
-  Scenario: Users should be able to reupload deleted froms
+  Scenario: Users should be able to upload again deleted forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
