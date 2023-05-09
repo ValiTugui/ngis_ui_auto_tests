@@ -7,7 +7,7 @@ Feature: UserJourney_RD_NEW_Trio_2 - UC10 - E2EUI-1251
 #    @E2EUI-1251 @UseCase10
   Scenario Outline: NTS:4576: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-2000:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=27-07-2000:Gender=Male |
     ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
     When the user clicks on Continue Button

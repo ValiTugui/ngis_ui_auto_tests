@@ -10,10 +10,13 @@ Feature: Patient Choice -5 - Page - FamilyMemberAddition
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2002:Gender=Male |
+
+       ##Patient Details
     Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
-      ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+
+    When the user navigates to the "<requestingOrganisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
 #
     ##Test Package - No of participants -2
