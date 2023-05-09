@@ -94,7 +94,7 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | CIId | panelName                                                          |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease   |
       | Panels | R27  | Paediatric disorders                                               |
-#      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
+      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
       | Panels | R143 | Neonatal diabetes                                                  |
       | Panels | R98  | Likely inborn error of metabolism - targeted testing not possible  |
       | Panels | R104 | Skeletal dysplasia                                                 |

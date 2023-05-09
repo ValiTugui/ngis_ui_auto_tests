@@ -9,7 +9,7 @@ Feature: UserJourney_CAN_NEW_Proband_3 - UC27- E2EUI-1802
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
     ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
-    And the "<PatientDetails>" stage is marked as Completed
+    And the "Patient details" stage is marked as Completed
     #Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
