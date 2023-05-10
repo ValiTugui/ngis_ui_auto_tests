@@ -63,7 +63,7 @@ Feature: UserJourney_RD_NEW_Proband_6 - UC05 - E2EUI-1214
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
-    And the user should see the default status of penetrance button as Incomplete
+    And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
