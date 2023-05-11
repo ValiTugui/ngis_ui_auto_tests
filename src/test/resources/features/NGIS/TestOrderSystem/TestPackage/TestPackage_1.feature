@@ -14,7 +14,7 @@ Feature: Test Package 1  - Cancer
     And the "Patient details" stage is marked as Completed
 ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
-    And the user is navigated to a page with title Add a requesting organisation
+#    And the user is navigated to a page with title Add a requesting organisation
 #    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
@@ -78,7 +78,7 @@ Feature: Test Package 1  - Cancer
     Then the user is navigated to a page with title Test Order Forms
 #    When the user clicks on Continue Button
     And the "Patient details" stage is marked as Completed
-    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user sees the test has been selected by default

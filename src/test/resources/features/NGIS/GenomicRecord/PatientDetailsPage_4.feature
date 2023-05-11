@@ -8,6 +8,7 @@ Feature: GenomicRecord: Patient details page 4
   Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Test Order Forms
     And the user navigates to the "<stage1>" stage
     And the "<stage1>" stage is marked as Completed
     When the user navigates back to patient search page
@@ -106,6 +107,7 @@ Feature: GenomicRecord: Patient details page 4
   Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Test Order Forms
     When the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "present"
 
@@ -114,5 +116,6 @@ Feature: GenomicRecord: Patient details page 4
   Scenario: : NTS-3557:E2EUI-1809-scenario_2 Validating cancel button present when login as normal user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the user is navigated to a page with title Test Order Forms
     When the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "not present"

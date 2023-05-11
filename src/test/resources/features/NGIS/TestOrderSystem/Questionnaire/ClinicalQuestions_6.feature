@@ -9,7 +9,12 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 2 - Return enum values for previous answers
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    ##Patient details Stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Test package" stage
     And the user selects the number of participants as "2"
     And the user clicks the Save and Continue button

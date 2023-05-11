@@ -11,8 +11,13 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3177:E2EUI-1547,1585: To Do list should be Mandatory To Do - verify permissible Number of Participants
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    ##Patient details Stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
     And The user sees a drop down box for the Total number of participants
@@ -32,8 +37,13 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3177:E2EUI-1547,1585: To Do list should be Mandatory To Do
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    ##Patient details Stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    And the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
     And The user sees a drop down box for the Total number of participants

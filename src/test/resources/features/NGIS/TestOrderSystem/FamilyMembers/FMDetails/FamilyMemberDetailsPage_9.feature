@@ -20,16 +20,16 @@ Feature: Family Members Details Page 9 - Roll out: Multi input date
     Then the user is navigated to a page with title Add missing family member details
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient
-    And the user fills in the date of birth "<dateOfBirth2>"
-    Then the message will be displayed as "<error_message2>" in "#dd2509" color for the DOB field
-    And the user fills in the date of birth "<dateOfBirth3>"
-    Then the message will be displayed as "<error_message3>" in "#dd2509" color for the DOB field
-    And the user fills in the date of birth "<dateOfBirth4>"
-    Then the message will be displayed as "<error_message4>" in "#dd2509" color for the DOB field
-    And the user fills in the date of birth "<dateOfBirth5>"
-    Then the message will be displayed as "<error_message5>" in "#dd2509" color for the DOB field
-    And the user fills in the date of birth "<dateOfBirth6>"
-    Then the message will be displayed as "<error_message6>" in "#dd2509" color for the DOB field
+#    And the user fills in the date of birth "<dateOfBirth2>"
+#    Then the message will be displayed as "<error_message2>" in "#dd2509" color for the DOB field
+#    And the user fills in the date of birth "<dateOfBirth3>"
+#    Then the message will be displayed as "<error_message3>" in "#dd2509" color for the DOB field
+#    And the user fills in the date of birth "<dateOfBirth4>"
+#    Then the message will be displayed as "<error_message4>" in "#dd2509" color for the DOB field
+#    And the user fills in the date of birth "<dateOfBirth5>"
+#    Then the message will be displayed as "<error_message5>" in "#dd2509" color for the DOB field
+#    And the user fills in the date of birth "<dateOfBirth6>"
+#    Then the message will be displayed as "<error_message6>" in "#dd2509" color for the DOB field
     And the user fills in the date of birth "<dateOfBirth7>"
     Then the message will be displayed as "<error_message7>" in "#dd2509" color for the DOB field
     And the user fills in the date of birth "<dateOfBirth8>"

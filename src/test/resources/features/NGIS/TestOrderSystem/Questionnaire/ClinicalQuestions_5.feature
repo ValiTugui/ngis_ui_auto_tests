@@ -9,8 +9,13 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - clear the value from Disease status field
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    ##Patient details Stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
@@ -28,8 +33,13 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    ##Patient details Stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     # user adds 3 HPO terms

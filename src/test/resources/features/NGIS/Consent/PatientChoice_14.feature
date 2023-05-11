@@ -12,7 +12,7 @@ Feature: Patient Choice-14 - Different types of Form File upload and removal in 
     Then the user is navigated to a page with title Test Order Forms
     ##Patient Details
 #    And the "Patient details" stage is marked as Completed
-    When the user is navigated to a page with title Add a requesting organisation
+#    When the user is navigated to a page with title Add a requesting organisation
     And the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband

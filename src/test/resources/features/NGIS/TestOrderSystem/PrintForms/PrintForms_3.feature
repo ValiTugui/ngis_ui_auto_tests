@@ -45,6 +45,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=9-09-1999:Gender=Male |
     ###Patient Details- cancelling referral
+    Then the user is navigated to a page with title Test Order Forms
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
     ##Title,Question,Warning,button1,button2
@@ -71,6 +72,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=2000001130:DOB=08-11-1959 |
      ###Patient Details
+    Then the user is navigated to a page with title Test Order Forms
     When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
     And the user selects the cancellation reason "<CancellationReason>" from the modal
@@ -105,6 +107,7 @@ Feature: TestOrder - Print Forms 3 - Validations
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     ###Patient Details
+    Then the user is navigated to a page with title Test Order Forms
     When the user is navigated to a page with title Add a requesting organisation
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation

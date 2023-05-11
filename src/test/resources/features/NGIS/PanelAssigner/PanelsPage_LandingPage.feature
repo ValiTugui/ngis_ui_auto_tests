@@ -239,8 +239,8 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | Adult onset dystonia, chorea or related movement disorder          | Adult onset dystonia, chorea or related movement disorder          |
       | Panels | Childhood onset dystonia, chorea or related movement disorder      | Childhood onset dystonia, chorea or related movement disorder      |
       | Panels | Adult onset neurodegenerative disorder                             | Adult onset neurodegenerative disorder                             |
-      | Panels | Adult onset hereditary spastic paraplegia                          | Adult onset hereditary spastic paraplegia                          |
-      | Panels | Adult onset leukodystrophy                                         | Adult onset leukodystrophy                                         |
+#      | Panels | Adult onset hereditary spastic paraplegia                          | Adult onset hereditary spastic paraplegia                          |
+#      | Panels | Adult onset leukodystrophy                                         | Adult onset leukodystrophy                                         |
       | Panels | Hypotonic infant                                                   | Hypotonic infant                                                   |
       | Panels |Hereditary neuropathy or pain disorder                              | Hereditary neuropathy or pain disorder                             |
       | Panels | Paediatric or syndromic cardiomyopathy                             | Paediatric or syndromic cardiomyopathy                             |

@@ -8,8 +8,11 @@ Feature: TestOrder - Global Consistency
   Scenario Outline: NTS-5069:E2EUI-875: Microsoft Login / Authentication
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1997:Gender=Male |
-    When the user is navigated to a page with title Add a requesting organisation
-    Then the "Patient details" stage is marked as Completed
+      Then the user is navigated to a page with title Test Order Forms
+      And the "Patient details" stage is marked as Completed
+      And the user clicks the Save and Continue button
+    ##Patient details Stage
+     Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Log out button
     Then the user should be navigated to Microsoft login "<MicrosoftLoginUrl>" page
     When the user login to Test Order with invalid credential

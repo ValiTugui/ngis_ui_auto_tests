@@ -9,8 +9,13 @@ Feature: ClinicalQuestions 15 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    ##Patient details Stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
