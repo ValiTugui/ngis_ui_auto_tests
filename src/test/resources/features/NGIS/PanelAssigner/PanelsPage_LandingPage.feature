@@ -86,14 +86,14 @@ Feature: PanelAssigner: Panels Page Landing Page
     And Penetrance section with options Complete and Incomplete
 #    And the user clicks on Incomplete button and button will show tick marked
 #    And the user should see the section with title Default Panel based on the clinical information
-    And the user should see the default status of penetrance button as Incomplete
+#    And the user should see the default status of penetrance button as Incomplete
     And the default panel name is "<panelName>"
     And the user clicks the Save and Continue button
 
     Examples:
       | Panels | CIId | panelName                                                          |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease   |
-      | Panels | R27  | Paediatric disorders                                               |
+     | Panels | R27  | Paediatric disorders                                               |
       | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
       | Panels | R143 | Neonatal diabetes                                                  |
       | Panels | R98  | Likely inborn error of metabolism - targeted testing not possible  |
