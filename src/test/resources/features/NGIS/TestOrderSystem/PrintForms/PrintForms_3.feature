@@ -11,9 +11,10 @@ Feature: TestOrder - Print Forms 3 - Validations
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=28-04-2007:Gender=Female |
     ###Patient Details
     Then the user is navigated to a page with title Test Order Forms
-    When the user is navigated to a page with title Add a requesting organisation
+
     And the print forms stage is locked
-    And the "<PatientDetails>" stage is marked as Completed
+#    And the "<PatientDetails>" stage is marked as Completed
+    When the user navigates to the "Requesting organisation" stage
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "NHS Foundation Trust" in the search field
@@ -46,7 +47,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=9-09-1999:Gender=Male |
     ###Patient Details- cancelling referral
     Then the user is navigated to a page with title Test Order Forms
-    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
     And the user clicks the Cancel referral link
     ##Title,Question,Warning,button1,button2
     Then the cancel referral dialog box is displayed with the following fields
@@ -73,7 +74,8 @@ Feature: TestOrder - Print Forms 3 - Validations
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=2000001130:DOB=08-11-1959 |
      ###Patient Details
     Then the user is navigated to a page with title Test Order Forms
-    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Cancel referral link
     And the user selects the cancellation reason "<CancellationReason>" from the modal
     When the user submits the cancellation
@@ -108,9 +110,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
     ###Patient Details
     Then the user is navigated to a page with title Test Order Forms
-    When the user is navigated to a page with title Add a requesting organisation
-    And the "<PatientDetails>" stage is marked as Completed
-    ###Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list

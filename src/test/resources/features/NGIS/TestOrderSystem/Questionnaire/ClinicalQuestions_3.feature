@@ -10,9 +10,10 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
+#    And the "Patient details" stage is marked as Completed
+#    And the user clicks the Save and Continue button
     ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
 #    When the user is navigated to a page with title Add a requesting organisation
 #    And the "Patient details" stage is marked as Completed

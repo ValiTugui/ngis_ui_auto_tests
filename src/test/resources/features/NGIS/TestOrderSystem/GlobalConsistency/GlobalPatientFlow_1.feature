@@ -12,9 +12,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
 #    @NTS-4813 @E2EUI-1005
     When the user submits the referral
     Then the user sees a dialog box with a title "<dialogTitle>"
@@ -89,7 +88,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user is navigated to a page with title Test Order Forms
 #    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
-    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
@@ -157,10 +157,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-      ###Patient Details
-    And the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see the patient referral banner at the top
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |

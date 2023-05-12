@@ -10,13 +10,8 @@ Feature: ClinicalQuestions 10 - Page Validation
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Test Order Forms
-   And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
-#    When the user is navigated to a page with title Add a requesting organisation
-#
-#    And the user clicks the Save and Continue button
-    ##requesting organisation stage
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ROYAL LIVERPOOL UNIVERSITY HOSPITAL" in the search field
     And the user selects a random entity from the suggestions list
@@ -52,9 +47,7 @@ Feature: ClinicalQuestions 10 - Page Validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     ##Clinical questions Stage
     And the user navigates to the "<Clinical Questions Stage>" stage
@@ -92,12 +85,8 @@ Feature: ClinicalQuestions 10 - Page Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1987:Gender=Male |
 
    Then the user is navigated to a page with title Test Order Forms
-   And the "Patient details" stage is marked as Completed
-   And the user clicks the Save and Continue button
-    ##Patient details Stage
+   When the user navigates to the "Requesting organisation" stage
    Then the user is navigated to a page with title Add a requesting organisation
-#   When the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Answer clinical questions
     And the user should be able to see the field headers on Clinical questions page
@@ -130,11 +119,8 @@ Feature: ClinicalQuestions 10 - Page Validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-#    When the user is navigated to a page with title Add a requesting organisation
     And  the user navigates to the "<TumourStage>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
     And the user clicks the Save and Continue button

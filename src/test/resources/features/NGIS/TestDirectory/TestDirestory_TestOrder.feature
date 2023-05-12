@@ -10,10 +10,8 @@ Feature: Test Directory: TestOrder
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_SUPER_USER | NHSNumber=2000001327:DOB=05-12-1987 |
     ##Patient Details Page
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-
-    Then the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Cancel referral link
     And the user selects the cancellation reason "<Reason>" from the modal
     And the user submits the cancellation

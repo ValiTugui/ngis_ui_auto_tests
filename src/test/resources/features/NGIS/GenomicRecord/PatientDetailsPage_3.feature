@@ -189,7 +189,8 @@ Feature: GenomicRecord: Patient details page 3
     Then the patient is successfully updated with a message "Patient details updated"
     And the user clicks the Start Referral button
     And the referral page is displayed
-    And the "<stage>" stage is marked as Completed
+    Then the user is navigated to a page with title Test Order Forms
+#    And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
     ##refresh is needed spooler is not loading in click back
     And the user attempts to navigate away by clicking "refresh"

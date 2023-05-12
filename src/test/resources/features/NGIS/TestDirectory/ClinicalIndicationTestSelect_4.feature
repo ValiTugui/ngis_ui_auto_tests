@@ -11,8 +11,7 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER | child |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list

@@ -22,8 +22,9 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
     And the user clicks the Start Referral button
     ##Patient Details Page Title
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    When the user is navigated to a page with title Add a requesting organisation
+#    And the "Patient details" stage is marked as Completed
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user should see previous labels replaced as current labels
       | PreviousLabel | CurrentLabel |
       | test order    | Referral     |

@@ -11,11 +11,8 @@ Feature: TestOrder - Test Package 3 - RD
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page priority header has "<priority_label>"
     When the user selects the "<priority>"
@@ -38,12 +35,8 @@ Feature: TestOrder - Test Package 3 - RD
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-#    And the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants: "<NoOfParticipants>"

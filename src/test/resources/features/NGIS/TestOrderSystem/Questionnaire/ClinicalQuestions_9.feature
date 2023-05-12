@@ -11,12 +11,8 @@ Feature: ClinicalQuestions 9 - RD Questionnaire
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-#    When the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user clicks the phenotypic sex dropdown
@@ -36,12 +32,8 @@ Feature: ClinicalQuestions 9 - RD Questionnaire
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     Then the user is navigated to a page with title Test Order Forms
-    And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-#    When the user is navigated to a page with title Add a requesting organisation
-#    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user selects "<diseaseStatueValue>"

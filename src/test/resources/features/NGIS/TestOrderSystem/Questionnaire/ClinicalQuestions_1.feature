@@ -14,7 +14,10 @@ Feature: Clinical Question Page 1 - Family Members
     Then the user is navigated to a page with title Test Order Forms
 #    And the "Patient details" stage is marked as Completed
     ##Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
+    ##Requesting Organisation
+    ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
     And the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
