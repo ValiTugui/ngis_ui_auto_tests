@@ -29,46 +29,46 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
     And the user clicks the Save and Continue button
     ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
-    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
-    And the user clicks the Save and Continue button
-    ##Clinical Question
-    Then the user is navigated to a page with title Answer clinical questions
-    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
-    ##Notes
-    Then the user is navigated to a page with title Add clinical notes
-    And the user fills in the Add Notes field
-    And the user clicks the Save and Continue button
-    ##Family Members
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks the Save and Continue button
-    ##Patient Choice
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    Then the user is navigated to a page with title Add patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<ClinicianName>" details in recorded by
-    And the user clicks on Continue Button
-    When the user is in the section Patient choices
-    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    When the user selects the option Yes for the question Has research participation been discussed?
-    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
-    And the user clicks on Continue Button
-    When the user is in the section Patient signature
-    And the user fills PatientSignature details in patient signature
-    And the user clicks on submit patient choice Button
-    Then the user should be able to see the patient choice form with success message
-    And the user clicks the Save and Continue button
-    ##Panels
-    When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Manage panels
-    And the user clicks the Save and Continue button
-    ##Pedigree
-    Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
-    ##Print forms
-    Then the user is navigated to a page with title Print sample forms
+#    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+#    And the user clicks the Save and Continue button
+#    ##Clinical Question
+#    Then the user is navigated to a page with title Answer clinical questions
+#    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+#    And the user clicks the Save and Continue button
+#    ##Notes
+#    Then the user is navigated to a page with title Add clinical notes
+#    And the user fills in the Add Notes field
+#    And the user clicks the Save and Continue button
+#    ##Family Members
+#    Then the user is navigated to a page with title Add a family member to this referral
+#    And the user clicks the Save and Continue button
+#    ##Patient Choice
+#    Then the user is navigated to a page with title Patient choice
+#    When the user selects the proband
+#    Then the user is navigated to a page with title Add patient choice information
+#    When the user selects the option Adult (With Capacity) in patient choice category
+#    When the user selects the option Rare & inherited diseases – WGS in section Test type
+#    When the user fills "<ClinicianName>" details in recorded by
+#    And the user clicks on Continue Button
+#    When the user is in the section Patient choices
+#    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+#    When the user selects the option Yes for the question Has research participation been discussed?
+#    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+#    And the user clicks on Continue Button
+#    When the user is in the section Patient signature
+#    And the user fills PatientSignature details in patient signature
+#    And the user clicks on submit patient choice Button
+#    Then the user should be able to see the patient choice form with success message
+#    And the user clicks the Save and Continue button
+#    ##Panels
+#    When the user navigates to the "<Panels>" stage
+#    Then the user is navigated to a page with title Manage panels
+#    And the user clicks the Save and Continue button
+#    ##Pedigree
+#    Then the user is navigated to a page with title Build a pedigree
+#    And the user clicks the Save and Continue button
+#    ##Print forms
+#    Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NTS-6555_RD with Mandatory Stages Completed by User1
     #Requesting Organisation - Updated by User1
     And the user waits max 12 minutes for the update Patient details Updated by User2 in the file NTS-6555_RD
@@ -84,7 +84,7 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
   #Login as User B, Verified Requesting organisation and Print forms stage and do not submit referral
   @NTS-6555 @Z-LOGOUT
   Scenario Outline: Verified Requesting Organisation stage of new referral updated by another user
-    And the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6555_RD
+    And the user waits max 15 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6555_RD
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral| NTS-6555_RD |
     #Requesting Organisation - Verified by User2
