@@ -14,8 +14,9 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
     Given The user is login to the Test Order Service and create a new referral
       | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral| NTS-6555_RD |
     # Referral created and completed all stages but not submitted by user1
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
@@ -70,7 +71,7 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NTS-6555_RD with Mandatory Stages Completed by User1
     #Requesting Organisation - Updated by User1
-    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NTS-6555_RD
+    And the user waits max 12 minutes for the update Patient details Updated by User2 in the file NTS-6555_RD
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user clicks the Save and Continue button
@@ -83,13 +84,13 @@ Feature: NTS-6555:RD_new_referral_RequestingOrganisation: Navigate and verify th
   #Login as User B, Verified Requesting organisation and Print forms stage and do not submit referral
   @NTS-6555 @Z-LOGOUT
   Scenario Outline: Verified Requesting Organisation stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6555_RD
+    And the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6555_RD
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME | New Referral| NTS-6555_RD |
     #Requesting Organisation - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NTS-6555_RD with Patient details Updated by User2
-    And the user waits max 10 minutes for the update Requesting Organisation Updated by User1 in the file NTS-6555_RD
+    And the user waits max 15 minutes for the update Requesting Organisation Updated by User1 in the file NTS-6555_RD
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user updates the file NTS-6555_RD with Requesting Organisation validated by User2
