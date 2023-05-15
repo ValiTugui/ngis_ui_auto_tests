@@ -13,6 +13,9 @@ Feature: NTS-6467:Create New Referral for RD flow and verify the stage update me
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NTS-6467_RD |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "<RequestingOrganisation>" stage
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field

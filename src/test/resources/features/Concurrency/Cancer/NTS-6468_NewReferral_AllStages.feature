@@ -14,8 +14,9 @@ Feature: NTS-6468:Cancer_new_referral_all_stages: Submit and verify the changes 
     #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NTS-6468 |
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "<RequestingOrganisation>" stage
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "East London NHS Foundation Trust" in the search field

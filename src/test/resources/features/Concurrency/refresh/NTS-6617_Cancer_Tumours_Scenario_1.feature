@@ -8,14 +8,15 @@ Feature: NTS-6617:Cancer_new_referral_Tumours_add: Navigate and verify the chang
   #User1 Updated Tumours and its sub stages for the referral
   #User2 Navigate and verify the changes done by user1 in Tumours and its sub stages
 
- @NTS-6617 @NTS-6617_Scenario1 @Z-LOGOUT
+  @NTS-6617 @NTS-6617_Scenario1 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Tumours stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
       | Fibro-Osseous Tumour of Bone Differential | CONCURRENT_USER1_NAME | New Referral | NTS-6617_Scenario1 |
     # Referral created and completed all stages but not submitted by user1
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "East London NHS Foundation Trust" in the search field

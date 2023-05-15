@@ -16,6 +16,9 @@ Feature: NTS-6466: Different stages updated by three users and verified by anoth
       #Login as User A, Complete all stages and do not submit referral
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NTS-6466_Scenario2 |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Sandwell and West Birmingham Hospitals NHS Trust" in the search field

@@ -14,8 +14,9 @@ Feature: NTS-6610:RD_new_referral_Panels: Navigate and verify the changes on Pan
     Given The user is login to the Test Order Service and create a new referral
       | Holoprosencephaly - NOT chromosomal | CONCURRENT_USER1_NAME | New Referral | NTS-6610_RD |
     # Referral created and completed all stages but not submitted by user1
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field

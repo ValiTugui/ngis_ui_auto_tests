@@ -270,6 +270,9 @@ Feature: NTS-7213:RD_new_referral_same_stage
   Scenario Outline: Verify the concurrency error on Add missing family member details page
     Given The user is login to the Test Order Service and create a new referral
       | Rare syndromic craniosynostosis or isolated multisuture synostosis | CONCURRENT_USER1_NAME | New Referral | NTS-7261 |
+    ##Test Order Forms
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
 #   Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Wye Valley NHS Trust" in the search field
