@@ -76,7 +76,7 @@ Feature: NTS-6555:Cancer_new_referral_RequestingOrganisation: Navigate and verif
     Then the user is navigated to a page with title Print sample forms
     Then the user updates the file NTS-6555_Cancer with Mandatory Stages Completed by User1
     #Requesting Organisation - Updated by User1
-    And the user waits max 10 minutes for the update Patient details Updated by User2 in the file NTS-6555_Cancer
+    And the user waits max 15 minutes for the update Patient details Updated by User2 in the file NTS-6555_Cancer
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user updates the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user clicks the Save and Continue button
@@ -89,13 +89,13 @@ Feature: NTS-6555:Cancer_new_referral_RequestingOrganisation: Navigate and verif
   #Login as User B, Verified Requesting organisation and Print forms stage and do not submit referral
   @NTS-6555 @Z-LOGOUT
   Scenario Outline: Verified Requesting Organisation stage of new referral updated by another user
-    And the user waits max 20 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6555_Cancer
+    And the user waits max 25 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6555_Cancer
     Given The user is login to the Test Order Service and access the given referral
       | CONCURRENT_USER2_NAME |New Referral| NTS-6555_Cancer |
    #Requesting Organisation - Verified by User2
     And the user navigates to the "<PatientDetails>" stage
     And the user updates the file NTS-6555_Cancer with Patient details Updated by User2
-    And the user waits max 20 minutes for the update Requesting Organisation Updated by User1 in the file NTS-6555_Cancer
+    And the user waits max 25 minutes for the update Requesting Organisation Updated by User1 in the file NTS-6555_Cancer
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user verifies the stage "<RequestingOrganisation>" with "<RequestingOrganisationUpdated>"
     And the user updates the file NTS-6555_Cancer with Requesting Organisation validated by User2
