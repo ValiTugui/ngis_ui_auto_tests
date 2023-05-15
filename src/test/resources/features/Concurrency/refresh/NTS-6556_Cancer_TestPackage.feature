@@ -8,7 +8,7 @@ Feature: NTS-6556:Cancer_new_referral_TestPackage: Navigate and verify the chang
   #User1 Updated Test Package stage for the referral
   #User2 Navigate and verify the changes done by user1 in Test Package stage
 
-  @NTS-6556 @Z-LOGOUT @inprogress
+  @NTS-6556 @Z-LOGOUT
   Scenario Outline: Login as User A,Create a New Referral, Complete all stages and do not submit referral,and updated Test package stage, when B accessed same referral then verified data updated by A.
 
     Given The user is login to the Test Order Service and create a new referral
@@ -88,7 +88,7 @@ Feature: NTS-6556:Cancer_new_referral_TestPackage: Navigate and verify the chang
 
   #User2
   #Login as User B, Verified Test Package stage and do not submit referral
-  @NTS-6556 @Z-LOGOUT @inprogress
+  @NTS-6556 @Z-LOGOUT
   Scenario Outline: Verified Test package stage of new referral updated by another user
     And the user waits max 15 minutes for the update Mandatory Stages Completed by User1 in the file NTS-6556_Cancer
     Given The user is login to the Test Order Service and access the given referral
