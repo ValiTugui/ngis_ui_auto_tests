@@ -1,3 +1,4 @@
+@SYSTEM_TEST
 @TestOrderforms
 Feature: Test Order Forms
 

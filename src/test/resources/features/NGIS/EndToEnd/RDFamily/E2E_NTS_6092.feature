@@ -2,7 +2,7 @@
 
 Feature: RD Duo Family : NTS-6092:Twins Monozygous, Twins Unknown and Twins Dizygous relationship with Proband verification
 
-  @NTS-6092 @NTS-6092_Scenario1 @Z-LOGOUT @inprogress2
+  @NTS-6092 @NTS-6092_Scenario1 @Z-LOGOUT
   Scenario Outline:NTS-6092_Scenario-1:Twins Monozygous relationship with Proband verification
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-s?election/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2001:Gender=Male |

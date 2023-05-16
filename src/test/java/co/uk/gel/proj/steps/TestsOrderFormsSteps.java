@@ -94,6 +94,7 @@ public class TestsOrderFormsSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)), 10);
         try {
             SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)).click();
+            Debugger.println(fileToDelete + " has been deleted");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -105,6 +106,7 @@ public class TestsOrderFormsSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)), 10);
         try {
             SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)).click();
+            Debugger.println(fileToRestore + " has been restored");
         }catch (Exception e){
             e.printStackTrace();
         }
