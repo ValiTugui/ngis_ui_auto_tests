@@ -8,13 +8,12 @@ Feature: Tumours Page Navigation
   Scenario Outline: NTS-7158: Validate Save and continue / Continue button through all the pages of Tumour stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
+    ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
-    And the user clicks the Save and Continue button
-    ##Patient details Stage
-    Then the user is navigated to a page with title Add a requesting organisation
        ##Requesting Organisation
-#    When the user is navigated to a page with title Add a requesting organisation
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "University College London Hospitals NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button
