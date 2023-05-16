@@ -10,7 +10,7 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R441 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male:Life status=Deceased |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R441 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
     ## Please remove Life status=Deceased once R441 testing is done from the above step
   ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
