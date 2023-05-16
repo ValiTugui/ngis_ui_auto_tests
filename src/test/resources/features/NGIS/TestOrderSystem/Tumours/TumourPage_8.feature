@@ -83,7 +83,7 @@ Feature: TestOrder - Tumours Page - 8
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
     And the user clicks on first Clinical indications results displayed in Test Oder
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
     ##end of HTO-483
     And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
