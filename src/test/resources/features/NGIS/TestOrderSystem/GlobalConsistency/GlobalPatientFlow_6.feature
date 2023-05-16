@@ -126,7 +126,8 @@ Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
     And the user click on the referral card on patient details page to navigate to referral page
     Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
-    And the user sees the patient details on the referral header of each referral component page "<PageTitle>"
+    When the user navigates to the "Patient details" stage
+    Then the user sees the patient details on the referral header of each referral component page "<PageTitle>"
       | PatientName | PatientDOB | PatientGender | PatientNHSNo | PatientNgisId | ClinicalIndicationName | PatientReferralID | ReferralStatus | ReferralSubmitButton |
 #    @NTS-4562 @E2EUI-1088
     And the user clicks the Log out button
