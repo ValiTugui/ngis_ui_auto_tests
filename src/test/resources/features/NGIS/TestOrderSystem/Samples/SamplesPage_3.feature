@@ -5,7 +5,7 @@
 
 Feature: Samples Page -3
 
-  @NTS-3365 @Z-LOGOUT
+  @NTS-3365 @Z-LOGOUT @inprogress
 #    @E2EUI-2359 @E2EUI-1302 @E2EUI-842
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -16,12 +16,12 @@ Feature: Samples Page -3
 ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
-#    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     When the user selects a tumour sample type "<sampleType>" from the system questions page on Add a Sample page
+    And the user clicks the Save and Continue button
     Then the Add tumour error message is displayed below Sample type field "To select this sample type, add a tumour"
     When the user clicks the Add a tumour link from the error message
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<addATumourLink>" button and "<acknowledgeMessage>" it
