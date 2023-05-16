@@ -8,6 +8,8 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     ###New Referral to search in the NEAT admin tool
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=14-05-2004:Gender=Male |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user stores the generated Patient NGIS-ID
     ### Navigating to NEAT Tool
@@ -79,7 +81,9 @@ Feature:E2EUI-2558: [E2E|UI] - Display Reason for inactive on the Edit patient r
     Then the user clicks the Start a new Referral button
     And the "Patient details" stage is marked as Completed
     And the user stores the generated Patient NGIS-ID
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+#    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
 
       #Goes back to neat and check the status Newly created is in active state
 

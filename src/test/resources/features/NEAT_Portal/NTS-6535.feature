@@ -8,6 +8,8 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
 #  Scenario 1: Merged event should display a Merged Badge for an RD referral / participant
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Likely inborn error of metabolism | SPECIAL_CHARACTERS | create a new patient record | None | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user stores the generated Patient NGIS-ID
     ### Navigating to NEAT Tool
@@ -45,7 +47,9 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the message displayed on the notification banner is "<tooltipMessage>"
     And the user clicks the Save and Continue button on Patient details page
     And the user clicks the Start Referral button to display the referral page
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+#    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "Patient details" stage
     And the message displayed on the notification banner is "<tooltipMessage>"
     When the user navigates to the "Family members" stage
@@ -85,6 +89,8 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
 #  Scenario 2: Demerged event should display a Demerged Badge for an RD referral / participant
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Likely inborn error of metabolism | SPECIAL_CHARACTERS | create a new patient record | None | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user stores the generated Patient NGIS-ID
     ### Navigating to NEAT Tool
@@ -122,7 +128,9 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the message displayed on the notification banner is "<tooltipMessage>"
     And the user clicks the Save and Continue button on Patient details page
     And the user clicks the Start Referral button to display the referral page
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+#    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "Patient details" stage
     And the message displayed on the notification banner is "<tooltipMessage>"
     When the user navigates to the "Family members" stage
@@ -162,6 +170,8 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
 #  Scenario 3: Merged and Demerged event should display a Merged Badge for an RD referral / participant
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Likely inborn error of metabolism | SPECIAL_CHARACTERS | create a new patient record | None | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user stores the generated Patient NGIS-ID
     ### Navigating to NEAT Tool
@@ -199,7 +209,9 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     And the message displayed on the notification banner is "<tooltipMessage>"
     And the user clicks the Save and Continue button on Patient details page
     And the user clicks the Start Referral button to display the referral page
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+#    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "Patient details" stage
     And the message displayed on the notification banner is "<tooltipMessage>"
     When the user navigates to the "Family members" stage
@@ -240,6 +252,8 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
 
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Likely inborn error of metabolism | SPECIAL_CHARACTERS | create a new patient record | None | GEL_SUPER_USER |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user stores the generated Patient NGIS-ID
     ### Navigating to NEAT Tool
@@ -276,7 +290,9 @@ Feature: Merge / Demerge event should be displayed as Merge Badge/Stamp in TOMS 
     Then the user should not see the merge warning notification banner
     And the user clicks the Save and Continue button on Patient details page
     And the user clicks the Start Referral button to display the referral page
-    Then the user is navigated to a page with title Add a requesting organisation
+    Then the user is navigated to a page with title Test Order Forms
+#    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "Patient details" stage
     Then the user should not see the merge warning notification banner
     When the user navigates to the "Family members" stage
