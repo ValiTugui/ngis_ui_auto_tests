@@ -5,7 +5,7 @@
 
 Feature: Samples Page -3
 
-  @NTS-3365 @Z-LOGOUT @inprogress
+  @NTS-3365 @Z-LOGOUT
 #    @E2EUI-2359 @E2EUI-1302 @E2EUI-842
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
