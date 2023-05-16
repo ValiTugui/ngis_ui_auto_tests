@@ -139,7 +139,7 @@ public class DashBoardSteps extends Pages {
         }
     }
 
-    @And("the user should be able to clicks on the following tabs")
+    @And("the user should be able to click on the following tabs")
     public void theUserShouldBeAbleToClicksOnTabs(List<String> inputTabs) {
         boolean testResult = false;
         for (String input_tab : inputTabs) {
