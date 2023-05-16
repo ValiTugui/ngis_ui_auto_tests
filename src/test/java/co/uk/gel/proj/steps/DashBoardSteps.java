@@ -8,6 +8,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import java.util.List;
 
 public class DashBoardSteps extends Pages {
 
@@ -138,15 +139,14 @@ public class DashBoardSteps extends Pages {
         }
     }
 
-    @And("the user should be able to clicks on {string}")
-    public void theUserShouldBeAbleToClicksOnTabs(String inputTabs) {
+    @And("the user should be able to clicks on the following tabs")
+    public void theUserShouldBeAbleToClicksOnTabs(List<String> inputTabs) {
         boolean testResult = false;
-        String[] inp_tabs = inputTabs.split(",");
-        for (String inp_tab : inp_tabs) {
-           testResult = dashBoardPage.clickOnTabsAndVerifyTheUrl(inp_tab);
+        for (String input_tab : inputTabs) {
+           testResult = dashBoardPage.clickOnTabsAndVerifyTheUrl(input_tab);
            if (!testResult){
-               Debugger.println("Could not click on tab : "+inp_tab);
-               SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"CouldNotClickOnTab_"+inp_tab+".jpg");
+               Debugger.println("Could not click on tab : "+input_tab);
+               SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"CouldNotClickOnTab_"+input_tab+".jpg");
                Assert.assertTrue(testResult);
            }
         }

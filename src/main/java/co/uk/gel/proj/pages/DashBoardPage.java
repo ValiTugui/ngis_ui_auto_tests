@@ -291,6 +291,8 @@ public class DashBoardPage {
     }
 
     public boolean clickOnTabsAndVerifyTheUrl(String tabName) {
+        //3 seconds static wait has been added because sometimes takes a one or two seconds for "Access the service admin tool" to be displayed
+        Wait.seconds(3);
         try {
             String url = "";
             switch (tabName) {
