@@ -1,0 +1,104 @@
+image: maven:3.9.0-eclipse-temurin-11
+
+variables:
+  PASSWORD: $PWD
+  ENV:
+    value: "dev"
+    description: "ENV name: [dev|test|e2e|uat|prod]"
+  SYSTEM_TEST:
+    value: ""
+    description: "SYSTEM_TEST tag"
+  SYSTEM_INTEGRATION_TEST:
+    value: ""
+    description: "SYSTEM_INTEGRATION_TEST tag"
+  TestEnvironment:
+    value: "dev"
+    description: "dev|test|e2e|uat|prod"    
+  ThreadCount:
+    value: 1
+    description: "thread count"     
+    
+      
+stages:
+  - systemIntegration Test
+  - System Test
+
+.test_suite_common: &test_suite_common
+  before_script:
+    - apt-get update
+    - apt-get install -y libexif-dev udev gnupg2
+    - apt-get install -y zip
+    - apt-get install -y wget
+    - apt-get install -y ca-certificates
+    - apt-get install -y libnss3-dev libasound2 libxss1 libappindicator3-1 libindicator7 gconf-service libgconf-2-4 libpango1.0-0 xdg-utils fonts-liberation libgbm1
+    # install chrome
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+    - apt-get update
+    - apt-get install -y google-chrome-stable xvfb
+    # xvfb
+    - export DISPLAY=:99.0
+    - Xvfb -ac $DISPLAY &
+    # - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    # - apt-get install -y ./google-chrome-stable_current_amd64.deb
+    - which google-chrome
+    - google-chrome --version
+
+
+.hto_system_tests:
+  <<: *test_suite_common
+  stage: "System Test"
+  script:
+    - echo "SYSTEM_TEST tag is ${SYSTEM_TEST}"
+    - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+    - if [ -z $SYSTEM_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_TEST" -DreportName=ST-API-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+  artifacts:
+    paths:
+      - ./target
+    expire_in: 1 week
+  when: manual
+
+.hto_systemIntegration_tests:
+  <<: *test_suite_common
+  stage: "systemIntegration Test"
+  script:
+    - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
+    - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+    -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+  artifacts:
+    paths:
+      - ./target
+    expire_in: 1 week
+  when: manual
+
+
+hto_system_tests_le:
+  extends: .hto_system_tests
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+
+
+hto_system_tests_he:
+  extends: .hto_system_tests
+  tags:
+    - pool_name:hto_qa_prod
+  rules:
+    - if: $ENV == 'prod' || $ENV == 'uat'
+
+
+hto_systemIntegration_tests_le:
+  extends: .hto_systemIntegration_tests
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+
+
+hto_systemIntegration_tests_he:
+  extends: .hto_systemIntegration_tests
+  tags:
+    - pool_name:hto_qa_prod
+  rules:
+    - if: $ENV == 'prod' || $ENV == 'uat'
