@@ -8,6 +8,13 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
   @NTS-3407-TD @Z-LOGOUT
  #@E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
+    ##NGIS Version
+    Given the user gets the NGIS version
+    And a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user has scrolled down the page to the bottom (Footer)
+    Then the user can see the "Privacy Policy" link at bottom of the page
+    And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R441 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |

@@ -4,6 +4,13 @@ Feature: Navigation of Test Selection, Test Order and Panel App with Basic Check
 
   @NTS-6426
   Scenario: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
+    ##NGIS Version
+    Given the user gets the NGIS version
+    And a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user has scrolled down the page to the bottom (Footer)
+    Then the user can see the "Privacy Policy" link at bottom of the page
+    And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     ##Dashboard Page
     Given a web browser is at the dashboard page
     And User should be able to see my Dashboard

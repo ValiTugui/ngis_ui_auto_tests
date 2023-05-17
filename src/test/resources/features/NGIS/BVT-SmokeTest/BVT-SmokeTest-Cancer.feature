@@ -6,6 +6,14 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
   @NTS-3362-TD @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362-TD - Create Referral for Proband Only - Standard user - patient choice Yes
+    ##NGIS Version
+    Given the user gets the NGIS version
+    And a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user has scrolled down the page to the bottom (Footer)
+    Then the user can see the "Privacy Policy" link at bottom of the page
+    And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
+    ##Create Cancer Referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
    ##Test Order Forms

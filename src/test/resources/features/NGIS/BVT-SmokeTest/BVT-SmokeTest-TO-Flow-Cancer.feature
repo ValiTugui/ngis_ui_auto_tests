@@ -7,6 +7,14 @@ Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - R
   @NTS-3362-TO @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362-TO - Create Referral for Proband Only - Standard user - patient choice Yes
+    ##NGIS Version
+    Given the user gets the NGIS version
+    And a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user has scrolled down the page to the bottom (Footer)
+    Then the user can see the "Privacy Policy" link at bottom of the page
+    And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
+    ##Create Cancer Referral
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
