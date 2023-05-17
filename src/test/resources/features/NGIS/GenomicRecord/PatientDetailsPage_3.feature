@@ -189,7 +189,7 @@ Feature: GenomicRecord: Patient details page 3
     Then the patient is successfully updated with a message "Patient details updated"
     And the user clicks the Start Referral button
     And the referral page is displayed
-    Then the user is navigated to a page with title Test Order Forms
+    Then the user is navigated to a page with title Check your patient's details
 #    And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
     ##refresh is needed spooler is not loading in click back
@@ -197,5 +197,5 @@ Feature: GenomicRecord: Patient details page 3
     Then the "<pageTitle3>" page is displayed
 
     Examples:
-      | stage           | pageTitle                        | pageTitle2        | pageTitle3     | reason_for_no_nhsNumber       | patient-search-type | directoryPathPage         |
-      | Patient details | Create a record for this patient | Find your patient | Patient record | Other (please provide reason) | NGIS                | test-order/patient-search |
+      | stage           | pageTitle                        | pageTitle2        | pageTitle3       | reason_for_no_nhsNumber       | patient-search-type | directoryPathPage         |
+      | Patient details | Create a record for this patient | Find your patient | Test Order Forms | Other (please provide reason) | NGIS                | test-order/patient-search |
