@@ -12,8 +12,6 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
      ###Patient details
     Then the user is navigated to a page with title Test Order Forms
     When the user navigates to the "Requesting organisation" stage
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
      ##Requesting Organisation
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
