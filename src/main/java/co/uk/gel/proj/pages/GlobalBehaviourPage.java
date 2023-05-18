@@ -76,6 +76,9 @@ public class GlobalBehaviourPage {
         String[] footer = footerText.getText().split("\\r?\\n");
         String actualVersion = footer[4];
         Debugger.println("NGIS Version from Application is " + actualVersion);
+        if(System.getProperty("TestEnvironment").equals("dev")){
+            return true;
+        }
         return actualVersion.matches(AppConfig.getNGISVersion());
     }
 

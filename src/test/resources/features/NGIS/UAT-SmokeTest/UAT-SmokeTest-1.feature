@@ -2,17 +2,22 @@
 
 Feature: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
 
-  @NTS-6426
+  @NTS-6426 @inprogress
   Scenario: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
-    ##NGIS Version
+    ## GET NGIS Version from NGIS Status page
     Given the user gets the NGIS version
+    #Validate Banner elements on Test Selection
     And a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    Then the user should see the banner elements based on the current environment
+    ##Validate NGIS Version
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
     And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     ##Dashboard Page
     Given a web browser is at the dashboard page
+    ##Validate Banner elements on Dashboard
+    Then the user should see the banner elements based on the current environment
     And User should be able to see my Dashboard
     And The user should see the Page title as "Welcome to the National Genomic Informatics System"
     When the user should be able to see clickable tabs
@@ -40,6 +45,8 @@ Feature: Navigation of Test Selection, Test Order and Panel App with Basic Check
     And the user logs in to the Test Order system successfully
       | Find your patient |
     Then the user should be able to see NHS logo image
+    #Validate Banner elements on Test Order
+    Then the user should see the banner elements based on the current environment
   ##MI portal
     When the user clicks the Log out button
     And User should be able to see my Dashboard

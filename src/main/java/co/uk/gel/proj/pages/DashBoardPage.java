@@ -53,11 +53,36 @@ public class DashBoardPage {
     @FindBy(xpath = "//header//a//*[contains(@xmlns,'http://www.w3.org/')]")
     public WebElement NHSLogo;
 
+    @FindBy(xpath = "//*[@alt='NHS Logo' or @class='css-11wgm18']")
+    public WebElement testSelectionNhsLogo;
+
     @FindBy(xpath = "//div[@id='root']//a/child::div[contains(@class,'styles_card__title')]")
     public List<WebElement> nhsTabs;
 
     @FindBy(xpath = "//div[contains(text(),'Manage samples')]")
     public WebElement ManageSamplesTab;
+
+
+    @FindBy(xpath = "//*[contains(@class,'styles_container__1q-zX') or @class='css-8gah82' or contains(@class,'styles_nav__19zlJ')]")
+    public WebElement nonProdBannerColor;
+
+    @FindBy(xpath = "//nav[contains(@class,'styles_nav__19zlJ')]")
+    public WebElement prodBannerColor;
+
+    @FindBy(xpath = "//span[contains(translate(., 'Env', 'env'),'Test environment')]")
+    public WebElement testEnvironment;
+
+    @FindBy(xpath = "//*[@class='styles_environment-label__iOJBm' or @class='css-krxhtj' or @class='styles_environment-label__1HJXr']")
+    public WebElement getTestEnvBackgroundColor;
+
+    @FindBy(xpath = "//a[@href='/test-selection/' or @href='/test-order']")
+    public WebElement genomicsMedicineServiceLogo;
+
+    @FindBy(xpath = "//div[@class='styles_nav--genomics__3ozGE' or @class='\\']")
+    public WebElement dashboardGenomicsMedicineServiceLogo;
+
+    @FindBy(xpath = "//span[@class='css-1nceqb7']")
+    public WebElement loggedInUserName;
 
 //    public void navigateToDashboardPage() {
 //        Debugger.println("before getTo_dashboard_url  .");

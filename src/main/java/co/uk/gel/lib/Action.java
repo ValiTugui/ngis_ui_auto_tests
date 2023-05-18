@@ -111,6 +111,11 @@ public class Action {
     }
 
 
+    public static String getCssValue(WebElement element, String cssValue){
+        return element.getCssValue(cssValue);
+    }
+
+
     public static void fillInValue(WebElement element, String value) {
         //Action.clearInputField(element);
         element.sendKeys(value);
