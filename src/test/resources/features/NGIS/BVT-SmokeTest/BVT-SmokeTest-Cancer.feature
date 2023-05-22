@@ -18,6 +18,19 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
    ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
+    When the user uploads the following files
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    When the user deletes "testfile.pdf" form
+    When the user deletes "testfile2.pdf" form
+    Then the list of "Deleted" files contains the following
+      | testfile.pdf | testfile2.pdf |
+    When the user restores "testfile.pdf" form
+    Then the list of "Deleted" files contains the following
+      | testfile2.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     ##Patient Details
     And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation

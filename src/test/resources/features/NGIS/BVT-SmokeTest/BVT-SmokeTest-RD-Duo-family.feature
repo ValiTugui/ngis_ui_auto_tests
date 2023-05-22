@@ -17,10 +17,23 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
     And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R441 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male:Life status=Deceased|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R441 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male:Life status=Deceased |
     ## Please remove Life status=Deceased once R441 testing is done from the above step
   ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
+    When the user uploads the following files
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    When the user deletes "testfile.pdf" form
+    When the user deletes "testfile2.pdf" form
+    Then the list of "Deleted" files contains the following
+      | testfile.pdf | testfile2.pdf |
+    When the user restores "testfile.pdf" form
+    Then the list of "Deleted" files contains the following
+      | testfile2.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     ##Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation

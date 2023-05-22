@@ -35,10 +35,23 @@ Feature: NTS-3407-TO: Create RD Duo Family by completing - Patient Details - Req
     And the user clicks the Start Referral button
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
-    And the user clicks on first Clinical indications results displayed in Test Oder
+    And the user clicks on first Clinical indications result displayed in Test Oder
     ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
     And the "<patientDetails>" stage is marked as Completed
+    When the user uploads the following files
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    When the user deletes "testfile.pdf" form
+    When the user deletes "testfile2.pdf" form
+    Then the list of "Deleted" files contains the following
+      | testfile.pdf | testfile2.pdf |
+    When the user restores "testfile.pdf" form
+    Then the list of "Deleted" files contains the following
+      | testfile2.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     #Requesting organisation
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
