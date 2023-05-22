@@ -178,7 +178,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         clinicalIndicationsTestSelect.clickFirstResultInClinicalIndications();
     }
 
-    @And("the user clicks on first Clinical indications results displayed in Test Oder")
+    @And("the user clicks on first Clinical indications result displayed in Test Oder")
     public void theUserClicksOnFirstClinicalIndicationsResultsDisplayedInTestOder() {
         clinicalIndicationsTestSelect.clickFirstResultInTestOrderingClinicalIndications();
     }
@@ -241,7 +241,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     }
 
 
-    @And("the user clicks on the about this test button")
+    @And("the user clicks on About this test button")
     public void theUserClicksOnTheAboutThisTestButton() {
         Wait.forElementToBeClickable(driver, clinicalIndicationsTestSelect.aboutThisTestCiResultsPanels.get(0));
         clinicalIndicationsTestSelect.aboutThisTestCiResultsPanels.get(0).click();
@@ -260,5 +260,48 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theUserClickOnContinueTestOrderingButton() {
         Wait.forElementToBeClickable(driver, clinicalIndicationsTestSelect.continueTestOrderingBtn);
         clinicalIndicationsTestSelect.continueTestOrderingBtn.click();
+    }
+
+    @Then("the first clinical indication result card displayed in Test Ordering contains {string} CI Name")
+    public void theFirstClinicalIndicationResultDisplayedContainsCIName(String expectedCiName) {
+        if(!Wait.isElementDisplayed(driver, clinicalIndicationsTestSelect.ciNameDisplayedOnFirstCardTO, 5)){
+            Assert.fail("No Result card is displayed in TO. Please check if the CI Code or Value is Correct");
+        }
+        String actualCiName = Action.getText(clinicalIndicationsTestSelect.ciNameDisplayedOnFirstCardTO);
+        Assert.assertEquals(expectedCiName, actualCiName);
+    }
+
+    @And("The CI Type and CI Code displayed on the card in Test Ordering are {string}")
+    public void theCITypeAndCICodeDisplayedOnTheCardAre(String expectedCiTypeAndCode) {
+        if(!Wait.isElementDisplayed(driver, clinicalIndicationsTestSelect.ciTypeAndCiCodeDisplayedOnFirstCardTO, 10)){
+            Assert.fail("Clinical Indication type and code are not displayed on the first results card in Test Ordering");
+        }
+        String actualCiTypeAndCode = Action.getText(clinicalIndicationsTestSelect.ciTypeAndCiCodeDisplayedOnFirstCardTO);
+        Assert.assertEquals(expectedCiTypeAndCode, actualCiTypeAndCode);
+    }
+
+    @Then("the first clinical indication result card displayed in Test Directory contains {string} CI Name")
+    public void theFirstClinicalIndicationResultCardDisplayedInTestDirectoryContainsCIName(String expectedCiName) {
+        if(!Wait.isElementDisplayed(driver, clinicalIndicationsTestSelect.ciNameDisplayedOnFirstCardTD, 5)){
+            Assert.fail("No Result card is displayed in TD. Please check if the CI Code or Value is Correct");
+        }
+        String actualCiName = Action.getText(clinicalIndicationsTestSelect.ciNameDisplayedOnFirstCardTD);
+        Assert.assertEquals(expectedCiName, actualCiName);
+    }
+
+    @And("the CI Type and CI Code displayed on the card in Test Directory are {string}")
+    public void theCITypeAndCICodeDisplayedOnTheCardInTestDirectoryAre(String expectedCiTypeAndCode) {
+        if(!Wait.isElementDisplayed(driver, clinicalIndicationsTestSelect.ciTypeDisplayedOnFirstCardTD, 5)){
+            Assert.fail("Clinical Indication type is not displayed on the first results card in Test Directory");
+        }
+
+        if(!Wait.isElementDisplayed(driver, clinicalIndicationsTestSelect.ciCodeDisplayedOnFirstCardTD, 5)){
+            Assert.fail("Clinical Indication code is not displayed on the first results card in Test Directory");
+        }
+
+        String actualCiTypeAndCode = Action.getText(clinicalIndicationsTestSelect.ciTypeDisplayedOnFirstCardTD) + " - " + Action.getText(clinicalIndicationsTestSelect.ciCodeDisplayedOnFirstCardTD);
+
+        Assert.assertEquals(expectedCiTypeAndCode, actualCiTypeAndCode);
+
     }
 }

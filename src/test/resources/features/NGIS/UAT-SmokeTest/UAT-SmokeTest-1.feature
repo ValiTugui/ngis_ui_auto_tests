@@ -2,7 +2,7 @@
 
 Feature: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
 
-  @NTS-6426 @inprogress
+  @NTS-6426
   Scenario: Navigation of Test Selection, Test Order and Panel App with Basic Checks from Dashboard
     ## GET NGIS Version from NGIS Status page
     Given the user gets the NGIS version
