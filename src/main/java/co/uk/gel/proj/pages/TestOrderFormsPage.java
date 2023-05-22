@@ -5,6 +5,7 @@ import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -140,5 +141,32 @@ public class TestOrderFormsPage {
     public int getNumberOfFiles(WebElement headerTitle) {
         Wait.forElementToBeDisplayed(driver, headerTitle, 10);
         return Integer.parseInt(headerTitle.getText().split(" ")[1]);
+    }
+
+    public boolean downloadTestOrderFormByName(WebElement fileLocator){
+        try {
+            //Delete if File already present
+            //Debugger.println("Deleting Files if Present...");
+            TestUtils.deleteIfFilePresent("TestOrderForm", "");
+            //Debugger.println("Attempting to download the Test Order form");
+            if (!Wait.isElementDisplayed(driver, fileLocator, 30)) {
+                Debugger.println("There is no form with this name: " + fileLocator + driver.getCurrentUrl());
+                //SeleniumLib.takeAScreenShot("TestOrderForm.jpg");
+                return false;
+            }
+            Action.clickElement(driver, fileLocator);
+            Wait.seconds(5);
+            return true;
+        } catch (Exception exp) {
+            try {
+                seleniumLib.clickOnWebElement(fileLocator);
+                Wait.seconds(5);
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Could not locate the print button ..... " + exp);
+                //SeleniumLib.takeAScreenShot("TestOrderFormDownload.jpg");
+                return false;
+            }
+        }
     }
 }

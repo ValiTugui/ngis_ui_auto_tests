@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Action;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -12,6 +13,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class TestsOrderFormsSteps extends Pages {
@@ -110,5 +112,16 @@ public class TestsOrderFormsSteps extends Pages {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Then("the user should be able to download {string} form")
+    public void theUserShouldBeAbleToDownloadForm(String formName) {
+        boolean testResult = false;
+        WebElement downloadFileName = SeleniumLib.getWebElement(By.xpath("//div[.='" + formName + "']/..//*[@data-testid='download']"));
+        testResult = testOrderFormsPage.downloadTestOrderFormByName(downloadFileName);
+        if(AppConfig.snapshotRequired){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms");
+        }
+        Assert.assertTrue(testResult);
     }
 }

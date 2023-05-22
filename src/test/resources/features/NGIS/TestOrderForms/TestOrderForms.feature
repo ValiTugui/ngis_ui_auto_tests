@@ -3,7 +3,7 @@
 Feature: Test Order Forms
 
 
-  Scenario: Users can successfully upload up to 5 forms at a time
+  Scenario: Test Order Forms- Users can successfully upload up to 5 forms at a time
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -19,7 +19,7 @@ Feature: Test Order Forms
     Then the user is navigated to a page with title Check your patient's details
 
 
-  Scenario: Uploaded list header should contain the number of uploaded files
+  Scenario: Test Order Forms- Uploaded list header should contain the number of uploaded files
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -36,7 +36,7 @@ Feature: Test Order Forms
     Then the user is navigated to a page with title Check your patient's details
 
 
-  Scenario: Users should see an error message being displayed when trying to upload more than 5 form at a time
+  Scenario: Test Order Forms- Users should see an error message being displayed when trying to upload more than 5 form at a time
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -51,7 +51,7 @@ Feature: Test Order Forms
     Then the user is navigated to a page with title Check your patient's details
 
 
-  Scenario: Users should see an error message being displayed when trying to upload forms of unsupported file types
+  Scenario: Test Order Forms- Users should see an error message being displayed when trying to upload forms of unsupported file types
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -64,7 +64,7 @@ Feature: Test Order Forms
       | CNV1_112008234_10002_referral_DDF_modified.json |
 
 
-  Scenario: Users should see an error message being displayed when trying the same form twice
+  Scenario: Test Order Forms- Users should see an error message being displayed when trying the same form twice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -79,7 +79,7 @@ Feature: Test Order Forms
       | testfile.pdf |
 
 
-  Scenario: Users should be able to delete unwanted forms and restore them back if needed
+  Scenario: Test Order Forms- Users should be able to delete unwanted forms and restore them back if needed
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -96,7 +96,7 @@ Feature: Test Order Forms
 
   ##The below scenario has to be reviewed if the current design flow changes
 
-  Scenario: Users should be able to upload again deleted forms
+  Scenario: Test Order Forms- Users should be able to upload again deleted forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
@@ -114,6 +114,15 @@ Feature: Test Order Forms
       | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     Then the list of "Deleted" files contains the following
       | testfile2.pdf |
+
+
+  Scenario: Test Order Forms- Users should be able to download forms
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Test Order Forms
+    And the user uploads the following files
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    Then the user should be able to download "testfile.pdf" form
 
 
 
