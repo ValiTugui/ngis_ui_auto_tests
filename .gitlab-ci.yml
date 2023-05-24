@@ -1,4 +1,4 @@
-image: maven:3.9.0-eclipse-temurin-11
+
 
 variables:
   PASSWORD: $PWD
@@ -22,8 +22,24 @@ variables:
 stages:
   - systemIntegration Test
   - System Test
+  - ZAP
+
+.tools: &gitlab-tools genomicsengland/opensource/gitlab-tools
+
+include:
+  - project: *gitlab-tools
+    file: /ci/dind.yml
+
+# services: 
+#     - alias: docker
+#       command: 
+#         - "--registry-mirror"
+#         - "http://dockerhubcache.shared-services.aws.gel.ac:5002"
+#       name: "docker:20.10.7-dind"
+
 
 .test_suite_common: &test_suite_common
+  image: maven:3.9.0-eclipse-temurin-11
   before_script:
     - apt-get update
     - apt-get install -y libexif-dev udev gnupg2
@@ -72,6 +88,12 @@ stages:
   when: manual
 
 
+
+
+
+
+
+
 hto_system_tests_le:
   extends: .hto_system_tests
   tags:
@@ -102,3 +124,51 @@ hto_systemIntegration_tests_he:
     - pool_name:hto_qa_prod
   rules:
     - if: $ENV == 'prod' || $ENV == 'uat'
+
+zap-automation-baseline-scan:
+  stage: ZAP
+  script: |
+      docker pull owasp/zap2docker-stable
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r test-selection-private_full_report.html -c rules.conf   -d -I -t https://test-selection-private.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r test-ordering_full_report.html -c rules.conf   -d -I -t https://test-ordering.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r consent-assets_full_report.html -c rules.conf   -d -I -t https://consent-assets.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r consent_full_report.html -c rules.conf   -d -I -t https://consent.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r dashboard_full_report.html -c rules.conf   -d -I -t https://dashboard.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r api_full_report.html -c rules.conf   -d -I -t https://api.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r pedigree-tool-editor_full_report.html -c rules.conf   -d -I -t https://pedigree-tool-editor.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r panelapp_full_report.html -c rules.conf   -d -I -t https://panelapp.genomicsengland.co.uk
+  artifacts:
+    name: zap-automation-baseline-scan-$CI_JOB_STARTED_AT
+    paths:
+      - ./*.html
+    expire_in: 1 week
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+      when: manual
+
+
+zap-automation-full-scan:
+  stage: ZAP
+  script: |
+      docker pull owasp/zap2docker-stable
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r test-selection-private_full_report.html -c rules.conf   -d -I -t https://test-selection-private.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r test-ordering_full_report.html -c rules.conf   -d -I -t https://test-ordering.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r consent-assets_full_report.html -c rules.conf   -d -I -t https://consent-assets.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r consent_full_report.html -c rules.conf   -d -I -t https://consent.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r dashboard_full_report.html -c rules.conf   -d -I -t https://dashboard.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r api_full_report.html -c rules.conf   -d -I -t https://api.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r pedigree-tool-editor_full_report.html -c rules.conf   -d -I -t https://pedigree-tool-editor.test.genomics.nhs.uk
+      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r panelapp_full_report.html -c rules.conf   -d -I -t https://panelapp.genomicsengland.co.uk
+
+  artifacts:
+    name: zap-automation-full-scan-$CI_JOB_STARTED_AT
+    paths:
+      - ./*.html
+    expire_in: 1 week
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+      when: manual
