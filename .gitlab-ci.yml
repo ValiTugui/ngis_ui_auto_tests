@@ -160,7 +160,7 @@ zap-automation-full-scan:
       docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r dashboard_full_report.html -c rules.conf   -d -I -t https://dashboard.test.genomics.nhs.uk
       docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r api_full_report.html -c rules.conf   -d -I -t https://api.test.genomics.nhs.uk
       docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r pedigree-tool-editor_full_report.html -c rules.conf   -d -I -t https://pedigree-tool-editor.test.genomics.nhs.uk
-      docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r panelapp_full_report.html -c rules.conf   -d -I -t https://panelapp.genomicsengland.co.uk
+
 
   artifacts:
     name: zap-automation-full-scan-$CI_JOB_STARTED_AT
