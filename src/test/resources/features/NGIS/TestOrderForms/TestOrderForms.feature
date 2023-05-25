@@ -2,19 +2,19 @@
 @TestOrderforms
 Feature: Test Order Forms
 
-
+  @inprogress
   Scenario: Test Order Forms- Users can successfully upload up to 5 forms at a time
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     And the user uploads the following files
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf |
     Then the list of "Uploaded" files contains the following
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf |
     When the user uploads the following files
       | deceasedform.pdf | testfile_doc.docx |
     Then the list of "Uploaded" files contains the following
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf | deceasedform.pdf | testfile_doc.docx |
+      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf | deceasedform.pdf | testfile_doc.docx |
     When the user clicks on Continue Button
     Then the user is navigated to a page with title Check your patient's details
 

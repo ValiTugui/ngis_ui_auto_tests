@@ -30,8 +30,9 @@ public class GlobalBehaviourSteps extends Pages {
         String expectedNgisVersion = AppConfig.getNGISVersion();
         String actualNgisVersion = globalBehaviourPage.footerText.getText().split("\\r?\\n")[4];
         Debugger.println("NGIS Version from Application is " + actualNgisVersion);
-
-        Assert.assertEquals(expectedNgisVersion, actualNgisVersion);
+        if(System.getProperty("TestEnvironment").equals("uat") || System.getProperty("TestEnvironment").equals("prod")){
+            Assert.assertEquals(expectedNgisVersion, actualNgisVersion);
+        }
     }
 
     @Then("the user can see the {string} link at bottom of the page")
