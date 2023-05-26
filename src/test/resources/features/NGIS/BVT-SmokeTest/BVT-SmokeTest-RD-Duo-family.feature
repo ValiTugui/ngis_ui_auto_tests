@@ -97,7 +97,7 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     ##The below step has to be updated based on the expected penetrance for that specific CI
-    And the user should see the default status of penetrance button as Incomplete
+    And the user should see the default status of penetrance button as Complete
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
     And the user clicks the Save and Continue button
