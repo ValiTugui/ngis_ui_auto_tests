@@ -186,7 +186,7 @@ public class DashBoardSteps extends Pages {
         // Non prod environments must have the test environment displayed on a specific background color
         // Banner's background color must be same for all non prod environments but different comparing to prod environment
         if(expectedEnvironment.equals("prod")){
-            String actualProdBackgroundBannerColor = Action.getCssValue(dashBoardPage.prodBannerColor, "background-color");
+            String actualProdBackgroundBannerColor = Action.getCssValue(dashBoardPage.nonProdBannerColor, "background-color");
             Assert.assertEquals(expectedProdBackgroundBannerColor, actualProdBackgroundBannerColor);
 
             //Verify to not have the environment displayed in Prod
