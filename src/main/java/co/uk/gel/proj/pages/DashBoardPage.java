@@ -63,7 +63,7 @@ public class DashBoardPage {
     public WebElement ManageSamplesTab;
 
 
-    @FindBy(xpath = "//*[contains(@class,'styles_container__1q-zX') or @class='css-8gah82' or contains(@class,'styles_nav__19zlJ')]")
+    @FindBy(xpath = "//*[contains(@class,'styles_container__1q-zX') or @class='css-3xnhly' or @class='css-8gah82' or contains(@class,'styles_nav__19zlJ')]")
     public WebElement nonProdBannerColor;
 
     @FindBy(xpath = "//nav[contains(@class,'styles_nav__19zlJ')]")
