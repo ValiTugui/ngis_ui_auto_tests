@@ -25,7 +25,7 @@ Feature: Navigation of Test Selection, Test Order and Panel App with Basic Check
     Then the user should be directed to Test selection url
     ##Search CI
     When the user types in the CI term  in the search field and selects the first result from the results list
-      | Angiomatoid Fibrous Histiocytoma |
+      | Unexplained death in infancy and sudden unexplained death in childhood |
     And the user clicks the CI Search Start Referral button
     And the user clicks the PDF order form button
     ##Requesting Organisation
