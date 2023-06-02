@@ -90,30 +90,6 @@ public class TestsOrderFormsSteps extends Pages {
         }
     }
 
-    @When("the user deletes {string} form")
-    public void theUserDeletesForm(String fileToDelete) {
-        String xpathForDeleteButton = "//div[.='"+fileToDelete+"']/../div[@class='styles_item__stgKp styles_item__icon__2M6YW'][2]/a";
-        Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)), 10);
-        try {
-            SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)).click();
-            Debugger.println(fileToDelete + " has been deleted");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @When("the user restores {string} form")
-    public void theUserRestoresForm(String fileToRestore) {
-        String xpathForRestoreButton = "//div[.='"+ fileToRestore +"']/..//a[.='Restore']";
-        Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)), 10);
-        try {
-            SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)).click();
-            Debugger.println(fileToRestore + " has been restored");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     @Then("the user should be able to download {string} form")
     public void theUserShouldBeAbleToDownloadForm(String formName) {
         boolean testResult = false;
@@ -123,5 +99,44 @@ public class TestsOrderFormsSteps extends Pages {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms");
         }
         Assert.assertTrue(testResult);
+    }
+
+    @When("the user deletes the following files")
+    public void theUserDeletesTheFollowingFiles(List<String> filesToDelete) {
+        if(filesToDelete.size()>0){
+            for (String fileName : filesToDelete) {
+
+                String xpathForDeleteButton = "//div[.='"+fileName+"']/../div[@class='styles_item__stgKp styles_item__icon__2M6YW'][2]/a";
+                Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)), 10);
+
+                try {
+                    SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)).click();
+                    Debugger.println(fileName + " has been deleted");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        else {
+            Assert.fail("Please enter name of the file(s) you want to delete. Example: testfile.pdf");
+        }
+    }
+
+    @When("the user restores the following files")
+    public void theUserRestoresTheFollowingFiles(List<String> filesToRestore) {
+        if(filesToRestore.size()>0){
+            for (String fileToRestore : filesToRestore) {
+
+                String xpathForRestoreButton = "//div[.='"+ fileToRestore +"']/..//a[.='Restore']";
+                Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)), 10);
+
+                try {
+                    SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)).click();
+                    Debugger.println(fileToRestore + " has been restored");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

@@ -41,15 +41,10 @@ Feature: NTS-3407-TO: Create RD Duo Family by completing - Patient Details - Req
     And the "<patientDetails>" stage is marked as Completed
     When the user uploads the following files
       | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
-    And the list of "Uploaded" files contains the following
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
-    When the user deletes "testfile.pdf" form
-    When the user deletes "testfile2.pdf" form
-    Then the list of "Deleted" files contains the following
+    When the user deletes the following files
       | testfile.pdf | testfile2.pdf |
-    When the user restores "testfile.pdf" form
-    Then the list of "Deleted" files contains the following
-      | testfile2.pdf |
+    When the user restores the following files
+      | testfile.pdf |
     And the list of "Uploaded" files contains the following
       | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     #Requesting organisation
