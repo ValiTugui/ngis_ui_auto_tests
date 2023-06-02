@@ -14,6 +14,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import java.util.List;
 
 public class TestsOrderFormsSteps extends Pages {
@@ -31,12 +32,12 @@ public class TestsOrderFormsSteps extends Pages {
     @And("the user uploads the following files")
     public void theUserUploadsTheFollowingFiles(List<String> files) {
         boolean testResult = false;
-            testResult = testOrderFormsPage.uploadTestOrderForms(files);
-            Wait.seconds(3);
-            if (!testResult) {
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestOrderForms");
-                Assert.fail("Could not upload forms.");
-            }
+        testResult = testOrderFormsPage.uploadTestOrderForms(files);
+        Wait.seconds(3);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TestOrderForms");
+            Assert.fail("Could not upload forms.");
+        }
     }
 
     @Then("{string} error banner should be displayed on Test Order Forms page")
@@ -58,8 +59,8 @@ public class TestsOrderFormsSteps extends Pages {
 
         if (!testResult) {
             List<String> actualErrorMessages = Action.getValuesFromDropdown(testOrderFormsPage.uploadFailedErrorMessages);
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TestOrderForms");
-            Debugger.println("Expected list of errors: " + expectedErrorMessages + " != " + "Actual list of errors: "+ actualErrorMessages);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TestOrderForms");
+            Debugger.println("Expected list of errors: " + expectedErrorMessages + " != " + "Actual list of errors: " + actualErrorMessages);
 
             Assert.fail("One or more Upload Order Forms errors are not displayed");
         }
@@ -68,9 +69,9 @@ public class TestsOrderFormsSteps extends Pages {
     @And("the list of {string} files in Test Order Forms contains {int} files")
     public void theListOfFilesContainsFiles(String listName, int expectedNumberOfFiles) {
         int actualNumberOfFiles = testOrderFormsPage.getTheNumberOfFilesInTheList(listName);
-        if(actualNumberOfFiles>0){
+        if (actualNumberOfFiles > 0) {
             Assert.assertEquals(expectedNumberOfFiles, actualNumberOfFiles);
-        }else{
+        } else {
             Assert.fail("Please enter one of the following for List names: [Uploading, Uploaded]");
         }
 
@@ -83,8 +84,8 @@ public class TestsOrderFormsSteps extends Pages {
 
         if (!testResult) {
             List<String> actualUploadingFiles = Action.getValuesFromDropdown(testOrderFormsPage.uploadingFilesList);
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_UploadingFilesList_TestOrderForms");
-            Debugger.println("Expected list of files: " + expectedUploadingFiles + " != " + "Actual list of files: "+ actualUploadingFiles);
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_UploadingFilesList_TestOrderForms");
+            Debugger.println("Expected list of files: " + expectedUploadingFiles + " != " + "Actual list of files: " + actualUploadingFiles);
 
             Assert.fail("Uploaded forms list does not contain the expected files.");
         }
@@ -95,48 +96,49 @@ public class TestsOrderFormsSteps extends Pages {
         boolean testResult = false;
         WebElement downloadFileName = SeleniumLib.getWebElement(By.xpath("//div[.='" + formName + "']/..//*[@data-testid='download']"));
         testResult = testOrderFormsPage.downloadTestOrderFormByName(downloadFileName);
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PrintForms");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PrintForms");
         }
         Assert.assertTrue(testResult);
     }
 
     @When("the user deletes the following files")
     public void theUserDeletesTheFollowingFiles(List<String> filesToDelete) {
-        if(filesToDelete.size()>0){
+        if (filesToDelete.size() > 0) {
             for (String fileName : filesToDelete) {
 
-                String xpathForDeleteButton = "//div[.='"+fileName+"']/../div[@class='styles_item__stgKp styles_item__icon__2M6YW'][2]/a";
+                String xpathForDeleteButton = "//div[.='" + fileName + "']/../div[@class='styles_item__stgKp styles_item__icon__2M6YW'][2]/a";
                 Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)), 10);
 
                 try {
                     SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)).click();
                     Debugger.println(fileName + " has been deleted");
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }
-        else {
+        } else {
             Assert.fail("Please enter name of the file(s) you want to delete. Example: testfile.pdf");
         }
     }
 
     @When("the user restores the following files")
     public void theUserRestoresTheFollowingFiles(List<String> filesToRestore) {
-        if(filesToRestore.size()>0){
+        if (filesToRestore.size() > 0) {
             for (String fileToRestore : filesToRestore) {
 
-                String xpathForRestoreButton = "//div[.='"+ fileToRestore +"']/..//a[.='Restore']";
+                String xpathForRestoreButton = "//div[.='" + fileToRestore + "']/..//a[.='Restore']";
                 Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)), 10);
 
                 try {
                     SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)).click();
                     Debugger.println(fileToRestore + " has been restored");
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+        } else {
+            Assert.fail("Please enter name of the file(s) you want to restore. Example: testfile.pdf");
         }
     }
 }
