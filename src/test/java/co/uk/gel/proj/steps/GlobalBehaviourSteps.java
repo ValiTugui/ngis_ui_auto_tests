@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -24,7 +25,14 @@ public class GlobalBehaviourSteps extends Pages {
     @Then("the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link")
     public void theUserCanSeeTheNGISVersionNumberOnTheRightSideBottomOfThePageNextToThePrivacyPolicyLink() {
         Debugger.println("Current page is: " + driver.getCurrentUrl());
-        Assert.assertTrue("The NGIS version number is NOT present next to the privacy policy link", globalBehaviourPage.isNGISVersionPresent());
+//        Assert.assertTrue("The NGIS version number is NOT present next to the privacy policy link or the expected NGIS version is not correct", globalBehaviourPage.isNGISVersionPresent());
+
+        String expectedNgisVersion = AppConfig.getNGISVersion();
+        String actualNgisVersion = globalBehaviourPage.footerText.getText().split("\\r?\\n")[4];
+        Debugger.println("NGIS Version from Application is " + actualNgisVersion);
+        if(System.getProperty("TestEnvironment").equals("uat") || System.getProperty("TestEnvironment").equals("prod")){
+            Assert.assertEquals(expectedNgisVersion, actualNgisVersion);
+        }
     }
 
     @Then("the user can see the {string} link at bottom of the page")
@@ -36,7 +44,7 @@ public class GlobalBehaviourSteps extends Pages {
     @When("the user clicks the privacy policy link")
     public void theUserClicksThePrivacyPolicyLink() {
         boolean testResult = globalBehaviourPage.clickPrivacyPolicy();
-        if(!testResult) {
+        if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PrivacyPolicy.jpg");
             Assert.fail("Could mot click on privacy policy link:");
         }
@@ -54,8 +62,8 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserShouldBeAbleToSeeContinueButtonOnLandingPage() {
         boolean testResult = false;
         testResult = globalBehaviourPage.verifyTheContinueButtonOnLandingPage();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_ContinueButton.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_ContinueButton.jpg");
             Assert.fail("No Continue Button present");
         }
     }
@@ -65,9 +73,9 @@ public class GlobalBehaviourSteps extends Pages {
         boolean testResult = false;
         List<List<String>> labels = labelsList.asLists();
         for (int i = 1; i < labels.size(); i++) {
-            testResult = globalBehaviourPage.verifyReplacedLabelsInTheCurrentPage(labels.get(i).get(0),labels.get(i).get(1));
-            if(!testResult){
-                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_NHSLabel.jpg");
+            testResult = globalBehaviourPage.verifyReplacedLabelsInTheCurrentPage(labels.get(i).get(0), labels.get(i).get(1));
+            if (!testResult) {
+                SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_NHSLabel.jpg");
                 Assert.fail("No NHS Label present");
             }
         }
@@ -84,9 +92,9 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserChecksThePresenceOfHorizontalScrollbar(String isPresent) {
         boolean testResult = false;
         testResult = globalBehaviourPage.isHorizontalScrollBarPresent();
-        if(isPresent.equalsIgnoreCase("Present")){
+        if (isPresent.equalsIgnoreCase("Present")) {
             Assert.assertTrue(testResult);
-        }else{
+        } else {
             Assert.assertFalse(testResult);
         }
     }
@@ -114,20 +122,22 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserFillsUsernameAndPasswordToLogin(String loginType) {
         boolean testResult = false;
         testResult = globalBehaviourPage.loginWithMicrosoftAccount(loginType);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_TOLogin.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_TOLogin.jpg");
             Assert.fail("Could login to TO");
         }
     }
+
     @Then("the user should be able to see an error message {string}")
     public void theUserShouldBeAbleToSeeAnErrorMessage(String errMessage) {
         boolean testResult = false;
         testResult = globalBehaviourPage.verifyMicrosoftLoginError(errMessage);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EMessage.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_EMessage.jpg");
         }
         Assert.assertTrue(testResult);
     }
+
     @When("the user provides an invalid referral id in the url {string}")
     public void theUserProvidesAnInvalidReferralIdInTheUrl(String invalidReferralURL) {
         boolean testResult = false;

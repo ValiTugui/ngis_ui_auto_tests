@@ -7,16 +7,25 @@ Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - R
   @NTS-3362-TO @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362-TO - Create Referral for Proband Only - Standard user - patient choice Yes
-    ##NGIS Version
+    ## GET NGIS Version from NGIS Status page
     Given the user gets the NGIS version
+    #Validate Banner elements on Dashboard
+    Given a web browser is at the dashboard page
+    Then the user should see the banner elements based on the current environment
+    #Validate Banner elements on Test Selection
     And a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    Then the user should see the banner elements based on the current environment
+    ##Validate NGIS Version
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
     And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     ##Create Cancer Referral
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    #Validate Banner elements on Test Order
+    Then the user should see the banner elements based on the current environment
+    ##Seach for patient
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
@@ -25,10 +34,18 @@ Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - R
     And the user clicks the Start Referral button
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
-    And the user clicks on first Clinical indications results displayed in Test Oder
+    And the user clicks on first Clinical indications result displayed in Test Oder
     ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
     And the "<patientDetails>" stage is marked as Completed
+    When the user uploads the following files
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+    When the user deletes the following files
+      | testfile.pdf | testfile2.pdf |
+    When the user restores the following files
+      | testfile.pdf |
+    And the list of "Uploaded" files contains the following
+      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     #Requesting organisation
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation

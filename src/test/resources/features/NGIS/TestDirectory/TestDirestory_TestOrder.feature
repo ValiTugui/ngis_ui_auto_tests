@@ -33,7 +33,7 @@ Feature: Test Directory: TestOrder
     And the user clicks the Start Referral button
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
-    And the user clicks on first Clinical indications results displayed in Test Oder
+    And the user clicks on first Clinical indications result displayed in Test Oder
     Then the user is navigated to a page with title Test Order Forms
 #    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
@@ -56,7 +56,7 @@ Feature: Test Directory: TestOrder
     And the user clicks the Start Referral button
     Then the "<newpageTitle>" page is displayed
     When the user types in the "<ciTerm>" in the search field
-    And the user clicks on the about this test button
+    And the user clicks on About this test button
     Then the user should be able to see details about this test in a new modal window
       | Technology               |
       | Scope                    |
@@ -65,7 +65,7 @@ Feature: Test Directory: TestOrder
       | Optimum family structure |
       | Eligibility criteria     |
     When the user click on Continue test ordering button
-    And the user clicks on first Clinical indications results displayed in Test Oder
+    And the user clicks on first Clinical indications result displayed in Test Oder
     Then the user is navigated to a page with title Test Order Forms
 #    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
@@ -93,5 +93,34 @@ Feature: Test Directory: TestOrder
     Examples:
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber       | patient-search-type | auditMessage                                                                                | visibility |
       | create a new patient record | Find your patient | Other (please provide reason) | NGIS                | Your access will be audited to validate there is a legitimate relationship with the patient | is         |
+
+
+  @HTO-996 @newCIchecks
+  Scenario: HTO-996 CI card should have CI name, type and code being displayed
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    When the user types in the CI term  in the search field
+      | R441 |
+    Then the first clinical indication result card displayed in Test Directory contains "Unexplained death in infancy and sudden unexplained death in childhood" CI Name
+    And the CI Type and CI Code displayed on the card in Test Directory are "Rare and inherited Disease - R441"
+    When the user types in the CI term  in the search field
+      | M130 |
+    Then the first clinical indication result card displayed in Test Directory contains "Cribriform Neuroepithelial Tumour - Paediatric" CI Name
+    And the CI Type and CI Code displayed on the card in Test Directory are "Tumour - M130"
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "create a new patient record" link to fill all fields without NHS number and reason "Other (please provide reason)"
+    And the Patient Details page is displayed
+    When the Start New Referral button is enabled
+    And the user clicks the Start Referral button
+    Then the "Clinical Indication" page is displayed
+    When the user types in the "R441" in the search field
+    Then the first clinical indication result card displayed in Test Ordering contains "Unexplained death in infancy and sudden unexplained death in childhood" CI Name
+    And The CI Type and CI Code displayed on the card in Test Ordering are "Rare and inherited Disease - R441"
+    When the user types in the "M130" in the search field
+    Then the first clinical indication result card displayed in Test Ordering contains "Cribriform Neuroepithelial Tumour - Paediatric" CI Name
+    And The CI Type and CI Code displayed on the card in Test Ordering are "Tumour - M130"
 
 

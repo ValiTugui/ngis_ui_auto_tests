@@ -140,8 +140,7 @@ public class HomePage {
                 Debugger.println("searchField not present even after waiting period: ");
             }
             testOrderingCiSearchBox.click();
-            //testOrderingCiSearchBox.clear();
-            testOrderingCiInputValue.sendKeys(searchTerm);
+            testOrderingCiInputValue.sendKeys(Keys.chord(Keys.CONTROL, "a"), searchTerm);
             new WebDriverWait(driver,20).until(ExpectedConditions.attributeContains(testOrderingCiInputValue,"value", searchTerm));
             Wait.seconds(3);
         } catch (Exception exp) {

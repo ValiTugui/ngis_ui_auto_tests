@@ -113,6 +113,21 @@ public class ClinicalIndicationsTestSelectPage {
 
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
+    @FindBy(xpath = "(//div[@class='styles_clinical-list__container__ZOdZz css-1vu4a8i']//h4)[1]")
+    public WebElement ciNameDisplayedOnFirstCardTO;
+
+    @FindBy(xpath = "(//div[contains(@class,'card-multi-line')])[1]")
+    public WebElement ciTypeAndCiCodeDisplayedOnFirstCardTO;
+
+    @FindBy(xpath = "(//div[@class='styles_container__3q5IQ']//h4)[1]")
+    public WebElement ciNameDisplayedOnFirstCardTD;
+
+    @FindBy(xpath = "(//h5/span[3])[1]")
+    public WebElement ciTypeDisplayedOnFirstCardTD;
+
+    @FindBy(xpath = "(//h5/span[5])[1]")
+    public WebElement ciCodeDisplayedOnFirstCardTD;
+
     @FindBy(xpath = "//div[contains(@class,'styles_overlayShow')]")
     public WebElement overlayPage;
 
