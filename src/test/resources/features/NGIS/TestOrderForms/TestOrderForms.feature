@@ -3,124 +3,153 @@
 Feature: Test Order Forms
 
 
-  Scenario: Test Order Forms- Users can successfully upload up to 5 forms at a time
+  Scenario Outline: Test Order Forms- Users can successfully upload up to 5 forms at a time
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf |
+      | <file1> | <file2> | <file3> | <file4> | <file5> |
     Then the list of "Uploaded" files contains the following
-      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf |
+      | <file1> | <file2> | <file3> | <file4> | <file5> |
     When the user uploads the following files
-      | pdf_document.PDF | png_file_with_capitals.PNG | 1.JPEG | word_document_with_capitals.DOCX |
+      | <file6> | <file7> |
     Then the list of "Uploaded" files contains the following
-      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf | pdf_document.PDF | png_file_with_capitals.PNG | 1.JPEG | word_document_with_capitals.DOCX |
+      | <file1> | <file2> | <file3> | <file4> | <file5> | <file6> | <file7> |
     When the user clicks on Continue Button
     Then the user is navigated to a page with title Check your patient's details
 
+    Examples:
+      | file1        | file2        | file3             | file4              | file5             | file6            | file7                      |
+      | testfile.pdf | png_file.png | testfile_11MB.jpg | word_document.docx | consulteeform.pdf | pdf_document.PDF | png_file_with_capitals.PNG |
 
-  Scenario: Test Order Forms- Uploaded list header should contain the number of uploaded files
+
+  Scenario Outline: Test Order Forms- Uploaded list header should contain the number of uploaded files
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | testfile.pdf | png_file_with_capitals.PNG |
+      | <file1> | <file2> |
     Then the list of "Uploaded" files in Test Order Forms contains 2 files
     When the user uploads the following files
-      | testfile_11MB.jpg | word_document_with_capitals.DOCX | consulteeform.pdf |
+      | <file3> | <file4> | <file5> |
     Then the list of "Uploaded" files in Test Order Forms contains 5 files
     When the user clicks on Continue Button
     Then the user is navigated to a page with title Check your patient's details
 
+    Examples:
+      | file1        | file2                      | file3             | file4                            | file5             |
+      | testfile.pdf | png_file_with_capitals.PNG | testfile_11MB.jpg | word_document_with_capitals.DOCX | consulteeform.pdf |
 
-  Scenario: Test Order Forms- Users should see an error message being displayed when trying to upload more than 5 form at a time
+  Scenario Outline: Test Order Forms- Users should see an error message being displayed when trying to upload more than 5 form at a time
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | testfile.pdf | testfile2.pdf | word_document_with_capitals.DOCX | assentform.pdf | consulteeform.pdf | deceasedform.pdf |
+      | <file1> | <file2> | <file3> | <file4> | <file5> | <file6> |
     Then "Upload has failed" error banner should be displayed on Test Order Forms page
     And the following error messages are displayed under the Upload has failed error banner in Test Order Forms page
-      | A maximum of 5 files can be uploaded at a time. |
+      | <errorMessage> |
     And the list of "Uploaded" files contains the following
-      | testfile.pdf | testfile2.pdf | word_document_with_capitals.DOCX | assentform.pdf | consulteeform.pdf |
+      | <file1> | <file2> | <file3> | <file4> | <file5> |
     When the user clicks on Continue Button
     Then the user is navigated to a page with title Check your patient's details
 
+    Examples:
+      | file1        | file2         | file3                            | file4          | file5             | file6            | errorMessage                                    |
+      | testfile.pdf | testfile2.pdf | word_document_with_capitals.DOCX | assentform.pdf | consulteeform.pdf | deceasedform.pdf | A maximum of 5 files can be uploaded at a time. |
 
-  Scenario: Test Order Forms- Users should see an error message being displayed when trying to upload forms of unsupported file types
+  Scenario Outline: Test Order Forms- Users should see an error message being displayed when trying to upload forms of unsupported file types
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | CNV1_112008234_10002_referral_DDF_modified.json | png_file_with_capitals.PNG | testfile2.pdf | testfile_11MB.jpg | assentform.pdf |
+      | <file1> | <file2> | <file3> |
     Then "Upload has failed" error banner should be displayed on Test Order Forms page
     And the following error messages are displayed under the Upload has failed error banner in Test Order Forms page
-      | The selected file must be PDF, JPEG, PNG or DOCX. |
+      | <errorMessage> |
     And the list of "Uploading" files contains the following
-      | CNV1_112008234_10002_referral_DDF_modified.json |
+      | <file1> |
 
+    Examples:
+      | file1                                           | file2                      | file3         | errorMessage                                      |
+      | CNV1_112008234_10002_referral_DDF_modified.json | png_file_with_capitals.PNG | testfile2.pdf | The selected file must be PDF, JPEG, PNG or DOCX. |
 
-  Scenario: Test Order Forms- Users should see an error message being displayed when trying the same form twice
+  Scenario Outline: Test Order Forms- Users should see an error message being displayed when trying the same form twice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | pdf_document.PDF | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file1> | <file2> | <file3> |
     When the user uploads the following files
-      | pdf_document.PDF |
+      | <file1> |
     Then "Upload has failed" error banner should be displayed on Test Order Forms page
     And the following error messages are displayed under the Upload has failed error banner in Test Order Forms page
-      | A file named “pdf_document.PDF” has already been uploaded to this referral. |
+      | <errorMessage> |
     And the list of "Uploading" files contains the following
-      | pdf_document.PDF |
+      | <file1> |
+
+    Examples:
+      | file1            | file2         | file3             | errorMessage                                                                |
+      | pdf_document.PDF | testfile2.pdf | testfile_11MB.jpg | A file named “pdf_document.PDF” has already been uploaded to this referral. |
 
 
-  Scenario: Test Order Forms- Users should be able to delete unwanted forms and restore them back if needed
+  Scenario Outline: Test Order Forms- Users should be able to delete unwanted forms and restore them back if needed
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     And the user uploads the following files
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file1> | <file2> | <file3> |
     When the user deletes the following files
-      | testfile.pdf | testfile2.pdf |
+      | <file1> | <file2> |
     Then the list of "Deleted" files contains the following
-      | testfile.pdf | testfile2.pdf |
+      | <file1> | <file2> |
     And the list of "Uploaded" files contains the following
-      | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file3> |
     When the user restores the following files
-      | testfile.pdf |
+      | <file1> |
     And the list of "Uploaded" files contains the following
-      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file1> | <file3> |
+
+    Examples:
+      | file1        | file2         | file3             |
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg |
 
   ##The below scenario has to be reviewed if the current design flow changes
-  Scenario: Test Order Forms- Users should be able to upload again deleted forms
+  Scenario Outline: Test Order Forms- Users should be able to upload again deleted forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | png_file_with_capitals.PNG | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file1> | <file2> | <file3> |
     When the user deletes the following files
-      | png_file_with_capitals.PNG | testfile2.pdf |
+      | <file1> | <file2> |
     Then the list of "Deleted" files contains the following
-      | png_file_with_capitals.PNG | testfile2.pdf |
+      | <file1> | <file2> |
     And the list of "Uploaded" files contains the following
-      | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file3> |
     When the user uploads the following files
-      | png_file_with_capitals.PNG |
+      | <file1> |
     Then the list of "Uploaded" files contains the following
-      | png_file_with_capitals.PNG | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | <file1> | <file3> |
     And the list of "Deleted" files contains the following
-      | testfile2.pdf |
+      | <file2> |
+
+    Examples:
+      | file1                      | file2         | file3             |
+      | png_file_with_capitals.PNG | testfile2.pdf | testfile_11MB.jpg |
 
 
-  Scenario: Test Order Forms- Users should be able to download forms
+  Scenario Outline: Test Order Forms- Users should be able to download forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     And the user uploads the following files
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
-    Then the user should be able to download "testfile.pdf" form
+      | <file1> | <file2> | <file3> |
+    Then the user should be able to download "<file1>" form
+
+    Examples:
+      | file1        | file2                      | file3         |
+      | testfile.pdf | png_file_with_capitals.PNG | testfile2.pdf |
 
 
 
