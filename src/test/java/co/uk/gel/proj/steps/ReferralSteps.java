@@ -545,6 +545,8 @@ public class ReferralSteps extends Pages {
         if (!testResult) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(title, " ") + ".jpg");
             Assert.fail("Could not navigate to page with title :" + title);
+        }else{
+            Debugger.println("The user is navigated to a page with title: " +  title);
         }
         if (AppConfig.snapshotRequired) {
             SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(title, " ") + ".jpg");
