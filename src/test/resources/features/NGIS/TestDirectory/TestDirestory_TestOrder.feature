@@ -21,6 +21,23 @@ Feature: Test Directory: TestOrder
       | Reason                                             | RevokeMessage                                                             |
       | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
 
+  @NTS-3493-2
+  Scenario Outline: NTS-3493-2: Restricted access to navigate to cancelled referrals
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=2000001327:DOB=05-12-1987 |
+    ##Patient Details Page
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
+#    Then the user is navigated to a page with title Add a requesting organisation
+    When the user clicks the Cancel referral link
+    And the user selects the cancellation reason "<Reason>" from the modal
+    And the user submits the cancellation
+    Then the message should display as "<RevokeMessage>"
+
+    Examples:
+      | Reason                                             | RevokeMessage                                                             |
+      | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
+
   @HTO-483
   Scenario Outline:HTO-483 User searches for Clinical indication after the patient details are loaded
     Given a web browser is at the patient search page

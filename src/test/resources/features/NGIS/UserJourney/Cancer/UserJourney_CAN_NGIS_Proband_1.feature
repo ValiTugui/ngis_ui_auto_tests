@@ -3,10 +3,10 @@
 Feature: UserJourney_CAN_NGIS_Proband_1 - UC21- E2EUI-1636
 
   @NTS-4678 @Z-LOGOUT
-    ##@E2EUI-1636 @UseCase21
+    ##@E2EUI-1636 @UseCase21--Normal user sbumit and cant cancel referral
   Scenario Outline:Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M215 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-06-2011:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M215 | GEL_NORMAL_USER | NHSNumber=NGIS:DOB=14-06-2011:Gender=Male |
    ##Test Order Forms
     Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
@@ -71,6 +71,7 @@ Feature: UserJourney_CAN_NGIS_Proband_1 - UC21- E2EUI-1636
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
+    Then the user should be able to see a cancel referral link "not present"
 
     Examples:
       | tumour_type                             | presentationType   | sampleType          | sampleState         | RecordedBy                            | PatientChoiceStage |

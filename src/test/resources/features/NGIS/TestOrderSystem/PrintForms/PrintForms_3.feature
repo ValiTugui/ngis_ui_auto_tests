@@ -64,8 +64,35 @@ Feature: TestOrder - Print Forms 3 - Validations
 
     Examples:
       | Reason          | CancellationReason                                           | CancellationSuccessMessage                                                                      |
-      | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Start a new referral |
-      | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
+      | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
+      | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
+
+  @NTS-4702-2 @Z-LOGOUT
+#    @E2EUI-1794 @E2EUI-1786
+  Scenario Outline: NTS-4702: Cancel a referral as revoked or marked in error
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=9-09-1999:Gender=Male |
+    ###Patient Details- cancelling referral
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
+    And the user clicks the Cancel referral link
+    ##Title,Question,Warning,button1,button2
+    Then the cancel referral dialog box is displayed with the following fields
+      | Dialog Contents                              |
+      | Please enter the reason for the cancellation |
+      | Why do you want to cancel this referral?     |
+      | Cancelling a referral can’t be undone        |
+      | Return to referral                           |
+      | Confirm cancellation                         |
+    When the user selects the cancellation reason "<CancellationReason>" from the modal
+    And the user submits the cancellation
+    Then the user should be able to see referral status as cancelled with selected "<Reason>" reason
+    And the message should display as "<CancellationSuccessMessage>"
+
+    Examples:
+      | Reason          | CancellationReason                                           | CancellationSuccessMessage                                                                      |
+      | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient|
+      | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
 
   @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1787
@@ -84,7 +111,7 @@ Feature: TestOrder - Print Forms 3 - Validations
 
     Examples:
       | Reason  | CancellationReason                                 | CancellationSuccessMessage                                                                      |
-      | Revoked | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
+      | Revoked | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
 
   @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1787

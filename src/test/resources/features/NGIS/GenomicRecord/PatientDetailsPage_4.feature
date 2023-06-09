@@ -120,4 +120,4 @@ Feature: GenomicRecord: Patient details page 4
     Then the user is navigated to a page with title Test Order Forms
     When the user navigates to the "Requesting organisation" stage
 #    Then the user is navigated to a page with title Add a requesting organisation
-    Then the user should be able to see a cancel referral link "not present"
+    Then the user should be able to see a cancel referral link "present"

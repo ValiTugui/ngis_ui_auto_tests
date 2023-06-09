@@ -4,7 +4,7 @@
 Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
 
   @NTS-3348 @Z-LOGOUT
-  ##@E2EUI-1804 @E2EUI-905
+  ##@E2EUI-1804 @E2EUI-905 --Super user sbumit and cancel referral
   Scenario Outline: NTS-3348 - UC#29:E2EUI-1804-905: Create Referral for Proband Only - Patient Choice Not given
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Small cell lung cancer | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
@@ -86,11 +86,16 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
       | <stage6>         |
       | <stage7>         |
     #checking forms in stage9
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
     When the user clicks the Cancel referral link
     And the user selects the cancellation reason "An uneditable mistake was made in creation (“Mark in error”)" from the modal
     And the user submits the cancellation
     Then the referral is successfully "<referralStatus>" with reason "<referralCancelledReason>"
+    And the message should display as "<CancellationSuccessMessage>"
+
 
     Examples:
-      | PatientDetails  | stage2                  | stage3       | stage4                | stage5  | stage6  | stage7 | stage8         | stage9      | referralStatus | referralCancelledReason |
-      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes  | Patient choice | Print forms | Cancelled      | Marked in error         |
+      | PatientDetails  | stage2                  | stage3       | stage4                | stage5  | stage6  | stage7 | stage8         | stage9      | referralStatus | referralCancelledReason |CancellationSuccessMessage                                                                      |
+      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes  | Patient choice | Print forms | Cancelled      | Marked in error         |This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |

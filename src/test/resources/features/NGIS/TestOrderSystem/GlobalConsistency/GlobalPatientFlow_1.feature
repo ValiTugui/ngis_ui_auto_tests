@@ -10,6 +10,62 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
+    Then the user is navigated to a page with title Test Order Forms
+    When the user navigates to the "Requesting organisation" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+#    @NTS-4813 @E2EUI-1005
+    When the user submits the referral
+    Then the user sees a dialog box with a title "<dialogTitle>"
+    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+      | MandatoryStagesToComplete |
+      | Requesting organisation   |
+      | Test package              |
+      | Responsible clinician     |
+      | Clinical questions        |
+      | Patient choice            |
+    When the user clicks on the mandatory stage "<RequestingOrganisation>" in the dialog box
+    And the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "South Warwickshire NHS Foundation Trust" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And  the user clicks the Save and Continue button
+    And the "<stage3>" stage is selected
+    When the user submits the referral
+    And the user sees a dialog box with a title "<dialogTitle>"
+    And the user sees a list of outstanding mandatory stages to be completed in the dialog box
+      | MandatoryStagesToComplete |
+      | Test package              |
+      | Responsible clinician     |
+      | Clinical questions        |
+      | Patient choice            |
+    And the user clicks on the mandatory stage "<stage3>" in the dialog box
+    And the "<stage3>" stage is selected
+#    And the user clicks the Save and Continue button
+    ##Test Package Page
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    ##Print Forms
+    When the user navigates to the "<PrintForms>" stage
+    Then the user is navigated to a page with title Print sample forms
+    ##Cancel Referral
+    When the user clicks the Cancel referral link
+    And the user selects the cancellation reason "The referral has been paused or stopped (“Revoke”)" from the modal
+    And the user submits the cancellation
+    Then the message should display as "<RevokeMessage>"
+    Then the user verifies that the revoke message doesn't overlap any other element
+#    @NTS-4562 @E2EUI-1088
+    And the user clicks the Log out button
+#    Then the user is successfully logged out
+
+    Examples:
+      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  | dialogTitle                  | stage2                  | ordering_entity_name | stage3       |
+      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation | There is missing information | Requesting organisation | Maidstone            | Test package |
+
+  @NTS-3497-2
+  Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
+    Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
     Then the user is navigated to a page with title Test Order Forms
     When the user navigates to the "Requesting organisation" stage

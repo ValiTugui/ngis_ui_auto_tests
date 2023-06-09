@@ -4,7 +4,7 @@
 Feature: UserJourney_RD_NEW_AP_3 - UC18 - E2EUI-882
 
   @NTS-4589 @Z-LOGOUT
-#    @E2EUI-882 @UseCase18
+#    @E2EUI-882 @UseCase18---Normal user should see the cancel referral link before submission and not see after submission
   Scenario Outline: NTS-4589: Use Case#18: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given - Search Non Spine--NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
@@ -97,9 +97,11 @@ Feature: UserJourney_RD_NEW_AP_3 - UC18 - E2EUI-882
       | <PatientChoiceStage>     |
       | <Panels>                 |
       | <Pedigree>               |
+    Then the user should be able to see a cancel referral link "present"
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+    Then the user should be able to see a cancel referral link "not present"
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
