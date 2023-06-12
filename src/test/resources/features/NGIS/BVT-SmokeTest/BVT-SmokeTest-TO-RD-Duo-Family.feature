@@ -109,7 +109,7 @@ Feature: NTS-3407-TO: Create RD Duo Family by completing - Patient Details - Req
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Manage panels
     ##The below step has to be updated based on the expected penetrance for that specific CI
-    And the user should see the default status of penetrance button as Complete
+    And the user should see the default status of penetrance button as Incomplete
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
     And the user clicks the Save and Continue button
@@ -133,4 +133,4 @@ Feature: NTS-3407-TO: Create RD Duo Family by completing - Patient Details - Req
 
     Examples:
       | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm | newpageTitle        | patientDetails  | RequestingOrganisation  | ordering_entity_name        | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
-      | create a new patient record | Other (please provide reason) | R441   | Clinical Indication | Patient details | Requesting organisation | BANBURY CROSS HEALTH CENTRE | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
+      | create a new patient record | Other (please provide reason) | R100   | Clinical Indication | Patient details | Requesting organisation | BANBURY CROSS HEALTH CENTRE | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
