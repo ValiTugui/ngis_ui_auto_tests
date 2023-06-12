@@ -40,7 +40,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | PrintForms  | Watermark               | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants |
       | Print forms | N ot for C linical U se | Patient details | Requesting organisation | Test package | 1                |
 
-  @NTS-4702 @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT @canceltest
 #    @E2EUI-1794 @E2EUI-1786
   Scenario Outline: NTS-4702: Cancel a referral as revoked or marked in error
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -67,7 +67,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
       | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
 
-  @NTS-4702-2 @Z-LOGOUT
+  @NTS-4702-2 @Z-LOGOUT @canceltest
 #    @E2EUI-1794 @E2EUI-1786
   Scenario Outline: NTS-4702: Cancel a referral as revoked or marked in error
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -94,7 +94,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient|
       | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
 
-  @NTS-4702 @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT @canceltest
 #    @E2EUI-1787
   Scenario Outline: NTS-4702: scenario_1: View cancelled referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -113,7 +113,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | Reason  | CancellationReason                                 | CancellationSuccessMessage                                                                      |
       | Revoked | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
 
-  @NTS-4702 @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT @canceltest
 #    @E2EUI-1787
   Scenario Outline:NTS-4702: scenario_2: View cancelled referral
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
