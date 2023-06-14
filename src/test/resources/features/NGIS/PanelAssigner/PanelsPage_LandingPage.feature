@@ -212,32 +212,32 @@ Feature: PanelAssigner: Panels Page Landing Page
 
     Examples:
       | Panels | CI | panelName                                                        |penetrancevalue|
-#      | Panels | Primary immunodeficiency or monogenic inflammatory bowel disease  | Primary immunodeficiency or monogenic inflammatory bowel disease |Incomplete|
-#      | Panels | Congenital malformation and dysmorphism syndromes  | Paediatric disorders                                             |Complete|
-#      | Panels | Intellectual disability  | Intellectual disability - microarray and sequencing                                         |Complete|
-#      | Panels | Neonatal diabetes | Neonatal diabetes                                        |Incomplete|
-#      | Panels | Likely inborn error of metabolism  | Likely inborn error of metabolism - targeted testing not possible                                   |Incomplete|
-#      | Panels | Skeletal dysplasia | Skeletal dysplasia                                               |Incomplete|
-#      | Panels | Rare syndromic craniosynostosis or isolated multisuture synostosis | Rare syndromic craniosynostosis or isolated multisuture synostosis                                                 |Incomplete|
-#      | Panels | Hereditary ataxia with onset in adulthood  | Hereditary ataxia with onset in adulthood                                  |Incomplete|
-#      | Panels | Hereditary ataxia with onset in childhood  | Hereditary ataxia and cerebellar anomalies - childhood onset     |Incomplete|
-#      | Panels | Early onset or syndromic epilepsy  | Early onset or syndromic epilepsy                                       |Incomplete|
-#      | Panels | Childhood onset hereditary spastic paraplegia  | Childhood onset hereditary spastic paraplegia                  |Incomplete|
+      | Panels | Primary immunodeficiency or monogenic inflammatory bowel disease  | Primary immunodeficiency or monogenic inflammatory bowel disease |Incomplete|
+      | Panels | Congenital malformation and dysmorphism syndromes  | Paediatric disorders                                             |Complete|
+      | Panels | Intellectual disability  | Intellectual disability - microarray and sequencing                                         |Complete|
+      | Panels | Neonatal diabetes | Neonatal diabetes                                        |Incomplete|
+      | Panels | Likely inborn error of metabolism  | Likely inborn error of metabolism - targeted testing not possible                                   |Incomplete|
+      | Panels | Skeletal dysplasia | Skeletal dysplasia                                               |Incomplete|
+      | Panels | Rare syndromic craniosynostosis or isolated multisuture synostosis | Rare syndromic craniosynostosis or isolated multisuture synostosis                                                 |Incomplete|
+      | Panels | Hereditary ataxia with onset in adulthood  | Hereditary ataxia with onset in adulthood                                  |Incomplete|
+      | Panels | Hereditary ataxia with onset in childhood  | Hereditary ataxia and cerebellar anomalies - childhood onset     |Incomplete|
+      | Panels | Early onset or syndromic epilepsy  | Early onset or syndromic epilepsy                                       |Incomplete|
+      | Panels | Childhood onset hereditary spastic paraplegia  | Childhood onset hereditary spastic paraplegia                  |Incomplete|
       | Panels | Arthrogryposis  | Arthrogryposis                                                   |Incomplete|
-#      | Panels | Other rare neuromuscular disorders | Other rare neuromuscular disorders                                          |Incomplete|
-#      | Panels | Cerebellar anomalies  | Hereditary ataxia and cerebellar anomalies - childhood onset     |Incomplete|
-#      | Panels | Holoprosencephaly - NOT chromosomal  | Holoprosencephaly - NOT chromosomal                                                |Incomplete|
-#      | Panels | Hydrocephalus  | Hydrocephalus                                                    |Incomplete|
-#      | Panels | Cerebral malformation  | Cerebral malformation                                          |Incomplete|
-#      | Panels | Severe microcephaly  | Severe microcephaly                                             |Incomplete|
-#      | Panels | Childhood onset leukodystrophy | Childhood onset leukodystrophy                        |Incomplete|
-#      | Panels | Cystic renal disease | Cystic renal disease                                            |Incomplete|
-##      | r89Panels | Ultra-rare and atypical monogenic disorders  |                                                                  |
+      | Panels | Other rare neuromuscular disorders | Other rare neuromuscular disorders                                          |Incomplete|
+      | Panels | Cerebellar anomalies  | Hereditary ataxia and cerebellar anomalies - childhood onset     |Incomplete|
+      | Panels | Holoprosencephaly - NOT chromosomal  | Holoprosencephaly - NOT chromosomal                                                |Incomplete|
+      | Panels | Hydrocephalus  | Hydrocephalus                                                    |Incomplete|
+      | Panels | Cerebral malformation  | Cerebral malformation                                          |Incomplete|
+      | Panels | Severe microcephaly  | Severe microcephaly                                             |Incomplete|
+      | Panels | Childhood onset leukodystrophy | Childhood onset leukodystrophy                        |Incomplete|
+      | Panels | Cystic renal disease | Cystic renal disease                                            |Incomplete|
+#      | r89Panels | Ultra-rare and atypical monogenic disorders  |                                                                  |
       | Panels | Bilateral congenital or childhood onset cataracts  |Bilateral congenital or childhood onset cataracts                                                                 |Incomplete|
-#      | Panels | Retinal disorders  |  Retinal disorders                                                                |Incomplete|
-#      | Panels | Structural eye disease  |   Structural eye disease                                                               |Incomplete|
-#      | Panels | Adult onset dystonia, chorea or related movement disorder  | Adult onset dystonia, chorea or related movement disorder                                                                |Incomplete|
-#      | Panels | Childhood onset dystonia, chorea or related movement disorder  | Childhood onset dystonia, chorea or related movement disorder                                                                 |Incomplete|
+      | Panels | Retinal disorders  |  Retinal disorders                                                                |Incomplete|
+      | Panels | Structural eye disease  |   Structural eye disease                                                               |Incomplete|
+      | Panels | Adult onset dystonia, chorea or related movement disorder  | Adult onset dystonia, chorea or related movement disorder                                                                |Incomplete|
+      | Panels | Childhood onset dystonia, chorea or related movement disorder  | Childhood onset dystonia, chorea or related movement disorder                                                                 |Incomplete|
       | Panels | Adult onset neurodegenerative disorder  |  Adult onset neurodegenerative disorder                                                                |Incomplete|
       | Panels | Adult onset hereditary spastic paraplegia  | Adult onset hereditary spastic paraplegia                                                                 |Incomplete|
       | Panels | Adult onset leukodystrophy  |   Adult onset leukodystrophy                                                               |Incomplete|
