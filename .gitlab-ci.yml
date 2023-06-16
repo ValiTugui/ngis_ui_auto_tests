@@ -6,13 +6,13 @@ variables:
     value: "dev"
     description: "ENV name: [dev|test|e2e|uat|prod]"
   SMOKE_TEST:
-    value: ""
+    value: "@BVT_UI_SMOKE_TEST_PACK"
     description: "SMOKE_TEST tag"
   SYSTEM_TEST:
-    value: ""
+    value: "@SYSTEM_TEST"
     description: "SYSTEM_TEST tag"
   SYSTEM_INTEGRATION_TEST:
-    value: ""
+    value: "@SYSTEM_INTEGRATION_TEST"
     description: "SYSTEM_INTEGRATION_TEST tag"
   TestEnvironment:
     value: "dev"
