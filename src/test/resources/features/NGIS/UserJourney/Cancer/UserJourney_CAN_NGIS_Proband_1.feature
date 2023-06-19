@@ -2,7 +2,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NGIS_Proband_1 - UC21- E2EUI-1636
 
-  @NTS-4678 @Z-LOGOUT
+  @NTS-4678 @Z-LOGOUT @canceltest
     ##@E2EUI-1636 @UseCase21--Normal user sbumit and cant cancel referral
   Scenario Outline:Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service

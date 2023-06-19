@@ -3,7 +3,7 @@
 @SYSTEM_TEST_2
 Feature: Test Directory: TestOrder
 
-  @NTS-3493 @Z-LOGOUT
+  @NTS-3493 @Z-LOGOUT @canceltest
 # @E2EUI-2015 @scenario_01
   Scenario Outline: NTS-3493: Restricted access to navigate to cancelled referrals
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -21,7 +21,7 @@ Feature: Test Directory: TestOrder
       | Reason                                             | RevokeMessage                                                             |
       | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
 
-  @NTS-3493-2
+  @NTS-3493-2 @canceltest
   Scenario Outline: NTS-3493-2: Restricted access to navigate to cancelled referrals
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=2000001327:DOB=05-12-1987 |

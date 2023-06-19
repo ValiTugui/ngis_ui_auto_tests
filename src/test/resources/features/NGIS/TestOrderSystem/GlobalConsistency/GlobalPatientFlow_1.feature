@@ -6,7 +6,7 @@
 Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
 
-  @NTS-3497 @Z-LOGOUT
+  @NTS-3497 @Z-LOGOUT @canceltest
 #    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -63,7 +63,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  | dialogTitle                  | stage2                  | ordering_entity_name | stage3       |
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation | There is missing information | Requesting organisation | Maidstone            | Test package |
 
-  @NTS-3497-2
+  @NTS-3497-2 @canceltest
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |

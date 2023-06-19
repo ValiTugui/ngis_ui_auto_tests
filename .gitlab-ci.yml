@@ -5,11 +5,14 @@ variables:
   ENV:
     value: "dev"
     description: "ENV name: [dev|test|e2e|uat|prod]"
+  SMOKE_TEST:
+    value: "@BVT_UI_SMOKE_TEST_PACK"
+    description: "SMOKE_TEST tag"
   SYSTEM_TEST:
-    value: ""
+    value: "@SYSTEM_TEST"
     description: "SYSTEM_TEST tag"
   SYSTEM_INTEGRATION_TEST:
-    value: ""
+    value: "@SYSTEM_INTEGRATION_TEST"
     description: "SYSTEM_INTEGRATION_TEST tag"
   TestEnvironment:
     value: "dev"
@@ -22,6 +25,7 @@ variables:
 stages:
   - systemIntegration Test
   - System Test
+  - Smoke Test
   - ZAP
 
 .tools: &gitlab-tools genomicsengland/opensource/gitlab-tools
@@ -61,6 +65,19 @@ include:
     - google-chrome --version
 
 
+.hto_smoke_tests:
+  <<: *test_suite_common
+  stage: "Smoke Test"
+  script:
+    - echo "SMOKE_TEST tag is ${SMOKE_TEST}"
+    - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+    - if [ -z $SMOKE_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SMOKE_TEST" -DreportName=SmokeTest-${SMOKE_TEST}-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+  artifacts:
+    paths:
+      - ./target
+    expire_in: 1 week
+  when: manual
+
 .hto_system_tests:
   <<: *test_suite_common
   stage: "System Test"
@@ -89,7 +106,20 @@ include:
 
 
 
+hto_smoke_tests_le:
+  extends: .hto_smoke_tests
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
 
+
+hto_smoke_tests_he:
+  extends: .hto_smoke_tests
+  tags:
+    - pool_name:hto_qa_prod
+  rules:
+    - if: $ENV == 'prod' || $ENV == 'uat'
 
 
 
