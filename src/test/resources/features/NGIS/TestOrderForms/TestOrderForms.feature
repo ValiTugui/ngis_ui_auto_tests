@@ -151,17 +151,17 @@ Feature: Test Order Forms
       | file1        | file2                      | file3         | testOrderForms   |
       | testfile.pdf | png_file_with_capitals.PNG | testfile2.pdf | Test order forms |
 
-  @inprogress
+
   Scenario Outline: Test Order Forms- Users should be able to view uploaded forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M101 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
     When the user navigates to the "<testOrderForms>" stage
     When the user uploads the following files
-      | <file1> | <file2> |
+      | <file1> | <file2> | <file3> |
     Then the user should be able to view the following Test Order Forms
-      | <file1> | <file2> |
+      | <file1> | <file3> |
 
     Examples:
-      | file1                      | file2         | testOrderForms   |
-      | png_file_with_capitals.PNG | testfile2.pdf | Test order forms |
+      | file1                      | file2         | file3             | testOrderForms   |
+      | png_file_with_capitals.PNG | testfile2.pdf | testfile_11MB.jpg | Test order forms |
 

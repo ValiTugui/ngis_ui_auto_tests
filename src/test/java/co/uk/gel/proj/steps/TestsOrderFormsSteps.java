@@ -158,6 +158,8 @@ public class TestsOrderFormsSteps extends Pages {
                         if (!Wait.isElementDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForHideButton)), 5)) {
                             Assert.fail(fileToView + " could not be viewed");
                         }
+                        SeleniumLib.getWebElement(By.xpath(xpathForHideButton)).click();
+                        Wait.seconds(1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
