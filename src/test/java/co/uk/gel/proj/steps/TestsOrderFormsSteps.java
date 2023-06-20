@@ -107,7 +107,7 @@ public class TestsOrderFormsSteps extends Pages {
         if (filesToDelete.size() > 0) {
             for (String fileName : filesToDelete) {
 
-                String xpathForDeleteButton = "//div[.='" + fileName + "']/../div[@class='styles_item__stgKp styles_item__icon__2M6YW'][2]/a";
+                String xpathForDeleteButton = "//div[.='" + fileName + "']/..//button[.='delete']";
                 Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForDeleteButton)), 10);
 
                 try {
@@ -118,7 +118,7 @@ public class TestsOrderFormsSteps extends Pages {
                 }
             }
         } else {
-            Assert.fail("Please enter name of the file(s) you want to delete. Example: testfile.pdf");
+            Assert.fail("Please enter the name of the file(s) you want to delete. Example: testfile.pdf");
         }
     }
 
@@ -127,7 +127,7 @@ public class TestsOrderFormsSteps extends Pages {
         if (filesToRestore.size() > 0) {
             for (String fileToRestore : filesToRestore) {
 
-                String xpathForRestoreButton = "//div[.='" + fileToRestore + "']/..//a[.='Restore']";
+                String xpathForRestoreButton = "//div[.='" + fileToRestore + "']/..//button[.='Restore']";
                 Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForRestoreButton)), 10);
 
                 try {
@@ -138,7 +138,33 @@ public class TestsOrderFormsSteps extends Pages {
                 }
             }
         } else {
-            Assert.fail("Please enter name of the file(s) you want to restore. Example: testfile.pdf");
+            Assert.fail("Please enter the name of the file(s) you want to restore. Example: testfile.pdf");
+        }
+    }
+
+
+    @Then("the user should be able to view the following Test Order Forms")
+    public void theUserShouldBeAbleToViewTheFollowingTestOrderForms(List<String> filesToView) {
+        if (filesToView.size() > 0) {
+            for (String fileToView : filesToView) {
+                if(!fileToView.toLowerCase().contains("pdf") && !fileToView.toLowerCase().contains("docx")){
+                    String xpathForViewButton = "//div[.='" + fileToView + "']/..//button[.='view']";
+                    String xpathForHideButton = "//div[.='" + fileToView + "']/..//button[.='hide']";
+
+                    Wait.forElementToBeDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForViewButton)), 10);
+
+                    try {
+                        SeleniumLib.getWebElement(By.xpath(xpathForViewButton)).click();
+                        if (!Wait.isElementDisplayed(driver, SeleniumLib.getWebElement(By.xpath(xpathForHideButton)), 5)) {
+                            Assert.fail(fileToView + " could not be viewed");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            Assert.fail("Please enter the name of the file(s) you want to view. Example: testfile_11MB.jpg");
         }
     }
 }
