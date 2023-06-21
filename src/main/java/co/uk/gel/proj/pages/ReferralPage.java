@@ -172,6 +172,12 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@data-testid='notification-success']")
     public WebElement notificationSuccessMessage;
 
+    @FindBy(xpath = "//a[.='Go back the patient page']")
+    public WebElement goBackThePatientPageBtn;
+
+    @FindBy(xpath = "//a[.='search for a new patient']")
+    public WebElement searchForANewPatientBtn;
+
     //For Global Patient Banner Verification - Family Members
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
     public WebElement familyMemberDob;
@@ -600,7 +606,7 @@ public class ReferralPage<check> {
     public boolean clickLogoutButton() {
         try {
             Action.clickElement(driver, logoutButton);
-            if(Wait.isElementDisplayed(driver, logoutAcc, 10)){
+            if (Wait.isElementDisplayed(driver, logoutAcc, 10)) {
                 logoutAcc.click();
             }
             return true;
@@ -1487,7 +1493,7 @@ public class ReferralPage<check> {
             }
             //Check for Button presence
             if (cancelReferralButtons.size() == 0) {
-                Debugger.println("Cancel Referral Buttons notpresent");
+                Debugger.println("Cancel Referral Buttons not present");
                 SeleniumLib.takeAScreenShot("CancelReferral.jpg");
                 return false;
             }
@@ -1986,7 +1992,7 @@ public class ReferralPage<check> {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser...." + nhsMail + "," + nhsPassword);
         try {
             Wait.seconds(5);
-            if(Wait.isElementDisplayed(driver, microsoftLoginSubtitle, 20)){
+            if (Wait.isElementDisplayed(driver, microsoftLoginSubtitle, 20)) {
                 Debugger.println("Clicking on which account do you want to sign out of?");
                 logoutAcc.click();
                 Wait.seconds(5);
@@ -2034,9 +2040,9 @@ public class ReferralPage<check> {
 
     public boolean verifyMicrosoftLoginPage(String loginPageUrl) {
         try {
-            if(Wait.isElementDisplayed(driver, logoutAcc, 10)){
+            if (Wait.isElementDisplayed(driver, logoutAcc, 10)) {
                 logoutAcc.click();
-            }else if (!Wait.isElementDisplayed(driver, useAnotherAccount, 20)) {
+            } else if (!Wait.isElementDisplayed(driver, useAnotherAccount, 20)) {
                 return false;
             }
             String fullCurrentURL = driver.getCurrentUrl();
@@ -2055,7 +2061,7 @@ public class ReferralPage<check> {
         try {
             Wait.seconds(5);
             Action.scrollToTop(driver);
-            Debugger.println("The URL IS "+driver.getCurrentUrl());
+            Debugger.println("The URL IS " + driver.getCurrentUrl());
             if (helix.size() < 1) {
                 Debugger.println("Page should load with helix in action.... but helix not present.");
                 return false;
@@ -2137,10 +2143,11 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//h1[text()='Find your patient']")
     public WebElement findYourPatientPageTitle;
+
     public void verifyFindYourPatientPageTitle() {
         try {
             Wait.forElementToBeDisplayed(driver, findYourPatientPageTitle, 60);
-            if (!findYourPatientPageTitle.getText().contains("Find your patient")){
+            if (!findYourPatientPageTitle.getText().contains("Find your patient")) {
                 //if password submit click not happened button will be displayed, trying again
                 if (PasswordSubmitButton.isDisplayed()) {
                     try {
@@ -2152,18 +2159,19 @@ public class ReferralPage<check> {
                     }
                 }
             }
-        }catch (Exception exp){
-            Debugger.println("ExpFrom: verifyFindYourPatientPageTitle:"+new Date()+"\n"+exp);
+        } catch (Exception exp) {
+            Debugger.println("ExpFrom: verifyFindYourPatientPageTitle:" + new Date() + "\n" + exp);
             //if password submit click not happened button will be displayed, trying again
-                if (PasswordSubmitButton.isDisplayed()) {
-                    try {
-                        seleniumLib.clickOnWebElement(PasswordSubmitButton);
-                    } catch (Exception exp1) {
-                        Action.clickElement(driver, PasswordSubmitButton);
-                    }
+            if (PasswordSubmitButton.isDisplayed()) {
+                try {
+                    seleniumLib.clickOnWebElement(PasswordSubmitButton);
+                } catch (Exception exp1) {
+                    Action.clickElement(driver, PasswordSubmitButton);
                 }
+            }
         }
     }
+
     public void submitReferralConcurrency() {
         try {
             if (Wait.isElementDisplayed(driver, submitReferralButton, 100)) {
@@ -2223,10 +2231,10 @@ public class ReferralPage<check> {
     public void waitForSessionTimeOut(int minutes) {
         try {
             long startTime = System.currentTimeMillis();
-            Debugger.println("Waiting for "+minutes+" minutes to check session time out...");
-            SeleniumLib.sleepInSeconds(minutes*60);
+            Debugger.println("Waiting for " + minutes + " minutes to check session time out...");
+            SeleniumLib.sleepInSeconds(minutes * 60);
             long endTime = System.currentTimeMillis();
-            Debugger.println(minutes+" minutes wait is over..:"+(endTime-startTime)/(1000*60));
+            Debugger.println(minutes + " minutes wait is over..:" + (endTime - startTime) / (1000 * 60));
         } catch (Exception exp) {
             Debugger.println("Exception from waitForSessionTimeOut " + exp);
             SeleniumLib.takeAScreenShot("sessionTimeOutWait.jpg");
@@ -2241,17 +2249,17 @@ public class ReferralPage<check> {
             Debugger.println("Operation after session time out...");
             By pickAnAccountDiv = By.xpath("//div[@id='loginHeader']/div[@role='heading']");
             String actualText = "";
-            if(seleniumLib.isElementPresent(pickAnAccountDiv)) {
+            if (seleniumLib.isElementPresent(pickAnAccountDiv)) {
                 actualText = seleniumLib.getText(pickAnAccountDiv);
-            }else{
-                if(seleniumLib.isElementPresent(pickAnAccountDiv)) {
+            } else {
+                if (seleniumLib.isElementPresent(pickAnAccountDiv)) {
                     actualText = seleniumLib.getText(pickAnAccountDiv);
                 }
             }
-            if(!(actualText.equalsIgnoreCase(pickAnAccount) || actualText.equalsIgnoreCase(signIn))){
-               Debugger.println("Expected to Not landed in Sign in Page ");
-               SeleniumLib.takeAScreenShot("sessionTimeOut3.jpg");
-               return "Expected to navigato Login page after session time out....but not.";
+            if (!(actualText.equalsIgnoreCase(pickAnAccount) || actualText.equalsIgnoreCase(signIn))) {
+                Debugger.println("Expected to Not landed in Sign in Page ");
+                SeleniumLib.takeAScreenShot("sessionTimeOut3.jpg");
+                return "Expected to navigato Login page after session time out....but not.";
             }
             return "Success";
         } catch (Exception exp) {
@@ -2291,49 +2299,66 @@ public class ReferralPage<check> {
     }
 
     public String verifyBlankMandatoryFieldLabelColorNeat(String fieldLabel, String highlightColor) {
-            try {
-                Wait.seconds(2);
-                String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
-                String fieldLabelPath = null;
-                if (fieldLabel.equalsIgnoreCase("Date of birth")) {
-                    fieldLabelPath = mandatoryFieldLegend.replaceAll("dummyLabel", fieldLabel);
-                } else {
-                    fieldLabelPath = mandatoryFieldSpan.replaceAll("dummyLabel", fieldLabel);
-                }
-                WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
-                String actualColor = fieldElement.getCssValue("color");
-                if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
-                    Debugger.println("Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor);
-                    SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
-                    return "Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor;
-                }
-                return "Success";
-            } catch (Exception exp) {
-                Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
-                SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
-                return "Exception from validating verifyMandatoryFieldHighlightColor:" + exp;
+        try {
+            Wait.seconds(2);
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
+            String fieldLabelPath = null;
+            if (fieldLabel.equalsIgnoreCase("Date of birth")) {
+                fieldLabelPath = mandatoryFieldLegend.replaceAll("dummyLabel", fieldLabel);
+            } else {
+                fieldLabelPath = mandatoryFieldSpan.replaceAll("dummyLabel", fieldLabel);
             }
+            WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
+            String actualColor = fieldElement.getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
+                Debugger.println("Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor);
+                SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
+                return "Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor;
+            }
+            return "Success";
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
+            SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
+            return "Exception from validating verifyMandatoryFieldHighlightColor:" + exp;
         }
+    }
 
     public boolean openAnotherBrowserInstance() {
-try {
-    org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
-    System.out.println("To open new window");
-    action.contextClick(driver.findElement(toDoLink)).build().perform();
-    Robot robot = new Robot();
-    robot.keyPress(KeyEvent.VK_DOWN);
-    robot.keyRelease(KeyEvent.VK_DOWN);
-    robot.keyPress(KeyEvent.VK_DOWN);
-    robot.keyRelease(KeyEvent.VK_DOWN);
-    robot.keyPress(KeyEvent.VK_ENTER);
-    robot.keyRelease(KeyEvent.VK_ENTER);
-    System.out.println("Opened a new window");
-    return true;
-}catch (Exception exp){
-    Debugger.println("Exception from opening a new window" + exp);
-    return false;
-}
+        try {
+            org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+            System.out.println("To open new window");
+            action.contextClick(driver.findElement(toDoLink)).build().perform();
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_DOWN);
+            robot.keyRelease(KeyEvent.VK_DOWN);
+            robot.keyPress(KeyEvent.VK_DOWN);
+            robot.keyRelease(KeyEvent.VK_DOWN);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            System.out.println("Opened a new window");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from opening a new window" + exp);
+            return false;
+        }
 
     }
+
+    public void clickOnCancelledReferralBannerLinks(String url){
+        if(Wait.isElementDisplayed(driver, goBackThePatientPageBtn, 5) && Wait.isElementDisplayed(driver, searchForANewPatientBtn, 5)){
+            if(url.toLowerCase().startsWith("go back")){
+                Action.clickElement(driver, goBackThePatientPageBtn);
+            }else if(url.toLowerCase().startsWith("search for")){
+                Action.clickElement(driver, searchForANewPatientBtn);
+            }else{
+                Assert.fail("Please enter a valid value. Eg: 'Go back the patient page', 'search for a new patient'");
+            }
+        }else{
+            Assert.fail("[Go back the patient page] and/or [search for a new patient] links are not displayed");
+        }
+
+    }
+
+
 }
 

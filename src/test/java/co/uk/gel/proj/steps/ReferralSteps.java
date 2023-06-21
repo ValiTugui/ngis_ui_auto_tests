@@ -1674,4 +1674,15 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.openAnotherBrowserInstance();
         Assert.assertTrue(testResult);
     }
+
+    @When("the user clicks the (.*) link from Cancel Referral Banner")
+    public void theUserClicksTheGoBackThePatientPageFromCancelReferralBanner(String url) {
+        referralPage.clickOnCancelledReferralBannerLinks(url);
+    }
+
+    @When("the user navigates back to previous page")
+    public void theUserNavigatesBackToPreviousPage() {
+        Wait.seconds(2);
+        driver.navigate().back();
+    }
 }
