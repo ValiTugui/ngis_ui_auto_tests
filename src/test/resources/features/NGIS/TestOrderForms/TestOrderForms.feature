@@ -16,7 +16,7 @@ Feature: Test Order Forms
     Then the list of "Uploaded" files contains the following
       | <file1> | <file2> | <file3> | <file4> | <file5> | <file6> | <file7> |
     When the user clicks on Continue Button
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
 
     Examples:
       | file1        | file2        | file3             | file4              | file5             | file6            | file7                      | testOrderForms   |
@@ -34,7 +34,7 @@ Feature: Test Order Forms
       | <file3> | <file4> | <file5> |
     Then the list of "Uploaded" files in Test Order Forms contains 5 files
     When the user clicks on Continue Button
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
 
     Examples:
       | file1        | file2                      | file3             | file4                            | file5             | testOrderForms   |
@@ -52,7 +52,7 @@ Feature: Test Order Forms
     And the list of "Uploaded" files contains the following
       | <file1> | <file2> | <file3> | <file4> | <file5> |
     When the user clicks on Continue Button
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
 
     Examples:
       | file1        | file2         | file3                            | file4          | file5             | file6            | errorMessage                                    | testOrderForms   |
