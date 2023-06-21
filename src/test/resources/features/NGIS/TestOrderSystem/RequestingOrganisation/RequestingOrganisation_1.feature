@@ -11,7 +11,7 @@ Feature: TestOrder - Requesting Organisation page 1
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
 #    When the user navigates to the "Requesting organisation" stage
 #    And the user is navigated to a page with title Add a requesting organisation
@@ -40,7 +40,7 @@ Feature: TestOrder - Requesting Organisation page 1
   # @E2EUI-1413 @E2EUI-1360 @E2EUI-1361 @E2EUI-1542 @E2EUI-1415
   Scenario Outline: NTS-3047 - Find my ordering entity via name to order a test from the correct Lab/GLH
 #    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     And the user is navigated to a page with title Add a requesting organisation
     And the user sees the search label with "<introMessage>"
@@ -62,7 +62,7 @@ Feature: TestOrder - Requesting Organisation page 1
   Scenario Outline: HTO-782 TO - Find/Select Ordering Entity - With Valid Search Term - <ordering_entity_name>
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | <ci_term> | <ci_type> | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage

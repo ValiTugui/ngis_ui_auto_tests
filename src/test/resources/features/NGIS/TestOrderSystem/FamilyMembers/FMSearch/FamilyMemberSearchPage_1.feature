@@ -11,7 +11,7 @@ Feature: Family Members Search Page - Field Validation_1
   Scenario Outline: NTS-3302: Find a Family Member page layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMember>" stage
@@ -58,7 +58,7 @@ Feature: Family Members Search Page - Field Validation_1
   Scenario Outline: NTS-3328: Find a Family member page field validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=10-02-1985:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMember>" stage

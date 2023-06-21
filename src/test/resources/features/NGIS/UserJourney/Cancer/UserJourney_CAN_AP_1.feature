@@ -8,7 +8,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Paediatric Type Follicular Lymphoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
    ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation
     And the user navigates to the "<requestingOrganisation>" stage

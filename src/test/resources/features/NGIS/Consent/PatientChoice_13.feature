@@ -9,9 +9,8 @@ Feature: Patient Choice-13  - Page - FamilyMemberAddition
   Scenario Outline: NTS-3411 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1997:Gender=Male |
-    ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "<PatientDetails>" stage is marked as Completed
+
+    And the "<PatientDetails>" stage is marked as Completed
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package

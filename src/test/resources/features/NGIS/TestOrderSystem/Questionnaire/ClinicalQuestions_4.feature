@@ -10,8 +10,8 @@ Feature: ClinicalQuestions 4 - RD Questionnaire
   Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+#    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,8 +34,8 @@ Feature: ClinicalQuestions 4 - RD Questionnaire
   Scenario Outline: NTOS-5022- Clinical Questions - clear the disease status field and verify the hpo term field status
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+#    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation

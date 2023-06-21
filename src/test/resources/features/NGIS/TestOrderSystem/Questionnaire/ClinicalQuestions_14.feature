@@ -10,7 +10,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=16-5-1999:Gender=Male |
      ###Patient details
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
      ##Requesting Organisation
     When the user is navigated to a page with title Add a requesting organisation

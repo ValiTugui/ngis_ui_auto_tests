@@ -9,8 +9,8 @@ Feature: UserJourney_RD_NGIS_AP_3 - UC18 - E2EUI-1210
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000000827:DOB=28-08-2011 |
     ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
-    When the user clicks on Continue Button
+#    Then the user is navigated to a page with title Test Order Forms
+#    When the user clicks on Continue Button
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button

@@ -9,7 +9,7 @@ Feature: TestOrder - Print Forms 2 - User flows
   Scenario Outline: NTS-4746: User has submitted a referral and able to start a new referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2001:Gender=Female |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
       ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation

@@ -10,7 +10,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
   Scenario Outline: NTS-3291: Verify that Indicate family members with outstanding questions to answer
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1952:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<TestPackage>" stage
@@ -54,7 +54,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
   Scenario Outline: NTS-3330: User is completing a referral and wants to add a family member record to the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1980:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage

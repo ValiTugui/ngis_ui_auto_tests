@@ -9,7 +9,7 @@ Feature: Test Directory: TestOrder
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_SUPER_USER | NHSNumber=2000001327:DOB=05-12-1987 |
     ##Patient Details Page
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
 #    Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Cancel referral link
@@ -26,7 +26,7 @@ Feature: Test Directory: TestOrder
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=2000001327:DOB=05-12-1987 |
     ##Patient Details Page
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
 #    Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Cancel referral link
@@ -83,7 +83,7 @@ Feature: Test Directory: TestOrder
       | Eligibility criteria     |
     When the user click on Continue test ordering button
     And the user clicks on first Clinical indications result displayed in Test Oder
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
 #    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
 #    Then the user is navigated to a page with title Add a requesting organisation

@@ -6,7 +6,7 @@ Feature: Patient Choice-16 - History - Withdrawal - Form
   Scenario Outline: NTS-6427: Verify the patient type in withdrawal form after submitting the patient withdrawal
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title <title1>
     When the user edits the patient choice status

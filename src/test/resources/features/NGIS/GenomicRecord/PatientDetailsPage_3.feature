@@ -112,7 +112,7 @@ Feature: GenomicRecord: Patient details page 3
       | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
     When the user fills in the Ethnicity field "B - White - Irish"
     And the user clicks the Save and Continue button
-    Then the "<pageTitle2>" page is displayed
+    Then the user is navigated to a page with title Test Order Forms
 
     Examples:
       | stage           | pageTitle                    | pageTitle2                    |
@@ -194,7 +194,7 @@ Feature: GenomicRecord: Patient details page 3
     When the user attempts to navigate away by clicking "back"
     ##refresh is needed spooler is not loading in click back
     And the user attempts to navigate away by clicking "refresh"
-    Then the "<pageTitle3>" page is displayed
+    Then the "<stage>" page is displayed
 
     Examples:
       | stage           | pageTitle                        | pageTitle2        | pageTitle3       | reason_for_no_nhsNumber       | patient-search-type | directoryPathPage         |

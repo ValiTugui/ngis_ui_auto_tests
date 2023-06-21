@@ -11,7 +11,7 @@ Feature: TestOrder - Responsible Clinician 3
   Scenario Outline: NTS-3324 - Responsible Clinician Page - Verify the mandatory fields validations under 'Add Another Clinician' section
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -78,7 +78,7 @@ Feature: TestOrder - Responsible Clinician 3
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
    ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
 ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage

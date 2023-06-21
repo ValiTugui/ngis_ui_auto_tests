@@ -10,7 +10,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
    ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
    ##Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button

@@ -11,7 +11,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-3166 - Responsible Clinician Page - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>"
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -37,7 +37,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-3149 - Responsible Clinician Page - verify Warning Messages of unsaved changes - Moving to another To do list
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -59,7 +59,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User selects 'Save and continue' button without providing inputs in mandatory fields
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -88,7 +88,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User select 'Save and continue' button without providing nullable Department address
   Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
     | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -110,7 +110,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-3311 - Responsible Clinician Page - Assign a responsible practitioner to a referral - Cancer flow
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -137,7 +137,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-3321 - Responsible Clinician Page - Layout
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage
@@ -192,7 +192,7 @@ Feature: Responsible Clinician - 1
   Scenario Outline: NTS-4696 - Responsible Clinician Page - user returns back and complete the responsible clinician stage
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
      ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage

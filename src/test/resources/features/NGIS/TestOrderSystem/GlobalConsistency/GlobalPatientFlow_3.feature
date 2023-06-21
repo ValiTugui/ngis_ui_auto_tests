@@ -21,8 +21,8 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient not eligible for NHS number (e.g. foreign national)"
     And the user clicks the Start Referral button
     ##Patient Details Page Title
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+#    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user should see previous labels replaced as current labels

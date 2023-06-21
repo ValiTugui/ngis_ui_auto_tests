@@ -9,7 +9,7 @@ Feature: UserJourney_RD_NEW_Proband_6 - UC05 - E2EUI-1214
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=19-10-2005:Gender=Female |
     ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
     And the "<PatientDetails>" stage is marked as Completed
     #Requesting Organisation
     When the user navigates to the "Requesting organisation" stage

@@ -8,11 +8,7 @@ Feature: Patient Choice-14 - Different types of Form File upload and removal in 
   Scenario Outline: NTS-6024:E2EUI-2341:Scenario-1:Only one of each form type can be uploaded in the recorded by section for Adult(With Capacity) patient .
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1998:Gender=Male |
-    ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
-    ##Patient Details
-#    And the "Patient details" stage is marked as Completed
-#    When the user is navigated to a page with title Add a requesting organisation
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -54,7 +50,7 @@ Feature: Patient Choice-14 - Different types of Form File upload and removal in 
   Scenario Outline: NTS-6024:E2EUI-2341:Scenario-2:Only one of each form type can be uploaded in the recorded by section for Adult (Without Capacity) patient.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1987:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -106,7 +102,7 @@ Feature: Patient Choice-14 - Different types of Form File upload and removal in 
   Scenario Outline: NTS-6024:E2EUI-2341:Scenario-3:Only one of each form type can be uploaded in the recorded by section for Child patient.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2008:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband

@@ -10,7 +10,7 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
   Scenario Outline: NTS-3511 - Clinical Questions - Term presence value is 'Present' for atleast one HPO phenotype
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user navigates to the "<stage>" stage
@@ -51,7 +51,7 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
   Scenario Outline: NTS-3511 - Clinical Questions - Show dynamic Clinical Questions about the proband
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user navigates to the "<stage>" stage
@@ -85,7 +85,7 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
   Scenario Outline: NTS-3511 - Clinical Questions -  Search for HPO terms in Questionnaire
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user navigates to the "<stage>" stage

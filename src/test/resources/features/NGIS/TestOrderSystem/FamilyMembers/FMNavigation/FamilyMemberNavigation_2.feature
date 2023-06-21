@@ -12,7 +12,7 @@ Feature: TestOrder - Family Members Navigation Stage 2 - Varying Members additio
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1969:Gender=Male |
-    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<TestPackage>" stage

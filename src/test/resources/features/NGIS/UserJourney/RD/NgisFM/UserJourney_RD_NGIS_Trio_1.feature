@@ -8,9 +8,9 @@ Feature: UserJourney_RD_NGIS_Trio_1 - UC08 - E2EUI-1329,905
   Scenario Outline: NTS-4563: Use Case#08: Create Referral for Trio Family with Default Data and Add Family Members to Test with Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=2000000207:DOB=09-08-2008 |
-    ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
-    When the user clicks on Continue Button
+#    ##Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
+#    When the user clicks on Continue Button
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button

@@ -7,7 +7,7 @@ Feature: NTS-3407 - Security Scan for Cancer flow - Create Referral for Proband 
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Add a requesting organisation
+#    Then the user is navigated to a page with title Add a requesting organisation
     And the "<patientDetails>" stage is marked as Completed
 
     When the user navigates to the "<requestingOrganisation>" stage

@@ -11,8 +11,8 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3177:E2EUI-1547,1585: To Do list should be Mandatory To Do - verify permissible Number of Participants
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+#    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
     ##Patient details Stage
     ##Requesting Organisation
@@ -39,8 +39,8 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3177:E2EUI-1547,1585: To Do list should be Mandatory To Do
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+#    Then the user is navigated to a page with title Test Order Forms
+    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
     ##Patient details Stage
     ##Requesting Organisation

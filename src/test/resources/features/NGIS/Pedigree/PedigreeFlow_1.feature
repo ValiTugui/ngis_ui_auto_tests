@@ -11,10 +11,11 @@ Feature: Pedigree - Pedigree Flow 1
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-2005:Gender=Female |
     ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
-    When the user clicks on Continue Button
+#    Then the user is navigated to a page with title Test Order Forms
+#    When the user clicks on Continue Button
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<patientdetails>" stage
+#    Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
@@ -92,5 +93,5 @@ Feature: Pedigree - Pedigree Flow 1
     And the user should see the referral submit button as enabled
 
     Examples:
-      | Requesting_organisation | ordering_entity_name                    | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
-      | Requesting organisation | Maidstone And Tunbridge Wells NHS Trust | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |
+      |patientdetails | Requesting_organisation | ordering_entity_name                    | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
+      |Patient details | Requesting organisation | Maidstone And Tunbridge Wells NHS Trust | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |

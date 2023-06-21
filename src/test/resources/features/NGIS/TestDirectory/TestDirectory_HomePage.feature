@@ -22,7 +22,7 @@ Feature: TestDirectory : Home Page
   Scenario Outline: NTS-4726:E2EUI-1155: Displaying the current state for each stage
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=2000003842:DOB=13-05-2001 |
-    When the user is navigated to a page with title Test Order Forms
+#    When the user is navigated to a page with title Test Order Forms
     ##Patient Details
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient's details

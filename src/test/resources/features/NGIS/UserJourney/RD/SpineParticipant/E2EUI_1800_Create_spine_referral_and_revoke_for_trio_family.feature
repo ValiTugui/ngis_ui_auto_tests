@@ -18,7 +18,7 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=2000008178:DOB=29-12-1967:Gender=Male |
     ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+#    Then the user is navigated to a page with title Test Order Forms
 
       ###Patient Details
     When the user navigates to the "<PatientDetails>" stage
