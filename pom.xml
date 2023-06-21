@@ -23,11 +23,11 @@
         <forkCount>1</forkCount>
         <reportName>TOMSUItest</reportName>
         <jsonFolder>target/cucumber-parallel</jsonFolder>
-        <browser>chrome</browser>
-        <browserVersion>70</browserVersion>
+        <browser>${browser}</browser>
+        <browserVersion>${browserVersion}</browserVersion>
         <serverType>Local</serverType>
-        <osName>Windows</osName>
-        <osVersion>10</osVersion>
+        <osName>${osName}</osName>
+        <osVersion>${osVersion}</osVersion>
         <features></features>
         <rerunOption>No</rerunOption>
         <parallelScheme>FEATURE</parallelScheme>

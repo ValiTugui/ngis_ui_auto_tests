@@ -20,13 +20,32 @@ variables:
   ThreadCount:
     value: 1
     description: "thread count"     
-    
-      
+  BROWSER_TEST:
+    value: "@SMOKE_TEST_TD"
+    description: "BROWSER_TEST tag"    
+  FORKCOUNT:
+    value: 1
+    description: "fork count"     
+  osName:
+    value: "Windows"
+    description: "os Name"    
+  osVersion:
+    value: "10"
+    description: "os Version"     
+  browser:
+    value: "Chrome"
+    description: "browser name"     
+  browserVersion:
+    value: "80.0"
+    description: "browser version"     
+
 stages:
+  - Browser Test
   - systemIntegration Test
   - System Test
   - Smoke Test
   - ZAP
+
 
 .tools: &gitlab-tools genomicsengland/opensource/gitlab-tools
 
@@ -202,3 +221,84 @@ zap-automation-full-scan:
   rules:
     - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
       when: manual
+
+.browserstacktests:
+  <<: *test_suite_common
+  image: maven:3.9.0-eclipse-temurin-11
+  stage: "Browser Test"
+  variables:
+    EXECUTION_MODE: "BROWSERSTACK"
+    GEL_OPS_EMAIL: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
+    GEL_OPS_PASSWORD: $GEL_OPS_PASSWORD
+    NORMAL_EMAIL: "toms.service1@ngisnonprod.onmicrosoft.com"
+    NORMAL_PASSWORD: $NORMAL_PASSWORD
+    BROWSERSTACK_USERNAME: "christopherdavie_EeXMHi"
+    BROWSERSTACK_ACCESS_KEY: $BROWSERSTACK_ACCESS_KEY
+    BROWSERSTACK_BUILD: "${CI_PROJECT_NAME} - ${COMMIT_SHA} - ${CI_PIPELINE_CREATED_AT}"
+
+  before_script:
+    - apt-get update && apt-get install curl awscli jq wget unzip -y
+    - >
+      if [ "$ENV" = "dev" ]; then
+        export AWS_ACCOUNT_ID="773731497343"
+      elif [ "$ENV" = "test" ]; then
+        export AWS_ACCOUNT_ID="355329033666"
+      elif [ "$ENV" = "e2e" ]; then
+        export AWS_ACCOUNT_ID="904876589759"
+      elif [ "$ENV" = "uat" ]; then
+        export AWS_ACCOUNT_ID="408740150577"
+      elif [ "$ENV" = "prod" ]; then
+        export AWS_ACCOUNT_ID="347283558501"
+      fi
+    - echo $AWS_ACCOUNT_ID
+    # - apk add --update --no-cache python3 jq && ln -sf python3 /usr/bin/python
+    # - python3 -m ensurepip
+    - creds_json=$(aws sts assume-role --role-arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/CIDeploytoms --role-session-name runner-promotion)
+    - export AWS_ACCESS_KEY_ID=$(echo "$creds_json" | jq .Credentials.AccessKeyId |tr -d '"')
+    - export AWS_SECRET_ACCESS_KEY=$(echo "$creds_json" | jq .Credentials.SecretAccessKey| tr -d '"')
+    - export AWS_SESSION_TOKEN=$(echo "$creds_json" | jq .Credentials.SessionToken|tr -d '"')
+    - export AWS_REGION=eu-west-2
+
+    # Download the browserstack binary file
+    - wget "https://bstack-local-prod.s3.amazonaws.com/binaries/v8.5.0/BrowserStackLocal-linux-x64.zip"
+    #For OS X systems, use the following command
+    #- wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-darwin-x64.zip"
+    # Unzip the BrowserStack Local binary file
+    - unzip BrowserStackLocal-linux-x64.zip
+    # Run the file with your access key
+    - chmod +x BrowserStackLocal
+    - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
+  script:
+    - >
+     if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
+          echo "running tests using tag ${BROWSER_TEST}"
+          sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+          mvn  -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=BROWSERSTACK -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
+
+          
+     else 
+        echo "no tags passed or tag is not 'SMOKE_TEST_TD', exiting"
+        exit 0
+     fi
+    - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
+   
+
+  when: manual
+
+browserstacktests_le:
+  extends: .browserstacktests
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+
+
+
+browserstacktests_he:
+  extends: .browserstacktests
+  tags:
+    - pool_name:hto_qa_prod
+  rules:
+    - if: $ENV == 'prod' || $ENV == 'uat'
+
+
