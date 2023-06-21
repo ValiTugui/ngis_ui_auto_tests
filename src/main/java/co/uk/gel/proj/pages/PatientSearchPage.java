@@ -348,10 +348,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void loginToTestOrderingSystem(String email, String password) {
 
         referralPage = new ReferralPage(driver);
-        Action.deleteCookies(driver);
-        Wait.seconds(3);
+//        Action.deleteCookies(driver);
+//        Wait.seconds(3);
         try {
-            Wait.seconds(5);
+//            Wait.seconds(5);
             if(Wait.isElementDisplayed(driver, referralPage.microsoftLoginSubtitle, 20)){
                 Debugger.println("Clicking on which account do you want to sign out of?");
                 referralPage.logoutAcc.click();
