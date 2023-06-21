@@ -36,8 +36,11 @@ Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - R
     And the user types in the "<ciTerm>" in the search field
     And the user clicks on first Clinical indications result displayed in Test Oder
     ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
     And the "<patientDetails>" stage is marked as Completed
+     ##Test Order Forms
+    When the user navigates to the "<testOrderForms>" stage
+#    Then the user is navigated to a page with title Test Order Forms
+#    And the "<patientDetails>" stage is marked as Completed
     When the user uploads the following files
       | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     When the user deletes the following files
@@ -145,5 +148,5 @@ Feature: NTS-3362-TO: Create Cancer Referral by completing - Patient Details - R
     And the referral status is set to "Submitted"
 
     Examples:
-      | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm                    | newpageTitle        | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
-      | create a new patient record | Other (please provide reason) | Cancer of Unknown Primary | Clinical Indication | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
+      | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm                    | newpageTitle        | patientDetails  |testOrderForms |requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
+      | create a new patient record | Other (please provide reason) | Cancer of Unknown Primary | Clinical Indication | Patient details |Test order forms |Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |

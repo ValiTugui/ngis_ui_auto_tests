@@ -16,7 +16,9 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     ##Create Cancer Referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
-   ##Test Order Forms
+    And the "<patientDetails>" stage is marked as Completed
+     ##Test Order Forms
+    When the user navigates to the "<testOrderForms>" stage
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
       | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
@@ -27,7 +29,7 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     And the list of "Uploaded" files contains the following
       | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     ##Patient Details
-    And the "<patientDetails>" stage is marked as Completed
+#    And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation
     When the user navigates to the "<requestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -125,5 +127,5 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Examples:
-      | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
-      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
+      | patientDetails  |testOrderForms| requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
+      | Patient details |Test order forms| Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
