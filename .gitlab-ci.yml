@@ -11,9 +11,9 @@ variables:
   SYSTEM_TEST:
     value: "@SYSTEM_TEST"
     description: "SYSTEM_TEST tag"
-  SYSTEM_INTEGRATION_TEST:
-    value: "@SYSTEM_INTEGRATION_TEST"
-    description: "SYSTEM_INTEGRATION_TEST tag"
+  # SYSTEM_INTEGRATION_TEST:
+  #   value: "@SYSTEM_INTEGRATION_TEST"
+  #   description: "SYSTEM_INTEGRATION_TEST tag"
   TestEnvironment:
     value: "dev"
     description: "dev|test|e2e|uat|prod"    
