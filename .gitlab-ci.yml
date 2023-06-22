@@ -228,8 +228,8 @@ zap-automation-full-scan:
   stage: "Browser Test"
   variables:
     EXECUTION_MODE: "BROWSERSTACK"
-    GEL_OPS_EMAIL: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
-    GEL_OPS_PASSWORD: $GEL_OPS_PASSWORD
+    SUPER_USERNAME: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
+    SUPER_PASSWORD: $SUPER_PASSWORD
     NORMAL_EMAIL: "toms.service1@ngisnonprod.onmicrosoft.com"
     NORMAL_PASSWORD: $NORMAL_PASSWORD
     BROWSERSTACK_USERNAME: "christopherdavie_EeXMHi"
