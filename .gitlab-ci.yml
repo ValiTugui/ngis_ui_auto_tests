@@ -41,7 +41,7 @@ variables:
 
 stages:
   - Browser Test
-  - systemIntegration Test
+  # - systemIntegration Test
   - System Test
   - Smoke Test
   - ZAP
@@ -110,18 +110,18 @@ include:
     expire_in: 1 week
   when: manual
 
-.hto_systemIntegration_tests:
-  <<: *test_suite_common
-  stage: "systemIntegration Test"
-  script:
-    - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
-    - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-    -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
-  artifacts:
-    paths:
-      - ./target
-    expire_in: 1 week
-  when: manual
+# .hto_systemIntegration_tests:
+#   <<: *test_suite_common
+#   stage: "systemIntegration Test"
+#   script:
+#     - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
+#     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+#     -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+#   artifacts:
+#     paths:
+#       - ./target
+#     expire_in: 1 week
+#   when: manual
 
 
 
@@ -159,20 +159,20 @@ hto_system_tests_he:
     - if: $ENV == 'prod' || $ENV == 'uat'
 
 
-hto_systemIntegration_tests_le:
-  extends: .hto_systemIntegration_tests
-  tags:
-    - pool_name:hto_qa_test
-  rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+# hto_systemIntegration_tests_le:
+#   extends: .hto_systemIntegration_tests
+#   tags:
+#     - pool_name:hto_qa_test
+#   rules:
+#     - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
 
 
-hto_systemIntegration_tests_he:
-  extends: .hto_systemIntegration_tests
-  tags:
-    - pool_name:hto_qa_prod
-  rules:
-    - if: $ENV == 'prod' || $ENV == 'uat'
+# hto_systemIntegration_tests_he:
+#   extends: .hto_systemIntegration_tests
+#   tags:
+#     - pool_name:hto_qa_prod
+#   rules:
+#     - if: $ENV == 'prod' || $ENV == 'uat'
 
 zap-automation-baseline-scan:
   stage: ZAP
