@@ -250,7 +250,11 @@ zap-automation-full-scan:
   script:
     - >
      if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
-          echo "running tests using tag ${BROWSER_TEST}"   
+          echo "running tests using tag ${BROWSER_TEST}"
+          sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+          mvn  -e -X -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=BROWSERSTACK -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
+
+          
      else 
         echo "no tags passed or tag is not 'SMOKE_TEST_TD', exiting"
         exit 0
@@ -258,9 +262,7 @@ zap-automation-full-scan:
   after_script:
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
 
-          #    sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-          # mvn  -e -X -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=BROWSERSTACK -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
-
+   
 
   when: manual
 
