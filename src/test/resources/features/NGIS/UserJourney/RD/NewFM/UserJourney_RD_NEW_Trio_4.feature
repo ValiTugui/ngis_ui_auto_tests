@@ -16,6 +16,7 @@ Feature: UserJourney_RD_NEW_Trio_4 - UC09 - E2EUI-940
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list

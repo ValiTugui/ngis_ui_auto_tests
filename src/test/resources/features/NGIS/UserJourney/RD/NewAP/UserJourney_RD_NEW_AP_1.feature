@@ -16,6 +16,7 @@ Feature: UserJourney_RD_NEW_AP_1 - UC14 - E2EUI-1310
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
+    When the user navigates to the "Requesting organisation" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "The Royal Orthopaedic Hospital NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
