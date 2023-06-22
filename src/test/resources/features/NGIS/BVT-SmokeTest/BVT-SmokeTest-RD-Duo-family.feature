@@ -9,7 +9,9 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
  #@E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Duo Family - By Signature
     ##NGIS Version
-    Given the user gets the NGIS version
+#    Given the user gets the NGIS version
+    Given a web browser is at the dashboard page
+    Then the user should see the banner elements based on the current environment
     And a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user has scrolled down the page to the bottom (Footer)
