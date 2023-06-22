@@ -238,27 +238,6 @@ zap-automation-full-scan:
 
   before_script:
     - apt-get update && apt-get install curl awscli jq wget unzip -y
-    - >
-      if [ "$ENV" = "dev" ]; then
-        export AWS_ACCOUNT_ID="773731497343"
-      elif [ "$ENV" = "test" ]; then
-        export AWS_ACCOUNT_ID="355329033666"
-      elif [ "$ENV" = "e2e" ]; then
-        export AWS_ACCOUNT_ID="904876589759"
-      elif [ "$ENV" = "uat" ]; then
-        export AWS_ACCOUNT_ID="408740150577"
-      elif [ "$ENV" = "prod" ]; then
-        export AWS_ACCOUNT_ID="347283558501"
-      fi
-    - echo $AWS_ACCOUNT_ID
-    # - apk add --update --no-cache python3 jq && ln -sf python3 /usr/bin/python
-    # - python3 -m ensurepip
-    - creds_json=$(aws sts assume-role --role-arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/CIDeploytoms --role-session-name runner-promotion)
-    - export AWS_ACCESS_KEY_ID=$(echo "$creds_json" | jq .Credentials.AccessKeyId |tr -d '"')
-    - export AWS_SECRET_ACCESS_KEY=$(echo "$creds_json" | jq .Credentials.SecretAccessKey| tr -d '"')
-    - export AWS_SESSION_TOKEN=$(echo "$creds_json" | jq .Credentials.SessionToken|tr -d '"')
-    - export AWS_REGION=eu-west-2
-
     # Download the browserstack binary file
     - wget "https://bstack-local-prod.s3.amazonaws.com/binaries/v8.5.0/BrowserStackLocal-linux-x64.zip"
     #For OS X systems, use the following command
