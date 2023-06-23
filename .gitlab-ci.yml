@@ -38,7 +38,9 @@ variables:
   browserVersion:
     value: "80.0"
     description: "browser version"     
-
+  serverType:
+    value: "BROWSERSTACK"
+    description: "browserstack config LOCAL|BROWSERSTACK"  
 stages:
   - Browser Test
   - systemIntegration Test
@@ -227,12 +229,10 @@ zap-automation-full-scan:
   image: maven:3.9.0-eclipse-temurin-11
   stage: "Browser Test"
   variables:
-    EXECUTION_MODE: "BROWSERSTACK"
+    EXECUTION_MODE: $serverType
     SUPER_USERNAME: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
     SUPER_PASSWORD: $SUPER_PASSWORD
-    NORMAL_EMAIL: "toms.service1@ngisnonprod.onmicrosoft.com"
-    NORMAL_PASSWORD: $NORMAL_PASSWORD
-    BROWSERSTACK_USERNAME: "christopherdavie_EeXMHi"
+    BROWSERSTACK_USERNAME: $BROWSERSTACK_USERNAME
     BROWSERSTACK_ACCESS_KEY: $BROWSERSTACK_ACCESS_KEY
     BROWSERSTACK_BUILD: "${CI_PROJECT_NAME} - ${COMMIT_SHA} - ${CI_PIPELINE_CREATED_AT}"
 
@@ -252,7 +252,7 @@ zap-automation-full-scan:
      if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
           echo "running tests using tag ${BROWSER_TEST}"
           sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-          mvn  -e -X -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=BROWSERSTACK -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
+          mvn  -e -X -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
 
           
      else 
