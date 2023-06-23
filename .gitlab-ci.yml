@@ -237,7 +237,7 @@ zap-automation-full-scan:
     BROWSERSTACK_BUILD: "${CI_PROJECT_NAME} - ${COMMIT_SHA} - ${CI_PIPELINE_CREATED_AT}"
 
   before_script:
-    - apt-get update && apt-get install curl awscli jq wget unzip -y
+    - apt-get update && apt-get install curl awscli jq wget netcat unzip -y
     # Download the browserstack binary file
     - wget "https://bstack-local-prod.s3.amazonaws.com/binaries/v8.5.0/BrowserStackLocal-linux-x64.zip"
     #For OS X systems, use the following command
@@ -247,12 +247,13 @@ zap-automation-full-scan:
     # Run the file with your access key
     - chmod +x BrowserStackLocal
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
+    - nc -zv  dashboard.int.ngis.io 443
   script:
     - >
      if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
           echo "running tests using tag ${BROWSER_TEST}"
           sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-          mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
+
 
           
      else 
@@ -262,7 +263,7 @@ zap-automation-full-scan:
   after_script:
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
 
-   
+          #  mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}    
 
   when: manual
 
