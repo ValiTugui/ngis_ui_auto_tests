@@ -41,7 +41,7 @@ variables:
 
 stages:
   - Browser Test
-  # - systemIntegration Test
+  - systemIntegration Test
   - System Test
   - Smoke Test
   - ZAP
