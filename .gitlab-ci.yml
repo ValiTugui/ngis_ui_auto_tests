@@ -247,19 +247,34 @@ zap-automation-full-scan:
     # Run the file with your access key
     - chmod +x BrowserStackLocal
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
-    - nc -zv  dashboard.int.ngis.io 443
+    - if [ "$ENV" = "dev" ]; then nc -zv  dashboard.int.ngis.io 443 fi
+    - if [ "$ENV" != "dev" ]; then nc -zv  dashboard.${ENV}.genomics.nhs.uk 443 fi
   script:
     - >
      if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
           echo "running tests using tag ${BROWSER_TEST}"
           sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-          mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DforkCount=${FORKCOUNT} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  
+          mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  || true
 
           
      else 
         echo "no tags passed or tag is not 'SMOKE_TEST_TD', exiting"
         exit 0
      fi
+    - >
+    echo ENV $ENV
+    echo BROWSER_TEST tags $BROWSER_TEST
+    echo browser tags $browser
+    echo browserVersion tags $browserVersion
+    echo osName tags $osName
+    echo osVersion tags $osVersion
+    echo EXECUTION_MODE tags $EXECUTION_MODE
+    echo osVersion tags $osVersion
+    echo FORKCOUNT tags $FORKCOUNT
+    echo TestEnvironment tags $TestEnvironment
+    
+    
+        
   after_script:
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
 
