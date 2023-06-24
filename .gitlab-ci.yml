@@ -247,8 +247,8 @@ zap-automation-full-scan:
     # Run the file with your access key
     - chmod +x BrowserStackLocal
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
-    - if [ "$ENV" = "dev" ]; then nc -zv  dashboard.int.ngis.io 443 fi
-    - if [ "$ENV" != "dev" ]; then nc -zv  dashboard.${ENV}.genomics.nhs.uk 443 fi
+    - if [ "$ENV" = "dev" ]; then nc -zv  dashboard.int.ngis.io 443; fi
+    - if [ "$ENV" != "dev" ]; then nc -zv  dashboard.${ENV}.genomics.nhs.uk 443; fi
   script:
     - >
      if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
