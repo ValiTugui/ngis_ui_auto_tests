@@ -250,6 +250,8 @@ zap-automation-full-scan:
     - > 
       if [ "$ENV" = "dev" ]; then 
       nc -zv  dashboard.int.ngis.io 443
+      else
+      echo we are in $ENV
       fi 
   script:
     - >
