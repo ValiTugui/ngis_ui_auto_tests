@@ -261,20 +261,16 @@ zap-automation-full-scan:
         echo "no tags passed or tag is not 'SMOKE_TEST_TD', exiting"
         exit 0
      fi
-    - >
-    echo ENV $ENV
-    echo BROWSER_TEST tags $BROWSER_TEST
-    echo browser tags $browser
-    echo browserVersion tags $browserVersion
-    echo osName tags $osName
-    echo osVersion tags $osVersion
-    echo EXECUTION_MODE tags $EXECUTION_MODE
-    echo osVersion tags $osVersion
-    echo FORKCOUNT tags $FORKCOUNT
-    echo TestEnvironment tags $TestEnvironment
-    
-    
-        
+     echo ENV $ENV
+     echo BROWSER_TEST tags $BROWSER_TEST
+     echo browser tags $browser
+     echo browserVersion tags $browserVersion
+     echo osName tags $osName
+     echo osVersion tags $osVersion
+     echo EXECUTION_MODE tags $EXECUTION_MODE
+     echo osVersion tags $osVersion
+     echo FORKCOUNT tags $FORKCOUNT
+     echo TestEnvironment tags $TestEnvironment
   after_script:
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
 
