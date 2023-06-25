@@ -269,16 +269,7 @@ zap-automation-full-scan:
   after_script:
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
     - >
-     echo ENV $ENV
-     echo BROWSER_TEST tags $BROWSER_TEST
-     echo browser tags $browser
-     echo browserVersion tags $browserVersion
-     echo osName tags $osName
-     echo osVersion tags $osVersion
-     echo EXECUTION_MODE tags $EXECUTION_MODE
-     echo osVersion tags $osVersion
-     echo FORKCOUNT tags $FORKCOUNT
-     echo TestEnvironment tags $TestEnvironment
+     echo ENV $ENV BROWSER_TEST tags $BROWSER_TEST browser tags $browser browserVersion tags $browserVersion osName tags $osName osVersion tags $osVersion EXECUTION_MODE tags $EXECUTION_MODE osVersion tags $osVersion FORKCOUNT tags $FORKCOUNT TestEnvironment tags $TestEnvironment
 
    
 
