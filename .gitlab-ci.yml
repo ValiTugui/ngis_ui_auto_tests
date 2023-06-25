@@ -269,7 +269,11 @@ zap-automation-full-scan:
     - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
     - >
      echo ENV $ENV BROWSER_TEST tags $BROWSER_TEST browser tags $browser browserVersion tags $browserVersion osName tags $osName osVersion tags $osVersion EXECUTION_MODE tags $EXECUTION_MODE osVersion tags $osVersion FORKCOUNT tags $FORKCOUNT TestEnvironment tags $TestEnvironment
-
+  artifacts:
+    name: BS-${browser}-${browserVersion}-${osName}-${osVersion}
+    paths:
+      - ./*.html
+    expire_in: 1 week
    
 
   when: manual
