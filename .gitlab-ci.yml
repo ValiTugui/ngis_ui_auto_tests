@@ -258,7 +258,7 @@ zap-automation-full-scan:
      if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
           echo "running tests using tag ${BROWSER_TEST}"
           sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-          mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  || true
+          mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" test -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  || true
 
           
      else 
