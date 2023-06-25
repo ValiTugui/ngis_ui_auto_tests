@@ -272,7 +272,7 @@ zap-automation-full-scan:
   artifacts:
     name: BS-${browser}-${browserVersion}-${osName}-${osVersion}
     paths:
-      - ./*.html
+      - ./*.*
     expire_in: 1 week
    
 
