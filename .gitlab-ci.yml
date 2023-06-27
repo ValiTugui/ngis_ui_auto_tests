@@ -105,7 +105,7 @@ include:
   script:
     - echo "SYSTEM_TEST tag is ${SYSTEM_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-    - if [ -z $SYSTEM_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_TEST" -DreportName=ST-API-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+    - if [ -z $SYSTEM_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_TEST" -DforkCount=$FORKCOUNT -DreportName=ST-API-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
   artifacts:
     paths:
       - ./target
@@ -118,7 +118,7 @@ include:
   script:
     - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-    -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+    -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DforkCount=$FORKCOUNT -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
   artifacts:
     paths:
       - ./target
