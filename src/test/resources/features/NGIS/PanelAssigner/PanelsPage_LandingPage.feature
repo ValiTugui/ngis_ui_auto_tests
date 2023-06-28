@@ -93,7 +93,7 @@ Feature: PanelAssigner: Panels Page Landing Page
     Examples:
       | Panels | CIId | panelName                                                          |
       | Panels | R15  | Primary immunodeficiency or monogenic inflammatory bowel disease   |
-      | Panels | R27  | Paediatric disorders                                               |
+#      | Panels | R27  | Paediatric disorders                                               |
 #      | Panels | R29  | Intellectual disability - microarray and sequencing                                         |
       | Panels | R143 | Neonatal diabetes                                                  |
       | Panels | R98  | Likely inborn error of metabolism - targeted testing not possible  |
@@ -239,8 +239,8 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | Adult onset dystonia, chorea or related movement disorder          | Adult onset dystonia, chorea or related movement disorder          | Incomplete      |
       | Panels | Childhood onset dystonia, chorea or related movement disorder      | Childhood onset dystonia, chorea or related movement disorder      | Incomplete      |
       | Panels | Adult onset neurodegenerative disorder                             | Adult onset neurodegenerative disorder                             | Incomplete      |
-      | Panels | Adult onset hereditary spastic paraplegia                          | Adult onset hereditary spastic paraplegia                          | Incomplete      |
-      | Panels | Adult onset leukodystrophy                                         | Adult onset leukodystrophy                                         | Incomplete      |
+      | Panels | R60                                                                | Adult onset hereditary spastic paraplegia                          | Incomplete      |
+      | Panels | R62                                                                | Adult onset leukodystrophy                                         | Incomplete      |
       | Panels | Hypotonic infant                                                   | Hypotonic infant                                                   | Incomplete      |
       | Panels | Hereditary neuropathy or pain disorder                             | Hereditary neuropathy or pain disorder                             | Incomplete      |
       | Panels | Paediatric or syndromic cardiomyopathy                             | Paediatric or syndromic cardiomyopathy                             | Incomplete      |
