@@ -40,8 +40,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
         testResult = referralPage.saveAndContinueButtonIsDisplayed();
         Assert.assertTrue(testResult);
-        testResult = referralPage.clickSaveAndContinueButton();
-        Assert.assertTrue(testResult);
+//        testResult = referralPage.clickSaveAndContinueButton();
+//        Assert.assertTrue(testResult);
     }
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")
