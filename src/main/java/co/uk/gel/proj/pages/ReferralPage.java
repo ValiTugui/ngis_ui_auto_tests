@@ -219,7 +219,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@role='dialog']/h1")
     WebElement dialogTitle;
     //Defined new element without the span, as the attribute of the button needs to read for enable/disable status
-    @FindBy(xpath = "//*[@id='referral__header']//button")
+    @FindBy(xpath = "(//*[@id='referral__header']//button)[2]")
     public WebElement referralSubmitButton;
 
     @FindBy(xpath = "//div[@role='dialog']")
