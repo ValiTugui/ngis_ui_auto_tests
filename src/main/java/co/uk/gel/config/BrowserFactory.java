@@ -194,6 +194,7 @@ public class BrowserFactory {
         safariOptions.setCapability("resolution", resolution);
         safariOptions.setCapability("name", strDate);
         safariOptions.setCapability("safari.options.dataDir", downloadFilepath());
+        safariOptions.setCapability("browserstack.local", true);
         return safariOptions;
     }
 
@@ -238,6 +239,7 @@ public class BrowserFactory {
         firefoxOptions.setCapability("os_version", getOsVersion());
         firefoxOptions.setCapability("resolution", resolution);
         firefoxOptions.setCapability("name", strDate);
+        firefoxOptions.setCapability("browserstack.local", true);
         firefoxOptions.setProfile(profile);
         return firefoxOptions;
     }
@@ -301,7 +303,7 @@ public class BrowserFactory {
         chromeOptions.setCapability("os_version", getOsVersion());
         chromeOptions.setCapability("resolution", resolution);
         chromeOptions.setCapability("name", strDate);
-        //chromeOptions.setCapability("browserstack.local", true);
+        chromeOptions.setCapability("browserstack.local", true);
         chromeOptions.addArguments("--disable-gpu");
         chromeOptions.addArguments("--no-sandbox");
         return chromeOptions;
@@ -335,6 +337,7 @@ public class BrowserFactory {
         internetExplorerOptions.setCapability("os_version", getOsVersion());
         internetExplorerOptions.setCapability("resolution", resolution);
         internetExplorerOptions.setCapability("name", strDate);
+        internetExplorerOptions.setCapability("browserstack.local", true);
         return internetExplorerOptions;
     }
 
@@ -360,6 +363,7 @@ public class BrowserFactory {
         edgeOptions.setCapability("os_version", getOsVersion());
         edgeOptions.setCapability("resolution", resolution);
         edgeOptions.setCapability("name", strDate);
+        edgeOptions.setCapability("browserstack.local", true);
         return edgeOptions;
     }
 
@@ -385,6 +389,7 @@ public class BrowserFactory {
         operaOptions.setCapability("os_version", getOsVersion());
         operaOptions.setCapability("resolution", resolution);
         operaOptions.setCapability("name", strDate);
+        operaOptions.setCapability("browserstack.local", true);
         return operaOptions;
     }
 
