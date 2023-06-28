@@ -53,15 +53,13 @@ Feature: GenomicRecord: Patient details page 3
     When the user clears the date of birth field
     And the user fills in the date of birth "<dateOfBirth>"
     When the user attempts to navigate away by clicking "back"
-    ##Two times click back is needed
-    When the user attempts to navigate away by clicking "back"
     And the page url address contains the directory-path web-page "<directoryPathPage>"
     ##refresh is needed spooler is not loading in click back
     And the user attempts to navigate away by clicking "refresh"
     Then the "<pageTitle1>" page is displayed
 
     Examples:
-      | hyperlinkText               | pageTitle         | dateOfBirth | reason_for_no_nhsNumber       | patient-search-type | stage           | pageTitle1     | directoryPathPage  |
+      | hyperlinkText               | pageTitle         | dateOfBirth | reason_for_no_nhsNumber       | patient-search-type | stage           | pageTitle1           | directoryPathPage  |
       | create a new patient record | Find your patient | 20-10-2010  | Other (please provide reason) | NGIS                | Patient details | Patient record | test-order/patient |
 
   @NTS-4500 @Z-LOGOUT
