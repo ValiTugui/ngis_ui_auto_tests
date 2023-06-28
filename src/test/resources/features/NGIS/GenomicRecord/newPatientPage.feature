@@ -53,7 +53,7 @@ Feature: GenomicRecord: New Patient page
       | create a new patient record | Other (please provide reason)                               |
       | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |
 
-   @NTS-3456 @Z-LOGOUT
+  @NTS-3456 @Z-LOGOUT
 #    @E2EUI-1134 @E2EUI-1067
 #   @NTS-3454  @E2EUI-893
 #     @NTS-4055 @E2EUI-1904
@@ -224,15 +224,15 @@ Feature: GenomicRecord: New Patient page
     When the user clears the date of birth field
     And the user clicks the Save patient details to NGIS button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
-      | First name ✱                   | First name is required.             | #dd2509             |
-      | Last name ✱                    | Last name is required.              | #dd2509             |
-      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
-      | Gender ✱                       | Gender is required.                 | #dd2509             |
-      | Life status ✱                  | Life status is required.            | #dd2509             |
-      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
-      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
-      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+      | labelHeader                    | errorMessageHeader                        | messageColourHeader |
+      | First name ✱                   | First name is required.                   | #dd2509             |
+      | Last name ✱                    | Last name is required.                    | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.                | #dd2509             |
+      | Gender ✱                       | Gender is required.                       | #dd2509             |
+      | Life status ✱                  | Life status is required.                  | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.                    | #dd2509             |
+      | Reason NHS Number is missing ✱ | Reason NHS Number is missing is required. | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.              | #dd2509             |
 
     Examples:
       | message          | hyperlinkText               | pageTitle                        |
@@ -271,14 +271,14 @@ Feature: GenomicRecord: New Patient page
     And the user clicks the Save patient details to NGIS button
 ##   @NTS-3507  @E2EUI-1649 @E2EUI-1584
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
-      | First name ✱                   | First name is required.             | #dd2509             |
-      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
-      | Gender ✱                       | Gender is required.                 | #dd2509             |
-      | Life status ✱                  | Life status is required.            | #dd2509             |
-      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
-      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
-      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+      | labelHeader                    | errorMessageHeader                        | messageColourHeader |
+      | First name ✱                   | First name is required.                   | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.                | #dd2509             |
+      | Gender ✱                       | Gender is required.                       | #dd2509             |
+      | Life status ✱                  | Life status is required.                  | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.                    | #dd2509             |
+      | Reason NHS Number is missing ✱ | Reason NHS Number is missing is required. | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.              | #dd2509             |
 
     Examples:
       | message          | hyperlinkText               | pageTitle                        |
