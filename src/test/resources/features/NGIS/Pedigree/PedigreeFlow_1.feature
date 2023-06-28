@@ -19,7 +19,6 @@ Feature: Pedigree - Pedigree Flow 1
     And the user clicks the Save and Continue button
     And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
-    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Requesting_organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
