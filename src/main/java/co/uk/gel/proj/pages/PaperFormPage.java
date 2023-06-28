@@ -42,7 +42,7 @@ public class PaperFormPage {
     @FindBy(css = "li[class*='suggestion']")
     public List<WebElement> orderEntitySearchSuggestionsList;
 
-    @FindBy(css = ".btn.btn-lg.btn-primary")
+    @FindBy(xpath = "//*[contains(@class,'btn-primary') or contains(text(),'Continue')]")
     public List<WebElement> continueButton;
 
     @FindBy(css = "div[class*='selected']")

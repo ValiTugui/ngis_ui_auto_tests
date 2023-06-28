@@ -31,16 +31,16 @@ Feature: Family Members Navigation Stage 4 - Member additions
       | APP_URL | family-members/new |
     And the user clicks the Add new patient to referral button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                    | errorMessageHeader                   | messageColourHeader |
-      | First name ✱                   | First name is required.              | #dd2509             |
-      | Last name ✱                    | Last name is required.               | #dd2509             |
-      | Date of birth ✱                | Date of birth is required.           | #dd2509             |
-      | Gender ✱                       | Gender is required.                  | #dd2509             |
-      | Life status ✱                  | Life status is required.             | #dd2509             |
-      | Ethnicity ✱                    | Ethnicity is required.               | #dd2509             |
-      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number  | #dd2509             |
-      | Hospital number ✱              | Hospital number is required.         | #dd2509             |
-      | Relationship to proband ✱      | Relationship to proband is required. | #dd2509             |
+      | labelHeader                    | errorMessageHeader                        | messageColourHeader |
+      | First name ✱                   | First name is required.                   | #dd2509             |
+      | Last name ✱                    | Last name is required.                    | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.                | #dd2509             |
+      | Gender ✱                       | Gender is required.                       | #dd2509             |
+      | Life status ✱                  | Life status is required.                  | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.                    | #dd2509             |
+      | Reason NHS Number is missing ✱ | Reason NHS Number is missing is required. | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.              | #dd2509             |
+      | Relationship to proband ✱      | Relationship to proband is required.      | #dd2509             |
 
     Examples:
       | FamilyMember   | TestPackage  | Two | pageTitle                              |
