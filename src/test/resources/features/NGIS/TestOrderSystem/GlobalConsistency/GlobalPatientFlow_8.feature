@@ -27,6 +27,7 @@ Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Requesting Organisation Page
+    When the user navigates to the "<requestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Greater" in the search field
     And the user selects the first entity from the suggestions list
@@ -162,5 +163,5 @@ Feature: GlobalConsistency:Global Patient Flow 8 - End to end Tumour
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | PatientDetails  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                  |
-      | Patient details | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=NARAYAN:HospitalNumber=102030 |
+      | PatientDetails  | requestingOrganisation  | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                  |
+      | Patient details | Requesting organisation | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=NARAYAN:HospitalNumber=102030 |
