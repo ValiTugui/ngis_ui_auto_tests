@@ -1,3 +1,6 @@
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
 
 
 variables:
@@ -17,14 +20,11 @@ variables:
   TestEnvironment:
     value: "dev"
     description: "dev|test|e2e|uat|prod"    
-  ThreadCount:
-    value: 1
-    description: "thread count"     
   BROWSER_TEST:
     value: "@SMOKE_TEST_TD"
     description: "BROWSER_TEST tag"    
   FORKCOUNT:
-    value: 1
+    value: 5
     description: "fork count"     
   osName:
     value: "Windows"
@@ -36,7 +36,7 @@ variables:
     value: "Chrome"
     description: "browser name"     
   browserVersion:
-    value: "80.0"
+    value: "113.0"
     description: "browser version"     
   serverType:
     value: "BROWSERSTACK"
@@ -93,6 +93,8 @@ include:
     - echo "SMOKE_TEST tag is ${SMOKE_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
     - if [ -z $SMOKE_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SMOKE_TEST" -DreportName=SmokeTest-${SMOKE_TEST}-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+  after_script:
+    - echo "SMOKE_TEST tag is ${SMOKE_TEST}"
   artifacts:
     paths:
       - ./target
@@ -105,7 +107,9 @@ include:
   script:
     - echo "SYSTEM_TEST tag is ${SYSTEM_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-    - if [ -z $SYSTEM_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_TEST" -DforkCount=$FORKCOUNT -DreportName=ST-API-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+    - if [ -z $SYSTEM_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_TEST" -DforkCount=${FORKCOUNT} -DreportName=ST-API-$CI_JOB_STARTED_AT  -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+  after_script:
+    - echo "SYSTEM_TEST tag is ${SYSTEM_TEST}"
   artifacts:
     paths:
       - ./target
@@ -118,7 +122,9 @@ include:
   script:
     - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-    -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DforkCount=$FORKCOUNT -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+    -  if [ -z $SYSTEM_INTEGRATION_TEST ]; then echo "no tags passed, exiting"; exit 0; else mvn clean verify  -s settings.xml -DTestEnvironment=$TestEnvironment -Dcucumber.options="--tags $SYSTEM_INTEGRATION_TEST" -DforkCount=${FORKCOUNT} -DreportName=SIT-API-$CI_JOB_STARTED_AT -DlogLevel=Info -Dmaven.test.failure.ignore=true; fi
+  after_script:
+    - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
   artifacts:
     paths:
       - ./target
@@ -226,7 +232,6 @@ zap-automation-full-scan:
 
 .browserstacktests:
   <<: *test_suite_common
-  image: maven:3.9.0-eclipse-temurin-11
   stage: "Browser Test"
   variables:
     EXECUTION_MODE: $serverType
@@ -237,7 +242,7 @@ zap-automation-full-scan:
     BROWSERSTACK_BUILD: "${CI_PROJECT_NAME} - ${COMMIT_SHA} - ${CI_PIPELINE_CREATED_AT}"
 
   before_script:
-    - apt-get update && apt-get install curl awscli jq wget netcat unzip -y
+    - apt-get update && apt-get install curl libxi6 libgconf-2-4 awscli jq wget netcat unzip -y
     # Download the browserstack binary file
     - wget "https://bstack-local-prod.s3.amazonaws.com/binaries/v8.5.0/BrowserStackLocal-linux-x64.zip"
     #For OS X systems, use the following command
@@ -254,25 +259,16 @@ zap-automation-full-scan:
       nc -zv  dashboard.${ENV}.genomics.nhs.uk 443 
      fi
   script:
-    - >
-     if [ "$BROWSER_TEST" = "@SMOKE_TEST_TD" ]; then 
-          echo "running tests using tag ${BROWSER_TEST}"
-          sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
-          mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -DserverType=${EXECUTION_MODE} -Dbrowser=${browser} -DforkCount=$FORKCOUNT -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion}  || true
-   
-     else 
-        echo "no tags passed or tag is not 'SMOKE_TEST_TD', exiting"
-        exit 0
-     fi
-
+    -  sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
+    - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
   after_script:
-    - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon stop
+    - ./BrowserStackLocal --key "${BROWSERSTACK_ACCESS_KEY}" --daemon stop
     - >
-     echo ENV $ENV BROWSER_TEST tags $BROWSER_TEST browser tags $browser browserVersion tags $browserVersion osName tags $osName osVersion tags $osVersion EXECUTION_MODE tags $EXECUTION_MODE osVersion tags $osVersion FORKCOUNT tags $FORKCOUNT TestEnvironment tags $TestEnvironment
+     echo ENV ${ENV} BROWSER_TEST tag is  ${BROWSER_TEST} browser tag is  ${browser} browserVersion tag is  ${browserVersion} osName tag is  ${osName} osVersion tag is  ${osVersion} EXECUTION_MODE tag is  ${EXECUTION_MODE} osVersion tag is  ${osVersion} FORKCOUNT tag is  ${FORKCOUNT} TestEnvironment tag is  ${TestEnvironment}
   artifacts:
     name: BS-${browser}-${browserVersion}-${osName}-${osVersion}
     paths:
-      - ./*.*
+      - ./target
     expire_in: 1 week
    
 
