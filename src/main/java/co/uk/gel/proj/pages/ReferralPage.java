@@ -2354,7 +2354,7 @@ public class ReferralPage<check> {
                 Assert.fail("Please enter a valid value. Eg: 'Go back the patient page', 'search for a new patient'");
             }
         }else{
-            Assert.fail("[Go back the patient page] and/or [search for a new patient] links are not displayed");
+            Assert.fail("[Go back to the patient page] and/or [search for a new patient] links are not displayed");
         }
 
     }

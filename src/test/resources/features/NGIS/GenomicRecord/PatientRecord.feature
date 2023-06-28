@@ -78,14 +78,14 @@ Feature: GenomicRecord: Patient Record
     When the user select the life status "<lifeStatus>"
     And the user clicks the Save patient details to NGIS button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
-      | First name ✱                   | First name is required.             | #dd2509             |
-      | Last name ✱                    | Last name is required.              | #dd2509             |
-      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
-      | Gender ✱                       | Gender is required.                 | #dd2509             |
-      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
-      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
-      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+      | labelHeader                    | errorMessageHeader                        | messageColourHeader |
+      | First name ✱                   | First name is required.                   | #dd2509             |
+      | Last name ✱                    | Last name is required.                    | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.                | #dd2509             |
+      | Gender ✱                       | Gender is required.                       | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.                    | #dd2509             |
+      | Reason NHS Number is missing ✱ | Reason NHS Number is missing is required. | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.              | #dd2509             |
 
     Examples:
       | pageTitle                        | lifeStatus |
@@ -119,7 +119,7 @@ Feature: GenomicRecord: Patient Record
       | labelHeader                    | errorMessageHeader                  | messageColourHeader |
       | First name ✱                   | First name is required.             | #dd2509             |
       | Last name ✱                    | Last name is required.              | #dd2509             |
-      | Date of birth ✱                | Enter a month between 1 and 12          | #dd2509             |
+      | Date of birth ✱                | Enter a month between 1 and 12      | #dd2509             |
       | Gender ✱                       | Gender is required.                 | #dd2509             |
       | Life status ✱                  | Life status is required.            | #dd2509             |
       | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
@@ -128,7 +128,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                        | InvalidDateOfBirth |
-      | Create a record for this patient | 10-13-2020          |
+      | Create a record for this patient | 10-13-2020         |
 
 ## Ethnicity is now Mandatory
 #  @NTS-4500 @Z-LOGOUT

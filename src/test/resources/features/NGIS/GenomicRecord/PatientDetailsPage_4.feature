@@ -123,7 +123,7 @@ Feature: GenomicRecord: Patient details page 4
     Then the user should be able to see a cancel referral link "present"
 
   @canceltest
-  Scenario Outline: Validating options once cancelled test for Super User
+  Scenario Outline: canceltest: Validating options once cancelled test for Super User
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
     Then the user is navigated to a page with title Check your patient's details
@@ -132,7 +132,7 @@ Feature: GenomicRecord: Patient details page 4
     And the user submits the cancellation
     Then the user should be able to see referral status as cancelled with selected "<Reason>" reason
     And the message should display as "<CancellationSuccessMessage>"
-    When the user clicks the Go back the patient page link from Cancel Referral Banner
+    When the user clicks the Go back to the patient page link from Cancel Referral Banner
     Then the user is navigated to a page with title Patient record
     When the user navigates back to previous page
     Then the user is navigated to a page with title Check your patient's details
@@ -153,7 +153,7 @@ Feature: GenomicRecord: Patient details page 4
     And the user submits the cancellation
     Then the user should be able to see referral status as cancelled with selected "<Reason>" reason
     And the message should display as "<CancellationSuccessMessage>"
-    When the user clicks the Go back the patient page link from Cancel Referral Banner
+    When the user clicks the Go back to the patient page link from Cancel Referral Banner
     Then the user is navigated to a page with title Patient record
     When the user navigates back to previous page
     Then the user is navigated to a page with title Check your patient's details
