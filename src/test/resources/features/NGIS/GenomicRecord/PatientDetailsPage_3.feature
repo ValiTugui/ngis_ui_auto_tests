@@ -59,7 +59,7 @@ Feature: GenomicRecord: Patient details page 3
     Then the "<pageTitle1>" page is displayed
 
     Examples:
-      | hyperlinkText               | pageTitle         | dateOfBirth | reason_for_no_nhsNumber       | patient-search-type | stage           | pageTitle1           | directoryPathPage  |
+      | hyperlinkText               | pageTitle         | dateOfBirth | reason_for_no_nhsNumber       | patient-search-type | stage           | pageTitle1     | directoryPathPage  |
       | create a new patient record | Find your patient | 20-10-2010  | Other (please provide reason) | NGIS                | Patient details | Patient record | test-order/patient |
 
   @NTS-4500 @Z-LOGOUT
@@ -196,4 +196,4 @@ Feature: GenomicRecord: Patient details page 3
 
     Examples:
       | stage           | pageTitle                        | pageTitle2        | pageTitle3       | reason_for_no_nhsNumber       | patient-search-type | directoryPathPage         |
-      | Patient details | Create a record for this patient | Find your patient | Test Order Forms | Other (please provide reason) | NGIS                | test-order/patient-search |
+      | Patient record| Create a record for this patient | Find your patient | Test Order Forms | Other (please provide reason) | NGIS                | test-order/patient-search |

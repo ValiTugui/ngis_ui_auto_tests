@@ -8,7 +8,7 @@ Feature: GenomicRecord: Patient details page 4
   Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    Then the user is navigated to a page with title Test Order Forms
+    Then the user is navigated to a page with title Check your patient's details
     And the user navigates to the "<stage1>" stage
     And the "<stage1>" stage is marked as Completed
     When the user navigates back to patient search page
