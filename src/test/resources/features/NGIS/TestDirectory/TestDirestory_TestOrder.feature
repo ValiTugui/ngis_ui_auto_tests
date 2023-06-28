@@ -48,16 +48,16 @@ Feature: Test Directory: TestOrder
     Then the Patient Details page is displayed
     And the Start New Referral button is enabled
     And the user clicks the Start Referral button
-    Then the "<newpageTitle>" page is displayed
+    Then the "<newPageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
     And the user clicks on first Clinical indications result displayed in Test Oder
-    Then the user is navigated to a page with title Test Order Forms
-#    And the "Patient details" stage is marked as Completed
+    Then the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
 #    And the user clicks the Save and Continue button
 #    Then the user is navigated to a page with title Add a requesting organisation
 
     Examples:
-      | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm                           | newpageTitle        |
+      | hyperlinkText               | reason_for_no_nhsNumber       | ciTerm                           | newPageTitle        |
       | create a new patient record | Other (please provide reason) | Angiomatoid Fibrous Histiocytoma | Clinical Indication |
 
 
