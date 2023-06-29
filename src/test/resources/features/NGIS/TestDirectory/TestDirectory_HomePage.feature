@@ -17,7 +17,7 @@ Feature: TestDirectory : Home Page
     And the number of results shown in each filters & total results should match
 
 #    @NTS-4725 @E2EUI-879
-    @NTS-4726 @E2EUI-1155
+  @NTS-4726 @E2EUI-1155
     @Z-LOGOUT
   Scenario Outline: NTS-4726:E2EUI-1155: Displaying the current state for each stage
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -36,6 +36,7 @@ Feature: TestDirectory : Home Page
       | Patient choice          |
     And the print forms stage is locked
     ##Requesting Organisation
+    When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone And Tunbridge Wells NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
