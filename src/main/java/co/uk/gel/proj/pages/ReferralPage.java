@@ -172,7 +172,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@data-testid='notification-success']")
     public WebElement notificationSuccessMessage;
 
-    @FindBy(xpath = "//a[.='Go back the patient page']")
+    @FindBy(xpath = "//a[.='Go back to the patient page']")
     public WebElement goBackThePatientPageBtn;
 
     @FindBy(xpath = "//a[.='search for a new patient']")
