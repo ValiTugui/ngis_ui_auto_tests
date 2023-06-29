@@ -122,7 +122,7 @@ Feature: GenomicRecord: Patient details page 4
 #    Then the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "present"
 
-  @canceltest
+  @HTO-1358 @canceltest
   Scenario Outline: canceltest: Validating options once cancelled test for Super User
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_SUPER_USER |
@@ -143,7 +143,7 @@ Feature: GenomicRecord: Patient details page 4
       | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
       | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Go back the patient page or search for a new patient |
 
-  @canceltest
+  @HTO-1358 @canceltest
   Scenario Outline: Validating options once cancelled test for Normal User
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
