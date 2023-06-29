@@ -3,10 +3,10 @@
 Feature: UserJourney_CAN_NGIS_Proband_1 - UC21- E2EUI-1636
 
   @NTS-4678 @Z-LOGOUT @canceltest
-    ##@E2EUI-1636 @UseCase21--Normal user sbumit and cant cancel referral
+    ##@E2EUI-1636 @UseCase21--Normal user submits and can not cancel referral
   Scenario Outline:Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M215 | GEL_NORMAL_USER | NHSNumber=NGIS:DOB=14-06-2011:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M215 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=14-06-2011:Gender=Male |
    ##Test Order Forms
 #    Then the user is navigated to a page with title Test Order Forms
     And the "Patient details" stage is marked as Completed
