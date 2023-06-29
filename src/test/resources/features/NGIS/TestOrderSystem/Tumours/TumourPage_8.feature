@@ -78,12 +78,13 @@ Feature: TestOrder - Tumours Page - 8
     And the user clicks the patient result card
 #    And the user clicks the Start Referral button to display the referral page
     ##added according to the new flow HTO-483
-    When the Start New Referral button is enabled
+    And the user attempts to navigate away by clicking "refresh"
     And the user clicks the Start a new Referral button
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
-    And the user clicks on first Clinical indications results displayed in Test Oder
-    Then the user is navigated to a page with title Test Order Forms
+    And the user clicks on first Clinical indications result displayed in Test Oder
+     ##Test Order Forms
+    Then the user is navigated to a page with title Check your patient's details
     ##end of HTO-483
     And the "<PatientDetails>" stage is marked as Completed
     And the user navigates to the "<Tumours>" stage
@@ -110,9 +111,8 @@ Feature: TestOrder - Tumours Page - 8
     When a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M45 | GEL_NORMAL_USER | NHSNumber=<NhsNumber>:DOB=<DOB>:Ethnicity=A - White - British |
     ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "Requesting organisation" stage
-#    Then the user is navigated to a page with title Add a requesting organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "University College London Hospitals NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -175,15 +175,16 @@ Feature: TestOrder - Tumours Page - 8
     When the user types in valid details of a "<patient-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned
-    And the user clicks the patient result card
+    And the user clicks on the patient card
     ##added according to the new flow HTO-483
-    When the Start New Referral button is enabled
+#    When the Start New Referral button is enabled
+    And the user attempts to navigate away by clicking "refresh"
     And the user clicks the Start a new Referral button
     Then the "<newpageTitle>" page is displayed
     And the user types in the "<ciTerm>" in the search field
-    And the user clicks on first Clinical indications results displayed in Test Oder
+    And the user clicks on first Clinical indications result displayed in Test Oder
      ##Test Order Forms
-    Then the user is navigated to a page with title Test Order Forms
+    Then the user is navigated to a page with title Check your patient's details
 #    And the "Patient details" stage is marked as Completed
 ##Requesting Organisation
     When the user navigates to the "Requesting organisation" stage

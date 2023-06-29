@@ -2305,7 +2305,7 @@ public class PatientDetailsPage {
             }
             if (!startNewReferralButton.isEnabled()) {
                 Debugger.println("Start new referral button not enabled");
-                return false;
+                    return false;
             }
             return true;
         } catch (Exception exp) {
