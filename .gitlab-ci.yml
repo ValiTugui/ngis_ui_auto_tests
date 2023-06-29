@@ -1,7 +1,3 @@
-workflow:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-
 
 variables:
   PASSWORD: $PWD
@@ -42,11 +38,7 @@ variables:
     value: "BROWSERSTACK"
     description: "browserstack config LOCAL|BROWSERSTACK"  
 stages:
-  - Browser Test
-  - systemIntegration Test
-  - System Test
-  - Smoke Test
-  - ZAP
+  - Test
 
 
 .tools: &gitlab-tools genomicsengland/opensource/gitlab-tools
@@ -88,7 +80,7 @@ include:
 
 .hto_smoke_tests:
   <<: *test_suite_common
-  stage: "Smoke Test"
+  stage: "Test"
   script:
     - echo "SMOKE_TEST tag is ${SMOKE_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
@@ -99,11 +91,17 @@ include:
     paths:
       - ./target
     expire_in: 1 week
-  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 .hto_system_tests:
   <<: *test_suite_common
-  stage: "System Test"
+  stage: "Test"
   script:
     - echo "SYSTEM_TEST tag is ${SYSTEM_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
@@ -114,11 +112,17 @@ include:
     paths:
       - ./target
     expire_in: 1 week
-  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 .hto_systemIntegration_tests:
   <<: *test_suite_common
-  stage: "systemIntegration Test"
+  stage: "Test"
   script:
     - echo "SYSTEM_INTEGRATION_TEST tag is ${SYSTEM_INTEGRATION_TEST}"
     - sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
@@ -129,25 +133,38 @@ include:
     paths:
       - ./target
     expire_in: 1 week
-  when: manual
-
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 
 hto_smoke_tests_le:
   extends: .hto_smoke_tests
   tags:
-    - pool_name:hto_qa_test
+    - pool_name:hto_qa_test 
   rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 hto_smoke_tests_he:
   extends: .hto_smoke_tests
   tags:
     - pool_name:hto_qa_prod
   rules:
-    - if: $ENV == 'prod' || $ENV == 'uat'
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 
 
@@ -156,34 +173,53 @@ hto_system_tests_le:
   tags:
     - pool_name:hto_qa_test
   rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 hto_system_tests_he:
   extends: .hto_system_tests
   tags:
     - pool_name:hto_qa_prod
   rules:
-    - if: $ENV == 'prod' || $ENV == 'uat'
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 hto_systemIntegration_tests_le:
   extends: .hto_systemIntegration_tests
   tags:
     - pool_name:hto_qa_test
   rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 hto_systemIntegration_tests_he:
   extends: .hto_systemIntegration_tests
   tags:
     - pool_name:hto_qa_prod
   rules:
-    - if: $ENV == 'prod' || $ENV == 'uat'
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
+
+
 
 zap-automation-baseline-scan:
-  stage: ZAP
+  stage: "Test"
   script: |
       docker pull owasp/zap2docker-stable
       docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py  -r test-selection-private_full_report.html -c rules.conf   -d -I -t https://test-selection-private.test.genomics.nhs.uk
@@ -202,12 +238,16 @@ zap-automation-baseline-scan:
   tags:
     - pool_name:hto_qa_test
   rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
 
 
 zap-automation-full-scan:
-  stage: ZAP
+  stage: "Test"
   script: |
       docker pull owasp/zap2docker-stable
       docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py  -r test-selection-private_full_report.html -c rules.conf   -d -I -t https://test-selection-private.test.genomics.nhs.uk
@@ -227,12 +267,16 @@ zap-automation-full-scan:
   tags:
     - pool_name:hto_qa_test
   rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
 
 .browserstacktests:
   <<: *test_suite_common
-  stage: "Browser Test"
+  stage: "Test"
   variables:
     EXECUTION_MODE: $serverType
     SUPER_USERNAME: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
@@ -270,17 +314,28 @@ zap-automation-full-scan:
     paths:
       - ./target
     expire_in: 1 week
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
    
 
-  when: manual
+
 
 browserstacktests_le:
   extends: .browserstacktests
   tags:
     - pool_name:hto_qa_test
   rules:
-    - if: $ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e'
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
 
 
 browserstacktests_he:
@@ -288,6 +343,9 @@ browserstacktests_he:
   tags:
     - pool_name:hto_qa_prod
   rules:
-    - if: $ENV == 'prod' || $ENV == 'uat'
-
-
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
