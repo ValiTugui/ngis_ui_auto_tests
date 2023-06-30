@@ -305,6 +305,16 @@ zap-automation-full-scan:
   script:
     -  sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
     - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
+
+    - export browser='Firefox'
+    - export browserVersion='111'
+    - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
+
+    - export browser='Edge'
+    - export browserVersion='114'
+    - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
+
+    
   after_script:
     - ./BrowserStackLocal --key "${BROWSERSTACK_ACCESS_KEY}" --daemon stop
     - >
