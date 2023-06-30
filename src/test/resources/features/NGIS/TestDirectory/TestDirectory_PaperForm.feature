@@ -18,7 +18,8 @@ Feature: TestDirectory: Paper Form
     When the user enters the keyword "<placeSearchTerm>" in the search field
     And the user selects the first entity from the suggestions list
     And the user clicks the Continue button
-    Then the "Review test selection" page is properly opened and by default a test is selected
+#    Then the "Review test selection" page is properly opened and by default a test is selected
+    Then the "<ReviewTestSelection>" page is properly opened and by default has a number of <NoOfTests> tests selected
     And the user clicks the Continue button again
     Then the "Offline order" page is properly displayed for chosen clinical indication
     And the user should be able to see two sections as follows and a "Print Page" button
@@ -29,9 +30,9 @@ Feature: TestDirectory: Paper Form
     And the user should be see lab details for "<placeSearchTerm>" under the heading Send samples and completed forms without any warning message
 
     Examples:
-      | searchTerm | placeSearchTerm | sectionName1 | sectionName2              | sectionName3   |
-      | R100       | Manchester      | Referral     | Additional family members | Patient choice |
-      | M89        | Leeds           | Referral     | Patient choice            | null           |
+      | searchTerm | placeSearchTerm | ReviewTestSelection   | NoOfTests | sectionName1 | sectionName2              | sectionName3   |
+      | R100       | Manchester      | Review test selection | 2         | Referral     | Additional family members | Patient choice |
+      | M89        | Leeds           | Review test selection | 2         | Referral     | Patient choice            | null           |
 
   @NTS-3491
   #@E2EUI-2092
@@ -104,10 +105,10 @@ Feature: TestDirectory: Paper Form
 #      | M226    |
       | M227    |
       | M231    |
-      | M14    |
-      | R33    |
-      | R34    |
-      | R35    |
+      | M14     |
+      | R33     |
+      | R34     |
+      | R35     |
 
 
   @NTS-7771

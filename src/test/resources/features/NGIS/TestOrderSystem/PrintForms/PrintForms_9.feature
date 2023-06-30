@@ -39,12 +39,13 @@ Feature: Print Forms 9 - Offline Orders
     And the user enters the keyword "Dorset Healthcare University NHS Foundation Trust" in the search field
     And the user selects the first entity from the suggestions list
     And the user clicks the Continue button
-    Then the "Review test selection" page is properly opened and by default a test is selected
+#    Then the "Review test selection" page is properly opened and by default a test is selected
+    Then the "<ReviewTestSelection>" page is properly opened and by default has a number of <NoOfTests> tests selected
     When the user clicks the Continue button
     Then the "Offline order" page is properly displayed for chosen clinical indication
     And the user should see the "Download" button next to each of the forms
     And the user is able to download form of the "Referral" section and validate the text "<TextToValidate>" in the file "ReferralForm.pdf"
 
     Examples:
-      | TextToValidate                                                                                                                                                                                                                            |
-      | Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):,West Midlands Regional Genetics Laboratory,BIRMINGHAM WOMEN'S HOSPITAL, MINDELSOHN WAY, EDGBASTON, BIRMINGHAM, WEST MIDLANDS, B15 2TG,Dorset Healthcare University NHS Foundation Trust |
+      | ReviewTestSelection   | NoOfTests | TextToValidate                                                                                                                                                                                                                                                                                               |
+      | Review test selection | 2         | Reason NHS Number not available,Patient not eligible for NHS Number (e.g. foreign national), Other (provide reason):,West Midlands Regional Genetics Laboratory,BIRMINGHAM WOMEN'S HOSPITAL, MINDELSOHN WAY, EDGBASTON, BIRMINGHAM, WEST MIDLANDS, B15 2TG,Dorset Healthcare University NHS Foundation Trust |

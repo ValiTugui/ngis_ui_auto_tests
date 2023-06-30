@@ -28,13 +28,13 @@ public class PaperFormSteps extends Pages {
         boolean eachElementIsLoaded;
         switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        if(!eachElementIsLoaded){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_PatientSearchYes.jpg");
+        if (!eachElementIsLoaded) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_PatientSearchYes.jpg");
             Assert.fail("Patient search with Yes.");
         }
         Assert.assertTrue(referralPage.getTheCurrentPageTitle().matches(pageTitleText.get(0)));
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_FindYourPatient.jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_FindYourPatient.jpg");
         }
     }
 
@@ -47,14 +47,14 @@ public class PaperFormSteps extends Pages {
     public void theUserEntersTheKeywordInTheSearchField(String ordering_entity) {
         boolean testResult = false;
         testResult = paperFormPage.fillInSpecificKeywordInSearchField(ordering_entity);
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OrderEntity.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_OrderEntity.jpg");
             Assert.fail("Could not search for Order entity.");
         }
         testResult = paperFormPage.checkThatEntitySuggestionsAreDisplayed();
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_EntitySuggestion.jpg");
-            Assert.fail("No suggestions listed for the order entity:"+ordering_entity);
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_EntitySuggestion.jpg");
+            Assert.fail("No suggestions listed for the order entity:" + ordering_entity);
         }
     }
 
@@ -62,11 +62,11 @@ public class PaperFormSteps extends Pages {
     public void theUserSelectsARandomEntityFromTheSuggestionsList() {
         boolean testResult = false;
         testResult = paperFormPage.selectRandomEntityFromSuggestionsList();
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RequestingOrganisation.jpg");
         }
-        if(!testResult){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_RequestingOrganisation.jpg");
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_RequestingOrganisation.jpg");
             Assert.fail("Could not select requesting organization.");
         }
 
@@ -84,8 +84,8 @@ public class PaperFormSteps extends Pages {
 
     @And("the user clicks the Sign in hyperlink")
     public void theUserClicksTheSignInHyperlink(List<String> hyperLinks) {
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_OnlineService.jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_OnlineService.jpg");
         }
         paperFormPage.clickSignInToTheOnlineServiceButton();
     }
@@ -97,13 +97,24 @@ public class PaperFormSteps extends Pages {
 
     @Then("the {string} page is properly opened and by default a test is selected")
     public void checkThatReviewTestSelectionPageIsProperlyOpened(String pageTitle) {
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(pageTitle," ")+".jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(pageTitle, " ") + ".jpg");
         }
         Assert.assertTrue(paperFormPage.checkThatReviewTestSelectionIsOpened());
         Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
         Assert.assertTrue("First Test is NOT selected by Default", paperFormPage.checkThatTestIsSelected());
         Assert.assertTrue((paperFormPage.confirmTestsSubCaption.getText()).contains("1 of " + Integer.toString(paperFormPage.testsPackage.size())));
+    }
+
+    @Then("the {string} page is properly opened and by default has a number of {int} tests selected")
+    public void thePageIsProperlyOpenedAndByDefaultHasANumberOfTestsSelected(String pageTitle, int noOfTests) {
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(pageTitle, " ") + ".jpg");
+        }
+        Assert.assertTrue(paperFormPage.checkThatReviewTestSelectionIsOpened());
+        Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
+        Assert.assertTrue("First  "+ noOfTests +" test(s) is/are NOT selected by Default", paperFormPage.checkThatTestIsSelected());
+        Assert.assertTrue((paperFormPage.confirmTestsSubCaption.getText()).contains(noOfTests + " of " + Integer.toString(paperFormPage.testsPackage.size())));
     }
 
     @When("the user clicks the Continue button again")
@@ -113,8 +124,8 @@ public class PaperFormSteps extends Pages {
 
     @Then("the {string} page is properly displayed for chosen clinical indication")
     public void offlineOrderPageIsDisplayedForRareDiseaseClinicalIndication(String pageTitle) {
-        if(AppConfig.snapshotRequired){
-            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName)+"_"+TestUtils.removeAWord(pageTitle," ")+".jpg");
+        if (AppConfig.snapshotRequired) {
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_" + TestUtils.removeAWord(pageTitle, " ") + ".jpg");
         }
         Wait.forElementToBeDisplayed(driver, paperFormPage.offlineOrderContainer);
         Wait.forElementToBeDisplayed(driver, paperFormPage.paperFormHeader);
@@ -181,7 +192,7 @@ public class PaperFormSteps extends Pages {
 
     @And("the user should see the {string} button next to each of the forms")
     public void theUserShouldSeeTheButtonNextToEachOfTheForms(String buttonName) {
-        boolean testResult  = false;
+        boolean testResult = false;
         testResult = paperFormPage.checkThatDownloadButtonsAreDisplayed();
         Assert.assertTrue(testResult);
         testResult = paperFormPage.verifyTheDownloadButtonLabel(buttonName);
@@ -212,7 +223,8 @@ public class PaperFormSteps extends Pages {
 
     @And("Requesting Organisation ID {string} and Managing Entity {string} are correct for {string}")
     public void requestingOrganisationIDAndManagingEntityNameAreCorrect(String orderingEntityId, String managingEntity, String OE) {
-        Wait.waitForVisibility(driver,paperFormPage.selectedOrderEntityName, 15);
+        Wait.waitForVisibility(driver, paperFormPage.selectedOrderEntityName, 15);
         paperFormPage.checkOrganizationNameIdAndManagingEntity(orderingEntityId, managingEntity, OE);
     }
+
 }
