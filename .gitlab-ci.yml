@@ -20,7 +20,7 @@ variables:
     value: "@SMOKE_TEST_TD"
     description: "BROWSER_TEST tag"    
   FORKCOUNT:
-    value: 5
+    value: 10
     description: "fork count"     
   osName:
     value: "Windows"
