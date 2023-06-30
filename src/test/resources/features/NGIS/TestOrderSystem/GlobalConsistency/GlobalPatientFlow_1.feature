@@ -10,9 +10,10 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=14-05-1980:Gender=Male |
     And the "Patient details" stage is marked as Completed
-    When the user navigates to the "Requesting organisation" stage
+    ##Requesting Organisation
+    When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
 #    @NTS-4813 @E2EUI-1005
     When the user submits the referral
@@ -26,11 +27,12 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | Patient choice            |
     When the user clicks on the mandatory stage "<RequestingOrganisation>" in the dialog box
     And the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "South Warwickshire NHS Foundation Trust" in the search field
+    And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And  the user clicks the Save and Continue button
-    And the "<stage3>" stage is selected
+    ##Test Package
+    And the "<TestPackage>" stage is selected
     When the user submits the referral
     And the user sees a dialog box with a title "<dialogTitle>"
     And the user sees a list of outstanding mandatory stages to be completed in the dialog box
@@ -39,10 +41,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
       | Responsible clinician     |
       | Clinical questions        |
       | Patient choice            |
-    And the user clicks on the mandatory stage "<stage3>" in the dialog box
-    And the "<stage3>" stage is selected
-#    And the user clicks the Save and Continue button
-    ##Test Package Page
+    And the user clicks on the mandatory stage "<TestPackage>" in the dialog box
+    And the "<TestPackage>" stage is selected
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -60,8 +60,8 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 #    Then the user is successfully logged out
 
     Examples:
-      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  | dialogTitle                  | stage2                  | ordering_entity_name | stage3       |
-      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation | There is missing information | Requesting organisation | Maidstone            | Test package |
+      | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  | dialogTitle                  | ordering_entity_name                    | TestPackage  |
+      | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation | There is missing information | South Warwickshire NHS Foundation Trust | Test package |
 
   @NTS-3497-2 @canceltest
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
@@ -204,7 +204,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should see page is not loading
 
     Examples:
-      | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  | invalidReferralURL                                                                       |
+      | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  | invalidReferralURL                   |
       | 3,3,4       | NHS  | 2000004296 | 24-09-2011 | Requesting organisation | Family members | NHSNumber=2000006035:DOB=20-11-2016 | 1 patient record found | Print forms | referral/r5E$&%5E943/patient-details |
 
   @NTS-3498 @Z-LOGOUT
