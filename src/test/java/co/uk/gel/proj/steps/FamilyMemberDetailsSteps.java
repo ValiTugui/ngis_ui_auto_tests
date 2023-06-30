@@ -733,4 +733,14 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
     }
 
+    @When("the user deselects (.*) test for Proband")
+    public void theUserDeselectsTumourOnlyTestForProband(String testType) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.deselectTestForProband(testType);
+
+        if(!testResult){
+            SeleniumLib.takeAScreenShot(TestUtils.getNtsTag(TestHooks.currentTagName) + "_SelectedTestsForProband.jpg");
+            Assert.fail("Test package stage: " + testType + " test has not been deselected");
+        }
+    }
 }//end

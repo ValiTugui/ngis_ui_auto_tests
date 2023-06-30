@@ -165,6 +165,10 @@ public class FamilyMemberDetailsPage {
     List<WebElement> relationShipTags;
     @FindBy(xpath = "//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]")
     WebElement selectedTest;
+
+    @FindBy(xpath = "//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]")
+    public List<WebElement> selectedTests;
+
     @FindBy(xpath = "//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]")
     WebElement unSelectedTest;
 
@@ -1641,4 +1645,20 @@ public class FamilyMemberDetailsPage {
         }
     }
 
+    public boolean deselectTestForProband(String testType){
+        if(!Wait.isElementDisplayed(driver, selectedTests.get(0), 5)){
+            Debugger.println("None of the tests have been selected for Proband");
+            return false;
+        }
+
+        if(testType.contains("Tumour only")){
+            Action.clickElement(driver,selectedTests.get(1));
+        }else if(testType.contains("Germline and Tumour")){
+            Action.clickElement(driver,selectedTests.get(0));
+        }else{
+            Debugger.println("Please enter a valid value. Eg: Tumour only/ Germline and Tumour");
+            return false;
+        }
+        return true;
+    }
 }

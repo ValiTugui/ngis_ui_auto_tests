@@ -22,10 +22,11 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     ##Test Package
     And the user navigates to the "<testPackage>" stage
     And the user selects the "Routine"
+    When the user deselects Tumour only test for Proband
     And the user clicks the Save and Continue button
 #    And the "<testPackage>" stage is marked as Completed
     And the "<responsibleClinician>" stage is selected
-    And the correct "2" tests are saved to the referral in  "<testPackage>"
+    And the correct "1" tests are saved to the referral in  "<testPackage>"
     ##Responsible Clinician
     And the user navigates to the "<responsibleClinician>" stage
     And the "Add clinician information" page is displayed

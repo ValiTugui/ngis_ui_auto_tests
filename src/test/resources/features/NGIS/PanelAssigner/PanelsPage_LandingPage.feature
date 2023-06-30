@@ -95,6 +95,43 @@ Feature: PanelAssigner: Panels Page Landing Page
       | Panels | searchPanels | description                                                                                                                                                                                                                                                                                                                                                                                                                                              |
       | Panels | cardiac arr  | Change suggested penetrance if: there is a referral form that contains a different penetrance local decision-making processes indicate a different penetrance is preferred any of the participants on the referral has a disease status of unknown or uncertain then penetrance setting must be set as incomplete any of the participants on the referral has a disease status of unknown or uncertain then penetrance setting must be set as incomplete |
 
+  @ngis_pene
+  Scenario Outline: Panel stage to be marked as incomplete when Disease status is set as Uncertain/ Unknown and Disease Penetrance changes from Incomplete to Complete
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient not eligible for NHS number (e.g. foreign national):DOB=25-10-1967:Gender=Male |
+    And the "<PatientDetails>" stage is marked as Completed
+    ##Clinical Questions
+    When the user navigates to the "<ClinicalQuestion>" stage
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    ##Panels Page
+    When the user navigates to the "<Panels>" stage
+    Then the user is navigated to a page with title Manage panels
+    And Penetrance section with options Complete and Incomplete
+    And the user should see the section with title Default Panel based on the clinical information
+    And the user sees suggested panels under the section Default Panel based on the clinical information
+    And the user clicks the Save and Continue button
+    Then the "<Panels>" stage is marked as Completed
+    ##Change Penetrance to Complete and Disease status to Uncertain/Unknown
+    ##Panels Page
+    When the user navigates to the "<Panels>" stage
+    Then the user is navigated to a page with title Manage panels
+    And the user clicks on Complete button and button will show tick marked
+    And the user clicks the Save and Continue button
+    ##Clinical Questions
+    When the user navigates to the "<ClinicalQuestion>" stage
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<NewClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    ##Check Panels stage to be marked as incomplete/mandatory
+    Then the "<Panels>" stage is marked as Mandatory To Do
+
+
+    Examples:
+      | PatientDetails  | ClinicalQuestion   | ClinicalQuestionDetails                                         | NewClinicalQuestionDetails | Panels |
+      | Patient details | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | DiseaseStatus=Uncertain    | Panels |
+
   @HTO-420 @HTO-699 @HTO-420-1
   Scenario Outline: HTO-420-1 Verifies the default panel name is <panelName>
     Given a new patient referral is created with associated tests in Test Order System online service
