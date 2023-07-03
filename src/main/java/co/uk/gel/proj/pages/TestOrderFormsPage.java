@@ -75,18 +75,25 @@ public class TestOrderFormsPage {
         }
         try {
             Wait.forInvisibilityOf(driver, chooseFilesButton, 10);
-            if(BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
-                if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
+//            if(BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
+//                if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
+//                    Debugger.println("Could not upload the file:" + fileNames);
+//                    return false;
+//                }
+//            }else{
+//                for (String fileName : fileNames) {
+//                    filePath += uploadFilepath + fileName + "\n";
+//                }
+//                filePath = System.getProperty("user.dir")+"/testdata/png_file.png";
+//                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
+//                    Debugger.println("Could not upload the file from BS:" + filePath);
+//                    return false;
+//                }
+//            }
+            if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
                     Debugger.println("Could not upload the file:" + fileNames);
                     return false;
                 }
-            }else{
-                filePath = System.getProperty("user.dir")+"/testdata/png_file.png";
-                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
-                    Debugger.println("Could not upload the file from BS:" + filePath);
-                    return false;
-                }
-            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in uploading Referral Form(s) in Test Order Forms: " + exp);
