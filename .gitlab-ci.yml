@@ -98,6 +98,8 @@ include:
       # when: always # is a default value
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
 
 .hto_system_tests:
   <<: *test_suite_common
@@ -119,6 +121,8 @@ include:
       # when: always # is a default value
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
 
 .hto_systemIntegration_tests:
   <<: *test_suite_common
@@ -140,6 +144,8 @@ include:
       # when: always # is a default value
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
 
 
 hto_smoke_tests_le:
@@ -153,6 +159,7 @@ hto_smoke_tests_le:
       # when: always # is a default value
     - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') &&'$CI_PIPELINE_SOURCE == "trigger"'
 
 hto_smoke_tests_he:
   extends: .hto_smoke_tests
@@ -165,6 +172,7 @@ hto_smoke_tests_he:
       # when: always # is a default value
     - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "trigger"
 
 
 
@@ -179,6 +187,8 @@ hto_system_tests_le:
       # when: always # is a default value
     - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 hto_system_tests_he:
   extends: .hto_system_tests
@@ -191,6 +201,8 @@ hto_system_tests_he:
       # when: always # is a default value
     - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 hto_systemIntegration_tests_le:
   extends: .hto_systemIntegration_tests
@@ -203,6 +215,8 @@ hto_systemIntegration_tests_le:
       # when: always # is a default value
     - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 hto_systemIntegration_tests_he:
   extends: .hto_systemIntegration_tests
@@ -215,6 +229,8 @@ hto_systemIntegration_tests_he:
       # when: always # is a default value
     - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 
 
@@ -244,6 +260,8 @@ zap-automation-baseline-scan:
       # when: always # is a default value
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 
 zap-automation-full-scan:
@@ -273,6 +291,8 @@ zap-automation-full-scan:
       # when: always # is a default value
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 .browserstacktests:
   <<: *test_suite_common
@@ -331,6 +351,8 @@ zap-automation-full-scan:
       # when: always # is a default value
     - if: $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
    
 
 
@@ -346,6 +368,8 @@ browserstacktests_le:
       # when: always # is a default value
     - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
 
 
 browserstacktests_he:
@@ -359,3 +383,5 @@ browserstacktests_he:
       # when: always # is a default value
     - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
