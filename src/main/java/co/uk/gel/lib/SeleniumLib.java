@@ -18,9 +18,9 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -806,6 +806,29 @@ public class SeleniumLib {
             file.close();
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeToFile(String fileName){
+        //            Deleting the file if already exists
+        try {
+            Files.deleteIfExists(
+                    Paths.get(fileName));
+            Debugger.println("Deletion successful.");
+        }
+        catch (Exception e) {
+            Debugger.println("No such file/directory exists");
+        }
+//            Writing to file
+        Wait.seconds(5);
+        try {
+            FileWriter myWriter = new FileWriter(fileName);
+            myWriter.write(driver.getCurrentUrl());
+            myWriter.close();
+            Debugger.println("Successfully wrote to the file.");
+        } catch (Exception e) {
+            Debugger.println("An error occurred.");
             e.printStackTrace();
         }
     }

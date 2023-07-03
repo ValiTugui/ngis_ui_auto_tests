@@ -24,6 +24,7 @@ import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.*;
+import java.nio.file.*;
 
 public class ReferralSteps extends Pages {
 
@@ -1680,9 +1681,19 @@ public class ReferralSteps extends Pages {
         referralPage.clickOnCancelledReferralBannerLinks(url);
     }
 
-    @When("the user navigates back to previous page")
+    @When("the user navigates to the URL from before clicking the Referral Banner link")
     public void theUserNavigatesBackToPreviousPage() {
         Wait.seconds(2);
-        driver.navigate().back();
+        String fileName = "currentUrl.txt";
+        try {
+                driver.navigate().to(new String(Files.readAllBytes(Paths.get(fileName))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @When("the user saves the current URL")
+    public void theUserSavesTheCurrentURL() {
+        SeleniumLib.writeToFile("currentUrl.txt");
     }
 }

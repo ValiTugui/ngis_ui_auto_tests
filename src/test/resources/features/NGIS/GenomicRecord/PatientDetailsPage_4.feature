@@ -132,9 +132,10 @@ Feature: GenomicRecord: Patient details page 4
     And the user submits the cancellation
     Then the user should be able to see referral status as cancelled with selected "<Reason>" reason
     And the message should display as "<CancellationSuccessMessage>"
-    When the user clicks the Go back to the patient page link from Cancel Referral Banner
+    When the user saves the current URL
+    And the user clicks the Go back to the patient page link from Cancel Referral Banner
     Then the user is navigated to a page with title Patient record
-    When the user navigates back to previous page
+    When the user navigates to the URL from before clicking the Referral Banner link
     Then the user is navigated to a page with title Check your patient's details
     When the user clicks the search for a new patient link from Cancel Referral Banner
     Then the user is navigated to a page with title Find your patient
@@ -153,9 +154,10 @@ Feature: GenomicRecord: Patient details page 4
     And the user submits the cancellation
     Then the user should be able to see referral status as cancelled with selected "<Reason>" reason
     And the message should display as "<CancellationSuccessMessage>"
-    When the user clicks the Go back to the patient page link from Cancel Referral Banner
+    When the user saves the current URL
+    And the user clicks the Go back to the patient page link from Cancel Referral Banner
     Then the user is navigated to a page with title Patient record
-    When the user navigates back to previous page
+    When the user navigates to the URL from before clicking the Referral Banner link
     Then the user is navigated to a page with title Check your patient's details
     When the user clicks the search for a new patient link from Cancel Referral Banner
     Then the user is navigated to a page with title Find your patient
