@@ -22,9 +22,7 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.*;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -145,6 +143,7 @@ public class BrowserFactory {
             switch (browserEnum) {
                 case CHROME:
                     driver = new RemoteWebDriver(new URL(URL), getChromeOptions(null, javascriptEnabled));
+                    ((RemoteWebElement)driver).setFileDetector(new LocalFileDetector());
                     break;
                 case FIREFOX:
                     driver = new RemoteWebDriver(new URL(URL), getFirefoxOptions(null, javascriptEnabled));
@@ -265,7 +264,7 @@ public class BrowserFactory {
         chromeOptions.addArguments("disable-gpu");
         chromeOptions.addArguments("disable-infobars");
         chromeOptions.addArguments("enable-automation");
-        chromeOptions.addArguments("headless");
+        //chromeOptions.addArguments("headless");
         chromeOptions.addArguments("ignore-ssl-errors");
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments ("no-sandbox");
