@@ -41,10 +41,10 @@ stages:
   - Test
 
 
-.tools: &gitlab-tools genomicsengland/opensource/gitlab-tools
 
-include:
-  - project: *gitlab-tools
+
+  - project: 'genomicsengland/ngis/devops-tools'
+    ref: devop
     file: /ci/dind.yml
 
 # services: 
