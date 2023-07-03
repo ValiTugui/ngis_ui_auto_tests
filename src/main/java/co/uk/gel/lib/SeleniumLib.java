@@ -815,7 +815,7 @@ public class SeleniumLib {
         try {
             Files.deleteIfExists(
                     Paths.get(fileName));
-            Debugger.println("Deletion successful.");
+            Debugger.println("Deleted: "+ fileName);
         }
         catch (Exception e) {
             Debugger.println("No such file/directory exists");
@@ -826,9 +826,9 @@ public class SeleniumLib {
             FileWriter myWriter = new FileWriter(fileName);
             myWriter.write(driver.getCurrentUrl());
             myWriter.close();
-            Debugger.println("Successfully wrote to the file.");
+            Debugger.println("Successfully wrote to the file: " + driver.getCurrentUrl());
         } catch (Exception e) {
-            Debugger.println("An error occurred.");
+            Debugger.println("An error occurred while trying to write to: " + fileName);
             e.printStackTrace();
         }
     }

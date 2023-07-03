@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.nio.file.*;
@@ -1686,7 +1687,11 @@ public class ReferralSteps extends Pages {
         Wait.seconds(2);
         String fileName = "currentUrl.txt";
         try {
+            if(new File(fileName).exists()){
                 driver.navigate().to(new String(Files.readAllBytes(Paths.get(fileName))));
+            }else{
+                Assert.fail(fileName + "does not exist");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
