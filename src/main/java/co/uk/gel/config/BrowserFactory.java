@@ -143,7 +143,7 @@ public class BrowserFactory {
             switch (browserEnum) {
                 case CHROME:
                     driver = new RemoteWebDriver(new URL(URL), getChromeOptions(null, javascriptEnabled));
-                    ((RemoteWebElement)driver).setFileDetector(new LocalFileDetector());
+                    ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
                     break;
                 case FIREFOX:
                     driver = new RemoteWebDriver(new URL(URL), getFirefoxOptions(null, javascriptEnabled));
