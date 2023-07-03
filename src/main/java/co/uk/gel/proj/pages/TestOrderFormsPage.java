@@ -30,7 +30,7 @@ public class TestOrderFormsPage {
     public WebElement chooseFilesButton;
 
     @FindBy(xpath = "//h3[contains(.,'Uploaded')]/..//div[@class='styles_item__stgKp styles_item__first__2UxVc']")
-     public List<WebElement> uploadedFilesList;
+    public List<WebElement> uploadedFilesList;
 
     @FindBy(xpath = "//h3[contains(.,'Uploading')]/..//div[@class='styles_item__stgKp styles_item__first__2UxVc']")
     public List<WebElement> uploadingFilesList;
@@ -75,17 +75,9 @@ public class TestOrderFormsPage {
         }
         try {
             Wait.forInvisibilityOf(driver, chooseFilesButton, 10);
-            if(BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
-                if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
-                    Debugger.println("Could not upload the file:" + fileNames);
-                    return false;
-                }
-            }else{
-                filePath = "C:\\Users\\hello\\Desktop\\documents\\pdf-sample2.pdf";
-                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
-                    Debugger.println("Could not upload the file from BS:" + filePath);
-                    return false;
-                }
+            if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
+                Debugger.println("Could not upload the file:" + fileNames);
+                return false;
             }
             return true;
         } catch (Exception exp) {
@@ -95,36 +87,36 @@ public class TestOrderFormsPage {
         }
     }
 
-    public boolean verifyUploadedForms(String listName, List<String> expectedListFiles){
+    public boolean verifyUploadedForms(String listName, List<String> expectedListFiles) {
         List<String> actualListFiles = null;
-        if(listName.equalsIgnoreCase("uploaded")){
+        if (listName.equalsIgnoreCase("uploaded")) {
             Wait.forElementToBeDisplayed(driver, uploadedFilesList.get(0), 10);
             Wait.seconds(2);
             actualListFiles = Action.getValuesFromDropdown(uploadedFilesList);
-        }else if(listName.equalsIgnoreCase("uploading")){
+        } else if (listName.equalsIgnoreCase("uploading")) {
             Wait.forElementToBeDisplayed(driver, uploadingFilesList.get(0), 10);
             Wait.seconds(2);
             actualListFiles = Action.getValuesFromDropdown(uploadingFilesList);
-        }else if(listName.equalsIgnoreCase("deleted")){
+        } else if (listName.equalsIgnoreCase("deleted")) {
             Wait.forElementToBeDisplayed(driver, deletedFilesList.get(0), 10);
             Wait.seconds(2);
             actualListFiles = Action.getValuesFromDropdown(deletedFilesList);
-        }else{
+        } else {
             return false;
         }
         return actualListFiles.containsAll(expectedListFiles);
     }
 
-    public boolean verifyUploadOrderFormsErrors(List<String> expectedErrors){
+    public boolean verifyUploadOrderFormsErrors(List<String> expectedErrors) {
         Wait.forElementToBeDisplayed(driver, uploadFailedErrorMessages.get(0), 10);
         List<String> actualErrors = Action.getValuesFromDropdown(uploadFailedErrorMessages);
         return actualErrors.containsAll(expectedErrors);
     }
 
-    public int getTheNumberOfFilesInTheList(String headerName){
+    public int getTheNumberOfFilesInTheList(String headerName) {
         int numberOfFilesInTheList = 0;
 
-        switch (headerName.toLowerCase()){
+        switch (headerName.toLowerCase()) {
             case "uploading":
                 numberOfFilesInTheList = getNumberOfFiles(uploadingFilesHeader);
                 break;
@@ -143,7 +135,7 @@ public class TestOrderFormsPage {
         return Integer.parseInt(headerTitle.getText().split(" ")[1]);
     }
 
-    public boolean downloadTestOrderFormByName(WebElement fileLocator){
+    public boolean downloadTestOrderFormByName(WebElement fileLocator) {
         try {
             //Delete if File already present
             //Debugger.println("Deleting Files if Present...");
