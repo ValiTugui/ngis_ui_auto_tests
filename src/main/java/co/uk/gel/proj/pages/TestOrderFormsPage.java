@@ -75,9 +75,17 @@ public class TestOrderFormsPage {
         }
         try {
             Wait.forInvisibilityOf(driver, chooseFilesButton, 10);
-            if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
-                Debugger.println("Could not upload the file:" + fileNames);
-                return false;
+            if(BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
+                if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
+                    Debugger.println("Could not upload the file:" + fileNames);
+                    return false;
+                }
+            }else{
+                filePath = "C:\\Users\\hello\\ocuments\\documents\\pdf-sample1.pdf";
+                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
+                    Debugger.println("Could not upload the file from BS:" + filePath);
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
