@@ -42,7 +42,7 @@ stages:
 
 
 
-
+include:
 - project: 'genomicsengland/ngis/devops-tools'
   ref: devop
   file: /ci/dind.yml
