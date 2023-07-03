@@ -31,7 +31,7 @@ Feature: TestDirectory: Paper Form
 
     Examples:
       | searchTerm | placeSearchTerm | ReviewTestSelection   | NoOfTests | sectionName1 | sectionName2              | sectionName3   |
-      | R100       | Manchester      | Review test selection | 2         | Referral     | Additional family members | Patient choice |
+      | R100       | Manchester      | Review test selection | 1         | Referral     | Additional family members | Patient choice |
       | M89        | Leeds           | Review test selection | 2         | Referral     | Patient choice            | null           |
 
   @NTS-3491

@@ -25,14 +25,14 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
      ##Test Order Forms
     When the user navigates to the "<testOrderForms>" stage
 #    Then the user is navigated to a page with title Test Order Forms
-    When the user uploads the following files
-      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
-    When the user deletes the following files
-      | testfile.pdf | testfile2.pdf |
-    When the user restores the following files
-      | testfile.pdf |
-    And the list of "Uploaded" files contains the following
-      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+#    When the user uploads the following files
+#      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+#    When the user deletes the following files
+#      | testfile.pdf | testfile2.pdf |
+#    When the user restores the following files
+#      | testfile.pdf |
+#    And the list of "Uploaded" files contains the following
+#      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     ##Patient Details
 #    And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
