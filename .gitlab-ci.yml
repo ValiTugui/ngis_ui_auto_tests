@@ -43,9 +43,9 @@ stages:
 
 
 
-  - project: 'genomicsengland/ngis/devops-tools'
-    ref: devop
-    file: /ci/dind.yml
+- project: 'genomicsengland/ngis/devops-tools'
+  ref: devop
+  file: /ci/dind.yml
 
 # services: 
 #     - alias: docker
