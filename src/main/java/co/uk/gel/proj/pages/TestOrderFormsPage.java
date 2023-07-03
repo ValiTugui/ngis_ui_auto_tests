@@ -81,7 +81,7 @@ public class TestOrderFormsPage {
                     return false;
                 }
             }else{
-                filePath = System.getProperty("user.dir")+"testdata/png_file.png";
+                filePath = System.getProperty("user.dir")+"/testdata/png_file.png";
                 if (!seleniumLib.upload(chooseFilesButton, filePath)) {
                     Debugger.println("Could not upload the file from BS:" + filePath);
                     return false;
