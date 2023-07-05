@@ -84,7 +84,7 @@ public class TestOrderFormsPage {
                 for (String fileName : fileNames) {
                     filePath += uploadFilepath + fileName + "\n";
                 }
-                filePath = uploadFilepath + "testfile.pdf";
+//                filePath = uploadFilepath + "testfile.pdf";
                 if (!seleniumLib.upload(chooseFilesButton, filePath)) {
                     Debugger.println("Could not upload the file from BS:" + filePath);
                     return false;
