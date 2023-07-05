@@ -85,8 +85,8 @@ public class TestOrderFormsPage {
             }else{
                 LocalFileDetector detector = new LocalFileDetector();
                 ((RemoteWebElement)chooseFilesButton).setFileDetector(detector);
-                File file1 = detector.getLocalFile("\"testfile.pdf\"");
-                File file2 = detector.getLocalFile("\"testfile2.pdf\"");
+                File file1 = detector.getLocalFile("testfile.pdf");
+                File file2 = detector.getLocalFile("testfile2.pdf");
 //                String file1 = new File("testfile.pdf").getAbsolutePath();
 //                String file2 = new File("testfile2.pdf").getAbsolutePath();
 //                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
