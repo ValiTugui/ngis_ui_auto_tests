@@ -8,6 +8,8 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -81,8 +83,12 @@ public class TestOrderFormsPage {
                     return false;
                 }
             }else{
-                String file1 = new File("testfile.pdf").getAbsolutePath();
-                String file2 = new File("testfile2.pdf").getAbsolutePath();
+                LocalFileDetector detector = new LocalFileDetector();
+                ((RemoteWebElement)chooseFilesButton).setFileDetector(detector);
+                File file1 = detector.getLocalFile("\"testfile.pdf\"");
+                File file2 = detector.getLocalFile("\"testfile2.pdf\"");
+//                String file1 = new File("testfile.pdf").getAbsolutePath();
+//                String file2 = new File("testfile2.pdf").getAbsolutePath();
 //                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
 //                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
 //                String file4 = uploadFilepath + "assentform.pdf" + "\n";
@@ -92,7 +98,7 @@ public class TestOrderFormsPage {
 //                    filePath += uploadFilepath + fileName + "\n";
 //                }
 //                filePath = uploadFilepath + "testfile.pdf";
-                chooseFilesButton.sendKeys(file1 , "\n", file2);
+                chooseFilesButton.sendKeys(file1.getAbsolutePath() , "\n", file2.getAbsolutePath());
 //                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
 //                    Debugger.println("Could not upload the file from BS:" + filePath);
 //                    return false;
