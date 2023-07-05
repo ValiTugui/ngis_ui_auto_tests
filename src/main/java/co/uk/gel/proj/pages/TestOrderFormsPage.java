@@ -87,8 +87,8 @@ public class TestOrderFormsPage {
 //                ((RemoteWebElement)chooseFilesButton).setFileDetector(detector);
 //                File file1 = detector.getLocalFile("./testdata/testfile.pdf");
 //                File file2 = detector.getLocalFile("./testdata/testfile2.pdf");
-                String file1 = new File("./testdata/testfile.pdf").getAbsolutePath();
-                String file2 = new File("./testdata/testfile2.pdf").getAbsolutePath();
+                String file1 = new File("testdata/testfile.pdf").getAbsolutePath();
+                String file2 = new File("testdata/testfile2.pdf").getAbsolutePath();
 //                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
 //                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
 //                String file4 = uploadFilepath + "assentform.pdf" + "\n";
