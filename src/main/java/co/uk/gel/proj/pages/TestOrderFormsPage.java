@@ -81,9 +81,15 @@ public class TestOrderFormsPage {
                     return false;
                 }
             }else{
-                for (String fileName : fileNames) {
-                    filePath += uploadFilepath + fileName + "\n";
-                }
+                String file1 = uploadFilepath + "testfile.pdf" + "\n";
+                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
+                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
+                String file4 = uploadFilepath + "assentform.pdf" + "\n";
+                String file5 = uploadFilepath + "consulteeform.pdf";
+                filePath = file1 + file2 + file3 + file4 + file5;
+//                for (String fileName : fileNames) {
+//                    filePath += uploadFilepath + fileName + "\n";
+//                }
 //                filePath = uploadFilepath + "testfile.pdf";
                 if (!seleniumLib.upload(chooseFilesButton, filePath)) {
                     Debugger.println("Could not upload the file from BS:" + filePath);
