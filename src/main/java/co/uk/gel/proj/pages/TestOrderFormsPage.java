@@ -81,7 +81,7 @@ public class TestOrderFormsPage {
                     return false;
                 }
             }else{
-                String file1 = uploadFilepath + "testfile.pdf";
+//                String file1 = uploadFilepath + "testfile.pdf";
 //                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
 //                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
 //                String file4 = uploadFilepath + "assentform.pdf" + "\n";
@@ -90,11 +90,12 @@ public class TestOrderFormsPage {
 //                for (String fileName : fileNames) {
 //                    filePath += uploadFilepath + fileName + "\n";
 //                }
-                filePath = uploadFilepath + "testfile.pdf";
-                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
-                    Debugger.println("Could not upload the file from BS:" + filePath);
-                    return false;
-                }
+//                filePath = uploadFilepath + "testfile.pdf";
+                chooseFilesButton.sendKeys(uploadFilepath + "testfile.pdf" + "\n" + uploadFilepath + "testfile2.pdf");
+//                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
+//                    Debugger.println("Could not upload the file from BS:" + filePath);
+//                    return false;
+//                }
             }
             return true;
         } catch (Exception exp) {
