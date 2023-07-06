@@ -40,6 +40,26 @@ variables:
 stages:
   - Test
 
+<<<<<<< Updated upstream
+=======
+workflow:
+  rules:
+  - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e')
+    variables:
+      SMOKE_TEST: "@BVT_UI_SMOKE_TEST_PACK"
+  - if:  ($ENV == 'prod' || $ENV == 'uat') 
+    variables:
+      SMOKE_TEST: "@UAT_UI_SmokeTest_Pack"
+
+# Cache downloaded dependencies and plugins between builds.
+# To keep cache across branches add 'key: "$CI_JOB_NAME"'
+# Be aware that `mvn deploy` will install the built jar into this repository. If you notice your cache size
+# increasing, consider adding `-Dmaven.install.skip=true` to `MAVEN_OPTS` or in `.mvn/maven.config`
+cache:
+  paths:
+    - .m2/repository
+    - /var/cache/apt/archives/
+>>>>>>> Stashed changes
 
 
 include:
