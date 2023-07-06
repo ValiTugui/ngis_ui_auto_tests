@@ -45,9 +45,11 @@ workflow:
   - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e')
     variables:
       SMOKE_TEST: "@BVT_UI_SMOKE_TEST_PACK"
+      TestEnvironment: "${ENV}"
   - if:  ($ENV == 'prod' || $ENV == 'uat') 
     variables:
       SMOKE_TEST: "@UAT_UI_SmokeTest_Pack"
+      TestEnvironment: "${ENV}"
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
