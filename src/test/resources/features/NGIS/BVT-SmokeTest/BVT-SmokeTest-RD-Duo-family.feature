@@ -27,15 +27,12 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
       | testfile.pdf |
-#      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     When the user deletes the following files
       | testfile.pdf |
-#      | testfile.pdf | testfile2.pdf |
     When the user restores the following files
       | testfile.pdf |
     And the list of "Uploaded" files contains the following
       | testfile.pdf |
-#      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
     #Patient Details
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -121,5 +118,5 @@ Feature: NTS-3407-TD: Create RD Duo Family by completing - Patient Details - Req
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  |testOrderForms|RequestingOrganisation  | ordering_entity_name        | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
-      | Patient details |Test order forms|Requesting organisation | BANBURY CROSS HEALTH CENTRE | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
+      | PatientDetails  | testOrderForms   | RequestingOrganisation  | ordering_entity_name        | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
+      | Patient details | Test order forms | Requesting organisation | BANBURY CROSS HEALTH CENTRE | Test package | 2                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |

@@ -83,31 +83,12 @@ public class TestOrderFormsPage {
                     return false;
                 }
             } else {
-//                LocalFileDetector detector = new LocalFileDetector();
-//                ((RemoteWebElement)chooseFilesButton).setFileDetector(detector);
-//                File file1 = detector.getLocalFile("./testdata/testfile.pdf");
-//                File file2 = detector.getLocalFile("./testdata/testfile2.pdf");
-//                String file1 = new File("testdata/testfile.pdf").getAbsolutePath();
-//                String file2 = new File("testdata/testfile2.pdf").getAbsolutePath();
-//                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
-//                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
-//                String file4 = uploadFilepath + "assentform.pdf" + "\n";
-//                String file5 = uploadFilepath + "consulteeform.pdf";
-//                filePath = file1 + file2 + file3 + file4 + file5;
-                for (String fileName : fileNames) {
-//                    filePath += uploadFilepath + fileName;
-                    filePath = new File("testdata/"+fileName).getAbsolutePath();
-                    Wait.seconds(2);
-                    chooseFilesButton.sendKeys(filePath);
-//                    filePath += uploadFilepath + fileName + "\n";
+                filePath = uploadFilepath + fileNames.get(0);
+                Wait.seconds(2);
+                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
+                    Debugger.println("Could not upload the file from BS:" + filePath);
+                    return false;
                 }
-//                filePath = uploadFilepath + "testfile.pdf";
-//                chooseFilesButton.sendKeys(filePath);
-//                chooseFilesButton.sendKeys(file1 , "\n", file2);
-//                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
-//                    Debugger.println("Could not upload the file from BS:" + filePath);
-//                    return false;
-//                }
             }
             return true;
         } catch (Exception exp) {
