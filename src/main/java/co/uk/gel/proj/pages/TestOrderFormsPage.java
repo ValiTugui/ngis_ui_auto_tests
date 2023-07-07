@@ -94,11 +94,13 @@ public class TestOrderFormsPage {
 //                String file4 = uploadFilepath + "assentform.pdf" + "\n";
 //                String file5 = uploadFilepath + "consulteeform.pdf";
 //                filePath = file1 + file2 + file3 + file4 + file5;
-//                for (String fileName : fileNames) {
+                for (String fileName : fileNames) {
+                    filePath += uploadFilepath + fileName;
+                    chooseFilesButton.sendKeys(filePath);
 //                    filePath += uploadFilepath + fileName + "\n";
-//                }
-                filePath = uploadFilepath + "testfile.pdf";
-                chooseFilesButton.sendKeys(filePath);
+                }
+//                filePath = uploadFilepath + "testfile.pdf";
+//                chooseFilesButton.sendKeys(filePath);
 //                chooseFilesButton.sendKeys(file1 , "\n", file2);
 //                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
 //                    Debugger.println("Could not upload the file from BS:" + filePath);
