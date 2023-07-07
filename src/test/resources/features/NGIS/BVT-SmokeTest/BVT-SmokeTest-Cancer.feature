@@ -3,6 +3,7 @@
 #@userJourneysCancer
 #@BVT_UI_SMOKE_TEST_CANCER
 Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - Requesting Organisation - Test Package - Responsible Clinician - Tumours - Samples - Notes - Patient Choice - Print Forms - Download Sample Form - Submit
+
   @NTS-3362-TD @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362-TD - Create Referral for Proband Only - Standard user - patient choice Yes
@@ -17,22 +18,22 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     And the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     ##Create Cancer Referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) |GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cancer of Unknown Primary | Cancer | create a new patient record | Patient not eligible for NHS number (e.g. foreign national) | GEL_NORMAL_USER |
     And the "<patientDetails>" stage is marked as Completed
      ##Test Order Forms
     When the user navigates to the "<testOrderForms>" stage
     Then the user is navigated to a page with title Test Order Forms
     When the user uploads the following files
-      | testfile.pdf |
-#      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | testfile.pdf | testfile2.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+#      | testfile.pdf |
     When the user deletes the following files
-      | testfile.pdf |
-#      | testfile.pdf | testfile2.pdf |
+      | testfile.pdf | testfile2.pdf |
+#      | testfile.pdf |
     When the user restores the following files
       | testfile.pdf |
     And the list of "Uploaded" files contains the following
-      | testfile.pdf |
-#      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+      | testfile.pdf | testfile_11MB.jpg | assentform.pdf | consulteeform.pdf |
+#      | testfile.pdf |
     #Patient Details
     And the "<patientDetails>" stage is marked as Completed
     ##Requesting Organisation
@@ -132,5 +133,5 @@ Feature: NTS-3362-TD: Create Cancer Referral by completing - Patient Details - R
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
     Examples:
-      | patientDetails  |testOrderForms| requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
-      | Patient details |Test order forms| Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
+      | patientDetails  | testOrderForms   | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
+      | Patient details | Test order forms | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
