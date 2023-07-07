@@ -98,7 +98,7 @@ public class TestOrderFormsPage {
 //                    filePath += uploadFilepath + fileName + "\n";
 //                }
 //                filePath = uploadFilepath + "testfile.pdf";
-                chooseFilesButton.sendKeys(file1);
+                chooseFilesButton.sendKeys("/builds/genomicsengland/ngis/hto-qa/ngis_ui_auto_tests/testdata/testfile.pdf \n /builds/genomicsengland/ngis/hto-qa/ngis_ui_auto_tests/testdata/testfile2.pdf");
 //                chooseFilesButton.sendKeys(file1 , "\n", file2);
 //                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
 //                    Debugger.println("Could not upload the file from BS:" + filePath);
