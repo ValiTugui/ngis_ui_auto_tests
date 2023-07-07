@@ -77,18 +77,18 @@ public class TestOrderFormsPage {
         }
         try {
             Wait.forInvisibilityOf(driver, chooseFilesButton, 10);
-            if(BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
+            if (BrowserConfig.getServerType().equalsIgnoreCase("LOCAL")) {
                 if (!seleniumLib.upload(chooseFilesButton, filePath.replaceAll("[\n\r]$", ""))) {
                     Debugger.println("Could not upload the file:" + fileNames);
                     return false;
                 }
-            }else{
+            } else {
 //                LocalFileDetector detector = new LocalFileDetector();
 //                ((RemoteWebElement)chooseFilesButton).setFileDetector(detector);
 //                File file1 = detector.getLocalFile("./testdata/testfile.pdf");
 //                File file2 = detector.getLocalFile("./testdata/testfile2.pdf");
                 String file1 = new File("testdata/testfile.pdf").getAbsolutePath();
-                String file2 = new File("testdata/testfile2.pdf").getAbsolutePath();
+//                String file2 = new File("testdata/testfile2.pdf").getAbsolutePath();
 //                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
 //                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
 //                String file4 = uploadFilepath + "assentform.pdf" + "\n";
@@ -98,7 +98,8 @@ public class TestOrderFormsPage {
 //                    filePath += uploadFilepath + fileName + "\n";
 //                }
 //                filePath = uploadFilepath + "testfile.pdf";
-                chooseFilesButton.sendKeys(file1 , "\n", file2);
+                chooseFilesButton.sendKeys(file1);
+//                chooseFilesButton.sendKeys(file1 , "\n", file2);
 //                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
 //                    Debugger.println("Could not upload the file from BS:" + filePath);
 //                    return false;
