@@ -96,6 +96,7 @@ public class TestOrderFormsPage {
 //                filePath = file1 + file2 + file3 + file4 + file5;
                 for (String fileName : fileNames) {
                     filePath += uploadFilepath + fileName;
+                    Wait.seconds(2);
                     chooseFilesButton.sendKeys(filePath);
 //                    filePath += uploadFilepath + fileName + "\n";
                 }
