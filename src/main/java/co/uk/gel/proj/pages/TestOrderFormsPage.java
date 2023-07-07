@@ -87,7 +87,7 @@ public class TestOrderFormsPage {
 //                ((RemoteWebElement)chooseFilesButton).setFileDetector(detector);
 //                File file1 = detector.getLocalFile("./testdata/testfile.pdf");
 //                File file2 = detector.getLocalFile("./testdata/testfile2.pdf");
-                String file1 = new File("testdata/testfile.pdf").getAbsolutePath();
+//                String file1 = new File("testdata/testfile.pdf").getAbsolutePath();
 //                String file2 = new File("testdata/testfile2.pdf").getAbsolutePath();
 //                String file2 = uploadFilepath + "testfile2.pdf" + "\n";
 //                String file3 = uploadFilepath + "testfile_11MB.jpg" + "\n";
@@ -97,8 +97,8 @@ public class TestOrderFormsPage {
 //                for (String fileName : fileNames) {
 //                    filePath += uploadFilepath + fileName + "\n";
 //                }
-//                filePath = uploadFilepath + "testfile.pdf";
-                chooseFilesButton.sendKeys("/builds/genomicsengland/ngis/hto-qa/ngis_ui_auto_tests/testdata/testfile.pdf \n /builds/genomicsengland/ngis/hto-qa/ngis_ui_auto_tests/testdata/testfile2.pdf");
+                filePath = uploadFilepath + "testfile.pdf";
+                chooseFilesButton.sendKeys(filePath);
 //                chooseFilesButton.sendKeys(file1 , "\n", file2);
 //                if (!seleniumLib.upload(chooseFilesButton, filePath)) {
 //                    Debugger.println("Could not upload the file from BS:" + filePath);
