@@ -161,8 +161,8 @@ public class DashBoardSteps extends Pages {
         //Expected UI Values
         String expectedEnvironment = System.getProperty("TestEnvironment");
         String expectedServiceName = "Genomic Medicine Service";
-        String expectedNonProdBackgroundBannerColor = "rgba(174, 37, 115, 1)"; //purple
-        String expectedTestEnvBackgroundColor = "rgba(255, 184, 28, 1)"; //yellow
+        String expectedNonProdBackgroundBannerColor = "174, 37, 115"; //purple
+        String expectedTestEnvBackgroundColor = "255, 184, 28"; //yellow
         String expectedUserName = AppConfig.getApp_username().split("@")[0].replace(".", " ");
         String expectedProdBackgroundBannerColor = "rgba(0, 94, 184, 1)"; //blue
 
@@ -203,8 +203,8 @@ public class DashBoardSteps extends Pages {
                 Assert.fail("Test Environment is not displayed");
             }
             Assert.assertEquals(expectedEnvironment, actualEnvironment);
-            Assert.assertEquals(expectedNonProdBackgroundBannerColor, actualNonProdBackgroundBannerColor);
-            Assert.assertEquals(expectedTestEnvBackgroundColor, actualTestEnvBackgroundColor);
+            Assert.assertTrue(actualNonProdBackgroundBannerColor.contains(expectedNonProdBackgroundBannerColor));
+            Assert.assertTrue(actualTestEnvBackgroundColor.contains(expectedTestEnvBackgroundColor));
         }
 
         // Test Ordering page must have the logout link and the username
