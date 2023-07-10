@@ -147,6 +147,7 @@ public class BrowserFactory {
                     break;
                 case FIREFOX:
                     driver = new RemoteWebDriver(new URL(URL), getFirefoxOptions(null, javascriptEnabled));
+                    ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
                     break;
                 case SAFARI:
                     driver = new RemoteWebDriver(new URL(URL), getsafariOptions(null, javascriptEnabled));
@@ -159,6 +160,7 @@ public class BrowserFactory {
                     break;
                 case EDGE:
                     driver = new RemoteWebDriver(new URL(URL), getEdgeOptions(null, javascriptEnabled));
+                    ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
                     break;
 
                 default:
