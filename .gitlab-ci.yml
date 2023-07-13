@@ -37,6 +37,18 @@ variables:
   serverType:
     value: "BROWSERSTACK"
     description: "browserstack config LOCAL|BROWSERSTACK"  
+  browser_edge:
+    value: "Edge"    
+  browserVersion_edge:
+    value: "114"
+    description: "edge version"     
+  browser_firefox:
+    value: "Firefox"  
+  browserVersion_firefox:
+    value: "111"
+    description: "firefox version"     
+
+
 stages:
   - Test
 
@@ -318,7 +330,7 @@ zap-automation-full-scan:
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
 
-.browserstacktests:
+.browserstacktests_firefox:
   <<: *test_suite_common
   stage: "Test"
   variables:
@@ -349,13 +361,109 @@ zap-automation-full-scan:
   script:
     -  sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
     - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
+  
+  after_script:
+    - ./BrowserStackLocal --key "${BROWSERSTACK_ACCESS_KEY}" --daemon stop
+    - >
+     echo ENV ${ENV} BROWSER_TEST tag is  ${BROWSER_TEST} browser tag is  ${browser_firefox} browserVersion tag is  ${browserVersion_firefox} osName tag is  ${osName} osVersion tag is  ${osVersion} EXECUTION_MODE tag is  ${EXECUTION_MODE} osVersion tag is  ${osVersion} FORKCOUNT tag is  ${FORKCOUNT} TestEnvironment tag is  ${TestEnvironment}
+  artifacts:
+    name: BS-${browser_firefox}-${browserVersion_firefox}-${osName}-${osVersion}
+    paths:
+      - ./target
+    expire_in: 1 week
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+   
 
-    - export browser='Firefox'
-    - export browserVersion='111'
+#
+.browserstacktests_edge:
+  <<: *test_suite_common
+  stage: "Test"
+  variables:
+    EXECUTION_MODE: $serverType
+    SUPER_USERNAME: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
+    SUPER_PASSWORD: $SUPER_PASSWORD
+    BROWSERSTACK_USERNAME: $BROWSERSTACK_USERNAME
+    BROWSERSTACK_ACCESS_KEY: $BROWSERSTACK_ACCESS_KEY
+    BROWSERSTACK_BUILD: "${CI_PROJECT_NAME} - ${COMMIT_SHA} - ${CI_PIPELINE_CREATED_AT}"
+  before_script:
+    - apt-get update && apt-get install curl libxi6 libgconf-2-4 awscli jq wget netcat unzip -y
+    # Download the browserstack binary file
+    - wget "https://bstack-local-prod.s3.amazonaws.com/binaries/v8.5.0/BrowserStackLocal-linux-x64.zip"
+    #For OS X systems, use the following command
+    #- wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-darwin-x64.zip"
+    # Unzip the BrowserStack Local binary file
+    - unzip BrowserStackLocal-linux-x64.zip
+    # Run the file with your access key
+    - chmod +x BrowserStackLocal
+    - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
+    - >
+     if [ "$ENV" = "dev" ]; then 
+      nc -zv  dashboard.int.ngis.io 443
+     else
+      nc -zv  dashboard.${ENV}.genomics.nhs.uk 443 
+     fi
+  script:
+    -  sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
     - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
 
-    - export browser='Edge'
-    - export browserVersion='114'
+    
+  after_script:
+    - ./BrowserStackLocal --key "${BROWSERSTACK_ACCESS_KEY}" --daemon stop
+    - >
+     echo ENV ${ENV} BROWSER_TEST tag is  ${BROWSER_TEST} browser tag is  ${browser_edge} browserVersion tag is  ${browserVersion_edge} osName tag is  ${osName} osVersion tag is  ${osVersion} EXECUTION_MODE tag is  ${EXECUTION_MODE} osVersion tag is  ${osVersion} FORKCOUNT tag is  ${FORKCOUNT} TestEnvironment tag is  ${TestEnvironment}
+  artifacts:
+    name: BS-${browser_edge}-${browserVersion_edge}-${osName}-${osVersion}
+    paths:
+      - ./target
+    expire_in: 1 week
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+
+#
+.browserstacktests:
+  <<: *test_suite_common
+  stage: "Test"
+  variables:
+    EXECUTION_MODE: $serverType
+    SUPER_USERNAME: "Cancel.Test2@ngisnonprod.onmicrosoft.com"
+    SUPER_PASSWORD: $SUPER_PASSWORD
+    BROWSERSTACK_USERNAME: $BROWSERSTACK_USERNAME
+    BROWSERSTACK_ACCESS_KEY: $BROWSERSTACK_ACCESS_KEY
+    BROWSERSTACK_BUILD: "${CI_PROJECT_NAME} - ${COMMIT_SHA} - ${CI_PIPELINE_CREATED_AT}"
+  before_script:
+    - apt-get update && apt-get install curl libxi6 libgconf-2-4 awscli jq wget netcat unzip -y
+    # Download the browserstack binary file
+    - wget "https://bstack-local-prod.s3.amazonaws.com/binaries/v8.5.0/BrowserStackLocal-linux-x64.zip"
+    #For OS X systems, use the following command
+    #- wget "https://www.browserstack.com/browserstack-local/BrowserStackLocal-darwin-x64.zip"
+    # Unzip the BrowserStack Local binary file
+    - unzip BrowserStackLocal-linux-x64.zip
+    # Run the file with your access key
+    - chmod +x BrowserStackLocal
+    - ./BrowserStackLocal --key $BROWSERSTACK_ACCESS_KEY --daemon start
+    - >
+     if [ "$ENV" = "dev" ]; then 
+      nc -zv  dashboard.int.ngis.io 443
+     else
+      nc -zv  dashboard.${ENV}.genomics.nhs.uk 443 
+     fi
+  script:
+    -  sed -ie -e "s/reportmodelpassword/$PASSWORD/g" settings.xml
     - mvn -s settings.xml -Dcucumber.options="--tags $BROWSER_TEST" clean verify  -DserverType=${EXECUTION_MODE}  -DTestEnvironment=${TestEnvironment} -DreportName=BS-${browser}-${browserVersion}-${osName}-${osVersion}  -Dbrowser=${browser} -DforkCount=${FORKCOUNT} -DbrowserVersion=${browserVersion} -DosName=${osName} -DosVersion=${osVersion} -Dmaven.test.failure.ignore=true
 
     
@@ -377,8 +485,6 @@ zap-automation-full-scan:
       when: manual
     - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
-   
-
 
 
 browserstacktests_le:
@@ -398,6 +504,69 @@ browserstacktests_le:
 
 browserstacktests_he:
   extends: .browserstacktests
+  tags:
+    - pool_name:hto_qa_prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+
+
+
+
+
+
+browserstacktests_le_firefox:
+  extends: .browserstacktests_firefox
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+
+
+browserstacktests_he_firefox:
+  extends: .browserstacktests_firefox
+  tags:
+    - pool_name:hto_qa_prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    - if: ($ENV == 'prod' || $ENV == 'uat') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+
+browserstacktests_le_edge:
+  extends: .browserstacktests_edge
+  tags:
+    - pool_name:hto_qa_test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "schedule"
+      # when: always # is a default value
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "web"
+      when: manual
+    - if: ($ENV == 'test' || $ENV == 'dev' || $ENV == 'e2e') && $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+
+
+browserstacktests_he_edge:
+  extends: .browserstacktests_edge
   tags:
     - pool_name:hto_qa_prod
   rules:
